@@ -1,0 +1,24 @@
+Package: ggtree
+Type: Package
+Title: visualizing phylogenetic tree and heterogenous associated data based on grammar of graphics 
+Version: 0.1.0
+Author: Guangchuang Yu
+Maintainer: Guangchuang Yu <guangchuangyu@gmail.com>
+Description: ggtree extends the ggplot2 plotting system which implemented the grammar of graphics. ggtree is designed for visualizing phylogenetic tree and associated annotation data. 
+Depends:
+    R (>= 3.1.0)
+Imports:
+    methods,
+    ggplot2
+Suggests:
+    ChIPseeker,
+    clusterProfiler,
+    DOSE,
+    GOSemSim,
+    ReactomePA,
+    knitr
+VignetteBuilder: knitr
+License: Artistic-2.0
+URL: https://github.com/GuangchuangYu/ggtree
+Packaged: 2014-12-03 08:16:14 UTC; root
+biocViews: Visualization

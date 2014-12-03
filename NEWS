@@ -1,0 +1,3 @@
+CHANGES IN VERSION 0.1.0
+------------------------
+ o add getRoot, isRoot and getParent functions <2014-12-03, Wed>
