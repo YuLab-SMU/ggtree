@@ -30,8 +30,10 @@ getYcoord <- function(tr) {
     parent <- edge[,1]
     child <- edge[,2]
    
-    y <- 1:N
-    y[y>Ntip] <- NA
+    y <- numeric(N)
+    tip.idx <- child[child <= Ntip]
+    y[tip.idx] <- 1:Ntip
+    y[-tip.idx] <- NA
 
     currentNode <- 1:Ntip
     while(any(is.na(y))) {
@@ -44,7 +46,7 @@ getYcoord <- function(tr) {
                                 as.numeric
 
        y[newNode] <- sapply(newNode, function(i) {
-            child[parent == i] %>% y[.] %>% mean           
+            child[parent == i] %>% y[.] %>% mean(na.rm=T)           
         })
 
         currentNode <- parent %in% newNode %>% child[.] %>%
@@ -60,7 +62,7 @@ getNodeNum <- function(tr) {
     Ntip <- length(tr[["tip.label"]])
     Nnode <- tr[["Nnode"]]
     ## total nodes
-    N <- Ntip + Nnode ## 2 * Ntip - 1
+    N <- Ntip + Nnode 
     return(N)
 }
 
