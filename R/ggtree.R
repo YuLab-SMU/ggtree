@@ -12,7 +12,7 @@
 ##' @author Yu Guangchuang
 ggtree <- function(tr, ...) {
     x <- y <- NULL
-    ggplot(tr, aes(x, y)) + geom_tree(...) + xlab("") + ylab("") + theme_blank()
+    ggplot(tr, aes(x, y)) + geom_tree(...) + xlab("") + ylab("") + theme_tree()
 }
 
 ##' add tree layer
