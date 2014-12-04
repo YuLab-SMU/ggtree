@@ -1,3 +1,6 @@
 CHANGES IN VERSION 0.1.0
 ------------------------
+ o implement geom_tree, geom_tiplab, geom_tippoint, geom_aline and theme_blank <2014-12-04, Thu>
+ o extend ggplot to support phylo object and implement ggtree function <2014-12-04, Thu>
+ o implement fortify function <2014-12-04, Thu>
  o add getRoot, isRoot and getParent functions <2014-12-03, Wed>
