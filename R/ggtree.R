@@ -85,7 +85,7 @@ geom_tippoint <- function(...) {
 ##' blank theme
 ##'
 ##' 
-##' @title theme_blank
+##' @title theme_tree
 ##' @importFrom ggplot2 theme_bw
 ##' @importFrom ggplot2 theme
 ##' @importFrom ggplot2 element_blank
@@ -93,7 +93,7 @@ geom_tippoint <- function(...) {
 ##' @export
 ##' @return NULL 
 ##' @author Yu Guangchuang
-theme_blank <- function() {
+theme_tree <- function() {
     theme_bw() %+replace%
     theme(axis.text.x=element_blank(),
           axis.text.y=element_blank(),
