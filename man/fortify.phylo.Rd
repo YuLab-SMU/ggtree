@@ -3,12 +3,16 @@
 \alias{fortify.phylo}
 \title{fortify}
 \usage{
-\method{fortify}{phylo}(model, data, ...)
+\method{fortify}{phylo}(model, data, ladderize = TRUE, right = FALSE, ...)
 }
 \arguments{
 \item{model}{phylo object}
 
 \item{data}{not use here}
+
+\item{ladderize}{ladderize, logical}
+
+\item{right}{logical}
 
 \item{...}{additional parameter}
 }

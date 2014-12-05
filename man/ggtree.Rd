@@ -3,10 +3,12 @@
 \alias{ggtree}
 \title{ggtree}
 \usage{
-ggtree(tr, ...)
+ggtree(tr, dist.legend = FALSE, ...)
 }
 \arguments{
 \item{tr}{phylo object}
+
+\item{dist.legend}{add distance legend, logical}
 
 \item{...}{additional parameter}
 }

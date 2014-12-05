@@ -1,13 +1,36 @@
+##' @method fortify phylo
+##' @importFrom ape read.tree
+##' @export
+fortify.jplace <- function(model, data, ladderize=TRUE, right=FALSE, ...) {
+    tree.text <- get.tree(model)
+    ## move edge label to node label separate by @
+    tr <- gsub('(:[0-9.e-]+)\\{(\\d+)\\}', '\\@\\2\\1', tree.text)
+    tree <- read.tree(text=tr)
+    if (ladderize == TRUE) {
+        tree <- ladderize(tree, right = right)
+    }
+    df <- fortify.phylo(tree)
+    df$edge <- as.numeric(gsub("[^@]*@(\\d*)", "\\1",df$label))
+    ## remove edge label from node label
+    df$label <- gsub("@\\d*", "", df$label)
+    df$label[df$label == ""] <- NA
+    
+    return(df)
+}
+
 ##' @title fortify
 ##' @param model phylo object
 ##' @param data not use here
+##' @param ladderize ladderize, logical
+##' @param right logical
 ##' @param ... additional parameter
 ##' @return data.frame
+##' @importFrom ape ladderize
 ##' @importFrom ggplot2 fortify
 ##' @method fortify phylo
 ##' @export
 ##' @author Yu Guangchuang
-fortify.phylo <- function(model, data, ...) {
+fortify.phylo <- function(model, data, ladderize=TRUE, right=FALSE, ...) {
     df <- as.data.frame(model)
     idx <- is.na(df$parent)
     df$parent[idx] <- df$node[idx]
@@ -167,4 +190,8 @@ roundDigit <- function(d) {
         i <- i + 1
     }
     round(d)/10^i
+}
+
+get.tree.jplace <- function(object, ...) {
+    object@tree
 }
