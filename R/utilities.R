@@ -1,4 +1,4 @@
-##' @method fortify phylo
+##' @method fortify jplace
 ##' @importFrom ape read.tree
 ##' @export
 fortify.jplace <- function(model, data, ladderize=TRUE, right=FALSE, ...) {
