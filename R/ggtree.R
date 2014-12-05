@@ -11,13 +11,14 @@
 ##' @importFrom ggplot2 annotate
 ##' @export
 ##' @author Yu Guangchuang
-ggtree <- function(tr, ...) {
+ggtree <- function(tr, dist.legend=FALSE,...) {
     d <- x <- y <- NULL
-    ggplot(tr, aes(x, y)) + geom_tree(...) +
-        geom_segment(aes(x=0, xend= d <<- roundDigit(mean(length, na.rm=T)),
-                         y=0, yend=0)) +
-            annotate(geom="text", x=d/2, y=-0.6, label=d, size=5) +
-                xlab("") + ylab("") + theme_tree()
+    p <- ggplot(tr, aes(x, y)) + geom_tree(...) + xlab("") + ylab("") + theme_tree()
+    if (dist.legend == TRUE) {
+        p <- p + geom_segment(aes(x=0, xend= d <<- roundDigit(mean(length, na.rm=T)), y=0, yend=0)) +
+            annotate(geom="text", x=d/2, y=-0.6, label=d, size=5)
+    }
+    return(p)
 }
 
 ##' add tree layer
