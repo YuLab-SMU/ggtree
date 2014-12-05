@@ -118,14 +118,11 @@ getYcoord <- function(tr) {
         newNode <-
             which(child %in% currentNode) %>% 
                 parent[.] %>%
-                    table %>% equals(2) %>%  ## has 2 children
+                    table %>% `>`(1) %>%  
                         which %>%
                             names %>% 
                                 as.numeric
 
-        if (length(newNode) == 0) {
-            break
-        }
         y[newNode] <- sapply(newNode, function(i) {
             child[parent == i] %>% y[.] %>% mean(na.rm=T)           
         })
