@@ -10,6 +10,11 @@ fortify.jplace <- function(model, data, ladderize=TRUE, right=FALSE, ...) {
         tree <- ladderize(tree, right = right)
     }
     df <- fortify.phylo(tree)
+
+    root.idx <- which(df$parent == df$node)
+    root.lab <- df[,"label"]
+    df$label[root.idx] <- gsub("(.*)\\{(\\d+)\\}", "\\1@\\2", df$label[root.idx])
+    
     df$edge <- as.numeric(gsub("[^@]*@(\\d*)", "\\1",df$label))
     ## remove edge label from node label
     df$label <- gsub("@\\d*", "", df$label)
