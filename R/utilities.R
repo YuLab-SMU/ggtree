@@ -123,10 +123,13 @@ getYcoord <- function(tr) {
                             names %>% 
                                 as.numeric
 
-       y[newNode] <- sapply(newNode, function(i) {
+        if (length(newNode) == 0) {
+            break
+        }
+        y[newNode] <- sapply(newNode, function(i) {
             child[parent == i] %>% y[.] %>% mean(na.rm=T)           
         })
-
+        
         currentNode <- parent %in% newNode %>% child[.] %>%
             `%in%`(currentNode, .) %>% `!` %>%
                 currentNode[.] %>% c(., newNode)
