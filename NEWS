@@ -1,3 +1,7 @@
+CHANGES IN VERSION 0.1.1
+------------------------
+ o add distance legend in ggtree <2014-12-05, Fri>
+
 CHANGES IN VERSION 0.1.0
 ------------------------
  o support ladderize tree <2014-12-05, Fri>
