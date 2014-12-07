@@ -1,3 +1,11 @@
+get.tree.jplace <- function(object, ...) {
+    object@tree
+}
+
+get.fields.jplace <- function(object, ...) {
+    object@fields
+}
+
 ##' @method fortify jplace
 ##' @importFrom ape read.tree
 ##' @export
@@ -197,6 +205,3 @@ roundDigit <- function(d) {
     round(d)/10^i
 }
 
-get.tree.jplace <- function(object, ...) {
-    object@tree
-}
