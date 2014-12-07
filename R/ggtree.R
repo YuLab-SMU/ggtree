@@ -104,6 +104,7 @@ geom_tippoint <- function(...) {
 ##' @author ygc
 geom_eplace <- function(data, map, place, ...) {
     data <- data[order(data[[map]]),]
+    x <- edge <- NULL
     ## if (align == TRUE) 
     ##     geom_text(aes(x=max(x)), subset=.(edge %in% data[[edgeCol]]), label = data[[annoCol]], ...)
     geom_text(aes(x+min(length, na.rm=T)/2), subset=.(edge %in% data[[map]]), label = data[[place]], ...)
