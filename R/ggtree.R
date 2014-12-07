@@ -89,7 +89,28 @@ geom_tippoint <- function(...) {
     geom_point(subset=.(isTip), ...)
 }
 
-##' blank theme
+##' add placement based on edge
+##'
+##' 
+##' @title geom_eplace
+##' @param data placement data.frame
+##' @param map edge column name
+##' @param place place info
+##' @param ... additional parameter
+##' @return text layer
+##' @importFrom ggplot2 geom_text
+##' @importFrom ggplot2 aes
+##' @export
+##' @author ygc
+geom_eplace <- function(data, map, place, ...) {
+    data <- data[order(data[[map]]),]
+    ## if (align == TRUE) 
+    ##     geom_text(aes(x=max(x)), subset=.(edge %in% data[[edgeCol]]), label = data[[annoCol]], ...)
+    geom_text(aes(x+min(length, na.rm=T)/2), subset=.(edge %in% data[[map]]), label = data[[place]], ...)
+    
+}
+
+##' tree theme
 ##'
 ##' 
 ##' @title theme_tree

@@ -89,17 +89,3 @@ setMethod("get.tree", signature(object = "jplace"),
               get.tree.jplace(object, ...)
           }
           )
-
-
-
-
-
-## edgeFreq <- arrange(edgeFreq, edge)
-## rownames(edgeFreq) <- edgeFreq$edge
-## arrange(df[df$edge %in% edgeFreq$edge,], edge)
-
-## p+geom_text(aes(x=x, y=y), subset=.(edge %in% edgeFreq$edge), label=edgeFreq$Freq, color="red", size=2)+geom_text(aes(x=x+0.005, y=y), subset=.(edge %in% edgeFreq$edge), label=edgeFreq$edge, color="blue", size=2) -> p
-## ggsave(p, file="test.pdf", height=20, width=6)
-
-## p+geom_text(aes(x=x, y=y), subset=.(sapply(edgeFreq$edge, function(ee) edge == ee)), label=edgeFreq$Freq, color="red")
-

@@ -6,7 +6,7 @@
 theme_tree()
 }
 \description{
-blank theme
+tree theme
 }
 \author{
 Yu Guangchuang
