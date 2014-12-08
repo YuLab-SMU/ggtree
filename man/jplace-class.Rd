@@ -3,7 +3,10 @@
 \name{jplace-class}
 \alias{get.placements,jplace-method}
 \alias{get.tree,jplace-method}
+\alias{get.treeinfo,jplace-method}
 \alias{jplace-class}
+\alias{set.treeinfo,jplace-method}
+\alias{set.treeinfo<-,jplace-method}
 \alias{show,jplace-method}
 \title{Class "jplace"
 This class stores information of jplace file.}
@@ -23,6 +26,8 @@ This class stores information of jplace file.
 \item{\code{version}}{version}
 
 \item{\code{metadata}}{metadata}
+
+\item{\code{treeinfo}}{tree infomation}
 }}
 \author{
 Guangchuang Yu \url{http://ygc.name}

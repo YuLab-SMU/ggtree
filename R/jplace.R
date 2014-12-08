@@ -6,6 +6,9 @@
 ##' @aliases jplace-class
 ##'   show,jplace-method get.tree,jplace-method
 ##'   get.placements,jplace-method
+##'   get.treeinfo,jplace-method
+##'   set.treeinfo<-,jplace-method
+##'   set.treeinfo,jplace-method
 ##'
 ##' @docType class
 ##' @slot fields colnames of first variable of placements
@@ -13,6 +16,7 @@
 ##' @slot placements placement information
 ##' @slot version version
 ##' @slot metadata metadata
+##' @slot treeinfo tree infomation
 ##' @exportClass jplace
 ##' @author Guangchuang Yu \url{http://ygc.name}
 ##' @seealso \code{\link{show}} \code{\link{get.tree}}
@@ -23,7 +27,8 @@ setClass("jplace",
              tree = "character",
              placements = "data.frame",
              version = "numeric",
-             metadata = "list"
+             metadata = "list",
+             treeinfo = "data.frame"
              )
          )
 
@@ -43,8 +48,11 @@ read.jplace <- function(file) {
              tree = tree,
              placements = placements,
              version = version,
-             metadata = metadata))
+             metadata = metadata
+             )
+         )
 }
+
 
 
 ##' show method for \code{jplace} instance
@@ -70,6 +78,29 @@ setMethod("show", signature(object = "jplace"),
                   "  ..@ version   : int", object@version, "\n")
           }
           )
+
+##' get.treeinfo method
+##'
+##'
+##' @docType methods
+##' @name get.treeinfo
+##' @rdname get.treeinfo-methods
+##' @aliases get.treeinfo,jplace,ANY-method
+##' @title get.treeinfo method
+##' @param object jplace object
+##' @param ladderize ladderize, logical
+##' @param right logical, parameter for ladderize
+##' @param ... additional parameter
+##' @return data.frame
+##' @exportMethod get.treeinfo
+##' @author Guangchuang Yu \url{http://ygc.name}
+##' @usage get.treeinfo(object, ladderize, right, ...)
+setMethod("get.treeinfo", signature(object = "jplace"),
+          function(object, ladderize=TRUE, right=FALSE, ...) {
+              get.treeinfo.jplace(object, ladderize, right, ...)
+          }
+          )
+
 
 ##' get.tree method
 ##'
@@ -134,10 +165,43 @@ setMethod("get.placements", signature(object = "jplace"),
           })
 
 
+##' set.treeinfo method for \code{jplace} object
+##'
+##'
+##' @name set.treeinfo<-
+##' @docType methods
+##' @rdname set.treeinfo-methods
+##' @aliases set.treeinfo<-,jplace,ANY-method
+##' @title set.treeinfo<- method
+##' @param x jplace object
+##' @param value tree info
+##' @exportMethod "set.treeinfo<-"
+##' @author Guangchuang Yu \url{http://ygc.name}
+##' @usage set.treeinfo(x) <- value
+setReplaceMethod(f="set.treeinfo",
+                 signature = "jplace",
+                 definition = function(x, value) {
+                     x@treeinfo <- value                     
+                 })
+
+
 get.tree.jplace <- function(object, ...) {
     object@tree
 }
 
 get.fields.jplace <- function(object, ...) {
     object@fields
+}
+
+get.treeinfo.jplace <- function(object, ladderize, right, ...) {
+    treeinfo <- object@treeinfo
+    if(nrow(treeinfo) == 0) {
+        tree.text <- get.tree(object)
+        treeinfo <- extract.treeinfo(tree.text, ladderize, right)
+        set.treeinfo(object) <- treeinfo
+    } else if (attr(treeinfo, "ladderize") != ladderize) {
+        treeinfo <- extract.treeinfo(tree.text, ladderize, right)
+        set.treeinfo(object) <- treeinfo
+    }
+    return(treeinfo)
 }

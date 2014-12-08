@@ -2,26 +2,9 @@
 ##' @importFrom ape read.tree
 ##' @export
 fortify.jplace <- function(model, data, ladderize=TRUE, right=FALSE, ...) {
-    tree.text <- get.tree(model)
-    ## move edge label to node label separate by @
-    tr <- gsub('(:[0-9.e-]+)\\{(\\d+)\\}', '\\@\\2\\1', tree.text)
-    tree <- read.tree(text=tr)
-    if (ladderize == TRUE) {
-        tree <- ladderize(tree, right = right)
-    }
-    df <- fortify.phylo(tree)
-
-    root.idx <- which(df$parent == df$node)
-    root.lab <- df[,"label"]
-    df$label[root.idx] <- gsub("(.*)\\{(\\d+)\\}", "\\1@\\2", df$label[root.idx])
-    
-    df$edge <- as.numeric(gsub("[^@]*@(\\d*)", "\\1",df$label))
-    ## remove edge label from node label
-    df$label <- gsub("@\\d*", "", df$label)
-    df$label[df$label == ""] <- NA
-    
-    return(df)
+    get.treeinfo(model, ladderize, right, ...)
 }
+
 
 ##' @title fortify
 ##' @param model phylo object
@@ -36,7 +19,13 @@ fortify.jplace <- function(model, data, ladderize=TRUE, right=FALSE, ...) {
 ##' @export
 ##' @author Yu Guangchuang
 fortify.phylo <- function(model, data, ladderize=TRUE, right=FALSE, ...) {
-    df <- as.data.frame(model)
+    if (ladderize == TRUE) {
+        tree <- ladderize(model, right=right)
+    } else {
+        tree <- model
+    }
+    
+    df <- as.data.frame(tree)
     idx <- is.na(df$parent)
     df$parent[idx] <- df$node[idx]
     rownames(df) <- df$node
