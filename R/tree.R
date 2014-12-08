@@ -120,14 +120,11 @@ getYcoord <- function(tr) {
 
     currentNode <- 1:Ntip
     while(any(is.na(y))) {
-        newNode <-
-            which(child %in% currentNode) %>% 
-                parent[.] %>%
-                    table %>% `>`(1) %>%  
-                        which %>%
-                            names %>% 
-                                as.numeric
-
+        pNode <- child %in% currentNode %>% which %>%
+            parent[.] %>% unique
+        idx <- sapply(pNode, function(i) all(child[parent == i] %in% currentNode))
+        newNode <- pNode[idx]
+        
         y[newNode] <- sapply(newNode, function(i) {
             child[parent == i] %>% y[.] %>% mean(na.rm=T)           
         })
