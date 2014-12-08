@@ -122,7 +122,22 @@ setMethod("get.placements", signature(object = "jplace"),
                   place <- lapply(place, function(x) x[1,])
               }
               place.df <- do.call("rbind", place)
-              colnames(place.df) <- object@fields
+              place.df <- data.frame(name=rep(ids, sapply(place, function(x) {
+                  nr <- nrow(x)
+                  if (is.null(nr))
+                      return(1)
+                  return(nr)
+              })), place.df)
+              
+              colnames(place.df) <- c("name", object@fields)
               return(place.df)
           })
 
+
+get.tree.jplace <- function(object, ...) {
+    object@tree
+}
+
+get.fields.jplace <- function(object, ...) {
+    object@fields
+}
