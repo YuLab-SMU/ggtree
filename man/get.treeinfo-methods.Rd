@@ -20,17 +20,13 @@ get.treeinfo(object, ladderize, right, ...)
 }
 \value{
 data.frame
-
-data.frame
 }
 \description{
-get.treeinfo method generics
+get.treeinfo method
 
 get.treeinfo method
 }
 \author{
-Guangchuang Yu \url{http://ygc.name}
-
 Guangchuang Yu \url{http://ygc.name}
 }
 

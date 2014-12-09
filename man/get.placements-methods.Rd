@@ -18,17 +18,13 @@ get.placements(object, by, ...)
 }
 \value{
 data.frame
-
-data.frame
 }
 \description{
-get.placements method generics
+get.placements method
 
 get.placement method
 }
 \author{
-GuangchuangYu \url{http://ygc.name}
-
 Guangchuang Yu \url{http://ygc.name}
 }
 

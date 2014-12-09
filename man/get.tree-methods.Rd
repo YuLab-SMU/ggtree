@@ -16,17 +16,13 @@ get.tree(object, ...)
 }
 \value{
 tree text
-
-tree text
 }
 \description{
-get.tree method generics
+get.tree method
 
 get.tree method
 }
 \author{
-Guangchuang Yu \url{http://ygc.name}
-
 Guangchuang Yu \url{http://ygc.name}
 }
 

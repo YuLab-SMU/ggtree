@@ -1,5 +1,6 @@
 CHANGES IN VERSION 0.2.2
 ------------------------
+ o as.binary method <2014-12-09, Tue>
  o add treeinfo slot of jplace class <2014-12-08, Mon>
  o set.treeinfo and get.treeinfo functions  <2014-12-08, Mon>
 

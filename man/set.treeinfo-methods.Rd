@@ -16,13 +16,11 @@ set.treeinfo(x) <- value
 \item{value}{tree info}
 }
 \description{
-"set.treeinfo<-" method generic
+"set.treeinfo<-" method
 
 set.treeinfo method for \code{jplace} object
 }
 \author{
-Guangchuang Yu \url{http://ygc.name}
-
 Guangchuang Yu \url{http://ygc.name}
 }
 
