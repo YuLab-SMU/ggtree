@@ -49,12 +49,19 @@ as.binary.phylo <- function(tree, ...) {
 ##' @author Guangchuang Yu \url{http://ygc.name}
 rm.singleton.newick <- function(nwk, outfile = NULL) {
     nodePattern <- "\\w+:[\\.0-9]+"
-    singletonPattern <- paste0(".*(\\(", nodePattern, "\\)[\\w\\d:]*[\\.0-9]+).*")
+    singletonPattern.with.nodename <- paste0(".*(\\(", nodePattern, "\\)\\w+:[\\.0-9]+).*")
+    singletonPattern.wo.nodename <- paste0(".*(\\(", nodePattern, "\\)[\\.0-9]+).*")
 
     tree <- readLines(nwk)
 
-    while(length(grep(singletonPattern,tree)) > 0) {
-        singleton <- gsub(singletonPattern, "\\1", readLines(nwk))
+    while(length(grep(paste0("\\(", nodePattern, "\\)"), tree)) > 0) {
+        singleton <- gsub(singletonPattern.with.nodename, "\\1", tree)
+        if (singleton == tree) {
+            singleton <- gsub(singletonPattern.wo.nodename, "\\1", tree)
+        }
+        if (singleton == tree) {
+            stop("can't parse singleton node...")
+        }
 
         tip <- gsub("\\((\\w+).*", "\\1", singleton)
         
