@@ -14,13 +14,12 @@ as.binary.phylo <- function(tree, ...) {
         cat("The input tree is already binary...\n")
         invisible(tree)
     }
+    
     polyNode <- tree$edge[,1] %>% table %>% '>'(2) %>%
         which %>% names %>% as.numeric
 
     N <- getNodeNum(tree)
-    
     ii <- 0
-
     for (pn in polyNode) {
         idx <- which(tree$edge[,1] == pn)
         while(length(idx) >2) {
