@@ -38,6 +38,39 @@ as.binary.phylo <- function(tree, ...) {
 }
 
 
+##' remove singleton
+##'
+##' 
+##' @title rm.singleton.newick
+##' @param nwk newick file
+##' @param outfile output newick file 
+##' @return tree text
+##' @export
+##' @author Guangchuang Yu \url{http://ygc.name}
+rm.singleton.newick <- function(nwk, outfile = NULL) {
+    nodePattern <- "\\w+:[\\.0-9]+"
+    singletonPattern <- paste0(".*(\\(", nodePattern, "\\)[\\w\\d:]*[\\.0-9]+).*")
+
+    tree <- readLines(nwk)
+
+    while(length(grep(singletonPattern,tree)) > 0) {
+        singleton <- gsub(singletonPattern, "\\1", readLines(nwk))
+
+        tip <- gsub("\\((\\w+).*", "\\1", singleton)
+        
+        len1 <- gsub(".*[^\\.0-9]+([\\.0-9]+)", "\\1", singleton)
+        len2 <- gsub(".*:([.0-9]+)\\).*", "\\1", singleton)
+        len <- as.numeric(len1) + as.numeric(len2)
+        
+        tree <- gsub(singleton, paste0(tip, ":", len), tree, fixed = TRUE)
+    }
+    if (!is.null(outfile)) {
+        out <- file(outfile, "w")
+        writeLines(tree, out)
+        close(out)
+    }
+    invisible(tree)
+}
 
 
 ##' @title fortify
