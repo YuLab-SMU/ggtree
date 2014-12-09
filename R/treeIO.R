@@ -39,12 +39,6 @@ as.binary.phylo <- function(tree, ...) {
 }
 
 
-##' @method fortify jplace
-##' @importFrom ape read.tree
-##' @export
-fortify.jplace <- function(model, data, ladderize=TRUE, right=FALSE, ...) {
-    get.treeinfo(model, ladderize, right, ...)
-}
 
 
 ##' @title fortify

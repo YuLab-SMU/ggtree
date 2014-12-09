@@ -185,6 +185,15 @@ setReplaceMethod(f="set.treeinfo",
                  })
 
 
+
+##' @method fortify jplace
+##' @importFrom ape read.tree
+##' @export
+fortify.jplace <- function(model, data, ladderize=TRUE, right=FALSE, ...) {
+    get.treeinfo(model, ladderize, right, ...)
+}
+
+
 get.tree.jplace <- function(object, ...) {
     object@tree
 }
@@ -205,3 +214,4 @@ get.treeinfo.jplace <- function(object, ladderize, right, ...) {
     }
     return(treeinfo)
 }
+
