@@ -45,6 +45,8 @@ as.binary.phylo <- function(tree, ...) {
 ##' @param nwk newick file
 ##' @param outfile output newick file 
 ##' @return tree text
+##' @importFrom magrittr %<>%
+##' @importFrom magrittr add
 ##' @export
 ##' @author Guangchuang Yu \url{http://ygc.name}
 rm.singleton.newick <- function(nwk, outfile = NULL) {
@@ -54,7 +56,7 @@ rm.singleton.newick <- function(nwk, outfile = NULL) {
 
     tree <- readLines(nwk)
 
-    while(length(grep(paste0("\\(", nodePattern, "\\)"), tree)) > 0) {
+    while(length(grep("\\([^,]+\\)", tree)) > 0) {
         singleton <- gsub(singletonPattern.with.nodename, "\\1", tree)
         if (singleton == tree) {
             singleton <- gsub(singletonPattern.wo.nodename, "\\1", tree)
@@ -71,6 +73,23 @@ rm.singleton.newick <- function(nwk, outfile = NULL) {
         
         tree <- gsub(singleton, paste0(tip, ":", len), tree, fixed = TRUE)
     }
+
+    tree <- read.tree(text=tree)
+
+    p.singleton <- which(table(tree$edge[,1]) == 1)
+    if (length(p.singleton) > 0) {
+        p.singleton %<>% names %>% as.numeric
+        edge <- tree$edge
+        idx <- which(edge[,1] == p.singleton)
+        singleton <- edge[idx, 2]
+        sidx <- which(edge[,1] == singleton)
+        edge[sidx,1] <- p.singleton
+        edge <- edge[-idx,]
+        tree$edge <- edge
+        tree$edge.length[sidx] %<>% add(., tree$edge.length[idx])
+        tree$edge.length <- tree$edge.length[-idx]
+    }
+    
     if (!is.null(outfile)) {
         out <- file(outfile, "w")
         writeLines(tree, out)

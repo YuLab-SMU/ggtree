@@ -1,3 +1,8 @@
+CHANGES IN VERSION 0.2.3
+------------------------
+ o rm.singleton.newick now supports internal node like:
+   ((()X, ()Y)Z)AA, in which Z is a singleton. <2014-12-15, Mon>
+
 CHANGES IN VERSION 0.2.2
 ------------------------
  o rm.singleton.newick <2014-12-09, Tue>
