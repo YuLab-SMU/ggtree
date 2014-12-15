@@ -49,13 +49,14 @@ as.binary.phylo <- function(tree, ...) {
 ##' @importFrom magrittr add
 ##' @export
 ##' @author Guangchuang Yu \url{http://ygc.name}
-rm.singleton.newick <- function(nwk, outfile = NULL) {
+rm.singleton.newick <- function(nwk, outfile = NULL) {    
+    tree <- readLines(nwk)
+
+    ## remove singleton of tips
     nodePattern <- "\\w+:[\\.0-9]+"
     singletonPattern.with.nodename <- paste0(".*(\\(", nodePattern, "\\)\\w+:[\\.0-9]+).*")
     singletonPattern.wo.nodename <- paste0(".*(\\(", nodePattern, "\\)[\\.0-9]+).*")
-
-    tree <- readLines(nwk)
-
+    
     while(length(grep("\\([^,]+\\)", tree)) > 0) {
         singleton <- gsub(singletonPattern.with.nodename, "\\1", tree)
         if (singleton == tree) {
@@ -76,6 +77,7 @@ rm.singleton.newick <- function(nwk, outfile = NULL) {
 
     tree <- read.tree(text=tree)
 
+    ### remove singleton of internal nodes
     p.singleton <- which(table(tree$edge[,1]) == 1)
     if (length(p.singleton) > 0) {
         p.singleton %<>% names %>% as.numeric
@@ -91,9 +93,7 @@ rm.singleton.newick <- function(nwk, outfile = NULL) {
     }
     
     if (!is.null(outfile)) {
-        out <- file(outfile, "w")
-        writeLines(tree, out)
-        close(out)
+        write.tree(tree, file=outfile)
     }
     invisible(tree)
 }
