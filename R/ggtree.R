@@ -122,7 +122,7 @@ geom_eplace <- function(data, map, place, ...) {
 ##' @return NULL 
 ##' @author Yu Guangchuang
 theme_tree <- function() {
-    theme_tree_withDistance() %+replace%
+    theme_tree2() %+replace%
     theme(axis.line.x = element_line(color="white"),
           axis.text.x = element_blank(),
           axis.ticks.x = element_blank()
