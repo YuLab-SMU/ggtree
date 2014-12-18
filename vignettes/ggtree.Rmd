@@ -1,0 +1,84 @@
+---
+title: "__*ggtree*__<br>phylogenetic tree viewer and annotator"
+author: "Guangchuang Yu"
+date: "`r Sys.Date()`"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{ggtree: phylogenetic tree viewer and annotator}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\usepackage[utf8]{inputenc}
+---
+
+```{r echo=F}
+library(ggplot2)
+```
+
+`ggtree` extending the `ggplot2` package to support phylogenetic tree object including phylo, ...
+```{r fig.width=6, tidy=TRUE, width=60}
+nwk <- "(((((((A:4,B:4):6,C:5):8,D:6):3,E:21):10,((F:4,G:12):14,H:8):13):13,((I:5,J:2):30,(K:11,L:11):2):17):4,M:56);"
+library(ape)
+tree <- read.tree(text=nwk)
+library(ggtree)
+ggplot(tree, aes(x, y)) + geom_tree() + theme_tree() + xlab("") + ylab("")
+```
+
+It's very easy to view a phylogenetic tree using `ggtree`, I have create a short cut, `ggtree` function, that works exactly the same as shown above. 
+```{r eval=F}
+ggtree(tree)
+```
+
+It works in the way you used `ggplot2`, for example, we can change the color, size and type of the lines.
+```{r fig.width=6}
+ggtree(tree, color="steelblue", size=1, linetype="dotted")
+```
+
+To show evolution distance, we can use `theme_tree2()` or `ggtree(showDistance=TRUE)`
+
+```{r fig.width=6}
+ggtree(tree) + theme_tree2()
+```
+
+
+Show all the internal nodes and tips in the tree can be done by adding a layer of points using `geom_point`.
+
+```{r fig.width=6}
+ggtree(tree) + geom_point()
+ggtree(tree)+geom_point(aes(shape=isTip, color=isTip), size=3)
+```
+ 
+```{r fig.width=6}
+ggtree(tree) + geom_tiplab()
+ggtree(tree) + geom_tiplab(size=6, color="purple")
+ggtree(tree) + geom_tiplab(align=TRUE, color="darkgreen") + geom_aline(color="steelblue", size=0.3)
+```
+
+```{r fig.width=6, fig.height=5}
+ggtree(tree) + scale_x_continuous(trans="reverse")
+ggtree(tree) + coord_polar(theta = "y")
+```
+
+## Tree annotation
+Suppose we have the following data for annotation.
+```{r}
+dd <- data.frame(taxa=sample(LETTERS[1:13], 6), value=round(abs(rnorm(6))*100))
+```
+```{r echo=FALSE, results='asis'}
+knitr::kable(dd)
+```
+
+```{r fig.width=6, fig.height=5}
+ggtree(tree) + geom_tiplab() + geom_place(data=dd, map="taxa", place="value")
+```
+
+As the annotation overlap with tip labels, we can adjust the annotation position.
+
+```{r fig.width=6, fig.height=5}
+ggtree(tree) + geom_tiplab() + 
+	     geom_place(data=dd, map="taxa", place="value", 
+	     	        hjust=.8, vjust=-.4, size=4, color="red")
+```
+
+
+
+
+

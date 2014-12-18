@@ -102,13 +102,58 @@ geom_tippoint <- function(...) {
 ##' @export
 ##' @author ygc
 geom_eplace <- function(data, map, place, ...) {
-    data <- data[order(data[[map]]),]
-    x <- edge <- NULL
+    edge <- NULL
+    ii <- 1:nrow(data)
     ## if (align == TRUE) 
     ##     geom_text(aes(x=max(x)), subset=.(edge %in% data[[edgeCol]]), label = data[[annoCol]], ...)
-    geom_text(aes(x+min(length, na.rm=T)/2), subset=.(edge %in% data[[map]]), label = data[[place]], ...)
+    geom_text(subset=.(edge %IN% data[[map]]), label = data[ii, place], ...)
     
 }
+
+##' add placement based on node
+##'
+##' 
+##' @title geom_nplace
+##' @param data placement data.frame
+##' @param map edge column name
+##' @param place place info
+##' @param ... additional parameter
+##' @return text layer
+##' @importFrom ggplot2 geom_text
+##' @importFrom ggplot2 aes
+##' @export
+##' @author ygc
+geom_nplace <- function(data, map, place, ...) {
+    node <- NULL
+    ii <- 1:nrow(data)
+    geom_text(subset=.(label %IN% data[[map]]), label = data[ii, place], ...)
+}
+
+##' place annotation in tree
+##'
+##' 
+##' @title geom_place 
+##' @param data data
+##' @param map mapping variable
+##' @param place placement info
+##' @param by one of "node" and "edge"
+##' @param ... additional parameter
+##' @return text layer
+##' @export
+##' @author ygc
+geom_place <- function(data, map, place, by="node", ...) {
+    data <- data[order(data[[map]]),]
+    if (by == "node") {
+        geom_nplace(data, map, place, ...)
+    } else if (by == "edge") {
+        geom_eplace(data, map, place, ...)
+    } else {
+        stop("not supported yet...")
+    }
+}
+
+
+
 
 ##' tree theme
 ##'

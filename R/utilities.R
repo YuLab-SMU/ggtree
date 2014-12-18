@@ -17,6 +17,13 @@ extract.treeinfo <- function(tree.text, ladderize=TRUE, right=FALSE) {
     return(df)
 }
 
+`%IN%` <- function(x, table) {
+    idx <- match(x, table, nomatch=NA)
+    ii <<- idx[!is.na(idx)]
+    res <- as.logical(idx)
+    res[is.na(res)] <- FALSE
+    return(res)
+}
 
 roundDigit <- function(d) {
     i <- 0
@@ -26,8 +33,6 @@ roundDigit <- function(d) {
     }
     round(d)/10^i
 }
-
-
 
 
 ## . function was from plyr package
