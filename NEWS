@@ -1,5 +1,6 @@
 CHANGES IN VERSION 0.2.3
 ------------------------
+ o add theme_tree2 theme for showing evolution distance <2014-12-18, Thu>
  o rm.singleton.newick now supports internal node like:
    ((()X, ()Y)Z)AA, in which Z is a singleton. <2014-12-15, Mon>
 

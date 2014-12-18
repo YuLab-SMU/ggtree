@@ -8,21 +8,22 @@ Maintainer: Guangchuang Yu <guangchuangyu@gmail.com>
 Description: ggtree extends the ggplot2 plotting system which implemented the
     grammar of graphics. ggtree is designed for visualizing phylogenetic tree
     and associated annotation data.
-Depends:
+Depends: 
     R (>= 3.1.0)
-Imports:
+Imports: 
     ape,
     ggplot2,
     jsonlite,
     magrittr,
     methods
-Suggests:
+Suggests: 
     ChIPseeker,
     clusterProfiler,
     DOSE,
     GOSemSim,
     ReactomePA,
-    knitr
+    knitr,
+    testthat
 VignetteBuilder: knitr
 License: Artistic-2.0
 URL: https://github.com/GuangchuangYu/ggtree

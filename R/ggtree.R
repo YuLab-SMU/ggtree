@@ -3,7 +3,7 @@
 ##' 
 ##' @title ggtree
 ##' @param tr phylo object
-##' @param dist.legend add distance legend, logical
+##' @param showDistance add distance legend, logical
 ##' @param ... additional parameter
 ##' @return tree
 ##' @importFrom ggplot2 ggplot
@@ -12,12 +12,11 @@
 ##' @importFrom ggplot2 annotate
 ##' @export
 ##' @author Yu Guangchuang
-ggtree <- function(tr, dist.legend=FALSE, ...) {
+ggtree <- function(tr, showDistance=FALSE, ...) {
     d <- x <- y <- NULL
-    p <- ggplot(tr, aes(x, y), ...) + geom_tree(...) + xlab("") + ylab("") + theme_tree()
-    if (dist.legend == TRUE) {
-        p <- p + geom_segment(aes(x=0, xend= d <<- roundDigit(mean(length, na.rm=T)), y=0, yend=0)) +
-            annotate(geom="text", x=d/2, y=-0.6, label=d, size=5)
+    p <- ggplot(tr, aes(x, y), ...) + geom_tree(...) + xlab("") + ylab("") + theme_tree2()
+    if (showDistance == FALSE) {
+        p <- p + theme_tree()
     }
     return(p)
 }
@@ -123,14 +122,35 @@ geom_eplace <- function(data, map, place, ...) {
 ##' @return NULL 
 ##' @author Yu Guangchuang
 theme_tree <- function() {
+    theme_tree_withDistance() %+replace%
+    theme(axis.line.x = element_line(color="white"),
+          axis.text.x = element_blank(),
+          axis.ticks.x = element_blank()
+          )
+}
+
+##' tree2 theme
+##'
+##' 
+##' @title theme_tree2
+##' @importFrom ggplot2 theme_bw
+##' @importFrom ggplot2 theme
+##' @importFrom ggplot2 element_blank
+##' @importFrom ggplot2 element_line
+##' @importFrom ggplot2 %+replace%
+##' @export
+##' @return NULL 
+##' @author Yu Guangchuang
+theme_tree2 <- function() {
     theme_bw() %+replace%
-    theme(axis.text.x=element_blank(),
-          axis.text.y=element_blank(),
-          legend.position="none",
+    theme(legend.position="none",
           panel.grid.minor=element_blank(),
           panel.grid.major=element_blank(),
           panel.background=element_blank(),
-          axis.ticks=element_blank(),
-          panel.border=element_blank())
+          panel.border=element_blank(),
+          axis.line=element_line(color="black"),
+          axis.line.y=element_line(color="white"),
+          axis.ticks.y=element_blank(),
+          axis.text.y=element_blank()
+          )
 }
-
