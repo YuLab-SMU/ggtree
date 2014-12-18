@@ -44,19 +44,17 @@ geom_tree <- function(...) {
 ##' 
 ##' @title geom_tiplab 
 ##' @param align align tip lab or not, logical
-##' @param hjust horizontal adjustment
-##' @param size label size
 ##' @param ... additional parameter
 ##' @return tip label layer
 ##' @importFrom ggplot2 geom_text
 ##' @export
 ##' @author Yu Guangchuang
-geom_tiplab <- function(align=FALSE, hjust=-.25, size=5, ...) {
+geom_tiplab <- function(align=FALSE, ...) {
     x <- y <- label <- isTip <- NULL
     if (align == TRUE) {
-        geom_text(aes(x=max(x), label=label), subset=.(isTip), hjust=hjust, size=size, ...)
+        geom_text(aes(x=max(x), label=label), subset=.(isTip), ...)
     } else {
-        geom_text(aes(label=label), subset=.(isTip), hjust=hjust, size=size, ...)
+        geom_text(aes(label=label), subset=.(isTip), ...)
     }
 }
 

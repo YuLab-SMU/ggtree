@@ -4,14 +4,10 @@
 \alias{geom_tiplab}
 \title{geom_tiplab}
 \usage{
-geom_tiplab(align = FALSE, hjust = -0.25, size = 5, ...)
+geom_tiplab(align = FALSE, ...)
 }
 \arguments{
 \item{align}{align tip lab or not, logical}
-
-\item{hjust}{horizontal adjustment}
-
-\item{size}{label size}
 
 \item{...}{additional parameter}
 }
