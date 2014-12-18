@@ -123,7 +123,7 @@ geom_eplace <- function(data, map, place, ...) {
 ##' @export
 ##' @author ygc
 geom_nplace <- function(data, map, place, ...) {
-    node <- NULL
+    label <- NULL
     ii <- 1:nrow(data)
     geom_text(subset=.(label %IN% data[[map]]), label = data[ii, place], ...)
 }

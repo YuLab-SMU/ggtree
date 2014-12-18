@@ -47,6 +47,7 @@ as.binary.phylo <- function(tree, ...) {
 ##' @return tree text
 ##' @importFrom magrittr %<>%
 ##' @importFrom magrittr add
+##' @importFrom ape write.tree
 ##' @export
 ##' @author Guangchuang Yu \url{http://ygc.name}
 rm.singleton.newick <- function(nwk, outfile = NULL) {    

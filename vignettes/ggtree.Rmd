@@ -2,18 +2,22 @@
 title: "__*ggtree*__<br>phylogenetic tree viewer and annotator"
 author: "Guangchuang Yu"
 date: "`r Sys.Date()`"
-output: rmarkdown::html_vignette
+output: BiocStyle::html_document
 vignette: >
   %\VignetteIndexEntry{ggtree: phylogenetic tree viewer and annotator}
   %\VignetteEngine{knitr::rmarkdown}
   %\usepackage[utf8]{inputenc}
 ---
 
-```{r echo=F}
+```{r style, echo=FALSE, results="asis"}
+BiocStyle::markdown()
+```
+
+```{r echo=FALSE}
 library(ggplot2)
 ```
 
-`ggtree` extending the `ggplot2` package to support phylogenetic tree object including phylo, ...
+`r Rpackage("ggtree")` extending the `r CRANpkg("ggplot2")` package to support phylogenetic tree object including phylo (defined by `r CRANpkg("ape")`, jplace (defined within ggtree) and more will be added.
 ```{r fig.width=6, tidy=TRUE, width=60}
 nwk <- "(((((((A:4,B:4):6,C:5):8,D:6):3,E:21):10,((F:4,G:12):14,H:8):13):13,((I:5,J:2):30,(K:11,L:11):2):17):4,M:56);"
 library(ape)
@@ -82,3 +86,6 @@ ggtree(tree) + geom_tiplab() +
 
 
 
+```{r}
+sessionInfo()
+```

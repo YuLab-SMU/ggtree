@@ -18,6 +18,7 @@ extract.treeinfo <- function(tree.text, ladderize=TRUE, right=FALSE) {
 }
 
 `%IN%` <- function(x, table) {
+    ii <- NULL ## satisify codetools
     idx <- match(x, table, nomatch=NA)
     ii <<- idx[!is.na(idx)]
     res <- as.logical(idx)
