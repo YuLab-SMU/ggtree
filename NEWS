@@ -1,5 +1,6 @@
 CHANGES IN VERSION 0.99.1
 ------------------------
+ o %<% function for updating tree view with a new tree <2014-12-19, Fri>
  o add examples in man files <2014-12-19, Fri>
 
 CHANGES IN VERSION 0.2.3

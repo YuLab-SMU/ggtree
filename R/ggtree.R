@@ -236,3 +236,19 @@ theme_tree2 <- function() {
           axis.text.y=element_blank()
           )
 }
+
+##' update tree viewing with a new tree
+##'
+##'
+##' @rdname replace.TREE
+##' @title \%<\%
+##' @param pg ggplot2 object
+##' @param tree phylogenetic tree
+##' @return updated ggplot object
+##' @importFrom ggplot2 %+%
+##' @export
+##' @author Yu Guangchuang
+`%<%` <- function(pg, tree) {
+    pg %+% fortify(tree)
+}
+

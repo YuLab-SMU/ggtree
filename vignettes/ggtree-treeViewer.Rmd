@@ -97,6 +97,14 @@ Circular form can be done by transoforming the `cartesian` system to `polar` sys
 p + coord_polar(theta = "y")
 ```
 
+### Update tree viewing with a new tree
+In the __Display nodes/tips__ section, we have a `p` object that stored the tree viewing of 13 tips and internal nodes highlighted with specific colored big dots. If we want to applied this pattern, and we can imaging more complex one, to a new tree, we don't need to build the tree step by step. `r Githubpkg("GuangchuangYu/ggtree")` provides a function `%<%` for applying the visualization pattern to a new tree.
+
+For example, the pattern in the `p` object will be applied to a new tree with 50 tips as shown below:
+```{r fig.width=6, fig.height=5}
+p %<% rtree(50)
+```
+
 
 ## Tree annotation
 For tree annotation, please refer to the vignette, [ggtree-treeAnnotation](ggtree-treeAnnotation.html).
