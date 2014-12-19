@@ -13,6 +13,7 @@ vignette: >
 BiocStyle::markdown()
 ```
 
+
 > You can't even begin to understand biology, you can't understand life, unless you understand what it's all there for, how it arose - and that means evolution.
 > --- Richard Dawkins
 
@@ -20,17 +21,18 @@ BiocStyle::markdown()
 ## Introduction
 This project came out with my needs to annotate nucleotide substitutions in the phylogenetic tree, and I found that there is no tree visualization software can do this easily. All the tree viewer are designed for displaying phylogenetic tree, but not annotating it. Although some tree viewers support displaying bootstrap values in the tree, it is hard/impossible to display other information in the tree. My first solution to displaying nucleotide substituition in the tree is to add these information in the node/tip names and use traditional tree viewer to display it. I viewed the information in the tree successfully, but I do believe this quick-and-dirty hack is ugly.
 
-In the old day, we even don't have enough sequences to infer phylogenetic tree. At that time, as we almost don't have a need to annotate a tree, displaying the evolution relationships is mostly enough. Nowaday, we can obtain a lot of data from different experiment, and we want to associate our data, for instance antigenic change, with the evolution relationship. Visualizing these associations in the phylogenetic tree can help us identify evolution patterns. I believe we need a next generation tree viewer that can view a phylogenetic tree easily as we did with classical software and support adding annotation data in a layer above the tree. This is the objective of developing the `r Rpackage("ggtree")`. Common tasks of annotating a phylogenetic should be easy and complicated tasks can be possible to achieve by multiple layers of annotation.
+In the old day, we even don't have enough sequences to infer phylogenetic tree. At that time, as we almost don't have a need to annotate a tree, displaying the evolution relationships is mostly enough. Nowaday, we can obtain a lot of data from different experiment, and we want to associate our data, for instance antigenic change, with the evolution relationship. Visualizing these associations in the phylogenetic tree can help us identify evolution patterns. I believe we need a next generation tree viewer that can view a phylogenetic tree easily as we did with classical software and support adding annotation data in a layer above the tree. This is the objective of developing the `r Githubpkg("GuangchuangYu/ggtree")`. Common tasks of annotating a phylogenetic should be easy and complicated tasks can be possible to achieve by multiple layers of annotation.
 
-The `r Rpackage("ggtree")` is designed by extending the `r CRANpkg("ggplot2")` package. It based on grammar of graphics and takes all the good parts of `r CRANpkg("ggplot")`. There are some R packages that implemented tree viewer using `r CRANpkg("ggplot2")`, including `r CRANpkg("OutbreakTools")`, `r Biocpkg("phyloseq")` and `r Githubpkg("gjuggler/ggphylo")`, but all of them create complex tree view function for their specific needs. They are just classical tree viewers that only viewing the tree or annotating a specific data type. The good parts of `r Rpackage("ggplot2")` are not available in these packages. They lack of flexibilities of annotating phylogenetic tree by diverse user inputs. 
+The `r Githubpkg("GuangchuangYu/ggtree")` is designed by extending the `r CRANpkg("ggplot2")` package. It based on grammar of graphics and takes all the good parts of `r CRANpkg("ggplot")`. There are some R packages that implemented tree viewer using `r CRANpkg("ggplot2")`, including `r CRANpkg("OutbreakTools")`, `r Biocpkg("phyloseq")` and `r Githubpkg("gjuggler/ggphylo")`, but all of them create complex tree view function for their specific needs. They are just classical tree viewers that only viewing the tree or annotating a specific data type. The good parts of `r Rpackage("ggplot2")` are not available in these packages. They lack of flexibilities of annotating phylogenetic tree by diverse user inputs. 
 
 ## Visualizing phylogenetic tree
 ### viewing tree with `ggtree`
-`r Rpackage("ggtree")` extend `ggplot` to support phylogenetic tree object including phylo (defined by `r CRANpkg("ape")`), jplace (defined within ggtree) and more will be added. It implement `geom_tree` layer for displaying phylogenetic tree, as shown below:
+`r Githubpkg("GuangchuangYu/ggtree")` extend `ggplot` to support phylogenetic tree object including phylo (defined by `r CRANpkg("ape")`), jplace (defined within `r Githubpkg("GuangchuangYu/ggtree")`) and more will be added. It implement `geom_tree` layer for displaying phylogenetic tree, as shown below:
 ```{r fig.width=6, tidy=TRUE, width=60}
-nwk <- "(((((((A:4,B:4):6,C:5):8,D:6):3,E:21):10,((F:4,G:12):14,H:8):13):13,((I:5,J:2):30,(K:11,L:11):2):17):4,M:56);"
+nwk <- system.file("extdata", "sample.nwk", package="ggtree")
+print(readLines(nwk))
 library(ape)
-tree <- read.tree(text=nwk)
+tree <- read.tree(nwk)
 library(ggplot2)
 library(ggtree)
 ggplot(tree, aes(x, y)) + geom_tree() + theme_tree() + xlab("") + ylab("")
@@ -66,7 +68,8 @@ ggtree(tree)+geom_point(aes(shape=isTip, color=isTip), size=3)
  
 And of course, we can separate nodes and tips by using `subset`.
 ```{r fig.width=6}
-p <- ggtree(tree)+geom_point(subset=.(!isTip), color="#b5e521", alpha=1/4, size=10)
+p <- ggtree(tree) + geom_point(subset=.(!isTip), 
+     		       	       color="#b5e521", alpha=1/4, size=10)
 print(p)
 ```
 

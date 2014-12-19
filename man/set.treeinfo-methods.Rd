@@ -16,10 +16,18 @@ set.treeinfo(x) <- value
 
 \item{value}{tree info}
 }
+\value{
+updated jplace object
+}
 \description{
 "set.treeinfo<-" method
 
 set.treeinfo method for \code{jplace} object
+}
+\examples{
+jp <- system.file("extdata", "sample.jplace", package="ggtree")
+jp <- read.jplace(jp)
+set.treeinfo(jp) <- get.treeinfo(jp)
 }
 \author{
 Guangchuang Yu \url{http://ygc.name}

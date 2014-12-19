@@ -1,14 +1,18 @@
 ##' convert polytomy to binary tree
 ##'
 ##' as.binary method for \code{phylo} object
-##' @title as.binary
-##' @param tree phylo, object
-##' @param ... additional parameter
+##' @rdname as.binary
 ##' @return binary tree
 ##' @method as.binary phylo
 ##' @importFrom ape is.binary.tree
 ##' @export
 ##' @author Guangchuang Yu \url{http://ygc.name}
+##' @examples
+##' require(ape)
+##' tr <- read.tree(text="((A, B, C), D);")
+##' is.binary.tree(tr)
+##' tr2 <- as.binary(tr)
+##' is.binary.tree(tr2)
 as.binary.phylo <- function(tree, ...) {
     if(is.binary.tree(tree)) {
         cat("The input tree is already binary...\n")
@@ -48,7 +52,6 @@ as.binary.phylo <- function(tree, ...) {
 ##' @importFrom magrittr %<>%
 ##' @importFrom magrittr add
 ##' @importFrom ape write.tree
-##' @export
 ##' @author Guangchuang Yu \url{http://ygc.name}
 rm.singleton.newick <- function(nwk, outfile = NULL) {    
     tree <- readLines(nwk)

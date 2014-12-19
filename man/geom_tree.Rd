@@ -15,6 +15,12 @@ tree layer
 \description{
 add tree layer
 }
+\examples{
+require(ape)
+tr <- rtree(10)
+require(ggplot2)
+ggplot(tr) + geom_tree()
+}
 \author{
 Yu Guangchuang
 }

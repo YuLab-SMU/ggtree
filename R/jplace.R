@@ -41,6 +41,9 @@ setClass("jplace",
 ##' @importFrom jsonlite fromJSON
 ##' @export
 ##' @author ygc
+##' @examples
+##' jp <- system.file("extdata", "sample.jplace", package="ggtree")
+##' read.jplace(jp)
 read.jplace <- function(file) {
     with(fromJSON(file),
          new("jplace",
@@ -69,6 +72,10 @@ read.jplace <- function(file) {
 ##' @exportMethod show
 ##' @usage show(object)
 ##' @author Guangchuang Yu \url{http://ygc.name}
+##' @examples
+##' jp <- system.file("extdata", "sample.jplace", package="ggtree")
+##' jp <- read.jplace(jp)
+##' show(jp)
 setMethod("show", signature(object = "jplace"),
           function(object) {
               cat("jplace class\n   ..@ tree      : ")
@@ -95,6 +102,10 @@ setMethod("show", signature(object = "jplace"),
 ##' @exportMethod get.treeinfo
 ##' @author Guangchuang Yu \url{http://ygc.name}
 ##' @usage get.treeinfo(object, ladderize, right, ...)
+##' @examples
+##' jp <- system.file("extdata", "sample.jplace", package="ggtree")
+##' jp <- read.jplace(jp)
+##' get.treeinfo(jp)
 setMethod("get.treeinfo", signature(object = "jplace"),
           function(object, ladderize=TRUE, right=FALSE, ...) {
               get.treeinfo.jplace(object, ladderize, right, ...)
@@ -116,6 +127,10 @@ setMethod("get.treeinfo", signature(object = "jplace"),
 ##' @exportMethod get.tree
 ##' @author Guangchuang Yu \url{http://ygc.name}
 ##' @usage get.tree(object, ...)
+##' @examples
+##' jp <- system.file("extdata", "sample.jplace", package="ggtree")
+##' jp <- read.jplace(jp)
+##' get.tree(jp)
 setMethod("get.tree", signature(object = "jplace"),
           function(object, ...) {
               get.tree.jplace(object, ...)
@@ -143,6 +158,10 @@ setMethod("get.tree", signature(object = "jplace"),
 ##' @exportMethod get.placements
 ##' @author Guangchuang Yu \url{http://ygc.name}
 ##' @usage get.placements(object, by, ...)
+##' @examples
+##' jp <- system.file("extdata", "sample.jplace", package="ggtree")
+##' jp <- read.jplace(jp)
+##' get.placements(jp, by="all")
 setMethod("get.placements", signature(object = "jplace"),
           function(object, by="best", ...) {
               placements <- object@placements
@@ -175,9 +194,14 @@ setMethod("get.placements", signature(object = "jplace"),
 ##' @title set.treeinfo<- method
 ##' @param x jplace object
 ##' @param value tree info
+##' @return updated jplace object
 ##' @exportMethod "set.treeinfo<-"
 ##' @author Guangchuang Yu \url{http://ygc.name}
 ##' @usage set.treeinfo(x) <- value
+##' @examples
+##' jp <- system.file("extdata", "sample.jplace", package="ggtree")
+##' jp <- read.jplace(jp)
+##' set.treeinfo(jp) <- get.treeinfo(jp)
 setReplaceMethod(f="set.treeinfo",
                  signature = "jplace",
                  definition = function(x, value) {

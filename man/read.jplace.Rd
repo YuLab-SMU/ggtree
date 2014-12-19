@@ -15,6 +15,10 @@ read.jplace(file)
 \description{
 read jplace file
 }
+\examples{
+jp <- system.file("extdata", "sample.jplace", package="ggtree")
+read.jplace(jp)
+}
 \author{
 ygc
 }

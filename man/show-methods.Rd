@@ -16,6 +16,11 @@ print info
 \description{
 show method for \code{jplace} instance
 }
+\examples{
+jp <- system.file("extdata", "sample.jplace", package="ggtree")
+jp <- read.jplace(jp)
+show(jp)
+}
 \author{
 Guangchuang Yu \url{http://ygc.name}
 }

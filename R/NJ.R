@@ -6,6 +6,16 @@
 ##' @return phylo object
 ##' @export
 ##' @author ygc
+##' @examples
+##' X <- matrix(c(0,5,4,7,6,8,
+##'		5,0,7,10,9,11,
+##'		4,7,0,7,6,8,
+##'		7,10,7,0,5,9,
+##'		6,9,6,5,0,8,
+##'		8,11,8,9,8,0), ncol=6)
+##' rownames(X) <- colnames(X) <- LETTERS[1:6]
+##' tree <- NJ(X)
+##' print(tree)
 NJ <- function(X) {
     labels <- colnames(X)
     N <- ncol(X)

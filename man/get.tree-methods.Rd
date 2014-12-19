@@ -23,6 +23,11 @@ get.tree method
 
 get.tree method
 }
+\examples{
+jp <- system.file("extdata", "sample.jplace", package="ggtree")
+jp <- read.jplace(jp)
+get.tree(jp)
+}
 \author{
 Guangchuang Yu \url{http://ygc.name}
 }

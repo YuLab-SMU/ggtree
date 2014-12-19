@@ -6,8 +6,16 @@
 \usage{
 theme_tree2()
 }
+\value{
+updated ggplot object with new theme
+}
 \description{
 tree2 theme
+}
+\examples{
+require(ape)
+tr <- rtree(10)
+ggtree(tr) + theme_tree2()
 }
 \author{
 Yu Guangchuang

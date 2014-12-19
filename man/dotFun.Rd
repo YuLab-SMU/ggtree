@@ -17,4 +17,8 @@ expression
 \description{
 capture name of variable
 }
+\examples{
+x <- 1
+eval(.(x)[[1]])
+}
 

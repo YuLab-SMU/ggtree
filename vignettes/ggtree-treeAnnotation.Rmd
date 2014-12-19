@@ -17,9 +17,10 @@ BiocStyle::markdown()
 ## Tree annotation
 
 ```{r fig.width=6, fig.height=5}
-nwk <- "(((((((A:4,B:4):6,C:5):8,D:6):3,E:21):10,((F:4,G:12):14,H:8):13):13,((I:5,J:2):30,(K:11,L:11):2):17):4,M:56);"
+nwk <- system.file("extdata", "sample.nwk", package="ggtree")
+print(readLines(nwk))
 library(ape)
-tree <- read.tree(text=nwk)
+tree <- read.tree(nwk)
 library(ggplot2)
 library(ggtree)
 p <- ggtree(tree)

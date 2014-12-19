@@ -1,6 +1,7 @@
 ##' @title as.binary
 ##' @param tree phylo, object
 ##' @param ... additional parameter
+##' @rdname as.binary
 ##' @export
 as.binary <- function(tree, ...) {
     UseMethod("as.binary")

@@ -26,6 +26,11 @@ visualizing phylogenetic tree and heterogenous associated data based on grammar 
 
 drawing phylogenetic tree from phylo object
 }
+\examples{
+require(ape)
+tr <- rtree(10)
+ggtree(tr)
+}
 \author{
 Yu Guangchuang
 }

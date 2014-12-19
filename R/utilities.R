@@ -46,6 +46,9 @@ roundDigit <- function(d) {
 ##' @param .env environment
 ##' @export
 ##' @return expression
+##' @examples
+##' x <- 1
+##' eval(.(x)[[1]])
 . <- function (..., .env = parent.frame()) {
     structure(as.list(match.call()[-1]), env = .env, class = "quoted")
 }

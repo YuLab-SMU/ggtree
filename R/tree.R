@@ -88,7 +88,7 @@ getYcoord <- function(tr) {
         newNode <- pNode[idx]
         
         y[newNode] <- sapply(newNode, function(i) {
-            child[parent == i] %>% y[.] %>% mean(na.rm=T)           
+            child[parent == i] %>% y[.] %>% mean(na.rm=TRUE)           
         })
         
         currentNode <- parent %in% newNode %>% child[.] %>%

@@ -25,6 +25,11 @@ get.placements method
 
 get.placement method
 }
+\examples{
+jp <- system.file("extdata", "sample.jplace", package="ggtree")
+jp <- read.jplace(jp)
+get.placements(jp, by="all")
+}
 \author{
 Guangchuang Yu \url{http://ygc.name}
 }

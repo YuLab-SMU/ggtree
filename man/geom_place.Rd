@@ -23,6 +23,15 @@ text layer
 \description{
 place annotation in tree
 }
+\examples{
+nwk <- system.file("extdata", "sample.nwk", package="ggtree")
+library(ape)
+tree <- read.tree(nwk)
+dd <- data.frame(taxa=sample(LETTERS[1:13], 6), value=round(abs(rnorm(6))*100))
+ggtree(tree) + geom_tiplab() +
+  geom_place(data=dd, map="taxa", place="value",
+             hjust=0.8, vjust=-0.4, size=4, color="red")
+}
 \author{
 ygc
 }

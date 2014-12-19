@@ -15,6 +15,11 @@ tip point layer
 \description{
 add points layer of tips
 }
+\examples{
+require(ape)
+tr <- rtree(10)
+ggtree(tr) + geom_tippoint()
+}
 \author{
 Yu Guangchuang
 }

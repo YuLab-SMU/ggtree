@@ -12,6 +12,10 @@
 ##' @importFrom ggplot2 annotate
 ##' @export
 ##' @author Yu Guangchuang
+##' @examples
+##' require(ape)
+##' tr <- rtree(10)
+##' ggtree(tr)
 ggtree <- function(tr, showDistance=FALSE, ...) {
     d <- x <- y <- NULL
     p <- ggplot(tr, aes(x, y), ...) + geom_tree(...) + xlab("") + ylab("") + theme_tree2()
@@ -31,6 +35,11 @@ ggtree <- function(tr, showDistance=FALSE, ...) {
 ##' @importFrom ggplot2 aes
 ##' @export
 ##' @author Yu Guangchuang
+##' @examples
+##' require(ape)
+##' tr <- rtree(10)
+##' require(ggplot2)
+##' ggplot(tr) + geom_tree()
 geom_tree <- function(...) {
     x <- y <- parent <- NULL
     geom_segment(aes(x=c(x[parent], x[parent]),
@@ -50,6 +59,10 @@ geom_tree <- function(...) {
 ##' @importFrom ggplot2 geom_text
 ##' @export
 ##' @author Yu Guangchuang
+##' @examples
+##' require(ape)
+##' tr <- rtree(10)
+##' ggtree(tr) + geom_tiplab()
 geom_tiplab <- function(align=FALSE, hjust=-.25, ...) {
     x <- y <- label <- isTip <- NULL
     if (align == TRUE) {
@@ -70,6 +83,10 @@ geom_tiplab <- function(align=FALSE, hjust=-.25, ...) {
 ##' @return aline layer
 ##' @export
 ##' @author Yu Guangchuang
+##' @examples
+##' require(ape)
+##' tr <- rtree(10)
+##' ggtree(tr) + geom_tiplab(align=TRUE) + geom_aline()
 geom_aline <- function(linetype="dashed", ...) {
     x <- y <- isTip <- NULL
     geom_segment(aes(x=ifelse(x==max(x), x, x*1.02), xend=max(x), yend=y), subset=.(isTip), linetype=linetype, ...)
@@ -84,6 +101,10 @@ geom_aline <- function(linetype="dashed", ...) {
 ##' @importFrom ggplot2 geom_point
 ##' @export
 ##' @author Yu Guangchuang
+##' @examples
+##' require(ape)
+##' tr <- rtree(10)
+##' ggtree(tr) + geom_tippoint()
 geom_tippoint <- function(...) {
     isTip <- NULL
     geom_point(subset=.(isTip), ...)
@@ -101,7 +122,6 @@ geom_tippoint <- function(...) {
 ##' @return text layer
 ##' @importFrom ggplot2 geom_text
 ##' @importFrom ggplot2 aes
-##' @export
 ##' @author ygc
 geom_eplace <- function(data, map, place, ...) {
     edge <- NULL
@@ -123,7 +143,6 @@ geom_eplace <- function(data, map, place, ...) {
 ##' @return text layer
 ##' @importFrom ggplot2 geom_text
 ##' @importFrom ggplot2 aes
-##' @export
 ##' @author ygc
 geom_nplace <- function(data, map, place, ...) {
     label <- NULL
@@ -143,6 +162,14 @@ geom_nplace <- function(data, map, place, ...) {
 ##' @return text layer
 ##' @export
 ##' @author ygc
+##' @examples
+##' nwk <- system.file("extdata", "sample.nwk", package="ggtree")
+##' library(ape)
+##' tree <- read.tree(nwk)
+##' dd <- data.frame(taxa=sample(LETTERS[1:13], 6), value=round(abs(rnorm(6))*100))
+##' ggtree(tree) + geom_tiplab() + 
+##'   geom_place(data=dd, map="taxa", place="value", 
+##'              hjust=0.8, vjust=-0.4, size=4, color="red")
 geom_place <- function(data, map, place, by="node", ...) {
     data <- data[order(data[[map]]),]
     if (by == "node") {
@@ -166,8 +193,12 @@ geom_place <- function(data, map, place, by="node", ...) {
 ##' @importFrom ggplot2 element_blank
 ##' @importFrom ggplot2 %+replace%
 ##' @export
-##' @return NULL 
+##' @return updated ggplot object with new theme
 ##' @author Yu Guangchuang
+##' @examples
+##' require(ape)
+##' tr <- rtree(10)
+##' ggtree(tr) + theme_tree()
 theme_tree <- function() {
     theme_tree2() %+replace%
     theme(axis.line.x = element_line(color="white"),
@@ -186,8 +217,12 @@ theme_tree <- function() {
 ##' @importFrom ggplot2 element_line
 ##' @importFrom ggplot2 %+replace%
 ##' @export
-##' @return NULL 
+##' @return updated ggplot object with new theme
 ##' @author Yu Guangchuang
+##' @examples
+##' require(ape)
+##' tr <- rtree(10)
+##' ggtree(tr) + theme_tree2()
 theme_tree2 <- function() {
     theme_bw() %+replace%
     theme(legend.position="none",

@@ -17,6 +17,11 @@ aline layer
 \description{
 add horizontal align lines
 }
+\examples{
+require(ape)
+tr <- rtree(10)
+ggtree(tr) + geom_tiplab(align=TRUE) + geom_aline()
+}
 \author{
 Yu Guangchuang
 }

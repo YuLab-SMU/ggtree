@@ -19,6 +19,11 @@ tip label layer
 \description{
 add tip label layer
 }
+\examples{
+require(ape)
+tr <- rtree(10)
+ggtree(tr) + geom_tiplab()
+}
 \author{
 Yu Guangchuang
 }
