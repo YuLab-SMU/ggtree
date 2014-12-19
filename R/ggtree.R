@@ -132,6 +132,16 @@ geom_eplace <- function(data, map, place, ...) {
     
 }
 
+`%add%` <- function(p, data) {
+    dd <- merge(p$data, data, by.x="label", by.y=1, all.x=TRUE)
+    dd <- dd[match(p$data$node, dd$node),]
+    p$data <- dd
+    return(p)
+}
+
+
+
+
 ##' add placement based on node
 ##'
 ##' 
@@ -180,8 +190,6 @@ geom_place <- function(data, map, place, by="node", ...) {
         stop("not supported yet...")
     }
 }
-
-
 
 
 ##' tree theme
@@ -237,18 +245,42 @@ theme_tree2 <- function() {
           )
 }
 
-##' update tree viewing with a new tree
+##' update tree 
 ##'
 ##'
-##' @rdname replace.TREE
+##' @rdname update.TREE
 ##' @title \%<\%
 ##' @param pg ggplot2 object
-##' @param tree phylogenetic tree
+##' @param x update by x
 ##' @return updated ggplot object
-##' @importFrom ggplot2 %+%
 ##' @export
 ##' @author Yu Guangchuang
-`%<%` <- function(pg, tree) {
-    pg %+% fortify(tree)
+`%<%` <- function(pg, x) {
+    if (is.tree(x)) {
+        pg %place% tree
+    }
+    if (is.data.frame(x)) {
+        pg %add% x
+    }
 }
 
+
+is.tree <- function(x) {
+    if (is(x, "phylo")) {
+        return(TRUE)
+    }
+    if (is(x, "jplace")) {
+        return(TRUE)
+    }
+    return(FALSE)
+}
+
+`%place%` <- function(pg, tree) {
+    pg$data <- fortify(tree)
+    return(pg)
+}
+
+
+place <- function(p, dd, ...) {
+    p %add% dd + geom_text(...)
+}
