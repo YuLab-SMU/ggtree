@@ -17,7 +17,7 @@ For more information on Artistic-2.0 License see [http://opensource.org/licenses
 
 To install:
  * the latest development version:
-   ```r 
+   ``` r 
       install_github("GuangchuangYu/ggtree")
    ```
 
