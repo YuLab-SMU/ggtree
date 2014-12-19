@@ -17,11 +17,6 @@ Imports:
     magrittr,
     methods
 Suggests:
-    ChIPseeker,
-    clusterProfiler,
-    DOSE,
-    GOSemSim,
-    ReactomePA,
     BiocStyle,
     knitr,
     testthat,
