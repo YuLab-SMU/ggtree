@@ -16,7 +16,6 @@ BiocStyle::markdown()
 
 ## Tree annotation
 
-
 ```{r fig.width=6, fig.height=5}
 nwk <- "(((((((A:4,B:4):6,C:5):8,D:6):3,E:21):10,((F:4,G:12):14,H:8):13):13,((I:5,J:2):30,(K:11,L:11):2):17):4,M:56);"
 library(ape)
@@ -26,29 +25,28 @@ library(ggtree)
 p <- ggtree(tree)
 ```
 
-Suppose we have the following data for annotation.
+Suppose we have the following data that associated with the tree and would like to attach the annotated value in the tree.
+
 ```{r}
 dd <- data.frame(taxa=sample(LETTERS[1:13], 6), value=round(abs(rnorm(6))*100))
 ```
+```{r eval=FALSE}
+print(dd)
+```
+
 ```{r echo=FALSE, results='asis'}
 knitr::kable(dd)
 ```
 
-```{r fig.width=6, fig.height=5}
-p + geom_tiplab() + geom_place(data=dd, map="taxa", place="value")
-```
-
-As the annotation overlap with tip labels, we can adjust the annotation position.
+The layer `geom_place` is designed to this task, we input a `data.frame` and specify the column that match the tip and node (if availabe) labels by `map` and a column to attach in the tree by `place`.
 
 ```{r fig.width=6, fig.height=5}
-ggtree(tree) + geom_tiplab() + 
-	     geom_place(data=dd, map="taxa", place="value", 
-	     	        hjust=.8, vjust=-.4, size=4, color="red")
+p + geom_tiplab() + 
+   geom_place(data=dd, map="taxa", place="value", 
+              hjust=0.8, vjust=-0.4, size=4, color="red")
 ```
 
-
-
-
+## Session Information
 
 ```{r}
 sessionInfo()

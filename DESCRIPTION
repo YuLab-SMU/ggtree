@@ -2,7 +2,7 @@ Package: ggtree
 Type: Package
 Title: visualizing phylogenetic tree and heterogenous associated data based on
     grammar of graphics
-Version: 0.2.3
+Version: 0.99.0
 Author: Guangchuang Yu
 Maintainer: Guangchuang Yu <guangchuangyu@gmail.com>
 Description: ggtree extends the ggplot2 plotting system which implemented the
