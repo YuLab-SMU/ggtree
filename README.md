@@ -2,7 +2,7 @@
 
 The `ggtree` package extending the `ggplot2` package. It based on grammar of graphics and takes all the good parts of `ggplot`. 
 
-`ggtree` is designed to not only viewing phylogenetic tree but also displaying annotation data in the tree. 
+`ggtree` is designed for not only viewing phylogenetic tree but also displaying annotation data in the tree. 
 
 ## Authors ##
 
