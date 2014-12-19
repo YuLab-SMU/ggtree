@@ -1,8 +1,8 @@
 #  __*ggtree*__: phylogenetic tree viewer and annotator
 
-The `ggtree` package is designed by extending the `ggplot2` package. It based on grammar of graphics and takes all the good parts of `ggplot`. 
+The `ggtree` package extending the `ggplot2` package. It based on grammar of graphics and takes all the good parts of `ggplot`. 
 
-It is designed to not only viewing phylogenetic tree but also displaying annotation data in the tree. 
+`ggtree` is designed to not only viewing phylogenetic tree but also displaying annotation data in the tree. 
 
 ## Authors ##
 
