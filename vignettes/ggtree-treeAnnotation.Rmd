@@ -1,0 +1,55 @@
+---
+title: "__*ggtree*__: phylogenetic tree viewer and annotator"
+author: "Guangchuang Yu <br> <guangchuangyu@gmail.com> <br> School of Public Health <br> The University of Hong Kong"
+date: "`r Sys.Date()`"
+output: BiocStyle::html_document
+vignette: >
+  %\VignetteIndexEntry{ggtree: phylogenetic tree viewer and annotator}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\usepackage[utf8]{inputenc}
+---
+
+```{r style, echo=FALSE, results="asis"}
+BiocStyle::markdown()
+```
+
+
+## Tree annotation
+
+
+```{r fig.width=6, fig.height=5}
+nwk <- "(((((((A:4,B:4):6,C:5):8,D:6):3,E:21):10,((F:4,G:12):14,H:8):13):13,((I:5,J:2):30,(K:11,L:11):2):17):4,M:56);"
+library(ape)
+tree <- read.tree(text=nwk)
+library(ggplot2)
+library(ggtree)
+p <- ggtree(tree)
+```
+
+Suppose we have the following data for annotation.
+```{r}
+dd <- data.frame(taxa=sample(LETTERS[1:13], 6), value=round(abs(rnorm(6))*100))
+```
+```{r echo=FALSE, results='asis'}
+knitr::kable(dd)
+```
+
+```{r fig.width=6, fig.height=5}
+p + geom_tiplab() + geom_place(data=dd, map="taxa", place="value")
+```
+
+As the annotation overlap with tip labels, we can adjust the annotation position.
+
+```{r fig.width=6, fig.height=5}
+ggtree(tree) + geom_tiplab() + 
+	     geom_place(data=dd, map="taxa", place="value", 
+	     	        hjust=.8, vjust=-.4, size=4, color="red")
+```
+
+
+
+
+
+```{r}
+sessionInfo()
+```

@@ -1,5 +1,7 @@
 CHANGES IN VERSION 0.2.3
 ------------------------
+ o add README.md <2014-12-19, Fri>
+ o update ggtree-treeViewer vignette <2014-12-19, Fri>
  o use BiocStyle in vignette <2014-12-19, Fri>
  o geom_nplace and geom_place layer <2014-12-18, Thu>
  o add theme_tree2 theme for showing evolution distance <2014-12-18, Thu>

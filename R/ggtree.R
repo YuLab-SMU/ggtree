@@ -59,6 +59,8 @@ geom_tiplab <- function(align=FALSE, hjust=-.25, ...) {
     }
 }
 
+
+
 ##' add horizontal align lines
 ##'
 ##' 
@@ -86,6 +88,7 @@ geom_tippoint <- function(...) {
     isTip <- NULL
     geom_point(subset=.(isTip), ...)
 }
+
 
 ##' add placement based on edge
 ##'

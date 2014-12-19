@@ -37,6 +37,15 @@ roundDigit <- function(d) {
 
 
 ## . function was from plyr package
+##' capture name of variable
+##'
+##'
+##' @rdname dotFun
+##' @title .
+##' @param ... expression
+##' @param .env environment
+##' @export
+##' @return expression
 . <- function (..., .env = parent.frame()) {
     structure(as.list(match.call()[-1]), env = .env, class = "quoted")
 }

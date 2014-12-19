@@ -1,0 +1,105 @@
+---
+title: "__*ggtree*__:phylogenetic tree viewer and annotator"
+author: "Guangchuang Yu <br> <guangchuangyu@gmail.com> <br> School of Public Health <br> The University of Hong Kong"
+date: "`r Sys.Date()`"
+output: BiocStyle::html_document
+vignette: >
+  %\VignetteIndexEntry{ggtree: phylogenetic tree viewer and annotator}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\usepackage[utf8]{inputenc}
+---
+
+```{r style, echo=FALSE, results="asis"}
+BiocStyle::markdown()
+```
+
+> You can't even begin to understand biology, you can't understand life, unless you understand what it's all there for, how it arose - and that means evolution.
+> --- Richard Dawkins
+
+
+## Introduction
+This project came out with my needs to annotate nucleotide substitutions in the phylogenetic tree, and I found that there is no tree visualization software can do this easily. All the tree viewer are designed for displaying phylogenetic tree, but not annotating it. Although some tree viewers can support displaying bootstrap values in the tree, it is hard/impossible to display other information in the tree. My first solution to displaying nucleotide substituition in the tree is to add these information in the node/tip names and use traditional tree viewer to display it. I view the information in the tree successfully, but I do believe this quick-and-dirty hack is ugly.
+
+In the old day, we even don't have enough data to infer phylogenetic tree. At that time, we don't need to annotate a tree. Displaying the evolution relationship is enough. Nowaday, we can obtain a lot of data from different experiment, and we want associate our data, for instance antigenic change, with the evolution relationship. Visualizing these association in the phylogenetic tree can help us identify evolution patterns. I believe we need a next generation tree viewer that can view a phylogenetic tree easily as we did with classical software and support adding annotation data in a layer above the tree. This is the objective of developing the `r Rpackage("ggtree")`. Common tasks of annotating a phylogenetic should be easy and complicated tasks can be possible to achieve by multiple layers of annotation.
+
+The `r Rpackage("ggtree")` is designed by extending the `r CRANpkg("ggplot2")` package. It based on grammar of graphics and takes all the good parts of `r CRANpkg("ggplot")`. 
+
+## Visualizing phylogenetic tree
+### viewing tree with `ggtree`
+`r Rpackage("ggtree")` extend `ggplot` to support phylogenetic tree object including phylo (defined by `r CRANpkg("ape")`, jplace (defined within ggtree) and more will be added. It implement `geom_tree` layer for displaying phylogenetic tree, as shown below:
+```{r fig.width=6, tidy=TRUE, width=60}
+nwk <- "(((((((A:4,B:4):6,C:5):8,D:6):3,E:21):10,((F:4,G:12):14,H:8):13):13,((I:5,J:2):30,(K:11,L:11):2):17):4,M:56);"
+library(ape)
+tree <- read.tree(text=nwk)
+library(ggplot2)
+library(ggtree)
+ggplot(tree, aes(x, y)) + geom_tree() + theme_tree() + xlab("") + ylab("")
+```
+
+A function, `ggtree`, was implemented as a short cut to visualize a tree, and it works exactly the same as shown above.
+
+`ggtree` takes all the advantages of `ggplot2`. For example, we can change the color, size and type of the lines as we did with `ggplot2`.
+```{r fig.width=6}
+ggtree(tree, color="steelblue", size=1, linetype="dotted")
+```
+
+### Display evolution distance
+
+To show evolution distance, we can use `theme_tree2()` or `ggtree(showDistance=TRUE)`
+
+```{r fig.width=6}
+ggtree(tree) + theme_tree2()
+```
+
+Another way is to show the edge length of the tree: 
+```{r fig.width=6, warning=FALSE}
+ggtree(tree) +geom_text(aes(label=length), hjust=1, vjust=-0.5, color="#F06C45")
+```
+
+### Display nodes/tips
+
+Show all the internal nodes and tips in the tree can be done by adding a layer of points using `geom_point`.
+
+```{r fig.width=6}
+ggtree(tree)+geom_point(aes(shape=isTip, color=isTip), size=3)
+```
+ 
+An of course, we can separate nodes and tips by using `subset`.
+```{r fig.width=6}
+p <- ggtree(tree)+geom_point(subset=.(!isTip), color="#b5e521", alpha=1/4, size=10)
+print(p)
+```
+
+For tips, `r Rpackage("ggtree")` contained a `geom_tippoint` function to add tip points.
+```{r fig.width=6}
+p + geom_tippoint(color="#FDAC4F", shape=8, size=3)
+```
+
+### Display labels
+`geom_tiplab` can be used to showing the tip labels:
+```{r fig.width=6}
+p + geom_tiplab(size=6, color="purple")
+```
+
+
+### Tree from right to left
+This can be done by reversing the x axis using `scale_x_continuous` provided by `ggplot2`
+```{r fig.width=6, fig.height=5}
+p + scale_x_continuous(trans="reverse")
+```
+
+### Circular phylogenetic tree
+Circular form can be done by transoforming the `cartesian` system to `polar` system using `coord_polar` that also available in `ggplot2`.
+```{r fig.width=6, fig.height=5}
+p + coord_polar(theta = "y")
+```
+
+
+## Tree annotation
+For tree annotation, please refer to the vignette, [ggtree-treeAnnotation](ggtree-treeAnnotation.html).
+
+
+## Session Information
+```{r}
+sessionInfo()
+```
