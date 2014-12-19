@@ -17,11 +17,11 @@ For more information on Artistic-2.0 License see [http://opensource.org/licenses
 
 To install:
  * the latest development version:
-   `install_github("GuangchuangYu/ggtree")`
+   `r install_github("GuangchuangYu/ggtree")`
 
 ## Documentation ##
 
-To get started, please read the vignette: `vignette("ggtree-treeViewer", package = "ggtree")` and `vignette("ggtree-treeAnnotator", package = "ggtree")`.
+To get started, please read the vignette: `r vignette("ggtree-treeViewer", package = "ggtree")` and `r vignette("ggtree-treeAnnotator", package = "ggtree")`.
 
 ## Bugs/Feature requests ##
 
