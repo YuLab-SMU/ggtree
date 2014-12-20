@@ -104,8 +104,8 @@ rm.singleton.newick <- function(nwk, outfile = NULL) {
 
 ##' @method fortify phylo4
 ##' @export
-fortify.phylo4 <- function(model, data, ladderize=TRUE, right=FALSE, ...) {
-    fortify.phylo(as.phylo.phylo4(model), data, ladderize, right, ...)
+fortify.phylo4 <- function(model, data, layout="phylogram", ladderize=TRUE, right=FALSE, ...) {
+    fortify.phylo(as.phylo.phylo4(model), data, layout, ladderize, right, ...)
 }
 
 as.phylo.phylo4 <- function(phylo4) {
@@ -135,6 +135,7 @@ as.phylo.phylo4 <- function(phylo4) {
 ##' @title fortify
 ##' @param model phylo object
 ##' @param data not use here
+##' @param layout layout
 ##' @param ladderize ladderize, logical
 ##' @param right logical
 ##' @param ... additional parameter
@@ -144,14 +145,14 @@ as.phylo.phylo4 <- function(phylo4) {
 ##' @method fortify phylo
 ##' @export
 ##' @author Yu Guangchuang
-fortify.phylo <- function(model, data, ladderize=TRUE, right=FALSE, ...) {
+fortify.phylo <- function(model, data, layout="phylogram", ladderize=TRUE, right=FALSE, ...) {
     if (ladderize == TRUE) {
         tree <- ladderize(model, right=right)
     } else {
         tree <- model
     }
     
-    df <- as.data.frame(tree)
+    df <- as.data.frame(tree, layout=layout)
     idx <- is.na(df$parent)
     df$parent[idx] <- df$node[idx]
     rownames(df) <- df$node
@@ -160,12 +161,22 @@ fortify.phylo <- function(model, data, ladderize=TRUE, right=FALSE, ...) {
 
 ##' @title as.data.frame
 ##' @param x phylo object
+##' @param row.names omitted here
+##' @param optional omitted here
+##' @param layout layout
 ##' @param ... additional parameter
 ##' @return data.frame
 ##' @method as.data.frame phylo
 ##' @export
 ##' @author Yu Guangchuang
-as.data.frame.phylo <- function(x, ...) {
+as.data.frame.phylo <- function(x, row.names, optional, layout="phylogram", ...) {
+    if (layout == "unrooted") {
+        return(layout.unrooted(x))
+    } 
+    as.data.frame.phylo_(x)
+}
+
+as.data.frame.phylo_ <- function(x, ...) {
     tip.label <- x[["tip.label"]]
     Ntip <- length(tip.label)
     N <- getNodeNum(x)
@@ -195,4 +206,3 @@ as.data.frame.phylo <- function(x, ...) {
 
     return(res)
 }
-

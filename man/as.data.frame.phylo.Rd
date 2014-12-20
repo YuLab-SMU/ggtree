@@ -4,10 +4,17 @@
 \alias{as.data.frame.phylo}
 \title{as.data.frame}
 \usage{
-\method{as.data.frame}{phylo}(x, ...)
+\method{as.data.frame}{phylo}(x, row.names, optional, layout = "phylogram",
+  ...)
 }
 \arguments{
 \item{x}{phylo object}
+
+\item{row.names}{omitted here}
+
+\item{optional}{omitted here}
+
+\item{layout}{layout}
 
 \item{...}{additional parameter}
 }

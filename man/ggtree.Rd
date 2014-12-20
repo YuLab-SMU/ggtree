@@ -15,7 +15,7 @@ ggtree(tr, showDistance = FALSE, layout = "phylogram", ...)
 
 \item{showDistance}{add distance legend, logical}
 
-\item{layout}{one of phylogram, cladogram}
+\item{layout}{one of phylogram, dendrogram, cladogram, fan, radial and unrooted}
 
 \item{...}{additional parameter}
 }

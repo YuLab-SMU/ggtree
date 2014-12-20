@@ -20,7 +20,7 @@ setGeneric("get.tree", function(object, ...) standardGeneric("get.tree"))
 ##' @rdname get.treeinfo-methods
 ##' @title get.treeinfo method
 ##' @export
-setGeneric("get.treeinfo", function(object, ladderize=TRUE, right=FALSE, ...) standardGeneric("get.treeinfo"))
+setGeneric("get.treeinfo", function(object, layout="phylogram", ladderize=TRUE, right=FALSE, ...) standardGeneric("get.treeinfo"))
 
 
 ##' @docType methods

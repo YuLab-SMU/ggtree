@@ -4,13 +4,16 @@
 ##' @title ggtree
 ##' @param tr phylo object
 ##' @param showDistance add distance legend, logical
-##' @param layout one of phylogram, cladogram
+##' @param layout one of phylogram, dendrogram, cladogram, fan, radial and unrooted
 ##' @param ... additional parameter
 ##' @return tree
 ##' @importFrom ggplot2 ggplot
 ##' @importFrom ggplot2 xlab
 ##' @importFrom ggplot2 ylab
 ##' @importFrom ggplot2 annotate
+##' @importFrom ggplot2 scale_x_reverse
+##' @importFrom ggplot2 coord_flip
+##' @importFrom ggplot2 coord_polar
 ##' @export
 ##' @author Yu Guangchuang
 ##' @examples
@@ -19,7 +22,26 @@
 ##' ggtree(tr)
 ggtree <- function(tr, showDistance=FALSE, layout="phylogram", ...) {
     d <- x <- y <- NULL
-    p <- ggplot(tr, aes(x, y), ...) + geom_tree(layout, ...) + xlab("") + ylab("") + theme_tree2()
+    if (layout == "fan") {
+        layout <- "phylogram"
+        type <- "fan"
+    } else if (layout == "radial") {
+        layout <- "cladogram"
+        type <- "radial"
+    } else if (layout == "dendrogram") {
+        layout <- "phylogram"
+        type <- "dendrogram"
+    } else {
+        type <- "none"
+    }
+    p <- ggplot(tr, aes(x, y), layout=layout, ...) + geom_tree(layout, ...) + xlab("") + ylab("") + theme_tree2()
+
+    if (type == "dendrogram") {
+        p <- p + scale_x_reverse() + coord_flip()
+    } else if (type == "fan" || type == "radial") {
+        p <- p + coord_polar(theta = "y")
+    } 
+    
     if (showDistance == FALSE) {
         p <- p + theme_tree()
     }
@@ -49,12 +71,12 @@ geom_tree <- function(layout="phylogram", ...) {
                          xend=c(x, x[parent]),
                          y=c(y, y[parent]),
                          yend=c(y, y)),...)
-    } else if (layout == "cladogram") {
+    } else if (layout == "cladogram" || layout == "unrooted") {
         geom_segment(aes(x=x[parent],
                          xend=x,
                          y=y[parent],
                          yend=y))
-    }
+    } 
 }
 
 ##' add tip label layer
@@ -195,6 +217,8 @@ geom_place <- function(data, map, place, by="node", ...) {
 ##'
 ##' 
 ##' @title theme_tree
+##' @param bgcolor background color
+##' @param fgcolor foreground color
 ##' @importFrom ggplot2 theme_bw
 ##' @importFrom ggplot2 theme
 ##' @importFrom ggplot2 element_blank
@@ -206,9 +230,10 @@ geom_place <- function(data, map, place, by="node", ...) {
 ##' require(ape)
 ##' tr <- rtree(10)
 ##' ggtree(tr) + theme_tree()
-theme_tree <- function() {
+theme_tree <- function(bgcolor="white", fgcolor="black") {
     theme_tree2() %+replace%
-    theme(axis.line.x = element_line(color="white"),
+    theme(panel.background=element_rect(fill=bgcolor, colour=bgcolor),
+          axis.line.x = element_line(color=bgcolor),
           axis.text.x = element_blank(),
           axis.ticks.x = element_blank()
           )
@@ -218,11 +243,14 @@ theme_tree <- function() {
 ##'
 ##' 
 ##' @title theme_tree2
+##' @param bgcolor background color
+##' @param fgcolor foreground color
 ##' @importFrom ggplot2 theme_bw
 ##' @importFrom ggplot2 theme
 ##' @importFrom ggplot2 element_blank
 ##' @importFrom ggplot2 element_line
 ##' @importFrom ggplot2 %+replace%
+##' @importFrom ggplot2 element_rect
 ##' @export
 ##' @return updated ggplot object with new theme
 ##' @author Yu Guangchuang
@@ -230,19 +258,20 @@ theme_tree <- function() {
 ##' require(ape)
 ##' tr <- rtree(10)
 ##' ggtree(tr) + theme_tree2()
-theme_tree2 <- function() {
+theme_tree2 <- function(bgcolor="white", fgcolor="black") {
     theme_bw() %+replace%
     theme(legend.position="none",
           panel.grid.minor=element_blank(),
           panel.grid.major=element_blank(),
-          panel.background=element_blank(),
+          panel.background=element_rect(fill=bgcolor, colour=bgcolor),
           panel.border=element_blank(),
-          axis.line=element_line(color="black"),
-          axis.line.y=element_line(color="white"),
+          axis.line=element_line(color=fgcolor),
+          axis.line.y=element_line(color=bgcolor),
           axis.ticks.y=element_blank(),
           axis.text.y=element_blank()
           )
 }
+
 
 ##' update tree 
 ##'

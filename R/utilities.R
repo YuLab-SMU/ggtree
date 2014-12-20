@@ -1,8 +1,8 @@
-extract.treeinfo <- function(tree.text, ladderize=TRUE, right=FALSE) {
+extract.treeinfo <- function(tree.text, layout="phylogram", ladderize=TRUE, right=FALSE) {
     ## move edge label to node label separate by @
     tr <- gsub('(:[0-9.e-]+)\\{(\\d+)\\}', '\\@\\2\\1', tree.text)
     tree <- read.tree(text=tr)
-    df <- fortify.phylo(tree, ladderize=ladderize, right=right)
+    df <- fortify.phylo(tree, layout=layout, ladderize=ladderize, right=right)
 
     root.idx <- which(df$parent == df$node)
     root.lab <- df[,"label"]

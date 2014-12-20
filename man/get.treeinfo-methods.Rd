@@ -6,12 +6,15 @@
 \alias{get.treeinfo,jplace,ANY-method}
 \title{get.treeinfo method}
 \usage{
-get.treeinfo(object, ladderize = TRUE, right = FALSE, ...)
+get.treeinfo(object, layout = "phylogram", ladderize = TRUE,
+  right = FALSE, ...)
 
-get.treeinfo(object, ladderize, right, ...)
+get.treeinfo(object, layout, ladderize, right, ...)
 }
 \arguments{
 \item{object}{jplace object}
+
+\item{layout}{layout}
 
 \item{ladderize}{ladderize, logical}
 

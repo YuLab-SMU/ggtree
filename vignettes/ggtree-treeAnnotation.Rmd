@@ -27,6 +27,7 @@ For displaying a phylogenetic, please refer to the vignette, [ggtree-treeViewer]
 nwk <- system.file("extdata", "sample.nwk", package="ggtree")
 library(ape)
 tree <- read.tree(nwk)
+library(ggplot2)
 library(ggtree)
 p <- ggtree(tree)
 ```
@@ -78,9 +79,8 @@ p <- p + geom_point(aes(size=value, shape=place, color=place), alpha=0.25, subse
 print(p)
 ```
 
-
-## Session Information
-
-```{r}
+## Session info
+Here is the output of `sessionInfo()` on the system on which this document was compiled:
+```{r echo=FALSE}
 sessionInfo()
 ```

@@ -4,7 +4,12 @@
 \alias{theme_tree}
 \title{theme_tree}
 \usage{
-theme_tree()
+theme_tree(bgcolor = "white", fgcolor = "black")
+}
+\arguments{
+\item{bgcolor}{background color}
+
+\item{fgcolor}{foreground color}
 }
 \value{
 updated ggplot object with new theme

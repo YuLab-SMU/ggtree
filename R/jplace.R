@@ -95,20 +95,21 @@ setMethod("show", signature(object = "jplace"),
 ##' @aliases get.treeinfo,jplace,ANY-method
 ##' @title get.treeinfo method
 ##' @param object jplace object
+##' @param layout layout
 ##' @param ladderize ladderize, logical
 ##' @param right logical, parameter for ladderize
 ##' @param ... additional parameter
 ##' @return data.frame
 ##' @exportMethod get.treeinfo
 ##' @author Guangchuang Yu \url{http://ygc.name}
-##' @usage get.treeinfo(object, ladderize, right, ...)
+##' @usage get.treeinfo(object, layout, ladderize, right, ...)
 ##' @examples
 ##' jp <- system.file("extdata", "sample.jplace", package="ggtree")
 ##' jp <- read.jplace(jp)
 ##' get.treeinfo(jp)
 setMethod("get.treeinfo", signature(object = "jplace"),
-          function(object, ladderize=TRUE, right=FALSE, ...) {
-              get.treeinfo.jplace(object, ladderize, right, ...)
+          function(object, layout="phylogram", ladderize=TRUE, right=FALSE, ...) {
+              get.treeinfo.jplace(object, layout, ladderize, right, ...)
           }
           )
 
@@ -213,8 +214,8 @@ setReplaceMethod(f="set.treeinfo",
 ##' @method fortify jplace
 ##' @importFrom ape read.tree
 ##' @export
-fortify.jplace <- function(model, data, ladderize=TRUE, right=FALSE, ...) {
-    get.treeinfo(model, ladderize, right, ...)
+fortify.jplace <- function(model, data, layout="phylogram", ladderize=TRUE, right=FALSE, ...) {
+    get.treeinfo(model, layout, ladderize, right, ...)
 }
 
 
@@ -226,14 +227,14 @@ get.fields.jplace <- function(object, ...) {
     object@fields
 }
 
-get.treeinfo.jplace <- function(object, ladderize, right, ...) {
+get.treeinfo.jplace <- function(object, layout, ladderize, right, ...) {
     treeinfo <- object@treeinfo
     if(nrow(treeinfo) == 0) {
         tree.text <- get.tree(object)
-        treeinfo <- extract.treeinfo(tree.text, ladderize, right)
+        treeinfo <- extract.treeinfo(tree.text, layout, ladderize, right)
         set.treeinfo(object) <- treeinfo
     } else if (attr(treeinfo, "ladderize") != ladderize) {
-        treeinfo <- extract.treeinfo(tree.text, ladderize, right)
+        treeinfo <- extract.treeinfo(tree.text, layout, ladderize, right)
         set.treeinfo(object) <- treeinfo
     }
     return(treeinfo)

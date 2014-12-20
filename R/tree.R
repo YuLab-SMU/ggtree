@@ -1,35 +1,35 @@
 
 layout.unrooted <- function(tree) {
-    df <- fortify(tree)
+    df <- as.data.frame.phylo_(tree)
+    df$x <- 0
+    df$y <- 0
+    df$angle <- 0
     N <- getNodeNum(tree)
     nb.sp <- sapply(1:N, function(i) length(get.offspring.tip(tree, i)))
     layout.unrooted_<- function(curNode, start, end) {
         curNtip <- nb.sp[curNode]
-        child <- getChild(tree, curNode)
-        if (length(child) > 0) {
-            for (i in seq_along(child)){
-                iChild <- child[i]
-                ntip.child <- nb.sp[iChild]
-                ratio.child <- ntip.child/curNtip
-                length.child <- df[df$node == iChild, "length"]
-                
-                alpha <- (end - start) * ratio.child
+        children <- getChild(tree, curNode)
+        if (length(children) > 0) {
+            for (i in seq_along(children)){
+                child <- children[i]
+                ntip.child <- nb.sp[child]
+                alpha <- (end - start) * ntip.child/curNtip
                 beta <- start + alpha / 2
 
+                length.child <- df[df$node == child, "length"]
                 x.child <- df[df$node == curNode, "x"] + cospi(beta) * length.child
                 y.child <- df[df$node == curNode, "y"] + sinpi(beta) * length.child
                 
-                df$x[df$node == iChild] <<- x.child
-                df$y[df$node == iChild] <<- y.child
-
-                layout.unrooted_(iChild, start, start+alpha)
+                df$x[df$node == child] <<- x.child
+                df$y[df$node == child] <<- y.child
+                
+                layout.unrooted_(child, start, start+alpha)
                 start <- start + alpha
             }
         }
     }
      
-    layout.unrooted_(getRoot(tree), -1, 1)
-
+    layout.unrooted_(getRoot(tree), 0, 2)
     return(df)
 }
 

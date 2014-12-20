@@ -69,10 +69,19 @@ grid.arrange(p1, p2, p3, ncol=3)
 
 ### Layout
 
-Currently, `ggtree` supports `phylogram` (by default) and `cladogram`.
+Currently, `ggtree` supports several layout, including `phylogram` (by default), `cladogram`, `dendrogram`, `fan`, `radial` and `unrooted`.
 
-```{r fig.width=6}
-ggtree(tree, layout="cladogram")
+```{r fig.width=12, fig.height=24}
+tr <- rtree(30)
+grid.arrange(ggtree(tr) + ggtitle("phylogram layout"),
+	     ggtree(tr) + scale_x_reverse() + ggtitle("phylogram layout") ,
+	     ggtree(tr, layout="cladogram") + ggtitle("cladogram layout"),
+	     ggtree(tr, layout="cladogram") + scale_x_reverse() + ggtitle("cladogram layout"),
+	     ggtree(tr, layout="dendrogram") + ggtitle("dendrogram layout"),
+	     ggtree(tr, layout="fan") + ggtitle("fan layout"),
+	     ggtree(tr, layout="radial") + ggtitle("radial layout"),
+	     ggtree(tr, layout="unrooted", ladderize=F) + ggtitle("unrooted layout"),
+	     ncol=2)
 ```
  
 ### Display evolution distance
@@ -112,21 +121,14 @@ p + geom_point(color="#FDAC4F", shape=8, size=3, subset=.(isTip))
 p + geom_text(aes(label=label), size=6, color="purple", hjust=-0.3)
 ```
 
+### Theme
+`theme_tree()` defined a totally blank canvas, while `theme_tree2()` add phylogenetic distance legend. These two themes all accept a parameter of `bgcolor` that defined the background color.
 
-### Tree from right to left
-This can be done by reversing the x axis using `scale_x_continuous`.
-```{r fig.width=6, fig.height=5}
-p + scale_x_continuous(trans="reverse")
-```
-
-### Circular phylogenetic tree
-Circular form can be done by transoforming the `cartesian` system to `polar` system using `coord_polar`.
-```{r fig.width=12, fig.height=6}
-require(gridExtra)
-tr <- rtree(30)
-grid.arrange( ggtree(tr) + coord_polar(theta = "y"), 
-	     ggtree(tr, layout="cladogram") + coord_polar(theta="y"),
-	     ncol = 2)
+```{r fig.width=12, fig.height=5}
+grid.arrange(
+	ggtree(rtree(30), color="red") + theme_tree("steelblue"),
+	ggtree(rtree(20), color="white") + theme_tree("black"),
+	ncol=2)
 ```
 
 ### Update tree viewing with a new tree
@@ -142,7 +144,8 @@ p %<% rtree(50)
 For tree annotation, please refer to the vignette, [ggtree-treeAnnotation](ggtree-treeAnnotation.html).
 
 
-## Session Information
-```{r}
+## Session info
+Here is the output of `sessionInfo()` on the system on which this document was compiled:
+```{r echo=FALSE}
 sessionInfo()
 ```
