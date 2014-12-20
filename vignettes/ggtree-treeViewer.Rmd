@@ -67,7 +67,14 @@ library(gridExtra)
 grid.arrange(p1, p2, p3, ncol=3)
 ```
 
+### Layout
 
+Currently, `ggtree` supports `phylogram` (by default) and `cladogram`.
+
+```{r fig.width=6}
+ggtree(tree, layout="cladogram")
+```
+ 
 ### Display evolution distance
 
 To show evolution distance, we can use `theme_tree2()` or `ggtree(showDistance=TRUE)`
@@ -114,8 +121,12 @@ p + scale_x_continuous(trans="reverse")
 
 ### Circular phylogenetic tree
 Circular form can be done by transoforming the `cartesian` system to `polar` system using `coord_polar`.
-```{r fig.width=6, fig.height=5}
-p + coord_polar(theta = "y")
+```{r fig.width=12, fig.height=6}
+require(gridExtra)
+tr <- rtree(30)
+grid.arrange( ggtree(tr) + coord_polar(theta = "y"), 
+	     ggtree(tr, layout="cladogram") + coord_polar(theta="y"),
+	     ncol = 2)
 ```
 
 ### Update tree viewing with a new tree

@@ -4,6 +4,7 @@
 ##' @title ggtree
 ##' @param tr phylo object
 ##' @param showDistance add distance legend, logical
+##' @param layout one of phylogram, cladogram
 ##' @param ... additional parameter
 ##' @return tree
 ##' @importFrom ggplot2 ggplot
@@ -16,9 +17,9 @@
 ##' require(ape)
 ##' tr <- rtree(10)
 ##' ggtree(tr)
-ggtree <- function(tr, showDistance=FALSE, ...) {
+ggtree <- function(tr, showDistance=FALSE, layout="phylogram", ...) {
     d <- x <- y <- NULL
-    p <- ggplot(tr, aes(x, y), ...) + geom_tree(...) + xlab("") + ylab("") + theme_tree2()
+    p <- ggplot(tr, aes(x, y), ...) + geom_tree(layout, ...) + xlab("") + ylab("") + theme_tree2()
     if (showDistance == FALSE) {
         p <- p + theme_tree()
     }
@@ -29,6 +30,7 @@ ggtree <- function(tr, showDistance=FALSE, ...) {
 ##'
 ##' 
 ##' @title geom_tree
+##' @param layout one of phylogram, cladogram
 ##' @param ... additional parameter
 ##' @return tree layer
 ##' @importFrom ggplot2 geom_segment
@@ -40,12 +42,19 @@ ggtree <- function(tr, showDistance=FALSE, ...) {
 ##' tr <- rtree(10)
 ##' require(ggplot2)
 ##' ggplot(tr) + geom_tree()
-geom_tree <- function(...) {
+geom_tree <- function(layout="phylogram", ...) {
     x <- y <- parent <- NULL
-    geom_segment(aes(x=c(x[parent], x[parent]),
-                     xend=c(x, x[parent]),
-                     y=c(y, y[parent]),
-                     yend=c(y, y)),...) 
+    if (layout == "phylogram") {
+        geom_segment(aes(x=c(x[parent], x[parent]),
+                         xend=c(x, x[parent]),
+                         y=c(y, y[parent]),
+                         yend=c(y, y)),...)
+    } else if (layout == "cladogram") {
+        geom_segment(aes(x=x[parent],
+                         xend=x,
+                         y=y[parent],
+                         yend=y))
+    }
 }
 
 ##' add tip label layer

@@ -1,5 +1,6 @@
 CHANGES IN VERSION 0.99.2
 ------------------------
+ o add layout parameter in ggtree and geom_tree, now supports phylogram and cladogram <2014-12-20, Sat>
  o %<+% function for inserting annotation data to a tree view <2014-12-20, Sat>
  o update ggtree-treeAnnotation vignette <2014-12-20, Sat>
 

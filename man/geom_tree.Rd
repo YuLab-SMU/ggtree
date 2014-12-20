@@ -4,9 +4,11 @@
 \alias{geom_tree}
 \title{geom_tree}
 \usage{
-geom_tree(...)
+geom_tree(layout = "phylogram", ...)
 }
 \arguments{
+\item{layout}{one of phylogram, cladogram}
+
 \item{...}{additional parameter}
 }
 \value{
