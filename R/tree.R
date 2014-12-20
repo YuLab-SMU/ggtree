@@ -1,3 +1,48 @@
+
+layout.unrooted <- function(tree) {
+    df <- fortify(tree)
+    N <- getNodeNum(tree)
+    nb.sp <- sapply(1:N, function(i) length(get.offspring.tip(tree, i)))
+    layout.unrooted_<- function(curNode, start, end) {
+        curNtip <- nb.sp[curNode]
+        child <- getChild(tree, curNode)
+        if (length(child) > 0) {
+            for (i in seq_along(child)){
+                iChild <- child[i]
+                ntip.child <- nb.sp[iChild]
+                ratio.child <- ntip.child/curNtip
+                length.child <- df[df$node == iChild, "length"]
+                
+                alpha <- (end - start) * ratio.child
+                beta <- start + alpha / 2
+
+                x.child <- df[df$node == curNode, "x"] + cospi(beta) * length.child
+                y.child <- df[df$node == curNode, "y"] + sinpi(beta) * length.child
+                
+                df$x[df$node == iChild] <<- x.child
+                df$y[df$node == iChild] <<- y.child
+
+                layout.unrooted_(iChild, start, start+alpha)
+                start <- start + alpha
+            }
+        }
+    }
+     
+    layout.unrooted_(getRoot(tree), -1, 1)
+
+    return(df)
+}
+
+##' @importFrom ape extract.clade
+get.offspring.tip <- function(tr, node) {
+    if ( ! node %in% tr$edge[,1]) {
+        ## return itself
+        return(tr$tip.label[node])
+    }
+    clade <- extract.clade(tr, node)
+    clade$tip.label
+}
+
 getNodeNum <- function(tr) {
     Ntip <- length(tr[["tip.label"]])
     Nnode <- tr[["Nnode"]]
@@ -19,6 +64,16 @@ getParent <- function(tr, node) {
     if (length(res) > 1) {
         stop("multiple parent found...")
     }
+    return(res)
+}
+
+getChild <- function(tr, node) {
+    edge <- tr[["edge"]]
+    res <- edge[edge[,1] == node, 2]
+    ## if (length(res) == 0) {
+    ##     ## is a tip
+    ##     return(NA)
+    ## }
     return(res)
 }
 
