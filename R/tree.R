@@ -3,7 +3,6 @@ layout.unrooted <- function(tree) {
     df <- as.data.frame.phylo_(tree)
     df$x <- 0
     df$y <- 0
-    df$angle <- 0
     N <- getNodeNum(tree)
     nb.sp <- sapply(1:N, function(i) length(get.offspring.tip(tree, i)))
     layout.unrooted_<- function(curNode, start, end) {
