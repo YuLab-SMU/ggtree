@@ -102,7 +102,36 @@ rm.singleton.newick <- function(nwk, outfile = NULL) {
     invisible(tree)
 }
 
+##' @method fortify phylo4
+##' @export
+fortify.phylo4 <- function(model, data, ladderize=TRUE, right=FALSE, ...) {
+    fortify.phylo(as.phylo.phylo4(model), data, ladderize, right, ...)
+}
 
+as.phylo.phylo4 <- function(phylo4) {
+    edge <- phylo4@edge
+    edge <- edge[edge[,1] != 0, ]
+    edge.length <- phylo4@edge.length
+    edge.length <- edge.length[!is.na(edge.length)]
+    tip.id <- sort(setdiff(edge[,2], edge[,1]))
+    tip.label <- phylo4@label[tip.id]
+    phylo <- list(edge = edge,
+                  edge.length = edge.length,
+                  tip.label = tip.label)
+    
+    node.id <- sort(unique(edge[,1]))
+    node.id <- node.id[node.id != 0]
+    node.label <- phylo4@label[node.id]
+    if (!all(is.na(node.label))) {
+        phylo$node.label <- node.label
+    }
+    phylo$Nnode <- length(node.id)
+    class(phylo) <- "phylo"
+    return(phylo)
+}
+
+
+##' @rdname fortify
 ##' @title fortify
 ##' @param model phylo object
 ##' @param data not use here

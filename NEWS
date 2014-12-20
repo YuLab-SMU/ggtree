@@ -1,3 +1,8 @@
+CHANGES IN VERSION 0.99.2
+------------------------
+ o %<+% function for inserting annotation data to a tree view <2014-12-20, Sat>
+ o update ggtree-treeAnnotation vignette <2014-12-20, Sat>
+
 CHANGES IN VERSION 0.99.1
 ------------------------
  o %<% function for updating tree view with a new tree <2014-12-19, Fri>

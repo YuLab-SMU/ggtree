@@ -132,16 +132,6 @@ geom_eplace <- function(data, map, place, ...) {
     
 }
 
-`%add%` <- function(p, data) {
-    dd <- merge(p$data, data, by.x="label", by.y=1, all.x=TRUE)
-    dd <- dd[match(p$data$node, dd$node),]
-    p$data <- dd
-    return(p)
-}
-
-
-
-
 ##' add placement based on node
 ##'
 ##' 
@@ -256,23 +246,47 @@ theme_tree2 <- function() {
 ##' @export
 ##' @author Yu Guangchuang
 `%<%` <- function(pg, x) {
-    if (is.tree(x)) {
-        pg %place% tree
+    if (! is.tree(x)) {
+        stop("input should be a tree object...")
     }
-    if (is.data.frame(x)) {
-        pg %add% x
-    }
+    pg %place% x
 }
 
+##' add annotation data to a tree
+##'
+##'
+##' @rdname add.TREEDATA
+##' @title \%<+\%
+##' @param pg ggplot2 object
+##' @param data annotation data
+##' @return ggplot object with annotation data added
+##' @export
+##' @author Yu Guangchuang
+`%<+%` <- function(pg, data) {
+    if (! is.data.frame(data)) {
+        stop("input should be a data.frame...")
+    }
+    pg %add% data
+}
 
 is.tree <- function(x) {
     if (is(x, "phylo")) {
+        return(TRUE)
+    }
+    if (is(x, "phylo4")) {
         return(TRUE)
     }
     if (is(x, "jplace")) {
         return(TRUE)
     }
     return(FALSE)
+}
+
+`%add%` <- function(p, data) {
+    dd <- merge(p$data, data, by.x="label", by.y=1, all.x=TRUE)
+    dd <- dd[match(p$data$node, dd$node),]
+    p$data <- dd
+    return(p)
 }
 
 `%place%` <- function(pg, tree) {
