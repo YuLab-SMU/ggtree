@@ -269,32 +269,4 @@ theme_tree2 <- function() {
     pg %add% data
 }
 
-is.tree <- function(x) {
-    if (is(x, "phylo")) {
-        return(TRUE)
-    }
-    if (is(x, "phylo4")) {
-        return(TRUE)
-    }
-    if (is(x, "jplace")) {
-        return(TRUE)
-    }
-    return(FALSE)
-}
 
-`%add%` <- function(p, data) {
-    dd <- merge(p$data, data, by.x="label", by.y=1, all.x=TRUE)
-    dd <- dd[match(p$data$node, dd$node),]
-    p$data <- dd
-    return(p)
-}
-
-`%place%` <- function(pg, tree) {
-    pg$data <- fortify(tree)
-    return(pg)
-}
-
-
-place <- function(p, dd, ...) {
-    p %add% dd + geom_text(...)
-}
