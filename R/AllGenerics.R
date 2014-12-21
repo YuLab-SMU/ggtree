@@ -24,6 +24,14 @@ setGeneric("get.treeinfo", function(object, layout="phylogram", ladderize=TRUE, 
 
 
 ##' @docType methods
+##' @name get.fields
+##' @rdname get.fields-methods
+##' @title get.fields method
+##' @export
+setGeneric("get.fields", function(object, ...) standardGeneric("get.fields"))
+
+
+##' @docType methods
 ##' @name get.placements
 ##' @rdname get.placements-methods
 ##' @title get.placements method

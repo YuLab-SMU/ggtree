@@ -2,6 +2,7 @@
 % Please edit documentation in R/jplace.R
 \docType{class}
 \name{jplace-class}
+\alias{get.fields,jplace-method}
 \alias{get.placements,jplace-method}
 \alias{get.tree,jplace-method}
 \alias{get.treeinfo,jplace-method}

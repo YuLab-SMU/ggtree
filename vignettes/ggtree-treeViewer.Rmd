@@ -80,7 +80,7 @@ grid.arrange(ggtree(tr) + ggtitle("phylogram layout"),
 	     ggtree(tr, layout="dendrogram") + ggtitle("dendrogram layout"),
 	     ggtree(tr, layout="fan") + ggtitle("fan layout"),
 	     ggtree(tr, layout="radial") + ggtitle("radial layout"),
-	     ggtree(tr, layout="unrooted", ladderize=F) + ggtitle("unrooted layout"),
+	     ggtree(tr, layout="unrooted") + ggtitle("unrooted layout"),
 	     ncol=2)
 ```
  

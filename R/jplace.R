@@ -9,6 +9,7 @@
 ##'   get.treeinfo,jplace-method
 ##'   set.treeinfo<-,jplace-method
 ##'   set.treeinfo,jplace-method
+##'   get.fields,jplace-method
 ##'
 ##' @docType class
 ##' @slot fields colnames of first variable of placements
@@ -139,10 +140,30 @@ setMethod("get.tree", signature(object = "jplace"),
           )
 
 
-## setMethod("get.fields", signature(object = "jplace"),
-##           function(object, ...) {
-##               object@fields
-##           })
+##' get.fields method
+##'
+##'
+##' @docType methods
+##' @name get.fields
+##' @rdname get.fields-methods
+##' @aliases get.fields,jplace,ANY-method
+##' @title get.fields method
+##' @param object jplace object
+##' @param ... additional parameter
+##' @return tree text
+##' @exportMethod get.fields
+##' @author Guangchuang Yu \url{http://ygc.name}
+##' @usage get.fields(object, ...)
+##' @examples
+##' jp <- system.file("extdata", "sample.jplace", package="ggtree")
+##' jp <- read.jplace(jp)
+##' get.fields(jp)
+setMethod("get.fields", signature(object = "jplace"),
+          function(object, ...) {
+              object@fields
+          }
+          )
+
 
 ##' get.placement method
 ##'
@@ -167,21 +188,34 @@ setMethod("get.placements", signature(object = "jplace"),
           function(object, by="best", ...) {
               placements <- object@placements
               place <- placements[,1]
-              ids <- sapply(placements[,2], function(x) x[1])
-              names(place) <- ids
+              ids <- NULL
+              if (length(placements) == 2) {
+                  ids <- sapply(placements[,2], function(x) x[1])
+                  names(place) <- ids
+              }
               if (by == "best") { ## best hit
-                  place <- lapply(place, function(x) x[1,])
+                  place <- lapply(place, function(x) {
+                      if (is(x, "data.frame")) {
+                          return(x[1,])
+                      } else {
+                          return(x)
+                      }
+                  })
               }
               place.df <- do.call("rbind", place)
-              place.df <- data.frame(name=rep(ids, sapply(place, function(x) {
-                  nr <- nrow(x)
-                  if (is.null(nr))
-                      return(1)
-                  return(nr)
-              })), place.df)
-              
-              colnames(place.df) <- c("name", object@fields)
-              return(place.df)
+              if (!is.null(ids)) {
+                  nn <- rep(ids, sapply(place, function(x) {
+                      nr <- nrow(x)
+                      if (is.null(nr))
+                          return(1)
+                      return(nr)
+                  }))
+                  place.df <- data.frame(name=nn, place.df)
+                  colnames(place.df) <- c("name", object@fields)
+              } else {
+                  colnames(place.df) <- object@fields
+              }
+              return(as.data.frame(place.df))
           })
 
 
@@ -215,7 +249,9 @@ setReplaceMethod(f="set.treeinfo",
 ##' @importFrom ape read.tree
 ##' @export
 fortify.jplace <- function(model, data, layout="phylogram", ladderize=TRUE, right=FALSE, ...) {
-    get.treeinfo(model, layout, ladderize, right, ...)
+    df <- get.treeinfo(model, layout, ladderize, right, ...)
+    place <- get.placements(model, by="best")
+    df %add2% place
 }
 
 
@@ -238,5 +274,34 @@ get.treeinfo.jplace <- function(object, layout, ladderize, right, ...) {
         set.treeinfo(object) <- treeinfo
     }
     return(treeinfo)
+}
+
+##' generate jplace file
+##'
+##' 
+##' @title write.jplace 
+##' @param nwk tree in newick format
+##' @param data annotation data
+##' @param outfile jplace output file
+##' @return jplace file
+##' @export
+##' @author ygc
+write.jplace <- function(nwk, data, outfile) {
+    out <- file(outfile, "w")
+    writeLines("{", out)
+    writeLines(paste0('\t"tree": "', readLines(nwk), '",'), out)
+    writeLines('\t"placements": [', out)
+    for (i in 1:nrow(data)) {
+        writeLines(paste0('\t{"p":["', paste(data[i,], collapse = '", "'), '"]}'), out, sep="")
+        if (i != nrow(data)) {
+            writeLines(',', out)
+        } 
+    }
+    writeLines('],', out)
+    writeLines('\t"metadata": {"info": "user defined data"},', out)
+    writeLines('\t"version": 2,', out)
+    writeLines(paste0('\t"fields": [', '"', paste(colnames(data), collapse='", "'), '"'), out)
+    writeLines('\t]\n}', out)
+    close(out)
 }
 

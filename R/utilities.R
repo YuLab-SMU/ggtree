@@ -7,8 +7,11 @@ extract.treeinfo <- function(tree.text, layout="phylogram", ladderize=TRUE, righ
     root.idx <- which(df$parent == df$node)
     root.lab <- df[,"label"]
     df$label[root.idx] <- gsub("(.*)\\{(\\d+)\\}", "\\1@\\2", df$label[root.idx])
+
+    if ( length(grep('@', df$label)) > 0) {
+        df$edge <- as.numeric(gsub("[^@]*@(\\d*)", "\\1",df$label))
+    }
     
-    df$edge <- as.numeric(gsub("[^@]*@(\\d*)", "\\1",df$label))
     ## remove edge label from node label
     df$label <- gsub("@\\d*", "", df$label)
     df$label[df$label == ""] <- NA
@@ -31,10 +34,14 @@ is.tree <- function(x) {
 }
 
 `%add%` <- function(p, data) {
-    dd <- merge(p$data, data, by.x="label", by.y=1, all.x=TRUE)
-    dd <- dd[match(p$data$node, dd$node),]
-    p$data <- dd
+    p$data <- p$data %add2% data
     return(p)
+}
+
+`%add2%` <- function(d1, d2) {
+    dd <- merge(d1, d2, by.x="label", by.y=1, all.x=TRUE)
+    dd <- dd[match(d1$node, dd$node),]
+    return(dd)
 }
 
 `%place%` <- function(pg, tree) {
