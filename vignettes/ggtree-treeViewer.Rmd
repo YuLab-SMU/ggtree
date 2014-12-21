@@ -76,7 +76,7 @@ tr <- rtree(30)
 grid.arrange(ggtree(tr) + ggtitle("phylogram layout"),
 	     ggtree(tr) + scale_x_reverse() + ggtitle("phylogram layout") ,
 	     ggtree(tr, layout="cladogram") + ggtitle("cladogram layout"),
-	     ggtree(tr, layout="cladogram") + scale_x_reverse() + ggtitle("cladogram layout"),
+	     ggtree(tr, layout="cladogram") + coord_flip() + ggtitle("cladogram layout"),
 	     ggtree(tr, layout="dendrogram") + ggtitle("dendrogram layout"),
 	     ggtree(tr, layout="fan") + ggtitle("fan layout"),
 	     ggtree(tr, layout="radial") + ggtitle("radial layout"),
