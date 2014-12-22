@@ -66,23 +66,6 @@ p3 <- ggtree(jp) + ggtitle("tree of jplace object")
 library(gridExtra)
 grid.arrange(p1, p2, p3, ncol=3)
 ```
-
-### Layout
-
-Currently, `ggtree` supports several layout, including `phylogram` (by default), `cladogram`, `dendrogram`, `fan`, `radial` and `unrooted`.
-
-```{r fig.width=12, fig.height=24}
-tr <- rtree(30)
-grid.arrange(ggtree(tr) + ggtitle("phylogram layout"),
-	     ggtree(tr) + scale_x_reverse() + ggtitle("phylogram layout") ,
-	     ggtree(tr, layout="cladogram") + ggtitle("cladogram layout"),
-	     ggtree(tr, layout="cladogram") + coord_flip() + ggtitle("cladogram layout"),
-	     ggtree(tr, layout="dendrogram") + ggtitle("dendrogram layout"),
-	     ggtree(tr, layout="fan") + ggtitle("fan layout"),
-	     ggtree(tr, layout="radial") + ggtitle("radial layout"),
-	     ggtree(tr, layout="unrooted") + ggtitle("unrooted layout"),
-	     ncol=2)
-```
  
 ### Display evolution distance
 

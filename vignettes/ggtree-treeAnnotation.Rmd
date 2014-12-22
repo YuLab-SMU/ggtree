@@ -118,6 +118,44 @@ ggtree(jp, showDistance=TRUE) +
 ```
 
 
+## Visualize tree and associated matrix
+```{r}
+nwk <- system.file("extdata", "sample.nwk", package = "ggtree")
+require(ape)
+tree <- read.tree(nwk)
+
+d <- matrix(sample(1:4, 13*4, replace=T), ncol=4)
+row.names(d) <-  tree$tip.label
+colnames(d) <- paste0("g", 1:4)
+```
+```{r eval=FALSE}
+print(d)
+```
+
+```{r echo=FALSE}
+knitr::kable(d)
+```
+
+```{r fig.width=12, fig.heigh=6}
+gplot(tree, d, low="green", high="red", widths=c(.7, .3))
+```
+
+```{r}
+d <- matrix(abs(rnorm(13*5)), ncol=5)
+row.names(d) <- tree$tip.label
+colnames(d) <- paste0("g", 1:5)
+```
+```{r eval=FALSE}
+print(d)
+```
+
+```{r echo=FALSE}
+knitr::kable(d)
+```
+
+```{r fig.width=12, fig.heigh=6}
+gplot(tree, d, low="green", high="red", widths=c(.6, .4))
+```
 
 ## Session info
 Here is the output of `sessionInfo()` on the system on which this document was compiled:

@@ -1,5 +1,6 @@
 CHANGES IN VERSION 0.99.3
 ------------------------
+ o gplot function that can view a tree and an associated matrix simultaneously <2014-12-22, Mon>
  o modified vignette to show based on branch position and break the evolution distance scale <2014-12-22, Mon>
  o label and annotation can be put based on branch. <2014-12-22, Mon>
  o write.jplace and fully supports of jplace by ggtree. <2014-12-21, Sun>

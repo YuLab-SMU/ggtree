@@ -12,11 +12,13 @@ Depends:
     ggplot2
 Imports:
     ape,
+    grid,
+    gridExtra,
     jsonlite,
     magrittr,
-    methods
+    methods,
+    reshape2
 Suggests:
-    gridExtra,
     phylobase,
     BiocStyle,
     knitr,
