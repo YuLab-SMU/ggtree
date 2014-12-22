@@ -1,5 +1,5 @@
 ---
-title: "ggtree: phylogenetic tree viewer and annotator"
+title: "ggtree: a phylogenetic tree viewer for different types of tree annotations"
 author: "Guangchuang Yu <br />
         <guangchuangyu@gmail.com> <br />
         School of Public Health <br />
