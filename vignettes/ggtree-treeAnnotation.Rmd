@@ -113,7 +113,7 @@ Now we know the `jp` object stored the tree and the associated amino acid substi
 
 ```{r fig.width=12, fig.height=12, warning=FALSE}
 ggtree(jp, showDistance=TRUE) + 
-	   geom_text(aes(label=subs), color="purple", vjust=-1.5, size=3) + 
+	   geom_text(aes(x=branch, label=subs), color="purple", vjust=-1, size=3) + 
 	   geom_text(aes(label=label), hjust=-.5)
 ```
 

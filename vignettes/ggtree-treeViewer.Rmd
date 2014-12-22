@@ -97,6 +97,11 @@ Another way is to show the edge length of the tree:
 ggtree(tree, showDistance=TRUE) +geom_text(aes(label=length), hjust=1, vjust=-0.5, color="#F06C45")
 ```
 
+The scale of branch length can be specify via `scale_x_continuous()`.
+```{r fig.width=6}
+ggtree(tree) + theme_tree2() + scale_x_continuous(breaks=seq(0, 60, 5))
+```
+ 
 ### Display nodes/tips
 
 Show all the internal nodes and tips in the tree can be done by adding a layer of points using `geom_point`.
@@ -120,6 +125,13 @@ p + geom_point(color="#FDAC4F", shape=8, size=3, subset=.(isTip))
 ```{r fig.width=6, warning=FALSE}
 p + geom_text(aes(label=label), size=6, color="purple", hjust=-0.3)
 ```
+
+By default, the positions are based on the node positions, we can change them to based on the middle of the branch/edge.
+
+```{r fig.width=6, fig.height=6, warning=FALSE}
+p + geom_text(aes(x=branch, label=label), size=6, color="purple", vjust=-0.3)
+```
+
 
 ### Theme
 `theme_tree()` defined a totally blank canvas, while `theme_tree2()` add phylogenetic distance legend. These two themes all accept a parameter of `bgcolor` that defined the background color.
