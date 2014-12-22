@@ -132,6 +132,7 @@ By default, the positions are based on the node positions, we can change them to
 p + geom_text(aes(x=branch, label=label), size=6, color="purple", vjust=-0.3)
 ```
 
+Based on the middle of branches is very useful when annotating transition from parent node to child node, please refer to [ggtree-treeAnnotation](ggtree-treeAnnotation.html).
 
 ### Theme
 `theme_tree()` defined a totally blank canvas, while `theme_tree2()` add phylogenetic distance legend. These two themes all accept a parameter of `bgcolor` that defined the background color.
