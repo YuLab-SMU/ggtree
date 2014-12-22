@@ -203,6 +203,6 @@ as.data.frame.phylo_ <- function(x, ...) {
     isTip <- rep(FALSE, N)
     isTip[1:Ntip] <- TRUE
     res$isTip <- isTip
-
+    res$branch <- (res$x[res$parent] + res$x)/2
     return(res)
 }
