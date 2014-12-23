@@ -1,6 +1,7 @@
 CHANGES IN VERSION 0.99.4
 ------------------------
- o extract beast stats <2014-12-23, Tue>
+ o parse translation matrix in beast nexus <2014-12-24, Wed>
+ o extract beast stats info <2014-12-23, Tue>
 
 CHANGES IN VERSION 0.99.3
 ------------------------
