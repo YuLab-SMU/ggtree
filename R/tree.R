@@ -96,6 +96,25 @@ getRoot <- function(tr) {
     return(root)
 }
 
+getXcoord2 <- function(x, root, parent, child, len, start=0, rev=FALSE) {
+    x[root] <- start
+    x[-root] <- NA  ## only root is set to start, by default 0
+    len[root] <- 0
+    
+    currentNode <- root
+    direction <- 1
+    if (rev == TRUE) {
+        direction <- -1
+    }
+    while(any(is.na(x))) {
+        idx <- which(parent %in% currentNode)
+        newNode <- child[idx]
+        x[newNode] <- x[parent[idx]]+len[idx] * direction
+        currentNode <- newNode
+    }
+
+    return(x)
+}
 
 getXcoord <- function(tr) {
     edge <- tr$edge
@@ -107,15 +126,7 @@ getXcoord <- function(tr) {
 
     N <- getNodeNum(tr)
     x <- numeric(N)
-    x[-root] <- NA  ## only root is set to 0
-    currentNode <- root
-    while(any(is.na(x))) {
-        idx <- which(parent %in% currentNode)
-        newNode <- child[idx]
-        x[newNode] <- x[parent[idx]]+len[idx]
-        currentNode <- newNode
-    }
-
+    x <- getXcoord2(x, root, parent, child, len)
     return(x)
 }
 

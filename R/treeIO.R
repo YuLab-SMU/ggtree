@@ -156,6 +156,7 @@ fortify.phylo <- function(model, data, layout="phylogram", ladderize=TRUE, right
     idx <- is.na(df$parent)
     df$parent[idx] <- df$node[idx]
     rownames(df) <- df$node
+    
     return(df)
 }
 

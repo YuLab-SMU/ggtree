@@ -1,4 +1,14 @@
-extract.treeinfo <- function(tree.text, layout="phylogram", ladderize=TRUE, right=FALSE) {
+reverse.treeview <- function(tv) {
+    df <- tv$data
+    root <- df$node[df$node == df$parent]
+    df$x <- getXcoord2(df$x, root, df$parent, df$node,
+                       df$length, start=max(df$x), rev=TRUE)
+    tv$data <- df
+    tv
+}
+
+
+extract.treeinfo.jplace <- function(tree.text, layout="phylogram", ladderize=TRUE, right=FALSE) {
     ## move edge label to node label separate by @
     tr <- gsub('(:[0-9.e-]+)\\{(\\d+)\\}', '\\@\\2\\1', tree.text)
     tree <- read.tree(text=tr)

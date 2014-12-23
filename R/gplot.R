@@ -45,3 +45,15 @@ gplot <- function(tree, data, low="green", high="red", widths=c(0.5, 0.5), font.
     grid.arrange(p1, p2, ncol=2, widths=widths)
 
 }
+
+
+                  
+
+
+
+
+
+
+
+
+

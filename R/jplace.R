@@ -267,10 +267,10 @@ get.treeinfo.jplace <- function(object, layout, ladderize, right, ...) {
     treeinfo <- object@treeinfo
     if(nrow(treeinfo) == 0) {
         tree.text <- get.tree(object)
-        treeinfo <- extract.treeinfo(tree.text, layout, ladderize, right)
+        treeinfo <- extract.treeinfo.jplace(tree.text, layout, ladderize, right)
         set.treeinfo(object) <- treeinfo
     } else if (attr(treeinfo, "ladderize") != ladderize) {
-        treeinfo <- extract.treeinfo(tree.text, layout, ladderize, right)
+        treeinfo <- extract.treeinfo.jplace(tree.text, layout, ladderize, right)
         set.treeinfo(object) <- treeinfo
     }
     return(treeinfo)

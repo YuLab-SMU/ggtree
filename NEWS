@@ -1,3 +1,7 @@
+CHANGES IN VERSION 0.99.4
+------------------------
+ o extract beast stats <2014-12-23, Tue>
+
 CHANGES IN VERSION 0.99.3
 ------------------------
  o gplot function that can view a tree and an associated matrix simultaneously <2014-12-22, Mon>
