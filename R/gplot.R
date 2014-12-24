@@ -47,9 +47,30 @@ gplot <- function(tree, data, low="green", high="red", widths=c(0.5, 0.5), font.
 }
 
 
-                  
+coplot <- function(tree1, tree2, hjust=0) {
+    dx <- fortify(tree1)
+    dx$tree <- "A"
 
+    offset <- max(dx$x) * 1.3
+    dy <- fortify(tree2)
+    dy <- reverse.treeview.data(dy)
+    dy$x <- dy$x + offset + hjust
+    dy$tree <- "B"
 
+    dd <- rbind(dx, dy)
+    p <- ggplot(dd, aes(x, y)) +
+        geom_tree(layout="phylogram", subset=.(tree=="A")) +
+            geom_tree(layout="phylogram", subset=.(tree=="B")) +
+                theme_tree()
+ 
+    p <- p  + geom_text(aes(label=label),
+                        subset=.(isTip & tree == "A"),
+                        hjust=-offset/40) +
+                            geom_text(aes(label=label),
+                                      subset=.(isTip & tree == "B"),
+                                      hjust = offset/20)
+    return(p)
+}
 
 
 

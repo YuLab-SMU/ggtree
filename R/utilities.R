@@ -1,10 +1,10 @@
 
 reverse.treeview <- function(tv) {
-    tv$data <- reverse.treeview.data(tv)
+    tv$data <- reverse.treeview.data(tv$data)
+    return(tv)
 }
 
-reverse.treeview.data <- function(tv) {
-    df <- tv$data
+reverse.treeview.data <- function(df) {
     root <- df$node[df$node == df$parent]
     df$x <- getXcoord2(df$x, root, df$parent, df$node,
                        df$length, start=max(df$x), rev=TRUE)
