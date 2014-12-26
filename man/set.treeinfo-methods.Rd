@@ -12,7 +12,7 @@ set.treeinfo(x) <- value
 set.treeinfo(x) <- value
 }
 \arguments{
-\item{x}{jplace object}
+\item{x}{one of \code{jplace}, \code{beast} object}
 
 \item{value}{tree info}
 }

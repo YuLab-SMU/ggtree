@@ -36,6 +36,7 @@ Guangchuang Yu \url{http://ygc.name}
 }
 \seealso{
 \code{\link{show}} \code{\link{get.tree}}
+         \code{\link{ggtree}}
 }
 \keyword{classes}
 
