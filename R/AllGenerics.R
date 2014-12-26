@@ -27,6 +27,8 @@ setGeneric("get.treeinfo", function(object, layout="phylogram", ladderize=TRUE, 
 ##' @name get.fields
 ##' @rdname get.fields-methods
 ##' @title get.fields method
+##' @param object one of \code{jplace}, \code{beast} object
+##' @param ... additional parameter
 ##' @export
 setGeneric("get.fields", function(object, ...) standardGeneric("get.fields"))
 

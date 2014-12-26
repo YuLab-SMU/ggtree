@@ -21,6 +21,7 @@
 ##' @exportClass jplace
 ##' @author Guangchuang Yu \url{http://ygc.name}
 ##' @seealso \code{\link{show}} \code{\link{get.tree}}
+##'          \code{\link{ggtree}}
 ##' @keywords classes
 setClass("jplace",
          representation = representation(
@@ -67,7 +68,7 @@ read.jplace <- function(file) {
 ##' @rdname show-methods
 ##'
 ##' @title show method
-##' @param object A \code{jplace} instance.
+##' @param object one of \code{jplace}, \code{beast} object
 ##' @return print info
 ##' @importFrom methods show
 ##' @exportMethod show
@@ -147,9 +148,6 @@ setMethod("get.tree", signature(object = "jplace"),
 ##' @name get.fields
 ##' @rdname get.fields-methods
 ##' @aliases get.fields,jplace,ANY-method
-##' @title get.fields method
-##' @param object jplace object
-##' @param ... additional parameter
 ##' @return tree text
 ##' @exportMethod get.fields
 ##' @author Guangchuang Yu \url{http://ygc.name}
@@ -227,7 +225,7 @@ setMethod("get.placements", signature(object = "jplace"),
 ##' @rdname set.treeinfo-methods
 ##' @aliases set.treeinfo<-,jplace,ANY-method
 ##' @title set.treeinfo<- method
-##' @param x jplace object
+##' @param x one of \code{jplace}, \code{beast} object
 ##' @param value tree info
 ##' @return updated jplace object
 ##' @exportMethod "set.treeinfo<-"

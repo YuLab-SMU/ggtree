@@ -1,10 +1,60 @@
+
+##' read beast output
+##'
+##' 
+##' @title read.beast
+##' @param file beast file
+##' @return \code{beast} object
+##' @importFrom ape read.nexus
+##' @export
+##' @author Yu Guangchuang
+##' @examples
+##' file <- system.file("extdata", "beast_mcc.tree", package="ggtree")
+##' read.beast(file)
+read.beast <- function(file) {
+    beast <- readLines(file)
+    stats <- get.stats.beast(file)
+
+    nex <- read.nexus(file)
+    df <- fortify(nex)
+    attr(df, "ladderize") <- TRUE
+    attr(df, "right") <- FALSE
+
+    class(nex) <- "list"
+    new("beast",
+        fields = sub("_lower|_upper", "", names(stats)) %>% unique,
+        treetext = get.treetext.beast(beast),
+        tree = nex,
+        translation = get.trans.beast(beast),
+        stats = stats,
+        treeinfo = df,
+        file = file
+        )
+}
+
+
 ##' Class "beast"
 ##' This class stores information of beast output
 ##'
 ##'
 ##' @name beast-class
 ##' @aliases beast-class
-##'      show,beast-method 
+##'      set.treeinfo<-,beast-method
+##'      set.treeinfo,beast-method
+##'
+##' @docType class
+##' @slot fields beast statistic variables
+##' @slot treetext tree text in beast file
+##' @slot tree tree phylo object
+##' @slot translation tip number to name translation in beast file
+##' @slot stats beast statistics
+##' @slot treeinfo tree information for plotting
+##' @slot file beast file, nexus format
+##' @exportClass beast
+##' @author Guangchuang Yu \url{http://ygc.name}
+##' @seealso \code{\link{show}} \code{\link{get.fields}}
+##'           \code{\link{ggtree}}
+##' @keywords classes
 setClass("beast",
          representation  = representation(
              fields      = "character",
@@ -17,18 +67,64 @@ setClass("beast",
              )
          )
 
-
+##' @rdname show-methods
+##' @importFrom ape print.phylo
+##' @exportMethod show
 setMethod("show", signature(object = "beast"),
           function(object) {
               cat("beast class\n...@ tree     : ")
-              phylo <- object@tree
-              class(phylo) <- "phylo"
+              phylo <- get.tree(object)
               print.phylo(phylo)
               cat("...@ stats variables    :\n")
-              ff <- sort(object@fields)
               for (x in object@fields) {
                   cat("\t", x, "\n")
               }
+          }
+          )
+
+
+##' @method fortify beast
+##' @export
+fortify.beast <- function(model, data, layout="phylogram", ladderize=TRUE, right=FALSE,...) {
+    df <- get.treeinfo(model, layout, ladderize, right, ...)
+    stats <- model@stats
+
+    idx <- match(df$length, stats$length)
+    stats <- stats[idx,]
+    stats <- stats[,colnames(stats) != "length"]
+    
+    return(cbind(df, stats))
+}
+
+##' @rdname get.tree-methods
+##' @exportMethod get.tree
+setMethod("get.tree", signature(object="beast"),
+          function(object,...) {
+              tree <- object@tree
+              class(tree) <- "phylo"
+              return(tree)
+          }
+          )
+
+##' @rdname get.treeinfo-methods
+##' @exportMethod get.treeinfo
+setMethod("get.treeinfo", signature(object="beast"),
+          function(object, ...) {
+              get.treeinfo.beast(object, ...)
+          }
+          )
+
+setReplaceMethod(f="set.treeinfo",
+                 signature = "beast",
+                 definition = function(x, value) {
+                     x@treeinfo <- value
+                 })
+
+##' @rdname get.fields-methods
+##' @exportMethod get.fields
+setMethod("get.fields", signature(object="beast"),
+          function(object, ...) {
+              object@fields
           }
           )
 
@@ -157,30 +253,19 @@ get.treetext.beast <- function(beast) {
     return(tree)
 }
 
-read.beast <- function(file) {
-    beast <- readLines(file)
-    stats <- get.stats.beast(file)
 
-    nex <- read.nexus(file)
-    df <- fortify(nex)
+get.treeinfo.beast <- function(object, layout="phylogram",
+                               ladderize=TRUE, right=FALSE, ...) {
+    treeinfo <- object@treeinfo
+    if (attr(treeinfo, "ladderize") != ladderize ||
+        attr(treeinfo, "right")     != right) {
+        tree <- get.tree(object)
+        treeinfo <- fortify(object, layout=layout,
+                            ladderize=ladderize, right=right, ...)
+        attr(treeinfo, "ladderize") <- ladderize
+        attr(treeinfo, "right")     <- right
+        set.treeinfo(object) <- treeinfo
+    }
 
-    idx <- match(df$length, stats$length)
-    stats <- stats[idx,]
-    stats2 <- stats[,colnames(stats) != "length"]
-    
-    dd <- cbind(df, stats2)
-
-    class(nex) <- "list"
-    new("beast",
-        fields = sub("_lower|_upper", "", names(stats2)) %>% unique,
-        treetext = get.treetext.beast(beast),
-        tree = nex,
-        translation = get.trans.beast(beast),
-        stats = stats,
-        treeinfo = dd,
-        file = file
-        )
+    return(treeinfo)
 }
-
-
-x <- read.beast(file)
