@@ -24,12 +24,12 @@
 ##' @keywords classes
 setClass("jplace",
          representation = representation(
-             fields = "character",
-             tree = "character",
+             fields     = "character",
+             tree       = "character",
              placements = "data.frame",
-             version = "numeric",
-             metadata = "list",
-             treeinfo = "data.frame"
+             version    = "numeric",
+             metadata   = "list",
+             treeinfo   = "data.frame"
              )
          )
 

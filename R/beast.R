@@ -1,8 +1,45 @@
+##' Class "beast"
+##' This class stores information of beast output
+##'
+##'
+##' @name beast-class
+##' @aliases beast-class
+##'      show,beast-method 
+setClass("beast",
+         representation  = representation(
+             fields      = "character",
+             treetext    = "character",
+             tree        = "list", ## phylo
+             translation = "matrix",
+             stats       = "data.frame",
+             treeinfo    = "data.frame",
+             file        = "character"
+             )
+         )
 
-get.info.beast <- function(file) {
+
+setMethod("show", signature(object = "beast"),
+          function(object) {
+              cat("beast class\n...@ tree     : ")
+              phylo <- object@tree
+              class(phylo) <- "phylo"
+              print.phylo(phylo)
+              cat("...@ stats variables    :\n")
+              ff <- sort(object@fields)
+              for (x in object@fields) {
+                  cat("\t", x, "\n")
+              }
+          }
+          )
+
+get.stats.beast <- function(file) {
     beast <- readLines(file)
-    tree <- beast[grep("tree TREE1\\s+=", beast)]
-    tree <- sub("tree TREE1\\s+= \\[&R\\] ", "", tree) 
+    tree <- get.treetext.beast(beast)
+
+    len <- unlist(strsplit(tree, ":"))[-1]
+    len <- sub("([0-9.]+)\\D+.*", '\\1', len) %>% as.numeric
+
+    
     stats <- unlist(strsplit(tree, "\\["))[-1]
     stats <- sub(":.+$", "", stats)
     stats <- sub("^&", "", stats)
@@ -33,14 +70,15 @@ get.info.beast <- function(file) {
         for (i in seq_along(nr.upper)) {
             res[i+j] <- hi[i] 
         }
-        j <- i
+        j <- i+j
         for (i in seq_along(names)) {
             res[i+j] <- val[i]
         }
         return(res)
     })
 
-    nn <- lapply(stats2, names) %>% unlist %>% unique
+    nn <- lapply(stats2, names) %>% unlist %>%
+        unique %>% sort
 
     ## stats3 is a matrix
     stats3 <- t(sapply(stats2, function(x) {
@@ -49,11 +87,20 @@ get.info.beast <- function(file) {
         }
         x[nn]
     }))
+
+    if ( nrow(stats3) == (length(len) + 1) ) {
+        len <- c(len, NA) ## root node has no length
+    } else {
+        stop("missing length exists...")
+    }
+
+    stats3 <- as.data.frame(stats3)
+    stats3$length <- len
     return(stats3)
 }
 
 
-rm.info.beast <- function(beast) {
+rm.stats.beast <- function(beast) {
     LEFT <- grep("\\[", beast)
     RIGHT <- grep("\\]", beast)
     if (length(LEFT) > 0) {
@@ -98,13 +145,42 @@ get.trans.beast <- function(beast) {
     return(trans)
 }
 
-read.beast <- function(file) {
-    info <- get.info.beast(file)
-    beast <- readLines(file)
-    beast <- rm.info.beast(beast)
-
-
-
-   
-    
+get.treetext.beast <- function(beast) {
+    ii <- grep("tree TREE1\\s+=", beast)
+    jj <- grep("End;", beast)
+    jj <- jj[jj > ii][1]
+    tree <- beast[ii:(jj-1)]
+    if (length(tree) > 1) {
+        tree <- paste0(tree)
+    }
+    tree %<>% sub("tree TREE1\\s+=\\s+\\[&R\\]\\s+", "", .)
+    return(tree)
 }
+
+read.beast <- function(file) {
+    beast <- readLines(file)
+    stats <- get.stats.beast(file)
+
+    nex <- read.nexus(file)
+    df <- fortify(nex)
+
+    idx <- match(df$length, stats$length)
+    stats <- stats[idx,]
+    stats2 <- stats[,colnames(stats) != "length"]
+    
+    dd <- cbind(df, stats2)
+
+    class(nex) <- "list"
+    new("beast",
+        fields = sub("_lower|_upper", "", names(stats2)) %>% unique,
+        treetext = get.treetext.beast(beast),
+        tree = nex,
+        translation = get.trans.beast(beast),
+        stats = stats,
+        treeinfo = dd,
+        file = file
+        )
+}
+
+
+x <- read.beast(file)

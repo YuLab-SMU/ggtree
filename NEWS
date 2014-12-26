@@ -1,6 +1,8 @@
 CHANGES IN VERSION 0.99.4
 ------------------------
- o coplot <2014-12-24, Wed>
+ o read.beast <2014-12-26, Fri>
+ o beast class and show method <2014-12-26, Fri> 
+ o coplot prototype<2014-12-24, Wed>
  o parse translation matrix in beast nexus <2014-12-24, Wed>
  o extract beast stats info <2014-12-23, Tue>
 
