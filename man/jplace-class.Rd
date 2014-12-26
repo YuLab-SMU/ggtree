@@ -6,6 +6,7 @@
 \alias{get.placements,jplace-method}
 \alias{get.tree,jplace-method}
 \alias{get.treeinfo,jplace-method}
+\alias{get.treetext,jplace-method}
 \alias{jplace-class}
 \alias{set.treeinfo,jplace-method}
 \alias{set.treeinfo<-,jplace-method}
@@ -21,7 +22,7 @@ This class stores information of jplace file.
 \describe{
 \item{\code{fields}}{colnames of first variable of placements}
 
-\item{\code{tree}}{tree text}
+\item{\code{treetext}}{tree text}
 
 \item{\code{placements}}{placement information}
 
@@ -30,6 +31,8 @@ This class stores information of jplace file.
 \item{\code{metadata}}{metadata}
 
 \item{\code{treeinfo}}{tree infomation}
+
+\item{\code{file}}{jplace file}
 }}
 \author{
 Guangchuang Yu \url{http://ygc.name}

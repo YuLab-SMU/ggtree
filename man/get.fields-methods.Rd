@@ -19,7 +19,7 @@ get.fields(object, ...)
 \item{...}{additional parameter}
 }
 \value{
-tree text
+available annotation variables
 }
 \description{
 get.fields method

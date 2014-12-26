@@ -5,7 +5,7 @@
 \alias{"set.treeinfo<-"}
 \alias{set.treeinfo<-}
 \alias{set.treeinfo<-,jplace,ANY-method}
-\title{"set.treeinfo<-" method}
+\title{set.treeinfo<- method}
 \usage{
 set.treeinfo(x) <- value
 
@@ -17,10 +17,10 @@ set.treeinfo(x) <- value
 \item{value}{tree info}
 }
 \value{
-updated jplace object
+updated \code{jplace}, \code{beast} object
 }
 \description{
-"set.treeinfo<-" method
+set.treeinfo<- method
 
 set.treeinfo method for \code{jplace} object
 }

@@ -10,14 +10,16 @@
 ##'   set.treeinfo<-,jplace-method
 ##'   set.treeinfo,jplace-method
 ##'   get.fields,jplace-method
+##'   get.treetext,jplace-method
 ##'
 ##' @docType class
 ##' @slot fields colnames of first variable of placements
-##' @slot tree tree text
+##' @slot treetext tree text
 ##' @slot placements placement information
 ##' @slot version version
 ##' @slot metadata metadata
 ##' @slot treeinfo tree infomation
+##' @slot file jplace file
 ##' @exportClass jplace
 ##' @author Guangchuang Yu \url{http://ygc.name}
 ##' @seealso \code{\link{show}} \code{\link{get.tree}}
@@ -26,11 +28,12 @@
 setClass("jplace",
          representation = representation(
              fields     = "character",
-             tree       = "character",
+             treetext   = "character",
              placements = "data.frame",
              version    = "numeric",
              metadata   = "list",
-             treeinfo   = "data.frame"
+             treeinfo   = "data.frame",
+             file       = "character"
              )
          )
 
@@ -49,11 +52,12 @@ setClass("jplace",
 read.jplace <- function(file) {
     with(fromJSON(file),
          new("jplace",
-             fields = fields,
-             tree = tree,
+             fields     = fields,
+             treetext   = tree,
              placements = placements,
-             version = version,
-             metadata = metadata
+             version    = version,
+             metadata   = metadata,
+             file       = file
              )
          )
 }
@@ -81,7 +85,7 @@ read.jplace <- function(file) {
 setMethod("show", signature(object = "jplace"),
           function(object) {
               cat("jplace class\n   ..@ tree      : ")
-              cat(str(object@tree), "\n",
+              cat(str(object@treetext), "\n",
                   "  ..@ placements:'data.frame':	", nrow(object@placements),
                   " obs. of ", ncol(object@placements), "variables\n",
                   "  ..@ version   : int", object@version, "\n")
@@ -95,13 +99,6 @@ setMethod("show", signature(object = "jplace"),
 ##' @name get.treeinfo
 ##' @rdname get.treeinfo-methods
 ##' @aliases get.treeinfo,jplace,ANY-method
-##' @title get.treeinfo method
-##' @param object jplace object
-##' @param layout layout
-##' @param ladderize ladderize, logical
-##' @param right logical, parameter for ladderize
-##' @param ... additional parameter
-##' @return data.frame
 ##' @exportMethod get.treeinfo
 ##' @author Guangchuang Yu \url{http://ygc.name}
 ##' @usage get.treeinfo(object, layout, ladderize, right, ...)
@@ -110,33 +107,31 @@ setMethod("show", signature(object = "jplace"),
 ##' jp <- read.jplace(jp)
 ##' get.treeinfo(jp)
 setMethod("get.treeinfo", signature(object = "jplace"),
-          function(object, layout="phylogram", ladderize=TRUE, right=FALSE, ...) {
-              get.treeinfo.jplace(object, layout, ladderize, right, ...)
+          function(object, layout="phylogram",
+                   ladderize=TRUE, right=FALSE, ...) {
+              get.treeinfo.jplace(object, layout,
+                                  ladderize, right, ...)
           }
           )
 
 
-##' get.tree method
+##' get.treetext method
 ##'
 ##'
 ##' @docType methods
-##' @name get.tree
-##' @rdname get.tree-methods
-##' @aliases get.tree,jplace,ANY-method
-##' @title get.tree method
-##' @param object jplace object
-##' @param ... additional parameter
-##' @return tree text
-##' @exportMethod get.tree
+##' @name get.treetext
+##' @rdname get.treetext-methods
+##' @aliases get.treetext,jplace,ANY-method
+##' @exportMethod get.treetext
 ##' @author Guangchuang Yu \url{http://ygc.name}
-##' @usage get.tree(object, ...)
+##' @usage get.treetext(object, ...)
 ##' @examples
 ##' jp <- system.file("extdata", "sample.jplace", package="ggtree")
 ##' jp <- read.jplace(jp)
-##' get.tree(jp)
-setMethod("get.tree", signature(object = "jplace"),
+##' get.treetext(jp)
+setMethod("get.treetext", signature(object = "jplace"),
           function(object, ...) {
-              get.tree.jplace(object, ...)
+              get.treetext.jplace(object, ...)
           }
           )
 
@@ -148,7 +143,6 @@ setMethod("get.tree", signature(object = "jplace"),
 ##' @name get.fields
 ##' @rdname get.fields-methods
 ##' @aliases get.fields,jplace,ANY-method
-##' @return tree text
 ##' @exportMethod get.fields
 ##' @author Guangchuang Yu \url{http://ygc.name}
 ##' @usage get.fields(object, ...)
@@ -170,11 +164,6 @@ setMethod("get.fields", signature(object = "jplace"),
 ##' @name get.placements
 ##' @rdname get.placements-methods
 ##' @aliases get.placements,jplace,ANY-method
-##' @title get.placements method
-##' @param object jplace object
-##' @param by get best hit or others
-##' @param ... additional parameter
-##' @return data.frame
 ##' @exportMethod get.placements
 ##' @author Guangchuang Yu \url{http://ygc.name}
 ##' @usage get.placements(object, by, ...)
@@ -224,10 +213,6 @@ setMethod("get.placements", signature(object = "jplace"),
 ##' @docType methods
 ##' @rdname set.treeinfo-methods
 ##' @aliases set.treeinfo<-,jplace,ANY-method
-##' @title set.treeinfo<- method
-##' @param x one of \code{jplace}, \code{beast} object
-##' @param value tree info
-##' @return updated jplace object
 ##' @exportMethod "set.treeinfo<-"
 ##' @author Guangchuang Yu \url{http://ygc.name}
 ##' @usage set.treeinfo(x) <- value
@@ -246,29 +231,34 @@ setReplaceMethod(f="set.treeinfo",
 ##' @method fortify jplace
 ##' @importFrom ape read.tree
 ##' @export
-fortify.jplace <- function(model, data, layout="phylogram", ladderize=TRUE, right=FALSE, ...) {
+fortify.jplace <- function(model, data,
+                           layout="phylogram",
+                           ladderize=TRUE, right=FALSE, ...) {
     df <- get.treeinfo(model, layout, ladderize, right, ...)
     place <- get.placements(model, by="best")
     df %add2% place
 }
 
 
-get.tree.jplace <- function(object, ...) {
-    object@tree
+get.treetext.jplace <- function(object, ...) {
+    object@treetext
 }
 
 get.fields.jplace <- function(object, ...) {
     object@fields
 }
 
-get.treeinfo.jplace <- function(object, layout, ladderize, right, ...) {
+get.treeinfo.jplace <- function(object, layout,
+                                ladderize, right, ...) {
     treeinfo <- object@treeinfo
     if(nrow(treeinfo) == 0) {
-        tree.text <- get.tree(object)
-        treeinfo <- extract.treeinfo.jplace(tree.text, layout, ladderize, right)
+        tree.text <- get.treetext(object)
+        treeinfo <- extract.treeinfo.jplace(tree.text, layout,
+                                            ladderize, right)
         set.treeinfo(object) <- treeinfo
     } else if (attr(treeinfo, "ladderize") != ladderize) {
-        treeinfo <- extract.treeinfo.jplace(tree.text, layout, ladderize, right)
+        treeinfo <- extract.treeinfo.jplace(tree.text, layout,
+                                            ladderize, right)
         set.treeinfo(object) <- treeinfo
     }
     return(treeinfo)
@@ -297,9 +287,13 @@ write.jplace <- function(nwk, data, outfile) {
         } 
     }
     writeLines('],', out)
-    writeLines('\t"metadata": {"info": "generated by ggtree package"},', out)
+    writeLines('\t"metadata": {"info": "generated by ggtree package"},',
+               out)
     writeLines('\t"version": 2,', out)
-    writeLines(paste0('\t"fields": [', '"', paste(colnames(data), collapse='", "'), '"'), out)
+    writeLines(paste0('\t"fields": [', '"',
+                      paste(colnames(data), collapse='", "'),
+                      '"'),
+               out)
     writeLines('\t]\n}', out)
     close(out)
 }

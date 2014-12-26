@@ -3,6 +3,7 @@
 \docType{class}
 \name{beast-class}
 \alias{beast-class}
+\alias{get.tree,beast-method}
 \alias{set.treeinfo,beast-method}
 \alias{set.treeinfo<-,beast-method}
 \title{Class "beast"

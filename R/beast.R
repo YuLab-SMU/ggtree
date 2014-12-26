@@ -41,7 +41,8 @@ read.beast <- function(file) {
 ##' @aliases beast-class
 ##'      set.treeinfo<-,beast-method
 ##'      set.treeinfo,beast-method
-##'
+##'      get.tree,beast-method
+##' 
 ##' @docType class
 ##' @slot fields beast statistic variables
 ##' @slot treetext tree text in beast file
@@ -85,19 +86,29 @@ setMethod("show", signature(object = "beast"),
 
 ##' @method fortify beast
 ##' @export
-fortify.beast <- function(model, data, layout="phylogram", ladderize=TRUE, right=FALSE,...) {
-    df <- get.treeinfo(model, layout, ladderize, right, ...)
+fortify.beast <- function(model, data,
+                          layout="phylogram",
+                          ladderize=TRUE, right=FALSE,...) {
+    df    <- get.treeinfo(model, layout, ladderize, right, ...)
     stats <- model@stats
 
-    idx <- match(df$length, stats$length)
+    idx   <- match(df$length, stats$length)
     stats <- stats[idx,]
     stats <- stats[,colnames(stats) != "length"]
     
     return(cbind(df, stats))
 }
 
+##' get.tree method
+##'
+##'
+##' @docType methods
+##' @name get.tree
 ##' @rdname get.tree-methods
+##' @aliases get.tree,beast
 ##' @exportMethod get.tree
+##' @author Guangchuang Yu \url{http://ygc.name}
+##' @usage get.tree(object, ...)
 setMethod("get.tree", signature(object="beast"),
           function(object,...) {
               tree <- object@tree

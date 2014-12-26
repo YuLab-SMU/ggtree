@@ -48,6 +48,7 @@ gplot <- function(tree, data, low="green", high="red", widths=c(0.5, 0.5), font.
 
 
 coplot <- function(tree1, tree2, hjust=0) {
+    x <- y <- label <- isTip <- tree <- NULL
     dx <- fortify(tree1)
     dx$tree <- "A"
 

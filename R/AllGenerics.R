@@ -12,13 +12,33 @@ as.binary <- function(tree, ...) {
 ##' @name get.tree
 ##' @rdname get.tree-methods
 ##' @title get.tree method
+##' @param object one of \code{jplace}, \code{beast} object
+##' @param ... additional parameter
+##' @return phylo object
 ##' @export
 setGeneric("get.tree", function(object, ...) standardGeneric("get.tree"))
+
+##' @docType methods
+##' @name get.treetext
+##' @rdname get.treetext-methods
+##' @title get.treetext method
+##' @param object one of \code{jplace}, \code{beast} object
+##' @param ... additional parameter
+##' @return phylo object
+##' @export
+setGeneric("get.treetext", function(object, ...) standardGeneric("get.treetext"))
+
 
 ##' @docType methods
 ##' @name get.treeinfo
 ##' @rdname get.treeinfo-methods
 ##' @title get.treeinfo method
+##' @param object jplace object
+##' @param layout layout
+##' @param ladderize ladderize, logical
+##' @param right logical, parameter for ladderize
+##' @param ... additional parameter
+##' @return data.frame
 ##' @export
 setGeneric("get.treeinfo", function(object, layout="phylogram", ladderize=TRUE, right=FALSE, ...) standardGeneric("get.treeinfo"))
 
@@ -29,6 +49,7 @@ setGeneric("get.treeinfo", function(object, layout="phylogram", ladderize=TRUE, 
 ##' @title get.fields method
 ##' @param object one of \code{jplace}, \code{beast} object
 ##' @param ... additional parameter
+##' @return available annotation variables
 ##' @export
 setGeneric("get.fields", function(object, ...) standardGeneric("get.fields"))
 
@@ -37,12 +58,19 @@ setGeneric("get.fields", function(object, ...) standardGeneric("get.fields"))
 ##' @name get.placements
 ##' @rdname get.placements-methods
 ##' @title get.placements method
+##' @param object jplace object
+##' @param by get best hit or others
+##' @param ... additional parameter
+##' @return data.frame
 ##' @export
 setGeneric("get.placements", function(object, by, ...) standardGeneric("get.placements"))
 
 ##' @docType methods
 ##' @name "set.treeinfo<-"
 ##' @rdname set.treeinfo-methods
-##' @title "set.treeinfo<-" method
+##' @title set.treeinfo<- method
+##' @param x one of \code{jplace}, \code{beast} object
+##' @param value tree info
+##' @return updated \code{jplace}, \code{beast} object
 ##' @export
 setGeneric("set.treeinfo<-", function(x, value) standardGeneric("set.treeinfo<-"))
