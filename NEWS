@@ -1,5 +1,6 @@
 CHANGES IN VERSION 0.99.4
 ------------------------
+ o hyphy class and read.hyphy <2014-12-27, Sat>
  o update man file and add example file of beast output <2014-12-26, Fri>
  o get.tree, get.treeinfo, get.fileds, set.treeinfo methods of beast class <2014-12-26, Fri>
  o read.beast <2014-12-26, Fri>
