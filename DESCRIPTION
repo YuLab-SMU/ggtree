@@ -9,9 +9,9 @@ Description: ggtree extends the ggplot2 plotting system which implemented the
     and different types of associated annotation data.
 Depends:
     R (>= 3.1.0),
+    ape,    
     ggplot2
 Imports:
-    ape,
     grid,
     gridExtra,
     jsonlite,
