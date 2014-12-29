@@ -18,7 +18,8 @@ Imports:
     jsonlite,
     magrittr,
     methods,
-    reshape2
+    reshape2,
+    stats4
 Suggests:
     phylobase,
     BiocStyle,

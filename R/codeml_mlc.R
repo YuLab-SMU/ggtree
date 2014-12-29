@@ -1,0 +1,119 @@
+##' read mlc file of codeml output
+##'
+##' 
+##' @title read.codeml_mlc 
+##' @param mlcfile mlc file
+##' @return A \code{codeml_mlc} object
+##' @export
+##' @author ygc
+read.codeml_mlc <- function(mlcfile) {
+    tip_seq <- read.tip_seq_mlc(mlcfile)
+    dNdS <- read.dnds_mlc(mlcfile)
+    
+    new("codeml_mlc",
+        fields   = colnames(dNdS)[-c(1,2)],
+        treetext = read.treetext_paml_mlc(mlcfile),
+        phylo    = read.phylo_paml_mlc(mlcfile),
+        dNdS     = dNdS,
+        seq_type = get_seqtype(tip_seq),
+        tip_seq  = tip_seq,
+        mlcfile  = mlcfile)
+}
+
+##' @rdname show-methods
+##' @exportMethod show
+setMethod("show", signature(object = "codeml_mlc"),
+          function(object) {
+              head(str(object))
+          }
+          )
+
+
+##' @rdname get.fields-methods
+##' @exportMethod get.fields
+setMethod("get.fields", signature(object = "codeml_mlc"),
+          function(object) {
+              object@fields
+          })
+
+##' @rdname plot-methods
+##' @exportMethod plot
+##' @param layout layout
+##' @param length branch length
+##' @param show.tip.label logical
+##' @param position one of "branch" and "node"
+##' @param annotation one of get.fields(x)
+##' @param ndigits round digits
+setMethod("plot", signature(x = "codeml_mlc"),
+          function(x, layout = "phylogram",
+                   length = "length",
+                   show.tip.label = TRUE,
+                   position = "branch",
+                   annotation = "dN/dS",
+                   ndigits = 2,
+                   ...
+                   ) {
+              
+          p <- ggtree(x, layout=layout, length=length)
+          if (show.tip.label) {
+              p <- p + geom_tiplab()
+          }
+          if (!is.null(annotation) && !is.na(annotation)) {
+              df <- p$data
+              df[, annotation] <- round(df[, annotation], ndigits)
+              if (position == "branch") {
+                  p <- p + geom_text(aes_string(x="branch"),
+                                     label = df[[annotation]],
+                                     size=3, vjust=-.5)
+              } else {
+                   p <- p + geom_text(aes_string(label=annotation),
+                                      size=3, vjust=-.5)
+              }
+          }
+          p + theme_tree2()
+      })
+          
+
+##' @rdname get.tree-methods
+##' @exportMethod get.tree
+setMethod("get.tree", signature(object = "codeml_mlc"),
+          function(object, ...) {
+              object@phylo
+          }
+          )
+
+##' @method fortify codeml_mlc
+##' @export
+fortify.codeml_mlc <- function(model, data,
+                               layout = "phylogram",
+                               ladderize = TRUE,
+                               right = FALSE,
+                               length = "length",
+                               ...) {
+    dNdS <- model@dNdS
+    length <- match.arg(length, c("length", colnames(dNdS)[-c(1,2)]))
+    phylo <- get.tree(model)
+
+    if (length != "length") {
+        edge <- as.data.frame(phylo$edge)
+        colnames(edge) <- c("parent", "node")
+        
+        dd <- merge(edge, dNdS,
+                    by.x  = c("node", "parent"),
+                    by.y  = c("node", "parent"),
+                    all.x = TRUE)
+        dd <- dd[match(edge$node, dd$node),]
+        phylo$edge.length <- dd[, length]
+    }
+    
+    df <- fortify(phylo)
+    res <- merge(df, dNdS,
+                 by.x  = c("node", "parent"),
+                 by.y  = c("node", "parent"),
+                 all.x = TRUE)
+    
+    res <- res[match(df$node, res$node),]
+    return(res)
+}
+
+

@@ -1,74 +1,3 @@
-##' read baseml output
-##'
-##' 
-##' @title read.codeml 
-##' @param rstfile rst file
-##' @param mlcfile mlc file
-##' @return A \code{codeml} object
-##' @export
-##' @author ygc
-read.codeml <- function(rstfile, mlcfile) {
-    new("codeml",
-        rst = read.paml_rst(rstfile),
-        mlc = read.codeml_mlc(mlcfile)
-        )
-}
-
-##' read rst file from paml output
-##'
-##' 
-##' @importFrom Biostrings readBStringSet
-##' @importFrom Biostrings toString
-##' @title read.paml_rst
-##' @param rstfile rst file
-##' @param tip.fasfile fasta file of tips
-##' @return A \code{paml_rst} object
-##' @export
-##' @author ygc
-read.paml_rst <- function(rstfile, tip.fasfile = NULL) {
-    ms <- read.ancseq_paml_rst(rstfile, by="Marginal")
-    phylo <- read.phylo_paml_rst(rstfile)
-    ## class(phylo) <- "list"
-    
-    res <- new("paml_rst",
-               treetext        = read.treetext_paml_rst(rstfile),
-               phylo           = phylo, 
-               seq_type        = get_seqtype(ms),
-               marginal_ancseq = ms,
-               joint_ancseq    = read.ancseq_paml_rst(rstfile, by = "Joint"),
-               rstfile = rstfile
-               )
-    if (!is.null(tip.fasfile)) {
-        seqs <- readBStringSet(tip.fasfile)
-        tip_seq <- sapply(1:length(seqs), function(i) {
-            toString(seqs[i])
-        })
-        res@tip_seq <- tip_seq
-        res@tip.fasfile <- tip.fasfile
-    }
-    return(res)
-}
-
-    
-##' read mlc file of codeml output
-##'
-##' 
-##' @title read.codeml_mlc 
-##' @param mlcfile mlc file
-##' @return A \code{codeml_mlc} object
-##' @export
-##' @author ygc
-read.codeml_mlc <- function(mlcfile) {
-    tip_seq <- read.tip_seq_mlc(mlcfile)
-    new("codeml_mlc",
-        treetext = read.treetext_paml_mlc(mlcfile),
-        phylo    = read.phylo_paml_mlc(mlcfile),
-        dNdS     = read.dnds_mlc(mlcfile),
-        seq_type = get_seqtype(tip_seq),
-        tip_seq  = tip_seq,
-        mlcfile  = mlcfile)
-}
-
 read.tip_seq_mlc <- function(mlcfile) {
     info <- getPhyInfo(mlcfile)
     mlc <- readLines(mlcfile)
@@ -111,7 +40,7 @@ read.dnds_mlc <- function(mlcfile) {
     colnames(res) <- c("parent", "node", cn[-1])
     return(res)
 }
-
+    
 read.treetext_paml_mlc <- function(mlcfile) {
     read.treetext_paml(mlcfile, "mlc")
 }

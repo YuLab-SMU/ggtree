@@ -102,10 +102,13 @@ rm.singleton.newick <- function(nwk, outfile = NULL) {
     invisible(tree)
 }
 
+    
 ##' @method fortify phylo4
 ##' @export
-fortify.phylo4 <- function(model, data, layout="phylogram", ladderize=TRUE, right=FALSE, ...) {
-    fortify.phylo(as.phylo.phylo4(model), data, layout, ladderize, right, ...)
+fortify.phylo4 <- function(model, data, layout="phylogram",
+                           ladderize=TRUE, right=FALSE, ...) {
+    fortify.phylo(as.phylo.phylo4(model), data,
+                  layout, ladderize, right, ...)
 }
 
 as.phylo.phylo4 <- function(phylo4) {
@@ -145,7 +148,8 @@ as.phylo.phylo4 <- function(phylo4) {
 ##' @method fortify phylo
 ##' @export
 ##' @author Yu Guangchuang
-fortify.phylo <- function(model, data, layout="phylogram", ladderize=TRUE, right=FALSE, ...) {
+fortify.phylo <- function(model, data, layout="phylogram",
+                          ladderize=TRUE, right=FALSE, ...) {
     if (ladderize == TRUE) {
         tree <- ladderize(model, right=right)
     } else {
@@ -170,7 +174,8 @@ fortify.phylo <- function(model, data, layout="phylogram", ladderize=TRUE, right
 ##' @method as.data.frame phylo
 ##' @export
 ##' @author Yu Guangchuang
-as.data.frame.phylo <- function(x, row.names, optional, layout="phylogram", ...) {
+as.data.frame.phylo <- function(x, row.names, optional,
+                                layout="phylogram", ...) {
     if (layout == "unrooted") {
         return(layout.unrooted(x))
     } 
