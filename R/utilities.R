@@ -1,4 +1,19 @@
-setOldClass("phylo")
+getPhyInfo <- function(phy) {
+    line1 <- readLines(phy, n=1)
+    res <- strsplit(line1, split="\\s")[[1]]
+    res <- res[res != ""]
+
+    return(list(num=as.numeric(res[1]), width=as.numeric(res[2])))
+}
+
+get_seqtype <- function(seq) {
+    if (length(grep("[^-ACGT]+", seq[1])) == 0) {
+        seq_type = "NT" ## NucleoTide
+    } else {
+        seq_type = "AA" ## Amino Acid
+    }
+    return(seq_type)
+}
 
 reverse.treeview <- function(tv) {
     tv$data <- reverse.treeview.data(tv$data)

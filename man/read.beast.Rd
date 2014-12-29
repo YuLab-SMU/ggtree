@@ -16,7 +16,7 @@ read.beast(file)
 read beast output
 }
 \examples{
-file <- system.file("extdata", "beast_mcc.tree", package="ggtree")
+file <- system.file("extdata/BEAST", "beast_mcc.tree", package="ggtree")
 read.beast(file)
 }
 \author{

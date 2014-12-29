@@ -12,6 +12,7 @@ Depends:
     ape,    
     ggplot2
 Imports:
+    Biostrings,
     grid,
     gridExtra,
     jsonlite,

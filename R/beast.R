@@ -9,7 +9,7 @@
 ##' @export
 ##' @author Yu Guangchuang
 ##' @examples
-##' file <- system.file("extdata", "beast_mcc.tree", package="ggtree")
+##' file <- system.file("extdata/BEAST", "beast_mcc.tree", package="ggtree")
 ##' read.beast(file)
 read.beast <- function(file) {
     beast <- readLines(file)
@@ -20,53 +20,18 @@ read.beast <- function(file) {
     attr(df, "ladderize") <- TRUE
     attr(df, "right") <- FALSE
 
-    class(nex) <- "list"
     new("beast",
-        fields = sub("_lower|_upper", "", names(stats)) %>% unique,
-        treetext = get.treetext.beast(beast),
-        tree = nex,
+        fields      = sub("_lower|_upper", "", names(stats)) %>% unique,
+        treetext    = get.treetext.beast(beast),
+        phylo       = nex,
         translation = get.trans.beast(beast),
-        stats = stats,
-        treeinfo = df,
-        file = file
+        stats       = stats,
+        treeinfo    = df,
+        file        = file
         )
 }
 
 
-##' Class "beast"
-##' This class stores information of beast output
-##'
-##'
-##' @name beast-class
-##' @aliases beast-class
-##'      set.treeinfo<-,beast-method
-##'      set.treeinfo,beast-method
-##'      get.tree,beast-method
-##' 
-##' @docType class
-##' @slot fields beast statistic variables
-##' @slot treetext tree text in beast file
-##' @slot tree tree phylo object
-##' @slot translation tip number to name translation in beast file
-##' @slot stats beast statistics
-##' @slot treeinfo tree information for plotting
-##' @slot file beast file, nexus format
-##' @exportClass beast
-##' @author Guangchuang Yu \url{http://ygc.name}
-##' @seealso \code{\link{show}} \code{\link{get.fields}}
-##'           \code{\link{ggtree}}
-##' @keywords classes
-setClass("beast",
-         representation  = representation(
-             fields      = "character",
-             treetext    = "character",
-             tree        = "list", ## phylo
-             translation = "matrix",
-             stats       = "data.frame",
-             treeinfo    = "data.frame",
-             file        = "character"
-             )
-         )
 
 ##' @rdname show-methods
 ##' @importFrom ape print.phylo
@@ -111,8 +76,7 @@ fortify.beast <- function(model, data,
 ##' @usage get.tree(object, ...)
 setMethod("get.tree", signature(object="beast"),
           function(object,...) {
-              tree <- object@tree
-              class(tree) <- "phylo"
+              tree <- object@phylo
               return(tree)
           }
           )
