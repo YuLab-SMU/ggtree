@@ -1,8 +1,8 @@
-tree <- read.tree("labelledtree.tree")
-nex <- read.nexus("ancseq.nex")
+## tree <- read.tree("labelledtree.tree")
+## nex <- read.nexus("ancseq.nex")
 
-ancseq <- "ancseq.nex"
-tree <- "labelledtree.tree"
+## ancseq <- "ancseq.nex"
+## tree <- "labelledtree.tree"
 
 read.hyphy <- function(nwk, ancseq) {
     anc <- scan(ancseq, what="", sep="\n", quiet=TRUE)

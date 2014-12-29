@@ -1,13 +1,57 @@
 
 
-setClass("paml",
-         representation = representation(
-
-             )
+setClass("paml_rst",
+         representation       = representation(
+             treetext         = "character",
+             phylo            = "phylo",
+             seq_type         = "character",
+             tip_seq          = "BStringSet",
+             marginal_ancseq  = "character",
+             joint_ancseq     = "character",
+             marginal_subs    = "character",
+             joint_subs       = "character",
+             marginal_AA_subs = "character",
+             joint_AA_subs    = "character",
+             tip.fasfile      = "character",
+             rstfile          = "character"
+         )
          )
 
+read.paml_rst <- function(rstfile, tip.fasfile = NULL) {
+    ms <- read_ancseq_paml_rst(rstfile, by="Marginal")
+    if (length(grep("[^-ACGT]+", ms[1])) == 0) {
+        seq_type = "NT" ## NucleoTide
+    } else {
+        seq_type = "AA" ## Amino Acid
+    }
+    phylo <- read_phylo_paml_rst(rstfile)
+    class(phylo) <- "list"
+    
+    res <- new("paml_rst",
+               treetext        = read_treetext_paml_rst(rstfile),
+               phylo           = phylo, 
+               seq_type        = seq_type,
+               marginal_ancseq = ms,
+               joint_ancseq    = read_ancseq_paml_rst(rstfile, by = "Joint"),
+               rstfile = rstfile
+               )
+    if (!is.null(tip.fasfile)) {
+        res@tip_seq <- readBStringSet(tip.fasfile)
+        res@tip.fasfile <- tip.fasfile
+    }
+    return(res)
+}
 
-readPhylo.paml <- function(rstfile) {
+read_treetext_paml_rst<- function(rstfile) {
+    ## works fine with baseml and codeml
+    rst <- readLines(rstfile)
+    tr.idx <- grep("\\)[ 0-9]*;", rst)
+
+    return(rst[tr.idx][1])
+}
+
+
+read_phylo_paml_rst <- function(rstfile) {
     ## works fine with baseml and codeml
     rst <- readLines(rstfile)
     tr.idx <- grep("\\)[ 0-9]*;", rst)
@@ -58,7 +102,7 @@ readPhylo.paml <- function(rstfile) {
     return(phylo)
 }
 
-getAncSeq.paml <- function(rstfile, by="Marginal") {
+read_ancseq_paml_rst <- function(rstfile, by="Marginal") {
     ## works fine with baseml and codeml
     rst <- readLines(rstfile)
 
@@ -67,7 +111,7 @@ getAncSeq.paml <- function(rstfile, by="Marginal") {
     idx <- grep(query, rst)
     if(length(idx) == 0) {
         ## in some paml setting, joint_ancseq are not available. 
-        return(NA)
+        return("")
     }
     si <- grep("reconstructed sequences", rst)
     idx <- si[which.min(abs(si-idx))]

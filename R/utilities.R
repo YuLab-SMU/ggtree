@@ -1,3 +1,4 @@
+setOldClass("phylo")
 
 reverse.treeview <- function(tv) {
     tv$data <- reverse.treeview.data(tv$data)
