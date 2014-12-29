@@ -28,7 +28,7 @@ read.codeml <- function(rstfile, mlcfile) {
 read.paml_rst <- function(rstfile, tip.fasfile = NULL) {
     ms <- read.ancseq_paml_rst(rstfile, by="Marginal")
     phylo <- read.phylo_paml_rst(rstfile)
-    class(phylo) <- "list"
+    ## class(phylo) <- "list"
     
     res <- new("paml_rst",
                treetext        = read.treetext_paml_rst(rstfile),
