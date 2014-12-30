@@ -1,5 +1,6 @@
 CHANGES IN VERSION 0.99.4
 ------------------------
+ o show, get.fields, and plot methods for codeml class <2014-12-30, Tue>
  o plot method for paml_rst class <2014-12-30, Tue>
  o get.subs, set.subs methods for paml_rst class <2014-12-30, Tue>
  o show, plot, get.tree and fority methods for codeml_mlc class <2014-12-29, Mon>

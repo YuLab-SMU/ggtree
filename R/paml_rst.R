@@ -46,7 +46,7 @@ setMethod("show", signature(object = "paml_rst"),
           function(object) {
               cat("'paml_rst' S4 object that stored information of\n\t",
                   paste0("'", object@rstfile, "'"))
-              if (length(rst@tip.fasfile) != 0) {
+              if (length(object@tip.fasfile) != 0) {
                   cat(paste0("and '", object@tip.fasfile, "'"), ".\n")
               } else {
                   cat(".\n")
@@ -64,14 +64,21 @@ setMethod("show", signature(object = "paml_rst"),
 ##' @exportMethod get.fields
 setMethod("get.fields", signature(object = "paml_rst"),
           function(object) {
-              if (length(object@tip.fasfile) == 0) {
-                  warning("tip.fasfile not available...\n")
+              if (length(object@tip_seq) == 0) {
+                  warning("tip sequence not available...\n")
               } else {
                   object@fields
               }
           }
           )
 
+##' @rdname get.tree-methods
+##' @exportMethod get.tree
+setMethod("get.tree", signature(object = "paml_rst"),
+          function(object) {
+              object@phylo
+          }
+          )
 
 ##' @rdname plot-methods
 ##' @exportMethod plot

@@ -103,9 +103,68 @@ rm.singleton.newick <- function(nwk, outfile = NULL) {
 }
 
 
+##' @method fortify codeml
+##' @export
+fortify.codeml <- function(model, data,
+                               layout = "phylogram",
+                               ladderize = TRUE,
+                               right = FALSE,
+                               branch.length = "mlc.branch.length",
+                               ...) {
+    
+    dNdS <- model@mlc@dNdS
+    length <- match.arg(branch.length, c("mlc.branch.length",
+                                     "rst.branch.length",
+                                     colnames(dNdS)[-c(1,2)])
+                    )
+
+    if (length == "rst.branch.length") {
+        phylo <- get.tree(model@rst)
+    } else {
+        if (length == "mlc.branch.length") {
+            length = "branch.length"
+        }
+        phylo <- fortify.codeml_mlc_(model@mlc, data, layout,
+                                     ladderize, right,
+                                     branch.length = length, ...)
+    }
+    
+    df <- fortify(phylo, data, layout, ladderize, right, ...)
+    
+    res <- merge(df, dNdS,
+                 by.x  = c("node", "parent"),
+                 by.y  = c("node", "parent"),
+                 all.x = TRUE)
+    
+    res <- res[match(df$node, res$node),]
+    return(res)
+}
+
+
 ##' @method fortify codeml_mlc
 ##' @export
 fortify.codeml_mlc <- function(model, data,
+                               layout = "phylogram",
+                               ladderize = TRUE,
+                               right = FALSE,
+                               branch.length = "branch.length",
+                               ...) {
+    dNdS <- model@dNdS
+    
+    phylo <- fortify.codeml_mlc_(model, data, layout,
+                              ladderize, right,
+                              branch.length, ...)
+    df <- fortify(phylo, data, layout, ladderize, right, ...)
+    res <- merge(df, dNdS,
+                 by.x  = c("node", "parent"),
+                 by.y  = c("node", "parent"),
+                 all.x = TRUE)
+    
+    res <- res[match(df$node, res$node),]
+    return(res)
+}
+
+fortify.codeml_mlc_ <- function(model, data,
                                layout = "phylogram",
                                ladderize = TRUE,
                                right = FALSE,
@@ -127,14 +186,7 @@ fortify.codeml_mlc <- function(model, data,
         phylo$edge.length <- dd[, length]
     }
     
-    df <- fortify(phylo)
-    res <- merge(df, dNdS,
-                 by.x  = c("node", "parent"),
-                 by.y  = c("node", "parent"),
-                 all.x = TRUE)
-    
-    res <- res[match(df$node, res$node),]
-    return(res)
+    return(phylo)
 }
 
 ##' @method fortify paml_rst

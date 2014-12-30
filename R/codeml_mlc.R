@@ -64,19 +64,24 @@ setMethod("plot", signature(x = "codeml_mlc"),
           if (show.tip.label) {
               p <- p + geom_tiplab()
           }
-          if (!is.null(annotation) && !is.na(annotation)) {
-              df <- p$data
-              df[, annotation] <- round(df[, annotation], ndigits)
-  
-              p <- p + geom_text(aes_string(x=position),
-                                 label = df[[annotation]],
-                                 size=3, vjust=-.5)
-              
-          }
+          p <- plot.codeml_mlc_(p, position, annotation, ndigits)
           p + theme_tree2()
       })
           
 
+plot.codeml_mlc_<- function(p, position, annotation=NULL, ndigits){
+    if (!is.null(annotation) && !is.na(annotation)) {
+        df <- p$data
+        df[, annotation] <- round(df[, annotation], ndigits)
+        
+        p <- p + geom_text(aes_string(x=position),
+                           label = df[[annotation]],
+                           size=3, vjust=-.5)
+    }
+    p
+}
+
+    
 ##' @rdname get.tree-methods
 ##' @exportMethod get.tree
 setMethod("get.tree", signature(object = "codeml_mlc"),

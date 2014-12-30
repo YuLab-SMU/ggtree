@@ -48,6 +48,21 @@ rst
 plot(rst, annotation="marginal_AA_subs")
 ```
 
+## mlc and rst files in combination
+
+We can annotate the tree with information presented in `rstfile` and `mlcfile` separately as demonstrated in previous sessions.
+
+We recommend using them both, and user don't need to provide tip sequences, as it's already available in `mlcfile`. All the features in both files are available for annotation.
+
+
+```{r fig.width=12, fig.height=8, tidy=TRUE, width=60, warning=FALSE}
+ml <- read.codeml(rstfile, mlcfile)
+ml
+plot(ml, branch.length="rst.branch.length", annotation="dN/dS")
+plot(ml, branch.length="mlc.branch.length", annotation="joint_AA_subs")
+plot(ml, branch.length="dN/dS", annotation="joint_AA_subs")
+```
+
 
 
 ## Session info
