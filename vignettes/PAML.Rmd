@@ -19,7 +19,7 @@ BiocStyle::markdown()
 
 ## CODEML
 ### mlc file
-```{r fig.width=7, tidy=TRUE, width=60, warning=FALSE}
+```{r fig.width=8, tidy=TRUE, width=60, warning=FALSE}
 library(ggtree)
 mlcfile <- system.file("extdata/PAML_Codeml", "mlc", package="ggtree")
 mlc <- read.codeml_mlc(mlcfile)
@@ -33,13 +33,20 @@ get.fields(mlc)
 ```
 
 For example, if we set `branch.length` to `dN/dS`, it will plot the $\omega$ (`dN/dS`) tree:
-```{r fig.width=7, tidy=TRUE, width=60, warning=FALSE}
+```{r fig.width=8, tidy=TRUE, width=60, warning=FALSE}
 plot(mlc, branch.length="dN/dS", annotation="dN/dS", ndigits=2)
 ```
 
 We can also plot the `dN` or `dS` tree and others. The parameter `annotation` can also be one of the available annotations.
 
-
+## rst file
+```{r fig.width=12, fig.height=8, tidy=TRUE, width=60, warning=FALSE}
+rstfile <- system.file("extdata/PAML_Codeml", "rst", package="ggtree")
+tipfas <- system.file("extdata", "pa.fas", package="ggtree")
+rst <- read.paml_rst(rstfile, tip.fasfile=tipfas)
+rst
+plot(rst, annotation="marginal_AA_subs")
+```
 
 
 

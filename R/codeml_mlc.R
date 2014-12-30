@@ -28,7 +28,7 @@ setMethod("show", signature(object = "codeml_mlc"),
                   paste0("'", object@mlcfile, "'"), ".\n")
               cat("  with the following features available:\n")
               cat("\t", paste0("'",
-                                 paste(get.fields(object), collapse="'   '"),
+                                 paste(get.fields(object), collapse="',   '"),
                                  "'"),
                   "\n")
           }
@@ -67,14 +67,11 @@ setMethod("plot", signature(x = "codeml_mlc"),
           if (!is.null(annotation) && !is.na(annotation)) {
               df <- p$data
               df[, annotation] <- round(df[, annotation], ndigits)
-              if (position == "branch") {
-                  p <- p + geom_text(aes_string(x="branch"),
-                                     label = df[[annotation]],
-                                     size=3, vjust=-.5)
-              } else {
-                   p <- p + geom_text(aes_string(label=annotation),
-                                      size=3, vjust=-.5)
-              }
+  
+              p <- p + geom_text(aes_string(x=position),
+                                 label = df[[annotation]],
+                                 size=3, vjust=-.5)
+              
           }
           p + theme_tree2()
       })
@@ -88,38 +85,5 @@ setMethod("get.tree", signature(object = "codeml_mlc"),
           }
           )
 
-##' @method fortify codeml_mlc
-##' @export
-fortify.codeml_mlc <- function(model, data,
-                               layout = "phylogram",
-                               ladderize = TRUE,
-                               right = FALSE,
-                               branch.length = "branch.length",
-                               ...) {
-    dNdS <- model@dNdS
-    length <- match.arg(branch.length, c("branch.length", colnames(dNdS)[-c(1,2)]))
-    phylo <- get.tree(model)
-
-    if (length != "branch.length") {
-        edge <- as.data.frame(phylo$edge)
-        colnames(edge) <- c("parent", "node")
-        
-        dd <- merge(edge, dNdS,
-                    by.x  = c("node", "parent"),
-                    by.y  = c("node", "parent"),
-                    all.x = TRUE)
-        dd <- dd[match(edge$node, dd$node),]
-        phylo$edge.length <- dd[, length]
-    }
-    
-    df <- fortify(phylo)
-    res <- merge(df, dNdS,
-                 by.x  = c("node", "parent"),
-                 by.y  = c("node", "parent"),
-                 all.x = TRUE)
-    
-    res <- res[match(df$node, res$node),]
-    return(res)
-}
 
 

@@ -83,40 +83,45 @@ read.phylo_paml_mlc <- function(mlcfile) {
     ii <- match(tr2$tip.label, treeinfo$node)
     treeinfo[ii, "label"] <- tr3$tip.label
     treeinfo[ii, "isTip"] <- TRUE
-    jj <- match(1:ntip, tr3$edge[,2])
-    treeinfo[ii, "length"] <- tr3$edge.length[jj]
+    ## jj <- match(1:ntip, tr3$edge[,2])
+    treeinfo[ii, "length"] <- tr2$edge.length[ii] ##tr3$edge.length[jj]
 
     root <- getRoot(tr3) ## always == (Ntip(tr3) + 1)
     currentNode <- treeinfo$label[ii]
     treeinfo.tr3 <- fortify(tr3)
 
-    while(any(is.na(treeinfo$length))) {
-        pNode <- treeinfo$label %in% currentNode %>% which %>%
-            treeinfo$parent[.] %>% unique
-        pNode.tr3 <- treeinfo.tr3$label %in% currentNode %>% which %>%
-            treeinfo.tr3$parent[.] %>% unique
-
-        pNode %<>% `[`(. != root)
-        pNode.tr3 %<>% `[`(. != root)
-
-        i <- match(pNode, treeinfo$node)
-        j <- match(pNode.tr3, treeinfo.tr3$node)
-
-        treeinfo$label[i] <- as.character(treeinfo$node[i])
-        treeinfo.tr3$label[j] <- treeinfo$label[i]
-        treeinfo$length[i] <- treeinfo.tr3$length[j]
-
-        kk <- treeinfo$parent %in% treeinfo$node[is.na(treeinfo$length)]
-        currentNode <- treeinfo$label[kk]
+    treeinfo$visited <- FALSE
+    while(any(treeinfo$visited == FALSE)) {
+        pNode <- c()
+        for( kk in currentNode ) {
+            i <- which(treeinfo$label == kk)
+            treeinfo[i, "visited"] <- TRUE
+            j <- which(treeinfo.tr3$label == kk)
+            ip <- treeinfo$parent[i]
+            if (ip != root) {
+                ii <- which(treeinfo$node == ip)
+                if (treeinfo$visited[ii] == FALSE) {
+                    jp <- treeinfo.tr3$parent[j]
+                    jj <- which(treeinfo.tr3$node == jp)
+                    treeinfo[ii, "label"] <- as.character(ip)
+                    treeinfo.tr3[jj, "label"] <- as.character(ip)
+                    treeinfo[ii, "length"] <- treeinfo.tr3[jj, "length"]
+                    pNode <- c(pNode, ip)
+                }
+                treeinfo[ii, "visited"] <- TRUE
+            }
+            
+        }
+        currentNode <- unique(pNode)
     }
-      
+
     phylo <- with(treeinfo,
                   list(edge= cbind(as.numeric(parent),
                            as.numeric(node)),
                        edge.length = length,
-                       tip.label = label[isTip],
+                       tip.label = label[order(node)][1:ntip],
                        Nnode = tr3$Nnode,
-                       node.label = c(root, label[!isTip])
+                       node.label = c(root, label[order(node)][-c(1:ntip)])
                        )
                   )
     class(phylo) <- "phylo"
@@ -152,14 +157,17 @@ read.phylo_paml_rst <- function(rstfile) {
     edge2 <- treeinfo[, c("parent", "node")]
     edge2 %<>% as.matrix
     
-    Ntip <- length(tr3$tip.label)
+    ntip <- Ntip(tr3)
 
-    phylo <- list(edge= cbind(as.numeric(treeinfo$parent),
-                      as.numeric(treeinfo$node)),
-              edge.length = treeinfo$length,
-              tip.label = treeinfo$label[1:Ntip],
-              Nnode = tr3$Nnode,
-              node.label = c(root, treeinfo$label[(Ntip+1):nrow(treeinfo)]))
+    phylo <- with(treeinfo,
+                  list(edge= cbind(as.numeric(parent),
+                      as.numeric(node)),
+                       edge.length = length,
+                       tip.label = label[order(node)][1:ntip],
+                       Nnode = tr3$Nnode,
+                       node.label = c(root, label[order(node)][-c(1:ntip)])
+                       )
+                  )
 
     class(phylo) <- "phylo"
     phylo <- reorder.phylo(phylo, "cladewise")

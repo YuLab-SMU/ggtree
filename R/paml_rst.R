@@ -44,7 +44,19 @@ read.paml_rst <- function(rstfile, tip.fasfile = NULL) {
 ##' @exportMethod show
 setMethod("show", signature(object = "paml_rst"),
           function(object) {
-              head(str(object))
+              cat("'paml_rst' S4 object that stored information of\n\t",
+                  paste0("'", object@rstfile, "'"))
+              if (length(rst@tip.fasfile) != 0) {
+                  cat(paste0("and '", object@tip.fasfile, "'"), ".\n")
+              } else {
+                  cat(".\n")
+              }
+              cat("  with the following features available:\n")
+              cat("\t", paste0("'",
+                               paste(get.fields(object), collapse="',   '"),
+                               "'"),
+                  "\n")
+              
           }
           )
 
@@ -60,11 +72,36 @@ setMethod("get.fields", signature(object = "paml_rst"),
           }
           )
 
+
+##' @rdname plot-methods
+##' @exportMethod plot
+setMethod("plot", signature(x = "paml_rst"),
+          function(x, layout = "phylogram",
+                   show.tip.label = TRUE,
+                   position = "branch",
+                   annotation = "marginal_subs",
+                   ...) {
+              
+              p <- ggtree(x, layout=layout)
+              if (show.tip.label) {
+                  p <- p + geom_tiplab()
+              }
+              if (!is.null(annotation) && !is.na(annotation)) {
+                  anno <- get.subs(x, type=annotation)
+                  p <- p %<+% anno + geom_text(aes_string(x=position, label="subs"),
+                                               size=3, vjust=-.5)
+              }
+              p + theme_tree2()
+          })
+
 get.subs_paml_rst <- function(x, type, ...) {
     if (!is(x, "paml_rst")) {
         stop("x should be an object of paml_rst...")
     }
     seqs <- x@tip_seq
+    if (length(seqs) == 0) {
+        stop("tip sequences is not available...")
+    }
     if (type %in% c("marginal_subs", "marginal_AA_subs")) {
         seqs <- c(seqs, x@marginal_ancseq)
     } else if (type %in% c("joint_subs", "joint_AA_subs")){

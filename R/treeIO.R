@@ -102,7 +102,48 @@ rm.singleton.newick <- function(nwk, outfile = NULL) {
     invisible(tree)
 }
 
+
+##' @method fortify codeml_mlc
+##' @export
+fortify.codeml_mlc <- function(model, data,
+                               layout = "phylogram",
+                               ladderize = TRUE,
+                               right = FALSE,
+                               branch.length = "branch.length",
+                               ...) {
+    dNdS <- model@dNdS
+    length <- match.arg(branch.length, c("branch.length", colnames(dNdS)[-c(1,2)]))
+    phylo <- get.tree(model)
+
+    if (length != "branch.length") {
+        edge <- as.data.frame(phylo$edge)
+        colnames(edge) <- c("parent", "node")
+        
+        dd <- merge(edge, dNdS,
+                    by.x  = c("node", "parent"),
+                    by.y  = c("node", "parent"),
+                    all.x = TRUE)
+        dd <- dd[match(edge$node, dd$node),]
+        phylo$edge.length <- dd[, length]
+    }
     
+    df <- fortify(phylo)
+    res <- merge(df, dNdS,
+                 by.x  = c("node", "parent"),
+                 by.y  = c("node", "parent"),
+                 all.x = TRUE)
+    
+    res <- res[match(df$node, res$node),]
+    return(res)
+}
+
+##' @method fortify paml_rst
+##' @export
+fortify.paml_rst <- function(model, data, layout = "phylogram",
+                             ladderize=TRUE, right=FALSE,...) {
+    fortify.phylo(model@phylo, data, layout, ladderize, right, ...)
+}
+
 ##' @method fortify phylo4
 ##' @export
 fortify.phylo4 <- function(model, data, layout="phylogram",
