@@ -104,13 +104,3 @@ setGeneric("get.subs", function(object, type, ...) standardGeneric("get.subs"))
 setGeneric("set.treeinfo<-", function(x, value) standardGeneric("set.treeinfo<-"))
 
 
-##' @docType methods
-##' @name "set.subs<-"
-##' @rdname set.subs-methods
-##' @title set.subs<- method
-##' @param x one of \code{paml_rst}, \code{codeml} object
-##' @param type type
-##' @param value subs
-##' @return updated \code{paml_rst}, \code{codeml} object
-##' @export
-setGeneric("set.subs<-", function(x, type, value) standardGeneric("set.subs<-"))

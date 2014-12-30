@@ -12,7 +12,7 @@ read.codeml <- function(rstfile, mlcfile) {
     mlc = read.codeml_mlc(mlcfile)
     rst@tip_seq <- mlc@tip_seq
     new("codeml",
-        rst = rst,
+        rst = set.paml_rst_(rst),
         mlc = mlc
         )
 }
@@ -32,6 +32,15 @@ setMethod("show", signature(object = "codeml"),
                   "\n") 
               
           })
+
+##' @rdname get.subs-methods
+##' @exportMethod get.subs
+setMethod("get.subs", signature(object = "codeml"),
+          function(object, type, ...) {
+              get.subs(object@rst, type, ...)
+          }
+          )
+
 
 ##' @rdname get.fields-methods
 ##' @exportMethod get.fields

@@ -35,9 +35,32 @@ read.paml_rst <- function(rstfile, tip.fasfile = NULL) {
         res@tip_seq <- tip_seq
         res@tip.fasfile <- tip.fasfile
     }
-    return(res)
+    set.paml_rst_(res)
 }
 
+set.paml_rst_ <- function(object) {
+    if (!is(object, "paml_rst")) {
+        stop("object should be an instance of 'paml_rst'")
+    }
+    if (length(object@tip_seq) == 0) {
+        return(object)
+    }
+    
+    types <- get.fields(object)
+    for (type in types) {
+        value <- subs_paml_rst(object, type)
+        if (type == "marginal_subs") {
+            object@marginal_subs <- value
+        } else if (type == "marginal_AA_subs") {
+            object@marginal_AA_subs <- value
+        } else if (type == "joint_subs") {
+            object@joint_subs <- value
+        } else if (type == "joint_AA_subs") {
+            object@joint_AA_subs <- value
+        }
+    }
+    return(object)
+}
 
 
 ##' @rdname show-methods
@@ -101,76 +124,14 @@ setMethod("plot", signature(x = "paml_rst"),
               p + theme_tree2()
           })
 
-get.subs_paml_rst <- function(x, type, ...) {
-    if (!is(x, "paml_rst")) {
-        stop("x should be an object of paml_rst...")
-    }
-    seqs <- x@tip_seq
-    if (length(seqs) == 0) {
-        stop("tip sequences is not available...")
-    }
-    if (type %in% c("marginal_subs", "marginal_AA_subs")) {
-        seqs <- c(seqs, x@marginal_ancseq)
-    } else if (type %in% c("joint_subs", "joint_AA_subs")){
-        seqs <- c(seqs, x@joint_ancseq)
-    } else {
-        stop("type should be one of 'marginal_subs',
-                             'marginal_AA_subs', 'joint_subs' or 'joint_AA_subs'. ")
-    }
-    if( type %in% c("marginal_subs", "joint_subs")) {
-        translate = FALSE
-    } else {
-        translate = TRUE
-    }
-    
-    get.subs_(x@phylo, seqs, translate=translate, ...)
-}
 
 ##' @rdname get.subs-methods
 ##' @exportMethod get.subs
 setMethod("get.subs", signature(object = "paml_rst"),
           function(object, type, ...) {
-              if (type == "marginal_subs") {
-                  res <- object@marginal_subs
-              } else if (type == "marginal_AA_subs") {
-                  res <- object@marginal_AA_subs
-              } else if (type == "joint_subs") {
-                  res <- object@joint_subs
-              } else if (type == "joint_AA_subs") {
-                  res <- object@joint_AA_subs
-              } else {
-                  stop("type should be one of 'marginal_subs',
-                             'marginal_AA_subs', 'joint_subs' or 'joint_AA_subs'. ")
-              }
-              if (nrow(res) == 0) {
-                  res <- get.subs_paml_rst(object, type, ...)
-                  set.subs(object, type) <- res
-              }
-              return(res)
+              get.subs_paml_rst(object, type)
           }
           )
 
-##' @name set.subs<-
-##' @rdname set.subs-methods
-##' @exportMethod "set.subs<-"
-##' @aliases set.subs<-,paml_rst-method,ANY-method
-##' @usage set.subs(x, type) <- value
-setReplaceMethod(f="set.subs",
-                 signature = "paml_rst",
-                 definition = function(x, type, value){
-                     if (type == "marginal_subs") {
-                         x@marginal_subs <- value
-                     } else if (type == "marginal_AA_subs") {
-                         x@marginal_AA_subs <- value
-                     } else if (type == "joint_subs") {
-                         x@joint_subs <- value
-                     } else if (type == "joint_AA_subs") {
-                         x@joint_AA_subs <- value
-                     } else {
-                         stop("type should be one of 'marginal_subs',
-                             'marginal_AA_subs', 'joint_subs' or 'joint_AA_subs'. ")
-                     }
-                 }
-                 )
 
 

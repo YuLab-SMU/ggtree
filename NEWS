@@ -1,8 +1,8 @@
 CHANGES IN VERSION 0.99.4
 ------------------------
- o show, get.fields, and plot methods for codeml class <2014-12-30, Tue>
+ o show, get.fields, get.subs and plot methods for codeml class <2014-12-30, Tue>
  o plot method for paml_rst class <2014-12-30, Tue>
- o get.subs, set.subs methods for paml_rst class <2014-12-30, Tue>
+ o get.subs, method for paml_rst class <2014-12-30, Tue>
  o show, plot, get.tree and fority methods for codeml_mlc class <2014-12-29, Mon>
  o codeml class <2014-12-29, Mon>
  o hyphy class and read.hyphy <2014-12-27, Sat>
@@ -25,7 +25,8 @@ CHANGES IN VERSION 0.99.3
  
 CHANGES IN VERSION 0.99.2
 ------------------------
- o layout of unrooted tree, implemented equal-angle algorithm that described in Chapter 34 of 'Inferring Phylogenies' (page 578-580) <2014-12-20, Sat>
+ o layout of unrooted tree, implemented equal-angle algorithm that described in Chapter 34
+   of 'Inferring Phylogenies' (page 578-580) <2014-12-20, Sat>
  o add layout parameter in ggtree and geom_tree, now supports phylogram and cladogram <2014-12-20, Sat>
  o %<+% function for inserting annotation data to a tree view <2014-12-20, Sat>
  o update ggtree-treeAnnotation vignette <2014-12-20, Sat>

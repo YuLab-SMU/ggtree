@@ -1,3 +1,47 @@
+get.subs_paml_rst <- function(object, type) {
+    if (!is(object, "paml_rst")) {
+        stop("object should be an instance of 'paml_rst'")
+    }
+    if (type == "marginal_subs") {
+        res <- object@marginal_subs
+    } else if (type == "marginal_AA_subs") {
+        res <- object@marginal_AA_subs
+    } else if (type == "joint_subs") {
+        res <- object@joint_subs
+    } else if (type == "joint_AA_subs") {
+        res <- object@joint_AA_subs
+    } else {
+        stop("type should be one of 'marginal_subs',
+                             'marginal_AA_subs', 'joint_subs' or 'joint_AA_subs'. ")
+    }
+    return(res)
+}
+
+subs_paml_rst <- function(x, type, ...) {
+    if (class(x) != "paml_rst") {
+        stop("x should be an object of paml_rst...")
+    }
+    seqs <- x@tip_seq
+    if (length(seqs) == 0) {
+        stop("tip sequences is not available...")
+    }
+    if (type %in% c("marginal_subs", "marginal_AA_subs")) {
+        seqs <- c(seqs, x@marginal_ancseq)
+    } else if (type %in% c("joint_subs", "joint_AA_subs")){
+        seqs <- c(seqs, x@joint_ancseq)
+    } else {
+        stop("type should be one of 'marginal_subs',
+                             'marginal_AA_subs', 'joint_subs' or 'joint_AA_subs'. ")
+    }
+    if( type %in% c("marginal_subs", "joint_subs")) {
+        translate = FALSE
+    } else {
+        translate = TRUE
+    }
+    
+    get.subs_(x@phylo, seqs, translate=translate, ...)
+}
+
 get.subs_ <- function(tree, fasta, translate=TRUE, removeGap=TRUE) {
     N <- getNodeNum(tree)
     node <- 1:N
