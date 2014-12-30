@@ -1,4 +1,4 @@
-get.subs <- function(tree, fasta, translate=TRUE, removeGap=TRUE) {
+get.subs_ <- function(tree, fasta, translate=TRUE, removeGap=TRUE) {
     N <- getNodeNum(tree)
     node <- 1:N
     parent <- sapply(node, getParent, tr=tree)

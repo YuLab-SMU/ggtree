@@ -5,6 +5,10 @@ setOldClass("phylo")
 ##'
 ##'
 ##' @name paml_rst-class
+##' @aliases paml_rst-class
+##'   set.subs,paml_rst-method
+##'   set.subs<-,paml_rst-method
+##' 
 ##' @docType class
 ##' @slot fields availabel attributes
 ##' @slot treetext tree text
@@ -32,10 +36,10 @@ setClass("paml_rst",
              tip_seq          = "character",
              marginal_ancseq  = "character",
              joint_ancseq     = "character",
-             marginal_subs    = "character",
-             joint_subs       = "character",
-             marginal_AA_subs = "character",
-             joint_AA_subs    = "character",
+             marginal_subs    = "data.frame",
+             joint_subs       = "data.frame",
+             marginal_AA_subs = "data.frame",
+             joint_AA_subs    = "data.frame",
              tip.fasfile      = "character",
              rstfile          = "character"
          )

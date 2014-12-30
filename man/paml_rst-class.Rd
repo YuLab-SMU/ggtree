@@ -3,6 +3,8 @@
 \docType{class}
 \name{paml_rst-class}
 \alias{paml_rst-class}
+\alias{set.subs,paml_rst-method}
+\alias{set.subs<-,paml_rst-method}
 \title{Class "paml_rst"
 This class stores information of rst file from paml output}
 \description{

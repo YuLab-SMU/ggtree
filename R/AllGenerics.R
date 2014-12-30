@@ -81,6 +81,19 @@ setGeneric("get.fields", function(object, ...) standardGeneric("get.fields"))
 setGeneric("get.placements", function(object, by, ...) standardGeneric("get.placements"))
 
 ##' @docType methods
+##' @name get.subs
+##' @rdname get.subs-methods
+##' @title get.subs method
+##' @param object paml_rst object
+##' @param type one of 'marginal_subs', 'marginal_AA_subs',
+##'                     'joint_subs' or 'joint_AA_subs'.
+##' @param ... additional parameter
+##' @return data.frame
+##' @export
+setGeneric("get.subs", function(object, type, ...) standardGeneric("get.subs"))
+
+
+##' @docType methods
 ##' @name "set.treeinfo<-"
 ##' @rdname set.treeinfo-methods
 ##' @title set.treeinfo<- method
@@ -89,3 +102,15 @@ setGeneric("get.placements", function(object, by, ...) standardGeneric("get.plac
 ##' @return updated \code{jplace}, \code{beast} object
 ##' @export
 setGeneric("set.treeinfo<-", function(x, value) standardGeneric("set.treeinfo<-"))
+
+
+##' @docType methods
+##' @name "set.subs<-"
+##' @rdname set.subs-methods
+##' @title set.subs<- method
+##' @param x one of \code{paml_rst}, \code{codeml} object
+##' @param type type
+##' @param value subs
+##' @return updated \code{paml_rst}, \code{codeml} object
+##' @export
+setGeneric("set.subs<-", function(x, type, value) standardGeneric("set.subs<-"))
