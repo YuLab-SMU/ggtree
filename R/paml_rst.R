@@ -13,11 +13,16 @@ read.paml_rst <- function(rstfile, tip.fasfile = NULL) {
     ms <- read.ancseq_paml_rst(rstfile, by="Marginal")
     phylo <- read.phylo_paml_rst(rstfile)
     ## class(phylo) <- "list"
-    
+    type <- get_seqtype(ms)
+    fields <- c("marginal_subs", "joint_subs")
+    if (type == "NT") {
+        fields <- c(fields, "marginal_AA_subs", "joint_AA_subs")
+    }
     res <- new("paml_rst",
+               fields          = fields,
                treetext        = read.treetext_paml_rst(rstfile),
                phylo           = phylo, 
-               seq_type        = get_seqtype(ms),
+               seq_type        = type,
                marginal_ancseq = ms,
                joint_ancseq    = read.ancseq_paml_rst(rstfile, by = "Joint"),
                rstfile = rstfile
@@ -33,6 +38,8 @@ read.paml_rst <- function(rstfile, tip.fasfile = NULL) {
     return(res)
 }
 
+
+
 ##' @rdname show-methods
 ##' @exportMethod show
 setMethod("show", signature(object = "paml_rst"),
@@ -41,3 +48,16 @@ setMethod("show", signature(object = "paml_rst"),
           }
           )
 
+##' @rdname get.fields-methods
+##' @exportMethod get.fields
+setMethod("get.fields", signature(object = "paml_rst"),
+          function(object) {
+              if (length(object@tip.fasfile) == 0) {
+                  warning("tip.fasfile not available...\n")
+              } else {
+                  object@fields
+              }
+          }
+          )
+
+## nts <- get.subs(object@phylo, c(object@tip_seq, object@marginal_ancseq)) 

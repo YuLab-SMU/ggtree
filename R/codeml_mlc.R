@@ -24,7 +24,13 @@ read.codeml_mlc <- function(mlcfile) {
 ##' @exportMethod show
 setMethod("show", signature(object = "codeml_mlc"),
           function(object) {
-              head(str(object))
+              cat("'codeml_mlc' S4 object that stored information of\n\t",
+                  paste0("'", object@mlcfile, "'"), ".\n")
+              cat("  with the following features available:\n")
+              cat("\t", paste0("'",
+                                 paste(get.fields(object), collapse="'   '"),
+                                 "'"),
+                  "\n")
           }
           )
 
@@ -39,14 +45,14 @@ setMethod("get.fields", signature(object = "codeml_mlc"),
 ##' @rdname plot-methods
 ##' @exportMethod plot
 ##' @param layout layout
-##' @param length branch length
+##' @param branch.length branch length
 ##' @param show.tip.label logical
 ##' @param position one of "branch" and "node"
 ##' @param annotation one of get.fields(x)
 ##' @param ndigits round digits
 setMethod("plot", signature(x = "codeml_mlc"),
           function(x, layout = "phylogram",
-                   length = "length",
+                   branch.length = "branch.length",
                    show.tip.label = TRUE,
                    position = "branch",
                    annotation = "dN/dS",
@@ -54,7 +60,7 @@ setMethod("plot", signature(x = "codeml_mlc"),
                    ...
                    ) {
               
-          p <- ggtree(x, layout=layout, length=length)
+          p <- ggtree(x, layout=layout, branch.length=branch.length)
           if (show.tip.label) {
               p <- p + geom_tiplab()
           }
@@ -88,13 +94,13 @@ fortify.codeml_mlc <- function(model, data,
                                layout = "phylogram",
                                ladderize = TRUE,
                                right = FALSE,
-                               length = "length",
+                               branch.length = "branch.length",
                                ...) {
     dNdS <- model@dNdS
-    length <- match.arg(length, c("length", colnames(dNdS)[-c(1,2)]))
+    length <- match.arg(branch.length, c("branch.length", colnames(dNdS)[-c(1,2)]))
     phylo <- get.tree(model)
 
-    if (length != "length") {
+    if (length != "branch.length") {
         edge <- as.data.frame(phylo$edge)
         colnames(edge) <- c("parent", "node")
         

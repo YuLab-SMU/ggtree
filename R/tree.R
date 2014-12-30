@@ -80,7 +80,18 @@ isRoot <- function(tr, node) {
     getRoot(tr) == node
 }
 
-
+getNodeName <- function(tr) {
+    if (is.null(tr$node.label)) {
+        n <- length(tr$tip.label)
+        nl <- (n + 1):(2 * n - 2)
+        nl <- as.character(nl)
+    }
+    else {
+        nl <- tr$node.label
+    }
+    nodeName <- c(tr$tip.label, nl)
+    return(nodeName)
+}
 
 getRoot <- function(tr) {
     edge <- tr[["edge"]]

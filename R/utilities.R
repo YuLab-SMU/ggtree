@@ -1,3 +1,72 @@
+get.subs <- function(tree, fasta, translate=TRUE, removeGap=TRUE) {
+    N <- getNodeNum(tree)
+    node <- 1:N
+    parent <- sapply(node, getParent, tr=tree)
+    label <- getNodeName(tree)
+    subs <- sapply(seq_along(node), function(i) {
+        if (i == getRoot(tree)) {
+            return(NA)
+        }
+        res <- getSubsLabel(fasta, label[parent[i]], label[i], translate, removeGap)
+        if (is.null(res)) {
+            return('')
+        }
+        return(res)
+    })
+    
+    dd <- data.frame(node=node, parent=parent, label=label, subs=subs)
+    dd <- dd[dd$parent != 0,]
+    dd <- dd[, -c(1,2)]
+    dd[,1] <- as.character(dd[,1])
+    dd[,2] <- as.character(dd[,2])
+    return(dd)
+}
+
+getSubsLabel <- function(seqs, A, B, translate, removeGap) {
+    seqA <- seqs[A]
+    seqB <- seqs[B]
+
+    if (translate == TRUE) {
+        AA <- seqA %>% seq2codon %>% codon2AA
+        BB <- seqB %>% seq2codon %>% codon2AA
+    } else {
+        n <- nchar(seqA) ## should equals to nchar(seqB)
+        AA <- substring(seqA, 1:n, 1:n)
+        BB <- substring(seqB, 1:n, 1:n)
+    }
+    
+    ii <- which(AA != BB)
+
+    if (removeGap == TRUE) {
+        if (length(ii) > 0 && translate == TRUE) {
+            ii <- ii[AA[ii] != "X" & BB[ii] != "X"]
+        }
+
+        if (length(ii) > 0 && translate == FALSE) {
+            ii <- ii[AA[ii] != "-" & BB[ii] != "-"]
+        }
+    }
+    
+    if (length(ii) == 0) {
+        return(NULL)
+    }
+    
+    res <- paste(AA[ii], ii, BB[ii], sep="", collapse="/")
+    return(res)
+}
+
+seq2codon <- function(x) {
+    substring(x, first=seq(1, nchar(x)-2, 3), last=seq(3, nchar(x), 3))
+}
+
+##' @importFrom Biostrings GENETIC_CODE
+codon2AA <- function(codon) {
+    aa <- GENETIC_CODE[codon]
+    aa[is.na(aa)] <- "X"
+    return(aa)
+}
+
+
 getPhyInfo <- function(phy) {
     line1 <- readLines(phy, n=1)
     res <- strsplit(line1, split="\\s")[[1]]

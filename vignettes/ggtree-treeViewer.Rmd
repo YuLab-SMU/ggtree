@@ -3,6 +3,7 @@ title: "ggtree: a phylogenetic tree viewer for different types of tree annotatio
 author: "Guangchuang Yu <br />
         <guangchuangyu@gmail.com> <br />
         School of Public Health <br />
+	Li Ka Shing Faculty of Medicine <br />
         The University of Hong Kong"
 date: "`r Sys.Date()`"
 output: BiocStyle::html_document

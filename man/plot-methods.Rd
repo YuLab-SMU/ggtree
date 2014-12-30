@@ -6,16 +6,16 @@
 \alias{plot,codeml_mlc,ANY-method}
 \title{plot method}
 \usage{
-\S4method{plot}{codeml_mlc,ANY}(x, layout = "phylogram", length = "length",
-  show.tip.label = TRUE, position = "branch", annotation = "dN/dS",
-  ndigits = 2, ...)
+\S4method{plot}{codeml_mlc,ANY}(x, layout = "phylogram",
+  branch.length = "branch.length", show.tip.label = TRUE,
+  position = "branch", annotation = "dN/dS", ndigits = 2, ...)
 }
 \arguments{
 \item{x}{object}
 
 \item{layout}{layout}
 
-\item{length}{branch length}
+\item{branch.length}{branch length}
 
 \item{show.tip.label}{logical}
 
