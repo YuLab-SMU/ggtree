@@ -114,9 +114,9 @@ fortify.beast <- function(model, data,
 
     stats <- model@stats
 
-    idx   <- match(df$length, stats$length)
+    idx   <- match(df$node, stats$node)
     stats <- stats[idx,]
-    stats <- stats[,colnames(stats) != "length"]
+    stats <- stats[,colnames(stats) != "node"]
     
     return(cbind(df, stats))
 }

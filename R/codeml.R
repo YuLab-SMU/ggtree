@@ -24,13 +24,29 @@ setMethod("show", signature(object = "codeml"),
           function(object) {
               cat("'codeml' S4 object that stored information of\n\t",
                   paste0("'", object@rst@rstfile, "' and '",
-                         object@mlc@mlcfile, "'"), ".\n")
-              cat("  with the following features available:\n")
+                         object@mlc@mlcfile, "'"),
+                  ".\n")
+              cat("...@ tree\t:")
+              print.phylo(get.tree(object))                  
+              cat("\n\twith the following features available:\n")
               cat("\t", paste0("'",
                                paste(get.fields(object), collapse="',   '"),
                                "'"),
                   "\n") 
               
+          })
+
+
+##' @rdname get.tree-methods
+##' @exportMethod get.tree
+##' @param by one of rst or mlc
+setMethod("get.tree", signature(object="codeml"),
+          function(object, by="rst", ...) {
+              if (by == "rst") {
+                  return(object@rst@phylo)
+              } else {
+                  return(object@mlc@phylo)
+              }
           })
 
 ##' @rdname get.subs-methods
@@ -75,7 +91,8 @@ setMethod("plot", signature(x = "codeml"),
                       p <- plot.codeml_mlc_(p, position, annotation, ndigits)
                   } else {
                       anno <- get.subs(x@rst, type=annotation)
-                      p <- p %<+% anno + geom_text(aes_string(x=position, label="subs"),
+                      p <- p %<+% anno + geom_text(aes_string(x=position,
+                                                              label="subs"),
                                                    size=3, vjust=-.5)
                   }
               }

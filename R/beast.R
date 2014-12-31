@@ -24,20 +24,71 @@ read.beast <- function(file) {
         )
 }
 
+##' @rdname plot-methods
+##' @exportMethod plot
+setMethod("plot", signature( x= "beast"),
+          function(x, layout = "phylogram",
+                   branch.length = "branch.length",
+                   show.tip.label = TRUE,
+                   position = "branch",
+                   annotation = "rate",
+                   ndigits = 2,
+                   ...) {
 
+              p <- ggtree(x, layout = layout, branch.length = branch.length)
+
+              if (show.tip.label) {
+                  p <- p + geom_tiplab()
+                  p <- p + xlim(0, ceiling(max(p$data$x) * 1.1))
+              }
+              if (!.is.null(annotation) && !is.na(annotation)) {
+                  stats <- x@stats
+                  m <- grep(annotation, colnames(stats))
+                  if (length(m) == 0 || length(m) > 2) {
+                      stop("annotation should be one of ",
+                           paste(get.fields(x), collapse=", "),
+                           ".")
+                  }
+                  if (length(m) == 1) {
+                      df <- p$data
+                      df[, annotation] %<>% round(., ndigits)
+                      p$data <- df
+                      p <- p + geom_text(aes_string(x=position,
+                                               label=annotation),
+                                    size=3, vjust=-.5)
+                  } else {
+                      lo <- paste0(annotation, "_lower")
+                      hi <- paste0(annotation, "_upper")
+                      df <- p$data
+                      lo <- round(df[,lo], ndigits)
+                      hi <- round(df[, hi], ndigits)
+                      range <- paste0("[", lo, ", ", hi, "]")
+                      range[is.na(lo)] <- NA
+                      df[, annotation] <- range
+                      p$data <- df
+                      p <- p+geom_text(aes_string(x = position,
+                                             label = annotation),
+                                  size=3, vjust=-.5)
+                  }
+              }
+              p + theme_tree2()
+          })
 
 ##' @rdname show-methods
 ##' @importFrom ape print.phylo
 ##' @exportMethod show
 setMethod("show", signature(object = "beast"),
           function(object) {
-              cat("beast class\n...@ tree     : ")
-              phylo <- get.tree(object)
-              print.phylo(phylo)
-              cat("...@ stats variables    :\n")
-              for (x in object@fields) {
-                  cat("\t", x, "\n")
-              }
+              cat("'beast' S4 object that stored information of\n\t",
+                  paste0("'", object@file, "'"),
+                  ".\n")
+              cat("...@ tree\t: ")
+              print.phylo(get.tree(object))                  
+              cat("\n\twith the following features available:\n")
+              cat("\t", paste0("'",
+                               paste(get.fields(object), collapse="',   '"),
+                               "'"),
+                  "\n") 
           }
           )
 
@@ -219,6 +270,7 @@ read.stats_beast <- function(file) {
 
     stats3 <- as.data.frame(stats3)
     stats3$node <- node
+    colnames(stats3) <- make.names(colnames(stats3))
     return(stats3)
 }
 

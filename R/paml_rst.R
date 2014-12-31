@@ -49,7 +49,9 @@ setMethod("show", signature(object = "paml_rst"),
               } else {
                   cat(".\n")
               }
-              cat("  with the following features available:\n")
+              cat("...@ tree\t:")
+              print.phylo(get.tree(object))                  
+              cat("\n\twith the following features available:\n")
               cat("\t", paste0("'",
                                paste(get.fields(object), collapse="',   '"),
                                "'"),
