@@ -4,8 +4,6 @@
 \name{beast-class}
 \alias{beast-class}
 \alias{get.tree,beast-method}
-\alias{set.treeinfo,beast-method}
-\alias{set.treeinfo<-,beast-method}
 \title{Class "beast"
 This class stores information of beast output}
 \description{
@@ -24,8 +22,6 @@ This class stores information of beast output
 \item{\code{translation}}{tip number to name translation in beast file}
 
 \item{\code{stats}}{beast statistics}
-
-\item{\code{treeinfo}}{tree information for plotting}
 
 \item{\code{file}}{beast file, nexus format}
 }}

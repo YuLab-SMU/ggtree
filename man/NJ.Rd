@@ -16,6 +16,7 @@ phylo object
 neighbor-joining method
 }
 \examples{
+\dontrun{
 X <- matrix(c(0,5,4,7,6,8,
 		5,0,7,10,9,11,
 		4,7,0,7,6,8,
@@ -25,6 +26,7 @@ X <- matrix(c(0,5,4,7,6,8,
 rownames(X) <- colnames(X) <- LETTERS[1:6]
 tree <- NJ(X)
 print(tree)
+}
 }
 \author{
 ygc

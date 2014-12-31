@@ -137,8 +137,6 @@ setClass("jplace",
 ##'
 ##' @name beast-class
 ##' @aliases beast-class
-##'      set.treeinfo<-,beast-method
-##'      set.treeinfo,beast-method
 ##'      get.tree,beast-method
 ##' 
 ##' @docType class
@@ -147,7 +145,6 @@ setClass("jplace",
 ##' @slot phylo tree phylo object
 ##' @slot translation tip number to name translation in beast file
 ##' @slot stats beast statistics
-##' @slot treeinfo tree information for plotting
 ##' @slot file beast file, nexus format
 ##' @exportClass beast
 ##' @author Guangchuang Yu \url{http://ygc.name}
@@ -161,7 +158,6 @@ setClass("beast",
              phylo       = "phylo",
              translation = "matrix",
              stats       = "data.frame",
-             treeinfo    = "data.frame",
              file        = "character"
              )
          )

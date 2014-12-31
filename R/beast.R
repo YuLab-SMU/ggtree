@@ -12,21 +12,14 @@
 ##' file <- system.file("extdata/BEAST", "beast_mcc.tree", package="ggtree")
 ##' read.beast(file)
 read.beast <- function(file) {
-    beast <- readLines(file)
-    stats <- get.stats.beast(file)
-
-    nex <- read.nexus(file)
-    df <- fortify(nex)
-    attr(df, "ladderize") <- TRUE
-    attr(df, "right") <- FALSE
+    stats <- read.stats_beast(file)
 
     new("beast",
         fields      = sub("_lower|_upper", "", names(stats)) %>% unique,
-        treetext    = get.treetext.beast(beast),
-        phylo       = nex,
-        translation = get.trans.beast(beast),
+        treetext    = read.treetext_beast(file),
+        phylo       = read.nexus(file),
+        translation = read.trans_beast(file),
         stats       = stats,
-        treeinfo    = df,
         file        = file
         )
 }
@@ -49,21 +42,6 @@ setMethod("show", signature(object = "beast"),
           )
 
 
-##' @method fortify beast
-##' @export
-fortify.beast <- function(model, data,
-                          layout="phylogram",
-                          ladderize=TRUE, right=FALSE,...) {
-    df    <- get.treeinfo(model, layout, ladderize, right, ...)
-    stats <- model@stats
-
-    idx   <- match(df$length, stats$length)
-    stats <- stats[idx,]
-    stats <- stats[,colnames(stats) != "length"]
-    
-    return(cbind(df, stats))
-}
-
 ##' get.tree method
 ##'
 ##'
@@ -76,24 +54,10 @@ fortify.beast <- function(model, data,
 ##' @usage get.tree(object, ...)
 setMethod("get.tree", signature(object="beast"),
           function(object,...) {
-              tree <- object@phylo
-              return(tree)
+              object@phylo
           }
           )
 
-##' @rdname get.treeinfo-methods
-##' @exportMethod get.treeinfo
-setMethod("get.treeinfo", signature(object="beast"),
-          function(object, ...) {
-              get.treeinfo.beast(object, ...)
-          }
-          )
-
-setReplaceMethod(f="set.treeinfo",
-                 signature = "beast",
-                 definition = function(x, value) {
-                     x@treeinfo <- value
-                 })
 
 ##' @rdname get.fields-methods
 ##' @exportMethod get.fields
@@ -103,12 +67,106 @@ setMethod("get.fields", signature(object="beast"),
           }
           )
 
-get.stats.beast <- function(file) {
-    beast <- readLines(file)
-    tree <- get.treetext.beast(beast)
 
-    len <- unlist(strsplit(tree, ":"))[-1]
-    len <- sub("([0-9.]+)\\D+.*", '\\1', len) %>% as.numeric
+read.treetext_beast <- function(file) {
+    beast <- readLines(file)
+    ii <- grep("tree TREE1\\s+=", beast)
+    jj <- grep("End;", beast)
+    jj <- jj[jj > ii][1]
+    tree <- beast[ii:(jj-1)]
+    if (length(tree) > 1) {
+        tree <- paste0(tree)
+    }
+    tree %<>% sub("tree TREE1\\s+=\\s+\\[&R\\]\\s+", "", .)
+    return(tree)
+}
+
+read.trans_beast <- function(file) {
+    beast <- readLines(file)
+    i <- grep("TRANSLATE", beast, ignore.case = TRUE)
+    end <- grep(";", beast)
+    j <- end[end %>% `>`(i) %>% which %>% `[`(1)]
+    trans <- beast[(i+1):j]
+    trans %<>% gsub("\\t+", "", .)
+    trans %<>% gsub(",|;", "", .)
+    trans %<>% `[`(nzchar(trans))
+    ## remove quote if strings were quoted
+    trans %<>% gsub("'|\"", "",.)
+    trans %<>% sapply(., strsplit, split="\\s+")
+    trans %<>% do.call(rbind, .)
+    ## trans is a matrix
+    return(trans)
+}
+
+read.stats_beast <- function(file) {
+    beast <- readLines(file)
+    tree <- read.treetext_beast(file)
+
+    tree2 <- gsub("\\[[^\\[]*\\]", "", tree)
+    phylo <- read.tree(text = tree2)
+    if(is.null(phylo$node.label)) {
+        nnode <- phylo$Nnode
+        nlab <- paste("X", 1:nnode, sep="")
+        for (i in 1:nnode) {
+            tree2 <- sub("\\)([:;])", paste0("\\)", nlab[i], "\\1"), tree2)
+        }
+    }
+
+    ## node name corresponding to stats
+    nn <- strsplit(tree2, split=",") %>% unlist %>%
+        strsplit(., split="\\)") %>% unlist %>%
+            gsub("\\(*", "", .) %>%
+                gsub("[:;].*", "", .)
+    
+    phylo <- read.tree(text = tree2)
+    root <- getRoot(phylo)
+    nnode <- phylo$Nnode
+    
+    ## phylo2 <- read.nexus(file)
+    ## treeinfo <- fortify.phylo(phylo)
+    ## treeinfo2 <- fortify.phylo(phylo2)
+    ## treeinfo$label2 <- NA
+    ## treeinfo$label2[treeinfo$isTip] <- treeinfo2$node[as.numeric(treeinfo$label[treeinfo$isTip])]
+    ## treeinfo$visited <- FALSE
+    ## root <- getRoot(phylo2)
+    ## treeinfo[root, "visited"] <- TRUE
+    ## currentNode <- 1:Ntip(phylo2)
+    ## while(any(treeinfo$visited == FALSE)) {
+    ##     pNode <- c()
+    ##     for (kk in currentNode) {
+    ##         i <- which(treeinfo$label2 == kk)
+    ##         treeinfo[i, "visited"] <- TRUE
+    ##         j <- which(treeinfo2$node == kk)
+    ##         ip <- treeinfo$parent[i]
+    ##         if (ip != root) {
+    ##             ii <- which(treeinfo$node == ip)
+    ##             if (treeinfo$visited[ii] == FALSE) {
+    ##                 jp <- treeinfo2$parent[j]
+    ##                 jj <- which(treeinfo2$node == jp)
+    ##                 treeinfo[ii, "label2"] <- treeinfo2[jj, "node"]
+    ##                 pNode <- c(pNode, jp)
+    ##             }
+    ##             treeinfo[ii, "visited"] <- TRUE
+    ##         }
+    ##     }
+    ##     currentNode <- unique(pNode)
+    ## }
+    ## treeinfo[root, "label2"] <- root
+    ## ## convert nn to node that encoded in phylo2
+    ## node <- treeinfo$label2[match(nn, treeinfo$label)]
+
+    
+    ################################################
+    ##                                            ##
+    ##  after doing it in the hard way            ##
+    ##  I finally figure the following easy way   ##
+    ##                                            ##
+    ################################################
+    treeinfo <- fortify.phylo(phylo)
+    label2 <- c(treeinfo[treeinfo$isTip, "label"],
+                root:(root+nnode-1))
+    node <- label2[match(nn, treeinfo$label)]
+    
 
     
     stats <- unlist(strsplit(tree, "\\["))[-1]
@@ -159,88 +217,8 @@ get.stats.beast <- function(file) {
         x[nn]
     }))
 
-    if ( nrow(stats3) == (length(len) + 1) ) {
-        len <- c(len, NA) ## root node has no length
-    } else {
-        stop("missing length exists...")
-    }
-
     stats3 <- as.data.frame(stats3)
-    stats3$length <- len
+    stats3$node <- node
     return(stats3)
 }
 
-
-rm.stats.beast <- function(beast) {
-    LEFT <- grep("\\[", beast)
-    RIGHT <- grep("\\]", beast)
-    if (length(LEFT) > 0) {
-        ii <- (LEFT == RIGHT)
-        if (length(ii) > 0) {
-            ## if in one line
-            idx <- LEFT[ii]
-            beast[idx] %<>% gsub("\\[[^]]+\\]", "", .)
-        }
-        jj <- !ii
-        if (length(jj) > 0) {
-            ## if in separate line
-            lidx <- LEFT[jj]
-            beast[lidx] %<>% gsub("\\[.+$", "", .)
-            ridx <- RIGHT[jj]
-            beast[ridx] %<>% gsub("^.*\\]", "", .)
-            ## remove any lines between them when they exist
-            for (i in seq_along(lidx)) {
-                if (lidx[i] < (ridx[i] - 1)) {
-                    beast <- beast[-(lidx[i]+1):(ridx[i]-1)]
-                }
-            }
-        }
-    }
-    
-    return(beast)
-}
-    
-get.trans.beast <- function(beast) {
-    i <- grep("TRANSLATE", beast, ignore.case = TRUE)
-    end <- grep(";", beast)
-    j <- end[end %>% `>`(i) %>% which %>% `[`(1)]
-    trans <- beast[(i+1):j]
-    trans %<>% gsub("\\t+", "", .)
-    trans %<>% gsub(",|;", "", .)
-    trans %<>% `[`(nzchar(trans))
-    ## remove quote if strings were quoted
-    trans %<>% gsub("'|\"", "",.)
-    trans %<>% sapply(., strsplit, split="\\s+")
-    trans %<>% do.call(rbind, .)
-    ## trans is a matrix
-    return(trans)
-}
-
-get.treetext.beast <- function(beast) {
-    ii <- grep("tree TREE1\\s+=", beast)
-    jj <- grep("End;", beast)
-    jj <- jj[jj > ii][1]
-    tree <- beast[ii:(jj-1)]
-    if (length(tree) > 1) {
-        tree <- paste0(tree)
-    }
-    tree %<>% sub("tree TREE1\\s+=\\s+\\[&R\\]\\s+", "", .)
-    return(tree)
-}
-
-
-get.treeinfo.beast <- function(object, layout="phylogram",
-                               ladderize=TRUE, right=FALSE, ...) {
-    treeinfo <- object@treeinfo
-    if (attr(treeinfo, "ladderize") != ladderize ||
-        attr(treeinfo, "right")     != right) {
-        tree <- get.tree(object)
-        treeinfo <- fortify(object, layout=layout,
-                            ladderize=ladderize, right=right, ...)
-        attr(treeinfo, "ladderize") <- ladderize
-        attr(treeinfo, "right")     <- right
-        set.treeinfo(object) <- treeinfo
-    }
-
-    return(treeinfo)
-}

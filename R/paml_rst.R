@@ -38,31 +38,6 @@ read.paml_rst <- function(rstfile, tip.fasfile = NULL) {
     set.paml_rst_(res)
 }
 
-set.paml_rst_ <- function(object) {
-    if (!is(object, "paml_rst")) {
-        stop("object should be an instance of 'paml_rst'")
-    }
-    if (length(object@tip_seq) == 0) {
-        return(object)
-    }
-    
-    types <- get.fields(object)
-    for (type in types) {
-        value <- subs_paml_rst(object, type)
-        if (type == "marginal_subs") {
-            object@marginal_subs <- value
-        } else if (type == "marginal_AA_subs") {
-            object@marginal_AA_subs <- value
-        } else if (type == "joint_subs") {
-            object@joint_subs <- value
-        } else if (type == "joint_AA_subs") {
-            object@joint_AA_subs <- value
-        }
-    }
-    return(object)
-}
-
-
 ##' @rdname show-methods
 ##' @exportMethod show
 setMethod("show", signature(object = "paml_rst"),

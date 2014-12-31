@@ -102,6 +102,26 @@ rm.singleton.newick <- function(nwk, outfile = NULL) {
     invisible(tree)
 }
 
+##' @method fortify beast
+##' @export
+fortify.beast <- function(model, data,
+                          layout="phylogram",
+                          ladderize=TRUE, right=FALSE,...) {
+
+    phylo <- get.tree(model)
+    df    <- fortify(phylo, layout=layout,
+                     ladderize=ladderize, right=right, ...)
+
+    stats <- model@stats
+
+    idx   <- match(df$length, stats$length)
+    stats <- stats[idx,]
+    stats <- stats[,colnames(stats) != "length"]
+    
+    return(cbind(df, stats))
+}
+
+
 
 ##' @method fortify codeml
 ##' @export
