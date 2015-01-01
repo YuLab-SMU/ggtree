@@ -13,9 +13,11 @@
 ##' read.beast(file)
 read.beast <- function(file) {
     stats <- read.stats_beast(file)
-
+    fields <- sub("_lower|_upper", "", names(stats)) %>% unique
+    fields %<>% `[`(.!="node")
+    
     new("beast",
-        fields      = sub("_lower|_upper", "", names(stats)) %>% unique,
+        fields      = fields,
         treetext    = read.treetext_beast(file),
         phylo       = read.nexus(file),
         translation = read.trans_beast(file),
@@ -41,9 +43,14 @@ setMethod("plot", signature( x= "beast"),
                   p <- p + geom_tiplab()
                   p <- p + xlim(0, ceiling(max(p$data$x) * 1.1))
               }
-              if (!.is.null(annotation) && !is.na(annotation)) {
-                  stats <- x@stats
-                  m <- grep(annotation, colnames(stats))
+              if (!is.null(annotation) && !is.na(annotation)) {
+                  fields <- colnames(x@stats)
+                  fields <- gsub("_lower", "", fields)
+                  fields <- gsub("_upper", "", fields)
+                  
+                  m <- grep(paste0("^", annotation, "$"),
+                            fields)
+                  
                   if (length(m) == 0 || length(m) > 2) {
                       stop("annotation should be one of ",
                            paste(get.fields(x), collapse=", "),
@@ -82,15 +89,29 @@ setMethod("show", signature(object = "beast"),
               cat("'beast' S4 object that stored information of\n\t",
                   paste0("'", object@file, "'"),
                   ".\n")
-              cat("...@ tree\t: ")
+              cat("...@ tree: ")
               print.phylo(get.tree(object))                  
-              cat("\n\twith the following features available:\n")
-              cat("\t", paste0("'",
-                               paste(get.fields(object), collapse="',   '"),
-                               "'"),
-                  "\n") 
-          }
-          )
+              cat("\nwith the following features available:\n")
+              fields <- get.fields(object)
+              n <- length(fields)
+              i <- floor(n/5)
+              for (j in 0:i) {
+                  ii <- 1:5 + 5 * j
+                  if (j == i) {
+                      ii <- ii[1:(n %% 5)]
+                  }
+                  cat("\t", paste0("'",
+                                   paste(fields[ii], collapse="',   '"),
+                                   "'")
+                      )
+                  if ( j == i) {
+                      cat(".\n")
+                  } else {
+                      cat(",\n")
+                  }
+              }
+              
+          })
 
 
 ##' get.tree method

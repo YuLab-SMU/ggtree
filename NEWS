@@ -1,12 +1,13 @@
 CHANGES IN VERSION 0.99.4
 ------------------------
+ o export hyphy class <2015-01-01, Thu>
  o plot method for beast class and get.tree method for codeml class <2014-12-31, Wed>
  o show, get.fields, get.subs and plot methods for codeml class <2014-12-30, Tue>
  o plot method for paml_rst class <2014-12-30, Tue>
  o get.subs, method for paml_rst class <2014-12-30, Tue>
  o show, plot, get.tree and fority methods for codeml_mlc class <2014-12-29, Mon>
  o codeml class <2014-12-29, Mon>
- o hyphy class and read.hyphy <2014-12-27, Sat>
+ o hyphy class and read.hyphy prototype <2014-12-27, Sat>
  o update man file and add example file of beast output <2014-12-26, Fri>
  o get.tree and get.fileds methods of beast class <2014-12-26, Fri>
  o read.beast <2014-12-26, Fri>

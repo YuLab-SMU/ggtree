@@ -1,0 +1,42 @@
+---
+title: "ggtree for BEAST tree annotations"
+author: "Guangchuang Yu <br />
+        <guangchuangyu@gmail.com> <br />
+        School of Public Health <br />
+	Li Ka Shing Faculty of Medicine <br />
+        The University of Hong Kong"
+date: "`r Sys.Date()`"
+output: BiocStyle::html_document
+vignette: >
+  %\VignetteIndexEntry{ggtree: phylogenetic tree viewer and annotator}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\usepackage[utf8]{inputenc}
+---
+
+```{r style, echo=FALSE, results="asis"}
+BiocStyle::markdown()
+```
+
+## read BEAST ouput
+```{r}
+library(ggtree)
+file <- system.file("extdata/BEAST", "beast_mcc.tree", package="ggtree")
+beast <- read.beast(file)
+beast
+```
+
+
+```{r fig.width=8, tidy=TRUE, width=60, warning=FALSE}
+plot(beast, annotation="height", ndigits=2)
+plot(beast, annotation="length_95._HPD", ndigits=2)
+```
+
+
+
+
+
+## Session info
+Here is the output of `sessionInfo()` on the system on which this document was compiled:
+```{r echo=FALSE}
+sessionInfo()
+```

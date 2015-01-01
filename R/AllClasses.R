@@ -1,7 +1,46 @@
 setOldClass("phylo")
 
+
+##' Class "hyphy"
+##' This class stores information of HYPHY output
+##'
+##'
+##' @name hyphy-class
+##' @docType class
+##' @slot fields available features
+##' @slot treetext tree text
+##' @slot phylo phylo object
+##' @slot seq_type one of "NT" and "AA"
+##' @slot subs sequence substitutions
+##' @slot AA_subs Amino acid sequence substitution
+##' @slot ancseq ancestral sequences
+##' @slot tip_seq tip sequences
+##' @slot tip.fasfile fasta file of tip sequences
+##' @slot tree.file tree file
+##' @slot ancseq.file ancestral sequence file, nexus format
+##' @exportClass hyphy
+##' @author Guangchuang Yu \url{http://ygc.name}
+##' @seealso \linkS4class{paml_rst"}
+##' @keywords classes
+setClass("hyphy",
+         representation  = representation(
+             fields      = "character",
+             treetext    = "character",
+             phylo       = "phylo",
+             seq_type    = "character",
+             subs        = "data.frame",
+             AA_subs     = "data.frame",
+             ancseq      = "character",
+             tip_seq     = "character",
+             tip.fasfile = "character",
+             tree.file   = "character",
+             ancseq.file = "character"
+             )
+         )
+
+
 ##' Class "paml_rst"
-##' This class stores information of rst file from paml output
+##' This class stores information of rst file from PAML output
 ##'
 ##'
 ##' @name paml_rst-class

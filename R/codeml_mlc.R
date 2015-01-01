@@ -28,14 +28,14 @@ setMethod("show", signature(object = "codeml_mlc"),
                   paste0("'", object@mlcfile, "'"),
                   ".\n")
               
-              cat("...@ tree\t:")
+              cat("...@ tree:")
               print.phylo(get.tree(object))                  
               
-              cat("\n\twith the following features available:\n")
+              cat("\nwith the following features available:\n")
               cat("\t", paste0("'",
                                  paste(get.fields(object), collapse="',   '"),
                                  "'"),
-                  "\n")
+                  ".\n")
           }
           )
 

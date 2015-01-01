@@ -6,10 +6,10 @@
 \alias{set.subs,paml_rst-method}
 \alias{set.subs<-,paml_rst-method}
 \title{Class "paml_rst"
-This class stores information of rst file from paml output}
+This class stores information of rst file from PAML output}
 \description{
 Class "paml_rst"
-This class stores information of rst file from paml output
+This class stores information of rst file from PAML output
 }
 \section{Slots}{
 

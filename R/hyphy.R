@@ -4,7 +4,9 @@
 ## ancseq <- "ancseq.nex"
 ## tree <- "labelledtree.tree"
 
-read.hyphy <- function(nwk, ancseq) {
+##' nwk <- system.file("extdata/HYPHY", "labelledtree.tree", package="ggtree")
+##' ancseq <- system.file("extdata/HYPHY", "ancseq.nex", package="ggtree")
+read.hyphy <- function(nwk, ancseq, tip.fasfile=NULL) {
     anc <- scan(ancseq, what="", sep="\n", quiet=TRUE)
     end <- grep("END;", anc)
     
@@ -32,15 +34,3 @@ read.hyphy <- function(nwk, ancseq) {
     
 }
 
-setClass("hyphy",
-         representation = representation(
-             fields     = "character",
-             treetext   = "character",
-             tree       = "list",
-             treeinfo   = "data.frame",
-             nt.subs    = "data.frame",
-             aa.subs    = "data.frame",
-             ancseq     = "character",
-             file       = "character"
-             )
-         )
