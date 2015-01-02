@@ -66,6 +66,37 @@ read.hyphy <- function(nwk, ancseq, tip.fasfile=NULL) {
     set.hyphy_(res)
 }
 
+##' @rdname show-methods
+##' @exportMethod show
+setMethod("show", signature(object = "hyphy"),
+          function(object) {
+              cat("'hyphy' S4 object that stored information of \n\t",
+                  paste0("'", object@tree.file, "'"))
+              if (length(object@tip_seq) == 0) {
+                  cat(paste0("and '", object@ancseq.file, "'"), ".\n")
+              } else {
+                  cat(paste0(", '", object@ancseq.file, "'"),
+                      paste0("and '", object@tip.fasfile, "'"),
+                      ".\n")
+              }
+              cat("...@ tree:")
+              print.phylo(get.tree(object))
+              cat("\nwith the following features available:\n")
+              cat("\t", paste0("'",
+                               paste(get.fields(object), collapse="',   '"),
+                               "'"),
+                  ".\n")
+              
+          })
+
+##' @rdname get.tree-methods
+##' @exportMethod get.tree
+setMethod("get.tree", signature(object = "hyphy"),
+          function(object) {
+              object@phylo
+          }
+          )
+
 ##' @rdname get.fields-methods
 ##' @exportMethod get.fields
 setMethod("get.fields", signature(object = "hyphy"),
