@@ -8,7 +8,7 @@
 ##' @param tip.fasfile fasta file of tips
 ##' @return A \code{paml_rst} object
 ##' @export
-##' @author ygc
+##' @author Guangchuang Yu \url{http://ygc.name}
 read.paml_rst <- function(rstfile, tip.fasfile = NULL) {
     ms <- read.ancseq_paml_rst(rstfile, by="Marginal")
     phylo <- read.phylo_paml_rst(rstfile)
@@ -29,7 +29,7 @@ read.paml_rst <- function(rstfile, tip.fasfile = NULL) {
                )
     if (!is.null(tip.fasfile)) {
         seqs <- readBStringSet(tip.fasfile)
-        tip_seq <- sapply(1:length(seqs), function(i) {
+        tip_seq <- sapply(seq_along(seqs), function(i) {
             toString(seqs[i])
         })
         res@tip_seq <- tip_seq

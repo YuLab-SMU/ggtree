@@ -20,7 +20,7 @@ setOldClass("phylo")
 ##' @slot ancseq.file ancestral sequence file, nexus format
 ##' @exportClass hyphy
 ##' @author Guangchuang Yu \url{http://ygc.name}
-##' @seealso \linkS4class{paml_rst"}
+##' @seealso \linkS4class{paml_rst}
 ##' @keywords classes
 setClass("hyphy",
          representation  = representation(

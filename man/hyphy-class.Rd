@@ -38,7 +38,7 @@ This class stores information of HYPHY output
 Guangchuang Yu \url{http://ygc.name}
 }
 \seealso{
-\linkS4class{paml_rst"}
+\linkS4class{paml_rst}
 }
 \keyword{classes}
 

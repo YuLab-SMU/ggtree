@@ -20,6 +20,6 @@ file <- system.file("extdata/BEAST", "beast_mcc.tree", package="ggtree")
 read.beast(file)
 }
 \author{
-Yu Guangchuang
+Guangchuang Yu \url{http://ygc.name}
 }
 

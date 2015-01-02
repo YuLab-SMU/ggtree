@@ -295,9 +295,9 @@ subs_paml_rst <- function(x, type, ...) {
                              'marginal_AA_subs', 'joint_subs' or 'joint_AA_subs'. ")
     }
     if( type %in% c("marginal_subs", "joint_subs")) {
-        translate = FALSE
+        translate <- FALSE
     } else {
-        translate = TRUE
+        translate <- TRUE
     }
     
     get.subs_(x@phylo, seqs, translate=translate, ...)

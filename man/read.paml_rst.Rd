@@ -18,6 +18,6 @@ A \code{paml_rst} object
 read rst file from paml output
 }
 \author{
-ygc
+Guangchuang Yu \url{http://ygc.name}
 }
 

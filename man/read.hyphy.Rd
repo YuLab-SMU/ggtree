@@ -2,13 +2,27 @@
 % Please edit documentation in R/hyphy.R
 \name{read.hyphy}
 \alias{read.hyphy}
-\title{nwk <- system.file("extdata/HYPHY", "labelledtree.tree", package="ggtree")
-ancseq <- system.file("extdata/HYPHY", "ancseq.nex", package="ggtree")}
+\title{read.hyphy}
 \usage{
 read.hyphy(nwk, ancseq, tip.fasfile = NULL)
 }
+\arguments{
+\item{nwk}{tree file in nwk format, one of hyphy output}
+
+\item{ancseq}{ancestral sequence file in nexus format,
+one of hyphy output}
+
+\item{tip.fasfile}{tip sequence file}
+}
 \description{
+read HYPHY output
+}
+\examples{
 nwk <- system.file("extdata/HYPHY", "labelledtree.tree", package="ggtree")
 ancseq <- system.file("extdata/HYPHY", "ancseq.nex", package="ggtree")
+read.hyphy(nwk, ancseq)
+}
+\author{
+Guangchuang Yu \url{http://ygc.name}
 }
 
