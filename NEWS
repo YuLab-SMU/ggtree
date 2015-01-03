@@ -1,5 +1,6 @@
 CHANGES IN VERSION 0.99.4
 ------------------------
+ o ggtree now support branch.length = "none" to only draw tree topology <2015-01-03, Sat> 
  o get.subs method for hyphy object <2015-01-03, Sat>
  o show, get.tree and get.subs methods of hyphy <2015-01-02, Fri> 
  o export read.hyphy <2015-01-02, Fri>

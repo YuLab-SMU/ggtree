@@ -127,6 +127,44 @@ getXcoord2 <- function(x, root, parent, child, len, start=0, rev=FALSE) {
     return(x)
 }
 
+getXcoord_no_length <- function(tr) {
+    edge <- tr$edge
+    parent <- edge[,1]
+    child <- edge[,2]
+    root <- getRoot(tr)
+
+    len <- tr$edge.length
+
+    N <- getNodeNum(tr)
+    x <- numeric(N)
+    ntip <- Ntip(tr)
+    currentNode <- 1:ntip
+    x[-currentNode] <- NA
+
+    while(any(is.na(x))) {
+        idx <- match(currentNode, child)
+        pNode <- parent[idx]
+        ## child number table
+        p1 <- table(parent[parent %in% pNode]) 
+        p2 <- table(pNode)
+        np <- names(p2)
+        i <- p1[np] == p2
+        newNode <- as.numeric(np[i])
+        exclude <- c()
+        for (j in newNode) {
+            jj <- which(parent == j)
+            x[j] <- min(x[child[jj]]) - 1
+            exclude %<>% c(., child[jj])
+        }
+        
+        currentNode %<>% `[`(!(. %in% exclude))
+        currentNode %<>% c(., newNode) %>% unique
+    }
+    x <- x - min(x) 
+    return(x)    
+}
+
+
 getXcoord <- function(tr) {
     edge <- tr$edge
     parent <- edge[,1]

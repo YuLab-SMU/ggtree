@@ -138,7 +138,7 @@ p %<% rtree(50)
 
 
 ## Tree annotation
-For tree annotation, please refer to the vignette, [ggtree-treeAnnotation](ggtree-treeAnnotation.html).
+For tree annotation, please refer to the vignette, [treeAnnotation](treeAnnotation.html).
 
 
 ## Session info

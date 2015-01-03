@@ -111,9 +111,9 @@ fortify.beast <- function(model, data,
     phylo <- get.tree(model)
     df    <- fortify(phylo, layout=layout,
                      ladderize=ladderize, right=right, ...)
-
+    
     stats <- model@stats
-
+    
     idx   <- match(df$node, stats$node)
     stats <- stats[idx,]
     stats <- stats[,colnames(stats) != "node"]
@@ -133,11 +133,13 @@ fortify.codeml <- function(model, data,
                                ...) {
     
     dNdS <- model@mlc@dNdS
-    length <- match.arg(branch.length, c("mlc.branch.length",
-                                     "rst.branch.length",
-                                     colnames(dNdS)[-c(1,2)])
-                    )
-
+    length <- match.arg(branch.length,
+                        c("none",
+                          "mlc.branch.length",
+                          "rst.branch.length",
+                          colnames(dNdS)[-c(1,2)])
+                        )
+    
     if (length == "rst.branch.length") {
         phylo <- get.tree(model@rst)
     } else {
@@ -191,10 +193,10 @@ fortify.codeml_mlc_ <- function(model, data,
                                branch.length = "branch.length",
                                ...) {
     dNdS <- model@dNdS
-    length <- match.arg(branch.length, c("branch.length", colnames(dNdS)[-c(1,2)]))
+    length <- match.arg(branch.length, c("none", "branch.length", colnames(dNdS)[-c(1,2)]))
     phylo <- get.tree(model)
 
-    if (length != "branch.length") {
+    if (! length %in%  c("branch.length", "none")) {
         edge <- as.data.frame(phylo$edge)
         colnames(edge) <- c("parent", "node")
         
@@ -269,7 +271,7 @@ fortify.phylo <- function(model, data, layout="phylogram",
         tree <- model
     }
     
-    df <- as.data.frame(tree, layout=layout)
+    df <- as.data.frame(tree, layout=layout, ...)
     idx <- is.na(df$parent)
     df$parent[idx] <- df$node[idx]
     rownames(df) <- df$node
@@ -292,23 +294,27 @@ as.data.frame.phylo <- function(x, row.names, optional,
     if (layout == "unrooted") {
         return(layout.unrooted(x))
     } 
-    as.data.frame.phylo_(x)
+    as.data.frame.phylo_(x, ...)
 }
 
-as.data.frame.phylo_ <- function(x, ...) {
+as.data.frame.phylo_ <- function(x, branch.length="branch.length", ...) {
     tip.label <- x[["tip.label"]]
     Ntip <- length(tip.label)
     N <- getNodeNum(x)
     
     edge <- as.data.frame(x[["edge"]])
     colnames(edge) <- c("parent", "node")
-    if (is.null(x$edge.length)) {
-        x$edge.length <- rep(1, nrow(edge))
+    if (! is.null(x$edge.length)) {
+        edge$length <- x$edge.length
+        xpos <- getXcoord(x)
+    } else {
+        xpos <- getXcoord_no_length(x)
+    }
+
+    if (branch.length == "none") {
+        xpos <- getXcoord_no_length(x)
     }
     
-    edge$length <- x$edge.length
-    
-    xpos <- getXcoord(x)
     ypos <- getYcoord(x)
     xypos <- data.frame(node=1:N, x=xpos, y=ypos)
 

@@ -19,7 +19,7 @@ BiocStyle::markdown()
 
 
 ## Tree visualization
-For displaying a phylogenetic, please refer to the vignette, [ggtree-treeViewer](ggtree-treeViewer.html).
+For displaying a phylogenetic, please refer to the vignette, [treeViewer](treeViewer.html).
 
 
 ## Tree annotation
