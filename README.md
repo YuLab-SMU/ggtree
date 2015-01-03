@@ -20,7 +20,14 @@ To install:
 
 ## Documentation ##
 
-To get started, please read the vignette: `vignette("ggtree-treeViewer", package = "ggtree")` and `vignette("ggtree-treeAnnotator", package = "ggtree")`.
+[viewing and annotating phylogenetic tree with ggtree](http://ygc.name/2014/12/21/ggtree/)
+
+To view the vignette of `ggtree` installed in your system, start `R` and enter:
+```r
+vignette("treeViewer", package = "ggtree")
+vignette("treeAnnotator", package = "ggtree")
+vignette("PAML", package = "ggtree")
+```
 
 ## Bugs/Feature requests ##
 
