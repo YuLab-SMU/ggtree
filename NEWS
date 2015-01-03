@@ -1,6 +1,7 @@
 CHANGES IN VERSION 0.99.4
 ------------------------
- o show and get.tree methods of hyphy <2015-01-02, Fri> 
+ o get.subs method for hyphy object <2015-01-03, Sat>
+ o show, get.tree and get.subs methods of hyphy <2015-01-02, Fri> 
  o export read.hyphy <2015-01-02, Fri>
  o export hyphy class <2015-01-01, Thu>
  o plot method for beast class and get.tree method for codeml class <2014-12-31, Wed>

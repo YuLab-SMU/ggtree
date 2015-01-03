@@ -109,6 +109,21 @@ setMethod("get.fields", signature(object = "hyphy"),
           })
 
 
+##' @rdname get.subs-methods
+##' @exportMethod get.subs
+setMethod("get.subs", signature(object="hyphy"),
+          function(object, type, ...) {
+              if (length(object@tip_seq) == 0) {
+                  stop("tip sequence not available...\n")
+              }
+              if (type == "subs") {
+                  return(object@subs)
+              } else {
+                  return(object@AA_subs)
+              }
+          })
+
+
 set.hyphy_ <- function(object, ...) {
     if (!is(object, "hyphy")) {
         stop("object should be an instance of 'hyphy'")
@@ -135,4 +150,3 @@ set.hyphy_ <- function(object, ...) {
     }
     return(object)
 }
-
