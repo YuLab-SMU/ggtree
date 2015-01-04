@@ -11,7 +11,7 @@
 \usage{
 \S4method{plot}{beast,ANY}(x, layout = "phylogram",
   branch.length = "branch.length", show.tip.label = TRUE,
-  position = "branch", annotation = "rate", ndigits = 2, ...)
+  position = "branch", annotation = "rate", ndigits = NULL, ...)
 
 \S4method{plot}{codeml,ANY}(x, layout = "phylogram",
   branch.length = "mlc.branch.length", show.tip.label = TRUE,

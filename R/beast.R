@@ -34,14 +34,15 @@ setMethod("plot", signature( x= "beast"),
                    show.tip.label = TRUE,
                    position = "branch",
                    annotation = "rate",
-                   ndigits = 2,
+                   ndigits = NULL,
                    ...) {
 
               p <- ggtree(x, layout = layout, branch.length = branch.length)
 
               if (show.tip.label) {
                   p <- p + geom_tiplab()
-                  p <- p + xlim(0, ceiling(max(p$data$x) * 1.1))
+                  offset <- ceiling(max(p$data$x)) * 0.1
+                  p <- p + xlim(-offset, max(p$data$x) + offset)
               }
               if (!is.null(annotation) && !is.na(annotation)) {
                   fields <- colnames(x@stats)
@@ -57,9 +58,11 @@ setMethod("plot", signature( x= "beast"),
                            ".")
                   }
                   if (length(m) == 1) {
-                      df <- p$data
-                      df[, annotation] %<>% round(., ndigits)
-                      p$data <- df
+                      if (!is.null(ndigits)) {
+                          df <- p$data
+                          df[, annotation] %<>% round(., ndigits)
+                          p$data <- df
+                      }
                       p <- p + geom_text(aes_string(x=position,
                                                label=annotation),
                                     size=3, vjust=-.5)
@@ -101,7 +104,7 @@ setMethod("show", signature(object = "beast"),
                       ii <- ii[1:(n %% 5)]
                   }
                   cat("\t", paste0("'",
-                                   paste(fields[ii], collapse="',   '"),
+                                   paste(fields[ii], collapse="',\t'"),
                                    "'")
                       )
                   if ( j == i) {

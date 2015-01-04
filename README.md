@@ -24,9 +24,7 @@ To install:
 
 To view the vignette of `ggtree` installed in your system, start `R` and enter:
 ```r
-vignette("treeViewer", package = "ggtree")
-vignette("treeAnnotator", package = "ggtree")
-vignette("PAML", package = "ggtree")
+vignette("ggtree", package = "ggtree")
 ```
 
 ## Bugs/Feature requests ##
