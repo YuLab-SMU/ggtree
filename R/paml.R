@@ -1,3 +1,4 @@
+
 read.tip_seq_mlc <- function(mlcfile) {
     info <- getPhyInfo(mlcfile)
     mlc <- readLines(mlcfile)
@@ -14,6 +15,10 @@ read.tip_seq_mlc <- function(mlcfile) {
     nn <- sapply(seqs, function(x) substring(x, 1, (nchar(x) - wd)))
     names(res) <- nn
     return(res)
+}
+
+read.tip_seq_mlb <- function(mlbfile) {
+    read.tip_seq_mlc(mlbfile)
 }
 
 read.dnds_mlc <- function(mlcfile) {

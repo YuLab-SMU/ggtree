@@ -154,65 +154,6 @@ p %<% rtree(50)
 In `r Githubpkg("GuangchuangYu/ggtree")`, we implemented several functions to parse the output from [PAML](http://abacus.gene.ucl.ac.uk/software/paml.html)^[Yang, Z. (2007) PAML 4: Phylogenetic Analysis by Maximum Likelihood. Mol. Biol. Evol. 24:1586-1591], [HYPHY](http://hyphy.org/w/index.php/Main_Page)^[Pond SL, Frost SD, Muse SV (2005) HyPhy: hypothesis testing using phylogenies. Bioinformatics 21(5):676–9], [EPA](http://sco.h-its.org/exelixis/web/software/epa/index.html)^[Simon A. Berger, Denis Krompass and Alexandros Stamatakis (2011) Performance, Accuracy, and Web Server for Evolutionary Placement of Short Sequence Reads under Maximum Likelihood. Systematic Biology 60(3):291-302], [PPLACER](http://matsen.fhcrc.org/pplacer/)^[Frederick A Matsen, Robin B Kodner and E Virginia Armbrust (2010) pplacer: linear time maximum-likelihood and Bayesian phylogenetic placement of sequences onto a fixed reference tree. BMC Bioinformatics 11:538] and [BEAST](http://beast2.org/)^[Bouckaert, R., Heled, J., Kühnert, D., Vaughan, T., Wu, C-H., Xie, D., Suchard, MA., Rambaut, A., & Drummond, A. J. (2014). BEAST 2: A Software Platform for Bayesian Evolutionary Analysis. PLoS Computational Biology, 10(4):e1003537] and defined several classes to store phylogenetic object and associated annotation, including `palm_rst`, `codeml_mlc`, `baseml`, `codeml`, `hyphy`, `jplace`, and `beast`.
 
 
-### annotating tree with PAML output
-#### CODEML
-##### mlc file
-```{r fig.width=8, tidy=TRUE, width=60, warning=FALSE}
-library(ggtree)
-mlcfile <- system.file("extdata/PAML_Codeml", "mlc", package="ggtree")
-mlc <- read.codeml_mlc(mlcfile)
-mlc
-plot(mlc, branch.length="branch.length", annotation="dN/dS", ndigits=2)
-```
-
-The paramter `branch.length` can be one of available annotations:
-```{r}
-get.fields(mlc)
-```
-
-For example, if we set `branch.length` to `dN/dS`, it will plot the $\omega$ (`dN/dS`) tree:
-```{r fig.width=8, tidy=TRUE, width=60, warning=FALSE}
-plot(mlc, branch.length="dN/dS", annotation="dN/dS", ndigits=2)
-```
-
-We can also plot the `dN` or `dS` tree and others. The parameter `annotation` can also be one of the available annotations.
-
-##### rst file
-```{r fig.width=12, fig.height=8, tidy=TRUE, width=60, warning=FALSE}
-rstfile <- system.file("extdata/PAML_Codeml", "rst", package="ggtree")
-tipfas <- system.file("extdata", "pa.fas", package="ggtree")
-rst <- read.paml_rst(rstfile, tip.fasfile=tipfas)
-rst
-plot(rst, annotation="marginal_AA_subs")
-```
-
-##### mlc and rst files
-
-We can annotate the tree with information presented in `rstfile` and `mlcfile` separately as demonstrated in previous sessions.
-
-We recommend using them both, and user don't need to provide tip sequences, as it's already available in `mlcfile`. All the features in both files are available for annotation.
-
-
-```{r fig.width=12, fig.height=8, tidy=TRUE, width=60, warning=FALSE}
-ml <- read.codeml(rstfile, mlcfile)
-ml
-plot(ml, branch.length="rst.branch.length", annotation="dN/dS")
-plot(ml, branch.length="mlc.branch.length", annotation="joint_AA_subs")
-plot(ml, branch.length="dN/dS", annotation="joint_AA_subs")
-```
-### annotating tree with HYPHY output
-```{r}
-nwk <- system.file("extdata/HYPHY", "labelledtree.tree", package="ggtree")
-ancseq <- system.file("extdata/HYPHY", "ancseq.nex", package="ggtree")
-hy <- read.hyphy(nwk, ancseq, tipfas)
-hy
-```
-
-```{r fig.width=12, fig.height=10, tidy=TRUE, width=60, warning=FALSE}
-plot(hy, annotation="AA_subs")
-```
-
-
 ### annotating tree with BEAST output
 ```{r}
 file <- system.file("extdata/BEAST", "beast_mcc.tree", package="ggtree")
@@ -235,6 +176,92 @@ plot(beast, annotation="height", ndigits=2)
 ```{r fig.width=8, tidy=TRUE, width=60, warning=FALSE}
 plot(beast, annotation="length_95._HPD", ndigits=2, branch.length="none") + theme_tree()
 ```
+
+### annotating tree with PAML output
+#### BASEML
+##### rst file
+`rst` file from `baseml` is similar to `codeml` output. The only difference is the space in the sequences. For `baseml`, each ten bases are separated by one space, while for `codeml`, each three bases (triplet) are separated by one space. We defined a `read.paml_rst` to parse `rst` file. It support `baseml` and `codeml` output. The information will be stored in `paml_rst` S4 object.
+
+```{r}
+rstfile <- system.file("extdata/PAML_Baseml", "rst", package="ggtree")
+tipfas <- system.file("extdata", "pa.fas", package="ggtree")
+rst <- read.paml_rst(rstfile, tipfas)
+rst
+```
+
+The function `read.paml_rst` can only accept one parameter, `rstfile`, and the output can be used to view the phylogeny. But if we want to view the substitution annotation, we should provide tip sequence fasta file to parameter `tip.fasfile`, since `rstfile` only contain inferred ancestral sequences.
+
+`mlb` file of `baseml` output do contain tip sequences, and `r Githubpkg("GuangchuangYu/ggtree")` provides another function `read.baseml` to parse `rstfile` and `mlbfile` simultaneously.
+
+So for viewing substitution annotation, we can use `read.paml_rst` with `rstfile` and `tip.fasfile` provided or use `read.baseml` with `rstfile` and `mlbfile` provided.
+
+```{r}
+mlbfile <- system.file("extdata/PAML_Baseml", "mlb", package="ggtree")
+baseml <- read.baseml(rstfile, mlbfile)
+baseml
+```
+
+```{r fig.width=10, fig.height=8, tidy=TRUE, width=60, warning=FALSE}
+plot(rst, annotation="marginal_AA_subs")
+```
+
+#### CODEML
+##### rst file
+```{r fig.width=10, fig.height=8, tidy=TRUE, width=60, warning=FALSE}
+rstfile <- system.file("extdata/PAML_Codeml", "rst", package="ggtree")
+rst <- read.paml_rst(rstfile, tip.fasfile=tipfas)
+rst
+plot(rst, annotation="joint_AA_subs")
+```
+
+##### mlc file
+```{r fig.width=8, tidy=TRUE, width=60, warning=FALSE}
+mlcfile <- system.file("extdata/PAML_Codeml", "mlc", package="ggtree")
+mlc <- read.codeml_mlc(mlcfile)
+mlc
+plot(mlc, branch.length="branch.length", annotation="dN/dS", ndigits=2)
+```
+
+The paramter `branch.length` can be one of available annotations:
+```{r}
+get.fields(mlc)
+```
+
+For example, if we set `branch.length` to `dN/dS`, it will plot the $\omega$ (`dN/dS`) tree:
+```{r fig.width=8, tidy=TRUE, width=60, warning=FALSE}
+plot(mlc, branch.length="dN/dS", annotation="dN/dS", ndigits=2)
+```
+
+We can also plot the `dN` or `dS` tree and others. The parameter `annotation` can also be one of the available annotations.
+
+
+##### mlc and rst files
+
+We can annotate the tree with information presented in `rstfile` and `mlcfile` separately as demonstrated in previous sessions.
+
+We recommend using them both, and user don't need to provide tip sequences, as it's already available in `mlcfile`. All the features in both files are available for annotation.
+
+
+```{r fig.width=12, fig.height=8, tidy=TRUE, width=60, warning=FALSE}
+ml <- read.codeml(rstfile, mlcfile)
+ml
+plot(ml, branch.length="rst.branch.length", annotation="dN/dS")
+plot(ml, branch.length="mlc.branch.length", annotation="joint_AA_subs")
+plot(ml, branch.length="dN/dS", annotation="joint_AA_subs")
+```
+
+### annotating tree with HYPHY output
+```{r}
+nwk <- system.file("extdata/HYPHY", "labelledtree.tree", package="ggtree")
+ancseq <- system.file("extdata/HYPHY", "ancseq.nex", package="ggtree")
+hy <- read.hyphy(nwk, ancseq, tipfas)
+hy
+```
+
+```{r fig.width=12, fig.height=10, tidy=TRUE, width=60, warning=FALSE}
+plot(hy, annotation="AA_subs")
+```
+
 
 ### annotating tree with EPA and PPLACER output
 [EPA](http://sco.h-its.org/exelixis/web/software/epa/index.html)^[Simon A. Berger, Denis Krompass and Alexandros Stamatakis (2011) Performance, Accuracy, and Web Server for Evolutionary Placement of Short Sequence Reads under Maximum Likelihood. Systematic Biology 60(3):291-302] and [PPLACER](http://matsen.fhcrc.org/pplacer/)^[Frederick A Matsen, Robin B Kodner and E Virginia Armbrust (2010) pplacer: linear time maximum-likelihood and Bayesian phylogenetic placement of sequences onto a fixed reference tree. BMC Bioinformatics 11:538] have common output file format, `jplace`. 

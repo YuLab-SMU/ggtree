@@ -1,3 +1,18 @@
+##' read rst and mlb file from baseml output
+##'
+##'
+##' @title read.baseml
+##' @param rstfile rst file
+##' @param mlbfile mlb file
+##' @return A \code{paml_rst} object
+##' @export
+##' @author Guangchuang Yu \url{http://ygc.name}
+read.baseml <- function(rstfile, mlbfile) {
+    res <- read.paml_rst(rstfile)
+    res@tip_seq <- read.tip_seq_mlb(mlbfile)
+    set.paml_rst_(res)
+}
+
 ##' read rst file from paml output
 ##'
 ##' 
@@ -38,6 +53,7 @@ read.paml_rst <- function(rstfile, tip.fasfile = NULL) {
     set.paml_rst_(res)
 }
 
+
 ##' @rdname show-methods
 ##' @exportMethod show
 setMethod("show", signature(object = "paml_rst"),
@@ -54,8 +70,8 @@ setMethod("show", signature(object = "paml_rst"),
               cat("\nwith the following features available:\n")
               cat("\t", paste0("'",
                                paste(get.fields(object), collapse="',\t'"),
-                               "'"),
-                  ".\n")
+                               "'."),
+                  "\n")
           })
 
 ##' @rdname get.fields-methods

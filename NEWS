@@ -1,5 +1,6 @@
 CHANGES IN VERSION 0.99.5
 ------------------------
+ o read.baseml function and update vignette with baseml example <2015-01-04, Sun>
  o plot method for hyphy and hyphy example in vignette <2015-01-04, Sun>
  o merge all vignettes to ggtree vignette <2015-01-04, Sun>
 
