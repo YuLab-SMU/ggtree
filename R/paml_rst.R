@@ -53,7 +53,7 @@ setMethod("show", signature(object = "paml_rst"),
               print.phylo(get.tree(object))                  
               cat("\nwith the following features available:\n")
               cat("\t", paste0("'",
-                               paste(get.fields(object), collapse="',   '"),
+                               paste(get.fields(object), collapse="',\t'"),
                                "'"),
                   ".\n")
           })
@@ -86,17 +86,7 @@ setMethod("plot", signature(x = "paml_rst"),
                    position = "branch",
                    annotation = "marginal_subs",
                    ...) {
-              
-              p <- ggtree(x, layout=layout)
-              if (show.tip.label) {
-                  p <- p + geom_tiplab()
-              }
-              if (!is.null(annotation) && !is.na(annotation)) {
-                  anno <- get.subs(x, type=annotation)
-                  p <- p %<+% anno + geom_text(aes_string(x=position, label="subs"),
-                                               size=3, vjust=-.5)
-              }
-              p + theme_tree2()
+              plot.subs(x, layout, show.tip.label, position, annotation, ...)
           })
 
 

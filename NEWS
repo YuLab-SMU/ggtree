@@ -1,6 +1,10 @@
+CHANGES IN VERSION 0.99.5
+------------------------
+ o plot method for hyphy and hyphy example in vignette <2015-01-04, Sun>
+ o merge all vignettes to ggtree vignette <2015-01-04, Sun>
+
 CHANGES IN VERSION 0.99.4
 ------------------------
- o merge all vignettes to ggtree vignette <2015-01-04, Sun>
  o ggtree now support branch.length = "none" to only draw tree topology <2015-01-03, Sat> 
  o get.subs method for hyphy object <2015-01-03, Sat>
  o show, get.tree and get.subs methods of hyphy <2015-01-02, Fri> 

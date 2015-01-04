@@ -1,3 +1,15 @@
+plot.subs <- function(x, layout, show.tip.label, position, annotation, ...) {
+    p <- ggtree(x, layout=layout)
+    if (show.tip.label) {
+        p <- p + geom_tiplab()
+    }
+    if (!is.null(annotation) && !is.na(annotation)) {
+        anno <- get.subs(x, type=annotation)
+        p <- p %<+% anno + geom_text(aes_string(x=position, label="subs"),
+                                     size=3, vjust=-.5)
+    }
+    p + theme_tree2()
+}
 
 get.subs_ <- function(tree, fasta, translate=TRUE, removeGap=TRUE) {
     N <- getNodeNum(tree)

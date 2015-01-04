@@ -57,14 +57,27 @@ read.hyphy <- function(nwk, ancseq, tip.fasfile=NULL) {
 
     if ( !is.null(tip.fasfile) ) {
         tip_seq <- readBStringSet(tip.fasfile)
+        nn <- names(tip_seq)
         tip_seq <- sapply(seq_along(tip_seq), function(i) {
             toString(tip_seq[i])
         })
+        names(tip_seq) <- nn
         res@tip_seq <- tip_seq
         res@tip.fasfile <- tip.fasfile
     }
     set.hyphy_(res)
 }
+
+##' @rdname plot-methods
+##' @exportMethod plot
+setMethod("plot", signature(x = "hyphy"),
+          function(x, layout = "phylogram",
+                   show.tip.label = TRUE,
+                   position = "branch",
+                   annotation = "subs",
+                   ...) {
+              plot.subs(x, layout, show.tip.label, position, annotation, ...)
+          })
 
 ##' @rdname show-methods
 ##' @exportMethod show
@@ -83,9 +96,9 @@ setMethod("show", signature(object = "hyphy"),
               print.phylo(get.tree(object))
               cat("\nwith the following features available:\n")
               cat("\t", paste0("'",
-                               paste(get.fields(object), collapse="',   '"),
-                               "'"),
-                  ".\n")
+                               paste(get.fields(object), collapse="',\t'"),
+                               "'."),
+                  "\n")
               
           })
 

@@ -200,11 +200,21 @@ plot(ml, branch.length="rst.branch.length", annotation="dN/dS")
 plot(ml, branch.length="mlc.branch.length", annotation="joint_AA_subs")
 plot(ml, branch.length="dN/dS", annotation="joint_AA_subs")
 ```
+### annotating tree with HYPHY output
+```{r}
+nwk <- system.file("extdata/HYPHY", "labelledtree.tree", package="ggtree")
+ancseq <- system.file("extdata/HYPHY", "ancseq.nex", package="ggtree")
+hy <- read.hyphy(nwk, ancseq, tipfas)
+hy
+```
+
+```{r fig.width=12, fig.height=10, tidy=TRUE, width=60, warning=FALSE}
+plot(hy, annotation="AA_subs")
+```
 
 
 ### annotating tree with BEAST output
 ```{r}
-library(ggtree)
 file <- system.file("extdata/BEAST", "beast_mcc.tree", package="ggtree")
 beast <- read.beast(file)
 beast

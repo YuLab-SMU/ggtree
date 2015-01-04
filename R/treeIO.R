@@ -211,6 +211,13 @@ fortify.codeml_mlc_ <- function(model, data,
     return(phylo)
 }
 
+##' @method fortify hyphy
+##' @export
+fortify.hyphy <- function(model, data, layout = "phylogram",
+                          ladderize = TRUE, right = FALSE, ...) {
+    fortify.phylo(model@phylo, data, layout, ladderize, right, ...)
+}
+    
 ##' @method fortify paml_rst
 ##' @export
 fortify.paml_rst <- function(model, data, layout = "phylogram",
