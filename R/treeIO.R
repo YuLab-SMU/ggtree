@@ -301,10 +301,11 @@ as.data.frame.phylo <- function(x, row.names, optional,
     if (layout == "unrooted") {
         return(layout.unrooted(x))
     } 
-    as.data.frame.phylo_(x, ...)
+    as.data.frame.phylo_(x, layout, ...)
 }
 
-as.data.frame.phylo_ <- function(x, branch.length="branch.length", ...) {
+as.data.frame.phylo_ <- function(x, layout="phylogram",
+                                 branch.length="branch.length", ...) {
     tip.label <- x[["tip.label"]]
     Ntip <- length(tip.label)
     N <- getNodeNum(x)
@@ -313,16 +314,23 @@ as.data.frame.phylo_ <- function(x, branch.length="branch.length", ...) {
     colnames(edge) <- c("parent", "node")
     if (! is.null(x$edge.length)) {
         edge$length <- x$edge.length
-        xpos <- getXcoord(x)
+        if (branch.length == "none") {
+            xpos <- getXcoord_no_length(x)
+            ypos <- getYcoord(x)
+        } else  if (layout != "cladogram") {
+            xpos <- getXcoord(x)
+            ypos <- getYcoord(x)
+        } else {
+            ## layout == "cladogram" && branch.length != "none"
+            xy <- getXYcoord_cladogram(x)
+            xpos <- xy$x
+            ypos <- xy$y
+        }
     } else {
         xpos <- getXcoord_no_length(x)
-    }
-
-    if (branch.length == "none") {
-        xpos <- getXcoord_no_length(x)
+        ypos <- getYcoord(x)
     }
     
-    ypos <- getYcoord(x)
     xypos <- data.frame(node=1:N, x=xpos, y=ypos)
 
     res <- merge(edge, xypos, by.x="node", by.y="node", all.y=TRUE)
@@ -340,3 +348,5 @@ as.data.frame.phylo_ <- function(x, branch.length="branch.length", ...) {
     res$branch[is.na(res$branch)] <- 0
     return(res)
 }
+
+

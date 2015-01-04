@@ -32,6 +32,7 @@ layout.unrooted <- function(tree) {
     return(df)
 }
 
+
 ##' @importFrom ape extract.clade
 get.offspring.tip <- function(tr, node) {
     if ( ! node %in% tr$edge[,1]) {
@@ -179,9 +180,28 @@ getXcoord <- function(tr) {
     return(x)
 }
 
+getXYcoord_cladogram <- function(tr) {
+    
+    edge <- tr$edge
+    parent <- edge[,1]
+    child <- edge[,2]
+    root <- getRoot(tr)
+
+    N <- getNodeNum(tr)
+    len <- tr$edge.length
+    y <- getYcoord(tr, step=min(len)/2)
+
+    len <- sqrt(len^2 - (y[parent]-y[child])^2)
+    x <- numeric(N)
+    x <- getXcoord2(x, root, parent, child, len)
+    res <- data.frame(x=x, y=y)
+    return(res)
+}
+
+
 ##' @importFrom magrittr %>%
 ##' @importFrom magrittr equals
-getYcoord <- function(tr) {
+getYcoord <- function(tr, step=1) {
     Ntip <- length(tr[["tip.label"]])
     N <- getNodeNum(tr)
 
@@ -191,7 +211,7 @@ getYcoord <- function(tr) {
    
     y <- numeric(N)
     tip.idx <- child[child <= Ntip]
-    y[tip.idx] <- 1:Ntip
+    y[tip.idx] <- 1:Ntip * step
     y[-tip.idx] <- NA
 
     currentNode <- 1:Ntip
