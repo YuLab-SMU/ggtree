@@ -231,12 +231,12 @@ read.stats_beast <- function(file) {
     ## node <- treeinfo$label2[match(nn, treeinfo$label)]
 
     
-    ################################################
-    ##                                            ##
-    ##  after doing it in the hard way            ##
-    ##  I finally figure the following easy way   ##
-    ##                                            ##
-    ################################################
+    ####################################################
+    ##                                                ##
+    ##  after doing it in the hard way                ##
+    ##  I finally figure out the following easy way   ##
+    ##                                                ##
+    ####################################################
     treeinfo <- fortify.phylo(phylo)
     label2 <- c(treeinfo[treeinfo$isTip, "label"],
                 root:(root+nnode-1))

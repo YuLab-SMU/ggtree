@@ -31,8 +31,8 @@ setMethod("show", signature(object = "codeml"),
               cat("\nwith the following features available:\n")
               cat("\t", paste0("'",
                                paste(get.fields(object), collapse="',\t'"),
-                               "'"),
-                  ".\n") 
+                               "'."),
+                  "\n") 
               
           })
 
