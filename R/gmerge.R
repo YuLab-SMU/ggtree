@@ -64,14 +64,16 @@ node_mapper <- function(phy1, phy2) {
        currentNode <- unique(pNode)
    }
 
+   if (df1[root, "node"] != df1[root, "node2"]) {
+       stop("phylogenies not compatible...")
+   }
+   
+   
    node <- df1$node
    names(node) <- df1$node2
    phy2$edge <- cbind(node[as.character(phy2$edge[,1])],
                       node[as.character(phy2$edge[,2])])
    phy2$tip.label <- phy1$tip.label
-   if (df1[root, "node"] != df1[root, "node2"]) {
-       stop("phylogenies not compatible...")
-   }
 
    reorder(phy2)
 }
