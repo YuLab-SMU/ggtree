@@ -25,8 +25,8 @@ read.codeml_mlc <- function(mlcfile) {
 setMethod("show", signature(object = "codeml_mlc"),
           function(object) {
               cat("'codeml_mlc' S4 object that stored information of\n\t",
-                  paste0("'", object@mlcfile, "'"),
-                  ".\n")
+                  paste0("'", object@mlcfile, "'."),
+                  "\n\n")
               
               cat("...@ tree:")
               print.phylo(get.tree(object))                  

@@ -12,7 +12,9 @@
 \usage{
 \S4method{plot}{beast,ANY}(x, layout = "phylogram",
   branch.length = "branch.length", show.tip.label = TRUE,
-  position = "branch", annotation = "rate", ndigits = NULL, ...)
+  tip.label.size = 4, tip.label.hjust = -0.1, position = "branch",
+  annotation = "rate", ndigits = 2, annotation.size = 3,
+  annotation.color = "black", ...)
 
 \S4method{plot}{codeml,ANY}(x, layout = "phylogram",
   branch.length = "mlc.branch.length", show.tip.label = TRUE,
@@ -23,11 +25,14 @@
   position = "branch", annotation = "dN/dS", ndigits = 2, ...)
 
 \S4method{plot}{hyphy,ANY}(x, layout = "phylogram", show.tip.label = TRUE,
-  position = "branch", annotation = "subs", ...)
+  tip.label.size = 4, tip.label.hjust = -0.1, position = "branch",
+  annotation = "subs", annotation.color = "black", annotation.size = 3,
+  ...)
 
 \S4method{plot}{paml_rst,ANY}(x, layout = "phylogram",
-  show.tip.label = TRUE, position = "branch",
-  annotation = "marginal_subs", ...)
+  show.tip.label = TRUE, tip.label.size = 4, tip.label.hjust = -0.1,
+  position = "branch", annotation = "marginal_subs",
+  annotation.color = "black", annotation.size = 3, ...)
 }
 \arguments{
 \item{x}{object}
@@ -38,11 +43,19 @@
 
 \item{show.tip.label}{logical}
 
+\item{tip.label.size}{size of tip label}
+
+\item{tip.label.hjust}{hjust of tip.label}
+
 \item{position}{one of "branch" and "node"}
 
 \item{annotation}{one of get.fields(x)}
 
 \item{ndigits}{round digits}
+
+\item{annotation.size}{size of annotation}
+
+\item{annotation.color}{color of annotation}
 
 \item{...}{Additional argument list}
 }

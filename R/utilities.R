@@ -1,12 +1,19 @@
-plot.subs <- function(x, layout, show.tip.label, position, annotation, ...) {
-    p <- ggtree(x, layout=layout)
+plot.subs <- function(x, layout, show.tip.label,
+                      tip.label.size,
+                      tip.label.hjust,
+                      position, annotation,
+                      annotation.color = "black",
+                      annotation.size=3, ...) {
+    
+    p <- ggtree(x, layout=layout, ...)
     if (show.tip.label) {
-        p <- p + geom_tiplab()
+        p <- p + geom_tiplab(hjust = tip.label.hjust,
+                             size  = tip.label.size)
     }
     if (!is.null(annotation) && !is.na(annotation)) {
-        anno <- get.subs(x, type=annotation)
-        p <- p %<+% anno + geom_text(aes_string(x=position, label="subs"),
-                                     size=3, vjust=-.5)
+        p <- p + geom_text(aes_string(x=position, label=annotation),
+                           size=annotation.size,
+                           color=annotation.color, vjust=-.5)
     }
     p + theme_tree2()
 }
@@ -138,7 +145,9 @@ is.tree <- function(x) {
                         "jplace",
                         "baseml",
                         "paml_rst",
-                        "baseml_mlc")
+                        "baseml_mlc",
+                        "hyphy",
+                        "beast")
         ) {
         return(TRUE)
     }

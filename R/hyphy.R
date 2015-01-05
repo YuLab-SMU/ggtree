@@ -71,12 +71,21 @@ read.hyphy <- function(nwk, ancseq, tip.fasfile=NULL) {
 ##' @rdname plot-methods
 ##' @exportMethod plot
 setMethod("plot", signature(x = "hyphy"),
-          function(x, layout = "phylogram",
-                   show.tip.label = TRUE,
-                   position = "branch",
-                   annotation = "subs",
+          function(x, layout        = "phylogram",
+                   show.tip.label   = TRUE,
+                   tip.label.size   = 4,
+                   tip.label.hjust  = -0.1,
+                   position         = "branch",
+                   annotation       = "subs",
+                   annotation.color = "black",
+                   annotation.size  = 3,
                    ...) {
-              plot.subs(x, layout, show.tip.label, position, annotation, ...)
+              plot.subs(x, layout, show.tip.label,
+                        tip.label.size,
+                        tip.label.hjust,
+                        position, annotation,
+                        annotation.color,
+                        annotation.size,...)
           })
 
 ##' @rdname show-methods
@@ -88,9 +97,9 @@ setMethod("show", signature(object = "hyphy"),
               if (length(object@tip_seq) == 0) {
                   cat(paste0("and '", object@ancseq.file, "'"), ".\n")
               } else {
-                  cat(paste0(", '", object@ancseq.file, "'"),
-                      paste0("and '", object@tip.fasfile, "'"),
-                      ".\n")
+                  cat(paste0(", \n\t'", object@ancseq.file, "'"),
+                      paste0("and \n\t'", object@tip.fasfile, "'."),
+                      "\n\n")
               }
               cat("...@ tree:")
               print.phylo(get.tree(object))

@@ -106,13 +106,22 @@ rm.singleton.newick <- function(nwk, outfile = NULL) {
 ##' @export
 fortify.beast <- function(model, data,
                           layout="phylogram",
-                          ladderize=TRUE, right=FALSE,...) {
+                          ladderize=TRUE, right=FALSE, ndigits = NULL, ...) {
 
     phylo <- get.tree(model)
     df    <- fortify(phylo, layout=layout,
                      ladderize=ladderize, right=right, ...)
     
     stats <- model@stats
+
+    if (!is.null(ndigits)) {
+        idx <- which(colnames(stats) != "node")
+        for (ii in idx) {
+            if (is.numeric(stats[, ii])) {
+                stats[, ii] <- round(stats[,ii], ndigits)
+            }
+        }
+    }
     
     idx   <- match(df$node, stats$node)
     stats <- stats[idx,]
@@ -215,14 +224,21 @@ fortify.codeml_mlc_ <- function(model, data,
 ##' @export
 fortify.hyphy <- function(model, data, layout = "phylogram",
                           ladderize = TRUE, right = FALSE, ...) {
-    fortify.phylo(model@phylo, data, layout, ladderize, right, ...)
+    ## fortify.phylo(model@phylo, data, layout, ladderize, right, ...)
+    fortify.paml_rst(model, data, layout, ladderize, right, ...)
 }
     
 ##' @method fortify paml_rst
 ##' @export
 fortify.paml_rst <- function(model, data, layout = "phylogram",
-                             ladderize=TRUE, right=FALSE,...) {
-    fortify.phylo(model@phylo, data, layout, ladderize, right, ...)
+                             ladderize=TRUE, right=FALSE, ...) {
+    df <- fortify.phylo(model@phylo, data, layout, ladderize, right, ...)
+    for (type in get.fields(model)) {
+        anno <- get.subs(model, type=type)
+        colnames(anno)[2] <- type
+        df <- df %add2% anno
+    }
+    return(df)
 }
 
 ##' @method fortify phylo4

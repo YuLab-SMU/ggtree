@@ -28,19 +28,30 @@ read.beast <- function(file) {
 
 ##' @rdname plot-methods
 ##' @exportMethod plot
+##' @param tip.label.size size of tip label
+##' @param tip.label.hjust hjust of tip.label
+##' @param annotation.size size of annotation
+##' @param annotation.color color of annotation
 setMethod("plot", signature( x= "beast"),
           function(x, layout = "phylogram",
                    branch.length = "branch.length",
                    show.tip.label = TRUE,
+                   tip.label.size = 4,
+                   tip.label.hjust = -0.1,
                    position = "branch",
                    annotation = "rate",
-                   ndigits = NULL,
+                   ndigits = 2,
+                   annotation.size = 3,
+                   annotation.color = "black",
                    ...) {
 
-              p <- ggtree(x, layout = layout, branch.length = branch.length)
+              p <- ggtree(x, layout     = layout,
+                          branch.length = branch.length,
+                          ndigits       = ndigits, ...)
 
               if (show.tip.label) {
-                  p <- p + geom_tiplab()
+                  p <- p + geom_tiplab(hjust=tip.label.hjust,
+                                       size=tip.label.size)
                   offset <- ceiling(max(p$data$x)) * 0.1
                   p <- p + xlim(-offset, max(p$data$x) + offset)
               }
@@ -58,27 +69,24 @@ setMethod("plot", signature( x= "beast"),
                            ".")
                   }
                   if (length(m) == 1) {
-                      if (!is.null(ndigits)) {
-                          df <- p$data
-                          df[, annotation] %<>% round(., ndigits)
-                          p$data <- df
-                      }
                       p <- p + geom_text(aes_string(x=position,
-                                               label=annotation),
-                                    size=3, vjust=-.5)
+                                                    label=annotation),
+                                         size=annotation.size, vjust=-.5,
+                                         color=annotation.color)
                   } else {
                       lo <- paste0(annotation, "_lower")
                       hi <- paste0(annotation, "_upper")
                       df <- p$data
-                      lo <- round(df[,lo], ndigits)
-                      hi <- round(df[, hi], ndigits)
+                      lo <- df[,lo]
+                      hi <- df[, hi]
                       range <- paste0("[", lo, ", ", hi, "]")
                       range[is.na(lo)] <- NA
                       df[, annotation] <- range
                       p$data <- df
                       p <- p+geom_text(aes_string(x = position,
-                                             label = annotation),
-                                  size=3, vjust=-.5)
+                                                  label = annotation),
+                                       size=annotation.size, vjust=-.5,
+                                       color=annotation.color)
                   }
               }
               p + theme_tree2()
@@ -90,8 +98,7 @@ setMethod("plot", signature( x= "beast"),
 setMethod("show", signature(object = "beast"),
           function(object) {
               cat("'beast' S4 object that stored information of\n\t",
-                  paste0("'", object@file, "'"),
-                  ".\n")
+                  paste0("'", object@file, "'.\n\n"))
               cat("...@ tree: ")
               print.phylo(get.tree(object))                  
               cat("\nwith the following features available:\n")

@@ -61,9 +61,9 @@ setMethod("show", signature(object = "paml_rst"),
               cat("'paml_rst' S4 object that stored information of\n\t",
                   paste0("'", object@rstfile, "'"))
               if (length(object@tip.fasfile) != 0) {
-                  cat(paste0("and '", object@tip.fasfile, "'"), ".\n")
+                  cat(paste0(" and \n\t'", object@tip.fasfile, "'.\n\n"))
               } else {
-                  cat(".\n")
+                  cat(".\n\n")
               }
               cat("...@ tree:")
               print.phylo(get.tree(object))                  
@@ -97,12 +97,21 @@ setMethod("get.tree", signature(object = "paml_rst"),
 ##' @rdname plot-methods
 ##' @exportMethod plot
 setMethod("plot", signature(x = "paml_rst"),
-          function(x, layout = "phylogram",
-                   show.tip.label = TRUE,
-                   position = "branch",
-                   annotation = "marginal_subs",
+          function(x, layout        = "phylogram",
+                   show.tip.label   = TRUE,
+                   tip.label.size   = 4,
+                   tip.label.hjust  = -0.1,
+                   position         = "branch",
+                   annotation       = "marginal_subs",
+                   annotation.color = "black",
+                   annotation.size  = 3,
                    ...) {
-              plot.subs(x, layout, show.tip.label, position, annotation, ...)
+              plot.subs(x, layout, show.tip.label,
+                        tip.label.size,
+                        tip.label.hjust,
+                        position, annotation,
+                        annotation.color,
+                        annotation.size, ...)
           })
 
 

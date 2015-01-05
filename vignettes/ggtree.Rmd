@@ -1,14 +1,20 @@
 ---
 title: "ggtree: a phylogenetic tree viewer for different types of tree annotations"
-author: "Guangchuang Yu <br />
-        <guangchuangyu@gmail.com> <br />
-        School of Public Health <br />
-	Li Ka Shing Faculty of Medicine <br />
-        The University of Hong Kong"
+author: "\\
+
+	Guangchuang Yu\\
+
+	<guangchuangyu@gmail.com>\\
+
+        School of Public Health, The University of Hong Kong"
 date: "`r Sys.Date()`"
-output: BiocStyle::html_document
 bibliography: ggtree.bib
 csl: nature.csl
+output: 
+  BiocStyle::html_document:
+    toc: true
+  BiocStyle::pdf_document:
+    toc: true
 vignette: >
   %\VignetteIndexEntry{ggtree: phylogenetic tree viewer and annotator}
   %\VignetteEngine{knitr::rmarkdown}
@@ -31,142 +37,158 @@ In the old day, we even don't have enough sequences to infer phylogenetic tree. 
 
 The `r Githubpkg("GuangchuangYu/ggtree")` is designed by extending the `r CRANpkg("ggplot2")`[@wickham_ggplot2_2009] package. It based on grammar of graphics and takes all the good parts of `r CRANpkg("ggplot2")`. There are other R packages that implemented tree viewer using `r CRANpkg("ggplot2")`, including `r CRANpkg("OutbreakTools")`, `r Biocpkg("phyloseq")`[@mcmurdie_phyloseq_2013] and `r Githubpkg("gjuggler/ggphylo")`, but all of them only create complex tree view function for their specific needs. They are just classical tree viewers that only viewing the tree or annotating a specific data type. The good parts of `r CRANpkg("ggplot2")` are not available in these packages. They lack of flexibilities of annotating phylogenetic tree by diverse user inputs. 
 
-# Phylogenetic tree visualization
-## Viewing tree with `ggtree`
-`r Githubpkg("GuangchuangYu/ggtree")` extend `ggplot` to support viewing phylogenetic tree. It implement `geom_tree` layer for displaying phylogenetic tree, as shown below:
-```{r fig.width=4, fig.height=4, tidy=TRUE, width=60}
+# Tree visualization
+## viewing tree with `ggtree`
+`r Githubpkg("GuangchuangYu/ggtree")` extend _`ggplot`_ to support viewing phylogenetic tree. It implement _`geom_tree`_ layer for displaying phylogenetic tree, as shown below:
+```{r fig.width=3, fig.height=3, tidy=TRUE, fig.align="center"}
 nwk <- system.file("extdata", "sample.nwk", package="ggtree")
-print(readLines(nwk))
+x <- readLines(nwk)
+cat(substring(x, 1, 56), "\n", substring(x, 57), "\n")
+
 library("ggtree")
 
 tree <- read.tree(nwk)
 ggplot(tree, aes(x, y)) + geom_tree() + theme_tree() + xlab("") + ylab("")
 ```
 
-This example tree was obtained from Chapter 34 of "Inferring Phylogenies"[@felsenstein_inferring_2003 pp.573]. The function, `ggtree`, was implemented as a short cut to visualize a tree, and it works exactly the same as shown above.
+This example tree was obtained from Chapter 34 of _Inferring Phylogenies_[@felsenstein_inferring_2003 pp.573]. The function, _`ggtree`_, was implemented as a short cut to visualize a tree, and it works exactly the same as shown above.
 
-`ggtree` takes all the advantages of `ggplot2`. For example, we can change the color, size and type of the lines as we did with `ggplot2`.
-```{r fig.width=4, fig.height=4}
+_`ggtree`_ takes all the advantages of _`ggplot2`_. For example, we can change the color, size and type of the lines as we did with _`ggplot2`_.
+```{r fig.width=3, fig.height=3, fig.align="center"}
 ggtree(tree, color="steelblue", size=0.5, linetype="dotted")
 ```
 
-By default, the tree is viewing in ladderize form, user can set the parameter `ladderize = FALSE` to disable it.
-```{r fig.width=4, fig.height=4}
+By default, the tree is viewing in ladderize form, user can set the parameter _`ladderize = FALSE`_ to disable it.
+```{r fig.width=3, fig.height=3, fig.align="center"}
 ggtree(tree, ladderize=FALSE)
 ```
 
-The `branch.length` is used to scale the edge, user can set the parameter `branch.length = "none"` to only viewing the tree topology.
+The _`branch.length`_ is used to scale the edge, user can set the parameter _`branch.length = "none"`_ to only viewing the tree topology.
 
-```{r fig.width=4, fig.height=4}
+```{r fig.width=3, fig.height=3, fig.align="center"}
 ggtree(tree, branch.length="none")
 ```
 
-## Layout
+## layout
 
-Currently, `ggtree` supports several layout, including `phylogram` (by default), `cladogram`, `dendrogram`, `fan`, and `unrooted`. Unrooted layout was implemented by the `equal-angle algorithm` that described in "Inferring Phylogenies"[@felsenstein_inferring_2003 pp.578-580].
+Currently, _`ggtree`_ supports several layout, including:
 
-```{r fig.width=8, fig.height=12}
+ + `phylogram` (by default)
+ + `cladogram`
+ + `dendrogram` 
+ + `fan`
+ + `unrooted`. 
+
+Unrooted layout was implemented by the _`equal-angle algorithm`_ that described in _Inferring Phylogenies_[@felsenstein_inferring_2003 pp.578-580].
+
+```{r fig.width=6, fig.height=9, fig.align="center"}
 library("gridExtra")
 grid.arrange(ggtree(tree) + ggtitle("phylogram layout"),
 	     ggtree(tree, layout="dendrogram") + ggtitle("dendrogram layout"),
 	     ggtree(tree, layout="cladogram") + ggtitle("cladogram layout"),
-	     ggtree(tree, layout="cladogram", branch.length="none") + scale_x_reverse()+coord_flip() + ggtitle("cladogram layout"),
+	     ggtree(tree, layout="cladogram", branch.length="none") + 
+	            scale_x_reverse()+coord_flip() + ggtitle("cladogram layout"),
 	     ggtree(tree, layout="fan") + ggtitle("fan layout"),
 	     ggtree(tree, layout="unrooted") + ggtitle("unrooted layout"),
 	     ncol=2)
 ```
 
 
-## Support multiple phylogenetic classes
+## support multiple phylogenetic classes
 
-`r Githubpkg("GuangchuangYu/ggtree")` defined several S4 classes to store phylogenetic object and its associated annotation, including `jplace`, `palm_rst`, `codeml_mlc`, `codeml`, `hyphy` and `beast`. In addition, it also supports `phylo` (defined by `r CRANpkg("ape")`[@paradis_ape_2004]), and `phylo4` (defined by `r CRANpkg("phylobase")`)
+`r Githubpkg("GuangchuangYu/ggtree")` defined several S4 classes to store phylogenetic object and its associated annotation, including:
 
-```{r fig.width=12, fig.height=4}
-print(tree)
-p1 <- ggtree(tree) + ggtitle("tree of phylo object")
-library(phylobase)
-tr2 <- as(tree, "phylo4")
-str(tr2)
-p2 <- ggtree(tr2) + ggtitle("tree of phylo4 object")
-jpf <- system.file("extdata", "sample.jplace", package="ggtree")
-jp <- read.jplace(jpf)
-print(jp)
-p3 <- ggtree(jp) + ggtitle("tree of jplace object")
-library(gridExtra)
-grid.arrange(p1, p2, p3, ncol=3)
-```
++ `jplace`
++ `palm_rst`
++ `codeml_mlc`
++ `codeml`
++ `hyphy`
++ `beast`
+
+In addition, it also supports _`phylo`_ (defined by `r CRANpkg("ape")`[@paradis_ape_2004]), and _`phylo4`_ (defined by `r CRANpkg("phylobase")`)
+
+User can use _`ggtree(object)`_ command to view the phylogenetic tree directly, and annotation data stored in these objects can be added as demonstrated in __[`Tree annotation`](#tree-annotation)__ session.
  
 ## Display evolution distance
 
 To show evolution distance, we can use `theme_tree2()` or `ggtree(showDistance=TRUE)`
 
-```{r fig.width=6}
+```{r fig.width=3, fig.height=3, fig.align="center"}
 ggtree(tree) + theme_tree2()
 ```
 
-Another way is to show the edge length of the tree: 
-```{r fig.width=6, warning=FALSE}
-ggtree(tree, showDistance=TRUE) +geom_text(aes(label=length), hjust=1, vjust=-0.5, color="#F06C45")
-```
-
-The scale of branch length can be specify via `scale_x_continuous()`.
-```{r fig.width=6}
-ggtree(tree) + theme_tree2() + scale_x_continuous(breaks=seq(0, 60, 5))
+Another way is to show the edge length of the tree. Besides, the scale of branch length can be specify via _`scale_x_continuous()`_. 
+```{r fig.width=3, fig.height=3, warning=FALSE, fig.align="center"}
+ggtree(tree, showDistance=TRUE) +
+      geom_text(aes(label=length, x=branch), size = 3, 
+      		vjust=-0.5, color="#F06C45") +
+      scale_x_continuous(breaks=seq(0, 60, 5))
 ```
  
-## Display nodes/tips
+## display nodes/tips
 
-Show all the internal nodes and tips in the tree can be done by adding a layer of points using `geom_point`.
+Show all the internal nodes and tips in the tree can be done by adding a layer of points using _`geom_point`_.
 
-```{r fig.width=6}
+```{r fig.width=3, fig.height=3, fig.align="center"}
 ggtree(tree)+geom_point(aes(shape=isTip, color=isTip), size=3)
 ```
  
-And of course, we can separate nodes and tips by using `subset`.
-```{r fig.width=6}
+And of course, we can separate nodes and tips by using _`subset`_.
+```{r fig.width=3, fig.height=3, fig.align="center"}
 p <- ggtree(tree) + geom_point(subset=.(!isTip), 
      		       	       color="#b5e521", alpha=1/4, size=10)
-print(p)
-```
-
-```{r fig.width=6}
 p + geom_point(color="#FDAC4F", shape=8, size=3, subset=.(isTip))
 ```
 
-## Display labels
-```{r fig.width=6, warning=FALSE}
-p + geom_text(aes(label=label), size=6, color="purple", hjust=-0.3)
+## display labels
+```{r fig.width=3, fig.height=3, warning=FALSE, fig.align="center"}
+p + geom_text(aes(label=label), size=3, color="purple", hjust=-0.3)
 ```
 
 By default, the positions are based on the node positions, we can change them to based on the middle of the branch/edge.
 
-```{r fig.width=6, fig.height=6, warning=FALSE}
-p + geom_text(aes(x=branch, label=label), size=6, color="purple", vjust=-0.3)
+```{r fig.width=5, fig.height=3, warning=FALSE, fig.align="center"}
+p + geom_text(aes(x=branch, label=label), size=3, color="purple", vjust=-0.3)
 ```
 
-Based on the middle of branches is very useful when annotating transition from parent node to child node, please refer to [ggtree-treeAnnotation](ggtree-treeAnnotation.html).
+Based on the middle of branches is very useful when annotating transition from parent node to child node.
 
-## Theme
-`theme_tree()` defined a totally blank canvas, while `theme_tree2()` add phylogenetic distance legend. These two themes all accept a parameter of `bgcolor` that defined the background color.
+## theme
+`theme_tree()` defined a totally blank canvas, while _`theme_tree2()`_ add phylogenetic distance legend. These two themes all accept a parameter of _`bgcolor`_ that defined the background color.
 
-```{r fig.width=12, fig.height=5}
+```{r fig.width=6, fig.height=3, fig.align="center"}
 grid.arrange(
 	ggtree(rtree(30), color="red") + theme_tree("steelblue"),
 	ggtree(rtree(20), color="white") + theme_tree("black"),
 	ncol=2)
 ```
 
-## Update tree viewing with a new tree
-In the __Display nodes/tips__ section, we have a `p` object that stored the tree viewing of 13 tips and internal nodes highlighted with specific colored big dots. If we want to applied this pattern, and we can imaging more complex one, to a new tree, we don't need to build the tree step by step. `r Githubpkg("GuangchuangYu/ggtree")` provides an operator, `%<%`, for applying the visualization pattern to a new tree.
+## update tree viewing with a new tree
+In the __Display nodes/tips__ section, we have a _`p`_ object that stored the tree viewing of 13 tips and internal nodes highlighted with specific colored big dots. If you want to applied this pattern, and we can imaging more complex one, to a new tree, we don't need to build the tree view step by step. `r Githubpkg("GuangchuangYu/ggtree")` provides an operator, _`%<%`_, for applying the visualization pattern to a new tree.
 
-For example, the pattern in the `p` object will be applied to a new tree with 50 tips as shown below:
-```{r fig.width=6, fig.height=5}
+For example, the pattern in the _`p`_ object will be applied to a new tree with 50 tips as shown below:
+```{r fig.width=3, fig.height=3, fig.align="center"}
 p %<% rtree(50)
 ```
 
+Another example can be found in [`CODEML`](#codeml) session.
+
 
 # Tree annotation
-In `r Githubpkg("GuangchuangYu/ggtree")`, we implemented several functions to parse the output from [PAML](http://abacus.gene.ucl.ac.uk/software/paml.html)[@yang_paml_2007], [HYPHY](http://hyphy.org/w/index.php/Main_Page)[@pond_hyphy_2005], [EPA](http://sco.h-its.org/exelixis/web/software/epa/index.html)[@berger_EPA_2011], [PPLACER](http://matsen.fhcrc.org/pplacer/)[@matsen_pplacer_2010] and [BEAST](http://beast2.org/)[@bouckaert_beast_2014] and defined several classes to store phylogenetic object and associated annotation, including `palm_rst`, `codeml_mlc`, `baseml`, `codeml`, `hyphy`, `jplace`, and `beast`.
+In `r Githubpkg("GuangchuangYu/ggtree")`, we implemented several functions to parse the output from [PAML](http://abacus.gene.ucl.ac.uk/software/paml.html)[@yang_paml_2007], [HYPHY](http://hyphy.org/w/index.php/Main_Page)[@pond_hyphy_2005], [EPA](http://sco.h-its.org/exelixis/web/software/epa/index.html)[@berger_EPA_2011], [PPLACER](http://matsen.fhcrc.org/pplacer/)[@matsen_pplacer_2010] and [BEAST](http://beast2.org/)[@bouckaert_beast_2014] and defined several classes to store phylogenetic object and associated annotation.
+
+Classes include:
+
++ _`palm_rst`_ for _`rst`_ file obtained by [PAML](http://abacus.gene.ucl.ac.uk/software/paml.html)[@yang_paml_2007], including _`BASEML`_ and _`CODEML`_.
++ _`codeml_mlc`_ for _`mlc`_ file obtained by _`CODEML`_.
++ _`codeml`_ for interpreting _`rst`_ and _`mlc`_ files obtained by _`CODEML`_.
++ _`hyphy`_ for [HYPHY](http://hyphy.org/w/index.php/Main_Page)[@pond_hyphy_2005] output.
++ _`jplace`_ for [EPA](http://sco.h-its.org/exelixis/web/software/epa/index.html)[@berger_EPA_2011] and [PPLACER](http://matsen.fhcrc.org/pplacer/)[@matsen_pplacer_2010] output.
++ _`beast`_ for [BEAST](http://beast2.org/)[@bouckaert_beast_2014]
+
+_`jplace`_ class is also designed to store user specific annotation data, and serves as a standard format for tree annotation within the `r Githubpkg("GuangchuangYu/ggtree")` package. Please refer to the __[`jplace file format`](#jplace-file-format)__ session.
+
+For each classes, we defined _`read.className`_ to parse input file and output a corresponding object, _`get.fields`_ method to get the annotation features available in the object, access methods to get these features, and _`plot`_ methods for quickly viewing these annotation features.
 
 
 ## annotating tree with BEAST output
@@ -175,27 +197,24 @@ file <- system.file("extdata/BEAST", "beast_mcc.tree", package="ggtree")
 beast <- read.beast(file)
 beast
 ```
-Since `%` is not a valid character in `names`, all the feature names that contain `%` will convert to `.`. For example, `height_95%_HPD` will be changed to `height_95._HPD`.
+Since _`%`_ is not a valid character in _`names`_, all the feature names that contain _`%`_ will convert to _`.`_. For example, _`length_95%_HPD`_ will be changed to _`length_95._HPD`_.
 
-
-```{r fig.width=8, tidy=TRUE, width=60, warning=FALSE}
-plot(beast, annotation="height")
+```{r fig.width=8, tidy=TRUE, width=60, warning=FALSE, fig.align="center"}
+plot(beast, annotation="length_95._HPD", branch.length="none") + theme_tree()
 ```
 
-User can round the digits by setting the parameter `ndigits`.
-```{r fig.width=8, tidy=TRUE, width=60, warning=FALSE}
-plot(beast, annotation="height", ndigits=2)
+User can round the digits by setting the parameter _`ndigits`_. The default value is 2.
+
+```{r fig.width=8, tidy=TRUE, width=60, warning=FALSE, fig.align="center"}
+plot(beast, annotation="height", ndigits=3, annotation.color="red")
 ```
 
 
-```{r fig.width=8, tidy=TRUE, width=60, warning=FALSE}
-plot(beast, annotation="length_95._HPD", ndigits=2, branch.length="none") + theme_tree()
-```
 
 ## annotating tree with PAML output
 ### BASEML
-#### rst file
-`rst` file from `baseml` is similar to `codeml` output. The only difference is the space in the sequences. For `baseml`, each ten bases are separated by one space, while for `codeml`, each three bases (triplet) are separated by one space. We defined a `read.paml_rst` to parse `rst` file. It support `baseml` and `codeml` output. The information will be stored in `paml_rst` S4 object.
+#### _`rst`_ file
+_`rst`_ file from _`baseml`_ is similar to _`codeml`_ output. The only difference is the space in the sequences. For _`baseml`_, each ten bases are separated by one space, while for `codeml`, each three bases (triplet) are separated by one space. We defined a _`read.paml_rst`_ to parse _`rst`_ file. It supports _`baseml`_ and _`codeml`_ output. The information will be stored in _`paml_rst`_ S4 object.
 
 ```{r}
 rstfile <- system.file("extdata/PAML_Baseml", "rst", package="ggtree")
@@ -204,11 +223,11 @@ rst <- read.paml_rst(rstfile, tipfas)
 rst
 ```
 
-The function `read.paml_rst` can only accept one parameter, `rstfile`, and the output can be used to view the phylogeny. But if we want to view the substitution annotation, we should provide tip sequence fasta file to parameter `tip.fasfile`, since `rstfile` only contain inferred ancestral sequences.
+The function _`read.paml_rst`_ can accept only one parameter, _`rstfile`_, and the output can be used to view the phylogeny. But if we want to view the substitution annotation, we should provide tip sequence fasta file to parameter _`tip.fasfile`_, since _`rstfile`_ only contain inferred ancestral sequences.
 
-`mlb` file of `baseml` output do contain tip sequences, and `r Githubpkg("GuangchuangYu/ggtree")` provides another function `read.baseml` to parse `rstfile` and `mlbfile` simultaneously.
+_`mlb`_ file of _`baseml`_ output do contain tip sequences, and `r Githubpkg("GuangchuangYu/ggtree")` provides another function _`read.baseml`_ to parse _`rstfile`_ and _`mlbfile`_ simultaneously.
 
-So for viewing substitution annotation, we can use `read.paml_rst` with `rstfile` and `tip.fasfile` provided or use `read.baseml` with `rstfile` and `mlbfile` provided.
+So for viewing substitution annotation, we can use _`read.paml_rst`_ with _`rstfile`_ and _`tip.fasfile`_ provided or use _`read.baseml`_ with _`rstfile`_ and _`mlbfile`_ provided.
 
 ```{r}
 mlbfile <- system.file("extdata/PAML_Baseml", "mlb", package="ggtree")
@@ -217,20 +236,33 @@ baseml
 ```
 
 ```{r fig.width=10, fig.height=8, tidy=TRUE, width=60, warning=FALSE}
-plot(rst, annotation="marginal_AA_subs")
+p <- plot(rst, annotation="marginal_AA_subs", annotation.color="steelblue")
+print(p)
+```
+
+The following command will generate the same figure.
+```{r eval=FALSE}
+plot(baseml, annotation="marginal_AA_subs", annotation.color="steelblue")
 ```
 
 ### CODEML
 #### rst file
-```{r fig.width=10, fig.height=8, tidy=TRUE, width=60, warning=FALSE}
+_`rst`_ file from _`CODEML`_ is similar to _`BASEML`_, and also parsed by _`read.paml_rst`_ function. The _`plot`_ method works also in the same way.
+
+If you remember the _`%<%`_ operator introduced in [`update-tree-viewing-with-a-new-tree`](#update-tree-viewing-with-a-new-tree) session, you can use it to update a tree view with a new object.
+
+In last session, we use _`rstfile`_ of _`BASEML`_ to build a tree view with amino acid substitution annotated. The following example use another _`rstfile`_ from _`CODEML`_ to update the tree view.
+```{r fig.width=8, tidy=TRUE, width=60, warning=FALSE, fig.align="center"}
 rstfile <- system.file("extdata/PAML_Codeml", "rst", package="ggtree")
-rst <- read.paml_rst(rstfile, tip.fasfile=tipfas)
-rst
-plot(rst, annotation="joint_AA_subs")
+rst <- read.paml_rst(rstfile, tipfas)
+p %<% rst
 ```
 
+You can found that these two figures have different evolution distances, and substitutions inferred from _`BASEML`_ and _`CODEML`_ are slighly different.
+
+
 #### mlc file
-```{r fig.width=8, tidy=TRUE, width=60, warning=FALSE}
+```{r fig.width=8, tidy=TRUE, width=60, warning=FALSE, fig.align="center"}
 mlcfile <- system.file("extdata/PAML_Codeml", "mlc", package="ggtree")
 mlc <- read.codeml_mlc(mlcfile)
 mlc
@@ -243,7 +275,7 @@ get.fields(mlc)
 ```
 
 For example, if we set `branch.length` to `dN/dS`, it will plot the $\omega$ (`dN/dS`) tree:
-```{r fig.width=8, tidy=TRUE, width=60, warning=FALSE}
+```{r fig.width=8, tidy=TRUE, width=60, warning=FALSE, fig.align="center"}
 plot(mlc, branch.length="dN/dS", annotation="dN/dS", ndigits=2)
 ```
 
@@ -257,7 +289,7 @@ We can annotate the tree with information presented in `rstfile` and `mlcfile` s
 We recommend using them both, and user don't need to provide tip sequences, as it's already available in `mlcfile`. All the features in both files are available for annotation.
 
 
-```{r fig.width=12, fig.height=8, tidy=TRUE, width=60, warning=FALSE}
+```{r fig.width=12, fig.height=8, tidy=TRUE, width=60, warning=FALSE, fig.align="center"}
 ml <- read.codeml(rstfile, mlcfile)
 ml
 plot(ml, branch.length="rst.branch.length", annotation="dN/dS")
@@ -273,7 +305,7 @@ hy <- read.hyphy(nwk, ancseq, tipfas)
 hy
 ```
 
-```{r fig.width=12, fig.height=10, tidy=TRUE, width=60, warning=FALSE}
+```{r fig.width=12, fig.height=10, tidy=TRUE, width=60, warning=FALSE, fig.align="center"}
 plot(hy, annotation="AA_subs")
 ```
 
@@ -283,7 +315,7 @@ plot(hy, annotation="AA_subs")
 
 
 
-### user specific annotation
+## user specific annotation
 We provides several functions to parse and store information from common software output in this field, and corresponding `plot` methods for visualizing annotation in the tree.
 
 Here, we would like to demonstrate how to inject user specific annotation data in a tree.
@@ -317,24 +349,24 @@ We have shown using the operator, `%<%`, to update a tree view with a new tree. 
 
 After attaching the annotation data to the tree by `%<+%`, all the columns in the data are visible to `ggplot2`. As an example, here we attach the above annotation data to the tree view, `p`, and add a layer that showing the tip labels and colored by the isolation site stored in `place` column.
 
-```{r fig.width=6, fig.height=5, warning=FALSE}
+```{r fig.width=6, fig.height=5, warning=FALSE, fig.align="center"}
 p <- p %<+% dd + geom_text(aes(color=place, label=label), hjust=-0.5)
 print(p)
 ```
 
 We can add another layer to display the isolation sites.
-```{r fig.width=6, fig.height=5, warning=FALSE}
+```{r fig.width=6, fig.height=5, warning=FALSE, fig.align="center"}
 p <- p + geom_text(aes(color=place, label=place), hjust=1, vjust=-0.4, size=3)
 print(p)
 ```
 
 And another layer showing numerical values:
-```{r fig.width=6, fig.height=5, warning=FALSE}
+```{r fig.width=6, fig.height=5, warning=FALSE, fig.align="center"}
 p <- p + geom_text(aes(color=place, label=value), hjust=1, vjust=1.4, size=3)
 print(p)
 ```
 
-```{r fig.width=7, fig.height=5, warning=FALSE}
+```{r fig.width=7, fig.height=5, warning=FALSE, fig.align="center"}
 p <- p + geom_point(aes(size=value, shape=place, color=place), alpha=0.25, subset=.(isTip))
 print(p)
 ```
@@ -366,13 +398,13 @@ get.fields(jp)
 ```
 Now we know the `jp` object stored the tree and the associated amino acid substitution information, we can view the tree and display the associated annotation data on it directly by `ggtree`.
 
-```{r fig.width=12, fig.height=12, warning=FALSE}
+```{r fig.width=12, fig.height=12, warning=FALSE, fig.align="center"}
 ggtree(jp, showDistance=TRUE) + 
 	   geom_text(aes(x=branch, label=subs), color="purple", vjust=-1, size=3) + 
 	   geom_text(aes(label=label), hjust=-.5)
 ```
 
-## Visualize tree and associated matrix
+## visualize tree and associated matrix
 ```{r}
 nwk <- system.file("extdata", "sample.nwk", package = "ggtree")
 require(ape)
@@ -390,7 +422,7 @@ print(d)
 knitr::kable(d)
 ```
 
-```{r fig.width=12, fig.heigh=6}
+```{r fig.width=12, fig.heigh=6, fig.align="center"}
 gplot(tree, d, low="green", high="red", widths=c(.7, .3))
 ```
 
@@ -407,7 +439,7 @@ print(d)
 knitr::kable(d)
 ```
 
-```{r fig.width=12, fig.heigh=6}
+```{r fig.width=12, fig.heigh=6, fig.align="center"}
 gplot(tree, d, low="green", high="red", widths=c(.6, .4))
 ```
 
