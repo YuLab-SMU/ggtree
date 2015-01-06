@@ -43,6 +43,8 @@ read.dnds_mlc <- function(mlcfile) {
              
     row.names(res) <- NULL
     colnames(res) <- c("parent", "node", cn[-1])
+    colnames(res) <- gsub("\\*", "x", colnames(res))
+    colnames(res) <- gsub("\\/", ".", colnames(res))
     return(res)
 }
     

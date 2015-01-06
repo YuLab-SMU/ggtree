@@ -29,11 +29,7 @@ setMethod("show", signature(object = "codeml"),
               cat("...@ tree:")
               print.phylo(get.tree(object))                  
               cat("\nwith the following features available:\n")
-              cat("\t", paste0("'",
-                               paste(get.fields(object), collapse="',\t'"),
-                               "'."),
-                  "\n") 
-              
+              print_fields(object, len=4)
           })
 
 
@@ -72,29 +68,32 @@ setMethod("get.fields", signature(object="codeml"),
 ##' @exportMethod plot
 ##' @importFrom ggplot2 aes_string
 setMethod("plot", signature(x = "codeml"),
-          function(x, layout = "phylogram",
-                   branch.length = "mlc.branch.length",
-                   show.tip.label = TRUE,
-                   position = "branch",
-                   annotation = "dN/dS",
-                   ndigits = 2,
+          function(x, layout        = "phylogram",
+                   branch.length    = "mlc.branch.length",
+                   show.tip.label   = TRUE,
+                   tip.label.size   = 4,
+                   tip.label.hjust  = -0.1,
+                   position         = "branch",
+                   annotation       = "dN.dS",
+                   annotation.size  = 3,
+                   annotation.color = "black",
+                   ndigits          = 2,
                    ...) {
 
-              p <- ggtree(x, layout = layout, branch.length = branch.length)
+              p <- ggtree(x, layout = layout,
+                          branch.length = branch.length,
+                          ndigits=ndigits, ...)
 
               if (show.tip.label) {
-                  p <- p + geom_tiplab()
+                  p <- p + geom_tiplab(hjust = tip.label.hjust,
+                                       size  = tip.label.size)
               }
               
               if (!is.null(annotation) && !is.na(annotation)) {
-                  if (annotation %in% get.fields(x@mlc)) {
-                      p <- plot.codeml_mlc_(p, position, annotation, ndigits)
-                  } else {
-                      anno <- get.subs(x@rst, type=annotation)
-                      p <- p %<+% anno + geom_text(aes_string(x=position,
-                                                              label="subs"),
-                                                   size=3, vjust=-.5)
-                  }
+                  p <- p + geom_text(aes_string(x=position,
+                                                label = annotation),
+                                     size = annotation.size, vjust = -.5,
+                                     color = annotation.color)
               }
               p + theme_tree2()
           }

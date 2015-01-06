@@ -106,7 +106,8 @@ rm.singleton.newick <- function(nwk, outfile = NULL) {
 ##' @export
 fortify.beast <- function(model, data,
                           layout="phylogram",
-                          ladderize=TRUE, right=FALSE, ndigits = NULL, ...) {
+                          ladderize=TRUE, right=FALSE,
+                          ndigits = NULL, ...) {
 
     phylo <- get.tree(model)
     df    <- fortify(phylo, layout=layout,
@@ -122,6 +123,16 @@ fortify.beast <- function(model, data,
             }
         }
     }
+
+    cn <- colnames(stats)
+    lo <- cn[grep("_lower", cn)]
+    hi <- gsub("lower$", "upper", lo)
+    rid <- gsub("_lower$", "", lo)
+
+    for (i in seq_along(rid)) {
+        stats[, rid[i]] <- paste0("[", stats[, lo[i]], ",", stats[, hi[i]], "]")
+        stats[is.na(stats[, lo[i]]), rid[i]] <- NA
+    }
     
     idx   <- match(df$node, stats$node)
     stats <- stats[idx,]
@@ -135,12 +146,13 @@ fortify.beast <- function(model, data,
 ##' @method fortify codeml
 ##' @export
 fortify.codeml <- function(model, data,
-                               layout = "phylogram",
-                               ladderize = TRUE,
-                               right = FALSE,
-                               branch.length = "mlc.branch.length",
-                               ...) {
-    
+                           layout        = "phylogram",
+                           ladderize     = TRUE,
+                           right         = FALSE,
+                           branch.length = "mlc.branch.length",
+                           ndigits       = NULL, 
+                           ...) {
+
     dNdS <- model@mlc@dNdS
     length <- match.arg(branch.length,
                         c("none",
@@ -160,15 +172,11 @@ fortify.codeml <- function(model, data,
                                      branch.length = length, ...)
     }
     
-    df <- fortify(phylo, data, layout, ladderize, right, ...)
+    df <- fortify(phylo, data, layout, ladderize, right,
+                  branch.length=length, ...)
     
-    res <- merge(df, dNdS,
-                 by.x  = c("node", "parent"),
-                 by.y  = c("node", "parent"),
-                 all.x = TRUE)
-    
-    res <- res[match(df$node, res$node),]
-    return(res)
+    res <- merge_phylo_anno.codeml_mlc(df, dNdS, ndigits)
+    merge_phylo_anno.paml_rst(res, model@rst)
 }
 
 
@@ -179,30 +187,46 @@ fortify.codeml_mlc <- function(model, data,
                                ladderize = TRUE,
                                right = FALSE,
                                branch.length = "branch.length",
+                               ndigits = NULL,
                                ...) {
-    dNdS <- model@dNdS
-    
+        
     phylo <- fortify.codeml_mlc_(model, data, layout,
-                              ladderize, right,
-                              branch.length, ...)
-    df <- fortify(phylo, data, layout, ladderize, right, ...)
+                                 ladderize, right,
+                                 branch.length, ...)
+    df <- fortify(phylo, data, layout, ladderize, right, branch.length=branch.length, ...)
+    
+    dNdS <- model@dNdS
+
+    merge_phylo_anno.codeml_mlc(df, dNdS, ndigits)
+}
+
+merge_phylo_anno.codeml_mlc <- function(df, dNdS, ndigits = NULL) {
+    if (!is.null(ndigits)) {
+        idx <- which(! colnames(dNdS) %in% c("node", "parent"))
+        for (ii in idx) {
+            if (is.numeric(dNdS[, ii])) {
+                dNdS[, ii] <- round(dNdS[,ii], ndigits)
+            }
+        }
+    }
+    
     res <- merge(df, dNdS,
                  by.x  = c("node", "parent"),
                  by.y  = c("node", "parent"),
                  all.x = TRUE)
     
-    res <- res[match(df$node, res$node),]
-    return(res)
+    res[match(df$node, res$node),]
 }
 
 fortify.codeml_mlc_ <- function(model, data,
-                               layout = "phylogram",
-                               ladderize = TRUE,
-                               right = FALSE,
-                               branch.length = "branch.length",
-                               ...) {
+                                layout        = "phylogram",
+                                ladderize     = TRUE,
+                                right         = FALSE,
+                                branch.length = "branch.length",                           
+                                ...) {
     dNdS <- model@dNdS
-    length <- match.arg(branch.length, c("none", "branch.length", colnames(dNdS)[-c(1,2)]))
+    length <- match.arg(branch.length, c("none", "branch.length",
+                                         colnames(dNdS)[-c(1,2)]))
     phylo <- get.tree(model)
 
     if (! length %in%  c("branch.length", "none")) {
@@ -224,7 +248,6 @@ fortify.codeml_mlc_ <- function(model, data,
 ##' @export
 fortify.hyphy <- function(model, data, layout = "phylogram",
                           ladderize = TRUE, right = FALSE, ...) {
-    ## fortify.phylo(model@phylo, data, layout, ladderize, right, ...)
     fortify.paml_rst(model, data, layout, ladderize, right, ...)
 }
     
@@ -233,6 +256,10 @@ fortify.hyphy <- function(model, data, layout = "phylogram",
 fortify.paml_rst <- function(model, data, layout = "phylogram",
                              ladderize=TRUE, right=FALSE, ...) {
     df <- fortify.phylo(model@phylo, data, layout, ladderize, right, ...)
+    df <- merge_phylo_anno.paml_rst(df, model)
+}
+
+merge_phylo_anno.paml_rst <- function(df, model) {
     for (type in get.fields(model)) {
         anno <- get.subs(model, type=type)
         colnames(anno)[2] <- type
@@ -240,6 +267,18 @@ fortify.paml_rst <- function(model, data, layout = "phylogram",
     }
     return(df)
 }
+
+##' @method fortify jplace
+##' @importFrom ape read.tree
+##' @export
+fortify.jplace <- function(model, data,
+                           layout="phylogram",
+                           ladderize=TRUE, right=FALSE, ...) {
+    df <- get.treeinfo(model, layout, ladderize, right, ...)
+    place <- get.placements(model, by="best")
+    df %add2% place
+}
+
 
 ##' @method fortify phylo4
 ##' @export

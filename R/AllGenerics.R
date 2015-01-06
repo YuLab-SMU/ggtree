@@ -93,14 +93,3 @@ setGeneric("get.placements", function(object, by, ...) standardGeneric("get.plac
 setGeneric("get.subs", function(object, type, ...) standardGeneric("get.subs"))
 
 
-##' @docType methods
-##' @name "set.treeinfo<-"
-##' @rdname set.treeinfo-methods
-##' @title set.treeinfo<- method
-##' @param x one of \code{jplace}, \code{beast} object
-##' @param value tree info
-##' @return updated \code{jplace}, \code{beast} object
-##' @export
-setGeneric("set.treeinfo<-", function(x, value) standardGeneric("set.treeinfo<-"))
-
-

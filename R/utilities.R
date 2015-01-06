@@ -1,3 +1,32 @@
+print_fields <- function(object, len=5) {
+    fields <- get.fields(object)
+    n <- length(fields)
+    i <- floor(n/len)
+    for (j in 0:i) {
+        ii <- 1:len + len * j
+        if (j == i) {
+            x <- n %% len
+            if (x == 0) {
+                ii <- NULL
+            } else {
+                ii <- ii[1:x]
+            }
+        }
+
+        if (!is.null(ii)) {
+            cat("\t", paste0("'",
+                             paste(fields[ii], collapse="',\t'"),
+                             "'")
+                )
+        }
+        if ( j == i) {
+            cat(".\n")
+        } else {
+            cat(",\n")
+        }
+    }
+}
+
 plot.subs <- function(x, layout, show.tip.label,
                       tip.label.size,
                       tip.label.hjust,
@@ -117,10 +146,16 @@ reverse.treeview.data <- function(df) {
 }
 
 
-extract.treeinfo.jplace <- function(tree.text, layout="phylogram", ladderize=TRUE, right=FALSE) {
+jplace_treetext_to_phylo <- function(tree.text) {
     ## move edge label to node label separate by @
     tr <- gsub('(:[0-9.e-]+)\\{(\\d+)\\}', '\\@\\2\\1', tree.text)
-    tree <- read.tree(text=tr)
+    read.tree(text=tr)
+}
+
+extract.treeinfo.jplace <- function(tree.text, layout="phylogram", ladderize=TRUE, right=FALSE) {
+
+    tree <- jplace_treetext_to_phylo(tree.text)
+    
     df <- fortify.phylo(tree, layout=layout, ladderize=ladderize, right=right)
 
     root.idx <- which(df$parent == df$node)

@@ -137,11 +137,9 @@ setClass("codeml",
 ##'
 ##' @name jplace-class
 ##' @aliases jplace-class
-##'   show,jplace-method get.tree,jplace-method
+##'   show,jplace-method
 ##'   get.placements,jplace-method
 ##'   get.treeinfo,jplace-method
-##'   set.treeinfo<-,jplace-method
-##'   set.treeinfo,jplace-method
 ##'   get.fields,jplace-method
 ##'   get.treetext,jplace-method
 ##'
@@ -151,7 +149,6 @@ setClass("codeml",
 ##' @slot placements placement information
 ##' @slot version version
 ##' @slot metadata metadata
-##' @slot treeinfo tree infomation
 ##' @slot file jplace file
 ##' @exportClass jplace
 ##' @author Guangchuang Yu \url{http://ygc.name}
@@ -165,7 +162,6 @@ setClass("jplace",
              placements = "data.frame",
              version    = "numeric",
              metadata   = "list",
-             treeinfo   = "data.frame",
              file       = "character"
              )
          )

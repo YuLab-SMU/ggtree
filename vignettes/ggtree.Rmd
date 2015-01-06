@@ -26,6 +26,12 @@ BiocStyle::markdown()
 ```
 
 
+```{r echo=FALSE}
+library("ggtree")
+library("Biostrings")
+library("gridExtra")
+```
+
 > You can't even begin to understand biology, you can't understand life, unless you understand what it's all there for, how it arose - and that means evolution.
 > --- Richard Dawkins
 
@@ -262,39 +268,52 @@ You can found that these two figures have different evolution distances, and sub
 
 
 #### mlc file
-```{r fig.width=8, tidy=TRUE, width=60, warning=FALSE, fig.align="center"}
+```{r}
 mlcfile <- system.file("extdata/PAML_Codeml", "mlc", package="ggtree")
 mlc <- read.codeml_mlc(mlcfile)
 mlc
-plot(mlc, branch.length="branch.length", annotation="dN/dS", ndigits=2)
 ```
 
-The paramter `branch.length` can be one of available annotations:
+Please aware that _`/`_ and _`*`_ are not valid characters in _`names`_, they were changed to _`.`_ and _`x`_ respectively.
+
+So _`dN.dS`_ is _`dN/dS`_, _`NxdN`_ is _`N*dN`_, and _`SxdS`_ is _`S*dS`_.
+
+
+```{r fig.width=8, tidy=TRUE, width=60, warning=FALSE, fig.align="center"}
+plot(mlc, branch.length="branch.length", annotation="dN.dS", annotation.color="blue", ndigits=3)
+```
+
+The paramter _`branch.length`_ can be one of available annotations:
 ```{r}
 get.fields(mlc)
 ```
 
-For example, if we set `branch.length` to `dN/dS`, it will plot the $\omega$ (`dN/dS`) tree:
+For example, if we set _`branch.length`_ to _`dN.dS`_, it will plot the $\omega$ (_`dN/dS`_) tree:
 ```{r fig.width=8, tidy=TRUE, width=60, warning=FALSE, fig.align="center"}
-plot(mlc, branch.length="dN/dS", annotation="dN/dS", ndigits=2)
+plot(mlc, branch.length="dN.dS", annotation="dN.dS", ndigits=3)
 ```
 
-We can also plot the `dN` or `dS` tree and others. The parameter `annotation` can also be one of the available annotations.
+We can also plot the _`dN`_ or _`dS`_ tree and others. The parameter _`annotation`_ can also be one of the available annotations.
 
 
-#### mlc and rst files
+#### _`CODEML`_ output: mlc and rst files
 
-We can annotate the tree with information presented in `rstfile` and `mlcfile` separately as demonstrated in previous sessions.
+We annotate the tree with information presented in _`rstfile`_ and _`mlcfile`_ separately as demonstrated in previous sessions.
 
-We recommend using them both, and user don't need to provide tip sequences, as it's already available in `mlcfile`. All the features in both files are available for annotation.
+We can also use both of them and it's highly recommended. User don't need to provide tip sequences, as it's already available in _`mlcfile`_. All the features in both files are available for annotation.
 
 
-```{r fig.width=12, fig.height=8, tidy=TRUE, width=60, warning=FALSE, fig.align="center"}
+```{r}
 ml <- read.codeml(rstfile, mlcfile)
 ml
-plot(ml, branch.length="rst.branch.length", annotation="dN/dS")
-plot(ml, branch.length="mlc.branch.length", annotation="joint_AA_subs")
-plot(ml, branch.length="dN/dS", annotation="joint_AA_subs")
+```
+
+So we can annotate _`dN/dS`_ with the tree in _`rstfile`_ and amino acid substitutions with the tree in _`mlcfile`_.
+
+```{r fig.width=12, fig.height=8, tidy=TRUE, width=60, warning=FALSE, fig.align="center"}
+plot(ml, branch.length="rst.branch.length", annotation="dN.dS")
+plot(ml, branch.length="mlc.branch.length", annotation="marginal_AA_subs")
+plot(ml, branch.length="dN", annotation="joint_AA_subs", annotation.color="darkgreen")
 ```
 
 ## annotating tree with HYPHY output
@@ -313,10 +332,41 @@ plot(hy, annotation="AA_subs")
 ## annotating tree with EPA and PPLACER output
 [EPA](http://sco.h-its.org/exelixis/web/software/epa/index.html)[@berger_EPA_2011] and [PPLACER](http://matsen.fhcrc.org/pplacer/)[@matsen_pplacer_2010] have common output file format, `jplace`. 
 
+```{r}
+jpf <- system.file("extdata/sample.jplace",  package="ggtree")
+jp <- read.jplace(jpf)
+print(jp)
+```
+
+This is only a tiny sample file. In reality, [EPA](http://sco.h-its.org/exelixis/web/software/epa/index.html) and [PPLACER](http://matsen.fhcrc.org/pplacer/) may place thousands of short reads on a reference tree.
+
+In `r Githubpkg("GuangchuangYu/ggtree")`, we provide _`get.placements`_ method to access the placement.
+
+```{r}
+## get only best hit
+get.placements(jp, by="best")
+## get all placement
+get.placements(jp, by="all")
+```
+
+We may, for example, count the number of placement and annotate this information in the tree. We do not provide a _`plot`_ method for _`jplace`_ object, since we use this file format as a standard annotation format in `r Githubpkg("GuangchuangYu/ggtree")` package and have no assumption of information it may stored. Please refer to [jplace-file-format](#jplace-file-format) session.
+
+
+## annotating tree using _`ggplot2`_ layers
+We implemented several _`plot`_ methods for easily view annotation data. Users are not restricted to _`plot`_ methods provided. They can use _`geom_text`_ to add annotation layer. All annotation data are visible to _`ggplot2`_.
+
+In the following example, we use the _`codeml`_ object to visualize the $\omega$ (_`dN/dS`_) tree, and annotate the tree with _`dN`_ and _`dS`_.
+```{r fig.width=12, fig.height=10, tidy=TRUE, width=60, warning=FALSE, fig.align="center"}
+ggtree(ml, branch.length="dN.dS") + 
+	   geom_text(aes(x=branch, label=dN), 
+	   	     size=3, vjust=-0.5, color="red") +
+           geom_text(aes(x=branch, label=dS),
+	             size=3, vjust=1.2, color="darkgreen")
+```
 
 
 ## user specific annotation
-We provides several functions to parse and store information from common software output in this field, and corresponding `plot` methods for visualizing annotation in the tree.
+We provides several functions to parse and store information from common software output, and corresponding _`plot`_ methods for visualizing annotation in the tree.
 
 Here, we would like to demonstrate how to inject user specific annotation data in a tree.
 
@@ -343,11 +393,11 @@ print(dd)
 knitr::kable(dd)
 ```
 
-We can imaging that the `place` column is the place we isolated the species and `value` column stored numerical values for example bootstrap values.
+We can imaging that the _`place`_ column is the place we isolated the species and _`value`_ column stored numerical values for example bootstrap values.
 
-We have shown using the operator, `%<%`, to update a tree view with a new tree. Here, we will introduce another operator, `%<+%`, that attach annotation data to a tree view. The only requirement of the input data is that its first column should be matched with the node labels of the tree.
+We have shown using the operator, _`%<%`_, to update a tree view with a new tree. Here, we will introduce another operator, _`%<+%`_, that attach annotation data to a tree view. The only requirement of the input data is that its first column should be matched with the node labels of the tree.
 
-After attaching the annotation data to the tree by `%<+%`, all the columns in the data are visible to `ggplot2`. As an example, here we attach the above annotation data to the tree view, `p`, and add a layer that showing the tip labels and colored by the isolation site stored in `place` column.
+After attaching the annotation data to the tree by _`%<+%`_, all the columns in the data are visible to _`ggplot2`_. As an example, here we attach the above annotation data to the tree view, _`p`_, and add a layer that showing the tip labels and colored by the isolation site stored in _`place`_ column.
 
 ```{r fig.width=6, fig.height=5, warning=FALSE, fig.align="center"}
 p <- p %<+% dd + geom_text(aes(color=place, label=label), hjust=-0.5)
@@ -372,7 +422,7 @@ print(p)
 ```
 
 ## `jplace` file format
-The `jplace` file format was defined by Masten[@matsen_format_2012] for phylogenetic placements. We employ this file format to store user specific annotation. Suppose we have a tree, and the associated data that indicate the amino acid substitutions from parent node to child node as shown below:
+The _`jplace`_ file format was defined by Masten[@matsen_format_2012] for phylogenetic placements. We employ this file format to store user specific annotation. Suppose we have a tree, and the associated data that indicate the amino acid substitutions from parent node to child node as shown below:
 ```{r}
 tree <- system.file("extdata", "pa.nwk", package="ggtree")
 data <- read.csv(system.file("extdata", "pa_subs.csv", package="ggtree"), stringsAsFactor=FALSE)
@@ -380,70 +430,60 @@ print(tree)
 head(data)
 ```
 
-`r Githubpkg("GuangchuangYu/ggtree")` provides a function, `write.jplace`, to combine a tree and an associated data and store them to a single `jplace` file.
-```{r eval=FALSE}
-write.jplace(tree, data, "pa.jplace")
+The _`data`_ contains amino acid substitution and GC content. We can annotate the tree as demonstrated in [user specific annotation](#user specific annotation) session.
+
+`r Githubpkg("GuangchuangYu/ggtree")` provides a function, _`write.jplace`_, to combine a tree and an associated data and store them to a single _`jplace`_ file.
+```{r}
+outfile <- tempfile()
+write.jplace(tree, data, outfile)
 ```
 
-Then user can use `read.jplace` function to parse the `jplace` file and store the information to a `jplace` object.
+Then user can use _`read.jplace`_ function to parse the _`jplace`_ file and store the information to a _`jplace`_ object.
 ```{r}
-jpf <- system.file("extdata", "pa.jplace", package="ggtree")
-jp <- read.jplace(jpf)
+jp <- read.jplace(outfile)
 print(jp)
 ```
 
-The variables of the associated annotation data can be access via `get.fields`.
-```{r}
-get.fields(jp)
-```
-Now we know the `jp` object stored the tree and the associated amino acid substitution information, we can view the tree and display the associated annotation data on it directly by `ggtree`.
+Now we know the _`jp`_ object stored the tree and the associated amino acid substitution and GC content information, we can view the tree and display the associated annotation data on it directly by _`ggtree`_.
 
 ```{r fig.width=12, fig.height=12, warning=FALSE, fig.align="center"}
 ggtree(jp, showDistance=TRUE) + 
 	   geom_text(aes(x=branch, label=subs), color="purple", vjust=-1, size=3) + 
+	   geom_text(aes(x=branch, label=gc), color="steelblue", vjust=1.5, size=3) +
 	   geom_text(aes(label=label), hjust=-.5)
 ```
 
 ## visualize tree and associated matrix
 ```{r}
-nwk <- system.file("extdata", "sample.nwk", package = "ggtree")
-require(ape)
-tree <- read.tree(nwk)
+seqs <- ml@rst@tip_seq
+library(Biostrings)
+x <- DNAStringSet(seqs)
 
-d <- matrix(sample(1:4, 13*4, replace=T), ncol=4)
-row.names(d) <-  tree$tip.label
-colnames(d) <- paste0("g", 1:4)
+dd <- alphabetFrequency(x)[, 1:4]
+dd <- dd/rowSums(dd)
+row.names(dd) <- names(seqs)
 ```
+
 ```{r eval=FALSE}
-print(d)
+head(dd)
 ```
 
 ```{r echo=FALSE}
-knitr::kable(d)
+knitr::kable(head(dd))
 ```
 
 ```{r fig.width=12, fig.heigh=6, fig.align="center"}
-gplot(tree, d, low="green", high="red", widths=c(.7, .3))
+p <- ggtree(ml)
+gplot(p, dd, low="green", high="red", widths=c(.7, .3))
 ```
 
-```{r}
-d <- matrix(abs(rnorm(13*5)), ncol=5)
-row.names(d) <- tree$tip.label
-colnames(d) <- paste0("g", 1:5)
-```
-```{r eval=FALSE}
-print(d)
-```
+Of course, we can use an annotated tree.
 
-```{r echo=FALSE}
-knitr::kable(d)
+```{r fig.width=12, fig.heigh=6, fig.align="center", warning=FALSE}
+p2 <- ggtree(ml, branch.length="none") + 
+          geom_text(aes(x=branch, label=dN.dS), vjust=-.5, color="steelblue", size=4)	  
+gplot(p2, dd, low="green", high="red", widths=c(.7, .3))
 ```
-
-```{r fig.width=12, fig.heigh=6, fig.align="center"}
-gplot(tree, d, low="green", high="red", widths=c(.6, .4))
-```
-
-
 
 
 # Session info

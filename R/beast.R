@@ -50,44 +50,16 @@ setMethod("plot", signature( x= "beast"),
                           ndigits       = ndigits, ...)
 
               if (show.tip.label) {
-                  p <- p + geom_tiplab(hjust=tip.label.hjust,
-                                       size=tip.label.size)
+                  p <- p + geom_tiplab(hjust = tip.label.hjust,
+                                       size  = tip.label.size)
                   offset <- ceiling(max(p$data$x)) * 0.1
                   p <- p + xlim(-offset, max(p$data$x) + offset)
               }
               if (!is.null(annotation) && !is.na(annotation)) {
-                  fields <- colnames(x@stats)
-                  fields <- gsub("_lower", "", fields)
-                  fields <- gsub("_upper", "", fields)
-                  
-                  m <- grep(paste0("^", annotation, "$"),
-                            fields)
-                  
-                  if (length(m) == 0 || length(m) > 2) {
-                      stop("annotation should be one of ",
-                           paste(get.fields(x), collapse=", "),
-                           ".")
-                  }
-                  if (length(m) == 1) {
-                      p <- p + geom_text(aes_string(x=position,
-                                                    label=annotation),
-                                         size=annotation.size, vjust=-.5,
-                                         color=annotation.color)
-                  } else {
-                      lo <- paste0(annotation, "_lower")
-                      hi <- paste0(annotation, "_upper")
-                      df <- p$data
-                      lo <- df[,lo]
-                      hi <- df[, hi]
-                      range <- paste0("[", lo, ", ", hi, "]")
-                      range[is.na(lo)] <- NA
-                      df[, annotation] <- range
-                      p$data <- df
-                      p <- p+geom_text(aes_string(x = position,
-                                                  label = annotation),
-                                       size=annotation.size, vjust=-.5,
-                                       color=annotation.color)
-                  }
+                  p <- p + geom_text(aes_string(x=position,
+                                                label=annotation),
+                                     size=annotation.size, vjust=-.5,
+                                     color=annotation.color)
               }
               p + theme_tree2()
           })
@@ -102,25 +74,7 @@ setMethod("show", signature(object = "beast"),
               cat("...@ tree: ")
               print.phylo(get.tree(object))                  
               cat("\nwith the following features available:\n")
-              fields <- get.fields(object)
-              n <- length(fields)
-              i <- floor(n/5)
-              for (j in 0:i) {
-                  ii <- 1:5 + 5 * j
-                  if (j == i) {
-                      ii <- ii[1:(n %% 5)]
-                  }
-                  cat("\t", paste0("'",
-                                   paste(fields[ii], collapse="',\t'"),
-                                   "'")
-                      )
-                  if ( j == i) {
-                      cat(".\n")
-                  } else {
-                      cat(",\n")
-                  }
-              }
-              
+              print_fields(object)              
           })
 
 

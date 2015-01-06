@@ -56,34 +56,42 @@ setMethod("get.fields", signature(object = "codeml_mlc"),
 ##' @param annotation one of get.fields(x)
 ##' @param ndigits round digits
 setMethod("plot", signature(x = "codeml_mlc"),
-          function(x, layout = "phylogram",
-                   branch.length = "branch.length",
-                   show.tip.label = TRUE,
-                   position = "branch",
-                   annotation = "dN/dS",
-                   ndigits = 2,
+          function(x, layout        = "phylogram",
+                   branch.length    = "branch.length",
+                   show.tip.label   = TRUE,
+                   tip.label.size   = 4,
+                   tip.label.hjust  = -0.1,
+                   position         = "branch",
+                   annotation       = "dN/dS",
+                   annotation.size  = 3,
+                   annotation.color = "black",
+                   ndigits          = 2,
                    ...
                    ) {
               
-          p <- ggtree(x, layout=layout, branch.length=branch.length)
-          if (show.tip.label) {
-              p <- p + geom_tiplab()
-          }
-          p <- plot.codeml_mlc_(p, position, annotation, ndigits)
-          p + theme_tree2()
-      })
-          
+              p <- ggtree(x, layout=layout,
+                          branch.length=branch.length,
+                          ndigits=ndigits, ...)
+              
+              if (show.tip.label) {
+                  p <- p + geom_tiplab(hjust = tip.label.hjust,
+                                       size  = tip.label.size)
+              }
+              plot.codeml_mlc_(p, position, annotation,
+                               annotation.size, annotation.color)
+          })
 
-plot.codeml_mlc_<- function(p, position, annotation=NULL, ndigits){
+
+plot.codeml_mlc_<- function(p, position, annotation=NULL,
+                            annotation.size, annotation.color){
+
     if (!is.null(annotation) && !is.na(annotation)) {
-        df <- p$data
-        df[, annotation] <- round(df[, annotation], ndigits)
-        
-        p <- p + geom_text(aes_string(x=position),
-                           label = df[[annotation]],
-                           size=3, vjust=-.5)
+        p <- p + geom_text(aes_string(x=position,
+                                      label = annotation),
+                           size=annotation.size, vjust=-.5,
+                           color = annotation.color)
     }
-    p
+    p + theme_tree2()
 }
 
     

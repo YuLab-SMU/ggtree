@@ -24,6 +24,13 @@ read.jplace <- function(file) {
 }
 
 
+##' @rdname get.tree-methods
+##' @exportMethod get.tree
+setMethod("get.tree", signature(object="jplace"),
+          function(object) {
+              jplace_treetext_to_phylo(object@treetext)
+          })
+
 
 ##' show method for \code{jplace} instance
 ##'
@@ -45,11 +52,23 @@ read.jplace <- function(file) {
 ##' show(jp)
 setMethod("show", signature(object = "jplace"),
           function(object) {
-              cat("jplace class\n   ..@ tree      : ")
-              cat(str(object@treetext), "\n",
-                  "  ..@ placements:'data.frame':	", nrow(object@placements),
-                  " obs. of ", ncol(object@placements), "variables\n",
-                  "  ..@ version   : int", object@version, "\n")
+              cat("'jplace' S4 object that stored information of\n\t",
+                  paste0("'", object@file, "'."),
+                  "\n\n")
+
+              cat("...@ tree: ")
+
+              phylo <- get.tree(object)
+              phylo$node.label <- NULL
+              phylo$tip.label %<>% gsub("\\@\\d+", "", .) 
+        
+              print.phylo(phylo)
+
+              cat("\nwith the following features availables:\n")
+              cat("\t", paste0("'",
+                               paste(get.fields(object), collapse="',\t'"),
+                               "'."),
+                  "\n")
           }
           )
 
@@ -143,7 +162,7 @@ setMethod("get.placements", signature(object = "jplace"),
               }
               if (by == "best") { ## best hit
                   place <- lapply(place, function(x) {
-                      if (is(x, "data.frame")) {
+                      if (is(x, "data.frame") || is(x, "matrix")) {
                           return(x[1,])
                       } else {
                           return(x)
@@ -151,6 +170,7 @@ setMethod("get.placements", signature(object = "jplace"),
                   })
               }
               place.df <- do.call("rbind", place)
+              row.names(place.df) <- NULL
               if (!is.null(ids)) {
                   nn <- rep(ids, sapply(place, function(x) {
                       nr <- nrow(x)
@@ -163,42 +183,9 @@ setMethod("get.placements", signature(object = "jplace"),
               } else {
                   colnames(place.df) <- object@fields
               }
+              
               return(as.data.frame(place.df))
           })
-
-
-##' set.treeinfo method for \code{jplace} object
-##'
-##'
-##' @name set.treeinfo<-
-##' @docType methods
-##' @rdname set.treeinfo-methods
-##' @aliases set.treeinfo<-,jplace,ANY-method
-##' @exportMethod "set.treeinfo<-"
-##' @author Guangchuang Yu \url{http://ygc.name}
-##' @usage set.treeinfo(x) <- value
-##' @examples
-##' jp <- system.file("extdata", "sample.jplace", package="ggtree")
-##' jp <- read.jplace(jp)
-##' set.treeinfo(jp) <- get.treeinfo(jp)
-setReplaceMethod(f="set.treeinfo",
-                 signature = "jplace",
-                 definition = function(x, value) {
-                     x@treeinfo <- value                     
-                 })
-
-
-
-##' @method fortify jplace
-##' @importFrom ape read.tree
-##' @export
-fortify.jplace <- function(model, data,
-                           layout="phylogram",
-                           ladderize=TRUE, right=FALSE, ...) {
-    df <- get.treeinfo(model, layout, ladderize, right, ...)
-    place <- get.placements(model, by="best")
-    df %add2% place
-}
 
 
 get.treetext.jplace <- function(object, ...) {
@@ -211,18 +198,9 @@ get.fields.jplace <- function(object, ...) {
 
 get.treeinfo.jplace <- function(object, layout,
                                 ladderize, right, ...) {
-    treeinfo <- object@treeinfo
-    if(nrow(treeinfo) == 0) {
-        tree.text <- get.treetext(object)
-        treeinfo <- extract.treeinfo.jplace(tree.text, layout,
-                                            ladderize, right)
-        set.treeinfo(object) <- treeinfo
-    } else if (attr(treeinfo, "ladderize") != ladderize) {
-        treeinfo <- extract.treeinfo.jplace(tree.text, layout,
-                                            ladderize, right)
-        set.treeinfo(object) <- treeinfo
-    }
-    return(treeinfo)
+    tree.text <- get.treetext(object)
+    extract.treeinfo.jplace(tree.text, layout,
+                            ladderize, right)
 }
 
 ##' generate jplace file

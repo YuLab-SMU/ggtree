@@ -4,11 +4,11 @@
 \alias{gplot}
 \title{view tree and associated matrix}
 \usage{
-gplot(tree, data, low = "green", high = "red", widths = c(0.5, 0.5),
+gplot(p, data, low = "green", high = "red", widths = c(0.5, 0.5),
   font.size = 14)
 }
 \arguments{
-\item{tree}{one of phylo, phylo4 or jplace object}
+\item{p}{tree view}
 
 \item{data}{matrix}
 
