@@ -1,34 +1,49 @@
-
+##' @importFrom ape reorder.phylo
 layout.unrooted <- function(tree) {
-    df <- as.data.frame.phylo_(tree)
-    df$x <- 0
-    df$y <- 0
     N <- getNodeNum(tree)
+    root <- getRoot(tree)
+
+    df <- as.data.frame.phylo_(tree)
+    df$x <- NA
+    df$y <- NA
+    df$start <- NA
+    df$end <- NA
+    df[root, "x"] <- 0
+    df[root, "y"] <- 0
+    df[root, "start"] <- 0
+    df[root, "end"] <- 2
+    
     nb.sp <- sapply(1:N, function(i) length(get.offspring.tip(tree, i)))
-    layout.unrooted_<- function(curNode, start, end) {
+
+    tree <- reorder.phylo(tree, "postorder")
+    nodes <- tree$edge[,c(2,1)] %>% t %>%
+        as.vector %>% rev %>% unique
+
+    for(curNode in nodes) {
         curNtip <- nb.sp[curNode]
         children <- getChild(tree, curNode)
+        
+        start <- df[curNode, "start"]
+        end <- df[curNode, "end"]
+        
         if (length(children) > 0) {
-            for (i in seq_along(children)){
+            for (i in seq_along(children)) {
                 child <- children[i]
                 ntip.child <- nb.sp[child]
+                
                 alpha <- (end - start) * ntip.child/curNtip
                 beta <- start + alpha / 2
-
-                length.child <- df[df$node == child, "length"]
-                x.child <- df[df$node == curNode, "x"] + cospi(beta) * length.child
-                y.child <- df[df$node == curNode, "y"] + sinpi(beta) * length.child
-                
-                df$x[df$node == child] <<- x.child
-                df$y[df$node == child] <<- y.child
-                
-                layout.unrooted_(child, start, start+alpha)
+                    
+                length.child <- df[child, "length"]
+                df[child, "x"] <- df[curNode, "x"] + cospi(beta) * length.child
+                df[child, "y"] <- df[curNode, "y"] + sinpi(beta) * length.child
+                df[child, "start"] <- start
+                df[child, "end"] <- start + alpha
                 start <- start + alpha
             }
         }
     }
-     
-    layout.unrooted_(getRoot(tree), 0, 2)
+        
     return(df)
 }
 

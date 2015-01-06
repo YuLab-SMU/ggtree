@@ -205,14 +205,21 @@ is.tree <- function(x) {
     return(pg)
 }
 
-`%IN%` <- function(x, table) {
-    ii <- NULL ## satisify codetools
-    idx <- match(x, table, nomatch=NA)
-    ii <<- idx[!is.na(idx)]
-    res <- as.logical(idx)
-    res[is.na(res)] <- FALSE
-    return(res)
-}
+
+## `%IN%` <- function(x, table) {
+##     ii <- NULL ## satisify codetools
+##     idx <- match(x, table, nomatch=NA)
+##     ii <<- idx[!is.na(idx)]
+##     res <- as.logical(idx)
+##     res[is.na(res)] <- FALSE
+##     return(res)
+## }
+## geom_nplace <- function(data, map, place, ...) {
+##     label <- NULL
+##     ii <- 1:nrow(data)
+##     geom_text(subset=.(label %IN% data[[map]]), label = data[ii, place], ...)
+## }
+
 
 roundDigit <- function(d) {
     i <- 0

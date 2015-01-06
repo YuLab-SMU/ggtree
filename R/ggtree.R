@@ -120,7 +120,9 @@ geom_tiplab <- function(align=FALSE, hjust=-.25, ...) {
 ##' ggtree(tr) + geom_tiplab(align=TRUE) + geom_aline()
 geom_aline <- function(linetype="dashed", ...) {
     x <- y <- isTip <- NULL
-    geom_segment(aes(x=ifelse(x==max(x), x, x*1.02), xend=max(x), yend=y), subset=.(isTip), linetype=linetype, ...)
+    geom_segment(aes(x=ifelse(x==max(x), x, x*1.02),
+                     xend=max(x), yend=y),
+                 subset=.(isTip), linetype=linetype, ...)
 }
 
 ##' add points layer of tips 
@@ -139,77 +141,6 @@ geom_aline <- function(linetype="dashed", ...) {
 geom_tippoint <- function(...) {
     isTip <- NULL
     geom_point(subset=.(isTip), ...)
-}
-
-
-##' add placement based on edge
-##'
-##' 
-##' @title geom_eplace
-##' @param data placement data.frame
-##' @param map edge column name
-##' @param place place info
-##' @param ... additional parameter
-##' @return text layer
-##' @importFrom ggplot2 geom_text
-##' @importFrom ggplot2 aes
-##' @author ygc
-geom_eplace <- function(data, map, place, ...) {
-    edge <- NULL
-    ii <- 1:nrow(data)
-    ## if (align == TRUE) 
-    ##     geom_text(aes(x=max(x)), subset=.(edge %in% data[[edgeCol]]), label = data[[annoCol]], ...)
-    geom_text(subset=.(edge %IN% data[[map]]), label = data[ii, place], ...)
-    
-}
-
-##' add placement based on node
-##'
-##' 
-##' @title geom_nplace
-##' @param data placement data.frame
-##' @param map edge column name
-##' @param place place info
-##' @param ... additional parameter
-##' @return text layer
-##' @importFrom ggplot2 geom_text
-##' @importFrom ggplot2 aes
-##' @author ygc
-geom_nplace <- function(data, map, place, ...) {
-    label <- NULL
-    ii <- 1:nrow(data)
-    geom_text(subset=.(label %IN% data[[map]]), label = data[ii, place], ...)
-}
-
-##' place annotation in tree
-##'
-##' 
-##' @title geom_place 
-##' @param data data
-##' @param map mapping variable
-##' @param place placement info
-##' @param by one of "node" and "edge"
-##' @param ... additional parameter
-##' @return text layer
-##' @export
-##' @author ygc
-##' @examples
-##' nwk <- system.file("extdata", "sample.nwk", package="ggtree")
-##' library(ape)
-##' tree <- read.tree(nwk)
-##' dd <- data.frame(taxa=sample(LETTERS[1:13], 6), value=round(abs(rnorm(6))*100))
-##' ggtree(tree) + geom_tiplab() + 
-##'   geom_place(data=dd, map="taxa", place="value", 
-##'              hjust=0.8, vjust=-0.4, size=4, color="red")
-geom_place <- function(data, map, place, by="node", ...) {
-    data <- data[order(data[[map]]),]
-    if (by == "node") {
-        geom_nplace(data, map, place, ...)
-    } else if (by == "edge") {
-        geom_eplace(data, map, place, ...)
-    } else {
-        stop("not supported yet...")
-    }
 }
 
 
