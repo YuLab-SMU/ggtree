@@ -203,39 +203,3 @@ theme_tree2 <- function(bgcolor="white", fgcolor="black") {
           )
 }
 
-
-##' update tree 
-##'
-##'
-##' @rdname update.TREE
-##' @title \%<\%
-##' @param pg ggplot2 object
-##' @param x update by x
-##' @return updated ggplot object
-##' @export
-##' @author Yu Guangchuang
-`%<%` <- function(pg, x) {
-    if (! is.tree(x)) {
-        stop("input should be a tree object...")
-    }
-    pg %place% x
-}
-
-##' add annotation data to a tree
-##'
-##'
-##' @rdname add.TREEDATA
-##' @title \%<+\%
-##' @param pg ggplot2 object
-##' @param data annotation data
-##' @return ggplot object with annotation data added
-##' @export
-##' @author Yu Guangchuang
-`%<+%` <- function(pg, data) {
-    if (! is.data.frame(data)) {
-        stop("input should be a data.frame...")
-    }
-    pg %add% data
-}
-
-

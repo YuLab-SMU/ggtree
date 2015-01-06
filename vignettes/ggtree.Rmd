@@ -37,15 +37,15 @@ library("gridExtra")
 
 
 # Introduction
-This project came out with my needs to annotate nucleotide substitutions in the phylogenetic tree, and I found that there is no tree visualization software can do this easily. All the tree viewer are designed for displaying phylogenetic tree, but not annotating it. Although some tree viewers support displaying bootstrap values in the tree, it is hard/impossible to display other information in the tree. My first solution for displaying nucleotide substituition in the tree is to add these information in the node/tip names and use traditional tree viewer to show it. I displayed the information in the tree successfully, but I do believe this quick-and-dirty hack is ugly.
+This project came arose from my needs to annotate nucleotide substitutions in the phylogenetic tree, and I found that there is no tree visualization software can do this easily. Existing tree viewers are designed for displaying phylogenetic tree, but not annotating it. Although some tree viewers support displaying bootstrap values in the tree, it is hard/impossible to display other information in the tree. My first solution for displaying nucleotide substituition in the tree is to add these information in the node/tip names and use traditional tree viewer to show it. I displayed the information in the tree successfully, but I believe this quick-and-dirty hack is ugly.
 
-In the old day, we even don't have enough sequences to infer phylogenetic tree. At that time, as we almost don't have a need to annotate a tree, displaying the evolution relationships is mostly enough. Nowaday, we can obtain a lot of data from different experiments, and we want to associate our data, for instance antigenic change, with the evolution relationship. Visualizing these associations in the phylogenetic tree can help us to identify evolution patterns. I believe we need a next generation tree viewer that can view a phylogenetic tree easily as we did with classical software and support adding annotation data in a layer one by one above the tree. This is the objective of developing the `r Githubpkg("GuangchuangYu/ggtree")`. Common tasks of annotating a phylogenetic tree should be easy and complicated tasks can be possible to achieve by adding multiple layers of annotation.
+In the old day, we didn't even have enough sequences to infer phylogenetic tree. At that time, as we almost don't have a need to annotate a tree, displaying the evolution relationships is mostly enough. Nowaday, we can obtain a lot of data from different experiments, and we want to associate our data, for instance antigenic change, with the evolution relationship. Visualizing these associations in the phylogenetic tree can help us to identify evolution patterns. I believe we need a next generation tree viewer that can view a phylogenetic tree easily as we did with classical software and support adding annotation data in a layer above the tree. This is the objective of developing the `r Githubpkg("GuangchuangYu/ggtree")`. Common tasks of annotating a phylogenetic tree should be easy and complicated tasks can be possible to achieve by adding multiple layers of annotation.
 
-The `r Githubpkg("GuangchuangYu/ggtree")` is designed by extending the `r CRANpkg("ggplot2")`[@wickham_ggplot2_2009] package. It based on grammar of graphics and takes all the good parts of `r CRANpkg("ggplot2")`. There are other R packages that implemented tree viewer using `r CRANpkg("ggplot2")`, including `r CRANpkg("OutbreakTools")`, `r Biocpkg("phyloseq")`[@mcmurdie_phyloseq_2013] and `r Githubpkg("gjuggler/ggphylo")`, but all of them only create complex tree view function for their specific needs. They are just classical tree viewers that only viewing the tree or annotating a specific data type. The good parts of `r CRANpkg("ggplot2")` are not available in these packages. They lack of flexibilities of annotating phylogenetic tree by diverse user inputs. 
+The `r Githubpkg("GuangchuangYu/ggtree")` is designed by extending the `r CRANpkg("ggplot2")`[@wickham_ggplot2_2009] package. It is based on the grammar of graphics and takes all the good parts of `r CRANpkg("ggplot2")`. There are other R packages that implement tree viewer using `r CRANpkg("ggplot2")`, including `r CRANpkg("OutbreakTools")`, `r Biocpkg("phyloseq")`[@mcmurdie_phyloseq_2013] and `r Githubpkg("gjuggler/ggphylo")`, but all of them only create complex tree view functions for their specific needs. They are just classical tree viewers that only view the tree or annotate a specific data type. The good parts of `r CRANpkg("ggplot2")` are not available in these packages. They lack of flexibilities of annotating phylogenetic tree by diverse user inputs. 
 
 # Tree visualization
 ## viewing tree with `ggtree`
-`r Githubpkg("GuangchuangYu/ggtree")` extend _`ggplot`_ to support viewing phylogenetic tree. It implement _`geom_tree`_ layer for displaying phylogenetic tree, as shown below:
+`r Githubpkg("GuangchuangYu/ggtree")` extend _`ggplot`_ to support viewing phylogenetic tree. It implements _`geom_tree`_ layer for displaying phylogenetic trees, as shown below:
 ```{r fig.width=3, fig.height=3, tidy=TRUE, fig.align="center"}
 nwk <- system.file("extdata", "sample.nwk", package="ggtree")
 x <- readLines(nwk)
@@ -59,7 +59,7 @@ ggplot(tree, aes(x, y)) + geom_tree() + theme_tree() + xlab("") + ylab("")
 
 This example tree was obtained from Chapter 34 of _Inferring Phylogenies_[@felsenstein_inferring_2003 pp.573]. The function, _`ggtree`_, was implemented as a short cut to visualize a tree, and it works exactly the same as shown above.
 
-_`ggtree`_ takes all the advantages of _`ggplot2`_. For example, we can change the color, size and type of the lines as we did with _`ggplot2`_.
+_`ggtree`_ takes all the advantages of _`ggplot2`_. For example, we can change the color, size and type of the lines as we do with _`ggplot2`_.
 ```{r fig.width=3, fig.height=3, fig.align="center"}
 ggtree(tree, color="steelblue", size=0.5, linetype="dotted")
 ```
@@ -170,7 +170,7 @@ grid.arrange(
 ```
 
 ## update tree viewing with a new tree
-In the __Display nodes/tips__ section, we have a _`p`_ object that stored the tree viewing of 13 tips and internal nodes highlighted with specific colored big dots. If you want to applied this pattern, and we can imaging more complex one, to a new tree, we don't need to build the tree view step by step. `r Githubpkg("GuangchuangYu/ggtree")` provides an operator, _`%<%`_, for applying the visualization pattern to a new tree.
+In the __Display nodes/tips__ section, we have a _`p`_ object that stored the tree viewing of 13 tips and internal nodes highlighted with specific colored big dots. If you want to applied this pattern (we can imaging a more complex one) to a new tree, we don't need to build the tree step by step. `r Githubpkg("GuangchuangYu/ggtree")` provides an operator, _`%<%`_, for applying the visualization pattern to a new tree.
 
 For example, the pattern in the _`p`_ object will be applied to a new tree with 50 tips as shown below:
 ```{r fig.width=3, fig.height=3, fig.align="center"}
@@ -395,9 +395,9 @@ knitr::kable(dd)
 
 We can imaging that the _`place`_ column is the place we isolated the species and _`value`_ column stored numerical values for example bootstrap values.
 
-We have shown using the operator, _`%<%`_, to update a tree view with a new tree. Here, we will introduce another operator, _`%<+%`_, that attach annotation data to a tree view. The only requirement of the input data is that its first column should be matched with the node labels of the tree.
+We have shown using the operator, _`%<%`_, to update a tree view with a new tree. Here, we will introduce another operator, _`%<+%`_, that attaches annotation data to a tree view. The only requirement of the input data is that its first column should be matched with the node/tip labels of the tree.
 
-After attaching the annotation data to the tree by _`%<+%`_, all the columns in the data are visible to _`ggplot2`_. As an example, here we attach the above annotation data to the tree view, _`p`_, and add a layer that showing the tip labels and colored by the isolation site stored in _`place`_ column.
+After attaching the annotation data to the tree by _`%<+%`_, all the columns in the data are visible to _`ggplot2`_. As an example, here we attach the above annotation data to the tree view, _`p`_, and add a layer that showing the tip labels and colored them by the isolation site stored in _`place`_ column.
 
 ```{r fig.width=6, fig.height=5, warning=FALSE, fig.align="center"}
 p <- p %<+% dd + geom_text(aes(color=place, label=label), hjust=-0.5)
@@ -422,7 +422,7 @@ print(p)
 ```
 
 ## `jplace` file format
-The _`jplace`_ file format was defined by Masten[@matsen_format_2012] for phylogenetic placements. We employ this file format to store user specific annotation. Suppose we have a tree, and the associated data that indicate the amino acid substitutions from parent node to child node as shown below:
+The _`jplace`_ file format was defined by Masten[@matsen_format_2012] for phylogenetic placements. We employed this file format to store phylogenetic tree and user specific annotation data. Suppose we have a tree, and the associated data as shown below:
 ```{r}
 tree <- system.file("extdata", "pa.nwk", package="ggtree")
 data <- read.csv(system.file("extdata", "pa_subs.csv", package="ggtree"), stringsAsFactor=FALSE)
@@ -430,7 +430,7 @@ print(tree)
 head(data)
 ```
 
-The _`data`_ contains amino acid substitution and GC content. We can annotate the tree as demonstrated in [user specific annotation](#user specific annotation) session.
+The _`data`_ contains amino acid substitutions from parent node to child node and GC contents of each node. We can annotate the tree as demonstrated in [user specific annotation](#user specific annotation) session.
 
 `r Githubpkg("GuangchuangYu/ggtree")` provides a function, _`write.jplace`_, to combine a tree and an associated data and store them to a single _`jplace`_ file.
 ```{r}
@@ -438,7 +438,7 @@ outfile <- tempfile()
 write.jplace(tree, data, outfile)
 ```
 
-Then user can use _`read.jplace`_ function to parse the _`jplace`_ file and store the information to a _`jplace`_ object.
+Then _`read.jplace`_ function was designed to read the _`jplace`_ file and store the information to a _`jplace`_ object.
 ```{r}
 jp <- read.jplace(outfile)
 print(jp)

@@ -1,3 +1,54 @@
+
+##' update tree 
+##'
+##'
+##' @rdname update.TREE
+##' @title \%<\%
+##' @param pg ggplot2 object
+##' @param x update by x
+##' @return updated ggplot object
+##' @export
+##' @author Yu Guangchuang
+##' @examples
+##' nwk <- system.file("extdata", "sample.nwk", package="ggtree")
+##' tree <- read.tree(nwk)
+##' p <- ggtree(tree) + geom_point(subset=.(!isTip), 
+##'         	       color="#b5e521", alpha=1/4, size=10)
+##' p %<% rtree(30)
+`%<%` <- function(pg, x) {
+    if (! is.tree(x)) {
+        stop("input should be a tree object...")
+    }
+    pg %place% x
+}
+
+##' add annotation data to a tree
+##'
+##'
+##' @rdname add.TREEDATA
+##' @title \%<+\%
+##' @param pg ggplot2 object
+##' @param data annotation data
+##' @return ggplot object with annotation data added
+##' @export
+##' @author Yu Guangchuang
+##' @examples
+##' nwk <- system.file("extdata", "sample.nwk", package="ggtree")
+##' tree <- read.tree(nwk)
+##' p <- ggtree(tree) 
+##' dd <- data.frame(taxa=LETTERS[1:13], 
+##'    		 place=c(rep("GZ", 5), rep("HK", 3), rep("CZ", 4), NA),
+##'              value=round(abs(rnorm(13, mean=70, sd=10)), digits=1))
+##' row.names(dd) <- NULL
+##' p %<+% dd + geom_text(aes(color=place, label=label), hjust=-0.5)
+`%<+%` <- function(pg, data) {
+    if (! is.data.frame(data)) {
+        stop("input should be a data.frame...")
+    }
+    pg %add% data
+}
+
+
 ##' @importFrom ape reorder.phylo
 layout.unrooted <- function(tree) {
     N <- getNodeNum(tree)
@@ -26,24 +77,28 @@ layout.unrooted <- function(tree) {
         start <- df[curNode, "start"]
         end <- df[curNode, "end"]
         
-        if (length(children) > 0) {
-            for (i in seq_along(children)) {
-                child <- children[i]
-                ntip.child <- nb.sp[child]
-                
-                alpha <- (end - start) * ntip.child/curNtip
-                beta <- start + alpha / 2
-                    
-                length.child <- df[child, "length"]
-                df[child, "x"] <- df[curNode, "x"] + cospi(beta) * length.child
-                df[child, "y"] <- df[curNode, "y"] + sinpi(beta) * length.child
-                df[child, "start"] <- start
-                df[child, "end"] <- start + alpha
-                start <- start + alpha
-            }
+        if (length(children) == 0) {
+            ## is a tip
+            next
         }
-    }
         
+        for (i in seq_along(children)) {
+            child <- children[i]
+            ntip.child <- nb.sp[child]
+            
+            alpha <- (end - start) * ntip.child/curNtip
+            beta <- start + alpha / 2
+            
+            length.child <- df[child, "length"]
+            df[child, "x"] <- df[curNode, "x"] + cospi(beta) * length.child
+            df[child, "y"] <- df[curNode, "y"] + sinpi(beta) * length.child
+            df[child, "start"] <- start
+            df[child, "end"] <- start + alpha
+            start <- start + alpha
+        }
+        
+    }
+    
     return(df)
 }
 

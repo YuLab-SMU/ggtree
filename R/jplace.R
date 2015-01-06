@@ -47,9 +47,11 @@ setMethod("get.tree", signature(object="jplace"),
 ##' @usage show(object)
 ##' @author Guangchuang Yu \url{http://ygc.name}
 ##' @examples
+##' \dontrun{
 ##' jp <- system.file("extdata", "sample.jplace", package="ggtree")
 ##' jp <- read.jplace(jp)
 ##' show(jp)
+##' }
 setMethod("show", signature(object = "jplace"),
           function(object) {
               cat("'jplace' S4 object that stored information of\n\t",
@@ -83,9 +85,11 @@ setMethod("show", signature(object = "jplace"),
 ##' @author Guangchuang Yu \url{http://ygc.name}
 ##' @usage get.treeinfo(object, layout, ladderize, right, ...)
 ##' @examples
+##' \dontrun{
 ##' jp <- system.file("extdata", "sample.jplace", package="ggtree")
 ##' jp <- read.jplace(jp)
 ##' get.treeinfo(jp)
+##' }
 setMethod("get.treeinfo", signature(object = "jplace"),
           function(object, layout="phylogram",
                    ladderize=TRUE, right=FALSE, ...) {
@@ -106,9 +110,11 @@ setMethod("get.treeinfo", signature(object = "jplace"),
 ##' @author Guangchuang Yu \url{http://ygc.name}
 ##' @usage get.treetext(object, ...)
 ##' @examples
+##' \dontrun{
 ##' jp <- system.file("extdata", "sample.jplace", package="ggtree")
 ##' jp <- read.jplace(jp)
 ##' get.treetext(jp)
+##' }
 setMethod("get.treetext", signature(object = "jplace"),
           function(object, ...) {
               get.treetext.jplace(object, ...)
@@ -127,9 +133,11 @@ setMethod("get.treetext", signature(object = "jplace"),
 ##' @author Guangchuang Yu \url{http://ygc.name}
 ##' @usage get.fields(object, ...)
 ##' @examples
+##' \dontrun{
 ##' jp <- system.file("extdata", "sample.jplace", package="ggtree")
 ##' jp <- read.jplace(jp)
 ##' get.fields(jp)
+##' }
 setMethod("get.fields", signature(object = "jplace"),
           function(object, ...) {
               object@fields
@@ -148,9 +156,11 @@ setMethod("get.fields", signature(object = "jplace"),
 ##' @author Guangchuang Yu \url{http://ygc.name}
 ##' @usage get.placements(object, by, ...)
 ##' @examples
+##' \dontrun{
 ##' jp <- system.file("extdata", "sample.jplace", package="ggtree")
 ##' jp <- read.jplace(jp)
 ##' get.placements(jp, by="all")
+##' }
 setMethod("get.placements", signature(object = "jplace"),
           function(object, by="best", ...) {
               placements <- object@placements
