@@ -1,4 +1,58 @@
 
+##' plots simultaneously a whole phylogenetic tree and a portion of it. 
+##'
+##' 
+##' @title gzoom
+##' @param phy phylo object
+##' @param focus selected tips
+##' @param subtree logical
+##' @param widths widths
+##' @return a list of ggplot object
+##' @importFrom ape drop.tip
+##' @importFrom ape which.edge
+##' @importFrom ggplot2 xlim
+##' @importFrom ggplot2 scale_color_manual
+##' @export
+##' @author ygc
+##' @examples
+##' require(ape)
+##' data(chiroptera)
+##' gzoom(chiroptera, grep("Plecotus", chiroptera$tip.label))
+gzoom <- function(phy, focus, subtree=FALSE, widths=c(.3, .7)) {
+    node <- parent <- x <- y <- xend <- yend <- color <- NULL
+    if (is.character(focus)) {
+        focus <- which(phy$tip.label %in% focus)
+    }
+    subtr <- drop.tip(phy, phy$tip.label[-focus],
+                      subtree=subtree, rooted=TRUE)
+  
+    sn <- phy$edge[which.edge(phy, focus),] %>% as.vector %>% unique
+     
+    df2 <- with(fortify(phy),
+                data.frame(
+                    node = c(node, parent),
+                    x    = rep(x[parent],2),
+                    xend = c(x, x[parent]),
+                    y    = c(y, y[parent]),
+                    yend = c(y, y)
+                    )
+                )
+
+    df2$color <- "black"
+    df2$color[df2$node %in% sn] <- "red"
+    p1 <- ggplot(df2, aes(x, y)) +
+        geom_segment(aes(xend=xend, yend=yend, color=color)) +
+            scale_color_manual(values=c("black", "red")) +
+                theme_tree() + xlab("") + ylab("")
+    
+    p2 <- ggtree(subtr, color="red") + geom_tiplab(hjust=-0.05)
+    p2 <- p2 + xlim(0, max(p2$data$x)*1.2)
+    grid.arrange(p1, p2, ncol=2, widths=widths)
+    
+    invisible(list(p1=p1, p2=p2))
+}
+
+
 ##' update tree 
 ##'
 ##'

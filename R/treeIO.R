@@ -399,7 +399,9 @@ as.data.frame.phylo_ <- function(x, layout="phylogram",
     isTip[1:Ntip] <- TRUE
     res$isTip <- isTip
     res$branch <- (res$x[res$parent] + res$x)/2
-    res$length[is.na(res$length)] <- 0
+    if (!is.null(res$length)) {
+        res$length[is.na(res$length)] <- 0
+    }
     res$branch[is.na(res$branch)] <- 0
     return(res)
 }
