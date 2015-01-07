@@ -259,7 +259,7 @@ read.stats_beast <- function(file) {
 
     stats3 <- as.data.frame(stats3)
     stats3$node <- node
-    colnames(stats3) <- gsub("95%", "0.95", colnames(stats3))
+    colnames(stats3) <- gsub("(\\d+)%", "0.\\1", colnames(stats3))
     return(stats3)
 }
 
