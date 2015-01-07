@@ -19,8 +19,8 @@
 \S4method{plot}{codeml,ANY}(x, layout = "phylogram",
   branch.length = "mlc.branch.length", show.tip.label = TRUE,
   tip.label.size = 4, tip.label.hjust = -0.1, position = "branch",
-  annotation = "dN.dS", annotation.size = 3, annotation.color = "black",
-  ndigits = 2, ...)
+  annotation = "dN_vs_dS", annotation.size = 3,
+  annotation.color = "black", ndigits = 2, ...)
 
 \S4method{plot}{codeml_mlc,ANY}(x, layout = "phylogram",
   branch.length = "branch.length", show.tip.label = TRUE,
