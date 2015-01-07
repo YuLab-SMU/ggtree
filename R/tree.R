@@ -1,3 +1,27 @@
+##' @importFrom ape which.edge
+gfocus <- function(phy, focus) {
+    if (is.character(focus)) {
+        focus <- which(phy$tip.label %in% focus)
+    }
+    
+    n <- getNodeNum(phy)
+    if (is.null(attr(phy, "focus"))) {
+        foc <- rep(1, 2*n)
+    } else {
+        foc <- attr(phy, "focus")
+    }
+    i <- max(foc) + 1
+    sn <- phy$edge[which.edge(phy, focus),] %>% as.vector %>% unique
+    foc[sn] <- i
+    foc[sn+n] <- i
+    attr(phy, "focus") <- foc
+
+    ## sn <- which(df$focus != 1)
+    ## df$focus[df$parent] -> f2
+    ## f2[-sn] <- 1
+
+    phy
+}
 
 ##' plots simultaneously a whole phylogenetic tree and a portion of it. 
 ##'
@@ -8,10 +32,9 @@
 ##' @param subtree logical
 ##' @param widths widths
 ##' @return a list of ggplot object
-##' @importFrom ape drop.tip
-##' @importFrom ape which.edge
 ##' @importFrom ggplot2 xlim
 ##' @importFrom ggplot2 scale_color_manual
+##' @importFrom ape drop.tip
 ##' @export
 ##' @author ygc
 ##' @examples
@@ -19,31 +42,20 @@
 ##' data(chiroptera)
 ##' gzoom(chiroptera, grep("Plecotus", chiroptera$tip.label))
 gzoom <- function(phy, focus, subtree=FALSE, widths=c(.3, .7)) {
-    node <- parent <- x <- y <- xend <- yend <- color <- NULL
     if (is.character(focus)) {
         focus <- which(phy$tip.label %in% focus)
     }
+
+    phy <- gfocus(phy, focus)
+
+    foc <- attr(phy, "focus")
+    cols <- c("black", "red")[foc]
+    
+    p1 <- ggplot(phy) + geom_tree(colour=cols) +
+        xlab("") + ylab("") + theme_tree()
+    
     subtr <- drop.tip(phy, phy$tip.label[-focus],
                       subtree=subtree, rooted=TRUE)
-  
-    sn <- phy$edge[which.edge(phy, focus),] %>% as.vector %>% unique
-     
-    df2 <- with(fortify(phy),
-                data.frame(
-                    node = c(node, parent),
-                    x    = rep(x[parent],2),
-                    xend = c(x, x[parent]),
-                    y    = c(y, y[parent]),
-                    yend = c(y, y)
-                    )
-                )
-
-    df2$color <- "black"
-    df2$color[df2$node %in% sn] <- "red"
-    p1 <- ggplot(df2, aes(x, y)) +
-        geom_segment(aes(xend=xend, yend=yend, color=color)) +
-            scale_color_manual(values=c("black", "red")) +
-                theme_tree() + xlab("") + ylab("")
     
     p2 <- ggtree(subtr, color="red") + geom_tiplab(hjust=-0.05)
     p2 <- p2 + xlim(0, max(p2$data$x)*1.2)
