@@ -7,6 +7,10 @@
 ##' @return A \code{codeml} object
 ##' @export
 ##' @author ygc
+##' @examples
+##' rstfile <- system.file("extdata/PAML_Codeml", "rst", package="ggtree")
+##' mlcfile <- system.file("extdata/PAML_Codeml", "mlc", package="ggtree")
+##' read.codeml(rstfile, mlcfile) 
 read.codeml <- function(rstfile, mlcfile) {
     rst = read.paml_rst(rstfile)
     mlc = read.codeml_mlc(mlcfile)

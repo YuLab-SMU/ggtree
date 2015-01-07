@@ -6,6 +6,9 @@
 ##' @return A \code{codeml_mlc} object
 ##' @export
 ##' @author ygc
+##' @examples
+##' mlcfile <- system.file("extdata/PAML_Codeml", "mlc", package="ggtree")
+##' read.codeml_mlc(mlcfile)
 read.codeml_mlc <- function(mlcfile) {
     tip_seq <- read.tip_seq_mlc(mlcfile)
     dNdS <- read.dnds_mlc(mlcfile)
@@ -62,7 +65,7 @@ setMethod("plot", signature(x = "codeml_mlc"),
                    tip.label.size   = 4,
                    tip.label.hjust  = -0.1,
                    position         = "branch",
-                   annotation       = "dN/dS",
+                   annotation       = "dN_vs_dS",
                    annotation.size  = 3,
                    annotation.color = "black",
                    ndigits          = 2,

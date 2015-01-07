@@ -40,6 +40,12 @@ get.tree method
 
 get.tree method
 }
+\examples{
+nwk <- system.file("extdata/HYPHY", "labelledtree.tree", package="ggtree")
+ancseq <- system.file("extdata/HYPHY", "ancseq.nex", package="ggtree")
+hy <- read.hyphy(nwk, ancseq)
+get.tree(hy)
+}
 \author{
 Guangchuang Yu \url{http://ygc.name}
 }

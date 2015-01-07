@@ -30,4 +30,11 @@ data.frame
 \description{
 get.subs method
 }
+\examples{
+nwk <- system.file("extdata/HYPHY", "labelledtree.tree", package="ggtree")
+ancseq <- system.file("extdata/HYPHY", "ancseq.nex", package="ggtree")
+tipfas <- system.file("extdata", "pa.fas", package="ggtree")
+hy <- read.hyphy(nwk, ancseq, tipfas)
+get.subs(hy, type="AA_subs")
+}
 

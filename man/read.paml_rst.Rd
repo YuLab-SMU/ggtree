@@ -17,6 +17,10 @@ A \code{paml_rst} object
 \description{
 read rst file from paml output
 }
+\examples{
+rstfile <- system.file("extdata/PAML_Baseml", "rst", package="ggtree")
+read.paml_rst(rstfile)
+}
 \author{
 Guangchuang Yu \url{http://ygc.name}
 }

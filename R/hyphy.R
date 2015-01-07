@@ -6,6 +6,7 @@
 ##' @param ancseq ancestral sequence file in nexus format,
 ##'               one of hyphy output
 ##' @param tip.fasfile tip sequence file
+##' @return A hyphy object
 ##' @importFrom Biostrings readBStringSet
 ##' @importFrom Biostrings toString
 ##' @export
@@ -113,6 +114,11 @@ setMethod("show", signature(object = "hyphy"),
 
 ##' @rdname get.tree-methods
 ##' @exportMethod get.tree
+##' @examples
+##' nwk <- system.file("extdata/HYPHY", "labelledtree.tree", package="ggtree")
+##' ancseq <- system.file("extdata/HYPHY", "ancseq.nex", package="ggtree")
+##' hy <- read.hyphy(nwk, ancseq)
+##' get.tree(hy)
 setMethod("get.tree", signature(object = "hyphy"),
           function(object) {
               object@phylo
@@ -133,6 +139,12 @@ setMethod("get.fields", signature(object = "hyphy"),
 
 ##' @rdname get.subs-methods
 ##' @exportMethod get.subs
+##' @examples
+##' nwk <- system.file("extdata/HYPHY", "labelledtree.tree", package="ggtree")
+##' ancseq <- system.file("extdata/HYPHY", "ancseq.nex", package="ggtree")
+##' tipfas <- system.file("extdata", "pa.fas", package="ggtree")
+##' hy <- read.hyphy(nwk, ancseq, tipfas)
+##' get.subs(hy, type="AA_subs")
 setMethod("get.subs", signature(object="hyphy"),
           function(object, type, ...) {
               if (length(object@tip_seq) == 0) {

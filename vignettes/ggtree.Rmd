@@ -32,6 +32,8 @@ library("Biostrings")
 library("gridExtra")
 ```
 
+
+
 > You can't even begin to understand biology, you can't understand life, unless you understand what it's all there for, how it arose - and that means evolution.
 > --- Richard Dawkins
 
@@ -115,7 +117,7 @@ In addition, it also supports _`phylo`_ (defined by `r CRANpkg("ape")`[@paradis_
 
 User can use _`ggtree(object)`_ command to view the phylogenetic tree directly, and annotation data stored in these objects can be added as demonstrated in __[`Tree annotation`](#tree-annotation)__ session.
  
-## Display evolution distance
+## display evolution distance
 
 To show evolution distance, we can use `theme_tree2()` or `ggtree(showDistance=TRUE)`
 
@@ -170,7 +172,7 @@ grid.arrange(
 ```
 
 ## update tree viewing with a new tree
-In the __Display nodes/tips__ section, we have a _`p`_ object that stored the tree viewing of 13 tips and internal nodes highlighted with specific colored big dots. If you want to applied this pattern (we can imaging a more complex one) to a new tree, we don't need to build the tree step by step. `r Githubpkg("GuangchuangYu/ggtree")` provides an operator, _`%<%`_, for applying the visualization pattern to a new tree.
+In the [display nodes/tips](#display-nodestips) section, we have a _`p`_ object that stored the tree viewing of 13 tips and internal nodes highlighted with specific colored big dots. If you want to applied this pattern (we can imaging a more complex one) to a new tree, we don't need to build the tree step by step. `r Githubpkg("GuangchuangYu/ggtree")` provides an operator, _`%<%`_, for applying the visualization pattern to a new tree.
 
 For example, the pattern in the _`p`_ object will be applied to a new tree with 50 tips as shown below:
 ```{r fig.width=3, fig.height=3, fig.align="center"}
@@ -203,10 +205,10 @@ file <- system.file("extdata/BEAST", "beast_mcc.tree", package="ggtree")
 beast <- read.beast(file)
 beast
 ```
-Since _`%`_ is not a valid character in _`names`_, all the feature names that contain _`%`_ will convert to _`.`_. For example, _`length_95%_HPD`_ will be changed to _`length_95._HPD`_.
+Since _`%`_ is not a valid character in _`names`_, all the feature names that contain _`x%`_ will convert to _`0.x`_. For example, _`length_95%_HPD`_ will be changed to _`length_0.95_HPD`_.
 
 ```{r fig.width=8, tidy=TRUE, width=60, warning=FALSE, fig.align="center"}
-plot(beast, annotation="length_95._HPD", branch.length="none") + theme_tree()
+plot(beast, annotation="length_0.95_HPD", branch.length="none") + theme_tree()
 ```
 
 User can round the digits by setting the parameter _`ndigits`_. The default value is 2.
@@ -218,9 +220,14 @@ plot(beast, annotation="height", ndigits=3, annotation.color="red")
 
 
 ## annotating tree with PAML output
+
 ### BASEML
-#### _`rst`_ file
-_`rst`_ file from _`baseml`_ is similar to _`codeml`_ output. The only difference is the space in the sequences. For _`baseml`_, each ten bases are separated by one space, while for `codeml`, each three bases (triplet) are separated by one space. We defined a _`read.paml_rst`_ to parse _`rst`_ file. It supports _`baseml`_ and _`codeml`_ output. The information will be stored in _`paml_rst`_ S4 object.
+
+#### _`rst`_ file\
+
+
+
+_`rst`_ file from _`baseml`_ is similar to _`codeml`_ output. The only difference is the space in the sequences. For _`baseml`_, each ten bases are separated by one space, while for _`codeml`_, each three bases (triplet) are separated by one space. We defined a _`read.paml_rst`_ to parse _`rst`_ file. It supports _`baseml`_ and _`codeml`_ output. The information will be stored in _`paml_rst`_ S4 object.
 
 ```{r}
 rstfile <- system.file("extdata/PAML_Baseml", "rst", package="ggtree")
@@ -252,10 +259,14 @@ plot(baseml, annotation="marginal_AA_subs", annotation.color="steelblue")
 ```
 
 ### CODEML
-#### rst file
+
+#### rst file\
+
+
+
 _`rst`_ file from _`CODEML`_ is similar to _`BASEML`_, and also parsed by _`read.paml_rst`_ function. The _`plot`_ method works also in the same way.
 
-If you remember the _`%<%`_ operator introduced in [`update-tree-viewing-with-a-new-tree`](#update-tree-viewing-with-a-new-tree) session, you can use it to update a tree view with a new object.
+If you remember the _`%<%`_ operator introduced in [`update tree viewing with a new tree`](#update-tree-viewing-with-a-new-tree) session, you can use it to update a tree view with a new object.
 
 In last session, we use _`rstfile`_ of _`BASEML`_ to build a tree view with amino acid substitution annotated. The following example use another _`rstfile`_ from _`CODEML`_ to update the tree view.
 ```{r fig.width=8, tidy=TRUE, width=60, warning=FALSE, fig.align="center"}
@@ -267,20 +278,24 @@ p %<% rst
 You can found that these two figures have different evolution distances, and substitutions inferred from _`BASEML`_ and _`CODEML`_ are slighly different.
 
 
-#### mlc file
+#### mlc file\
+
+
+_`mlcfile`_ contains _`dN/dS`_ estimation.
+
 ```{r}
 mlcfile <- system.file("extdata/PAML_Codeml", "mlc", package="ggtree")
 mlc <- read.codeml_mlc(mlcfile)
 mlc
 ```
 
-Please aware that _`/`_ and _`*`_ are not valid characters in _`names`_, they were changed to _`.`_ and _`x`_ respectively.
+Please aware that _`/`_ and _`*`_ are not valid characters in _`names`_, they were changed to _`_vs_`_ and _`_x_`_ respectively.
 
-So _`dN.dS`_ is _`dN/dS`_, _`NxdN`_ is _`N*dN`_, and _`SxdS`_ is _`S*dS`_.
+So _`dN_vs_dS`_ is _`dN/dS`_, _`N_x_dN`_ is _`N*dN`_, and _`S_x_dS`_ is _`S*dS`_.
 
 
 ```{r fig.width=8, tidy=TRUE, width=60, warning=FALSE, fig.align="center"}
-plot(mlc, branch.length="branch.length", annotation="dN.dS", annotation.color="blue", ndigits=3)
+plot(mlc, branch.length="branch.length", annotation="dN_vs_dS", annotation.color="blue", ndigits=3)
 ```
 
 The paramter _`branch.length`_ can be one of available annotations:
@@ -288,15 +303,16 @@ The paramter _`branch.length`_ can be one of available annotations:
 get.fields(mlc)
 ```
 
-For example, if we set _`branch.length`_ to _`dN.dS`_, it will plot the $\omega$ (_`dN/dS`_) tree:
+For example, if we set _`branch.length`_ to _`dN_vs_dS`_, it will plot the $\omega$ (_`dN/dS`_) tree:
 ```{r fig.width=8, tidy=TRUE, width=60, warning=FALSE, fig.align="center"}
-plot(mlc, branch.length="dN.dS", annotation="dN.dS", ndigits=3)
+plot(mlc, branch.length="dN_vs_dS", annotation="dN_vs_dS", ndigits=3)
 ```
 
 We can also plot the _`dN`_ or _`dS`_ tree and others. The parameter _`annotation`_ can also be one of the available annotations.
 
 
-#### _`CODEML`_ output: mlc and rst files
+#### _`CODEML`_ output: rst and mlc files\
+
 
 We annotate the tree with information presented in _`rstfile`_ and _`mlcfile`_ separately as demonstrated in previous sessions.
 
@@ -311,7 +327,7 @@ ml
 So we can annotate _`dN/dS`_ with the tree in _`rstfile`_ and amino acid substitutions with the tree in _`mlcfile`_.
 
 ```{r fig.width=12, fig.height=8, tidy=TRUE, width=60, warning=FALSE, fig.align="center"}
-plot(ml, branch.length="rst.branch.length", annotation="dN.dS")
+plot(ml, branch.length="rst.branch.length", annotation="dN_vs_dS")
 plot(ml, branch.length="mlc.branch.length", annotation="marginal_AA_subs")
 plot(ml, branch.length="dN", annotation="joint_AA_subs", annotation.color="darkgreen")
 ```
@@ -338,8 +354,6 @@ jp <- read.jplace(jpf)
 print(jp)
 ```
 
-This is only a tiny sample file. In reality, [EPA](http://sco.h-its.org/exelixis/web/software/epa/index.html) and [PPLACER](http://matsen.fhcrc.org/pplacer/) may place thousands of short reads on a reference tree.
-
 In `r Githubpkg("GuangchuangYu/ggtree")`, we provide _`get.placements`_ method to access the placement.
 
 ```{r}
@@ -349,15 +363,18 @@ get.placements(jp, by="best")
 get.placements(jp, by="all")
 ```
 
-We may, for example, count the number of placement and annotate this information in the tree. We do not provide a _`plot`_ method for _`jplace`_ object, since we use this file format as a standard annotation format in `r Githubpkg("GuangchuangYu/ggtree")` package and have no assumption of information it may stored. Please refer to [jplace-file-format](#jplace-file-format) session.
+This is only a tiny sample file. In reality, [EPA](http://sco.h-its.org/exelixis/web/software/epa/index.html) and [PPLACER](http://matsen.fhcrc.org/pplacer/) may place thousands of short reads on a reference tree.
+
+
+We may, for example, count the number of placement and annotate this information in the tree. We do not provide a _`plot`_ method for _`jplace`_ object, since we use this file format as a standard annotation format in `r Githubpkg("GuangchuangYu/ggtree")` package and have no assumption of information it may stored. Please refer to [jplace file format](#jplace-file-format) session.
 
 
 ## annotating tree using _`ggplot2`_ layers
-We implemented several _`plot`_ methods for easily view annotation data. Users are not restricted to _`plot`_ methods provided. They can use _`geom_text`_ to add annotation layer. All annotation data are visible to _`ggplot2`_.
+We implemented several _`plot`_ methods for easily viewing annotation data. Users are not restricted to _`plot`_ methods provided. They can use _`geom_text`_ to add annotation layer. All annotation data are visible to _`ggplot2`_.
 
 In the following example, we use the _`codeml`_ object to visualize the $\omega$ (_`dN/dS`_) tree, and annotate the tree with _`dN`_ and _`dS`_.
 ```{r fig.width=12, fig.height=10, tidy=TRUE, width=60, warning=FALSE, fig.align="center"}
-ggtree(ml, branch.length="dN.dS") + 
+ggtree(ml, branch.length="dN_vs_dS") + 
 	   geom_text(aes(x=branch, label=dN), 
 	   	     size=3, vjust=-0.5, color="red") +
            geom_text(aes(x=branch, label=dS),
@@ -400,11 +417,12 @@ We have shown using the operator, _`%<%`_, to update a tree view with a new tree
 After attaching the annotation data to the tree by _`%<+%`_, all the columns in the data are visible to _`ggplot2`_. As an example, here we attach the above annotation data to the tree view, _`p`_, and add a layer that showing the tip labels and colored them by the isolation site stored in _`place`_ column.
 
 ```{r fig.width=6, fig.height=5, warning=FALSE, fig.align="center"}
-p <- p %<+% dd + geom_text(aes(color=place, label=label), hjust=-0.5)
+p <- p %<+% dd + geom_text(aes(color=place, label=label), hjust=-0.5) + 
+       geom_point(aes(size=value, shape=place, color=place), alpha=0.25, subset=.(isTip))
 print(p)
 ```
 
-We can add another layer to display the isolation sites.
+Once the data was attached, it is always attached. So we can add another layer to display the isolation sites easily.
 ```{r fig.width=6, fig.height=5, warning=FALSE, fig.align="center"}
 p <- p + geom_text(aes(color=place, label=place), hjust=1, vjust=-0.4, size=3)
 print(p)
@@ -413,11 +431,6 @@ print(p)
 And another layer showing numerical values:
 ```{r fig.width=6, fig.height=5, warning=FALSE, fig.align="center"}
 p <- p + geom_text(aes(color=place, label=value), hjust=1, vjust=1.4, size=3)
-print(p)
-```
-
-```{r fig.width=7, fig.height=5, warning=FALSE, fig.align="center"}
-p <- p + geom_point(aes(size=value, shape=place, color=place), alpha=0.25, subset=.(isTip))
 print(p)
 ```
 
@@ -430,7 +443,7 @@ print(tree)
 head(data)
 ```
 
-The _`data`_ contains amino acid substitutions from parent node to child node and GC contents of each node. We can annotate the tree as demonstrated in [user specific annotation](#user specific annotation) session.
+The _`data`_ contains amino acid substitutions from parent node to child node and GC contents of each node. We can annotate the tree as demonstrated in [user specific annotation](#user-specific-annotation) session.
 
 `r Githubpkg("GuangchuangYu/ggtree")` provides a function, _`write.jplace`_, to combine a tree and an associated data and store them to a single _`jplace`_ file.
 ```{r}
@@ -449,7 +462,7 @@ Now we know the _`jp`_ object stored the tree and the associated amino acid subs
 ```{r fig.width=12, fig.height=12, warning=FALSE, fig.align="center"}
 ggtree(jp, showDistance=TRUE) + 
 	   geom_text(aes(x=branch, label=subs), color="purple", vjust=-1, size=3) + 
-	   geom_text(aes(x=branch, label=gc), color="steelblue", vjust=1.5, size=3) +
+	   geom_text(aes(label=gc), color="steelblue", hjust=-.6, size=3) +
 	   geom_text(aes(label=label), hjust=-.5)
 ```
 
@@ -481,7 +494,7 @@ Of course, we can use an annotated tree.
 
 ```{r fig.width=12, fig.heigh=6, fig.align="center", warning=FALSE}
 p2 <- ggtree(ml, branch.length="none") + 
-          geom_text(aes(x=branch, label=dN.dS), vjust=-.5, color="steelblue", size=4)	  
+          geom_text(aes(x=branch, label=dN_vs_dS), vjust=-.5, color="steelblue", size=4)	  
 gplot(p2, dd, low="green", high="red", widths=c(.7, .3))
 ```
 

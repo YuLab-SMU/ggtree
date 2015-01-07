@@ -1,18 +1,30 @@
 ##' view tree and associated matrix
-##' 
+##'
+##' @title gplot
 ##' @param p tree view
 ##' @param data matrix
 ##' @param low low color
 ##' @param high high color
 ##' @param widths widths of sub plot
 ##' @param font.size font size
+##' @return list of figure
 ##' @importFrom gridExtra grid.arrange
 ##' @export
+##' @author Guangchuang Yu \url{http://ygc.name}
+##' @examples
+##' nwk <- system.file("extdata", "sample.nwk", package="ggtree")
+##' tree <- read.tree(nwk)
+##' p <- ggtree(tree)
+##' d <- matrix(abs(rnorm(52)), ncol=4)
+##' rownames(d) <- tree$tip.label
+##' colnames(d) <- paste0("G", 1:4)
+##' gplot(p, d, low="green", high="red")
 gplot <- function(p, data, low="green", high="red", widths=c(0.5, 0.5), font.size=14) {
     p1 <- p + theme(panel.margin=unit(0, "null"))
     p1 <- p1 + theme(plot.margin = unit(c(1, -1, 1.5, 1), "lines"))
     p2 <- gplot.heatmap(p, data, low, high, font.size)
     grid.arrange(p1, p2, ncol=2, widths=widths)
+    invisible(list(p1=p1, p2=p2))
 }
 
 

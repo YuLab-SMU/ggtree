@@ -7,6 +7,10 @@
 ##' @return A \code{paml_rst} object
 ##' @export
 ##' @author Guangchuang Yu \url{http://ygc.name}
+##' @examples
+##' rstfile <- system.file("extdata/PAML_Baseml", "rst", package="ggtree")
+##' mlbfile <- system.file("extdata/PAML_Baseml", "mlb", package="ggtree")
+##' read.baseml(rstfile, mlbfile)
 read.baseml <- function(rstfile, mlbfile) {
     res <- read.paml_rst(rstfile)
     res@tip_seq <- read.tip_seq_mlb(mlbfile)
@@ -24,6 +28,9 @@ read.baseml <- function(rstfile, mlbfile) {
 ##' @return A \code{paml_rst} object
 ##' @export
 ##' @author Guangchuang Yu \url{http://ygc.name}
+##' @examples
+##' rstfile <- system.file("extdata/PAML_Baseml", "rst", package="ggtree")
+##' read.paml_rst(rstfile)
 read.paml_rst <- function(rstfile, tip.fasfile = NULL) {
     ms <- read.ancseq_paml_rst(rstfile, by="Marginal")
     phylo <- read.phylo_paml_rst(rstfile)

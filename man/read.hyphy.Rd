@@ -14,6 +14,9 @@ one of hyphy output}
 
 \item{tip.fasfile}{tip sequence file}
 }
+\value{
+A hyphy object
+}
 \description{
 read HYPHY output
 }

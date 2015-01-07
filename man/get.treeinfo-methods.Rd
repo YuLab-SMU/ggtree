@@ -31,11 +31,9 @@ get.treeinfo method
 get.treeinfo method
 }
 \examples{
-\dontrun{
 jp <- system.file("extdata", "sample.jplace", package="ggtree")
 jp <- read.jplace(jp)
 get.treeinfo(jp)
-}
 }
 \author{
 Guangchuang Yu \url{http://ygc.name}

@@ -39,11 +39,9 @@ get.fields method
 get.fields method
 }
 \examples{
-\dontrun{
 jp <- system.file("extdata", "sample.jplace", package="ggtree")
 jp <- read.jplace(jp)
 get.fields(jp)
-}
 }
 \author{
 Guangchuang Yu \url{http://ygc.name}

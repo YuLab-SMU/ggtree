@@ -25,8 +25,8 @@
 \S4method{plot}{codeml_mlc,ANY}(x, layout = "phylogram",
   branch.length = "branch.length", show.tip.label = TRUE,
   tip.label.size = 4, tip.label.hjust = -0.1, position = "branch",
-  annotation = "dN/dS", annotation.size = 3, annotation.color = "black",
-  ndigits = 2, ...)
+  annotation = "dN_vs_dS", annotation.size = 3,
+  annotation.color = "black", ndigits = 2, ...)
 
 \S4method{plot}{hyphy,ANY}(x, layout = "phylogram", show.tip.label = TRUE,
   tip.label.size = 4, tip.label.hjust = -0.1, position = "branch",
@@ -68,5 +68,10 @@ plot
 }
 \description{
 plot method generics
+}
+\examples{
+file <- system.file("extdata/BEAST", "beast_mcc.tree", package="ggtree")
+beast <- read.beast(file)
+plot(beast, annotation="length_0.95_HPD", branch.length="none") + theme_tree()
 }
 

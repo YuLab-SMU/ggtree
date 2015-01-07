@@ -32,11 +32,9 @@ print info
 show method for \code{jplace} instance
 }
 \examples{
-\dontrun{
 jp <- system.file("extdata", "sample.jplace", package="ggtree")
 jp <- read.jplace(jp)
 show(jp)
-}
 }
 \author{
 Guangchuang Yu \url{http://ygc.name}

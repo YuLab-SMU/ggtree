@@ -17,6 +17,11 @@ A \code{paml_rst} object
 \description{
 read rst and mlb file from baseml output
 }
+\examples{
+rstfile <- system.file("extdata/PAML_Baseml", "rst", package="ggtree")
+mlbfile <- system.file("extdata/PAML_Baseml", "mlb", package="ggtree")
+read.baseml(rstfile, mlbfile)
+}
 \author{
 Guangchuang Yu \url{http://ygc.name}
 }

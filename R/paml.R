@@ -43,8 +43,8 @@ read.dnds_mlc <- function(mlcfile) {
              
     row.names(res) <- NULL
     colnames(res) <- c("parent", "node", cn[-1])
-    colnames(res) <- gsub("\\*", "x", colnames(res))
-    colnames(res) <- gsub("\\/", ".", colnames(res))
+    colnames(res) <- gsub("\\*", "_x_", colnames(res))
+    colnames(res) <- gsub("\\/", "_vs_", colnames(res))
     return(res)
 }
     
@@ -74,6 +74,8 @@ read.treetext_paml <- function(file, by) {
 
 ##' @importFrom ape Ntip
 read.phylo_paml_mlc <- function(mlcfile) {
+    parent <- node <- label <- NULL
+    
     mlc <- readLines(mlcfile)
     edge <- get_tree_edge_paml(mlc)
 
@@ -87,7 +89,7 @@ read.phylo_paml_mlc <- function(mlcfile) {
     treeinfo$label <- NA
     treeinfo$isTip <- FALSE
     ntip <- Ntip(tr3)
-    ii <- match(tr2$tip.label, treeinfo$node)
+    ii <- match(tr2$tip.label, treeinfo[, "node"])
     treeinfo[ii, "label"] <- tr3$tip.label
     treeinfo[ii, "isTip"] <- TRUE
     ## jj <- match(1:ntip, tr3$edge[,2])
@@ -104,12 +106,12 @@ read.phylo_paml_mlc <- function(mlcfile) {
             i <- which(treeinfo$label == kk)
             treeinfo[i, "visited"] <- TRUE
             j <- which(treeinfo.tr3$label == kk)
-            ip <- treeinfo$parent[i]
+            ip <- treeinfo[i, "parent"]
             if (ip != root) {
-                ii <- which(treeinfo$node == ip)
+                ii <- which(treeinfo[, "node"] == ip)
                 if (treeinfo$visited[ii] == FALSE) {
-                    jp <- treeinfo.tr3$parent[j]
-                    jj <- which(treeinfo.tr3$node == jp)
+                    jp <- treeinfo.tr3[j, "parent"]
+                    jj <- which(treeinfo.tr3[, "node"] == jp)
                     treeinfo[ii, "label"] <- as.character(ip)
                     treeinfo.tr3[jj, "label"] <- as.character(ip)
                     treeinfo[ii, "length"] <- treeinfo.tr3[jj, "length"]
@@ -138,6 +140,8 @@ read.phylo_paml_mlc <- function(mlcfile) {
 
 ##' @importFrom ape reorder.phylo
 read.phylo_paml_rst <- function(rstfile) {
+    parent <- node <- label <- NULL
+    
     ## works fine with baseml and codeml
     rst <- readLines(rstfile)
     tr.idx <- get_tree_index_paml(rst)

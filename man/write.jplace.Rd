@@ -19,6 +19,13 @@ jplace file
 \description{
 generate jplace file
 }
+\examples{
+tree <- system.file("extdata", "pa.nwk", package="ggtree")
+data <- read.csv(system.file("extdata", "pa_subs.csv", package="ggtree"),
+                stringsAsFactor=FALSE)
+outfile <- tempfile()
+write.jplace(tree, data, outfile)
+}
 \author{
 ygc
 }

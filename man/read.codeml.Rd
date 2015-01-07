@@ -17,6 +17,11 @@ A \code{codeml} object
 \description{
 read baseml output
 }
+\examples{
+rstfile <- system.file("extdata/PAML_Codeml", "rst", package="ggtree")
+mlcfile <- system.file("extdata/PAML_Codeml", "mlc", package="ggtree")
+read.codeml(rstfile, mlcfile)
+}
 \author{
 ygc
 }

@@ -2,7 +2,7 @@
 % Please edit documentation in R/gplot.R
 \name{gplot}
 \alias{gplot}
-\title{view tree and associated matrix}
+\title{gplot}
 \usage{
 gplot(p, data, low = "green", high = "red", widths = c(0.5, 0.5),
   font.size = 14)
@@ -20,7 +20,22 @@ gplot(p, data, low = "green", high = "red", widths = c(0.5, 0.5),
 
 \item{font.size}{font size}
 }
+\value{
+list of figure
+}
 \description{
 view tree and associated matrix
+}
+\examples{
+nwk <- system.file("extdata", "sample.nwk", package="ggtree")
+tree <- read.tree(nwk)
+p <- ggtree(tree)
+d <- matrix(abs(rnorm(52)), ncol=4)
+rownames(d) <- tree$tip.label
+colnames(d) <- paste0("G", 1:4)
+gplot(p, d, low="green", high="red")
+}
+\author{
+Guangchuang Yu \url{http://ygc.name}
 }
 

@@ -32,6 +32,10 @@ read.beast <- function(file) {
 ##' @param tip.label.hjust hjust of tip.label
 ##' @param annotation.size size of annotation
 ##' @param annotation.color color of annotation
+##' @examples
+##' file <- system.file("extdata/BEAST", "beast_mcc.tree", package="ggtree")
+##' beast <- read.beast(file)
+##' plot(beast, annotation="length_0.95_HPD", branch.length="none") + theme_tree()
 setMethod("plot", signature( x= "beast"),
           function(x, layout = "phylogram",
                    branch.length = "branch.length",
@@ -255,7 +259,7 @@ read.stats_beast <- function(file) {
 
     stats3 <- as.data.frame(stats3)
     stats3$node <- node
-    colnames(stats3) <- make.names(colnames(stats3))
+    colnames(stats3) <- gsub("95%", "0.95", colnames(stats3))
     return(stats3)
 }
 

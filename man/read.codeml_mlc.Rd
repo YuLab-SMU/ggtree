@@ -15,6 +15,10 @@ A \code{codeml_mlc} object
 \description{
 read mlc file of codeml output
 }
+\examples{
+mlcfile <- system.file("extdata/PAML_Codeml", "mlc", package="ggtree")
+read.codeml_mlc(mlcfile)
+}
 \author{
 ygc
 }
