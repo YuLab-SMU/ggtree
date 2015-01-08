@@ -128,7 +128,7 @@ ggtree(tree) + theme_tree2()
 Another way is to show the edge length of the tree. Besides, the scale of branch length can be specify via _`scale_x_continuous()`_. 
 ```{r fig.width=3, fig.height=3, warning=FALSE, fig.align="center"}
 ggtree(tree, showDistance=TRUE) +
-      geom_text(aes(label=length, x=branch), size = 3, 
+      geom_text(aes(label=branch.length, x=branch), size = 3, 
       		vjust=-0.5, color="#F06C45") +
       scale_x_continuous(breaks=seq(0, 60, 5))
 ```

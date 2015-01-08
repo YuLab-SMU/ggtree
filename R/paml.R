@@ -114,7 +114,7 @@ read.phylo_paml_mlc <- function(mlcfile) {
                     jj <- which(treeinfo.tr3[, "node"] == jp)
                     treeinfo[ii, "label"] <- as.character(ip)
                     treeinfo.tr3[jj, "label"] <- as.character(ip)
-                    treeinfo[ii, "length"] <- treeinfo.tr3[jj, "length"]
+                    treeinfo[ii, "length"] <- treeinfo.tr3[jj, "branch.length"]
                     pNode <- c(pNode, ip)
                 }
                 treeinfo[ii, "visited"] <- TRUE

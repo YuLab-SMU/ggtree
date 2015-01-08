@@ -337,7 +337,9 @@ fortify.phylo <- function(model, data, layout="phylogram",
     idx <- is.na(df$parent)
     df$parent[idx] <- df$node[idx]
     rownames(df) <- df$node
-    
+    cn <- colnames(df)
+    colnames(df)[grep("length", cn)] <- "branch.length"
+
     return(df)
 }
 
