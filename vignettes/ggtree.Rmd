@@ -21,12 +21,12 @@ vignette: >
   %\usepackage[utf8]{inputenc}
 ---
 
-```{r style, echo=FALSE, results="asis"}
+```{r style, echo=FALSE, results="hide"}
 BiocStyle::markdown()
 ```
 
 
-```{r echo=FALSE}
+```{r echo=FALSE, results="hide", message=FALSE}
 library("ggtree")
 library("Biostrings")
 library("gridExtra")
