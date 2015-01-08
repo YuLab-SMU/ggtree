@@ -93,3 +93,12 @@ setGeneric("get.placements", function(object, by, ...) standardGeneric("get.plac
 setGeneric("get.subs", function(object, type, ...) standardGeneric("get.subs"))
 
 
+##' @docType methods
+##' @name get.tipseq
+##' @rdname get.tipseq-methods
+##' @title get.tipseq method
+##' @param object one of paml_rst or codeml object
+##' @param ... additional parameter
+##' @return character
+##' @export
+setGeneric("get.tipseq", function(object, ...) standardGeneric("get.tipseq"))

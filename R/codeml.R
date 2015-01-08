@@ -36,6 +36,12 @@ setMethod("show", signature(object = "codeml"),
               print_fields(object, len=4)
           })
 
+##' @rdname get.tipseq-methods
+##' @exportMethod get.tipseq
+setMethod("get.tipseq", signature(object = "codeml"),
+          function(object, ...) {
+              return(object@rst@tip_seq)
+          })
 
 ##' @rdname get.tree-methods
 ##' @exportMethod get.tree

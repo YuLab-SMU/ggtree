@@ -468,7 +468,7 @@ ggtree(jp, showDistance=TRUE) +
 
 ## visualize tree and associated matrix
 ```{r}
-seqs <- ml@rst@tip_seq
+seqs <- get.tipseq(ml)
 library(Biostrings)
 x <- DNAStringSet(seqs)
 

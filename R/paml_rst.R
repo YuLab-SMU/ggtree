@@ -60,6 +60,16 @@ read.paml_rst <- function(rstfile, tip.fasfile = NULL) {
     set.paml_rst_(res)
 }
 
+##' @rdname get.tipseq-methods
+##' @exportMethod get.tipseq
+setMethod("get.tipseq", signature(object="paml_rst"),
+          function(object, ...) {
+              if (length(object@tip_seq) == 0) {
+                  warning("tip sequence not available...\n")
+              } else {
+                  object@tip_seq
+              }
+          })
 
 ##' @rdname show-methods
 ##' @exportMethod show
