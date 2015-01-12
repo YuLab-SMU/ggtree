@@ -21,12 +21,13 @@ vignette: >
   %\usepackage[utf8]{inputenc}
 ---
 
-```{r style, echo=FALSE, results="hide"}
+```{r style, echo=FALSE, results="hide", message=FALSE}
 BiocStyle::markdown()
 ```
 
 
 ```{r echo=FALSE, results="hide", message=FALSE}
+library("ggplot2")
 library("ggtree")
 library("Biostrings")
 library("gridExtra")
@@ -53,6 +54,7 @@ nwk <- system.file("extdata", "sample.nwk", package="ggtree")
 x <- readLines(nwk)
 cat(substring(x, 1, 56), "\n", substring(x, 57), "\n")
 
+library("ggplot2")
 library("ggtree")
 
 tree <- read.tree(nwk)

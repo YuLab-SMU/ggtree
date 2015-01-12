@@ -1,5 +1,6 @@
 CHANGES IN VERSION 0.99.5
 ------------------------
+ o move ape and ggplot2 from Depends to Imports <2015-01-12, Mon>
  o get.tipseq method for paml_rst and codeml object <2015-01-08, Thu>
  o add gzoom function, similar to zoom function in ape <2015-01-07, Wed>
  o add examples in man pages of %<% and %<+% operators <2015-01-06, Tue>

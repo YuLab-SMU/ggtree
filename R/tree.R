@@ -76,6 +76,7 @@ gzoom <- function(phy, focus, subtree=FALSE, widths=c(.3, .7)) {
 ##' @export
 ##' @author Yu Guangchuang
 ##' @examples
+##' library("ggplot2")
 ##' nwk <- system.file("extdata", "sample.nwk", package="ggtree")
 ##' tree <- read.tree(nwk)
 ##' p <- ggtree(tree) + geom_point(subset=.(!isTip), 

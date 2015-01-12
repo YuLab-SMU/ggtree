@@ -17,9 +17,7 @@ read.tip_seq_mlc <- function(mlcfile) {
     return(res)
 }
 
-read.tip_seq_mlb <- function(mlbfile) {
-    read.tip_seq_mlc(mlbfile)
-}
+read.tip_seq_mlb <- read.tip_seq_mlc
 
 read.dnds_mlc <- function(mlcfile) {
     mlc <- readLines(mlcfile)
