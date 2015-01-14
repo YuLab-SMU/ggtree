@@ -1,3 +1,23 @@
+##' group OTU
+##'
+##' 
+##' @title groupOTU
+##' @param phy tree object
+##' @param focus tip list
+##' @return cluster index
+##' @export
+##' @author ygc
+groupOTU <- function(phy, focus) {
+    if ( is(focus, "list") ) {
+        for (i in 1:length(focus)) {
+            phy <- gfocus(phy, focus[[i]])
+        } 
+    } else {
+        phy <- gfocus(phy, focus)
+    }
+    attr(phy, "focus")
+}
+
 ##' @importFrom ape which.edge
 gfocus <- function(phy, focus) {
     if (is.character(focus)) {
@@ -170,7 +190,16 @@ layout.unrooted <- function(tree) {
 }
 
 
+##' extract offspring tips
+##'
+##' 
+##' @title get.offspring.tip
+##' @param tr tree
+##' @param node node
+##' @return tip label
+##' @author ygc
 ##' @importFrom ape extract.clade
+##' @export
 get.offspring.tip <- function(tr, node) {
     if ( ! node %in% tr$edge[,1]) {
         ## return itself

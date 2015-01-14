@@ -1,3 +1,9 @@
+CHANGES IN VERSION 0.99.6
+------------------------
+ o add example of gzoom and groupOTU in vignette <2015-01-14, Wed> 
+ o implement groupOTU function <2015-01-14, Wed>
+ o export get.offspring.tip <2015-01-14, Wed>
+
 CHANGES IN VERSION 0.99.5
 ------------------------
  o move ape and ggplot2 from Depends to Imports <2015-01-12, Mon>
