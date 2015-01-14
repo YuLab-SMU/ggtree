@@ -497,7 +497,9 @@ Of course, we can use an annotated tree.
 
 ```{r fig.width=12, fig.height=6, fig.align="center", warning=FALSE}
 p2 <- ggtree(ml, branch.length="none") + 
-          geom_text(aes(x=branch, label=dN_vs_dS), vjust=-.5, color="steelblue", size=4)	  
+          geom_text(aes(x=branch, label=dN_vs_dS, color=dN_vs_dS), 
+                    vjust=-.5, size=4) +
+             scale_color_gradient(low="darkgreen", high="red")	  
 gplot(p2, dd, low="green", high="red", widths=c(.7, .3))
 ```
 
