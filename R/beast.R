@@ -81,6 +81,13 @@ setMethod("show", signature(object = "beast"),
               print_fields(object)              
           })
 
+##' @rdname groupOTU-methods
+##' @exportMethod groupOTU
+setMethod("groupOTU", signature(object="beast"),
+          function(object, focus) {
+              groupOTU_(object, focus)
+          }
+          )
 
 ##' get.tree method
 ##'

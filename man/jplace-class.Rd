@@ -21,6 +21,8 @@ This class stores information of jplace file.
 
 \item{\code{treetext}}{tree text}
 
+\item{\code{phylo}}{tree phylo object}
+
 \item{\code{placements}}{placement information}
 
 \item{\code{version}}{version}

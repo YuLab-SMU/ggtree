@@ -17,6 +17,7 @@ read.jplace <- function(file) {
          new("jplace",
              fields     = fields,
              treetext   = tree,
+             phylo      = jplace_treetext_to_phylo(tree),
              placements = placements,
              version    = version,
              metadata   = metadata,
@@ -25,12 +26,19 @@ read.jplace <- function(file) {
          )
 }
 
+##' @rdname groupOTU-methods
+##' @exportMethod groupOTU
+setMethod("groupOTU", signature(object="jplace"),
+          function(object, focus) {
+              groupOTU_(object, focus)
+          }
+          )
 
 ##' @rdname get.tree-methods
 ##' @exportMethod get.tree
 setMethod("get.tree", signature(object="jplace"),
           function(object) {
-              jplace_treetext_to_phylo(object@treetext)
+              object@phylo
           })
 
 
@@ -138,7 +146,6 @@ setMethod("get.fields", signature(object = "jplace"),
           }
           )
 
-
 ##' get.placement method
 ##'
 ##'
@@ -200,8 +207,7 @@ get.fields.jplace <- function(object, ...) {
 
 get.treeinfo.jplace <- function(object, layout,
                                 ladderize, right, ...) {
-    tree.text <- get.treetext(object)
-    extract.treeinfo.jplace(tree.text, layout,
+    extract.treeinfo.jplace(object, layout,
                             ladderize, right)
 }
 

@@ -23,6 +23,14 @@ read.codeml_mlc <- function(mlcfile) {
         mlcfile  = mlcfile)
 }
 
+##' @rdname groupOTU-methods
+##' @exportMethod groupOTU
+setMethod("groupOTU", signature(object="codeml_mlc"),
+          function(object, focus) {
+              groupOTU_(object, focus)
+          }
+          )
+
 ##' @rdname show-methods
 ##' @exportMethod show
 setMethod("show", signature(object = "codeml_mlc"),

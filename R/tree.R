@@ -1,13 +1,24 @@
+##' @rdname groupOTU-methods
+##' @exportMethod groupOTU
+setMethod("groupOTU", signature(object="phylo"),
+          function(object, focus) {
+              groupOTU.phylo(object, focus)
+          })
+
+
+groupOTU_ <- function(object, focus) {
+    groupOTU.phylo(get.tree(object), focus)
+}
+
 ##' group OTU
 ##'
 ##' 
-##' @title groupOTU
+##' @title groupOTU.phylo
 ##' @param phy tree object
 ##' @param focus tip list
 ##' @return cluster index
-##' @export
 ##' @author ygc
-groupOTU <- function(phy, focus) {
+groupOTU.phylo <- function(phy, focus) {
     if ( is(focus, "list") ) {
         for (i in 1:length(focus)) {
             phy <- gfocus(phy, focus[[i]])

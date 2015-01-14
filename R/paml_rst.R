@@ -60,6 +60,15 @@ read.paml_rst <- function(rstfile, tip.fasfile = NULL) {
     set.paml_rst_(res)
 }
 
+##' @rdname groupOTU-methods
+##' @exportMethod groupOTU
+setMethod("groupOTU", signature(object="paml_rst"),
+          function(object, focus) {
+              groupOTU_(object, focus)
+          }
+          )
+
+
 ##' @rdname get.tipseq-methods
 ##' @exportMethod get.tipseq
 setMethod("get.tipseq", signature(object="paml_rst"),

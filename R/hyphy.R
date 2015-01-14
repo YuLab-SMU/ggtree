@@ -89,6 +89,14 @@ setMethod("plot", signature(x = "hyphy"),
                         annotation.size,...)
           })
 
+##' @rdname groupOTU-methods
+##' @exportMethod groupOTU
+setMethod("groupOTU", signature(object="hyphy"),
+          function(object, focus) {
+              groupOTU_(object, focus)
+          }
+          )
+
 ##' @rdname show-methods
 ##' @exportMethod show
 setMethod("show", signature(object = "hyphy"),

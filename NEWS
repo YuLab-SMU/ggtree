@@ -1,7 +1,7 @@
 CHANGES IN VERSION 0.99.6
 ------------------------
  o add example of gzoom and groupOTU in vignette <2015-01-14, Wed> 
- o implement groupOTU function <2015-01-14, Wed>
+ o implement groupOTU methods <2015-01-14, Wed>
  o export get.offspring.tip <2015-01-14, Wed>
 
 CHANGES IN VERSION 0.99.5

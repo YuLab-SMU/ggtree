@@ -560,6 +560,15 @@ size <- 1:5
 ggtree(tree, color=cols[cls_ind], linetype=linetype[cls_ind], size=size[cls_ind]) + geom_tiplab()
 ```
 
+All the tree classes defined in `r Githubpkg("GuangchuangYu/ggtree")`, including _`beast`_, _`paml_rst`_, _`codeml_mlc`_, _`codeml`_, _`hyphy`_ and _`jplace`_ are all supported.
+
+For example:
+```{r fig.width=5, fig.height=5, fig.align="center", warning=FALSE}
+ind <- groupOTU(ml, c("A", "B", "F", "M"))
+cols <- c("black", "blue")
+ggtree(ml, color=cols[ind])
+```
+
 ### iris example
 
 In this example, we first build a tree based on the iris data.
