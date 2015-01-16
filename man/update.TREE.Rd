@@ -18,6 +18,7 @@ updated ggplot object
 update tree
 }
 \examples{
+library("ggplot2")
 nwk <- system.file("extdata", "sample.nwk", package="ggtree")
 tree <- read.tree(nwk)
 p <- ggtree(tree) + geom_point(subset=.(!isTip),

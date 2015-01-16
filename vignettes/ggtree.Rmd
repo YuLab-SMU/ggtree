@@ -21,12 +21,14 @@ vignette: >
   %\usepackage[utf8]{inputenc}
 ---
 
-```{r style, echo=FALSE, results="asis"}
+```{r style, echo=FALSE, results="hide", message=FALSE}
 BiocStyle::markdown()
 ```
 
 
-```{r echo=FALSE}
+```{r echo=FALSE, results="hide", message=FALSE}
+library("ape")
+library("ggplot2")
 library("ggtree")
 library("Biostrings")
 library("gridExtra")
@@ -53,6 +55,7 @@ nwk <- system.file("extdata", "sample.nwk", package="ggtree")
 x <- readLines(nwk)
 cat(substring(x, 1, 56), "\n", substring(x, 57), "\n")
 
+library("ggplot2")
 library("ggtree")
 
 tree <- read.tree(nwk)
@@ -128,7 +131,7 @@ ggtree(tree) + theme_tree2()
 Another way is to show the edge length of the tree. Besides, the scale of branch length can be specify via _`scale_x_continuous()`_. 
 ```{r fig.width=3, fig.height=3, warning=FALSE, fig.align="center"}
 ggtree(tree, showDistance=TRUE) +
-      geom_text(aes(label=length, x=branch), size = 3, 
+      geom_text(aes(label=branch.length, x=branch), size = 3, 
       		vjust=-0.5, color="#F06C45") +
       scale_x_continuous(breaks=seq(0, 60, 5))
 ```
@@ -468,7 +471,7 @@ ggtree(jp, showDistance=TRUE) +
 
 ## visualize tree and associated matrix
 ```{r}
-seqs <- ml@rst@tip_seq
+seqs <- get.tipseq(ml)
 library(Biostrings)
 x <- DNAStringSet(seqs)
 
@@ -485,18 +488,122 @@ head(dd)
 knitr::kable(head(dd))
 ```
 
-```{r fig.width=12, fig.heigh=6, fig.align="center"}
+```{r fig.width=12, fig.height=6, fig.align="center"}
 p <- ggtree(ml)
 gplot(p, dd, low="green", high="red", widths=c(.7, .3))
 ```
 
 Of course, we can use an annotated tree.
 
-```{r fig.width=12, fig.heigh=6, fig.align="center", warning=FALSE}
+```{r fig.width=12, fig.height=6, fig.align="center", warning=FALSE}
 p2 <- ggtree(ml, branch.length="none") + 
-          geom_text(aes(x=branch, label=dN_vs_dS), vjust=-.5, color="steelblue", size=4)	  
+          geom_text(aes(x=branch, label=dN_vs_dS, color=dN_vs_dS), 
+                    vjust=-.5, size=4) +
+             scale_color_gradient(low="darkgreen", high="red")	  
 gplot(p2, dd, low="green", high="red", widths=c(.7, .3))
 ```
+
+## zoom on a portion of tree
+
+`r Githubpkg("GuangchuangYu/ggtree")` provides _`gzoom`_ function that similar to _`zoom`_ function provided in `r CRANpkg("ape")`. This function plots simultaneously a whole phylogenetic tree and a portion of it. It aims at exploring very large trees.
+
+```{r fig.width=18, fig.height=10, fig.align="center"}
+library("ape")
+data(chiroptera)
+require(ggtree)
+gzoom(chiroptera, grep("Plecotus", chiroptera$tip.label))
+```
+
+
+## group OTUs
+
+`r Githubpkg("GuangchuangYu/ggtree")` provides _`groupOTU`_ function to group tips and all their related ancestors. It return a cluster index of each line segment in the tree view.
+
+```{r}
+nwk <- system.file("extdata", "sample.nwk", package="ggtree")
+tree <- read.tree(nwk)
+
+
+cluster_index <- groupOTU(tree, focus=c("A", "B", "C", "D", "E"))
+cluster_index
+```
+In the _`cluster_index`_, _`1`_ represent the cluster that not selected, while other number represent the corresponding selected group(s).
+
+```{r fig.width=5, fig.height=5, fig.align="center", warning=FALSE}
+ggtree(tree, color=c("black", "red")[cluster_index])
+```
+
+_`groupOTU`_ can also input a list of tip groups.
+
+```{r fig.width=5, fig.height=5, fig.align="center", warning=FALSE}
+cls <- list(c1=c("A", "B", "C", "D", "E"),
+            c2=c("F", "G", "H"),
+            c3=c("L", "K", "I", "J"),
+            c4="M")
+
+cls_ind <- groupOTU(tree, cls)
+library("colorspace")
+cols <- rainbow_hcl(4)
+cols <- c("black", cols)
+ggtree(tree, color=cols[cls_ind]) + geom_tiplab()
+```
+
+We can change the linetype either:
+```{r fig.width=5, fig.height=5, fig.align="center", warning=FALSE}
+linetype <- c("solid", "dotted", "dashed", "dotdash", "longdash")
+ggtree(tree, color=cols[cls_ind], linetype=linetype[cls_ind]) + geom_tiplab()
+```
+
+And also size:
+```{r fig.width=5, fig.height=5, fig.align="center", warning=FALSE}
+size <- 1:5
+ggtree(tree, color=cols[cls_ind], linetype=linetype[cls_ind], size=size[cls_ind]) + geom_tiplab()
+```
+
+All the tree classes defined in `r Githubpkg("GuangchuangYu/ggtree")`, including _`beast`_, _`paml_rst`_, _`codeml_mlc`_, _`codeml`_, _`hyphy`_ and _`jplace`_ are all supported.
+
+For example:
+```{r fig.width=5, fig.height=5, fig.align="center", warning=FALSE}
+ind <- groupOTU(ml, c("A", "B", "F", "M"))
+cols <- c("black", "blue")
+ggtree(ml, color=cols[ind])
+```
+
+### iris example
+
+In this example, we first build a tree based on the iris data.
+```{r fig.width=20, fig.height=20, fig.align="center", warning=FALSE}
+data(iris)
+rownames(iris) <- paste0(iris[,5], "_", 1:150)
+d_iris <- dist(iris[,-5], method="man")
+
+tree_iris <- bionj(d_iris)
+ggtree(tree_iris) + geom_text(aes(label=node))
+```
+
+By adding a layer of internal node number, we can easily extract tip labels of a particular clade by the _`get.offspring.tip`_ function.
+```{r}
+cl1 <- get.offspring.tip(tree_iris, 242)
+cl2 <- get.offspring.tip(tree_iris, 152) 
+cl2 <- cl2[!cl2 %in% cl1]
+cl3 <- get.offspring.tip(tree_iris, 158)
+cl4 <- get.offspring.tip(tree_iris, 157)
+
+cls_ind <- groupOTU(tree_iris, list(cl1, cl2, cl3, cl4))
+```
+
+```{r fig.width=20, fig.height=24, fig.align="center", warning=FALSE}
+cols <- rainbow_hcl(3)
+cols <- c("black", cols, cols[2])
+species <- data.frame(otu=row.names(iris), species=iris[,5])
+
+ggtree(tree_iris, color=cols[cls_ind]) %<+% species + 
+     geom_text(aes(label=label, color=species), hjust=-0.1) +
+         scale_color_manual(values=cols[2:4])
+```
+
+This example demonstrates how the separation of the _`bionj`_ is very good with the _`setosa`_ species, but misses in labeling several _`versicolor`_ and _`virginica`_ species.
+
 
 
 # Session info

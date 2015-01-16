@@ -1,20 +1,35 @@
 Package: ggtree
 Type: Package
-Title: a phylogenetic tree viewer for different types of tree
-        annotations
-Version: 0.99.5
+Title: a phylogenetic tree viewer for different types of tree annotations
+Version: 0.99.6
 Author: Guangchuang Yu
 Maintainer: Guangchuang Yu <guangchuangyu@gmail.com>
-Description: ggtree extends the ggplot2 plotting system which
-        implemented the grammar of graphics. ggtree is designed for
-        visualizing phylogenetic tree and different types of associated
-        annotation data.
-Depends: R (>= 3.1.0), ape, ggplot2
-Imports: Biostrings, grid, gridExtra, jsonlite, magrittr, methods,
-        reshape2, stats4
-Suggests: phylobase, BiocStyle, knitr, testthat, rmarkdown
+Description: ggtree extends the ggplot2 plotting system which implemented the
+    grammar of graphics. ggtree is designed for visualizing phylogenetic tree
+    and different types of associated annotation data.
+Depends:
+    R (>= 3.1.0)
+Imports:
+    ape,
+    Biostrings,
+    ggplot2,
+    grid,
+    gridExtra,
+    jsonlite,
+    magrittr,
+    methods,
+    reshape2,
+    stats4
+Suggests:
+    phylobase,
+    BiocStyle,
+    colorspace,
+    knitr,
+    testthat,
+    rmarkdown
 VignetteBuilder: knitr
 License: Artistic-2.0
 URL: https://github.com/GuangchuangYu/ggtree
 BugReports: https://github.com/GuangchuangYu/ggtree/issues
+Packaged: 2014-12-03 08:16:14 UTC; root
 biocViews: Visualization

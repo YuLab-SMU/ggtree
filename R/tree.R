@@ -1,3 +1,100 @@
+##' @rdname groupOTU-methods
+##' @exportMethod groupOTU
+setMethod("groupOTU", signature(object="phylo"),
+          function(object, focus) {
+              groupOTU.phylo(object, focus)
+          })
+
+
+groupOTU_ <- function(object, focus) {
+    groupOTU.phylo(get.tree(object), focus)
+}
+
+##' group OTU
+##'
+##' 
+##' @title groupOTU.phylo
+##' @param phy tree object
+##' @param focus tip list
+##' @return cluster index
+##' @author ygc
+groupOTU.phylo <- function(phy, focus) {
+    if ( is(focus, "list") ) {
+        for (i in 1:length(focus)) {
+            phy <- gfocus(phy, focus[[i]])
+        } 
+    } else {
+        phy <- gfocus(phy, focus)
+    }
+    attr(phy, "focus")
+}
+
+##' @importFrom ape which.edge
+gfocus <- function(phy, focus) {
+    if (is.character(focus)) {
+        focus <- which(phy$tip.label %in% focus)
+    }
+    
+    n <- getNodeNum(phy)
+    if (is.null(attr(phy, "focus"))) {
+        foc <- rep(1, 2*n)
+    } else {
+        foc <- attr(phy, "focus")
+    }
+    i <- max(foc) + 1
+    sn <- phy$edge[which.edge(phy, focus),] %>% as.vector %>% unique
+    foc[sn] <- i
+    foc[sn+n] <- i
+    attr(phy, "focus") <- foc
+
+    ## sn <- which(df$focus != 1)
+    ## df$focus[df$parent] -> f2
+    ## f2[-sn] <- 1
+
+    phy
+}
+
+##' plots simultaneously a whole phylogenetic tree and a portion of it. 
+##'
+##' 
+##' @title gzoom
+##' @param phy phylo object
+##' @param focus selected tips
+##' @param subtree logical
+##' @param widths widths
+##' @return a list of ggplot object
+##' @importFrom ggplot2 xlim
+##' @importFrom ggplot2 scale_color_manual
+##' @importFrom ape drop.tip
+##' @export
+##' @author ygc
+##' @examples
+##' require(ape)
+##' data(chiroptera)
+##' gzoom(chiroptera, grep("Plecotus", chiroptera$tip.label))
+gzoom <- function(phy, focus, subtree=FALSE, widths=c(.3, .7)) {
+    if (is.character(focus)) {
+        focus <- which(phy$tip.label %in% focus)
+    }
+
+    phy <- gfocus(phy, focus)
+
+    foc <- attr(phy, "focus")
+    cols <- c("black", "red")[foc]
+    
+    p1 <- ggplot(phy) + geom_tree(colour=cols) +
+        xlab("") + ylab("") + theme_tree()
+    
+    subtr <- drop.tip(phy, phy$tip.label[-focus],
+                      subtree=subtree, rooted=TRUE)
+    
+    p2 <- ggtree(subtr, color="red") + geom_tiplab(hjust=-0.05)
+    p2 <- p2 + xlim(0, max(p2$data$x)*1.2)
+    grid.arrange(p1, p2, ncol=2, widths=widths)
+    
+    invisible(list(p1=p1, p2=p2))
+}
+
 
 ##' update tree 
 ##'
@@ -10,6 +107,7 @@
 ##' @export
 ##' @author Yu Guangchuang
 ##' @examples
+##' library("ggplot2")
 ##' nwk <- system.file("extdata", "sample.nwk", package="ggtree")
 ##' tree <- read.tree(nwk)
 ##' p <- ggtree(tree) + geom_point(subset=.(!isTip), 
@@ -103,7 +201,16 @@ layout.unrooted <- function(tree) {
 }
 
 
+##' extract offspring tips
+##'
+##' 
+##' @title get.offspring.tip
+##' @param tr tree
+##' @param node node
+##' @return tip label
+##' @author ygc
 ##' @importFrom ape extract.clade
+##' @export
 get.offspring.tip <- function(tr, node) {
     if ( ! node %in% tr$edge[,1]) {
         ## return itself
