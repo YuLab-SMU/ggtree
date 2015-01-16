@@ -146,6 +146,7 @@ setClass("codeml",
 ##' @docType class
 ##' @slot fields colnames of first variable of placements
 ##' @slot treetext tree text
+##' @slot phylo tree phylo object
 ##' @slot placements placement information
 ##' @slot version version
 ##' @slot metadata metadata
@@ -159,6 +160,7 @@ setClass("jplace",
          representation = representation(
              fields     = "character",
              treetext   = "character",
+             phylo      = "phylo",
              placements = "data.frame",
              version    = "numeric",
              metadata   = "list",

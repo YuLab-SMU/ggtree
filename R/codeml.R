@@ -22,6 +22,14 @@ read.codeml <- function(rstfile, mlcfile) {
 }
 
 
+##' @rdname groupOTU-methods
+##' @exportMethod groupOTU
+setMethod("groupOTU", signature(object="codeml"),
+          function(object, focus) {
+              groupOTU_(object, focus)
+          }
+          )
+
 ##' @rdname show-methods
 ##' @exportMethod show
 setMethod("show", signature(object = "codeml"),
@@ -36,6 +44,12 @@ setMethod("show", signature(object = "codeml"),
               print_fields(object, len=4)
           })
 
+##' @rdname get.tipseq-methods
+##' @exportMethod get.tipseq
+setMethod("get.tipseq", signature(object = "codeml"),
+          function(object, ...) {
+              return(object@rst@tip_seq)
+          })
 
 ##' @rdname get.tree-methods
 ##' @exportMethod get.tree
@@ -78,7 +92,7 @@ setMethod("plot", signature(x = "codeml"),
                    tip.label.size   = 4,
                    tip.label.hjust  = -0.1,
                    position         = "branch",
-                   annotation       = "dN.dS",
+                   annotation       = "dN_vs_dS",
                    annotation.size  = 3,
                    annotation.color = "black",
                    ndigits          = 2,

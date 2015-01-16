@@ -93,3 +93,24 @@ setGeneric("get.placements", function(object, by, ...) standardGeneric("get.plac
 setGeneric("get.subs", function(object, type, ...) standardGeneric("get.subs"))
 
 
+##' @docType methods
+##' @name get.tipseq
+##' @rdname get.tipseq-methods
+##' @title get.tipseq method
+##' @param object one of paml_rst or codeml object
+##' @param ... additional parameter
+##' @return character
+##' @export
+setGeneric("get.tipseq", function(object, ...) standardGeneric("get.tipseq"))
+
+##' @docType methods
+##' @name groupOTU
+##' @rdname groupOTU-methods
+##' @title groupOTU method
+##' @param object supported objects, including phylo, paml_rst,
+##'               codeml_mlc, codeml, jplace, beast, hyphy
+##' @param focus a vector of tip (label or number) or a list of tips.
+##' @return group index
+##' @export
+setGeneric("groupOTU", function(object, focus) standardGeneric("groupOTU"))
+

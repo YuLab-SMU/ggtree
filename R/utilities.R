@@ -149,26 +149,38 @@ reverse.treeview.data <- function(df) {
 jplace_treetext_to_phylo <- function(tree.text) {
     ## move edge label to node label separate by @
     tr <- gsub('(:[0-9.e-]+)\\{(\\d+)\\}', '\\@\\2\\1', tree.text)
-    read.tree(text=tr)
+    phylo <- read.tree(text=tr)
+    if (length(grep('@', phylo$tip.label)) > 0) {
+        phylo$node.label[1] %<>% gsub("(.*)\\{(\\d+)\\}", "\\1@\\2", .)
+        tip.edgeNum <- as.numeric(gsub("[^@]*@(\\d*)", "\\1",phylo$tip.label))
+        node.edgeNum <- as.numeric(gsub("[^@]*@(\\d*)", "\\1",phylo$node.label))
+        phylo$tip.label %<>% gsub("@\\d+", "", .)
+        phylo$node.label %<>% gsub("@\\d+", "", .)
+        if (all(phylo$node.label == "")) {
+            phylo$node.label <- NULL
+        }
+
+        N <- getNodeNum(phylo)
+        edgeNum.df <- data.frame(node=1:N, edgeNum=c(tip.edgeNum, node.edgeNum))
+        edgeNum.df <- edgeNum.df[!is.na(edgeNum.df[,2]),]
+        edgeNum <- edgeNum.df[match( phylo$edge[,2], edgeNum.df$node), 2]
+        attr(phylo, "edgeNum") <- edgeNum
+    }
+    return(phylo)
 }
 
-extract.treeinfo.jplace <- function(tree.text, layout="phylogram", ladderize=TRUE, right=FALSE) {
+extract.treeinfo.jplace <- function(object, layout="phylogram", ladderize=TRUE, right=FALSE) {
 
-    tree <- jplace_treetext_to_phylo(tree.text)
+    tree <- get.tree(object)
     
     df <- fortify.phylo(tree, layout=layout, ladderize=ladderize, right=right)
 
-    root.idx <- which(df$parent == df$node)
-    root.lab <- df[,"label"]
-    df$label[root.idx] <- gsub("(.*)\\{(\\d+)\\}", "\\1@\\2", df$label[root.idx])
-
-    if ( length(grep('@', df$label)) > 0) {
-        df$edge <- as.numeric(gsub("[^@]*@(\\d*)", "\\1",df$label))
+    edgeNum <- attr(tree, "edgeNum")
+    if (!is.null(edgeNum)) {
+        edgeNum.df <- data.frame(node=tree$edge[,2], edge=edgeNum)
+        df2 <- merge(df, edgeNum.df, by.x="node", by.y="node", all.x=TRUE) 
+        df <- df2[match(df[, "node"], df2[, "node"]),]
     }
-    
-    ## remove edge label from node label
-    df$label <- gsub("@\\d*", "", df$label)
-    df$label[df$label == ""] <- NA
     attr(df, "ladderize") <- ladderize
     attr(df, "right") <- right
     return(df)
