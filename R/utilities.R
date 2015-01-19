@@ -186,6 +186,20 @@ extract.treeinfo.jplace <- function(object, layout="phylogram", ladderize=TRUE, 
     return(df)
 }
 
+
+is.character_beast <- function(stats3, cn) {
+    for (i in 1:nrow(stats3)) {
+        if ( is.na(stats3[i,cn]) ) {
+            next
+        } else {
+            res <- grepl("[a-df-zA-DF-Z]+", unlist(stats3[i, cn]))
+            return(all(res == TRUE))
+        }
+    }
+    return(FALSE)
+}
+
+
 is.tree <- function(x) {
     if (class(x) %in% c("phylo",
                         "phylo4",
