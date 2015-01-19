@@ -1,6 +1,7 @@
 CHANGES IN VERSION 0.99.6
 ------------------------
- o now read.beast support characters in support values <2015-01-18, Sun>
+ o read.beast now supports support values of sets such as {x, y, z} <2015-01-19, Mon>
+ o now read.beast supports characters in support values <2015-01-18, Sun>
  o add example of gzoom and groupOTU in vignette <2015-01-14, Wed> 
  o implement groupOTU methods <2015-01-14, Wed>
  o export get.offspring.tip <2015-01-14, Wed>

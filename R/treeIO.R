@@ -115,20 +115,64 @@ fortify.beast <- function(model, data,
     
     stats <- model@stats
 
-    if (!is.null(ndigits)) {
-        idx <- which(colnames(stats) != "node")
-        for (ii in idx) {
-            if (is.numeric(stats[, ii])) {
-                stats[, ii] <- round(stats[,ii], ndigits)
+    idx <- which(colnames(stats) != "node")
+    for (ii in idx) {
+        if (is.character_beast(stats, ii)) {
+            len <- sapply(stats[,ii], length)
+            if (any(len > 1)) {
+                stats[,ii] %<>% sapply(., function(x) {
+                    y <- unlist(x) %>% as.character %>% gsub("\"", "", .)
+                    if (length(y) == 1) {
+                        return(y)
+                    } else {
+                        return(paste0('{', paste0(y, collapse = ','), '}'))
+                    }
+                })
+            } else {
+                stats[,ii] %<>% unlist %>% as.character %>% gsub("\"", "", .)
             }
+            next
+        }
+        
+        len <- sapply(stats[,ii], length)
+        if ( all(len == 1) ) {
+            stats[, ii] %<>% unlist %>% as.character %>% as.numeric
+            if (!is.null(ndigits)) {
+                stats[, ii] %<>% round(., ndigits)
+            }
+        } else if (all(len <= 2)) {
+            stats[, ii] %<>% sapply(., function(x) {
+                y <- unlist(x) %>% as.character %>% as.numeric
+                if (!is.null(ndigits)) {
+                    y %<>% round(., ndigits)
+                }
+                if (length(y) == 1) {
+                    return(y)
+                } else {
+                    return(paste0('[', paste0(y, collapse = ','), ']'))
+                }
+            })
+        } else {
+            stats[,ii] %<>% sapply(., function(x) {
+                y <- unlist(x) %>% as.character %>% as.numeric
+                if (!is.null(ndigits)) {
+                    y %<>% round(., ndigits)
+                }
+                if (length(y) == 1) {
+                    return(y)
+                } else {
+                    return(paste0('{', paste0(y, collapse = ','), '}'))
+                }
+            })  
         }
     }
-
+            
+      
     cn <- colnames(stats)
     lo <- cn[grep("_lower", cn)]
     hi <- gsub("lower$", "upper", lo)
     rid <- gsub("_lower$", "", lo)
-
+    
     for (i in seq_along(rid)) {
         stats[, rid[i]] <- paste0("[", stats[, lo[i]], ",", stats[, hi[i]], "]")
         stats[is.na(stats[, lo[i]]), rid[i]] <- NA

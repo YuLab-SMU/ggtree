@@ -223,89 +223,44 @@ read.stats_beast <- function(file) {
         
     stats2 <- lapply(stats, function(x) {
         y <- unlist(strsplit(x, ","))
-        idx <- grep("=\\{", y)
-        if (length(idx) > 0) {
-            si.idx <- grep("\\}$", y[idx]) ## single item {x}
-            if (length(si.idx) > 0) {
-                y[idx[si.idx]] %<>% sub("\\{", "", .) %>% sub("\\}$", "", .)
-                idx <- idx[-si.idx]
-            }
-        }
-        hasRange <- FALSE
-        if (length(idx) > 0) {
-            ii <- grep("\\}$", y[idx+1])
-            if (length(ii) > 0) {
-                idx <- idx[ii]
-                hasRange <- TRUE
-            }
-        }
-        
-        if (hasRange) {
-            names.range <- gsub("=\\{.*", "", y[idx])
-            nr.lower <- paste0(names.range, "_lower")
-            nr.upper <- paste0(names.range, "_upper")
-            
-            lo <- gsub(".*=\\{", "", y[idx])
-            hi <- gsub("\\}", "", y[idx+1])
-        
-            jj <- -c(idx, idx+1)
-        } else {
-            jj <- seq_along(y)
-        }
-        y <- y[jj]
+        sidx <- grep("=\\{", y)
+        eidx <- grep("\\}$", y)
 
-        a <- grep("\\{", y)
-        b <- grep("\\}", y)
         flag <- FALSE
-        if (length(a) > 0) {
+        if (length(sidx) > 0) {
             flag <- TRUE
-            m <- sapply(seq_along(a), function(k) {
-                p <- y[a[k]:b[k]]
-                ii <- c(ii,i) 
-                gsub(".*=\\{", "", p) %>% gsub("\\}$", "", .) %>% list
+            SETS <- sapply(seq_along(sidx), function(k) {
+                p <- y[sidx[k]:eidx[k]]
+                gsub(".*=\\{", "", p) %>% gsub("\\}$", "", .) %>% list                
             })
-            names(m) <- gsub("=.*", "", y[a])
-        }
+            names(SETS) <- gsub("=.*", "", y[sidx])
 
-        if (flag) {
-            k <- sapply(seq_along(a), function(i) a[i]:b[i]) %>% as.vector
-            y <- y[-k]
+            kk <- sapply(seq_along(sidx), function(k) sidx[k]:eidx[k]) %>% unlist
+            y <- y[-kk]
         }
         
-        names <- gsub("=.*", "", y)
+        
+        name <- gsub("=.*", "", y)
         val <- gsub(".*=", "", y) %>% gsub("^\\{", "", .) %>%
             gsub("\\}$", "", .) 
 
-        if (hasRange) {
-            nn <- c(nr.lower, nr.upper, names)
-        } else {
-            nn <- names
-        }
+
         if (flag) {
-            nn <- c(nn, names(m))
+            nn <- c(name, names(SETS))
+        } else {
+            nn <- name
         }
         
         res <- character(length(nn))
         names(res) <- nn
-        if (hasRange) {
-            for (i in seq_along(nr.lower)) {
-                res[i] <- lo[i]
-            }
-            j <- i
-            for (i in seq_along(nr.upper)) {
-                res[i+j] <- hi[i] 
-            }
-            j <- i+j
-        } else {
-            j <- 0
-        }
-        for (i in seq_along(names)) {
-            res[i+j] <- val[i]
+
+        for (i in seq_along(name)) {
+            res[i] <- val[i]
         }
         if (flag) {
-            j <- i+j
-            for (i in seq_along(m)) {
-                res[i+j] <- m[i]
+            j <- i
+            for (i in seq_along(SETS)) {
+                res[i+j] <- SETS[i]
             }
         }
         
@@ -324,42 +279,9 @@ read.stats_beast <- function(file) {
     }))
 
     stats3 <- as.data.frame(stats3)
-
-    hasQuote <- function(stats3, cn) {
-        for (i in 1:nrow(stats3)) {
-            if ( is.na(stats3[i,cn]) ) {
-                next
-            } else {
-                return(grepl("\"", stats3[i, cn]))
-            }
-        }
-    }
-    
-    for (j in 1:ncol(stats3)) {
-        if (hasQuote(stats3,j)) {
-            next
-        } else {
-            len <- sapply(stats3[,j], length)
-            if (any(len > 1)) {
-                next
-                ## for (i in 1:length(stats3[,j])) {
-                ##     print(i)
-                ##     stats3[i,j] %<>% unlist %<>%
-                ##           as.character %<>% as.numeric %<>% c
-                ## }
-            } else {
-                stats3[,j] %<>% as.character
-                i <- which(stats3[,j] == "NA")
-                if(length(i) > 0) {
-                    stats3[i,j] <- NA
-                }
-                stats3[,j] %<>% as.numeric
-            }
-        }
-    }
+    colnames(stats3) <- gsub("(\\d+)%", "0.\\1", colnames(stats3))
     
     stats3$node <- node
-    colnames(stats3) <- gsub("(\\d+)%", "0.\\1", colnames(stats3))
     return(stats3)
 }
 
