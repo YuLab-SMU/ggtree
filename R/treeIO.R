@@ -105,9 +105,11 @@ rm.singleton.newick <- function(nwk, outfile = NULL) {
 ##' @method fortify beast
 ##' @export
 fortify.beast <- function(model, data,
-                          layout="phylogram",
-                          ladderize=TRUE, right=FALSE,
-                          ndigits = NULL, ...) {
+                          layout    = "phylogram",
+                          yscale    = "none",
+                          ladderize = TRUE,
+                          right     =FALSE,
+                          ndigits   = NULL, ...) {
 
     phylo <- get.tree(model)
     df    <- fortify(phylo, layout=layout,
@@ -182,7 +184,8 @@ fortify.beast <- function(model, data,
     stats <- stats[idx,]
     stats <- stats[,colnames(stats) != "node"]
     
-    return(cbind(df, stats))
+    df <- cbind(df, stats)
+    scaleY(phylo, df, yscale)
 }
 
 
@@ -191,6 +194,7 @@ fortify.beast <- function(model, data,
 ##' @export
 fortify.codeml <- function(model, data,
                            layout        = "phylogram",
+                           yscale        = "none",
                            ladderize     = TRUE,
                            right         = FALSE,
                            branch.length = "mlc.branch.length",
@@ -220,18 +224,20 @@ fortify.codeml <- function(model, data,
                   branch.length=length, ...)
     
     res <- merge_phylo_anno.codeml_mlc(df, dNdS, ndigits)
-    merge_phylo_anno.paml_rst(res, model@rst)
+    df <- merge_phylo_anno.paml_rst(res, model@rst)
+    scaleY(phylo, df, yscale)
 }
 
 
 ##' @method fortify codeml_mlc
 ##' @export
 fortify.codeml_mlc <- function(model, data,
-                               layout = "phylogram",
-                               ladderize = TRUE,
-                               right = FALSE,
+                               layout        = "phylogram",
+                               yscale        = "none",
+                               ladderize     = TRUE,
+                               right         = FALSE,
                                branch.length = "branch.length",
-                               ndigits = NULL,
+                               ndigits       = NULL,
                                ...) {
         
     phylo <- fortify.codeml_mlc_(model, data, layout,
@@ -241,7 +247,8 @@ fortify.codeml_mlc <- function(model, data,
     
     dNdS <- model@dNdS
 
-    merge_phylo_anno.codeml_mlc(df, dNdS, ndigits)
+    df <- merge_phylo_anno.codeml_mlc(df, dNdS, ndigits)
+    scaleY(phylo, df, yscale)
 }
 
 merge_phylo_anno.codeml_mlc <- function(df, dNdS, ndigits = NULL) {
@@ -288,19 +295,14 @@ fortify.codeml_mlc_ <- function(model, data,
     return(phylo)
 }
 
-##' @method fortify hyphy
-##' @export
-fortify.hyphy <- function(model, data, layout = "phylogram",
-                          ladderize = TRUE, right = FALSE, ...) {
-    fortify.paml_rst(model, data, layout, ladderize, right, ...)
-}
     
 ##' @method fortify paml_rst
 ##' @export
-fortify.paml_rst <- function(model, data, layout = "phylogram",
+fortify.paml_rst <- function(model, data, layout = "phylogram", yscale="none",
                              ladderize=TRUE, right=FALSE, ...) {
     df <- fortify.phylo(model@phylo, data, layout, ladderize, right, ...)
     df <- merge_phylo_anno.paml_rst(df, model)
+    scaleY(model@phylo, df, yscale)
 }
 
 merge_phylo_anno.paml_rst <- function(df, model) {
@@ -312,24 +314,48 @@ merge_phylo_anno.paml_rst <- function(df, model) {
     return(df)
 }
 
+
+##' @method fortify hyphy
+##' @export
+fortify.hyphy <- fortify.paml_rst
+
+
 ##' @method fortify jplace
 ##' @importFrom ape read.tree
 ##' @export
 fortify.jplace <- function(model, data,
-                           layout="phylogram",
+                           layout="phylogram", yscale="none",
                            ladderize=TRUE, right=FALSE, ...) {
     df <- get.treeinfo(model, layout, ladderize, right, ...)
     place <- get.placements(model, by="best")
-    df %add2% place
+    df <- df %add2% place
+    scaleY(model@phylo, df, yscale)
+}
+
+scaleY <- function(phylo, df, yscale) {
+    if (yscale == "none") {
+        return(df)
+    }
+    if (! yscale %in% colnames(df)) {
+        warning("yscale is not available...\n")
+        return(df)
+    }
+    if (! is.numeric(df[, yscale])) {
+        warning("yscale should be numeric...\n")
+        return(df)
+    }
+    y <- getYcoord_scale(phylo, df[, yscale])
+    df[, "y"] <- y
+    return(df)
 }
 
 
 ##' @method fortify phylo4
 ##' @export
-fortify.phylo4 <- function(model, data, layout="phylogram",
+fortify.phylo4 <- function(model, data, layout="phylogram", yscale="none",
                            ladderize=TRUE, right=FALSE, ...) {
     fortify.phylo(as.phylo.phylo4(model), data,
-                  layout, ladderize, right, ...)
+                  layout, yscale, ladderize, right, ...)
 }
 
 as.phylo.phylo4 <- function(phylo4) {
@@ -369,7 +395,7 @@ as.phylo.phylo4 <- function(phylo4) {
 ##' @method fortify phylo
 ##' @export
 ##' @author Yu Guangchuang
-fortify.phylo <- function(model, data, layout="phylogram",
+fortify.phylo <- function(model, data, layout="phylogram", 
                           ladderize=TRUE, right=FALSE, ...) {
     if (ladderize == TRUE) {
         tree <- ladderize(model, right=right)
@@ -383,7 +409,6 @@ fortify.phylo <- function(model, data, layout="phylogram",
     rownames(df) <- df$node
     cn <- colnames(df)
     colnames(df)[grep("length", cn)] <- "branch.length"
-
     return(df)
 }
 

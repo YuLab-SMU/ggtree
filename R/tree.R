@@ -164,9 +164,7 @@ layout.unrooted <- function(tree) {
     
     nb.sp <- sapply(1:N, function(i) length(get.offspring.tip(tree, i)))
 
-    tree <- reorder.phylo(tree, "postorder")
-    nodes <- tree$edge[,c(2,1)] %>% t %>%
-        as.vector %>% rev %>% unique
+    nodes <- getNodes_by_postorder(tree)
 
     for(curNode in nodes) {
         curNtip <- nb.sp[curNode]
@@ -283,6 +281,12 @@ getRoot <- function(tr) {
         stop("multiple roots founded...")
     }
     return(root)
+}
+
+getNodes_by_postorder <- function(tree) {
+    tree <- reorder.phylo(tree, "postorder")
+    nodes <- tree$edge[,c(2,1)] %>% t %>%
+        as.vector %>% rev %>% unique
 }
 
 getXcoord2 <- function(x, root, parent, child, len, start=0, rev=FALSE) {
@@ -407,5 +411,36 @@ getYcoord <- function(tr, step=1) {
                 currentNode[.] %>% c(., newNode)
     }
     
+    return(y)
+}
+
+
+getYcoord_scale <- function(tr, yscale) {
+    N <- getNodeNum(tr)
+    y <- numeric(N)
+    
+    root <- getRoot(tr)
+    y[root] <- 0
+    y[-root] <- NA
+
+    edge <- tr$edge
+    parent <- edge[,1]
+    child <- edge[,2]
+    
+    currentNodes <- root
+    while(any(is.na(y))) {
+        newNodes <- c()
+        for (currentNode in currentNodes) {
+            idx <- which(parent %in% currentNode)
+            newNode <- child[idx]
+            direction <- 1
+            for (i in seq_along(newNode)) {
+                y[newNode[i]] <- y[currentNode] + yscale[newNode[i]] * direction
+                direction <- -1 * direction
+            }
+            newNodes <- c(newNodes, newNode)
+        }
+        currentNodes <- unique(newNodes)
+    }
     return(y)
 }
