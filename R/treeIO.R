@@ -354,8 +354,10 @@ scaleY <- function(phylo, df, yscale) {
 ##' @export
 fortify.phylo4 <- function(model, data, layout="phylogram", yscale="none",
                            ladderize=TRUE, right=FALSE, ...) {
-    fortify.phylo(as.phylo.phylo4(model), data,
-                  layout, yscale, ladderize, right, ...)
+    phylo <- as.phylo.phylo4(model)
+    df <- fortify.phylo(phylo, data,
+                        layout, ladderize, right, ...)
+    scaleY(phylo, df, yscale)
 }
 
 as.phylo.phylo4 <- function(phylo4) {
