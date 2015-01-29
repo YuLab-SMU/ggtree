@@ -480,6 +480,13 @@ as.data.frame.phylo_ <- function(x, layout="phylogram",
         res$length[is.na(res$length)] <- 0
     }
     res$branch[is.na(res$branch)] <- 0
+    
+    if (layout == "fan") {
+      idx <- match(1:N, order(res$y))
+      angle <- -360/N * 1:N
+      angle <- angle[idx]
+      res$angle <- angle
+    }
     return(res)
 }
 
