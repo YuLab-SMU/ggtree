@@ -23,7 +23,7 @@
 ggtree <- function(tr, showDistance=FALSE, layout="phylogram", ...) {
     d <- x <- y <- NULL
     if (layout == "fan") {
-        layout <- "phylogram"
+        ## layout <- "phylogram"
         type <- "fan"
     } else if (layout == "radial") {
         layout <- "cladogram"
@@ -66,7 +66,7 @@ ggtree <- function(tr, showDistance=FALSE, layout="phylogram", ...) {
 ##' ggplot(tr) + geom_tree()
 geom_tree <- function(layout="phylogram", ...) {
     x <- y <- parent <- NULL
-    if (layout == "phylogram") {
+    if (layout == "phylogram" || layout == "fan") {
         geom_segment(aes(x=c(x[parent], x[parent]),
                          xend=c(x, x[parent]),
                          y=c(y, y[parent]),
