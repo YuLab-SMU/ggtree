@@ -1,3 +1,7 @@
+CHANGES IN VERSION 0.99.7
+------------------------
+ o add angle information for 'fan' layout <2015-01-29, Thu>
+
 CHANGES IN VERSION 0.99.6
 ------------------------
  o read.beast now supports support values of sets such as {x, y, z} <2015-01-19, Mon>
