@@ -433,7 +433,7 @@ getYcoord_scale <- function(tr, yscale) {
         for (currentNode in currentNodes) {
             idx <- which(parent %in% currentNode)
             newNode <- child[idx]
-            direction <- 1
+            direction <- -1
             for (i in seq_along(newNode)) {
                 y[newNode[i]] <- y[currentNode] + yscale[newNode[i]] * direction
                 direction <- -1 * direction
