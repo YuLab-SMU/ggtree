@@ -445,15 +445,19 @@ as.data.frame.phylo_ <- function(x, layout="phylogram",
         if (branch.length == "none") {
             xpos <- getXcoord_no_length(x)
             ypos <- getYcoord(x)
-        } else  if (layout != "cladogram") {
+        } else {
             xpos <- getXcoord(x)
             ypos <- getYcoord(x)
-        } else {
-            ## layout == "cladogram" && branch.length != "none"
-            xy <- getXYcoord_cladogram(x)
-            xpos <- xy$x
-            ypos <- xy$y
         }
+        ## } else  if (layout != "cladogram") {
+        ##     xpos <- getXcoord(x)
+        ##     ypos <- getYcoord(x)
+        ## } else {
+        ##     ## layout == "cladogram" && branch.length != "none"
+        ##     xy <- getXYcoord_cladogram(x)
+        ##     xpos <- xy$x
+        ##     ypos <- xy$y
+        ## }
     } else {
         xpos <- getXcoord_no_length(x)
         ypos <- getYcoord(x)
