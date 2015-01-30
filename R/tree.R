@@ -160,8 +160,8 @@ layout.unrooted <- function(tree) {
     df$angle <- NA
     df[root, "x"] <- 0
     df[root, "y"] <- 0
-    df[root, "start"] <- -1
-    df[root, "end"]   <- 1
+    df[root, "start"] <- 0
+    df[root, "end"]   <- 2
     df[root, "angle"] <- 0
     
     nb.sp <- sapply(1:N, function(i) length(get.offspring.tip(tree, i)))
@@ -190,7 +190,7 @@ layout.unrooted <- function(tree) {
             length.child <- df[child, "length"]
             df[child, "x"] <- df[curNode, "x"] + cospi(beta) * length.child
             df[child, "y"] <- df[curNode, "y"] + sinpi(beta) * length.child
-            df[child, "angle"] <- -180 * abs(beta)
+            df[child, "angle"] <- -90 -180 * beta * sign(beta - 1)
             df[child, "start"] <- start
             df[child, "end"] <- start + alpha
             start <- start + alpha
