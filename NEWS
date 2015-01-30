@@ -1,3 +1,8 @@
+CHANGES IN VERSION 0.99.8
+------------------------
+ o add get.phylopic function to read the online phylo pic and convert it to grob object,
+   which can be use to annotate ggplot figure using annotation_custom <2015-01-30, Fri>
+ 
 CHANGES IN VERSION 0.99.7
 ------------------------
  o add angle information for 'fan' & 'unrooted' layout <2015-01-29, Thu>
