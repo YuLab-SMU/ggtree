@@ -118,7 +118,7 @@ setMethod("get.fields", signature(object="beast"),
 read.treetext_beast <- function(file) {
     beast <- readLines(file)
     ii <- grep("tree TREE1\\s+=", beast)
-    jj <- grep("End;", beast)
+    jj <- grep("[Ee]nd;", beast)
     jj <- jj[jj > ii][1]
     tree <- beast[ii:(jj-1)]
     if (length(tree) > 1) {
@@ -131,6 +131,9 @@ read.treetext_beast <- function(file) {
 read.trans_beast <- function(file) {
     beast <- readLines(file)
     i <- grep("TRANSLATE", beast, ignore.case = TRUE)
+    if (length(i) == 0) {
+        return(matrix())
+    }
     end <- grep(";", beast)
     j <- end[end %>% `>`(i) %>% which %>% `[`(1)]
     trans <- beast[(i+1):j]
