@@ -28,6 +28,7 @@ BiocStyle::markdown()
 
 ```{r echo=FALSE, results="hide", message=FALSE}
 library("ape")
+library("colorspace")
 library("ggplot2")
 library("ggtree")
 library("Biostrings")
@@ -135,7 +136,14 @@ ggtree(tree, showDistance=TRUE) +
       		vjust=-0.5, color="#F06C45") +
       scale_x_continuous(breaks=seq(0, 60, 5))
 ```
- 
+
+User can also use _`geom_segment`_ and _`geom_text`_ to specify the position and length of distance legend:
+```{r fig.width=3, fig.height=3, warning=FALSE, fig.align="center"}
+ggtree(tree) +
+       geom_segment(x=0, y=12, xend=10, yend=12) +
+              geom_text(x=5, y=12.5, label=5, size=4)
+```
+
 ## display nodes/tips
 
 Show all the internal nodes and tips in the tree can be done by adding a layer of points using _`geom_point`_.
@@ -152,9 +160,18 @@ p + geom_point(color="#FDAC4F", shape=8, size=3, subset=.(isTip))
 ```
 
 ## display labels
+
+Users can use _`geom_text`_ to display the node/tip labels:
+
 ```{r fig.width=3, fig.height=3, warning=FALSE, fig.align="center"}
 p + geom_text(aes(label=label), size=3, color="purple", hjust=-0.3)
 ```
+
+For _`fan`_ and _`unrooted`_ layout, `r Githubpkg("GuangchuangYu/ggtree")` supports rotating node labels according to the angles of the branches.
+```{r fig.width=6, fig.height=6, warning=FALSE, fig.align="center"}
+ggtree(tree, layout="fan") + geom_text(aes(label=label, angle=angle), size=3, color="purple", vjust=-0.3)
+```
+
 
 By default, the positions are based on the node positions, we can change them to based on the middle of the branch/edge.
 
@@ -510,7 +527,7 @@ gplot(p2, dd, low="green", high="red", widths=c(.7, .3))
 ```{r fig.width=18, fig.height=10, fig.align="center"}
 library("ape")
 data(chiroptera)
-require(ggtree)
+library("ggtree")
 gzoom(chiroptera, grep("Plecotus", chiroptera$tip.label))
 ```
 
@@ -603,6 +620,18 @@ ggtree(tree_iris, color=cols[cls_ind]) %<+% species +
 ```
 
 This example demonstrates how the separation of the _`bionj`_ is very good with the _`setosa`_ species, but misses in labeling several _`versicolor`_ and _`virginica`_ species.
+
+## phylopic
+
+[PhyloPic](http://phylopic.org/) is a database that stores reusable silhouette images of organisms. `r Githubpkg("GuangchuangYu/ggtree")` supports downloading images from [PhyloPic](http://phylopic.org/) and annotating phylogenetic tree with the downloaded images.
+
+```{r fig.width=5, fig.height=5, fig.align="center", warning=FALSE}
+cols <- rainbow_hcl(2)
+x <- get.phylopic("d3563b54-780f-4711-a49a-7ea051e9dacc", size=512, color=cols[1], alpha=.3)
+y <- get.phylopic("3318565d-7531-4a8c-8b84-2e87dfae36ab", size=512, color=cols[2], alpha=.8)
+ggtree(tree) + annotation_custom(xmin=-Inf, ymin=-Inf, xmax=Inf, ymax=Inf, x) +
+       annotation_custom(xmin=15, ymin=2, xmax=25, ymax=4, y) 
+```
 
 
 
