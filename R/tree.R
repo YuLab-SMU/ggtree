@@ -255,6 +255,33 @@ getChild <- function(tr, node) {
     return(res)
 }
 
+getSibling <- function(tr, node) {
+    root <- getRoot(tr)
+    if (node == root) {
+        return(NA)
+    }
+    
+    parent <- getParent(tr, node)
+    child <- getChild(tr, parent)
+    sib <- child[child != node]
+    return(sib)
+}
+
+
+getAncestor <- function(tr, node) {
+    root <- getRoot(tr)
+    if (node == root) {
+        return(NA)
+    }
+    parent <- getParent(tr, node)
+    res <- parent
+    while(parent != root) {
+        parent <- getParent(tr, parent)
+        res <- c(res, parent)
+    }
+    return(res)
+}
+
 isRoot <- function(tr, node) {
     getRoot(tr) == node
 }
@@ -284,6 +311,30 @@ getRoot <- function(tr) {
         stop("multiple roots founded...")
     }
     return(root)
+}
+
+get.path_length <- function(df, from, to, weight=NULL) {
+    ## df is output of fortify(tree)
+    ## from and to are nodes
+    ## weight is a numeric column of df
+    res <- 0
+    if (from == to) {
+        return(res)
+    }
+    
+    if (is.null(weight)) {
+        res <- res + 1
+    } else {
+        res <- res + df[from, weight]
+    }
+
+    newNode <- df[from, "parent"]
+    if (newNode == to) {
+        return(res)
+    } else {
+        res <- res + get.path_length(df, newNode, to, weight)
+    }
+    return(res)
 }
 
 getNodes_by_postorder <- function(tree) {
@@ -418,7 +469,8 @@ getYcoord <- function(tr, step=1) {
 }
 
 
-getYcoord_scale <- function(tr, yscale) {
+getYcoord_scale <- function(tr, df, yscale) {
+
     N <- getNodeNum(tr)
     y <- numeric(N)
     
@@ -429,7 +481,7 @@ getYcoord_scale <- function(tr, yscale) {
     edge <- tr$edge
     parent <- edge[,1]
     child <- edge[,2]
-    
+
     currentNodes <- root
     while(any(is.na(y))) {
         newNodes <- c()
@@ -438,12 +490,94 @@ getYcoord_scale <- function(tr, yscale) {
             newNode <- child[idx]
             direction <- -1
             for (i in seq_along(newNode)) {
-                y[newNode[i]] <- y[currentNode] + yscale[newNode[i]] * direction
+                y[newNode[i]] <- y[currentNode] + df[newNode[i], yscale] * direction
                 direction <- -1 * direction
             }
             newNodes <- c(newNodes, newNode)
         }
         currentNodes <- unique(newNodes)
+    }
+    if (min(y) < 0) {
+        y <- y + abs(min(y))
+    }
+    return(y)
+}
+
+getYcoord_scale2 <- function(tr, df, yscale) {
+
+    root <- getRoot(tr)
+    
+    pathLength <- sapply(1:length(tr$tip.label), function(i) {
+        get.path_length(df, i, root, yscale)
+    })
+
+    ordered_tip <- order(pathLength, decreasing = TRUE)
+    ii <- 1
+    ntip <- length(ordered_tip)
+    while(ii < ntip) {
+        sib <- getSibling(tr, ordered_tip[ii])
+        if (length(sib) == 0) {
+            ii <- ii + 1
+            next
+        }
+        jj <- which(ordered_tip %in% sib)
+        if (length(jj) == 0) {
+            ii <- ii + 1
+            next
+        }
+        sib <- ordered_tip[jj]
+        ordered_tip <- ordered_tip[-jj]
+        nn <- length(sib)
+        if (ii < length(ordered_tip)) {
+            ordered_tip <- c(ordered_tip[1:ii],sib, ordered_tip[(ii+1):length(ordered_tip)])
+        } else {
+            ordered_tip <- c(ordered_tip[1:ii],sib)
+        }
+        
+        ii <- ii + nn + 1
+    }
+
+
+    long_branch <- getAncestor(tr, ordered_tip[1]) %>% rev
+    long_branch <- c(long_branch, ordered_tip[1])
+
+    N <- getNodeNum(tr)
+    y <- numeric(N)
+    
+    y[root] <- 0
+    y[-root] <- NA
+
+    ## yy <- df[, yscale]
+    ## yy[is.na(yy)] <- 0
+    
+    for (i in 2:length(long_branch)) {
+        y[long_branch[i]] <- y[long_branch[i-1]] + df[long_branch[i], yscale]
+    }
+    
+    parent <- df[, "parent"]
+    child <- df[, "node"]
+    
+    currentNodes <- root
+    while(any(is.na(y))) {
+        newNodes <- c()
+        for (currentNode in currentNodes) {
+            idx <- which(parent %in% currentNode)
+            newNode <- child[idx]
+            newNode <- c(newNode[! newNode %in% ordered_tip],
+                         rev(ordered_tip[ordered_tip %in% newNode]))
+            direction <- -1
+            for (i in seq_along(newNode)) {
+                if (is.na(y[newNode[i]])) {
+                    y[newNode[i]] <- y[currentNode] + df[newNode[i], yscale] * direction
+                    direction <- -1 * direction
+                }
+            }
+            newNodes <- c(newNodes, newNode)
+        }
+        currentNodes <- unique(newNodes)
+    }
+    if (min(y) < 0) {
+        y <- y + abs(min(y))
     }
     return(y)
 }
