@@ -185,7 +185,7 @@ fortify.beast <- function(model, data,
     stats <- stats[,colnames(stats) != "node"]
     
     df <- cbind(df, stats)
-    scaleY(phylo, df, yscale)
+    scaleY(phylo, df, yscale, ...)
 }
 
 
@@ -225,7 +225,7 @@ fortify.codeml <- function(model, data,
     
     res <- merge_phylo_anno.codeml_mlc(df, dNdS, ndigits)
     df <- merge_phylo_anno.paml_rst(res, model@rst)
-    scaleY(phylo, df, yscale)
+    scaleY(phylo, df, yscale, ...)
 }
 
 
@@ -248,7 +248,7 @@ fortify.codeml_mlc <- function(model, data,
     dNdS <- model@dNdS
 
     df <- merge_phylo_anno.codeml_mlc(df, dNdS, ndigits)
-    scaleY(phylo, df, yscale)
+    scaleY(phylo, df, yscale, ...)
 }
 
 merge_phylo_anno.codeml_mlc <- function(df, dNdS, ndigits = NULL) {
@@ -302,7 +302,7 @@ fortify.paml_rst <- function(model, data, layout = "phylogram", yscale="none",
                              ladderize=TRUE, right=FALSE, ...) {
     df <- fortify.phylo(model@phylo, data, layout, ladderize, right, ...)
     df <- merge_phylo_anno.paml_rst(df, model)
-    scaleY(model@phylo, df, yscale)
+    scaleY(model@phylo, df, yscale, ...)
 }
 
 merge_phylo_anno.paml_rst <- function(df, model) {
@@ -329,10 +329,10 @@ fortify.jplace <- function(model, data,
     df <- get.treeinfo(model, layout, ladderize, right, ...)
     place <- get.placements(model, by="best")
     df <- df %add2% place
-    scaleY(model@phylo, df, yscale)
+    scaleY(model@phylo, df, yscale, ...)
 }
 
-scaleY <- function(phylo, df, yscale) {
+scaleY <- function(phylo, df, yscale, order.y = TRUE) {
     if (yscale == "none") {
         return(df)
     }
@@ -344,7 +344,13 @@ scaleY <- function(phylo, df, yscale) {
         warning("yscale should be numeric...\n")
         return(df)
     }
-    y <- getYcoord_scale(phylo, df[, yscale])
+
+    if (order.y) {
+        y <- getYcoord_scale2(phylo, df, yscale)
+    } else {
+        y <- getYcoord_scale(phylo, df, yscale)
+    }
+    
     df[, "y"] <- y
     return(df)
 }

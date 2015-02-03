@@ -1,3 +1,7 @@
+CHANGES IN VERSION 0.99.10
+------------------------
+ o support order nodes by yscale <2015-02-03, Tue>
+
 CHANGES IN VERSION 0.99.9
 ------------------------
  o update vignette <2015-02-02, Mon>
