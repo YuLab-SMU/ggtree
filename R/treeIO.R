@@ -332,7 +332,7 @@ fortify.jplace <- function(model, data,
     scaleY(model@phylo, df, yscale, ...)
 }
 
-scaleY <- function(phylo, df, yscale, order.y = TRUE) {
+scaleY <- function(phylo, df, yscale, order.y = TRUE, ...) {
     if (yscale == "none") {
         return(df)
     }
