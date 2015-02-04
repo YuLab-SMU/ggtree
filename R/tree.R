@@ -599,7 +599,24 @@ getYcoord_scale2 <- function(tr, df, yscale) {
 }
 
 getYcoord_scale_category <- function(tr, df, yscale) {
-    y <- as.numeric(factor(df[, yscale]))
+    yy <- df[, yscale]
+    na.idx <- which(is.na(yy))
+    if (length(na.idx) > 0) {
+        tree <- get.tree(tr)
+        nodes <- getNodes_by_postorder(tree)
+        for (curNode in nodes) {
+            children <- getChild(tree, curNode)
+            if (length(children) == 0) {
+                next
+            }
+            idx <- which(is.na(yy[children]))
+            if (length(idx) > 0) {
+                yy[children[idx]] <- yy[curNode]
+            }
+        }
+    }
+    
+    y <- as.numeric(factor(yy))
     if (any(is.na(y))) {
         warning("NA found in y scale mapping")
         y[is.na(y)] <- 0

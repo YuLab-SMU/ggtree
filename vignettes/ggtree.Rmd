@@ -533,7 +533,7 @@ library("ggtree")
 gzoom(chiroptera, grep("Plecotus", chiroptera$tip.label))
 ```
 
-## highlight clade
+## highlight clades
 
 `r Githubpkg("GuangchuangYu/ggtree")` implements _`geom_hilight`_ layer, that accepts tree object and internal node number and add a layer of rectangle to highlight the selected clade.
 
