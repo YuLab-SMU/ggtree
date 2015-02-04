@@ -5,7 +5,7 @@
 \title{geom_tree}
 \usage{
 geom_tree(layout = "phylogram", color = "black", linetype = "solid",
-  size = 1, ...)
+  size = 0.5, ...)
 }
 \arguments{
 \item{layout}{one of phylogram, cladogram}

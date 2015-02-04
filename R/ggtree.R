@@ -69,7 +69,7 @@ ggtree <- function(tr, showDistance=FALSE, layout="phylogram", ...) {
 ##' tr <- rtree(10)
 ##' require(ggplot2)
 ##' ggplot(tr) + geom_tree()
-geom_tree <- function(layout="phylogram", color="black", linetype="solid", size=1, ...) {
+geom_tree <- function(layout="phylogram", color="black", linetype="solid", size=0.5, ...) {
     x <- y <- parent <- NULL
     if (layout == "phylogram" || layout == "fan") {
         if (length(color) != 1) {
@@ -86,16 +86,40 @@ geom_tree <- function(layout="phylogram", color="black", linetype="solid", size=
                          y    = c(y,         y[parent]),
                          yend = c(y,         y)),
                      color = color,
-                     linetype = linetype, ...)
+                     linetype = linetype,
+                     size = size, ...)
     } else if (layout == "cladogram" || layout == "unrooted") {
         geom_segment(aes(x    = x[parent],
                          xend = x,
                          y    = y[parent],
                          yend = y),
                      color = color,
-                     linetype = linetype, ...)
+                     linetype = linetype,
+                     size = size, ...)
     }
 }
+
+##' hilight clade with rectangle
+##'
+##' 
+##' @title geom_hilight 
+##' @param tree_object supported tree object
+##' @param node internal node
+##' @param ... additional parameters
+##' @return ggplot layer
+##' @importFrom ape extract.clade
+##' @export
+##' @author Guangchuang Yu
+geom_hilight <- function(tree_object, node, ...) {
+    clade <- extract.clade(get.tree(tree_object), node)
+    idx <- groupOTU(tree_object, clade$tip.label)
+    dd <- fortify(tree_object)
+    x <- dd[idx == 2, "x"]
+    y <- dd[idx == 2, "y"]
+    annotate("rect", xmin=min(x)-dd[node, "branch.length"]/2,
+             xmax=max(x), ymin=min(y)-0.5, ymax=max(y)+0.5, ...)
+}
+
 
 ##' add tip label layer
 ##'
