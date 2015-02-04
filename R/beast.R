@@ -97,6 +97,13 @@ setMethod("scale_color", signature(object="beast"),
           })
 
 
+##' @rdname gzoom-methods
+##' @exportMethod gzoom
+setMethod("gzoom", signature(object="beast"),
+          function(object, focus, subtree=FALSE, widths=c(.3, .7)) {
+              gzoom.phylo(get.tree(object), focus, subtree, widths)
+          })
+
 ##' get.tree method
 ##'
 ##'
@@ -133,6 +140,7 @@ read.treetext_beast <- function(file) {
         tree <- paste0(tree)
     }
     tree %<>% sub("tree TREE1\\s+=\\s+\\[&R\\]\\s+", "", .)
+    tree %<>% sub("[^(]*", "", .)
     return(tree)
 }
 

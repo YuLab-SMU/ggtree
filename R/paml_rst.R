@@ -60,6 +60,14 @@ read.paml_rst <- function(rstfile, tip.fasfile = NULL) {
     set.paml_rst_(res)
 }
 
+
+##' @rdname gzoom-methods
+##' @exportMethod gzoom
+setMethod("gzoom", signature(object="paml_rst"),
+          function(object, focus, subtree=FALSE, widths=c(.3, .7)) {
+              gzoom.phylo(get.tree(object), focus, subtree, widths)
+          })
+
 ##' @rdname groupOTU-methods
 ##' @exportMethod groupOTU
 setMethod("groupOTU", signature(object="paml_rst"),

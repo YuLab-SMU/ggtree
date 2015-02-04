@@ -23,6 +23,14 @@ read.codeml_mlc <- function(mlcfile) {
         mlcfile  = mlcfile)
 }
 
+
+##' @rdname gzoom-methods
+##' @exportMethod gzoom
+setMethod("gzoom", signature(object="codeml_mlc"),
+          function(object, focus, subtree=FALSE, widths=c(.3, .7)) {
+              gzoom.phylo(get.tree(object), focus, subtree, widths)
+          })
+
 ##' @rdname groupOTU-methods
 ##' @exportMethod groupOTU
 setMethod("groupOTU", signature(object="codeml_mlc"),

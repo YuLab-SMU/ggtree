@@ -126,3 +126,14 @@ setGeneric("groupOTU", function(object, focus) standardGeneric("groupOTU"))
 ##' @export
 setGeneric("scale_color", function(object, by, ...) standardGeneric("scale_color"))
 
+##' @docType methods
+##' @name gzoom
+##' @rdname gzoom-methods
+##' @title gzoom method
+##' @param object supported tree objects
+##' @param focus selected tips
+##' @param subtree logical
+##' @param widths widths
+##' @return figure
+##' @export
+setGeneric("gzoom", function(object, focus, subtree=FALSE, widths=c(.3, .7)) standardGeneric("gzoom"))

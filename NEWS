@@ -1,3 +1,9 @@
+CHANGES IN VERSION 0.99.12
+------------------------
+ o update vignette <2015-02-04, Wed>
+ o gzoom methods that supports all tree objects <2015-02-04, Wed>
+ o geom_hilight layer for highlighting clade <2015-02-04, Wed> 
+ 
 CHANGES IN VERSION 0.99.11
 ------------------------
  o add scale_color to support colored lines and text based on numerical values and update vignette <2015-02-04, Wed>
