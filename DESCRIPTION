@@ -12,6 +12,7 @@ Depends:
 Imports:
     ape,
     Biostrings,
+    colorspace,
     ggplot2,
     grid,
     gridExtra,
@@ -25,7 +26,6 @@ Imports:
 Suggests:
     phylobase,
     BiocStyle,
-    colorspace,
     knitr,
     testthat,
     rmarkdown

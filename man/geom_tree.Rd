@@ -4,10 +4,17 @@
 \alias{geom_tree}
 \title{geom_tree}
 \usage{
-geom_tree(layout = "phylogram", ...)
+geom_tree(layout = "phylogram", color = "black", linetype = "solid",
+  size = 1, ...)
 }
 \arguments{
 \item{layout}{one of phylogram, cladogram}
+
+\item{color}{color}
+
+\item{linetype}{line type}
+
+\item{size}{line size}
 
 \item{...}{additional parameter}
 }

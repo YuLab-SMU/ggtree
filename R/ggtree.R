@@ -55,6 +55,9 @@ ggtree <- function(tr, showDistance=FALSE, layout="phylogram", ...) {
 ##' 
 ##' @title geom_tree
 ##' @param layout one of phylogram, cladogram
+##' @param color color
+##' @param linetype line type
+##' @param size line size
 ##' @param ... additional parameter
 ##' @return tree layer
 ##' @importFrom ggplot2 geom_segment
@@ -66,18 +69,31 @@ ggtree <- function(tr, showDistance=FALSE, layout="phylogram", ...) {
 ##' tr <- rtree(10)
 ##' require(ggplot2)
 ##' ggplot(tr) + geom_tree()
-geom_tree <- function(layout="phylogram", color=NULL, ...) {
+geom_tree <- function(layout="phylogram", color="black", linetype="solid", size=1, ...) {
     x <- y <- parent <- NULL
     if (layout == "phylogram" || layout == "fan") {
-        geom_segment(aes(x=c(x[parent], x[parent]),
-                         xend=c(x, x[parent]),
-                         y=c(y, y[parent]),
-                         yend=c(y, y)), ...)
+        if (length(color) != 1) {
+            color <- c(color, color)
+        }
+        if (length(linetype) != 1) {
+            linetype <- c(linetype, linetype)
+        }
+        if (length(size) != 1) {
+            size <- c(size, size)
+        }
+        geom_segment(aes(x    = c(x[parent], x[parent]),
+                         xend = c(x,         x[parent]),
+                         y    = c(y,         y[parent]),
+                         yend = c(y,         y)),
+                     color = color,
+                     linetype = linetype, ...)
     } else if (layout == "cladogram" || layout == "unrooted") {
-        geom_segment(aes(x=x[parent],
-                         xend=x,
-                         y=y[parent],
-                         yend=y), ...)
+        geom_segment(aes(x    = x[parent],
+                         xend = x,
+                         y    = y[parent],
+                         yend = y),
+                     color = color,
+                     linetype = linetype, ...)
     }
 }
 

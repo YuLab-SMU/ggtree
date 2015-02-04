@@ -37,14 +37,15 @@ gfocus <- function(phy, focus) {
     
     n <- getNodeNum(phy)
     if (is.null(attr(phy, "focus"))) {
-        foc <- rep(1, 2*n)
+        ## foc <- rep(1, 2*n)
+        foc <- rep(1, n)
     } else {
         foc <- attr(phy, "focus")
     }
     i <- max(foc) + 1
     sn <- phy$edge[which.edge(phy, focus),] %>% as.vector %>% unique
     foc[sn] <- i
-    foc[sn+n] <- i
+    ## foc[sn+n] <- i
     attr(phy, "focus") <- foc
 
     ## sn <- which(df$focus != 1)

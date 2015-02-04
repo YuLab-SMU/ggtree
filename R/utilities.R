@@ -293,7 +293,7 @@ getIdx <- function(v, MIN, MAX) {
 }
 
 
-
+##' @importFrom colorspace rainbow_hcl
 scale_color <- function(phylo, df, by, low=NULL, high=NULL) {
     if (!is.null(low) & ! is.null(high)) {
         cols <- color_scale(c(low, high))
