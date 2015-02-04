@@ -114,3 +114,15 @@ setGeneric("get.tipseq", function(object, ...) standardGeneric("get.tipseq"))
 ##' @export
 setGeneric("groupOTU", function(object, focus) standardGeneric("groupOTU"))
 
+##' @docType methods
+##' @name scale_color
+##' @rdname scale_color-methods
+##' @title scale_color method
+##' @param object supported objects, including phylo, paml_rst,
+##'               codeml_mlc, codeml, jplace, beast, hyphy
+##' @param by one of numerical attributes
+##' @param ... additional parameter
+##' @return color vector
+##' @export
+setGeneric("scale_color", function(object, by, ...) standardGeneric("scale_color"))
+

@@ -275,3 +275,37 @@ roundDigit <- function(d) {
 }
 
 
+color_scale <- function(c1="grey", c2="red") {
+    pal <- colorRampPalette(c(c1, c2))
+    colors <- pal(100)
+    return(colors)
+}
+
+getIdx <- function(v, MIN, MAX) {
+    if (is.na(v)) {
+        return(NA)
+    }
+    if ( MIN == MAX ) {
+        return(100)
+    }
+    intervals <- seq(MIN, MAX, length.out=100)
+    max(which(intervals <= v))
+}
+
+
+get_color_attribute <- function(p) {
+    p$data[, "color"]
+}
+
+is.tree_attribute <- function(df, var) {
+    if(length(var) == 1 &&
+       !is.null(var)    &&
+       var %in% colnames(df)) {
+        return(TRUE)
+    } 
+    return(FALSE)
+}
+
+is.tree_attribute_ <- function(p, var) {
+    is.tree_attribute(p$data, var)
+}

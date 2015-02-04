@@ -34,6 +34,14 @@ setMethod("groupOTU", signature(object="jplace"),
           }
           )
 
+##' @rdname scale_color-methods
+##' @exportMethod scale_color
+setMethod("scale_color", signature(object="jplace"),
+          function(object, by, ...) {
+              scale_color_(object, by, ...)
+          })
+
+
 ##' @rdname get.tree-methods
 ##' @exportMethod get.tree
 setMethod("get.tree", signature(object="jplace"),

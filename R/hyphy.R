@@ -97,6 +97,13 @@ setMethod("groupOTU", signature(object="hyphy"),
           }
           )
 
+##' @rdname scale_color-methods
+##' @exportMethod scale_color
+setMethod("scale_color", signature(object="hyphy"),
+          function(object, by, ...) {
+              scale_color_(object, by, ...)
+          })
+
 ##' @rdname show-methods
 ##' @exportMethod show
 setMethod("show", signature(object = "hyphy"),

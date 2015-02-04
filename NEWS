@@ -1,5 +1,11 @@
+CHANGES IN VERSION 0.99.11
+------------------------
+ o add scale_color to support colored lines and text based on numerical values and update vignette <2015-02-04, Wed>
+ o revised groupOTU that output index can be used in geom_text and update vignette <2015-02-04, Wed>
+
 CHANGES IN VERSION 0.99.10
 ------------------------
+ o support y scale by category variable <2015-02-03, Tue>
  o support order nodes by yscale <2015-02-03, Tue>
 
 CHANGES IN VERSION 0.99.9

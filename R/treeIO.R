@@ -185,7 +185,9 @@ fortify.beast <- function(model, data,
     stats <- stats[,colnames(stats) != "node"]
     
     df <- cbind(df, stats)
-    scaleY(phylo, df, yscale, ...)
+    df <- scaleY(phylo, df, yscale, ...)
+
+    return(df)
 }
 
 
@@ -340,15 +342,14 @@ scaleY <- function(phylo, df, yscale, order.y = TRUE, ...) {
         warning("yscale is not available...\n")
         return(df)
     }
-    if (! is.numeric(df[, yscale])) {
-        warning("yscale should be numeric...\n")
-        return(df)
-    }
-
-    if (order.y) {
-        y <- getYcoord_scale2(phylo, df, yscale)
+    if (is.numeric(df[, yscale])) {
+        if (order.y) {
+            y <- getYcoord_scale2(phylo, df, yscale)
+        } else {
+            y <- getYcoord_scale(phylo, df, yscale)
+        }
     } else {
-        y <- getYcoord_scale(phylo, df, yscale)
+        y <- getYcoord_scale_category(phylo, df, yscale)
     }
     
     df[, "y"] <- y
