@@ -34,8 +34,10 @@ ggtree <- function(tr, showDistance=FALSE, layout="phylogram", ...) {
     } else {
         type <- "none"
     }
-    p <- ggplot(tr, aes(x, y), layout=layout, ...) + geom_tree(layout, ...) + xlab("") + ylab("") + theme_tree2()
+    p <- ggplot(tr, aes(x, y), layout=layout, ...)
 
+    p <- p + geom_tree(layout, ...) + xlab("") + ylab("") + theme_tree2()
+    
     if (type == "dendrogram") {
         p <- p + scale_x_reverse() + coord_flip()
     } else if (type == "fan" || type == "radial") {
@@ -64,19 +66,19 @@ ggtree <- function(tr, showDistance=FALSE, layout="phylogram", ...) {
 ##' tr <- rtree(10)
 ##' require(ggplot2)
 ##' ggplot(tr) + geom_tree()
-geom_tree <- function(layout="phylogram", ...) {
+geom_tree <- function(layout="phylogram", color=NULL, ...) {
     x <- y <- parent <- NULL
     if (layout == "phylogram" || layout == "fan") {
         geom_segment(aes(x=c(x[parent], x[parent]),
                          xend=c(x, x[parent]),
                          y=c(y, y[parent]),
-                         yend=c(y, y)),...)
+                         yend=c(y, y)), ...)
     } else if (layout == "cladogram" || layout == "unrooted") {
         geom_segment(aes(x=x[parent],
                          xend=x,
                          y=y[parent],
-                         yend=y))
-    } 
+                         yend=y), ...)
+    }
 }
 
 ##' add tip label layer

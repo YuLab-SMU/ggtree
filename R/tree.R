@@ -581,3 +581,12 @@ getYcoord_scale2 <- function(tr, df, yscale) {
     }
     return(y)
 }
+
+getYcoord_scale_category <- function(tr, df, yscale) {
+    y <- as.numeric(factor(df[, yscale]))
+    if (any(is.na(y))) {
+        warning("NA found in y scale mapping")
+        y[is.na(y)] <- 0
+    }
+    return(y)
+}

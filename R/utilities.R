@@ -275,3 +275,70 @@ roundDigit <- function(d) {
 }
 
 
+color_scale <- function(c1="grey", c2="red") {
+    pal <- colorRampPalette(c(c1, c2))
+    colors <- pal(100)
+    return(colors)
+}
+
+getIdx <- function(v, MIN, MAX) {
+    if (is.na(v)) {
+        return(NA)
+    }
+    if ( MIN == MAX ) {
+        return(100)
+    }
+    intervals <- seq(MIN, MAX, length.out=100)
+    max(which(intervals <= v))
+}
+
+
+
+scale_color <- function(phylo, df, by, low=NULL, high=NULL) {
+    if (!is.null(low) & ! is.null(high)) {
+        cols <- color_scale(c(low, high))
+    } else {
+        cols <- rainbow_hcl(100)
+    }
+    vals <- df[, by]
+    idx <- sapply(vals, getIdx, min(vals, na.rm=TRUE), max(vals, na.rm=TRUE))
+    df$color <- cols[idx]
+
+    if ( is(phylo, "phylo")) {
+        tree <- phylo
+    } else {
+        tree <- get.tree(phylo)
+    }
+    
+    nodes <- getNodes_by_postorder(tree)
+    for (curNode in nodes) {
+        children <- getChild(tree, curNode)
+        if (length(children) == 0) {
+            next
+        }
+        idx <- which(is.na(df[children, "color"]))
+        if (length(idx) > 0) {
+            df[children[idx], "color"] <- df[curNode, "color"]
+        }
+    }
+
+    ## cols[is.na(cols)] <- "grey"
+    return(df$color)
+}
+
+get_color_attribute <- function(p) {
+    p$data[, "color"]
+}
+
+is.tree_attribute <- function(df, var) {
+    if(length(var) == 1 &&
+       !is.null(var)    &&
+       var %in% colnames(df)) {
+        return(TRUE)
+    } 
+    return(FALSE)
+}
+
+is.tree_attribute_ <- function(p, var) {
+    is.tree_attribute(p$data, var)
+}
