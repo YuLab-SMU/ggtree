@@ -533,6 +533,20 @@ library("ggtree")
 gzoom(chiroptera, grep("Plecotus", chiroptera$tip.label))
 ```
 
+## scale color based on numerical attribute
+
+`r Githubpkg("GuangchuangYu/ggtree")` provides _`scale_color`_ to calculate colors based on numerical attribute of the tree. The output can be used to color lines and annotation text.
+```{r fig.width=12, fig.height=6, fig.align="center", warning=FALSE}
+cols = scale_color(ml, by="dN")
+ggtree(ml, color=cols) + geom_text(aes(label=label), color=cols, hjust=.25)
+```
+
+_`scale_color`_ will auto determine the color. User can also provide parameter _`low`_ and _`high`_ to speicify the color scale.
+
+```{r fig.width=12, fig.height=6, fig.align="center", warning=FALSE}
+cols = scale_color(ml, by="dN", low="green", high="red")
+ggtree(ml, color=cols) + geom_text(aes(label=label), color=cols, hjust=.25)
+```
 
 ## group OTUs
 

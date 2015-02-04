@@ -1,6 +1,6 @@
 CHANGES IN VERSION 0.99.11
 ------------------------
- o add scale_color to support colored lines and text based on numerical values <2015-02-04, Wed>
+ o add scale_color to support colored lines and text based on numerical values and update vignette <2015-02-04, Wed>
  o revised groupOTU that output index can be used in geom_text and update vignette <2015-02-04, Wed>
 
 CHANGES IN VERSION 0.99.10
