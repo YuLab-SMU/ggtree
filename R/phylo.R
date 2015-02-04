@@ -39,3 +39,11 @@ groupOTU.phylo <- function(phy, focus) {
     }
     attr(phy, "focus")
 }
+
+
+##' @rdname gzoom-methods
+##' @exportMethod gzoom
+setMethod("gzoom", signature(object="phylo"),
+          function(object, focus, subtree=FALSE, widths=c(.3, .7)) {
+              gzoom.phylo(object, focus, subtree, widths)
+          })

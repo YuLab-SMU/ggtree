@@ -533,7 +533,7 @@ library("ggtree")
 gzoom(chiroptera, grep("Plecotus", chiroptera$tip.label))
 ```
 
-## hilight clade
+## highlight clade
 
 `r Githubpkg("GuangchuangYu/ggtree")` implements _`geom_hilight`_ layer, that accepts tree object and internal node number and add a layer of rectangle to hilight the selected clade.
 
@@ -548,6 +548,12 @@ User can use _`geom_text`_ to display all the node numbers, and select interesti
 
 ```{r fig.width=5, fig.height=5, fig.align="center", warning=FALSE}
 ggtree(tree) + geom_hilight(tree, node=21, fill="steelblue", alpha=.6) +
+     geom_hilight(tree, node=17, fill="darkgreen", alpha=.6)
+```
+
+
+```{r fig.width=5, fig.height=5, fig.align="center", warning=FALSE}
+ggtree(tree, layout="fan") + geom_hilight(tree, node=21, fill="steelblue", alpha=.6) +
      geom_hilight(tree, node=17, fill="darkgreen", alpha=.6)
 ```
 

@@ -84,13 +84,12 @@ gfocus <- function(phy, focus) {
 ##' @importFrom ggplot2 xlim
 ##' @importFrom ggplot2 scale_color_manual
 ##' @importFrom ape drop.tip
-##' @export
 ##' @author ygc
 ##' @examples
 ##' require(ape)
 ##' data(chiroptera)
 ##' gzoom(chiroptera, grep("Plecotus", chiroptera$tip.label))
-gzoom <- function(phy, focus, subtree=FALSE, widths=c(.3, .7)) {
+gzoom.phylo <- function(phy, focus, subtree=FALSE, widths=c(.3, .7)) {
     if (is.character(focus)) {
         focus <- which(phy$tip.label %in% focus)
     }
@@ -99,9 +98,8 @@ gzoom <- function(phy, focus, subtree=FALSE, widths=c(.3, .7)) {
 
     foc <- attr(phy, "focus")
     cols <- c("black", "red")[foc]
-    
-    p1 <- ggplot(phy) + geom_tree(colour=cols) +
-        xlab("") + ylab("") + theme_tree()
+
+    p1 <- ggtree(phy, color=cols)
     
     subtr <- drop.tip(phy, phy$tip.label[-focus],
                       subtree=subtree, rooted=TRUE)
