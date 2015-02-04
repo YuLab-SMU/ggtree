@@ -30,6 +30,14 @@ setMethod("groupOTU", signature(object="codeml"),
           }
           )
 
+##' @rdname scale_color-methods
+##' @exportMethod scale_color
+setMethod("scale_color", signature(object="codeml"),
+          function(object, by, ...) {
+              scale_color_(object, by, ...)
+          })
+
+
 ##' @rdname show-methods
 ##' @exportMethod show
 setMethod("show", signature(object = "codeml"),

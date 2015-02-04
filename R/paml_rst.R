@@ -68,6 +68,12 @@ setMethod("groupOTU", signature(object="paml_rst"),
           }
           )
 
+##' @rdname scale_color-methods
+##' @exportMethod scale_color
+setMethod("scale_color", signature(object="paml_rst"),
+          function(object, by, ...) {
+              scale_color_(object, by, ...)
+          })
 
 ##' @rdname get.tipseq-methods
 ##' @exportMethod get.tipseq

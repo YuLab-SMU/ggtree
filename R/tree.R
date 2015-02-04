@@ -1,3 +1,57 @@
+##' @rdname scale_color-methods
+##' @exportMethod scale_color
+setMethod("scale_color", signature(object="phylo"),
+          function(object, by, ...) {
+              scale_color_(object, by, ...)
+          })
+
+##' @importFrom colorspace rainbow_hcl
+scale_color_ <- function(phylo, by, low=NULL, high=NULL, na.color=NULL, default.color="grey") {
+    if (!is.null(low) & ! is.null(high)) {
+        cols <- color_scale(c(low, high))
+    } else {
+        cols <- rainbow_hcl(100)
+    }
+    df <- fortify(phylo)
+    
+    vals <- df[, by]
+    idx <- sapply(vals, getIdx, min(vals, na.rm=TRUE), max(vals, na.rm=TRUE))
+    df$color <- cols[idx]
+
+    if ( is(phylo, "phylo")) {
+        tree <- phylo
+    } else {
+        tree <- get.tree(phylo)
+    }
+
+    if (is.null(na.color)) {
+        nodes <- getNodes_by_postorder(tree)
+        for (curNode in nodes) {
+            children <- getChild(tree, curNode)
+            if (length(children) == 0) {
+                next
+            }
+            idx <- which(is.na(df[children, "color"]))
+            if (length(idx) > 0) {
+                df[children[idx], "color"] <- df[curNode, "color"]
+            }
+        }
+        ii <- which(is.na(df[, "color"]))
+        if (length(ii) > 0) {
+            df[ii, "color"] <- default.color
+        }
+    } else {
+        ii <- which(is.na(df[, "color"]))
+        if (length(ii) > 0) {
+            df[ii, "color"] <- na.color
+        }
+    }
+
+    ## cols[is.na(cols)] <- "grey"
+    return(df$color)
+}
+
+
 ##' @rdname groupOTU-methods
 ##' @exportMethod groupOTU
 setMethod("groupOTU", signature(object="phylo"),

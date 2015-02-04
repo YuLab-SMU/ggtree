@@ -293,39 +293,6 @@ getIdx <- function(v, MIN, MAX) {
 }
 
 
-##' @importFrom colorspace rainbow_hcl
-scale_color <- function(phylo, df, by, low=NULL, high=NULL) {
-    if (!is.null(low) & ! is.null(high)) {
-        cols <- color_scale(c(low, high))
-    } else {
-        cols <- rainbow_hcl(100)
-    }
-    vals <- df[, by]
-    idx <- sapply(vals, getIdx, min(vals, na.rm=TRUE), max(vals, na.rm=TRUE))
-    df$color <- cols[idx]
-
-    if ( is(phylo, "phylo")) {
-        tree <- phylo
-    } else {
-        tree <- get.tree(phylo)
-    }
-    
-    nodes <- getNodes_by_postorder(tree)
-    for (curNode in nodes) {
-        children <- getChild(tree, curNode)
-        if (length(children) == 0) {
-            next
-        }
-        idx <- which(is.na(df[children, "color"]))
-        if (length(idx) > 0) {
-            df[children[idx], "color"] <- df[curNode, "color"]
-        }
-    }
-
-    ## cols[is.na(cols)] <- "grey"
-    return(df$color)
-}
-
 get_color_attribute <- function(p) {
     p$data[, "color"]
 }
