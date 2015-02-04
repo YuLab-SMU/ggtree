@@ -535,7 +535,7 @@ gzoom(chiroptera, grep("Plecotus", chiroptera$tip.label))
 
 ## highlight clade
 
-`r Githubpkg("GuangchuangYu/ggtree")` implements _`geom_hilight`_ layer, that accepts tree object and internal node number and add a layer of rectangle to hilight the selected clade.
+`r Githubpkg("GuangchuangYu/ggtree")` implements _`geom_hilight`_ layer, that accepts tree object and internal node number and add a layer of rectangle to highlight the selected clade.
 
 ```{r fig.width=5, fig.height=5, fig.align="center", warning=FALSE}
 nwk <- system.file("extdata", "sample.nwk", package="ggtree")
@@ -544,7 +544,7 @@ tree <- read.tree(nwk)
 ggtree(tree) + geom_text(aes(label=node))
 ```
 
-User can use _`geom_text`_ to display all the node numbers, and select interesting clade to hilight.
+User can use _`geom_text`_ to display all the node numbers, and select interesting clade to highlight.
 
 ```{r fig.width=5, fig.height=5, fig.align="center", warning=FALSE}
 ggtree(tree) + geom_hilight(tree, node=21, fill="steelblue", alpha=.6) +
