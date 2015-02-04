@@ -533,6 +533,24 @@ library("ggtree")
 gzoom(chiroptera, grep("Plecotus", chiroptera$tip.label))
 ```
 
+## hilight clade
+
+`r Githubpkg("GuangchuangYu/ggtree")` implements _`geom_hilight`_ layer, that accepts tree object and internal node number and add a layer of rectangle to hilight the selected clade.
+
+```{r fig.width=5, fig.height=5, fig.align="center", warning=FALSE}
+nwk <- system.file("extdata", "sample.nwk", package="ggtree")
+tree <- read.tree(nwk)
+
+ggtree(tree) + geom_text(aes(label=node))
+```
+
+User can use _`geom_text`_ to display all the node numbers, and select interesting clade to hilight.
+
+```{r fig.width=5, fig.height=5, fig.align="center", warning=FALSE}
+ggtree(tree) + geom_hilight(tree, node=21, fill="steelblue", alpha=.6) +
+     geom_hilight(tree, node=17, fill="darkgreen", alpha=.6)
+```
+
 ## scale color based on numerical attribute
 
 `r Githubpkg("GuangchuangYu/ggtree")` provides _`scale_color`_ to calculate colors based on numerical attribute of the tree. The output can be used to color lines and annotation text.
@@ -553,10 +571,6 @@ ggtree(ml, color=cols) + geom_text(aes(label=label), color=cols, hjust=.25)
 `r Githubpkg("GuangchuangYu/ggtree")` provides _`groupOTU`_ function to group tips and all their related ancestors. It return a cluster index of each line segment in the tree view.
 
 ```{r}
-nwk <- system.file("extdata", "sample.nwk", package="ggtree")
-tree <- read.tree(nwk)
-
-
 cluster_index <- groupOTU(tree, focus=c("A", "B", "C", "D", "E"))
 cluster_index
 ```
@@ -597,12 +611,6 @@ ggtree(tree, color=cols[cls_ind], linetype=linetype[cls_ind], size=size[cls_ind]
 
 All the tree classes defined in `r Githubpkg("GuangchuangYu/ggtree")`, including _`beast`_, _`paml_rst`_, _`codeml_mlc`_, _`codeml`_, _`hyphy`_ and _`jplace`_ are all supported.
 
-For example:
-```{r fig.width=5, fig.height=5, fig.align="center", warning=FALSE}
-ind <- groupOTU(ml, c("A", "B", "F", "M"))
-cols <- c("black", "blue")
-ggtree(ml, color=cols[ind])
-```
 
 ### iris example
 
@@ -623,11 +631,9 @@ ggtree(tree_iris, color=cols[cls_ind]) +
 ```
 
 <!--
-```
-ggtree(tree_iris) + geom_text(aes(label=node))
-```
 By adding a layer of internal node number, we can easily extract tip labels of a particular clade by the _`get.offspring.tip`_ function.
 ```{r}
+ggtree(tree_iris) + geom_text(aes(label=node))
 cl1 <- get.offspring.tip(tree_iris, 242)
 cl2 <- get.offspring.tip(tree_iris, 152) 
 cl2 <- cl2[!cl2 %in% cl1]

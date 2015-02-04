@@ -133,6 +133,7 @@ read.treetext_beast <- function(file) {
         tree <- paste0(tree)
     }
     tree %<>% sub("tree TREE1\\s+=\\s+\\[&R\\]\\s+", "", .)
+    tree %<>% sub("[^(]*", "", .)
     return(tree)
 }
 

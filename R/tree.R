@@ -1,9 +1,3 @@
-##' @rdname scale_color-methods
-##' @exportMethod scale_color
-setMethod("scale_color", signature(object="phylo"),
-          function(object, by, ...) {
-              scale_color_(object, by, ...)
-          })
 
 ##' @importFrom colorspace rainbow_hcl
 scale_color_ <- function(phylo, by, low=NULL, high=NULL, na.color=NULL, default.color="grey") {
@@ -18,12 +12,8 @@ scale_color_ <- function(phylo, by, low=NULL, high=NULL, na.color=NULL, default.
     idx <- sapply(vals, getIdx, min(vals, na.rm=TRUE), max(vals, na.rm=TRUE))
     df$color <- cols[idx]
 
-    if ( is(phylo, "phylo")) {
-        tree <- phylo
-    } else {
-        tree <- get.tree(phylo)
-    }
-
+    tree <- get.tree(phylo)
+    
     if (is.null(na.color)) {
         nodes <- getNodes_by_postorder(tree)
         for (curNode in nodes) {
@@ -52,35 +42,8 @@ scale_color_ <- function(phylo, by, low=NULL, high=NULL, na.color=NULL, default.
 }
 
 
-##' @rdname groupOTU-methods
-##' @exportMethod groupOTU
-setMethod("groupOTU", signature(object="phylo"),
-          function(object, focus) {
-              groupOTU.phylo(object, focus)
-          })
-
-
 groupOTU_ <- function(object, focus) {
     groupOTU.phylo(get.tree(object), focus)
-}
-
-##' group OTU
-##'
-##' 
-##' @title groupOTU.phylo
-##' @param phy tree object
-##' @param focus tip list
-##' @return cluster index
-##' @author ygc
-groupOTU.phylo <- function(phy, focus) {
-    if ( is(focus, "list") ) {
-        for (i in 1:length(focus)) {
-            phy <- gfocus(phy, focus[[i]])
-        } 
-    } else {
-        phy <- gfocus(phy, focus)
-    }
-    attr(phy, "focus")
 }
 
 ##' @importFrom ape which.edge
