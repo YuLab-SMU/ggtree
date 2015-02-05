@@ -598,8 +598,20 @@ getYcoord_scale2 <- function(tr, df, yscale) {
     return(y)
 }
 
-getYcoord_scale_category <- function(tr, df, yscale) {
-    yy <- df[, yscale]
+getYcoord_scale_numeric <- function(tr, df, yscale, ...) {
+    df <- .assign_parent_status(tr, df, yscale)
+    y <- df[, yscale]
+
+    if (any(is.na(y))) {
+        warning("NA found in y scale mapping, all were setting to 0")
+        y[is.na(y)] <- 0
+    }
+    
+    return(y)
+}
+
+.assign_parent_status <- function(tr, df, variable) {
+    yy <- df[, variable]
     na.idx <- which(is.na(yy))
     if (length(na.idx) > 0) {
         tree <- get.tree(tr)
@@ -615,10 +627,28 @@ getYcoord_scale_category <- function(tr, df, yscale) {
             }
         }
     }
-    
-    y <- as.numeric(factor(yy))
+    df[, variable] <- yy
+    return(df)
+}
+
+
+getYcoord_scale_category <- function(tr, df, yscale, yscale_mapping=NULL, ...) {
+    if (is.null(yscale_mapping)) {
+        stop("yscale is category variable, user should provide yscale_mapping,
+             which is a named vector, to convert yscale to numberical values...") 
+    }
+    if (! is(yscale_mapping, "numeric") ||
+        is.null(names(yscale_mapping))) {
+        stop("yscale_mapping should be a named numeric vector...")
+    }
+
+    df <- .assign_parent_status(tr, df, yscale)
+    yy <- df[, yscale]
+
+    ## y <- as.numeric(factor(yy))
+    y <- yscale_mapping[yy]
     if (any(is.na(y))) {
-        warning("NA found in y scale mapping")
+        warning("NA found in y scale mapping, all were setting to 0")
         y[is.na(y)] <- 0
     }
     return(y)

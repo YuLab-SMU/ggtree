@@ -113,7 +113,7 @@ geom_tree <- function(layout="phylogram", color="black", linetype="solid", size=
 geom_hilight <- function(tree_object, node, ...) {
     clade <- extract.clade(get.tree(tree_object), node)
     idx <- groupOTU(tree_object, clade$tip.label)
-    dd <- fortify(tree_object)
+    dd <- fortify(tree_object, ...)
     x <- dd[idx == 2, "x"]
     y <- dd[idx == 2, "y"]
     annotate("rect", xmin=min(x)-dd[node, "branch.length"]/2,
