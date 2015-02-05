@@ -334,7 +334,7 @@ fortify.jplace <- function(model, data,
     scaleY(model@phylo, df, yscale, ...)
 }
 
-scaleY <- function(phylo, df, yscale, order.y = TRUE, ...) {
+scaleY <- function(phylo, df, yscale, ...) {
     if (yscale == "none") {
         return(df)
     }
@@ -343,13 +343,14 @@ scaleY <- function(phylo, df, yscale, order.y = TRUE, ...) {
         return(df)
     }
     if (is.numeric(df[, yscale])) {
-        if (order.y) {
-            y <- getYcoord_scale2(phylo, df, yscale)
-        } else {
-            y <- getYcoord_scale(phylo, df, yscale)
-        }
+        y <- getYcoord_scale_numeric(phylo, df, yscale, ...)
+        ## if (order.y) {
+        ##     y <- getYcoord_scale2(phylo, df, yscale)
+        ## } else {
+        ##     y <- getYcoord_scale(phylo, df, yscale)
+        ## }
     } else {
-        y <- getYcoord_scale_category(phylo, df, yscale)
+        y <- getYcoord_scale_category(phylo, df, yscale, ...)
     }
     
     df[, "y"] <- y
