@@ -488,40 +488,6 @@ ggtree(jp, showDistance=TRUE) +
 	   geom_text(aes(label=label), hjust=-.5)
 ```
 
-## visualize tree and associated matrix
-```{r}
-seqs <- get.tipseq(ml)
-library(Biostrings)
-x <- DNAStringSet(seqs)
-
-dd <- alphabetFrequency(x)[, 1:4]
-dd <- dd/rowSums(dd)
-row.names(dd) <- names(seqs)
-```
-
-```{r eval=FALSE}
-head(dd)
-```
-
-```{r echo=FALSE}
-knitr::kable(head(dd))
-```
-
-```{r fig.width=12, fig.height=6, fig.align="center"}
-p <- ggtree(ml)
-gplot(p, dd, low="green", high="red", widths=c(.7, .3))
-```
-
-Of course, we can use an annotated tree.
-
-```{r fig.width=12, fig.height=6, fig.align="center", warning=FALSE}
-p2 <- ggtree(ml, branch.length="none") + 
-          geom_text(aes(x=branch, label=dN_vs_dS, color=dN_vs_dS), 
-                    vjust=-.5, size=4) +
-             scale_color_gradient(low="darkgreen", high="red")	  
-gplot(p2, dd, low="green", high="red", widths=c(.7, .3))
-```
-
 ## zoom on a portion of tree
 
 `r Githubpkg("GuangchuangYu/ggtree")` provides _`gzoom`_ function that similar to _`zoom`_ function provided in `r CRANpkg("ape")`. This function plots simultaneously a whole phylogenetic tree and a portion of it. It aims at exploring very large trees.
@@ -675,6 +641,39 @@ ggtree(tree) + annotation_custom(xmin=-Inf, ymin=-Inf, xmax=Inf, ymax=Inf, x) +
        annotation_custom(xmin=15, ymin=2, xmax=25, ymax=4, y) 
 ```
 
+## visualize tree with associated matrix
+```{r}
+seqs <- get.tipseq(ml)
+library(Biostrings)
+x <- DNAStringSet(seqs)
+
+dd <- alphabetFrequency(x)[, 1:4]
+dd <- dd/rowSums(dd)
+row.names(dd) <- names(seqs)
+```
+
+```{r eval=FALSE}
+head(dd)
+```
+
+```{r echo=FALSE}
+knitr::kable(head(dd))
+```
+
+```{r fig.width=12, fig.height=6, fig.align="center"}
+p <- ggtree(ml)
+gplot(p, dd, low="green", high="red", widths=c(.7, .3))
+```
+
+Of course, we can use an annotated tree.
+
+```{r fig.width=12, fig.height=6, fig.align="center", warning=FALSE}
+p2 <- ggtree(ml, branch.length="none") + 
+          geom_text(aes(x=branch, label=dN_vs_dS, color=dN_vs_dS), 
+                    vjust=-.5, size=4) +
+             scale_color_gradient(low="darkgreen", high="red")	  
+gplot(p2, dd, low="green", high="red", widths=c(.7, .3))
+```
 
 
 # Session info
