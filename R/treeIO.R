@@ -330,7 +330,9 @@ fortify.jplace <- function(model, data,
                            ladderize=TRUE, right=FALSE, ...) {
     df <- get.treeinfo(model, layout, ladderize, right, ...)
     place <- get.placements(model, by="best")
+
     df <- df %add2% place
+
     scaleY(model@phylo, df, yscale, ...)
 }
 

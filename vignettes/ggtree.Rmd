@@ -107,6 +107,18 @@ grid.arrange(ggtree(tree) + ggtitle("phylogram layout"),
 	     ncol=2)
 ```
 
+### two dimensional tree
+
+`r Githubpkg("GuangchuangYu/ggtree")` implemented 2 dimensional tree. It accepts parameter _`yscale`_ to scale the y-axis based on the selected tree attribute. The attribute should be numerical variable. If it is character/category variable, user should provides a name vector of mapping the variable to numeric by passing it to parameter _`yscale_mapping`_.
+
+
+```{r fig.width=9, fig.height=4, fig.align="center"}
+tree2d <- read.beast(system.file("extdata", "twoD.tree", package="ggtree"))
+ggtree(tree2d, layout="cladogram", yscale="NLGS")
+```
+
+In this example, y is scale by the number of N-glycosylation sites. This figure demonstrates the number of N-glycosylation sites increase along the trunk. User can highlight the trunk with different line size or color.
+
 
 ## support multiple phylogenetic classes
 
