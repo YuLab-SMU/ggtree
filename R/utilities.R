@@ -148,7 +148,7 @@ reverse.treeview.data <- function(df) {
 
 jplace_treetext_to_phylo <- function(tree.text) {
     ## move edge label to node label separate by @
-    tr <- gsub('(:[0-9.e-]+)\\{(\\d+)\\}', '\\@\\2\\1', tree.text)
+    tr <- gsub('(:[0-9\\.eE-]+)\\{(\\d+)\\}', '\\@\\2\\1', tree.text)
     phylo <- read.tree(text=tr)
     if (length(grep('@', phylo$tip.label)) > 0) {
         phylo$node.label[1] %<>% gsub("(.*)\\{(\\d+)\\}", "\\1@\\2", .)
@@ -194,7 +194,7 @@ is.character_beast <- function(stats3, cn) {
         } else {
             ## res <- grepl("[a-df-zA-DF-Z]+", unlist(stats3[i, cn]))
             ## return(all(res == TRUE))
-            res <- grepl("^[0-9eE\\.]+$", unlist(stats3[i, cn]))
+            res <- grepl("^[0-9\\.eE-]+$", unlist(stats3[i, cn]))
             return(all(res == FALSE))
         }
     }
