@@ -201,7 +201,14 @@ setMethod("get.placements", signature(object = "jplace"),
                   colnames(place.df) <- object@fields
               }
               
-              return(as.data.frame(place.df))
+              res <- as.data.frame(place.df)
+              ## res[] <- lapply(res, as.character)
+              ## for (i in 1:ncol(res)) {
+              ##     if (all(grepl("^[0-9\\.e]+$", res[,i]))) {
+              ##         res[,i] <- as.numeric(res[,i])
+              ##     }
+              ## }
+              return(res)
           })
 
 

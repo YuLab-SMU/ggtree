@@ -192,8 +192,10 @@ is.character_beast <- function(stats3, cn) {
         if ( is.na(stats3[i,cn]) ) {
             next
         } else {
-            res <- grepl("[a-df-zA-DF-Z]+", unlist(stats3[i, cn]))
-            return(all(res == TRUE))
+            ## res <- grepl("[a-df-zA-DF-Z]+", unlist(stats3[i, cn]))
+            ## return(all(res == TRUE))
+            res <- grepl("^[0-9eE\\.]+$", unlist(stats3[i, cn]))
+            return(all(res == FALSE))
         }
     }
     return(FALSE)
@@ -214,6 +216,44 @@ is.tree <- function(x) {
     }
     return(FALSE)
 }
+
+
+
+color_scale <- function(c1="grey", c2="red") {
+    pal <- colorRampPalette(c(c1, c2))
+    colors <- pal(100)
+    return(colors)
+}
+
+getIdx <- function(v, MIN, MAX) {
+    if (is.na(v)) {
+        return(NA)
+    }
+    if ( MIN == MAX ) {
+        return(100)
+    }
+    intervals <- seq(MIN, MAX, length.out=100)
+    max(which(intervals <= v))
+}
+
+
+get_color_attribute <- function(p) {
+    p$data[, "color"]
+}
+
+is.tree_attribute <- function(df, var) {
+    if(length(var) == 1 &&
+       !is.null(var)    &&
+       var %in% colnames(df)) {
+        return(TRUE)
+    } 
+    return(FALSE)
+}
+
+is.tree_attribute_ <- function(p, var) {
+    is.tree_attribute(p$data, var)
+}
+
 
 `%add%` <- function(p, data) {
     p$data <- p$data %add2% data
@@ -274,38 +314,3 @@ roundDigit <- function(d) {
     structure(as.list(match.call()[-1]), env = .env, class = "quoted")
 }
 
-
-color_scale <- function(c1="grey", c2="red") {
-    pal <- colorRampPalette(c(c1, c2))
-    colors <- pal(100)
-    return(colors)
-}
-
-getIdx <- function(v, MIN, MAX) {
-    if (is.na(v)) {
-        return(NA)
-    }
-    if ( MIN == MAX ) {
-        return(100)
-    }
-    intervals <- seq(MIN, MAX, length.out=100)
-    max(which(intervals <= v))
-}
-
-
-get_color_attribute <- function(p) {
-    p$data[, "color"]
-}
-
-is.tree_attribute <- function(df, var) {
-    if(length(var) == 1 &&
-       !is.null(var)    &&
-       var %in% colnames(df)) {
-        return(TRUE)
-    } 
-    return(FALSE)
-}
-
-is.tree_attribute_ <- function(p, var) {
-    is.tree_attribute(p$data, var)
-}
