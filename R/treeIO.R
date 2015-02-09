@@ -204,6 +204,10 @@ fortify.codeml <- function(model, data,
                            ...) {
 
     dNdS <- model@mlc@dNdS
+    if (branch.length == "branch.length") {
+        message("branch.length setting to mlc.branch.length by default...")
+        branch.length <- "mlc.branch.length"
+    }
     length <- match.arg(branch.length,
                         c("none",
                           "mlc.branch.length",
