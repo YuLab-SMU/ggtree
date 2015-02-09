@@ -576,7 +576,9 @@ cls_ind <- groupOTU(tree, cls)
 library("colorspace")
 cols <- rainbow_hcl(4)
 cols <- c("black", cols)
-ggtree(tree, color=cols[cls_ind]) + geom_text(aes(label=label), color=cols[cls_ind], hjust=-.25)
+ggtree(tree, color=cols[cls_ind]) + geom_text(aes(label=label), color=cols[cls_ind], hjust=-.25) +
+    annotate("point", x=1, y=seq(12, 14, length.out=4), color=rev(cols[2:5]), size=6) +
+                 annotate("text", x=4, y=seq(12,14, length.out=4), label=rev(names(cls)))
 ```
 
 We can change the linetype either:
