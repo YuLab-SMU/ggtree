@@ -101,11 +101,11 @@ grid.arrange(ggtree(tree) + ggtitle("phylogram layout"),
 	     ggtree(tree, layout="dendrogram") + ggtitle("dendrogram layout"),
 	     ggtree(tree, layout="cladogram") + ggtitle("cladogram layout"),
 	     ggtree(tree, layout="cladogram", branch.length="none") + 
-	            scale_x_reverse()+coord_flip() + ggtitle("cladogram layout"),
+                 scale_x_reverse()+coord_flip() + ggtitle("cladogram layout"),
 	     ggtree(tree, layout="fan") + ggtitle("fan layout"),
 	     ggtree(tree, layout="unrooted") + ggtitle("unrooted layout"),
 	     ncol=2)
-```
+```	
 
 ### two dimensional tree
 
@@ -146,16 +146,16 @@ ggtree(tree) + theme_tree2()
 Another way is to show the edge length of the tree. Besides, the scale of branch length can be specify via _`scale_x_continuous()`_. 
 ```{r fig.width=3, fig.height=3, warning=FALSE, fig.align="center"}
 ggtree(tree, showDistance=TRUE) +
-      geom_text(aes(label=branch.length, x=branch), size = 3, 
-      		vjust=-0.5, color="#F06C45") +
+    geom_text(aes(label=branch.length, x=branch), size = 3, 
+              vjust=-0.5, color="#F06C45") +
       scale_x_continuous(breaks=seq(0, 60, 5))
 ```
 
 User can also use _`geom_segment`_ and _`geom_text`_ to specify the position and length of distance legend:
 ```{r fig.width=3, fig.height=3, warning=FALSE, fig.align="center"}
 ggtree(tree) +
-       geom_segment(x=0, y=12, xend=10, yend=12) +
-              geom_text(x=5, y=12.5, label=5, size=4)
+    geom_segment(x=0, y=12, xend=10, yend=12) +
+        geom_text(x=5, y=12.5, label=5, size=4)
 ```
 
 ## display nodes/tips
@@ -409,11 +409,11 @@ We implemented several _`plot`_ methods for easily viewing annotation data. User
 In the following example, we use the _`codeml`_ object to visualize the $\omega$ (_`dN/dS`_) tree, and annotate the tree with _`dN`_ and _`dS`_.
 ```{r fig.width=12, fig.height=10, width=60, warning=FALSE, fig.align="center"}
 ggtree(ml, branch.length="dN_vs_dS") + 
-	   geom_text(aes(x=branch, label=dN), 
-	   	     size=3, vjust=-0.5, color="red") +
-           geom_text(aes(x=branch, label=dS),
-	             size=3, vjust=1.2, color="darkgreen")
-```
+    geom_text(aes(x=branch, label=dN), 
+              size=3, vjust=-0.5, color="red") +
+                  geom_text(aes(x=branch, label=dS),
+                            size=3, vjust=1.2, color="darkgreen")
+```	
 
 
 ## user specific annotation
@@ -428,9 +428,9 @@ nwk <- system.file("extdata", "sample.nwk", package="ggtree")
 tree <- read.tree(nwk)
 p <- ggtree(tree)
 
-dd <- data.frame(taxa=LETTERS[1:13], 
-      		 place=c(rep("GZ", 5), rep("HK", 3), rep("CZ", 4), NA),
-                 value=round(abs(rnorm(13, mean=70, sd=10)), digits=1))
+dd <- data.frame(taxa  = LETTERS[1:13], 
+      		 place = c(rep("GZ", 5), rep("HK", 3), rep("CZ", 4), NA),
+                 value = round(abs(rnorm(13, mean=70, sd=10)), digits=1))
 ## you don't need to order the data
 ## data was reshuffled just for demonstration
 dd <- dd[sample(1:13, 13), ]
