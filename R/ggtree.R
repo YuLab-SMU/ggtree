@@ -47,6 +47,7 @@ ggtree <- function(tr, showDistance=FALSE, layout="phylogram", ...) {
     if (showDistance == FALSE) {
         p <- p + theme_tree()
     }
+    attr(p, "layout") <- layout
     return(p)
 }
 
