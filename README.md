@@ -1,6 +1,7 @@
 #  ggtree: a phylogenetic tree viewer for different types of tree annotations
 
 [![Build Status](https://travis-ci.org/GuangchuangYu/ggtree.svg?branch=master)](https://travis-ci.org/GuangchuangYu/ggtree)
+[![Build Status](https://ci.appveyor.com/api/projects/status/github/GuangchuangYu/ggtree?svg=true)](https://ci.appveyor.com/project/GuangchuangYu/ggtree/branch/master)
 
 The `ggtree` package extending the `ggplot2` package. It based on grammar of graphics and takes all the good parts of `ggplot2`. 
 
