@@ -1,3 +1,7 @@
+CHANGES IN VERSION 0.99.15
+------------------------
+ o fully support of replace operator, %<% <2015-02-09, Mon>
+ 
 CHANGES IN VERSION 0.99.14
 ------------------------
  o add example in groupOTU for adding legend manually <2015-02-09, Mon>.

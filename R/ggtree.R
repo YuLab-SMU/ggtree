@@ -5,6 +5,11 @@
 ##' @param tr phylo object
 ##' @param showDistance add distance legend, logical
 ##' @param layout one of phylogram, dendrogram, cladogram, fan, radial and unrooted
+##' @param yscale y scale
+##' @param ladderize logical
+##' @param right logical
+##' @param branch.length variable for scaling branch 
+##' @param ndigits number of digits to round numerical annotation variable
 ##' @param ... additional parameter
 ##' @return tree
 ##' @importFrom ggplot2 ggplot
@@ -20,7 +25,13 @@
 ##' require(ape)
 ##' tr <- rtree(10)
 ##' ggtree(tr)
-ggtree <- function(tr, showDistance=FALSE, layout="phylogram", ...) {
+ggtree <- function(tr,
+                   showDistance=FALSE,
+                   layout="phylogram",
+                   yscale="none",
+                   ladderize = TRUE, right=FALSE,
+                   branch.length="branch.length",
+                   ndigits = NULL, ...) {
     d <- x <- y <- NULL
     if (layout == "fan") {
         ## layout <- "phylogram"
@@ -34,7 +45,13 @@ ggtree <- function(tr, showDistance=FALSE, layout="phylogram", ...) {
     } else {
         type <- "none"
     }
-    p <- ggplot(tr, aes(x, y), layout=layout, ...)
+    p <- ggplot(tr, aes(x, y),
+                layout        = layout,
+                yscale        = yscale,
+                ladderize     = ladderize,
+                right         = right,
+                branch.length = branch.length,
+                ndigits       = ndigits, ...)
 
     p <- p + geom_tree(layout, ...) + xlab("") + ylab("") + theme_tree2()
     
@@ -47,7 +64,12 @@ ggtree <- function(tr, showDistance=FALSE, layout="phylogram", ...) {
     if (showDistance == FALSE) {
         p <- p + theme_tree()
     }
-    attr(p, "layout") <- layout
+    attr(p, "param") <- list(layout        = layout,
+                             yscale        = yscale,
+                             ladderize     = ladderize,
+                             right         = right,
+                             branch.length = branch.length,
+                             ndigits       = ndigits)
     return(p)
 }
 
