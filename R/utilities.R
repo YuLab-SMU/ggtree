@@ -267,7 +267,8 @@ is.tree_attribute_ <- function(p, var) {
 }
 
 `%place%` <- function(pg, tree) {
-    pg$data <- fortify(tree)
+    layout <- attr(pg, "layout")
+    pg$data <- fortify(tree, layout=layout)
     return(pg)
 }
 
