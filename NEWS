@@ -1,3 +1,7 @@
+CHANGES IN VERSION 0.99.16
+------------------------
+ o correct typo in vignette <2015-02-10, Tue>
+
 CHANGES IN VERSION 0.99.15
 ------------------------
  o fully support of replace operator, %<% <2015-02-09, Mon>
