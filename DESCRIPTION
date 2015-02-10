@@ -13,14 +13,13 @@ Imports:
     ape,
     Biostrings,
     colorspace,
+    EBImage,
     ggplot2,
     grid,
     gridExtra,
     jsonlite,
     magrittr,
     methods,
-    png,
-    RCurl,
     reshape2,
     stats4
 Suggests:
