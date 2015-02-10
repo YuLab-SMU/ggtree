@@ -309,7 +309,7 @@ rst <- read.paml_rst(rstfile, tipfas)
 p %<% rst
 ```
 
-You can found that these two figures have different evolution distances, and substitutions inferred from _`BASEML`_ and _`CODEML`_ are slighly different.
+You can found that these two figures have different evolution distances, and substitutions inferred from _`BASEML`_ and _`CODEML`_ are slightly different.
 
 
 #### mlc file\
