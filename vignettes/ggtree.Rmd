@@ -117,7 +117,7 @@ tree2d <- read.beast(system.file("extdata", "twoD.tree", package="ggtree"))
 ggtree(tree2d, layout="cladogram", yscale="NLGS")
 ```
 
-In this example, y is scale by the number of N-glycosylation sites. This figure demonstrates the number of N-glycosylation sites increase along the trunk. User can highlight the trunk with different line size or color.
+In this example, y is scale by the number of N-glycosylation sites. This figure demonstrates the quantity of y increase along the trunk. User can highlight the trunk with different line size or color using the functions we described below.
 
 
 ## support multiple phylogenetic classes
@@ -125,7 +125,7 @@ In this example, y is scale by the number of N-glycosylation sites. This figure 
 `r Githubpkg("GuangchuangYu/ggtree")` defined several S4 classes to store phylogenetic object and its associated annotation, including:
 
 + `jplace`
-+ `palm_rst`
++ `paml_rst`
 + `codeml_mlc`
 + `codeml`
 + `hyphy`
@@ -221,7 +221,7 @@ In `r Githubpkg("GuangchuangYu/ggtree")`, we implemented several functions to pa
 
 Classes include:
 
-+ _`palm_rst`_ for _`rst`_ file obtained by [PAML](http://abacus.gene.ucl.ac.uk/software/paml.html)[@yang_paml_2007], including _`BASEML`_ and _`CODEML`_.
++ _`paml_rst`_ for _`rst`_ file obtained by [PAML](http://abacus.gene.ucl.ac.uk/software/paml.html)[@yang_paml_2007], including _`BASEML`_ and _`CODEML`_.
 + _`codeml_mlc`_ for _`mlc`_ file obtained by _`CODEML`_.
 + _`codeml`_ for interpreting _`rst`_ and _`mlc`_ files obtained by _`CODEML`_.
 + _`hyphy`_ for [HYPHY](http://hyphy.org/w/index.php/Main_Page)[@pond_hyphy_2005] output.
