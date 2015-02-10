@@ -1,3 +1,7 @@
+CHANGES IN VERSION 0.99.17
+------------------------
+ o add angle and branch.y variable in cladogram layout <2015-02-10, Tue>
+ 
 CHANGES IN VERSION 0.99.16
 ------------------------
  o correct typo in vignette <2015-02-10, Tue>

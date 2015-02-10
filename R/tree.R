@@ -653,3 +653,18 @@ getYcoord_scale_category <- function(tr, df, yscale, yscale_mapping=NULL, ...) {
     }
     return(y)
 }
+
+
+add_angle_cladogram <- function(res) {
+    dy <- (res[, "y"] - res[res$parent, "y"]) / diff(range(res[, "y"]))
+    dx <- (res[, "x"] - res[res$parent, "x"]) / diff(range(res[, "x"]))
+    theta <- atan(dy/dx)
+    theta[is.na(theta)] <- 0 ## root node
+    res$angle <- theta/pi * 180
+    branch.y <- (res[res$parent, "y"] + res[, "y"])/2
+    idx <- is.na(branch.y)
+    branch.y[idx] <- res[idx, "y"]
+    res[, "branch.y"] <- branch.y
+    return(res)
+}
+
