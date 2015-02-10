@@ -24,6 +24,7 @@ To install:
 ## Documentation ##
 
 [viewing and annotating phylogenetic tree with ggtree](http://ygc.name/2014/12/21/ggtree/)
+[updating a tree view using %<% operator](http://ygc.name/2015/02/10/ggtree-updating-a-tree-view/)
 
 To view the vignette of `ggtree` installed in your system, start `R` and enter:
 ```r
