@@ -24,7 +24,4 @@ download phylopic and convert to grob object
 \author{
 Guangchuang Yu
 }
-\references{
-https://github.com/sckott/rphylopic/blob/master/R/add_phylopic.r
-}
 
