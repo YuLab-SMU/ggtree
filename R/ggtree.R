@@ -208,6 +208,43 @@ geom_tippoint <- function(...) {
     geom_point(subset=.(isTip), ...)
 }
 
+##' add phylopic layer
+##'
+##' 
+##' @title geom_phylopic
+##' @param phylopic_id phylopic id
+##' @param x x position
+##' @param y y position
+##' @param width width of phylopic
+##' @param size size of phylopic to download
+##' @param color color
+##' @param alpha alpha
+##' @return phylopic layer
+##' @export
+##' @importFrom ggplot2 annotation_custom
+##' @importFrom grid rasterGrob
+##' @author Guangchuang Yu
+geom_phylopic <- function(phylopic_id, x=NULL, y=NULL, width=NULL,
+                          size=512, color="black", alpha=1) {
+    img <- download.phylopic(phylopic_id, size, color, alpha)
+    if ( is.null(x) || is.null(y) || is.null(width) ) {
+        xmin <- ymin <- -Inf
+        xmax <- ymax <- Inf
+    } else {
+        dims <- dim(img)[1:2]
+        AR <- dims[1]/dims[2]
+        xmin <- x - width/2
+        xmax <- x + width/2
+        ymin <- y - AR * width/2
+        ymax <- y + AR * width/2
+    }
+    
+    annotation_custom(xmin=xmin, ymin=ymin,
+                      xmax=xmax, ymax=ymax,
+                      rasterGrob(img))
+}
+
+
 
 ##' tree theme
 ##'
