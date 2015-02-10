@@ -185,7 +185,7 @@ fortify.beast <- function(model, data,
     stats <- stats[,colnames(stats) != "node"]
     
     df <- cbind(df, stats)
-    df <- scaleY(phylo, df, yscale, ...)
+    df <- scaleY(phylo, df, yscale, layout, ...)
 
     return(df)
 }
@@ -231,7 +231,7 @@ fortify.codeml <- function(model, data,
     
     res <- merge_phylo_anno.codeml_mlc(df, dNdS, ndigits)
     df <- merge_phylo_anno.paml_rst(res, model@rst)
-    scaleY(phylo, df, yscale, ...)
+    scaleY(phylo, df, yscale, layout, ...)
 }
 
 
@@ -254,7 +254,7 @@ fortify.codeml_mlc <- function(model, data,
     dNdS <- model@dNdS
 
     df <- merge_phylo_anno.codeml_mlc(df, dNdS, ndigits)
-    scaleY(phylo, df, yscale, ...)
+    scaleY(phylo, df, yscale, layout, ...)
 }
 
 merge_phylo_anno.codeml_mlc <- function(df, dNdS, ndigits = NULL) {
@@ -308,7 +308,7 @@ fortify.paml_rst <- function(model, data, layout = "phylogram", yscale="none",
                              ladderize=TRUE, right=FALSE, ...) {
     df <- fortify.phylo(model@phylo, data, layout, ladderize, right, ...)
     df <- merge_phylo_anno.paml_rst(df, model)
-    scaleY(model@phylo, df, yscale, ...)
+    scaleY(model@phylo, df, yscale, layout, ...)
 }
 
 merge_phylo_anno.paml_rst <- function(df, model) {
@@ -337,13 +337,13 @@ fortify.jplace <- function(model, data,
 
     df <- df %add2% place
 
-    scaleY(model@phylo, df, yscale, ...)
+    scaleY(model@phylo, df, yscale, layout, ...)
 }
 
-scaleY <- function(phylo, df, yscale, ...) {
+scaleY <- function(phylo, df, yscale, layout, ...) {
     if (yscale == "none") {
         return(df)
-    }
+    } 
     if (! yscale %in% colnames(df)) {
         warning("yscale is not available...\n")
         return(df)
@@ -360,6 +360,9 @@ scaleY <- function(phylo, df, yscale, ...) {
     }
     
     df[, "y"] <- y
+    if (layout == "cladogram") {
+        df <- add_angle_cladogram(df)
+    }
     return(df)
 }
 
@@ -371,7 +374,7 @@ fortify.phylo4 <- function(model, data, layout="phylogram", yscale="none",
     phylo <- as.phylo.phylo4(model)
     df <- fortify.phylo(phylo, data,
                         layout, ladderize, right, ...)
-    scaleY(phylo, df, yscale)
+    scaleY(phylo, df, yscale, layout, ...)
 }
 
 as.phylo.phylo4 <- function(phylo4) {
@@ -425,6 +428,9 @@ fortify.phylo <- function(model, data, layout="phylogram",
     rownames(df) <- df$node
     cn <- colnames(df)
     colnames(df)[grep("length", cn)] <- "branch.length"
+    if(layout == "cladogram") {
+        df <- add_angle_cladogram(df)
+    }
     return(df)
 }
 
@@ -489,18 +495,19 @@ as.data.frame.phylo_ <- function(x, layout="phylogram",
     isTip <- rep(FALSE, N)
     isTip[1:Ntip] <- TRUE
     res$isTip <- isTip
-    res$branch <- (res$x[res$parent] + res$x)/2
+    res$branch <- (res[res$parent, "x"] + res[, "x"])/2
     if (!is.null(res$length)) {
         res$length[is.na(res$length)] <- 0
     }
     res$branch[is.na(res$branch)] <- 0
     
     if (layout == "fan") {
-      idx <- match(1:N, order(res$y))
-      angle <- -360/N * 1:N
-      angle <- angle[idx]
-      res$angle <- angle
-    }
+        idx <- match(1:N, order(res$y))
+        angle <- -360/N * 1:N
+        angle <- angle[idx]
+        res$angle <- angle
+    } 
+    
     return(res)
 }
 
