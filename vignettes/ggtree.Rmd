@@ -694,6 +694,11 @@ p2 <- ggtree(ml, branch.length="none") +
 gplot(p2, dd, low="green", high="red", widths=c(.7, .3))
 ```
 
+# External documents
+
++ [viewing and annotating phylogenetic tree with ggtree](http://ygc.name/2014/12/21/ggtree/)
++ [updating a tree view using %<% operator](http://ygc.name/2015/02/10/ggtree-updating-a-tree-view/)
+
 
 # Session info
 Here is the output of `sessionInfo()` on the system on which this document was compiled:
