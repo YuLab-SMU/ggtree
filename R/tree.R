@@ -250,6 +250,15 @@ get.offspring.tip <- function(tr, node) {
     clade$tip.label
 }
 
+
+##' calculate total number of nodes
+##'
+##' 
+##' @title getNodeNum
+##' @param tr phylo object
+##' @return number 
+##' @author Guangchuang Yu
+##' @export
 getNodeNum <- function(tr) {
     Ntip <- length(tr[["tip.label"]])
     Nnode <- tr[["Nnode"]]
@@ -328,6 +337,14 @@ getNodeName <- function(tr) {
     return(nodeName)
 }
 
+##' get the root number 
+##'
+##' 
+##' @title getRoot
+##' @param tr phylo object
+##' @return root number
+##' @export
+##' @author Guangchuang Yu
 getRoot <- function(tr) {
     edge <- tr[["edge"]]
     ## 1st col is parent,
@@ -349,6 +366,16 @@ get.trunk <- function(tr) {
     return(get.path(tr, root, i))
 }
 
+##' path from start node to end node
+##'
+##' 
+##' @title get.path
+##' @param phylo phylo object
+##' @param from start node
+##' @param to end node
+##' @return node vectot
+##' @export
+##' @author Guangchuang Yu
 get.path <- function(phylo, from, to) {
     anc_from <- getAncestor(phylo, from)
     anc_from <- c(from, anc_from)
