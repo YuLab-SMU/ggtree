@@ -342,33 +342,56 @@ getRoot <- function(tr) {
     return(root)
 }
 
-get.path_length <- function(df, from, to, weight=NULL) {
-    ## df is output of fortify(tree)
-    ## from and to are nodes
-    ## weight is a numeric column of df
-    res <- 0
-    if (from == to) {
-        return(res)
+get.trunk <- function(tr) {
+    root <- getRoot(tr)
+    path_length <- sapply(1:(root-1), function(x) get.path_length(tr, root, x))
+    i <- which.max(path_length)
+    return(get.path(tr, root, i))
+}
+
+get.path <- function(phylo, from, to) {
+    anc_from <- getAncestor(phylo, from)
+    anc_from <- c(from, anc_from)
+    anc_to <- getAncestor(phylo, to)
+    anc_to <- c(to, anc_to)
+    mrca <- intersect(anc_from, anc_to)[1]
+
+    i <- which(anc_from == mrca)
+    j <- which(anc_to == mrca)
+
+    path <- c(anc_from[1:i], rev(anc_to[1:(j-1)]))
+    return(path)
+}
+
+get.path_length <- function(phylo, from, to, weight=NULL) {
+    path <- get.path(phylo, from, to)
+    if (is.null(weight)) {
+        return(length(path)-1)
     }
     
-    if (is.null(weight)) {
-        res <- res + 1
-    } else {
-        res <- res + df[from, weight]
+    df <- fortify(phylo)
+    if ( ! (weight %in% colnames(df))) {
+        stop("weight should be one of numerical attributes of the tree...")
     }
 
-    newNode <- df[from, "parent"]
-    if (newNode == to) {
-        return(res)
-    } else {
-        res <- res + get.path_length(df, newNode, to, weight)
+    res <- 0
+
+    get_edge_index <- function(df, from, to) {
+        which((df[,1] == from | df[,2] == from) &
+                  (df[,1] == to | df[,2] == to))
     }
+
+    for(i in 1:(length(path)-1)) {
+        ee <- get_edge_index(df, path[i], path[i+1])
+        res <- res + df[ee, weights]
+    }
+    
     return(res)
 }
 
 getNodes_by_postorder <- function(tree) {
     tree <- reorder.phylo(tree, "postorder")
-    nodes <- tree$edge[,c(2,1)] %>% t %>%
+    tree$edge[,c(2,1)] %>% t %>%
         as.vector %>% rev %>% unique
 }
 
@@ -533,11 +556,10 @@ getYcoord_scale <- function(tr, df, yscale) {
 }
 
 getYcoord_scale2 <- function(tr, df, yscale) {
-
     root <- getRoot(tr)
     
     pathLength <- sapply(1:length(tr$tip.label), function(i) {
-        get.path_length(df, i, root, yscale)
+        get.path_length(tr, i, root, yscale)
     })
 
     ordered_tip <- order(pathLength, decreasing = TRUE)
