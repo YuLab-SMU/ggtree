@@ -114,8 +114,13 @@ grid.arrange(ggtree(tree) + ggtitle("phylogram layout"),
 
 ```{r fig.width=9, fig.height=4, fig.align="center"}
 tree2d <- read.beast(system.file("extdata", "twoD.tree", package="ggtree"))
-ggtree(tree2d, layout="cladogram", yscale="NLGS")
-```
+ggtree(tree2d, layout="cladogram", time_scale=TRUE,
+       yscale="NGS", yscale_mapping=c(N2=2, N3=3, N4=4, N5=5, N6=6, N7=7)) +
+           theme_classic() + scale_x_continuous(breaks=seq(1965, 2015, 5)) +
+               theme(panel.grid.major=element_line(color="grey20", linetype="dotted", size=.3),
+                     panel.grid.major.y=element_blank()) +
+                         scale_y_continuous(labels=paste0("N", 2:7))
+```	
 
 In this example, y is scale by the number of N-glycosylation sites. This figure demonstrates the quantity of y increase along the trunk. User can highlight the trunk with different line size or color using the functions we described below.
 

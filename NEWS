@@ -1,3 +1,7 @@
+CHANGES IN VERSION 0.99.19
+------------------------
+ o for time scale tree inferred by BEAST, now user can use time_scale=TRUE parameter in ggtree function <2015-02-12, Thu>
+ 
 CHANGES IN VERSION 0.99.18
 ------------------------
  o bug fixed in reorder the labels in gplot.heatmap <2015-02-12, Thu>

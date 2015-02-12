@@ -109,7 +109,8 @@ fortify.beast <- function(model, data,
                           yscale    = "none",
                           ladderize = TRUE,
                           right     =FALSE,
-                          ndigits   = NULL, ...) {
+                          ndigits   = NULL,
+                          time_scale = FALSE, ...) {
 
     phylo <- get.tree(model)
     df    <- fortify(phylo, layout=layout,
@@ -187,10 +188,19 @@ fortify.beast <- function(model, data,
     df <- cbind(df, stats)
     df <- scaleY(phylo, df, yscale, layout, ...)
 
+    if (time_scale) {
+        df <- scaleX_by_time(df)
+    }
+    
     return(df)
 }
 
-
+scaleX_by_time <- function(df) {
+    time <- with(df, gsub(".*_(\\d+\\.\\d+)", "\\1", label[isTip]))
+    latest <- which.max(time)
+    df$x <- df$x + as.numeric(time[latest]) - max(df$x)
+    return(df)
+}
 
 ##' @method fortify codeml
 ##' @export
