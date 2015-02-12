@@ -42,7 +42,7 @@ gplot.heatmap <- function(p, data, low, high, font.size) {
     df=p$data
     df=df[df$isTip,]
     
-    levels(dd$Var1) <- df$label[order(df$y)]
+    dd$Var1 <- factor(dd$Var1, levels = df$label[order(df$y)])
     
     p2 <- ggplot(dd, aes(Var2, Var1, fill=value))+geom_tile(color="black")
     p2 <- p2 + scale_fill_gradient(low=low, high=high)

@@ -217,7 +217,20 @@ layout.unrooted <- function(tree) {
     return(df)
 }
 
+get.offspring.tip.number_from_df <- function(df, node) {
+    i <- which(df$parent == node)
+    if (length(i) == 0) {
+        return(0)
+    }
+    
+    res <- df[i, "node"]
 
+    res <- c(res, sapply(res, get.offspring.tip.number_from_df, df=df))
+    res <- res[res > 0]
+    return(res)
+}
+
+    
 ##' extract offspring tips
 ##'
 ##' 
