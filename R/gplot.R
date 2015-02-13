@@ -9,6 +9,8 @@
 ##' @param font.size font size
 ##' @return list of figure
 ##' @importFrom gridExtra grid.arrange
+##' @importFrom ggplot2 scale_x_continuous
+##' @importFrom ggplot2 scale_y_continuous
 ##' @export
 ##' @author Guangchuang Yu \url{http://ygc.name}
 ##' @examples
@@ -20,6 +22,7 @@
 ##' colnames(d) <- paste0("G", 1:4)
 ##' gplot(p, d, low="green", high="red")
 gplot <- function(p, data, low="green", high="red", widths=c(0.5, 0.5), font.size=14) {
+    ## p <- p + scale_x_continuous(expand = c(0, 0)) + scale_y_continuous(expand = c(0, 0))
     p1 <- p + theme(panel.margin=unit(0, "null"))
     p1 <- p1 + theme(plot.margin = unit(c(1, -1, 1.5, 1), "lines"))
     p2 <- gplot.heatmap(p, data, low, high, font.size)
