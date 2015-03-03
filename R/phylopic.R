@@ -33,8 +33,12 @@ download.phylopic <- function(id, size=512, color="black", alpha=1) {
         match.arg(c("64", "128", "256", "512", "1024"))
 
     imgurl <- paste0("http://phylopic.org/assets/images/submissions/", id, ".", size, ".png")
-    imgfile <- tempfile(fileext = ".PNG") ## .png is not recognize by WINDOWS platform
-    download.file(imgurl, imgfile, quiet = TRUE)
+    imgfile <- tempfile(fileext = ".png") 
+    if (Sys.info()["sysname"] == "Windows") {
+        download.file(imgurl, imgfile, mode="wb", quiet = TRUE)
+    } else {
+        download.file(imgurl, imgfile, quiet = TRUE)
+    }
     img <- readImage(imgfile)
        
     color <- col2rgb(color) / 255
