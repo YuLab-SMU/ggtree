@@ -1,8 +1,6 @@
-CHANGES IN VERSION 0.99.20
+CHANGES IN VERSION 0.99.21
 ------------------------
- o change .png to .PNG for WINDOWS platform <2015-03-01, Sun>
-   	  Error: processing vignette 'ggtree.Rmd' failed with diagnostics:
-   	  file is not in PNG format
+ o fixed downloading png file in Windows platform, should explicitly setting mode="wb". <2015-03-03, Tue>
  
 CHANGES IN VERSION 0.99.19
 ------------------------
