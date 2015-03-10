@@ -1,3 +1,7 @@
+CHANGES IN VERSION 0.99.22
+------------------------
+ o remove quote in beast tip/node labels <2015-03-10, Tue>
+ 
 CHANGES IN VERSION 0.99.21
 ------------------------
  o fixed downloading png file in Windows platform, should explicitly setting mode="wb". <2015-03-03, Tue>
