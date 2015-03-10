@@ -15,11 +15,19 @@ read.beast <- function(file) {
     stats <- read.stats_beast(file)
     fields <- sub("_lower|_upper", "", names(stats)) %>% unique
     fields %<>% `[`(.!="node")
+
+    phylo <- read.nexus(file)
+    if (!is.null(phylo$node.label)) {
+        phylo$node.label %<>% gsub("\"*'*", "", .)
+    }
+    if ( !is.null(phylo$tip.label)) {
+        phylo$tip.label %<>% gsub("\"*'*", "", .) 
+    }
     
     new("beast",
         fields      = fields,
         treetext    = read.treetext_beast(file),
-        phylo       = read.nexus(file),
+        phylo       = phylo,
         translation = read.trans_beast(file),
         stats       = stats,
         file        = file
