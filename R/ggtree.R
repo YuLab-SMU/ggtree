@@ -305,3 +305,29 @@ theme_tree2 <- function(bgcolor="white", fgcolor="black") {
           )
 }
 
+collapse <- function(tree_view, node) {
+    df <- tree_view$data
+    sp <- get.offspring.df(df, node)
+    sp.df <- df[sp,]
+    df[node, "isTip"] <- TRUE
+    sp_y <- range(sp.df$y)
+    ii <- which(df$y > max(sp_y))
+    if (length(ii)) {
+        df$y[ii] <- df$y[ii] - (max(sp_y) - min(sp_y))
+    }
+    df$y[node] <- min(sp_y)
+
+    df[sp, "x"] <- NA
+    df[sp, "y"] <- NA
+
+    root <- which(df$node == df$parent)
+    pp <- df[node, "parent"]
+    while(any(pp != root)) {
+        df[pp, "y"] <- mean(df[getChild.df(df, pp), "y"])
+        pp <- df[pp, "parent"]
+    }
+    df[pp, "y"] <- mean(df[getChild.df(df, pp), "y"])
+    
+    tree_view$data <- df
+    tree_view
+}
