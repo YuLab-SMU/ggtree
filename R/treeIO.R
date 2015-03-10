@@ -124,7 +124,8 @@ fortify.beast <- function(model, data,
             len <- sapply(stats[,ii], length)
             if (any(len > 1)) {
                 stats[,ii] %<>% sapply(., function(x) {
-                    y <- unlist(x) %>% as.character %>% gsub("\"", "", .)
+                    y <- unlist(x) %>% as.character %>%
+                        gsub("\"", "", .) %>% gsub("'", "", .)
                     if (length(y) == 1) {
                         return(y)
                     } else {
@@ -132,7 +133,8 @@ fortify.beast <- function(model, data,
                     }
                 })
             } else {
-                stats[,ii] %<>% unlist %>% as.character %>% gsub("\"", "", .)
+                stats[,ii] %<>% unlist %>% as.character %>%
+                    gsub("\"", "", .) %>% gsub("'", "", .)
             }
             next
         }
