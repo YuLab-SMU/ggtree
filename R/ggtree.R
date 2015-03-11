@@ -351,6 +351,8 @@ expand_clade <- function(tree_view, node) {
     sp_y <- range(sp.df$y)
     ii <- which(df$y > df$y[node])
     df[ii, "y"] <- df[ii, "y"] + diff(sp_y)
+    
+    sp.df$y <- sp.df$y - min(sp.df$y) + df$y[node]
     df[sp.df$node,] <- sp.df
 
     root <- which(df$node == df$parent)
