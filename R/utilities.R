@@ -321,3 +321,15 @@ roundDigit <- function(d) {
     structure(as.list(match.call()[-1]), env = .env, class = "quoted")
 }
 
+
+##' pipe
+##' @export
+##' @rdname pipe
+##' @param lhs left hand side
+##' @param rhs right hand side
+##' @source
+##' This is just the imported function
+##' from the marittr package. The documentation you should
+##' read for %>% function can be found here: \link[magrittr]{%>%}
+`%>%` <- magrittr::`%>%`
+

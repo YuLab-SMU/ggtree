@@ -518,7 +518,7 @@ gzoom(chiroptera, grep("Plecotus", chiroptera$tip.label))
 
 ## highlight clades
 
-`r Githubpkg("GuangchuangYu/ggtree")` implements _`geom_hilight`_ layer, that accepts tree object and internal node number and add a layer of rectangle to highlight the selected clade.
+`r Githubpkg("GuangchuangYu/ggtree")` implements _`hilight`_ function, that accepts tree view and internal node number and add a layer of rectangle to highlight the selected clade.
 
 ```{r fig.width=5, fig.height=5, fig.align="center", warning=FALSE}
 nwk <- system.file("extdata", "sample.nwk", package="ggtree")
@@ -530,14 +530,45 @@ ggtree(tree) + geom_text(aes(label=node))
 User can use _`geom_text`_ to display all the node numbers, and select interesting clade to highlight.
 
 ```{r fig.width=5, fig.height=5, fig.align="center", warning=FALSE}
-ggtree(tree) + geom_hilight(tree, node=21, fill="steelblue", alpha=.6) +
-     geom_hilight(tree, node=17, fill="darkgreen", alpha=.6)
+ggtree(tree) %>% hilight(node=21, fill="steelblue", alpha=.6) %>%
+    hilight(node=17, fill="darkgreen", alpha=.6)
 ```
 
 
 ```{r fig.width=5, fig.height=5, fig.align="center", warning=FALSE}
-ggtree(tree, layout="fan") + geom_hilight(tree, node=21, fill="steelblue", alpha=.6) +
-     geom_hilight(tree, node=17, fill="darkgreen", alpha=.6)
+ggtree(tree, layout="fan") %>% hilight(node=21, fill="steelblue", alpha=.6) %>%
+     hilight(node=17, fill="darkgreen", alpha=.6)
+```
+
+## collapse clade
+
+With _`collapse_clade`_ function, user can collapse a selected clade.
+
+```{r fig.width=5, fig.height=5, fig.align="center", warning=FALSE}
+ggtree(tree) %>% collapse_clade(node=17)
+```
+
+## expand collapsed clade
+
+The collapsed clade can be expanded via _`expand_clade`_ function.
+
+```{r fig.width=5, fig.height=5, fig.align="center", warning=FALSE}
+ggtree(tree) %>% collapse_clade(node=17) %>% expand_clade(node=17)
+```
+
+## phylopic
+
+[PhyloPic](http://phylopic.org/) is a database that stores reusable silhouette images of organisms. `r Githubpkg("GuangchuangYu/ggtree")` supports downloading images from [PhyloPic](http://phylopic.org/) and annotating phylogenetic tree with the downloaded images.
+
+```{r fig.width=5, fig.height=5, fig.align="center", warning=FALSE}
+cols <- rainbow_hcl(2)
+pp <- ggtree(tree) %>% phylopic("3318565d-7531-4a8c-8b84-2e87dfae36ab", color=cols[1], alpha = .3)
+pp
+```
+
+```{r fig.width=5, fig.height=5, fig.align="center", warning=FALSE}
+pp %>% phylopic("d3563b54-780f-4711-a49a-7ea051e9dacc", color=cols[2], alpha=.8, node=21) %>%
+    phylopic("d3563b54-780f-4711-a49a-7ea051e9dacc", color="darkgreen", alpha=.8, node=17, width=10)
 ```
 
 ## scale color based on numerical attribute
@@ -648,17 +679,6 @@ ggtree(tree_iris, color=cols[cls_ind]) %<+% species +
 
 This example demonstrates how the separation of the _`bionj`_ is very good with the _`setosa`_ species, but misses in labeling several _`versicolor`_ and _`virginica`_ species.
 
-## phylopic
-
-[PhyloPic](http://phylopic.org/) is a database that stores reusable silhouette images of organisms. `r Githubpkg("GuangchuangYu/ggtree")` supports downloading images from [PhyloPic](http://phylopic.org/) and annotating phylogenetic tree with the downloaded images.
-
-```{r fig.width=5, fig.height=5, fig.align="center", warning=FALSE}
-cols <- rainbow_hcl(2)
-x <- get.phylopic("d3563b54-780f-4711-a49a-7ea051e9dacc", size=512, color=cols[1], alpha=.3)
-y <- get.phylopic("3318565d-7531-4a8c-8b84-2e87dfae36ab", size=512, color=cols[2], alpha=.8)
-ggtree(tree) + annotation_custom(xmin=-Inf, ymin=-Inf, xmax=Inf, ymax=Inf, x) +
-       annotation_custom(xmin=15, ymin=2, xmax=25, ymax=4, y) 
-```
 
 ## visualize tree with associated matrix
 ```{r}
