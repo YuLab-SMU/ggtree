@@ -545,7 +545,8 @@ ggtree(tree, layout="fan") %>% hilight(node=21, fill="steelblue", alpha=.6) %>%
 With _`collapse_clade`_ function, user can collapse a selected clade.
 
 ```{r fig.width=5, fig.height=5, fig.align="center", warning=FALSE}
-ggtree(tree) %>% collapse_clade(node=17)
+cp <- ggtree(tree) %>% collapse_clade(node=21)
+cp + geom_point(subset=.(node == 21), size=5, shape=23, fill="steelblue")
 ```
 
 ## expand collapsed clade
@@ -553,7 +554,7 @@ ggtree(tree) %>% collapse_clade(node=17)
 The collapsed clade can be expanded via _`expand_clade`_ function.
 
 ```{r fig.width=5, fig.height=5, fig.align="center", warning=FALSE}
-ggtree(tree) %>% collapse_clade(node=17) %>% expand_clade(node=17)
+cp %>% expand_clade(node=21)
 ```
 
 ## phylopic
@@ -561,14 +562,13 @@ ggtree(tree) %>% collapse_clade(node=17) %>% expand_clade(node=17)
 [PhyloPic](http://phylopic.org/) is a database that stores reusable silhouette images of organisms. `r Githubpkg("GuangchuangYu/ggtree")` supports downloading images from [PhyloPic](http://phylopic.org/) and annotating phylogenetic tree with the downloaded images.
 
 ```{r fig.width=5, fig.height=5, fig.align="center", warning=FALSE}
-cols <- rainbow_hcl(2)
-pp <- ggtree(tree) %>% phylopic("3318565d-7531-4a8c-8b84-2e87dfae36ab", color=cols[1], alpha = .3)
+pp <- ggtree(tree) %>% phylopic("79ad5f09-cf21-4c89-8e7d-0c82a00ce728", color="steelblue", alpha = .3)
 pp
 ```
 
 ```{r fig.width=5, fig.height=5, fig.align="center", warning=FALSE}
-pp %>% phylopic("d3563b54-780f-4711-a49a-7ea051e9dacc", color=cols[2], alpha=.8, node=21) %>%
-    phylopic("d3563b54-780f-4711-a49a-7ea051e9dacc", color="darkgreen", alpha=.8, node=17, width=10)
+pp %>% phylopic("67382184-5135-4faa-8e98-eadff02c3e8a", color="#86B875", alpha=.8, node=21, width=4) %>%
+    phylopic("d3563b54-780f-4711-a49a-7ea051e9dacc", color="darkcyan", alpha=.8, node=17, width=8)
 ```
 
 ## scale color based on numerical attribute
