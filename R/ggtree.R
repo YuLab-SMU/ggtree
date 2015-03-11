@@ -208,43 +208,6 @@ geom_tippoint <- function(...) {
     geom_point(subset=.(isTip), ...)
 }
 
-##' add phylopic layer
-##'
-##' 
-##' @title geom_phylopic
-##' @param phylopic_id phylopic id
-##' @param x x position
-##' @param y y position
-##' @param width width of phylopic
-##' @param size size of phylopic to download
-##' @param color color
-##' @param alpha alpha
-##' @return phylopic layer
-##' @export
-##' @importFrom ggplot2 annotation_custom
-##' @importFrom grid rasterGrob
-##' @author Guangchuang Yu
-geom_phylopic <- function(phylopic_id, x=NULL, y=NULL, width=NULL,
-                          size=512, color="black", alpha=1) {
-    img <- download.phylopic(phylopic_id, size, color, alpha)
-    if ( is.null(x) || is.null(y) || is.null(width) ) {
-        xmin <- ymin <- -Inf
-        xmax <- ymax <- Inf
-    } else {
-        dims <- dim(img)[1:2]
-        AR <- dims[1]/dims[2]
-        xmin <- x - width/2
-        xmax <- x + width/2
-        ymin <- y - AR * width/2
-        ymax <- y + AR * width/2
-    }
-    
-    annotation_custom(xmin=xmin, ymin=ymin,
-                      xmax=xmax, ymax=ymax,
-                      rasterGrob(img))
-}
-
-
 
 ##' tree theme
 ##'
@@ -305,7 +268,39 @@ theme_tree2 <- function(bgcolor="white", fgcolor="black") {
           )
 }
 
-collapse <- function(tree_view, node) {
+##' hilight clade with rectangle
+##'
+##' 
+##' @title hilight
+##' @param tree_view tree view 
+##' @param node clade node
+##' @param fill fill color
+##' @param alpha alpha
+##' @param ... additional parameter
+##' @return tree view
+##' @export
+##' @author Guangchuang Yu
+hilight <- function(tree_view, node, fill="steelblue", alpha=0.5, ...) {
+    df <- tree_view$data
+    sp <- get.offspring.df(df, node)
+    sp.df <- df[c(sp, node),]
+    x <- sp.df$x
+    y <- sp.df$y
+    tree_view + annotate("rect", xmin=min(x)-df[node, "branch.length"]/2,
+                         xmax=max(x), ymin=min(y)-0.5, ymax=max(y)+0.5,
+                         fill = fill, alpha = alpha, ...)
+}
+
+##' collapse a clade
+##'
+##' 
+##' @title collapse_clade
+##' @param tree_view tree view 
+##' @param node clade node
+##' @return tree view
+##' @export
+##' @author Guangchuang Yu
+collapse_clade <- function(tree_view, node) {
     df <- tree_view$data
     sp <- get.offspring.df(df, node)
     sp.df <- df[sp,]
@@ -313,7 +308,7 @@ collapse <- function(tree_view, node) {
     sp_y <- range(sp.df$y)
     ii <- which(df$y > max(sp_y))
     if (length(ii)) {
-        df$y[ii] <- df$y[ii] - (max(sp_y) - min(sp_y))
+        df$y[ii] <- df$y[ii] - diff(sp_y)
     }
     df$y[node] <- min(sp_y)
 
@@ -326,8 +321,49 @@ collapse <- function(tree_view, node) {
         df[pp, "y"] <- mean(df[getChild.df(df, pp), "y"])
         pp <- df[pp, "parent"]
     }
-    df[pp, "y"] <- mean(df[getChild.df(df, pp), "y"])
+    j <- getChild.df(df, pp)
+    j <- j[j!=pp]
+    df[pp, "y"] <- mean(df[j, "y"])
     
     tree_view$data <- df
+    clade <- paste0("clade_", node)
+    attr(tree_view, clade) <- sp.df
+    tree_view
+}
+
+##' expand collased clade
+##'
+##' 
+##' @title expand_clade
+##' @param tree_view tree view
+##' @param node clade node
+##' @return tree view
+##' @export
+##' @author Guangchuang Yu
+expand_clade <- function(tree_view, node) {
+    clade <- paste0("clade_", node)
+    sp.df <- attr(tree_view, clade)
+    if (is.null(sp.df)) {
+        return(tree_view)
+    }
+    df <- tree_view$data
+    df[node, "isTip"] <- FALSE
+    sp_y <- range(sp.df$y)
+    ii <- which(df$y > df$y[node])
+    df[ii, "y"] <- df[ii, "y"] + diff(sp_y)
+    df[sp.df$node,] <- sp.df
+
+    root <- which(df$node == df$parent)
+    pp <- node
+    while(any(pp != root)) {
+        df[pp, "y"] <- mean(df[getChild.df(df, pp), "y"])
+        pp <- df[pp, "parent"]
+    }
+    j <- getChild.df(df, pp)
+    j <- j[j!=pp]
+    df[pp, "y"] <- mean(df[j, "y"])
+    
+    tree_view$data <- df
+    attr(tree_view, clade) <- NULL
     tree_view
 }

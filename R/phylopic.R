@@ -52,3 +52,53 @@ download.phylopic <- function(id, size=512, color="black", alpha=1) {
     return(img)
 }
 
+##' add phylopic layer
+##'
+##' 
+##' @title phylopic
+##' @param tree_view tree view
+##' @param phylopic_id phylopic id
+##' @param size size of phylopic to download
+##' @param color color
+##' @param alpha alpha
+##' @param node selected node
+##' @param x x position
+##' @param y y position
+##' @param width width of phylopic
+##' @return phylopic layer
+##' @export
+##' @importFrom ggplot2 annotation_custom
+##' @importFrom grid rasterGrob
+##' @author Guangchuang Yu
+phylopic <- function(tree_view, phylopic_id,
+                     size=512, color="black", alpha=0.5,
+                     node=NULL, x=NULL, y=NULL, width=NULL) {
+    img <- download.phylopic(phylopic_id, size, color, alpha)
+    if ( is.null(node) ) {
+        xmin <- ymin <- -Inf
+        xmax <- ymax <- Inf
+    } else {
+        if (is.null(x) || is.null(y)) {
+            if (is.null(node)) {
+                stop("node or x and y should not be NULL...")
+            }
+            x <- tree_view$data[node, "x"]
+            y <- tree_view$data[node, "y"]
+        }
+        if (is.null(width)) {
+            width <- 5
+        }
+        
+        dims <- dim(img)[1:2]
+        AR <- dims[1]/dims[2]
+        xmin <- x - width/2
+        xmax <- x + width/2
+        ymin <- y - AR * width/2
+        ymax <- y + AR * width/2
+    }
+    
+    tree_view + annotation_custom(xmin=xmin, ymin=ymin,
+                                  xmax=xmax, ymax=ymax,
+                                  rasterGrob(img))
+}
+
