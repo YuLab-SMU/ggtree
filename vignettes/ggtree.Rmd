@@ -122,7 +122,7 @@ ggtree(tree2d, layout="cladogram", time_scale=TRUE,
                          scale_y_continuous(labels=paste0("N", 2:7))
 ```	
 
-In this example, y is scale by the number of N-glycosylation sites. This figure demonstrates the quantity of y increase along the trunk. User can highlight the trunk with different line size or color using the functions we described below.
+In this example, the figure demonstrates the quantity of y increase along the trunk. User can highlight the trunk with different line size or color using the functions we described below.
 
 
 ## support multiple phylogenetic classes
