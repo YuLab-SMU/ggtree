@@ -1,3 +1,9 @@
+CHANGES IN VERSION 0.99.23
+------------------------
+ o mv geom_hilight to hilight <2015-03-11, Wed>
+ o mv geom_phylopic to phylopic <2015-03-11, Wed>
+ o implement collapse_clade and expand_clade for collapse and expand a selected clade <2015-03-11, Wed> 
+ 
 CHANGES IN VERSION 0.99.22
 ------------------------
  o remove quote in beast tip/node labels <2015-03-10, Tue>
