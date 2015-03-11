@@ -72,7 +72,7 @@ download.phylopic <- function(id, size=512, color="black", alpha=1) {
 ##' @author Guangchuang Yu
 phylopic <- function(tree_view, phylopic_id,
                      size=512, color="black", alpha=0.5,
-                     node=NULL, x=NULL, y=NULL, width=NULL) {
+                     node=NULL, x=NULL, y=NULL, width=5) {
     img <- download.phylopic(phylopic_id, size, color, alpha)
     if ( is.null(node) ) {
         xmin <- ymin <- -Inf
@@ -85,10 +85,7 @@ phylopic <- function(tree_view, phylopic_id,
             x <- tree_view$data[node, "x"]
             y <- tree_view$data[node, "y"]
         }
-        if (is.null(width)) {
-            width <- 5
-        }
-        
+          
         dims <- dim(img)[1:2]
         AR <- dims[1]/dims[2]
         xmin <- x - width/2
