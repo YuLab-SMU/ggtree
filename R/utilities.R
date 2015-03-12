@@ -307,12 +307,11 @@ roundDigit <- function(d) {
 ## . function was from plyr package
 ##' capture name of variable
 ##'
-##'
 ##' @rdname dotFun
+##' @export
 ##' @title .
 ##' @param ... expression
 ##' @param .env environment
-##' @export
 ##' @return expression
 ##' @examples
 ##' x <- 1
@@ -321,15 +320,16 @@ roundDigit <- function(d) {
     structure(as.list(match.call()[-1]), env = .env, class = "quoted")
 }
 
-
 ##' pipe
+##' @importFrom magrittr %>%
+##' @name %>%
 ##' @export
 ##' @rdname pipe
 ##' @param lhs left hand side
 ##' @param rhs right hand side
-##' @source
-##' This is just the imported function
-##' from the marittr package. The documentation you should
-##' read for %>% function can be found here: \link[magrittr]{%>%}
-`%>%` <- magrittr::`%>%`
+##' @usage lhs \%>\% rhs
+##' @seealso
+##' \link[magrittr]{pipe}
+NULL
+
 
