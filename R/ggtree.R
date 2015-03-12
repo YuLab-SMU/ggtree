@@ -108,19 +108,21 @@ geom_tree <- function(layout="phylogram", color="black", linetype="solid", size=
                          xend = c(x,         x[parent]),
                          y    = c(y,         y[parent]),
                          yend = c(y,         y)),
-                     color = color,
+                     color    = color,
                      linetype = linetype,
-                     size = size, ...)
+                     size     = size,
+                     lineend  = "round", ...)
     } else if (layout == "cladogram" || layout == "unrooted") {
         geom_segment(aes(x    = x[parent],
                          xend = x,
                          y    = y[parent],
                          yend = y),
-                     color = color,
+                     color    = color,
                      linetype = linetype,
-                     size = size, ...)
+                     size     = size, ...)
     }
 }
+
 
 ##' hilight clade with rectangle
 ##'
