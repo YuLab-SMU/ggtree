@@ -3,11 +3,6 @@
 \name{\%>\%}
 \alias{\%>\%}
 \title{pipe}
-\source{
-This is just the imported function
-from the marittr package. The documentation you should
-read for %>% function can be found here: \link[magrittr]{%>%}
-}
 \usage{
 lhs \%>\% rhs
 }
@@ -18,5 +13,8 @@ lhs \%>\% rhs
 }
 \description{
 pipe
+}
+\seealso{
+\link[magrittr]{pipe}
 }
 

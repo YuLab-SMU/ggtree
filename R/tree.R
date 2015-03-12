@@ -526,7 +526,7 @@ getXYcoord_cladogram <- function(tr) {
 }
 
 
-##' @importFrom magrittr %>%
+## @importFrom magrittr %>%
 ##' @importFrom magrittr equals
 getYcoord <- function(tr, step=1) {
     Ntip <- length(tr[["tip.label"]])
