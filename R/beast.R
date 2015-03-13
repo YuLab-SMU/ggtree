@@ -97,6 +97,13 @@ setMethod("groupOTU", signature(object="beast"),
           }
           )
 
+##' @rdname groupClade-methods
+##' @exportMethod groupClade
+setMethod("groupClade", signature(object="beast"),
+          function(object, node) {
+              groupClade_(object, node)
+          })
+
 ##' @rdname scale_color-methods
 ##' @exportMethod scale_color
 setMethod("scale_color", signature(object="beast"),
