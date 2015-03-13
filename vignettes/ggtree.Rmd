@@ -540,6 +540,8 @@ ggtree(tree, layout="fan") %>% hilight(node=21, fill="steelblue", alpha=.6) %>%
      hilight(node=17, fill="darkgreen", alpha=.6)
 ```
 
+Another way to highlight selected clades is setting the clades with different colors and/or line types as demonstrated in __[`group clades`](#group-clades)__ section.
+
 ## collapse clade
 
 With _`collapse`_ function, user can collapse a selected clade.
