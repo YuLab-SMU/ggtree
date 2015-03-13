@@ -94,6 +94,7 @@ ggtree <- function(tr,
 ##' ggplot(tr) + geom_tree()
 geom_tree <- function(layout="phylogram", color="black", linetype="solid", size=0.5, ...) {
     x <- y <- parent <- NULL
+    lineend  = "round"
     if (layout == "phylogram" || layout == "fan") {
         if (length(color) != 1) {
             color <- c(color, color)
@@ -111,7 +112,7 @@ geom_tree <- function(layout="phylogram", color="black", linetype="solid", size=
                      color    = color,
                      linetype = linetype,
                      size     = size,
-                     lineend  = "round", ...)
+                     lineend  = lineend, ...)
     } else if (layout == "cladogram" || layout == "unrooted") {
         geom_segment(aes(x    = x[parent],
                          xend = x,
@@ -119,7 +120,8 @@ geom_tree <- function(layout="phylogram", color="black", linetype="solid", size=
                          yend = y),
                      color    = color,
                      linetype = linetype,
-                     size     = size, ...)
+                     size     = size,
+                     lineend  = lineend, ...)
     }
 }
 
@@ -296,13 +298,14 @@ hilight <- function(tree_view, node, fill="steelblue", alpha=0.5, ...) {
 ##' collapse a clade
 ##'
 ##' 
-##' @title collapse_clade
+##' @title collapse
 ##' @param tree_view tree view 
 ##' @param node clade node
 ##' @return tree view
 ##' @export
+##' @seealso expand
 ##' @author Guangchuang Yu
-collapse_clade <- function(tree_view, node) {
+collapse <- function(tree_view, node) {
     df <- tree_view$data
     sp <- get.offspring.df(df, node)
     sp.df <- df[sp,]
@@ -336,13 +339,14 @@ collapse_clade <- function(tree_view, node) {
 ##' expand collased clade
 ##'
 ##' 
-##' @title expand_clade
+##' @title expand
 ##' @param tree_view tree view
 ##' @param node clade node
 ##' @return tree view
 ##' @export
+##' @seealso collapse
 ##' @author Guangchuang Yu
-expand_clade <- function(tree_view, node) {
+expand <- function(tree_view, node) {
     clade <- paste0("clade_", node)
     sp.df <- attr(tree_view, clade)
     if (is.null(sp.df)) {

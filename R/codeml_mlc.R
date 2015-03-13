@@ -39,6 +39,15 @@ setMethod("groupOTU", signature(object="codeml_mlc"),
           }
           )
 
+##' @rdname groupClade-methods
+##' @exportMethod groupClade
+setMethod("groupClade", signature(object="codeml_mlc"),
+          function(object, node) {
+              groupClade_(object, node)
+          }
+          )
+
+
 ##' @rdname scale_color-methods
 ##' @exportMethod scale_color
 setMethod("scale_color", signature(object="codeml_mlc"),

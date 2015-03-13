@@ -41,6 +41,9 @@ scale_color_ <- function(phylo, by, low=NULL, high=NULL, na.color=NULL, default.
     return(df$color)
 }
 
+groupClade_ <- function(object, node) {
+    groupClade.phylo(get.tree(object), node)
+}
 
 groupOTU_ <- function(object, focus) {
     groupOTU.phylo(get.tree(object), focus)

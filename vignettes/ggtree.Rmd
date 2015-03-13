@@ -29,12 +29,12 @@ knitr::opts_chunk$set(tidy = FALSE,
 
 
 ```{r echo=FALSE, results="hide", message=FALSE}
-library("ape")
 library("colorspace")
-library("ggplot2")
-library("ggtree")
 library("Biostrings")
+library("ape")
+library("ggplot2")
 library("gridExtra")
+library("ggtree")
 ```
 
 
@@ -542,19 +542,19 @@ ggtree(tree, layout="fan") %>% hilight(node=21, fill="steelblue", alpha=.6) %>%
 
 ## collapse clade
 
-With _`collapse_clade`_ function, user can collapse a selected clade.
+With _`collapse`_ function, user can collapse a selected clade.
 
 ```{r fig.width=5, fig.height=5, fig.align="center", warning=FALSE}
-cp <- ggtree(tree) %>% collapse_clade(node=21)
+cp <- ggtree(tree) %>% collapse(node=21)
 cp + geom_point(subset=.(node == 21), size=5, shape=23, fill="steelblue")
 ```
 
 ## expand collapsed clade
 
-The collapsed clade can be expanded via _`expand_clade`_ function.
+The collapsed clade can be expanded via _`expand`_ function.
 
 ```{r fig.width=5, fig.height=5, fig.align="center", warning=FALSE}
-cp %>% expand_clade(node=21)
+cp %>% expand(node=21)
 ```
 
 ## phylopic
@@ -626,7 +626,7 @@ ggtree(tree, color=cols[cls_ind], linetype=linetype[cls_ind]) +
 
 And also size:
 ```{r fig.width=5, fig.height=5, fig.align="center", warning=FALSE}
-size <- 1:5
+size <- seq(1, 3, length.out=5)
 ggtree(tree, color=cols[cls_ind], linetype=linetype[cls_ind], size=size[cls_ind]) +
       geom_text(aes(label=label), color=cols[cls_ind], hjust=-.25)
 ```
@@ -678,6 +678,24 @@ ggtree(tree_iris, color=cols[cls_ind]) %<+% species +
 
 
 This example demonstrates how the separation of the _`bionj`_ is very good with the _`setosa`_ species, but misses in labeling several _`versicolor`_ and _`virginica`_ species.
+
+## group clades
+
+As demonstrated above, _`groupOTU`_ is used for clustering related OTUs. Related OTUs are not necessarily within a clade, they can be distantly related as demonstrated in __[`iris example`](#iris-example)__. _`groupOTU`_ works fine for monophyletic (clade), polyphyletic and paraphyletic. If user wants to hilight a specific clade, we provides a more friendly function _`groupClade`_ that accept an internal node or a vector of internal nodes and return cluster index just exactly like _`groupOTU`_. User can also use _`hilight`_ function demonstrated in __[`hilight clades`](#hilight-clades)__ section for highlighting selected clades.
+
+```{r fig.width=5, fig.height=5, fig.align="center", warning=FALSE}
+idx <- groupClade(tree, node=21)
+cols <- c("black", "darkgreen")[idx]
+lty <- c("solid", "dashed")[idx]
+ggtree(tree, color=cols, linetype=lty)
+```
+
+```{r fig.width=5, fig.height=5, fig.align="center", warning=FALSE}
+idx <- groupClade(tree, node=c(21, 17))
+cols <- c("black", "darkgreen", "firebrick")[idx]
+lty <- c("solid", "dashed", "dotted")[idx]
+ggtree(tree, color=cols, linetype=lty)
+```
 
 
 ## visualize tree with associated matrix

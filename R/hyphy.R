@@ -97,6 +97,14 @@ setMethod("groupOTU", signature(object="hyphy"),
           }
           )
 
+##' @rdname groupClade-methods
+##' @exportMethod groupClade
+setMethod("groupClade", signature(object="hyphy"),
+          function(object, node) {
+              groupClade_(object, node)
+          }
+          )
+
 ##' @rdname scale_color-methods
 ##' @exportMethod scale_color
 setMethod("scale_color", signature(object="hyphy"),
