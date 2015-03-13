@@ -40,6 +40,27 @@ groupOTU.phylo <- function(phy, focus) {
     attr(phy, "focus")
 }
 
+##' @rdname groupClade-methods
+##' @exportMethod groupClade
+setMethod("groupClade", signature(object="phylo"),
+          function(object, node) {
+              groupClade.phylo(object, node)
+          })
+
+groupClade.phylo <- function(object, node) {
+    if (length(node) == 1) {
+        clade <- extract.clade(object, node)
+        tips <- clade$tip.label
+    } else {
+        tips <- lapply(node, function(x) {
+            clade <- extract.clade(object, x)
+            clade$tip.label
+        })
+    }
+    
+    groupOTU.phylo(object, tips)
+}
+
 
 ##' @rdname gzoom-methods
 ##' @exportMethod gzoom

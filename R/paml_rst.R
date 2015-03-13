@@ -76,6 +76,14 @@ setMethod("groupOTU", signature(object="paml_rst"),
           }
           )
 
+##' @rdname groupClade-methods
+##' @exportMethod groupClade
+setMethod("groupClade", signature(object="paml_rst"),
+          function(object, node) {
+              groupClade_(object, node)
+          }
+          )
+
 ##' @rdname scale_color-methods
 ##' @exportMethod scale_color
 setMethod("scale_color", signature(object="paml_rst"),

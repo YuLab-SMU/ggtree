@@ -1,3 +1,7 @@
+CHANGES IN VERSION 0.99.25
+------------------------
+ o implement groupClade <2015-03-13, Fri>
+ 
 CHANGES IN VERSION 0.99.24
 ------------------------
  o use "round" segment end, look very better <2015-03-12, Thu>
@@ -7,7 +11,7 @@ CHANGES IN VERSION 0.99.23
 ------------------------
  o mv geom_hilight to hilight <2015-03-11, Wed>
  o mv geom_phylopic to phylopic <2015-03-11, Wed>
- o implement collapse_clade and expand_clade for collapse and expand a selected clade <2015-03-11, Wed> 
+ o implement collapse and expand for collapse and expand a selected clade <2015-03-11, Wed> 
  
 CHANGES IN VERSION 0.99.22
 ------------------------
