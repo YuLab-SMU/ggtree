@@ -68,9 +68,19 @@ setMethod("plot", signature( x= "beast"),
                   p <- p + xlim(-offset, max(p$data$x) + offset)
               }
               if (!is.null(annotation) && !is.na(annotation)) {
+                  if (position == "node") {
+                      position <- "x"
+                      vjust <- 0
+                      hjust <- -.05
+                  } else {
+                      vjust <- -.5
+                      hjust <- 0
+                  }
+                  
                   p <- p + geom_text(aes_string(x=position,
                                                 label=annotation),
-                                     size=annotation.size, vjust=-.5,
+                                     size=annotation.size,
+                                     vjust= vjust, hjust = hjust,
                                      color=annotation.color)
               }
               p + theme_tree2()
