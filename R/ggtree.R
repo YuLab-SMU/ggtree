@@ -163,12 +163,12 @@ geom_hilight <- function(tree_object, node, ...) {
 ##' require(ape)
 ##' tr <- rtree(10)
 ##' ggtree(tr) + geom_tiplab()
-geom_tiplab <- function(align=FALSE, hjust=-.25, ...) {
+geom_tiplab <- function(align=FALSE, hjust=0, ...) {
     x <- y <- label <- isTip <- NULL
     if (align == TRUE) {
-        geom_text(aes(x=max(x), label=label), subset=.(isTip), hjust=hjust, ...)
+        geom_text(aes(x=max(x)+ diff(range(x))/200, label=label), subset=.(isTip), hjust=hjust, ...)
     } else {
-        geom_text(aes(label=label), subset=.(isTip), hjust=hjust, ...)
+        geom_text(aes(x = x + diff(range(x))/200, label=label), subset=.(isTip), hjust=hjust, ...)
     }
 }
 

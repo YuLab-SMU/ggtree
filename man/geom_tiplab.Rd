@@ -4,7 +4,7 @@
 \alias{geom_tiplab}
 \title{geom_tiplab}
 \usage{
-geom_tiplab(align = FALSE, hjust = -0.25, ...)
+geom_tiplab(align = FALSE, hjust = 0, ...)
 }
 \arguments{
 \item{align}{align tip lab or not, logical}
