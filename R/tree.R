@@ -441,8 +441,7 @@ getNodes_by_postorder <- function(tree) {
 getXcoord2 <- function(x, root, parent, child, len, start=0, rev=FALSE) {
     x[root] <- start
     x[-root] <- NA  ## only root is set to start, by default 0
-    len[root] <- 0
-    
+        
     currentNode <- root
     direction <- 1
     if (rev == TRUE) {

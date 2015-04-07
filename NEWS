@@ -1,3 +1,7 @@
+CHANGES IN VERSION 0.99.27
+------------------------
+ o bug fixed, see https://github.com/GuangchuangYu/ggtree/issues/4 <2015-03-07, Tue>
+
 CHANGES IN VERSION 0.99.26
 ------------------------
  o update geom_tiplab <2015-03-31, Tue>
