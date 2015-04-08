@@ -1,3 +1,7 @@
+CHANGES IN VERSION 0.99.28
+------------------------
+ o update vignette with floating table of content <2015-04-08, Wed>
+ 
 CHANGES IN VERSION 0.99.27
 ------------------------
  o bug fixed, see https://github.com/GuangchuangYu/ggtree/issues/4 <2015-03-07, Tue>

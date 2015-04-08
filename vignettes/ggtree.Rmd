@@ -13,6 +13,7 @@ csl: nature.csl
 output: 
   BiocStyle::html_document:
     toc: true
+    css: toc.css
   BiocStyle::pdf_document:
     toc: true
 vignette: >
@@ -21,7 +22,7 @@ vignette: >
   %\usepackage[utf8]{inputenc}
 ---
 
-```{r style, echo=FALSE, results="hide", message=FALSE}
+```{r style, echo=FALSE, results="asis", message=FALSE}
 BiocStyle::markdown()
 knitr::opts_chunk$set(tidy = FALSE,
 		   message = FALSE)
