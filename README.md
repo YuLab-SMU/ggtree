@@ -9,7 +9,7 @@ The `ggtree` package extending the `ggplot2` package. It based on grammar of gra
 
 ## Authors ##
 
-Guangchuang YU, School of Public Health, The University of Hong Kong [http://ygc.name](http://ygc.name)
+Guangchuang Yu and Tommy Tsan-Yuk Lam, School of Public Health, The University of Hong Kong.
 
 ## License ##
 
