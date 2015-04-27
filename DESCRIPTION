@@ -1,8 +1,8 @@
 Package: ggtree
 Type: Package
 Title: a phylogenetic tree viewer for different types of tree annotations
-Version: 1.1.0
-Author: Guangchuang Yu
+Version: 1.1.1
+Author: Guangchuang Yu and Tommy Tsan-Yuk Lam
 Maintainer: Guangchuang Yu <guangchuangyu@gmail.com>
 Description: ggtree extends the ggplot2 plotting system which implemented the
     grammar of graphics. ggtree is designed for visualizing phylogenetic tree

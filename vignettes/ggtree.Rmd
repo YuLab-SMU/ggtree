@@ -2,9 +2,7 @@
 title: "ggtree: a phylogenetic tree viewer for different types of tree annotations"
 author: "\\
 
-	Guangchuang Yu\\
-
-	<guangchuangyu@gmail.com>\\
+	Guangchuang Yu (<guangchuangyu@gmail.com>) and Tommy Tsan-Yuk Lam (<ttylam@hku.hk>)\\
 
         School of Public Health, The University of Hong Kong"
 date: "`r Sys.Date()`"
