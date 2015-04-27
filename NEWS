@@ -1,6 +1,6 @@
 CHANGES IN VERSION 1.1.1
 ------------------------
- o update parsing beast time scale tree to support only _year (originally supports _year.\\d+) <2015-04-27, Mon>
+ o update parsing beast time scale tree to support _year (originally supports _year.\\d+) <2015-04-27, Mon>
  o add Tommy in author <2015-04-27, Mon>
  
 CHANGES IN VERSION 0.99.28
