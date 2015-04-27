@@ -156,7 +156,8 @@ read.phylo_paml_rst <- function(rstfile) {
     node.length <- data.frame(label=label,
                               length=tr1$edge.length)
 
-    node.length$node <- sub("_\\w+", "", node.length$label)
+    ## node.length$node <- sub("_\\w+", "", node.length$label
+    node.length$node <- gsub("^(\\d+)_.*", "\\1", node.length$label)
     node.length$label %<>% sub("\\d+_", "", .)
     
     edge <- as.data.frame(edge)
