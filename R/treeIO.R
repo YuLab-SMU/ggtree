@@ -198,7 +198,7 @@ fortify.beast <- function(model, data,
 }
 
 scaleX_by_time <- function(df) {
-    time <- with(df, gsub(".*_(\\d+\\.\\d+)", "\\1", label[isTip])) %>% as.numeric
+    time <- with(df, gsub(".*_(\\d+\\.*\\d+)$", "\\1", label[isTip])) %>% as.numeric
     latest <- which.max(time)
     df$x <- df$x + time[latest] - max(df$x)
     return(df)
