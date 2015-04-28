@@ -293,7 +293,7 @@ If you remember the _`%<%`_ operator introduced in [`update tree viewing with a 
 In last session, we use _`rstfile`_ of _`BASEML`_ to build a tree view with amino acid substitution annotated. The following example use another _`rstfile`_ from _`CODEML`_ to update the tree view.
 ```{r fig.width=8, width=60, warning=FALSE, fig.align="center"}
 rstfile <- system.file("extdata/PAML_Codeml", "rst", package="ggtree")
-rst <- read.paml_rst(rstfile, tipfas)
+rst <- read.paml_rst(rstfile)
 p %<% rst
 ```
 
@@ -358,6 +358,7 @@ plot(ml, branch.length="dN", annotation="joint_AA_subs", annotation.color="darkg
 ```{r}
 nwk <- system.file("extdata/HYPHY", "labelledtree.tree", package="ggtree")
 ancseq <- system.file("extdata/HYPHY", "ancseq.nex", package="ggtree")
+tipfas <- system.file("extdata", "pa.fas", package="ggtree")
 hy <- read.hyphy(nwk, ancseq, tipfas)
 hy
 ```

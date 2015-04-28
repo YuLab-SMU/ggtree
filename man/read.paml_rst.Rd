@@ -8,8 +8,6 @@ read.paml_rst(rstfile)
 }
 \arguments{
 \item{rstfile}{rst file}
-
-\item{tip.fasfile}{fasta file of tips}
 }
 \value{
 A \code{paml_rst} object

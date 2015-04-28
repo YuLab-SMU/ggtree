@@ -24,7 +24,6 @@ read.baseml <- function(rstfile, mlbfile) {
 ##' @importFrom Biostrings toString
 ##' @title read.paml_rst
 ##' @param rstfile rst file
-##' @param tip.fasfile fasta file of tips
 ##' @return A \code{paml_rst} object
 ##' @export
 ##' @author Guangchuang Yu \url{http://ygc.name}
@@ -109,12 +108,12 @@ setMethod("get.tipseq", signature(object="paml_rst"),
 setMethod("show", signature(object = "paml_rst"),
           function(object) {
               cat("'paml_rst' S4 object that stored information of\n\t",
-                  paste0("'", object@rstfile, "'"))
-              if (length(object@tip.fasfile) != 0) {
-                  cat(paste0(" and \n\t'", object@tip.fasfile, "'.\n\n"))
-              } else {
-                  cat(".\n\n")
-              }
+                  paste0("'", object@rstfile, "'.\n\n"))
+              ## if (length(object@tip.fasfile) != 0) {
+              ##     cat(paste0(" and \n\t'", object@tip.fasfile, "'.\n\n"))
+              ## } else {
+              ##     cat(".\n\n")
+              ## }
               cat("...@ tree:")
               print.phylo(get.tree(object))                  
               cat("\nwith the following features available:\n")
