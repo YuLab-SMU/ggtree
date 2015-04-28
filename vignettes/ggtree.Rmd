@@ -269,14 +269,13 @@ _`rst`_ file from _`baseml`_ is similar to _`codeml`_ output. The only differenc
 
 ```{r}
 rstfile <- system.file("extdata/PAML_Baseml", "rst", package="ggtree")
-tipfas <- system.file("extdata", "pa.fas", package="ggtree")
-rst <- read.paml_rst(rstfile, tipfas)
+rst <- read.paml_rst(rstfile)
 rst
 ```
 
-The function _`read.paml_rst`_ can accept only one parameter, _`rstfile`_, and the output can be used to view the phylogeny. But if we want to view the substitution annotation, we should provide tip sequence fasta file to parameter _`tip.fasfile`_, since _`rstfile`_ only contain inferred ancestral sequences.
+The function _`read.paml_rst`_ can accept only one parameter, _`rstfile`_, and the output can be used to view the phylogeny and the substitution annotation.
 
-_`mlb`_ file of _`baseml`_ output do contain tip sequences, and `r Githubpkg("GuangchuangYu/ggtree")` provides another function _`read.baseml`_ to parse _`rstfile`_ and _`mlbfile`_ simultaneously.
+`r Githubpkg("GuangchuangYu/ggtree")` provides another function _`read.baseml`_ to parse _`rstfile`_ and _`mlbfile`_ simultaneously.
 
 So for viewing substitution annotation, we can use _`read.paml_rst`_ with _`rstfile`_ and _`tip.fasfile`_ provided or use _`read.baseml`_ with _`rstfile`_ and _`mlbfile`_ provided.
 

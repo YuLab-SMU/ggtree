@@ -31,7 +31,7 @@ read.baseml <- function(rstfile, mlbfile) {
 ##' @examples
 ##' rstfile <- system.file("extdata/PAML_Baseml", "rst", package="ggtree")
 ##' read.paml_rst(rstfile)
-read.paml_rst <- function(rstfile, tip.fasfile = NULL) {
+read.paml_rst <- function(rstfile) {
     ms <- read.ancseq_paml_rst(rstfile, by="Marginal")
     phylo <- read.phylo_paml_rst(rstfile)
     ## class(phylo) <- "list"
@@ -49,14 +49,16 @@ read.paml_rst <- function(rstfile, tip.fasfile = NULL) {
                joint_ancseq    = read.ancseq_paml_rst(rstfile, by = "Joint"),
                rstfile = rstfile
                )
-    if (!is.null(tip.fasfile)) {
-        seqs <- readBStringSet(tip.fasfile)
-        tip_seq <- sapply(seq_along(seqs), function(i) {
-            toString(seqs[i])
-        })
-        res@tip_seq <- tip_seq
-        res@tip.fasfile <- tip.fasfile
-    }
+    ## if (!is.null(tip.fasfile)) {
+    ##     seqs <- readBStringSet(tip.fasfile)
+    ##     tip_seq <- sapply(seq_along(seqs), function(i) {
+    ##         toString(seqs[i])
+    ##     })
+    ##     res@tip_seq <- tip_seq
+    ##     res@tip.fasfile <- tip.fasfile
+    ## }
+    res@tip_seq <- ms[names(ms) %in% phylo$tip.label]
+    
     set.paml_rst_(res)
 }
 

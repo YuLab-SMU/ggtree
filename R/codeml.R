@@ -12,9 +12,9 @@
 ##' mlcfile <- system.file("extdata/PAML_Codeml", "mlc", package="ggtree")
 ##' read.codeml(rstfile, mlcfile) 
 read.codeml <- function(rstfile, mlcfile) {
-    rst = read.paml_rst(rstfile)
-    mlc = read.codeml_mlc(mlcfile)
-    rst@tip_seq <- mlc@tip_seq
+    rst <- read.paml_rst(rstfile)
+    mlc <- read.codeml_mlc(mlcfile)
+    ## rst@tip_seq <- mlc@tip_seq
     new("codeml",
         rst = set.paml_rst_(rst),
         mlc = mlc

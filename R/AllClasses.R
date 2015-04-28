@@ -62,7 +62,6 @@ setClass("hyphy",
 ##' @slot joint_subs sequence substitutions based on joint_ancseq
 ##' @slot marginal_AA_subs Amino acid sequence substitutions based on marginal_ancseq
 ##' @slot joint_AA_subs Amino acid sequence substitutions based on joint_ancseq
-##' @slot tip.fasfile fasta file of tip sequences
 ##' @slot rstfile rst file
 ##' @slot extraInfo extra information
 ##' @exportClass paml_rst
@@ -82,7 +81,6 @@ setClass("paml_rst",
              joint_subs       = "data.frame",
              marginal_AA_subs = "data.frame",
              joint_AA_subs    = "data.frame",
-             tip.fasfile      = "character",
              rstfile          = "character",
              extraInfo        = "data.frame"
          )
