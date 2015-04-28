@@ -15,11 +15,11 @@ get.fields(object, ...)
 
 \S4method{get.fields}{beast}(object, ...)
 
-\S4method{get.fields}{codeml}(object)
+\S4method{get.fields}{codeml}(object, ...)
 
 \S4method{get.fields}{codeml_mlc}(object)
 
-\S4method{get.fields}{hyphy}(object)
+\S4method{get.fields}{hyphy}(object, ...)
 
 get.fields(object, ...)
 

@@ -33,6 +33,8 @@ This class stores information of HYPHY output
 \item{\code{tree.file}}{tree file}
 
 \item{\code{ancseq.file}}{ancestral sequence file, nexus format}
+
+\item{\code{extraInfo}}{extra information}
 }}
 \author{
 Guangchuang Yu \url{http://ygc.name}
