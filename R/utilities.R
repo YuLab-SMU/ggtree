@@ -121,6 +121,12 @@ get.subs_ <- function(tree, fasta, translate=TRUE, removeGap=TRUE) {
         if (is.null(res)) {
             return('')
         }
+        if (nchar(res) > 50) {
+            idx <- gregexpr("/", res)[[1]]
+            i <- idx[floor(length(idx)/2)]
+            res <- paste0(substring(res, 1, i-1), "\n", substring(res, i+1))
+        }
+        
         return(res)
     })
     
