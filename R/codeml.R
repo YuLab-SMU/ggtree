@@ -99,10 +99,8 @@ setMethod("get.subs", signature(object = "codeml"),
 ##' @rdname get.fields-methods
 ##' @exportMethod get.fields
 setMethod("get.fields", signature(object="codeml"),
-          function(object) {
-              fields <- c(get.fields(object@rst),
-                          get.fields(object@mlc))
-              return(unique(fields))
+          function(object, ...) {
+              get.fields.tree(object)
           }
           )
 

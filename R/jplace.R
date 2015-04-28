@@ -159,7 +159,7 @@ setMethod("get.treetext", signature(object = "jplace"),
 ##' get.fields(jp)
 setMethod("get.fields", signature(object = "jplace"),
           function(object, ...) {
-              object@fields
+              get.fields.tree(object)
           }
           )
 

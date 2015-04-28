@@ -79,7 +79,7 @@ setMethod("show", signature(object = "codeml_mlc"),
 ##' @exportMethod get.fields
 setMethod("get.fields", signature(object = "codeml_mlc"),
           function(object) {
-              object@fields
+              get.fields.tree(object)
           })
 
 ##' @rdname plot-methods

@@ -24,6 +24,8 @@ This class stores information of beast output
 \item{\code{stats}}{beast statistics}
 
 \item{\code{file}}{beast file, nexus format}
+
+\item{\code{extraInfo}}{extra information}
 }}
 \author{
 Guangchuang Yu \url{http://ygc.name}

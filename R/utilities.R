@@ -1,5 +1,35 @@
+has.slot <- function(object, slotName) {
+    if (!isS4(object)) {
+        return(FALSE)
+    }
+    
+    slot <- tryCatch(slot(object, slotName), error=function(e) NULL)
+    ! is.null(slot)
+}
+
+get.fields.tree <- function(object) {
+    if (is(object, "codeml")) {
+        fields <- c(get.fields(object@rst),
+                    get.fields(object@mlc))
+        fields <- unique(fields)
+    } else {
+        fields <- object@fields
+    }
+    
+    if (has.slot(object, "extraInfo")) {
+        extraInfo <- object@extraInfo
+        if (nrow(extraInfo) > 0) {
+            cn <- colnames(extraInfo)
+            i <- match(c("x", "y", "isTip", "node", "parent", "label", "branch", "branch.length"), cn)
+            i <- i[!is.na(i)]
+            fields %<>% c(cn[-i])
+        }
+    }
+    return(fields)
+}
+
 print_fields <- function(object, len=5) {
-    fields <- get.fields(object)
+    fields <- get.fields(object)    
     n <- length(fields)
     i <- floor(n/len)
     for (j in 0:i) {
@@ -209,6 +239,7 @@ is.tree <- function(x) {
                         "baseml",
                         "paml_rst",
                         "baseml_mlc",
+                        "codeml",
                         "hyphy",
                         "beast")
         ) {

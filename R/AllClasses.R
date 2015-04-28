@@ -183,6 +183,7 @@ setClass("jplace",
 ##' @slot translation tip number to name translation in beast file
 ##' @slot stats beast statistics
 ##' @slot file beast file, nexus format
+##' @slot extraInfo extra information
 ##' @exportClass beast
 ##' @author Guangchuang Yu \url{http://ygc.name}
 ##' @seealso \code{\link{show}} \code{\link{get.fields}}
@@ -195,6 +196,7 @@ setClass("beast",
              phylo       = "phylo",
              translation = "matrix",
              stats       = "data.frame",
-             file        = "character"
+             file        = "character",
+             extraInfo   = "data.frame"
              )
          )

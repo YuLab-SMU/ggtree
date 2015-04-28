@@ -129,7 +129,7 @@ setMethod("get.fields", signature(object = "paml_rst"),
               if (length(object@tip_seq) == 0) {
                   warning("tip sequence not available...\n")
               } else {
-                  object@fields
+                  get.fields.tree(object)
               }
           }
           )
