@@ -1,5 +1,6 @@
 CHANGES IN VERSION 1.1.2
 ------------------------
+ o update gplot, now rowname of heatmap will not be displayed <2015-04-28, Tue>
  o add line break if substitution longer than 50 character <2015-04-28, Tue>
  o upport calculating branch for time scale tree <2015-04-28, Tue>
  o remove parsing tip sequence from mlb and mlc file <2015-04-28, Tue>
