@@ -1,15 +1,30 @@
 
 ##' @importFrom colorspace rainbow_hcl
-scale_color_ <- function(phylo, by, low=NULL, high=NULL, na.color=NULL, default.color="grey") {
-    if (!is.null(low) & ! is.null(high)) {
-        cols <- color_scale(c(low, high))
-    } else {
-        cols <- rainbow_hcl(100)
-    }
-    df <- fortify(phylo)
-    
+scale_color_ <- function(phylo, by, low=NULL, high=NULL, na.color=NULL, default.color="darkgrey", interval=NULL) {
+    df <- fortify(phylo)    
     vals <- df[, by]
-    idx <- sapply(vals, getIdx, min(vals, na.rm=TRUE), max(vals, na.rm=TRUE))
+
+    MIN=min(vals, na.rm=TRUE)
+    MAX=max(vals, na.rm=TRUE)
+
+    if (is.null(interval)) {
+        interval <- seq(MIN, MAX, length.out=100)
+    }
+    n <- length(interval)
+    
+    if (!is.null(low) & ! is.null(high)) {
+        cols <- color_scale(low, high, n)
+    } else {
+        cols <- rainbow_hcl(n)
+    }
+
+    ## if (by == "dN_vs_dS") {
+    ##     interval <- seq(0, 1.5, length.out = 100)
+    ## } 
+
+    idx <- getIdx(vals, MIN=MIN, MAX=MAX, interval=interval)
+    interval <- attr(idx, "interval")
+    
     df$color <- cols[idx]
 
     tree <- get.tree(phylo)
@@ -38,7 +53,10 @@ scale_color_ <- function(phylo, by, low=NULL, high=NULL, na.color=NULL, default.
     }
 
     ## cols[is.na(cols)] <- "grey"
-    return(df$color)
+    color <- df$color
+
+    attr(color, "scale") <- list(interval=interval, color=cols)
+    return(color)
 }
 
 groupClade_ <- function(object, node) {

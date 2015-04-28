@@ -281,21 +281,27 @@ is.tree <- function(x) {
 
 
 
-color_scale <- function(c1="grey", c2="red") {
+color_scale <- function(c1="grey", c2="red", n=100) {
     pal <- colorRampPalette(c(c1, c2))
-    colors <- pal(100)
+    colors <- pal(n)
     return(colors)
 }
 
-getIdx <- function(v, MIN, MAX) {
+getIdx <- function(v, MIN, MAX, interval=NULL) {
+    res <- sapply(v, getIdx_internal, MIN=MIN, MAX=MAX, interval=interval)
+    attr(res, "interval") <- interval
+    return(res)
+}
+
+getIdx_internal <- function(v, MIN, MAX, interval=NULL) {
     if (is.na(v)) {
         return(NA)
     }
     if ( MIN == MAX ) {
         return(100)
     }
-    intervals <- seq(MIN, MAX, length.out=100)
-    max(which(intervals <= v))
+    res <- max(which(interval <= v))
+    return(res)
 }
 
 

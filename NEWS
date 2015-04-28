@@ -1,5 +1,6 @@
 CHANGES IN VERSION 1.1.2
 ------------------------
+ o scale_color accepts user specific interval and output contains 'scale' attribute that can be used for adding legend <2015-04-28, Tue>
  o extend fortify methods to support additional fields <2015-04-28, Tue>
  o extend get.fields methods to support additional fields <2015-04-28, Tue>
  o extend tree class to support additional info by merging two tree <2015-04-28, Tue>
