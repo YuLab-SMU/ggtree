@@ -1,5 +1,6 @@
 CHANGES IN VERSION 1.1.2
 ------------------------
+ o remove parsing tip sequence from mlb and mlc file <2015-04-28, Tue>
  o remove tip.fasfile in read.paml_rst for rstfile already contains tip sequence <2015-04-28, Tue>
  o scale_color accepts user specific interval and output contains 'scale' attribute that can be used for adding legend <2015-04-28, Tue>
  o extend fortify methods to support additional fields <2015-04-28, Tue>

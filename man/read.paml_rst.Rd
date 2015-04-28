@@ -4,7 +4,7 @@
 \alias{read.paml_rst}
 \title{read.paml_rst}
 \usage{
-read.paml_rst(rstfile, tip.fasfile = NULL)
+read.paml_rst(rstfile)
 }
 \arguments{
 \item{rstfile}{rst file}

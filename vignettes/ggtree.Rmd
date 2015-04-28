@@ -275,24 +275,9 @@ rst
 
 The function _`read.paml_rst`_ can accept only one parameter, _`rstfile`_, and the output can be used to view the phylogeny and the substitution annotation.
 
-`r Githubpkg("GuangchuangYu/ggtree")` provides another function _`read.baseml`_ to parse _`rstfile`_ and _`mlbfile`_ simultaneously.
-
-So for viewing substitution annotation, we can use _`read.paml_rst`_ with _`rstfile`_ and _`tip.fasfile`_ provided or use _`read.baseml`_ with _`rstfile`_ and _`mlbfile`_ provided.
-
-```{r}
-mlbfile <- system.file("extdata/PAML_Baseml", "mlb", package="ggtree")
-baseml <- read.baseml(rstfile, mlbfile)
-baseml
-```
-
 ```{r fig.width=10, fig.height=8, width=60, warning=FALSE}
 p <- plot(rst, annotation="marginal_AA_subs", annotation.color="steelblue")
 print(p)
-```
-
-The following command will generate the same figure.
-```{r eval=FALSE}
-plot(baseml, annotation="marginal_AA_subs", annotation.color="steelblue")
 ```
 
 ### CODEML

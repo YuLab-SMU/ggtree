@@ -96,8 +96,6 @@ setClass("paml_rst",
 ##' @slot treetext tree text
 ##' @slot phylo phylo object
 ##' @slot dNdS dN dS information
-##' @slot seq_type one of "NT" and "AA"
-##' @slot tip_seq sequences of tips
 ##' @slot mlcfile mlc file
 ##' @slot extraInfo extra information
 ##' @exportClass codeml_mlc
@@ -110,8 +108,8 @@ setClass("codeml_mlc",
              treetext   = "character",
              phylo      = "phylo",
              dNdS       = "matrix",
-             seq_type   = "character",
-             tip_seq    = "character",
+             ## seq_type   = "character",
+             ## tip_seq    = "character",
              mlcfile    = "character",
              extraInfo  = "data.frame"
              )

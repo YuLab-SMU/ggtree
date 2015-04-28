@@ -20,10 +20,6 @@ This class stores information of mlc file frm codeml output
 
 \item{\code{dNdS}}{dN dS information}
 
-\item{\code{seq_type}}{one of "NT" and "AA"}
-
-\item{\code{tip_seq}}{sequences of tips}
-
 \item{\code{mlcfile}}{mlc file}
 
 \item{\code{extraInfo}}{extra information}

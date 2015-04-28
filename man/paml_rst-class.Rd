@@ -36,8 +36,6 @@ This class stores information of rst file from PAML output
 
 \item{\code{joint_AA_subs}}{Amino acid sequence substitutions based on joint_ancseq}
 
-\item{\code{tip.fasfile}}{fasta file of tip sequences}
-
 \item{\code{rstfile}}{rst file}
 
 \item{\code{extraInfo}}{extra information}

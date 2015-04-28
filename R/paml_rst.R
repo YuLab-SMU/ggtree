@@ -13,7 +13,7 @@
 ##' read.baseml(rstfile, mlbfile)
 read.baseml <- function(rstfile, mlbfile) {
     res <- read.paml_rst(rstfile)
-    res@tip_seq <- read.tip_seq_mlb(mlbfile)
+    ## res@tip_seq <- read.tip_seq_mlb(mlbfile)
     set.paml_rst_(res)
 }
 
