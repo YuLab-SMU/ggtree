@@ -7,6 +7,37 @@ has.slot <- function(object, slotName) {
     ! is.null(slot)
 }
 
+has.extraInfo <- function(object) {
+    if (!is.tree(object)) {
+        return(FALSE)
+    }
+
+    if (! has.slot(object, "extraInfo")) {
+        return(FALSE)
+    }
+
+    extraInfo <- object@extraInfo
+
+    if (nrow(extraInfo) > 0) {
+        return(TRUE)
+    }
+
+    return(FALSE)        
+}
+
+append_extraInfo <- function(df, object) {
+    if (has.extraInfo(object)) {
+        info <- object@extraInfo
+        res <- merge(df, info, by.x=c("node", "parent"), by.y=c("node", "parent"))
+    } else {
+        res <- df
+    }
+
+    i <- order(res$node, decreasing = FALSE)
+    res <- res[i,]
+    return(res)
+}
+
 get.fields.tree <- function(object) {
     if (is(object, "codeml")) {
         fields <- c(get.fields(object@rst),

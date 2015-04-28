@@ -193,8 +193,8 @@ fortify.beast <- function(model, data,
     if (time_scale) {
         df <- scaleX_by_time(df)
     }
-    
-    return(df)
+
+    append_extraInfo(df, model)
 }
 
 scaleX_by_time <- function(df) {
@@ -243,7 +243,8 @@ fortify.codeml <- function(model, data,
     
     res <- merge_phylo_anno.codeml_mlc(df, dNdS, ndigits)
     df <- merge_phylo_anno.paml_rst(res, model@rst)
-    scaleY(phylo, df, yscale, layout, ...)
+    df <- scaleY(phylo, df, yscale, layout, ...)
+    append_extraInfo(df, model)
 }
 
 
@@ -266,7 +267,8 @@ fortify.codeml_mlc <- function(model, data,
     dNdS <- model@dNdS
 
     df <- merge_phylo_anno.codeml_mlc(df, dNdS, ndigits)
-    scaleY(phylo, df, yscale, layout, ...)
+    df <- scaleY(phylo, df, yscale, layout, ...)
+    append_extraInfo(df, model)
 }
 
 merge_phylo_anno.codeml_mlc <- function(df, dNdS, ndigits = NULL) {
@@ -320,7 +322,8 @@ fortify.paml_rst <- function(model, data, layout = "phylogram", yscale="none",
                              ladderize=TRUE, right=FALSE, ...) {
     df <- fortify.phylo(model@phylo, data, layout, ladderize, right, ...)
     df <- merge_phylo_anno.paml_rst(df, model)
-    scaleY(model@phylo, df, yscale, layout, ...)
+    df <- scaleY(model@phylo, df, yscale, layout, ...)
+    append_extraInfo(df, model)
 }
 
 merge_phylo_anno.paml_rst <- function(df, model) {
@@ -349,7 +352,9 @@ fortify.jplace <- function(model, data,
 
     df <- df %add2% place
 
-    scaleY(model@phylo, df, yscale, layout, ...)
+    df <- scaleY(model@phylo, df, yscale, layout, ...)
+
+    append_extraInfo(df, model)    
 }
 
 scaleY <- function(phylo, df, yscale, layout, ...) {
