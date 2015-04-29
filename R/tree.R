@@ -739,7 +739,8 @@ getYcoord_scale_numeric <- function(tr, df, yscale, ...) {
             }
             idx <- which(is.na(yy[parent]))
             if (length(idx) > 0) {
-                yy[parent[idx]] <- yy[curNode]
+                child <- getChild(tree, parent)
+                yy[parent[idx]] <- mean(yy[child], na.rm=TRUE)
             }
         }
     }
