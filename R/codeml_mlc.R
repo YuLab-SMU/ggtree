@@ -10,7 +10,7 @@
 ##' mlcfile <- system.file("extdata/PAML_Codeml", "mlc", package="ggtree")
 ##' read.codeml_mlc(mlcfile)
 read.codeml_mlc <- function(mlcfile) {
-    tip_seq <- read.tip_seq_mlc(mlcfile)
+    ## tip_seq <- read.tip_seq_mlc(mlcfile)
     dNdS <- read.dnds_mlc(mlcfile)
     
     new("codeml_mlc",
@@ -18,8 +18,8 @@ read.codeml_mlc <- function(mlcfile) {
         treetext = read.treetext_paml_mlc(mlcfile),
         phylo    = read.phylo_paml_mlc(mlcfile),
         dNdS     = dNdS,
-        seq_type = get_seqtype(tip_seq),
-        tip_seq  = tip_seq,
+        ## seq_type = get_seqtype(tip_seq),
+        ## tip_seq  = tip_seq,
         mlcfile  = mlcfile)
 }
 
@@ -79,7 +79,7 @@ setMethod("show", signature(object = "codeml_mlc"),
 ##' @exportMethod get.fields
 setMethod("get.fields", signature(object = "codeml_mlc"),
           function(object) {
-              object@fields
+              get.fields.tree(object)
           })
 
 ##' @rdname plot-methods

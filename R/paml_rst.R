@@ -13,7 +13,7 @@
 ##' read.baseml(rstfile, mlbfile)
 read.baseml <- function(rstfile, mlbfile) {
     res <- read.paml_rst(rstfile)
-    res@tip_seq <- read.tip_seq_mlb(mlbfile)
+    ## res@tip_seq <- read.tip_seq_mlb(mlbfile)
     set.paml_rst_(res)
 }
 
@@ -24,14 +24,13 @@ read.baseml <- function(rstfile, mlbfile) {
 ##' @importFrom Biostrings toString
 ##' @title read.paml_rst
 ##' @param rstfile rst file
-##' @param tip.fasfile fasta file of tips
 ##' @return A \code{paml_rst} object
 ##' @export
 ##' @author Guangchuang Yu \url{http://ygc.name}
 ##' @examples
 ##' rstfile <- system.file("extdata/PAML_Baseml", "rst", package="ggtree")
 ##' read.paml_rst(rstfile)
-read.paml_rst <- function(rstfile, tip.fasfile = NULL) {
+read.paml_rst <- function(rstfile) {
     ms <- read.ancseq_paml_rst(rstfile, by="Marginal")
     phylo <- read.phylo_paml_rst(rstfile)
     ## class(phylo) <- "list"
@@ -49,14 +48,16 @@ read.paml_rst <- function(rstfile, tip.fasfile = NULL) {
                joint_ancseq    = read.ancseq_paml_rst(rstfile, by = "Joint"),
                rstfile = rstfile
                )
-    if (!is.null(tip.fasfile)) {
-        seqs <- readBStringSet(tip.fasfile)
-        tip_seq <- sapply(seq_along(seqs), function(i) {
-            toString(seqs[i])
-        })
-        res@tip_seq <- tip_seq
-        res@tip.fasfile <- tip.fasfile
-    }
+    ## if (!is.null(tip.fasfile)) {
+    ##     seqs <- readBStringSet(tip.fasfile)
+    ##     tip_seq <- sapply(seq_along(seqs), function(i) {
+    ##         toString(seqs[i])
+    ##     })
+    ##     res@tip_seq <- tip_seq
+    ##     res@tip.fasfile <- tip.fasfile
+    ## }
+    res@tip_seq <- ms[names(ms) %in% phylo$tip.label]
+    
     set.paml_rst_(res)
 }
 
@@ -107,12 +108,12 @@ setMethod("get.tipseq", signature(object="paml_rst"),
 setMethod("show", signature(object = "paml_rst"),
           function(object) {
               cat("'paml_rst' S4 object that stored information of\n\t",
-                  paste0("'", object@rstfile, "'"))
-              if (length(object@tip.fasfile) != 0) {
-                  cat(paste0(" and \n\t'", object@tip.fasfile, "'.\n\n"))
-              } else {
-                  cat(".\n\n")
-              }
+                  paste0("'", object@rstfile, "'.\n\n"))
+              ## if (length(object@tip.fasfile) != 0) {
+              ##     cat(paste0(" and \n\t'", object@tip.fasfile, "'.\n\n"))
+              ## } else {
+              ##     cat(".\n\n")
+              ## }
               cat("...@ tree:")
               print.phylo(get.tree(object))                  
               cat("\nwith the following features available:\n")
@@ -129,7 +130,7 @@ setMethod("get.fields", signature(object = "paml_rst"),
               if (length(object@tip_seq) == 0) {
                   warning("tip sequence not available...\n")
               } else {
-                  object@fields
+                  get.fields.tree(object)
               }
           }
           )

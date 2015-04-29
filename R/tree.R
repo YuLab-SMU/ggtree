@@ -1,15 +1,30 @@
 
 ##' @importFrom colorspace rainbow_hcl
-scale_color_ <- function(phylo, by, low=NULL, high=NULL, na.color=NULL, default.color="grey") {
-    if (!is.null(low) & ! is.null(high)) {
-        cols <- color_scale(c(low, high))
-    } else {
-        cols <- rainbow_hcl(100)
-    }
-    df <- fortify(phylo)
-    
+scale_color_ <- function(phylo, by, low=NULL, high=NULL, na.color=NULL, default.color="darkgrey", interval=NULL) {
+    df <- fortify(phylo)    
     vals <- df[, by]
-    idx <- sapply(vals, getIdx, min(vals, na.rm=TRUE), max(vals, na.rm=TRUE))
+
+    MIN=min(vals, na.rm=TRUE)
+    MAX=max(vals, na.rm=TRUE)
+
+    if (is.null(interval)) {
+        interval <- seq(MIN, MAX, length.out=100)
+    }
+    n <- length(interval)
+    
+    if (!is.null(low) & ! is.null(high)) {
+        cols <- color_scale(low, high, n)
+    } else {
+        cols <- rainbow_hcl(n)
+    }
+
+    ## if (by == "dN_vs_dS") {
+    ##     interval <- seq(0, 1.5, length.out = 100)
+    ## } 
+
+    idx <- getIdx(vals, MIN=MIN, MAX=MAX, interval=interval)
+    interval <- attr(idx, "interval")
+    
     df$color <- cols[idx]
 
     tree <- get.tree(phylo)
@@ -38,7 +53,10 @@ scale_color_ <- function(phylo, by, low=NULL, high=NULL, na.color=NULL, default.
     }
 
     ## cols[is.na(cols)] <- "grey"
-    return(df$color)
+    color <- df$color
+
+    attr(color, "scale") <- list(interval=interval, color=cols)
+    return(color)
 }
 
 groupClade_ <- function(object, node) {
@@ -708,6 +726,27 @@ getYcoord_scale_numeric <- function(tr, df, yscale, ...) {
     return(df)
 }
 
+.assign_child_status <- function(tr, df, variable) {
+    yy <- df[, variable]
+    na.idx <- which(is.na(yy))
+    if (length(na.idx) > 0) {
+        tree <- get.tree(tr)
+        nodes <- rev(getNodes_by_postorder(tree))
+        for (curNode in nodes) {
+            parent <- getParent(tree, curNode)
+            if (parent == 0) { ## already reach root
+                next
+            }
+            idx <- which(is.na(yy[parent]))
+            if (length(idx) > 0) {
+                yy[parent[idx]] <- yy[curNode]
+            }
+        }
+    }
+    df[, variable] <- yy
+    return(df)
+}
+
 
 getYcoord_scale_category <- function(tr, df, yscale, yscale_mapping=NULL, ...) {
     if (is.null(yscale_mapping)) {
@@ -719,7 +758,10 @@ getYcoord_scale_category <- function(tr, df, yscale, yscale_mapping=NULL, ...) {
         stop("yscale_mapping should be a named numeric vector...")
     }
 
+    ## assign to parent status is more prefer...
     df <- .assign_parent_status(tr, df, yscale)
+    df <- .assign_child_status(tr, df, yscale)
+    
     yy <- df[, yscale]
 
     ## y <- as.numeric(factor(yy))

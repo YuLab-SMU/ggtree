@@ -18,6 +18,7 @@ setOldClass("phylo")
 ##' @slot tip.fasfile fasta file of tip sequences
 ##' @slot tree.file tree file
 ##' @slot ancseq.file ancestral sequence file, nexus format
+##' @slot extraInfo extra information
 ##' @exportClass hyphy
 ##' @author Guangchuang Yu \url{http://ygc.name}
 ##' @seealso \linkS4class{paml_rst}
@@ -34,7 +35,8 @@ setClass("hyphy",
              tip_seq     = "character",
              tip.fasfile = "character",
              tree.file   = "character",
-             ancseq.file = "character"
+             ancseq.file = "character",
+             extraInfo   = "data.frame"
              )
          )
 
@@ -60,8 +62,8 @@ setClass("hyphy",
 ##' @slot joint_subs sequence substitutions based on joint_ancseq
 ##' @slot marginal_AA_subs Amino acid sequence substitutions based on marginal_ancseq
 ##' @slot joint_AA_subs Amino acid sequence substitutions based on joint_ancseq
-##' @slot tip.fasfile fasta file of tip sequences
 ##' @slot rstfile rst file
+##' @slot extraInfo extra information
 ##' @exportClass paml_rst
 ##' @author Guangchuang Yu \url{http://ygc.name}
 ##' @seealso \linkS4class{codeml} \linkS4class{codeml_mlc}
@@ -79,8 +81,8 @@ setClass("paml_rst",
              joint_subs       = "data.frame",
              marginal_AA_subs = "data.frame",
              joint_AA_subs    = "data.frame",
-             tip.fasfile      = "character",
-             rstfile          = "character"
+             rstfile          = "character",
+             extraInfo        = "data.frame"
          )
          )
 
@@ -94,9 +96,8 @@ setClass("paml_rst",
 ##' @slot treetext tree text
 ##' @slot phylo phylo object
 ##' @slot dNdS dN dS information
-##' @slot seq_type one of "NT" and "AA"
-##' @slot tip_seq sequences of tips
 ##' @slot mlcfile mlc file
+##' @slot extraInfo extra information
 ##' @exportClass codeml_mlc
 ##' @author Guangchuang Yu
 ##' @seealso \linkS4class{paml_rst} \linkS4class{codeml}
@@ -107,9 +108,10 @@ setClass("codeml_mlc",
              treetext   = "character",
              phylo      = "phylo",
              dNdS       = "matrix",
-             seq_type   = "character",
-             tip_seq    = "character",
-             mlcfile    = "character"
+             ## seq_type   = "character",
+             ## tip_seq    = "character",
+             mlcfile    = "character",
+             extraInfo  = "data.frame"
              )
          )
 
@@ -121,13 +123,15 @@ setClass("codeml_mlc",
 ##' @docType class
 ##' @slot mlc A \code{code_mlc} object
 ##' @slot rst A \code{paml_rst} object
+##' @slot extraInfo extra information
 ##' @exportClass codeml
 ##' @seealso \linkS4class{codeml_mlc} \linkS4class{paml_rst}
 ##' @keywords codeml
 setClass("codeml",
          representation = representation(
-             mlc = "codeml_mlc",
-             rst = "paml_rst"
+             mlc       = "codeml_mlc",
+             rst       = "paml_rst",
+             extraInfo = "data.frame"
              )
          )
 
@@ -151,6 +155,7 @@ setClass("codeml",
 ##' @slot version version
 ##' @slot metadata metadata
 ##' @slot file jplace file
+##' @slot extraInfo extra information
 ##' @exportClass jplace
 ##' @author Guangchuang Yu \url{http://ygc.name}
 ##' @seealso \code{\link{show}} \code{\link{get.tree}}
@@ -164,7 +169,8 @@ setClass("jplace",
              placements = "data.frame",
              version    = "numeric",
              metadata   = "list",
-             file       = "character"
+             file       = "character",
+             extraInfo  = "data.frame"
              )
          )
 
@@ -183,6 +189,7 @@ setClass("jplace",
 ##' @slot translation tip number to name translation in beast file
 ##' @slot stats beast statistics
 ##' @slot file beast file, nexus format
+##' @slot extraInfo extra information
 ##' @exportClass beast
 ##' @author Guangchuang Yu \url{http://ygc.name}
 ##' @seealso \code{\link{show}} \code{\link{get.fields}}
@@ -195,6 +202,7 @@ setClass("beast",
              phylo       = "phylo",
              translation = "matrix",
              stats       = "data.frame",
-             file        = "character"
+             file        = "character",
+             extraInfo   = "data.frame"
              )
          )

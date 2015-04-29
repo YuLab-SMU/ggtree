@@ -22,9 +22,10 @@
 ##' colnames(d) <- paste0("G", 1:4)
 ##' gplot(p, d, low="green", high="red")
 gplot <- function(p, data, low="green", high="red", widths=c(0.5, 0.5), font.size=14) {
-    ## p <- p + scale_x_continuous(expand = c(0, 0)) + scale_y_continuous(expand = c(0, 0))
-    p1 <- p + theme(panel.margin=unit(0, "null"))
-    p1 <- p1 + theme(plot.margin = unit(c(1, -1, 1.5, 1), "lines"))
+    ## p <- p + scale_x_continuous(expand = c(0, 0)) + scale_y_continuous(expand = c(0, 0.6))
+    p1 <- p + scale_y_continuous(expand = c(0, 0.6))
+    ## p1 <- p + theme(panel.margin=unit(0, "null"))
+    ## p1 <- p1 + theme(plot.margin = unit(c(1, -1, 1.5, 1), "lines"))
     p2 <- gplot.heatmap(p, data, low, high, font.size)
     grid.arrange(p1, p2, ncol=2, widths=widths)
     invisible(list(p1=p1, p2=p2))
@@ -33,8 +34,10 @@ gplot <- function(p, data, low="green", high="red", widths=c(0.5, 0.5), font.siz
 
 ##' @importFrom grid unit
 ##' @importFrom ggplot2 scale_fill_gradient
+##' @importFrom ggplot2 scale_fill_discrete
 ##' @importFrom ggplot2 element_text
 ##' @importFrom ggplot2 geom_tile
+##' @importFrom ggplot2 labs
 ##' @importFrom reshape2 melt
 gplot.heatmap <- function(p, data, low, high, font.size) {
     isTip <- x <- Var1 <- Var2 <- value <- NULL
@@ -46,25 +49,34 @@ gplot.heatmap <- function(p, data, low, high, font.size) {
     df=df[df$isTip,]
     
     dd$Var1 <- factor(dd$Var1, levels = df$label[order(df$y)])
+    if (any(dd$value == "")) {
+        dd$value[dd$value == ""] <- NA
+    }
     
     p2 <- ggplot(dd, aes(Var2, Var1, fill=value))+geom_tile(color="black")
-    p2 <- p2 + scale_fill_gradient(low=low, high=high)
+    if (is(dd$value,"numeric")) {
+        p2 <- p2 + scale_fill_gradient(low=low, high=high, na.value="white")
+    } else {
+        p2 <- p2 + scale_fill_discrete(na.value="white")
+    }
+    
     p2 <- p2+xlab("")+ylab("")
     p2 <- p2+theme_tree2() + theme(axis.ticks.x = element_blank(),
                                    axis.line.x=element_blank())
     ## p1 <- p1 + theme(axis.text.x = element_text(size = font.size))
     p2 <- p2 + theme(axis.ticks.margin = unit(0, "lines")) 
     p2 <- p2 + theme(axis.text.x = element_text(size = font.size))
-    p2 <- p2 + theme(axis.text.y = element_text(size=font.size))
+    ## p2 <- p2 + theme(axis.text.y = element_text(size=font.size))
     
     ## plot.margin   margin around entire plot (unit with the sizes of the top, right, bottom, and left margins) 
     ## units can be given in "lines" or  something more specific like "cm"...
 
     
     p2 <- p2 + theme(panel.margin=unit(0, "null"))
-    p2 <- p2 + theme(plot.margin = unit(c(1, 1, 1, -0.5), "lines"))
+    p2 <- p2 + theme(plot.margin = unit(c(1, 1, .5, -0.5), "lines"))
     p2 <- p2 + theme(legend.position = "right")
-
+    ## p2 <- p2 + labs(fill="")
+    
     return(p2)
 }
 

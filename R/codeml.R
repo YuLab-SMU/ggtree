@@ -12,9 +12,9 @@
 ##' mlcfile <- system.file("extdata/PAML_Codeml", "mlc", package="ggtree")
 ##' read.codeml(rstfile, mlcfile) 
 read.codeml <- function(rstfile, mlcfile) {
-    rst = read.paml_rst(rstfile)
-    mlc = read.codeml_mlc(mlcfile)
-    rst@tip_seq <- mlc@tip_seq
+    rst <- read.paml_rst(rstfile)
+    mlc <- read.codeml_mlc(mlcfile)
+    ## rst@tip_seq <- mlc@tip_seq
     new("codeml",
         rst = set.paml_rst_(rst),
         mlc = mlc
@@ -99,10 +99,8 @@ setMethod("get.subs", signature(object = "codeml"),
 ##' @rdname get.fields-methods
 ##' @exportMethod get.fields
 setMethod("get.fields", signature(object="codeml"),
-          function(object) {
-              fields <- c(get.fields(object@rst),
-                          get.fields(object@mlc))
-              return(unique(fields))
+          function(object, ...) {
+              get.fields.tree(object)
           }
           )
 
