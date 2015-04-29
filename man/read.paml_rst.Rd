@@ -4,12 +4,10 @@
 \alias{read.paml_rst}
 \title{read.paml_rst}
 \usage{
-read.paml_rst(rstfile, tip.fasfile = NULL)
+read.paml_rst(rstfile)
 }
 \arguments{
 \item{rstfile}{rst file}
-
-\item{tip.fasfile}{fasta file of tips}
 }
 \value{
 A \code{paml_rst} object

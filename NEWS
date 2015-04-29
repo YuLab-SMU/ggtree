@@ -1,3 +1,19 @@
+CHANGES IN VERSION 1.1.2
+------------------------
+ o update vignette to add example of merge_tree <2015-04-29, Wed>
+ o in addition to parsing beast time scale tree in XXX_year[\\.\\d]*, now supports XXX/year[\\.\\d]* <2015-04-29, Wed>
+ o add examples folder in inst that contains sample data <2015-04-29, Wed>
+ o update gplot, now rowname of heatmap will not be displayed <2015-04-28, Tue>
+ o add line break if substitution longer than 50 character <2015-04-28, Tue>
+ o upport calculating branch for time scale tree <2015-04-28, Tue>
+ o remove parsing tip sequence from mlb and mlc file <2015-04-28, Tue>
+ o remove tip.fasfile in read.paml_rst for rstfile already contains tip sequence <2015-04-28, Tue>
+ o scale_color accepts user specific interval and output contains 'scale' attribute that can be used for adding legend <2015-04-28, Tue>
+ o extend fortify methods to support additional fields <2015-04-28, Tue>
+ o extend get.fields methods to support additional fields <2015-04-28, Tue>
+ o extend tree class to support additional info by merging two tree <2015-04-28, Tue>
+ o implement merge_tree function to merge two tree objects into one <2015-04-28, Tue>
+ 
 CHANGES IN VERSION 1.1.1
 ------------------------
  o minor bug fixed in extracting node ID of rst file <2015-04-27, Mon>

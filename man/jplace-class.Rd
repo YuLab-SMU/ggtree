@@ -30,6 +30,8 @@ This class stores information of jplace file.
 \item{\code{metadata}}{metadata}
 
 \item{\code{file}}{jplace file}
+
+\item{\code{extraInfo}}{extra information}
 }}
 \author{
 Guangchuang Yu \url{http://ygc.name}

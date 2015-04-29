@@ -159,11 +159,11 @@ setMethod("get.tree", signature(object = "hyphy"),
 ##' @rdname get.fields-methods
 ##' @exportMethod get.fields
 setMethod("get.fields", signature(object = "hyphy"),
-          function(object) {
+          function(object, ...) {
               if(length(object@tip_seq) == 0) {
                   warning("tip sequence not available...\n")
               } else {
-                  object@fields
+                  get.fields.tree(object)
               }
           })
 

@@ -1,5 +1,66 @@
+has.slot <- function(object, slotName) {
+    if (!isS4(object)) {
+        return(FALSE)
+    }
+    
+    slot <- tryCatch(slot(object, slotName), error=function(e) NULL)
+    ! is.null(slot)
+}
+
+has.extraInfo <- function(object) {
+    if (!is.tree(object)) {
+        return(FALSE)
+    }
+
+    if (! has.slot(object, "extraInfo")) {
+        return(FALSE)
+    }
+
+    extraInfo <- object@extraInfo
+
+    if (nrow(extraInfo) > 0) {
+        return(TRUE)
+    }
+
+    return(FALSE)        
+}
+
+append_extraInfo <- function(df, object) {
+    if (has.extraInfo(object)) {
+        info <- object@extraInfo
+        res <- merge(df, info, by.x=c("node", "parent"), by.y=c("node", "parent"))
+    } else {
+        res <- df
+    }
+
+    i <- order(res$node, decreasing = FALSE)
+    res <- res[i,]
+    return(res)
+}
+
+get.fields.tree <- function(object) {
+    if (is(object, "codeml")) {
+        fields <- c(get.fields(object@rst),
+                    get.fields(object@mlc))
+        fields <- unique(fields)
+    } else {
+        fields <- object@fields
+    }
+    
+    if (has.slot(object, "extraInfo")) {
+        extraInfo <- object@extraInfo
+        if (nrow(extraInfo) > 0) {
+            cn <- colnames(extraInfo)
+            i <- match(c("x", "y", "isTip", "node", "parent", "label", "branch", "branch.length"), cn)
+            i <- i[!is.na(i)]
+            fields %<>% c(cn[-i])
+        }
+    }
+    return(fields)
+}
+
 print_fields <- function(object, len=5) {
-    fields <- get.fields(object)
+    fields <- get.fields(object)    
     n <- length(fields)
     i <- floor(n/len)
     for (j in 0:i) {
@@ -60,6 +121,12 @@ get.subs_ <- function(tree, fasta, translate=TRUE, removeGap=TRUE) {
         if (is.null(res)) {
             return('')
         }
+        if (nchar(res) > 50) {
+            idx <- gregexpr("/", res)[[1]]
+            i <- idx[floor(length(idx)/2)]
+            res <- paste0(substring(res, 1, i-1), "\n", substring(res, i+1))
+        }
+        
         return(res)
     })
     
@@ -209,6 +276,7 @@ is.tree <- function(x) {
                         "baseml",
                         "paml_rst",
                         "baseml_mlc",
+                        "codeml",
                         "hyphy",
                         "beast")
         ) {
@@ -219,21 +287,27 @@ is.tree <- function(x) {
 
 
 
-color_scale <- function(c1="grey", c2="red") {
+color_scale <- function(c1="grey", c2="red", n=100) {
     pal <- colorRampPalette(c(c1, c2))
-    colors <- pal(100)
+    colors <- pal(n)
     return(colors)
 }
 
-getIdx <- function(v, MIN, MAX) {
+getIdx <- function(v, MIN, MAX, interval=NULL) {
+    res <- sapply(v, getIdx_internal, MIN=MIN, MAX=MAX, interval=interval)
+    attr(res, "interval") <- interval
+    return(res)
+}
+
+getIdx_internal <- function(v, MIN, MAX, interval=NULL) {
     if (is.na(v)) {
         return(NA)
     }
     if ( MIN == MAX ) {
         return(100)
     }
-    intervals <- seq(MIN, MAX, length.out=100)
-    max(which(intervals <= v))
+    res <- max(which(interval <= v))
+    return(res)
 }
 
 

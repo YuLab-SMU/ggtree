@@ -269,31 +269,15 @@ _`rst`_ file from _`baseml`_ is similar to _`codeml`_ output. The only differenc
 
 ```{r}
 rstfile <- system.file("extdata/PAML_Baseml", "rst", package="ggtree")
-tipfas <- system.file("extdata", "pa.fas", package="ggtree")
-rst <- read.paml_rst(rstfile, tipfas)
+rst <- read.paml_rst(rstfile)
 rst
 ```
 
-The function _`read.paml_rst`_ can accept only one parameter, _`rstfile`_, and the output can be used to view the phylogeny. But if we want to view the substitution annotation, we should provide tip sequence fasta file to parameter _`tip.fasfile`_, since _`rstfile`_ only contain inferred ancestral sequences.
-
-_`mlb`_ file of _`baseml`_ output do contain tip sequences, and `r Githubpkg("GuangchuangYu/ggtree")` provides another function _`read.baseml`_ to parse _`rstfile`_ and _`mlbfile`_ simultaneously.
-
-So for viewing substitution annotation, we can use _`read.paml_rst`_ with _`rstfile`_ and _`tip.fasfile`_ provided or use _`read.baseml`_ with _`rstfile`_ and _`mlbfile`_ provided.
-
-```{r}
-mlbfile <- system.file("extdata/PAML_Baseml", "mlb", package="ggtree")
-baseml <- read.baseml(rstfile, mlbfile)
-baseml
-```
+The function _`read.paml_rst`_ can accept only one parameter, _`rstfile`_, and the output can be used to view the phylogeny and the substitution annotation.
 
 ```{r fig.width=10, fig.height=8, width=60, warning=FALSE}
 p <- plot(rst, annotation="marginal_AA_subs", annotation.color="steelblue")
 print(p)
-```
-
-The following command will generate the same figure.
-```{r eval=FALSE}
-plot(baseml, annotation="marginal_AA_subs", annotation.color="steelblue")
 ```
 
 ### CODEML
@@ -309,7 +293,7 @@ If you remember the _`%<%`_ operator introduced in [`update tree viewing with a 
 In last session, we use _`rstfile`_ of _`BASEML`_ to build a tree view with amino acid substitution annotated. The following example use another _`rstfile`_ from _`CODEML`_ to update the tree view.
 ```{r fig.width=8, width=60, warning=FALSE, fig.align="center"}
 rstfile <- system.file("extdata/PAML_Codeml", "rst", package="ggtree")
-rst <- read.paml_rst(rstfile, tipfas)
+rst <- read.paml_rst(rstfile)
 p %<% rst
 ```
 
@@ -374,6 +358,7 @@ plot(ml, branch.length="dN", annotation="joint_AA_subs", annotation.color="darkg
 ```{r}
 nwk <- system.file("extdata/HYPHY", "labelledtree.tree", package="ggtree")
 ancseq <- system.file("extdata/HYPHY", "ancseq.nex", package="ggtree")
+tipfas <- system.file("extdata", "pa.fas", package="ggtree")
 hy <- read.hyphy(nwk, ancseq, tipfas)
 hy
 ```
@@ -405,6 +390,40 @@ This is only a tiny sample file. In reality, [EPA](http://sco.h-its.org/exelixis
 
 
 We may, for example, count the number of placement and annotate this information in the tree. We do not provide a _`plot`_ method for _`jplace`_ object, since we use this file format as a standard annotation format in `r Githubpkg("GuangchuangYu/ggtree")` package and have no assumption of information it may stored. Please refer to [jplace file format](#jplace-file-format) session.
+
+
+## mergine tree objects
+In ggtree, objects can be merged and evidences inferred from different phylogenetic analyses can be combined or compared and visualized.
+
+User can use the command like:
+```r
+tree <- merge_tree(tree_object_1, tree_object_2)
+## it's chainable, and serveral tree objects can be merged into one tree object
+tree <- merge_tree(tree_object_1, tree_object_2) %>% merge_tree(tree_object_3) %>% merge_tree(tree_object_4)
+```
+
+Here we use a tree analyzed by BEAST and CodeML and merge them into one.
+
+```{r}
+beast_file <- system.file("examples/MCC_FluA_H3.tree", package="ggtree")
+beast_tree <- read.beast(beast_file)
+
+rst_file <- system.file("examples/rst", package="ggtree")
+mlc_file <- system.file("examples/mlc", package="ggtree")
+codeml_tree <- read.codeml(rst_file, mlc_file)
+
+merged_tree <- merge_tree(beast_tree, codeml_tree)
+
+merged_tree
+```
+
+After merging, all evidences inferred from different tools can be used to annotate the tree simultaneously. In this example, we used 'dN/dS' inferred by CodeML to color the tree and annotate the tree with 'posterior' inferred by BEAST.
+
+```{r fig.width=20, fig.height=26, warning=FALSE}
+cols <- scale_color(merged_tree, "dN_vs_dS", interval=seq(0, 1.5))
+ggtree(merged_tree, time_scale=TRUE, ndigits = 3, color=cols) +
+    geom_text(aes(label=posterior), vjust=.1, hjust=-.1, size=5) + theme_tree2()
+```
 
 
 ## annotating tree using _`ggplot2`_ layers
@@ -700,38 +719,16 @@ ggtree(tree, color=cols, linetype=lty)
 
 
 ## visualize tree with associated matrix
-```{r}
-seqs <- get.tipseq(ml)
-library(Biostrings)
-x <- DNAStringSet(seqs)
 
-dd <- alphabetFrequency(x)[, 1:4]
-dd <- dd/rowSums(dd)
-row.names(dd) <- names(seqs)
+In the following example, we visualized a tree of H3 influenza viruses with their associated genotype.
+
+```{r fig.width=50, fig.height=26, fig.align="center"}
+genotype_file <- system.file("examples/Genotype.txt", package="ggtree")
+genotype <- read.table(genotype_file, sep="\t", stringsAsFactor=F)
+p <- ggtree(beast_tree)+geom_tiplab(align=TRUE)
+gplot(p, genotype, widths=c(5, 1))
 ```
 
-```{r eval=FALSE}
-head(dd)
-```
-
-```{r echo=FALSE}
-knitr::kable(head(dd))
-```
-
-```{r fig.width=12, fig.height=6, fig.align="center"}
-p <- ggtree(ml)
-gplot(p, dd, low="green", high="red", widths=c(.7, .3))
-```
-
-Of course, we can use an annotated tree.
-
-```{r fig.width=12, fig.height=6, fig.align="center", warning=FALSE}
-p2 <- ggtree(ml, branch.length="none") + 
-          geom_text(aes(x=branch, label=dN_vs_dS, color=dN_vs_dS), 
-                    vjust=-.5, size=4) +
-             scale_color_gradient(low="darkgreen", high="red")	  
-gplot(p2, dd, low="green", high="red", widths=c(.7, .3))
-```
 
 # External documents
 

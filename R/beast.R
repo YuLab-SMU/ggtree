@@ -96,7 +96,7 @@ setMethod("show", signature(object = "beast"),
               cat("...@ tree: ")
               print.phylo(get.tree(object))                  
               cat("\nwith the following features available:\n")
-              print_fields(object)              
+              print_fields(object)
           })
 
 ##' @rdname groupOTU-methods
@@ -150,7 +150,7 @@ setMethod("get.tree", signature(object="beast"),
 ##' @exportMethod get.fields
 setMethod("get.fields", signature(object="beast"),
           function(object, ...) {
-              object@fields
+              get.fields.tree(object)
           }
           )
 
