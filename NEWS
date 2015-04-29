@@ -1,5 +1,6 @@
 CHANGES IN VERSION 1.1.2
 ------------------------
+ o update vignette to add example of merge_tree <2015-04-29, Wed>
  o in addition to parsing beast time scale tree in XXX_year[\\.\\d]*, now supports XXX/year[\\.\\d]* <2015-04-29, Wed>
  o add examples folder in inst that contains sample data <2015-04-29, Wed>
  o update gplot, now rowname of heatmap will not be displayed <2015-04-28, Tue>

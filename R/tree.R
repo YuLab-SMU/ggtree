@@ -726,6 +726,27 @@ getYcoord_scale_numeric <- function(tr, df, yscale, ...) {
     return(df)
 }
 
+.assign_child_status <- function(tr, df, variable) {
+    yy <- df[, variable]
+    na.idx <- which(is.na(yy))
+    if (length(na.idx) > 0) {
+        tree <- get.tree(tr)
+        nodes <- rev(getNodes_by_postorder(tree))
+        for (curNode in nodes) {
+            parent <- getParent(tree, curNode)
+            if (parent == 0) { ## already reach root
+                next
+            }
+            idx <- which(is.na(yy[parent]))
+            if (length(idx) > 0) {
+                yy[parent[idx]] <- yy[curNode]
+            }
+        }
+    }
+    df[, variable] <- yy
+    return(df)
+}
+
 
 getYcoord_scale_category <- function(tr, df, yscale, yscale_mapping=NULL, ...) {
     if (is.null(yscale_mapping)) {
@@ -737,7 +758,10 @@ getYcoord_scale_category <- function(tr, df, yscale, yscale_mapping=NULL, ...) {
         stop("yscale_mapping should be a named numeric vector...")
     }
 
+    ## assign to parent status is more prefer...
     df <- .assign_parent_status(tr, df, yscale)
+    df <- .assign_child_status(tr, df, yscale)
+    
     yy <- df[, yscale]
 
     ## y <- as.numeric(factor(yy))
