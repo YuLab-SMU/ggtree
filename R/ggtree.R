@@ -375,3 +375,38 @@ expand <- function(tree_view, node) {
     attr(tree_view, clade) <- NULL
     tree_view
 }
+
+##' add colorbar legend
+##'
+##' 
+##' @title add_colorbar
+##' @param p tree view
+##' @param color output of scale_color function
+##' @param x x position
+##' @param ymin ymin
+##' @param ymax ymax
+##' @param font.size font size 
+##' @return ggplot2 object
+##' @export
+##' @importFrom ggplot2 annotate
+##' @author Guangchuang Yu
+add_colorbar <- function(p, color, x, ymin, ymax, font.size=4) {
+    legend <- do.call("cbind", attr(color, "scale"))
+    
+    legend[,1] <- round(as.numeric(legend[,1]), 2)
+    
+    ## legend[nrow(legend),1] <- paste(">=", legend[nrow(legend),1])
+    
+    yy <- seq(ymin, ymax, length.out=nrow(legend)+1)
+
+    ymin <- yy[1:nrow(legend)]
+    ymax <- yy[2:length(yy)]
+    y <- (ymin+ymax)/2
+
+    i <- seq(1, length(y), length.out = 5) %>% round(0)
+    offset <- diff(range(p$data$x))/40
+    p + annotate("text", x=x+offset*2, y=y[i], label=legend[i,1], size=font.size) +
+        annotate("rect", xmin=x, xmax=x+offset, ymin=ymin,
+                 ymax = ymax, fill=legend[,2], color=legend[,2]) 
+    
+}

@@ -38,6 +38,8 @@ gplot <- function(p, data, low="green", high="red", widths=c(0.5, 0.5), font.siz
 ##' @importFrom ggplot2 element_text
 ##' @importFrom ggplot2 geom_tile
 ##' @importFrom ggplot2 labs
+##' @importFrom ggplot2 guides
+##' @importFrom ggplot2 guide_legend
 ##' @importFrom reshape2 melt
 gplot.heatmap <- function(p, data, low, high, font.size) {
     isTip <- x <- Var1 <- Var2 <- value <- NULL
@@ -75,6 +77,7 @@ gplot.heatmap <- function(p, data, low, high, font.size) {
     p2 <- p2 + theme(panel.margin=unit(0, "null"))
     p2 <- p2 + theme(plot.margin = unit(c(1, 1, .5, -0.5), "lines"))
     p2 <- p2 + theme(legend.position = "right")
+    p2 <- p2 + guides(fill = guide_legend(override.aes = list(colour = NULL)))
     ## p2 <- p2 + labs(fill="")
     
     return(p2)
