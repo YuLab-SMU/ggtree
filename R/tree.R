@@ -695,6 +695,8 @@ getYcoord_scale2 <- function(tr, df, yscale) {
 
 getYcoord_scale_numeric <- function(tr, df, yscale, ...) {
     df <- .assign_parent_status(tr, df, yscale)
+    df <- .assign_child_status(tr, df, yscale)
+    
     y <- df[, yscale]
 
     if (any(is.na(y))) {
@@ -726,8 +728,12 @@ getYcoord_scale_numeric <- function(tr, df, yscale, ...) {
     return(df)
 }
 
-.assign_child_status <- function(tr, df, variable) {
+.assign_child_status <- function(tr, df, variable, yscale_mapping=NULL) {
     yy <- df[, variable]
+    if (!is.null(yscale_mapping)) {
+        yy <- yscale_mapping[yy]
+    }
+    
     na.idx <- which(is.na(yy))
     if (length(na.idx) > 0) {
         tree <- get.tree(tr)
@@ -761,12 +767,10 @@ getYcoord_scale_category <- function(tr, df, yscale, yscale_mapping=NULL, ...) {
 
     ## assign to parent status is more prefer...
     df <- .assign_parent_status(tr, df, yscale)
-    df <- .assign_child_status(tr, df, yscale)
+    df <- .assign_child_status(tr, df, yscale, yscale_mapping)
     
-    yy <- df[, yscale]
+    y <- df[, yscale]
 
-    ## y <- as.numeric(factor(yy))
-    y <- yscale_mapping[yy]
     if (any(is.na(y))) {
         warning("NA found in y scale mapping, all were setting to 0")
         y[is.na(y)] <- 0
