@@ -167,7 +167,7 @@ getSubsLabel <- function(seqs, A, B, translate, removeGap) {
         return(NULL)
     }
     
-    res <- paste(AA[ii], ii, BB[ii], sep="", collapse="/")
+    res <- paste(AA[ii], ii, BB[ii], sep="", collapse=" / ")
     return(res)
 }
 
