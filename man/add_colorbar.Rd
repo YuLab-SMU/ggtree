@@ -4,7 +4,8 @@
 \alias{add_colorbar}
 \title{add_colorbar}
 \usage{
-add_colorbar(p, color, x, ymin, ymax, font.size = 4)
+add_colorbar(p, color, x = NULL, ymin = NULL, ymax = NULL,
+  font.size = 4)
 }
 \arguments{
 \item{p}{tree view}

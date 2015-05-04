@@ -1,5 +1,6 @@
 CHANGES IN VERSION 1.1.4
 ------------------------
+ o update add_colorbar to auto determine the position <2015-05-04, Mon>
  o add_colorbar function <2015-04-30, Thu>
  
 CHANGES IN VERSION 1.1.3
