@@ -390,13 +390,30 @@ expand <- function(tree_view, node) {
 ##' @export
 ##' @importFrom ggplot2 annotate
 ##' @author Guangchuang Yu
-add_colorbar <- function(p, color, x, ymin, ymax, font.size=4) {
+add_colorbar <- function(p, color, x=NULL, ymin=NULL, ymax=NULL, font.size=4) {
     legend <- do.call("cbind", attr(color, "scale"))
     
     legend[,1] <- round(as.numeric(legend[,1]), 2)
     
     ## legend[nrow(legend),1] <- paste(">=", legend[nrow(legend),1])
-    
+
+    if (is.null(x)) {
+        xx <- range(p$data$x)
+        x <- min(xx)+diff(xx)/100
+    }
+
+    yy <- range(p$data$y)
+    if (is.null(ymin)) {
+        if (is.null(ymax)) {        
+            ymax <- max(yy) - diff(yy)/100
+        }
+        ymin <- ymax - diff(yy)/15
+    }
+
+    if (is.null(ymax)) {
+        ymax <- ymin + diff(yy)/15
+    }
+        
     yy <- seq(ymin, ymax, length.out=nrow(legend)+1)
 
     ymin <- yy[1:nrow(legend)]

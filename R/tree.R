@@ -765,6 +765,14 @@ getYcoord_scale_category <- function(tr, df, yscale, yscale_mapping=NULL, ...) {
         stop("yscale_mapping should be a named numeric vector...")
     }
 
+    if (yscale == "label") {
+        yy <- df[, yscale]
+        ii <- which(is.na(yy))
+        if (length(ii)) {
+            df[ii, yscale] <- df[ii, "node"]
+        }
+    }
+    
     ## assign to parent status is more prefer...
     df <- .assign_parent_status(tr, df, yscale)
     df <- .assign_child_status(tr, df, yscale, yscale_mapping)
