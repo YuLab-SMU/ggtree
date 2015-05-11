@@ -158,14 +158,22 @@ setMethod("get.fields", signature(object="beast"),
 read.treetext_beast <- function(file) {
     beast <- readLines(file)
     ii <- grep("tree TREE1\\s+=", beast)
+    if (length(ii) == 0) {
+        ii <- grep("begin trees;", beast)
+    }
+    
     jj <- grep("[Ee]nd;", beast)
     jj <- jj[jj > ii][1]
     tree <- beast[ii:(jj-1)]
     if (length(tree) > 1) {
         tree <- paste0(tree)
     }
-    tree %<>% sub("tree TREE1\\s+=\\s+\\[&R\\]\\s+", "", .)
-    tree %<>% sub("[^(]*", "", .)
+    ## tree %<>% sub("tree TREE1\\s+=\\s+\\[&R\\]\\s+", "", .)
+    ## tree %<>% sub("[^(]*", "", .)
+    tree %<>% sub("[^=]+=", "", .) %>%
+        sub("\\s+\\[&R\\]\\s+", "", .) %>%
+            sub("[^(]*", "", .)
+
     return(tree)
 }
 
@@ -258,10 +266,13 @@ read.stats_beast <- function(file) {
                 root:(root+nnode-1))
     node <- label2[match(nn, treeinfo$label)]
     
+    ## stats <- unlist(strsplit(tree, "\\["))[-1]
+    ## stats <- sub(":.+$", "", stats
+    stats <- strsplit(tree, ":") %>% unlist
+    names(stats) <- node
+    stats <- stats[grep("\\[", stats)]
+    stats <- sub("[^\\[]+\\[", "", stats)
 
-    
-    stats <- unlist(strsplit(tree, "\\["))[-1]
-    stats <- sub(":.+$", "", stats)
     stats <- sub("^&", "", stats)
     stats <- sub("];*$", "", stats)
         
@@ -323,9 +334,17 @@ read.stats_beast <- function(file) {
     }))
 
     stats3 <- as.data.frame(stats3)
+    if (nrow(stats3) == 1) {
+        ## only has one evidence
+        ## transpose
+        stats3 <- data.frame(X=unlist(stats3[1,]))
+        colnames(stats3) <- nn
+    }
     colnames(stats3) <- gsub("(\\d+)%", "0.\\1", colnames(stats3))
     
-    stats3$node <- node
+    ## stats3$node <- node
+    stats3$node <- names(stats)
     return(stats3)
 }
+
 
