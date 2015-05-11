@@ -1,5 +1,8 @@
 CHANGES IN VERSION 1.1.4
 ------------------------
+ o better performance of parsing beast tree  <2015-05-11, Mon>
+   + support beast tree begin with 'tree tree_1 = ' and other forms.
+   + support file that only contains one evidence for some of the nodes/tips
  o update add_colorbar to auto determine the position <2015-05-04, Mon>
  o add_colorbar function <2015-04-30, Thu>
  

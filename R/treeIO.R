@@ -185,9 +185,14 @@ fortify.beast <- function(model, data,
     
     idx   <- match(df$node, stats$node)
     stats <- stats[idx,]
-    stats <- stats[,colnames(stats) != "node"]
+    cn_stats <- colnames(stats)
+    stats <- stats[, cn_stats != "node"]
     
     df <- cbind(df, stats)
+    if (is(stats, "data.frame") == FALSE) {
+        colnames(df)[colnames(df) == "stats"] <- cn_stats[cn_stats != "node"]
+    }
+    
     df <- scaleY(phylo, df, yscale, layout, ...)
 
     if (time_scale) {
