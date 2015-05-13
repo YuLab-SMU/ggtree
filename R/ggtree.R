@@ -295,6 +295,61 @@ hilight <- function(tree_view, node, fill="steelblue", alpha=0.5, ...) {
                          fill = fill, alpha = alpha, ...)
 }
 
+##' scale clade
+##'
+##' 
+##' @title scaleClade
+##' @param tree_view tree view
+##' @param node clade node
+##' @param scale scale
+##' @return tree view
+##' @export
+##' @author Guangchuang Yu
+scaleClade <- function(tree_view, node, scale=1) {
+    if (scale == 1) {
+        return(tree_view)
+    }
+    
+    df <- tree_view$data
+    sp <- get.offspring.df(df, node)
+    sp.df <- df[sp,]
+    
+    ## sp_nr <- nrow(sp.df)
+    ## span <- diff(range(sp.df$y))/sp_nr
+    
+    ## new_span <- span * scale
+    old.sp.df <- sp.df
+    sp.df$y <- df[node, "y"] + (sp.df$y - df[node, "y"]) * scale
+    sp.df$x <- df[node, "x"] + (sp.df$x - df[node, "x"]) * scale
+
+    scale_diff.up <- max(sp.df$y) - max(old.sp.df$y)
+    scale_diff.lw <- min(sp.df$y) - min(old.sp.df$y)
+    
+    ii <- df$y > max(old.sp.df$y)
+    if (sum(ii) > 0) {
+        df[ii, "y"] <- df[ii, "y"] + scale_diff.up
+    }
+    
+    jj <- df$y < min(old.sp.df$y)
+    if (sum(jj) > 0) {
+        df[jj, "y"] <- df[jj, "y"] + scale_diff.lw
+    }
+    
+    df[sp,] <- sp.df
+    
+    if (! "scale" %in% colnames(df)) {
+        df$scale <- 1
+    }
+    df[sp, "scale"] <- df[sp, "scale"] * scale
+
+    ## re-calculate branch mid position
+    df <- calculate_branch_mid(df)
+    
+    tree_view$data <- df
+    tree_view
+}
+
+
 ##' collapse a clade
 ##'
 ##' 
@@ -329,6 +384,9 @@ collapse <- function(tree_view, node) {
     j <- getChild.df(df, pp)
     j <- j[j!=pp]
     df[pp, "y"] <- mean(df[j, "y"])
+
+    ## re-calculate branch mid position
+    df <- calculate_branch_mid(df)
     
     tree_view$data <- df
     clade <- paste0("clade_", node)
@@ -370,6 +428,9 @@ expand <- function(tree_view, node) {
     j <- getChild.df(df, pp)
     j <- j[j!=pp]
     df[pp, "y"] <- mean(df[j, "y"])
+
+    ## re-calculate branch mid position
+    df <- calculate_branch_mid(df)
     
     tree_view$data <- df
     attr(tree_view, clade) <- NULL
