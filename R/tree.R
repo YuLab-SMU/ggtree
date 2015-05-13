@@ -800,3 +800,11 @@ add_angle_cladogram <- function(res) {
     return(res)
 }
 
+calculate_branch_mid <- function(res) {
+    res$branch <- (res[res$parent, "x"] + res[, "x"])/2
+    if (!is.null(res$length)) {
+        res$length[is.na(res$length)] <- 0
+    }
+    res$branch[is.na(res$branch)] <- 0
+    return(res)
+}
