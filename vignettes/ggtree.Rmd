@@ -717,6 +717,25 @@ lty <- c("solid", "dashed", "dotted")[idx]
 ggtree(tree, color=cols, linetype=lty)
 ```
 
+## scale clade
+In __[`collapse clade`](#collapse-clade)__, we have illustrated how to collapse selected clades. Another approach is to zoom out clade to a small scale.
+
+```{r fig.width=12, fig.height=6, warning=F}
+grid.arrange(ggtree(tree) %>% hilight(21, "steelblue"),
+             ggtree(tree) %>% scaleClade(21, scale=0.3) %>% hilight(21, "steelblue"),
+             ncol=2)
+```
+
+Of calse, _`scaleClade`_ can accept `scale` larger than 1 and zoom in the selected portion.
+
+```{r fig.width=12, fig.height=6, warning=F}
+grid.arrange(ggtree(tree) %>% hilight(17, fill="steelblue") %>%
+                 hilight(21, fill="darkgreen"),
+             ggtree(tree) %>% scaleClade(17, scale=2) %>% scaleClade(21, scale=0.3) %>%
+                 hilight(17, "steelblue") %>% hilight(21, fill="darkgreen"),
+             ncol=2)
+```
+
 
 ## visualize tree with associated matrix
 

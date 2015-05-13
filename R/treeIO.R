@@ -518,11 +518,9 @@ as.data.frame.phylo_ <- function(x, layout="phylogram",
     isTip <- rep(FALSE, N)
     isTip[1:Ntip] <- TRUE
     res$isTip <- isTip
-    res$branch <- (res[res$parent, "x"] + res[, "x"])/2
-    if (!is.null(res$length)) {
-        res$length[is.na(res$length)] <- 0
-    }
-    res$branch[is.na(res$branch)] <- 0
+
+    ## add branch mid position
+    res <- calculate_branch_mid(res)
     
     if (layout == "fan") {
         idx <- match(1:N, order(res$y))
