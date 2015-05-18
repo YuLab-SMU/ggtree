@@ -1,3 +1,72 @@
+##' append a heatmap of a matrix to right side of phylogenetic tree
+##'
+##' 
+##' @title gheatmap
+##' @param p tree view
+##' @param data matrix or data.frame
+##' @param offset offset of heatmap to tree
+##' @param width width of each cell in heatmap
+##' @param low color of lowest value
+##' @param high color of highest value
+##' @param color color of heatmap cell border
+##' @param colnames logical, add matrix colnames or not
+##' @param font.size font size of matrix colnames
+##' @return tree view
+##' @importFrom reshape2 melt
+##' @importFrom ggplot2 geom_tile
+##' @importFrom ggplot2 geom_text
+##' @export
+##' @author Guangchuang Yu
+gheatmap <- function(p, data, offset=0, width, low="green", high="red",
+                     color="white", colnames=TRUE, font.size=4) {
+    isTip <- x <- Var1 <- Var2 <- value <- NULL
+    dd=melt(as.matrix(data))
+
+    df=p$data
+    df=df[df$isTip,]
+    start <- max(df$x) + offset
+
+    dd$Var1 <- factor(dd$Var1, levels = df$label[order(df$y)])
+    dd$y <- sort(df$y, decreasing = TRUE)
+
+    if (any(dd$value == "")) {
+        dd$value[dd$value == ""] <- NA
+    }
+
+    V2 <- start + as.numeric(dd$Var2) * width
+    mapping <- data.frame(from=dd$Var2, to=V2)
+    mapping <- unique(mapping)
+
+    dd$x <- V2
+
+    p2 <- p + geom_tile(data=dd, aes(x, y, fill=value), color=color)
+    if (colnames) {
+        p2 <- p2 + geom_text(data=mapping, aes(x=to, label=from), y=0, size=font.size)
+    }
+    attr(p2, "mapping") <- mapping
+    return(p2)
+}
+
+##' scale x for tree with heatmap
+##'
+##' 
+##' @title scale_x_heatmap
+##' @param p tree view
+##' @param breaks breaks for tree
+##' @param labels lables for corresponding breaks
+##' @return tree view
+##' @importFrom ggplot2 scale_x_continuous
+##' @export
+##' @author Guangchuang Yu
+scale_x_heatmap <- function(p, breaks, labels=NULL) {
+    m <- attr(p, "mapping")
+    if (is.null(labels)) {
+        labels <- breaks
+    }
+    p + scale_x_continuous(breaks=c(breaks, m$to), labels=c(labels, as.character(m$from)))
+}
+
+
 ##' view tree and associated matrix
 ##'
 ##' @title gplot
@@ -6,6 +75,7 @@
 ##' @param low low color
 ##' @param high high color
 ##' @param widths widths of sub plot
+##' @param color color
 ##' @param font.size font size
 ##' @return list of figure
 ##' @importFrom gridExtra grid.arrange
@@ -21,7 +91,7 @@
 ##' rownames(d) <- tree$tip.label
 ##' colnames(d) <- paste0("G", 1:4)
 ##' gplot(p, d, low="green", high="red")
-gplot <- function(p, data, low="green", high="red", widths=c(0.5, 0.5), font.size=14) {
+gplot <- function(p, data, low="green", high="red", widths=c(0.5, 0.5), color="white", font.size=14) {
     ## p <- p + scale_x_continuous(expand = c(0, 0)) + scale_y_continuous(expand = c(0, 0.6))
     p1 <- p + scale_y_continuous(expand = c(0, 0.6))
     ## p1 <- p + theme(panel.margin=unit(0, "null"))
@@ -41,7 +111,7 @@ gplot <- function(p, data, low="green", high="red", widths=c(0.5, 0.5), font.siz
 ##' @importFrom ggplot2 guides
 ##' @importFrom ggplot2 guide_legend
 ##' @importFrom reshape2 melt
-gplot.heatmap <- function(p, data, low, high, font.size) {
+gplot.heatmap <- function(p, data, low, high, color="white", font.size) {
     isTip <- x <- Var1 <- Var2 <- value <- NULL
     dd=melt(as.matrix(data))
     ## p <- ggtree(tree) ## + theme_tree2()
@@ -55,7 +125,7 @@ gplot.heatmap <- function(p, data, low, high, font.size) {
         dd$value[dd$value == ""] <- NA
     }
     
-    p2 <- ggplot(dd, aes(Var2, Var1, fill=value))+geom_tile(color="black")
+    p2 <- ggplot(dd, aes(Var2, Var1, fill=value))+geom_tile(color=color)
     if (is(dd$value,"numeric")) {
         p2 <- p2 + scale_fill_gradient(low=low, high=high, na.value="white")
     } else {
