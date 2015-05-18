@@ -5,7 +5,7 @@
 \title{gplot}
 \usage{
 gplot(p, data, low = "green", high = "red", widths = c(0.5, 0.5),
-  font.size = 14)
+  color = "white", font.size = 14)
 }
 \arguments{
 \item{p}{tree view}
@@ -17,6 +17,8 @@ gplot(p, data, low = "green", high = "red", widths = c(0.5, 0.5),
 \item{high}{high color}
 
 \item{widths}{widths of sub plot}
+
+\item{color}{color}
 
 \item{font.size}{font size}
 }
