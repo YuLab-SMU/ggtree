@@ -498,10 +498,11 @@ add_colorbar <- function(p, color, x=NULL, ymin=NULL, ymax=NULL, font.size=4) {
 ##' @param y y position
 ##' @param offset offset of text and line
 ##' @param font.size font size
+##' @param ... additional parameter
 ##' @return tree view
 ##' @export
 ##' @author Guangchuang Yu
-add_legend <- function(p, x=NULL, y=NULL, offset=NULL, font.size=4) {
+add_legend <- function(p, x=NULL, y=NULL, offset=NULL, font.size=4, ...) {
     if (is.null(x)) {
         x <- min(p$data$x)
     }
@@ -521,7 +522,7 @@ add_legend <- function(p, x=NULL, y=NULL, offset=NULL, font.size=4) {
         offset <- p$data$y %>% range %>% diff
         offset <- offset / 100
     }
-    p <- p + geom_segment(x=x, y=y, xend=x+d, yend=y) +
-        geom_text(x=x+d/2,y=y+offset, label=d, size=font.size)
+    p <- p + geom_segment(x=x, y=y, xend=x+d, yend=y, ...) +
+        geom_text(x=x+d/2, y=y+offset, label=d, size=font.size, ...)
     return(p)
 }

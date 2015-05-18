@@ -141,7 +141,15 @@ User can use _`ggtree(object)`_ command to view the phylogenetic tree directly, 
  
 ## display evolution distance
 
-To show evolution distance, we can use `theme_tree2()` or `ggtree(showDistance=TRUE)`
+To show evolution distance, user can use `add_legend` function.
+
+```{r fig.width=3, fig.height=3, fig.align="center"}
+ggtree(tree) %>% add_legend(x=0, y=10, offset=0.5, font.size=3)
+```
+
+User can specific the position and offset of distance from text to line segment.
+
+We can also use `theme_tree2()` or `ggtree(showDistance=TRUE)`
 
 ```{r fig.width=3, fig.height=3, fig.align="center"}
 ggtree(tree) + theme_tree2()
@@ -155,12 +163,6 @@ ggtree(tree, showDistance=TRUE) +
       scale_x_continuous(breaks=seq(0, 60, 5))
 ```
 
-User can also use _`geom_segment`_ and _`geom_text`_ to specify the position and length of distance legend:
-```{r fig.width=3, fig.height=3, warning=FALSE, fig.align="center"}
-ggtree(tree) +
-    geom_segment(x=0, y=12, xend=10, yend=12) +
-        geom_text(x=5, y=12.5, label=5, size=4)
-```
 
 ## display nodes/tips
 
@@ -747,6 +749,30 @@ genotype <- read.table(genotype_file, sep="\t", stringsAsFactor=F)
 p <- ggtree(beast_tree, time_scale=TRUE)+geom_tiplab(align=TRUE)+ xlim(1990, 2015) + theme_tree2()
 gplot(p, genotype, widths=c(5, 1))
 ```
+
+`gplot` function has [an issue](https://github.com/GuangchuangYu/ggtree/issues/3) that it can't always guarantee the heatmpa aligning to the tree properly, since the line up is between two figures and it's currently not supported internally by ggplot2. I have implemented another function `gheatmap` that can do the line up properly by creating a new layer above the tree.
+
+```{r fig.width=20, fig.height=16, fig.align="center"}
+p <- ggtree(beast_tree, time_scale=TRUE) %>% add_legend
+gheatmap(p, genotype, width=1)
+```
+
+The _width_ parameter is to control the width of each cell in the heatmap. It supports another parameter _offset_ for controling the distance between the tree and the heatmap, for instance left space for tip labels.
+
+```{r fig.width=20, fig.height=16, fig.align="center"}
+gheatmap(p+geom_tiplab(size=3), genotype, offset = 2, width=0.5)
+```
+
+For time scaled tree, as in this example, it's more often to use x axis by using `theme_tree2`. But with this solution, the heatmap is just another layer and will change the x axis. To over come this issue, we implemented `scale_x_heatmap` to set the x axis more reasonable. User can also use `gplot` and tweak the positions of two plot to align properly.
+
+```{r fig.width=20, fig.height=16, fig.align="center"}
+p <- ggtree(beast_tree, time_scale=TRUE) + geom_tiplab(size=3, align=TRUE) + theme_tree2()
+pp <- (p + scale_y_continuous(expand=c(0, 0.3))) %>%
+    gheatmap(genotype, offset=4, width=0.5, colnames=FALSE) %>%
+        scale_x_heatmap(breaks=seq(1992, 2013, by=5))
+pp + theme(legend.position="right")
+```
+
 
 
 # External documents
