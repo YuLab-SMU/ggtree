@@ -1,5 +1,6 @@
 CHANGES IN VERSION 1.1.6
 ------------------------
+ o update add_colorbar <2015-05-21, Thu>
  o add example of add_legend and gheatmap in vignette <2015-05-18, Mon> 
  o gheatmap implementation of gplot <2015-05-18, Mon>
  o add_legend for adding evolution distance legend <2015-05-18, Mon>

@@ -483,9 +483,13 @@ add_colorbar <- function(p, color, x=NULL, ymin=NULL, ymax=NULL, font.size=4) {
 
     i <- seq(1, length(y), length.out = 5) %>% round(0)
     offset <- diff(range(p$data$x))/40
+    barwidth <- offset/5
+    
     p + annotate("text", x=x+offset*2, y=y[i], label=legend[i,1], size=font.size) +
         annotate("rect", xmin=x, xmax=x+offset, ymin=ymin,
-                 ymax = ymax, fill=legend[,2], color=legend[,2]) 
+                 ymax = ymax, fill=legend[,2], color=legend[,2]) +
+                     annotate("segment", x=x, xend=x+barwidth, y=y[i], yend=y[i], color="white") +
+                         annotate("segment", x=x+offset-barwidth, xend=x+offset, y=y[i], yend=y[i], color="white")
     
 }
 
