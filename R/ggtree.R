@@ -527,6 +527,8 @@ add_legend <- function(p, x=NULL, y=NULL, offset=NULL, font.size=4, ...) {
         offset <- offset / 100
     }
     p <- p + geom_segment(x=x, y=y, xend=x+d, yend=y, ...) +
-        geom_text(x=x+d/2, y=y+offset, label=d, size=font.size, ...)
+        geom_text(x=x+d/2, y=y-offset, label=d, size=font.size, ...) +
+            geom_segment(x=x, y=y-offset/2, xend=x, yend=y+offset/2, ...) +
+                geom_segment(x=x+d, y=y-offset/2, xend=x+d, yend=y+offset/2, ...)
     return(p)
 }
