@@ -13,9 +13,7 @@ install:
 
 build_script:
   - travis-tool.sh install_deps
-  - travis-tool.sh install_bioc EBImage
-  - travis-tool.sh install_bioc BiocStyle
-  - travis-tool.sh install_bioc Biostrings
+  - travis-tool.sh install_bioc BiocStyle Biostrings EBImage
 ##  - travis-tool.sh install_bioc_deps
   
 test_script:
