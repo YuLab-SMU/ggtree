@@ -6,7 +6,7 @@
   and compare the feature from parent to children and add store the info in tree object.
   So with ancestral sequences inferred by HYPHY or PAML, we can support any type of sequence feature comparison,
   not only substitution supported internally.
-+ support more features that can be plotted at the right hand side of the tree,
-  not only matrix but also for example sequence alignment or specific window of alignment.
++ support more features that can be plotted at the right hand side of the tree.
+  - ~~multiple sequence alignment~~ _Now implemented in 1.1.7_
   
 

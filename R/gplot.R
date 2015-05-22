@@ -61,6 +61,92 @@ gheatmap <- function(p, data, offset=0, width=NULL, low="green", high="red",
     return(p2)
 }
 
+##' multiple sequence alignment with phylogenetic tree
+##'
+##' 
+##' @title msaplot
+##' @param p tree view
+##' @param fasta fasta file, multiple sequence alignment
+##' @param offset offset of MSA to tree
+##' @param width width of each character
+##' @param color color 
+##' @param window specific a slice to display
+##' @return tree view
+##' @export
+##' @importFrom Biostrings readBStringSet
+##' @importFrom colorspace rainbow_hcl
+##' @importFrom ggplot2 geom_segment
+##' @importFrom ggplot2 geom_rect
+##' @importFrom ggplot2 scale_fill_manual
+##' @author Guangchuang Yu
+msaplot <- function(p, fasta, offset=0, width=NULL, color=NULL, window=NULL){
+    aln <- readBStringSet(fasta)
+    if (is.null(window)) {
+        window <- c(1, width(aln)[1])
+    }
+    slice <- seq(window[1], window[2], by=1)
+    
+    seqs <- lapply(1:length(aln), function(i) {
+        x <- toString(aln[i])
+        seq <- substring(x, slice, slice)
+
+        seq[seq == '?'] <- '-'
+        seq[seq == '*'] <- '-'
+        seq[seq == ' '] <- '-'
+        return(seq)
+    })
+    names(seqs) <- names(aln)
+    
+    if(is.null(color)) {
+        alphabet <- unlist(seqs) %>% unique
+        alphabet <- alphabet[alphabet != '-']
+        color <- rainbow_hcl(length(alphabet))
+        names(color) <- alphabet
+        color <- c(color, '-'=NA)
+    }
+
+    df <- p$data
+    if (is.null(width)) {
+        width <- (df$x %>% range %>% diff)/500
+    }
+
+    df=df[df$isTip,]
+    start <- max(df$x) * 1.02 + offset
+
+    seqs <- seqs[df$label[order(df$y)]]
+    ## seqs.df <- do.call("rbind", seqs)
+
+    h <- ceiling(diff(range(df$y))/length(df$y))
+    xmax <- start + seq_along(slice) * width
+    xmin <- xmax -width
+    y <- sort(df$y)
+    ymin <- y - 0.4 *h
+    ymax <- y + 0.4 *h
+
+    from <- to <- NULL
+    
+    lines.df <- data.frame(from=min(xmin), to=max(xmax), y = y)
+
+    p <- p + geom_segment(data=lines.df, aes(x=from, xend=to, y=y, yend=y))
+    msa <- lapply(1:length(y), function(i) {
+        data.frame(name=names(seqs)[i],
+                   xmin=xmin,
+                   xmax=xmax,
+                   ymin=ymin[i],
+                   ymax=ymax[i],
+                   seq=seqs[[i]])
+    })
+
+    msa.df <- do.call("rbind", msa)
+
+    p <- p + geom_rect(data=msa.df, aes(x=xmin, y=ymin, 
+                           xmin=xmin, xmax=xmax,
+                           ymin=ymin, ymax=ymax, fill=seq)) +
+                               scale_fill_manual(values=color)
+
+    return(p)
+}
+
 ##' scale x for tree with heatmap
 ##'
 ##' 
