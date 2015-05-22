@@ -7,8 +7,12 @@ init:
         Invoke-WebRequest http://raw.github.com/krlmlr/r-appveyor/master/scripts/appveyor-tool.ps1 -OutFile "..\appveyor-tool.ps1"
         Import-Module '..\appveyor-tool.ps1'
 
-before_install:
-  - sudo apt-get install libfftw3-dev
+
+apt_packages:
+  - libfftw3-dev
+
+# before_install:
+#   - sudo apt-get install libfftw3-dev
   
 install:
   ps: Bootstrap
