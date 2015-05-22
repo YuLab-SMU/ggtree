@@ -1,3 +1,7 @@
+CHANGES IN VERSION 1.1.7
+------------------------
+ o msaplot for adding multiple sequence alignment <2015-05-22, Fri>
+ 
 CHANGES IN VERSION 1.1.6
 ------------------------
  o add vertical_only parameter to scaleClade and set to TRUE by default.
