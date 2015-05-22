@@ -74,6 +74,7 @@ gheatmap <- function(p, data, offset=0, width=NULL, low="green", high="red",
 ##' @return tree view
 ##' @export
 ##' @importFrom Biostrings readBStringSet
+##' @importMethodsFrom Biostrings width
 ##' @importFrom colorspace rainbow_hcl
 ##' @importFrom ggplot2 geom_segment
 ##' @importFrom ggplot2 geom_rect
