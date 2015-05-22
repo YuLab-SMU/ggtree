@@ -7,20 +7,17 @@ init:
         Invoke-WebRequest http://raw.github.com/krlmlr/r-appveyor/master/scripts/appveyor-tool.ps1 -OutFile "..\appveyor-tool.ps1"
         Import-Module '..\appveyor-tool.ps1'
 
-
-apt_packages:
-  - libfftw3-dev
-
-# before_install:
-#   - sudo apt-get install libfftw3-dev
   
 install:
   ps: Bootstrap
 
 build_script:
-  - travis-tool.sh install_bioc_deps
   - travis-tool.sh install_deps
-
+  - travis-tool.sh install_bioc EBImage
+  - travis-tool.sh install_bioc BiocStyle
+  - travis-tool.sh install_bioc Biostrings
+##  - travis-tool.sh install_bioc_deps
+  
 test_script:
   - travis-tool.sh run_tests
 
