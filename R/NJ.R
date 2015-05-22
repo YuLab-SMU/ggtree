@@ -52,7 +52,7 @@ NJ <- function(X) {
         
         ij <- 1
         new_dist <- numeric(N-2)
-        ## d_kn=1/2(d_ik+d_jk−d_ij)
+        ## d_kn <- 1/2 * (d_ik + d_jk - d_ij)
         for (i in 1:N) {
             if (i == OUT1 || i == OUT2) next
             x <- dm[i, OUT1]
