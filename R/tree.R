@@ -18,10 +18,6 @@ scale_color_ <- function(phylo, by, low=NULL, high=NULL, na.color=NULL, default.
         cols <- rainbow_hcl(n)
     }
 
-    ## if (by == "dN_vs_dS") {
-    ##     interval <- seq(0, 1.5, length.out = 100)
-    ## } 
-
     idx <- getIdx(vals, MIN=MIN, MAX=MAX, interval=interval)
     interval <- attr(idx, "interval")
     

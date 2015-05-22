@@ -4,7 +4,7 @@
 \alias{scaleClade}
 \title{scaleClade}
 \usage{
-scaleClade(tree_view, node, scale = 1)
+scaleClade(tree_view, node, scale = 1, vertical_only = TRUE)
 }
 \arguments{
 \item{tree_view}{tree view}
@@ -12,6 +12,10 @@ scaleClade(tree_view, node, scale = 1)
 \item{node}{clade node}
 
 \item{scale}{scale}
+
+\item{vertical_only}{logical. If TRUE, only vertical will be scaled.
+If FALSE, the clade will be scaled vertical and horizontally.
+TRUE by default.}
 }
 \value{
 tree view
