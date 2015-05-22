@@ -1,22 +1,22 @@
-# Sample .travis.yml for R projects.
-#
-# See README.md for instructions, or for more configuration options,
-# see the wiki:
-#   https://github.com/craigcitro/r-travis/wiki
+language: r
 
-language: c
-
-before_install:
-  - curl -OL http://raw.github.com/craigcitro/r-travis/master/scripts/travis-tool.sh
-  - chmod 755 ./travis-tool.sh
-  - ./travis-tool.sh bootstrap
-env:
-  global:
-    - BIOC_USE_DEVEL="TRUE"
-install:
-  - ./travis-tool.sh install_bioc_deps
-  - ./travis-tool.sh install_deps
-script: ./travis-tool.sh run_tests
+r_packages:
+  - ape
+  - phylobase
+  - colorspace
+  - grid
+  - ggplot2
+  - gridExtra
+  - jsonlite
+  - magrittr
+  - reshape2
+  - rmarkdown
+  - testthat
+  - knitr
+bioc_packages:
+  - Biostrings
+  - EBImage
+  - BioStyle
 
 after_failure:
   - ./travis-tool.sh dump_logs
