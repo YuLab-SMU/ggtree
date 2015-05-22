@@ -1,10 +1,7 @@
-CHANGES IN VERSION 1.1.7
+CHANGES IN VERSION 1.1.6
 ------------------------
  o add vertical_only parameter to scaleClade and set to TRUE by default.
    only vertical will be scaled by default. <2015-05-22, Fri>
- 
-CHANGES IN VERSION 1.1.6
-------------------------
  o update add_colorbar & add_legend <2015-05-21, Thu>
  o add example of add_legend and gheatmap in vignette <2015-05-18, Mon> 
  o gheatmap implementation of gplot <2015-05-18, Mon>
