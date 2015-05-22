@@ -1,4 +1,5 @@
 language: r
+bioc_required: true
 
 r_packages:
   - ape
@@ -16,7 +17,7 @@ r_packages:
 bioc_packages:
   - Biostrings
   - EBImage
-  - BioStyle
+  - BiocStyle
 
 after_failure:
   - ./travis-tool.sh dump_logs
