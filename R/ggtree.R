@@ -302,10 +302,13 @@ hilight <- function(tree_view, node, fill="steelblue", alpha=0.5, ...) {
 ##' @param tree_view tree view
 ##' @param node clade node
 ##' @param scale scale
+##' @param vertical_only logical. If TRUE, only vertical will be scaled.
+##' If FALSE, the clade will be scaled vertical and horizontally.
+##' TRUE by default.
 ##' @return tree view
 ##' @export
 ##' @author Guangchuang Yu
-scaleClade <- function(tree_view, node, scale=1) {
+scaleClade <- function(tree_view, node, scale=1, vertical_only=TRUE) {
     if (scale == 1) {
         return(tree_view)
     }
@@ -320,8 +323,10 @@ scaleClade <- function(tree_view, node, scale=1) {
     ## new_span <- span * scale
     old.sp.df <- sp.df
     sp.df$y <- df[node, "y"] + (sp.df$y - df[node, "y"]) * scale
-    sp.df$x <- df[node, "x"] + (sp.df$x - df[node, "x"]) * scale
-
+    if (vertical_only == FALSE) {
+        sp.df$x <- df[node, "x"] + (sp.df$x - df[node, "x"]) * scale
+    }
+    
     scale_diff.up <- max(sp.df$y) - max(old.sp.df$y)
     scale_diff.lw <- min(sp.df$y) - min(old.sp.df$y)
     
