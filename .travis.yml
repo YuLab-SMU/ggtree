@@ -1,5 +1,10 @@
+## reference: http://docs.travis-ci.com/user/languages/r/
+
 language: r
 bioc_required: true
+
+apt_packages:
+  - libfftw3-dev
 
 r_packages:
   - ape
@@ -18,7 +23,7 @@ bioc_packages:
   - Biostrings
   - EBImage
   - BiocStyle
-
+  
 after_failure:
   - ./travis-tool.sh dump_logs
 
