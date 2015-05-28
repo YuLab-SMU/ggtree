@@ -1,7 +1,10 @@
 #  ggtree: a phylogenetic tree viewer for different types of tree annotations
 
+[![platform](http://www.bioconductor.org/shields/availability/devel/ggtree.svg)](http://www.bioconductor.org/packages/devel/bioc/html/ggtree.html#archives)
 [![Build Status](https://travis-ci.org/GuangchuangYu/ggtree.svg?branch=master)](https://travis-ci.org/GuangchuangYu/ggtree)
 [![Build Status](https://ci.appveyor.com/api/projects/status/github/GuangchuangYu/ggtree?svg=true)](https://ci.appveyor.com/project/GuangchuangYu/ggtree/branch/master)
+[![Build Status](http://www.bioconductor.org/shields/build/devel/bioc/ggtree.svg)](http://bioconductor.org/checkResults/devel/bioc-LATEST/ggtree/)
+[![Bioc](http://www.bioconductor.org/shields/years-in-bioc/ggtree.svg)](http://www.bioconductor.org/packages/devel/bioc/html/ggtree.html#since)
 
 The `ggtree` package extending the `ggplot2` package. It based on grammar of graphics and takes all the good parts of `ggplot2`. 
 
