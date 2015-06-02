@@ -1,3 +1,8 @@
+CHANGES IN VERSION 1.1.8
+------------------------
+ o mv scale_x_gheatmap to scale_x_ggtree, which also support msaplot <2015-06-02, Tue>
+ o add mask function <2015-06-02, Tue>
+ 
 CHANGES IN VERSION 1.1.7
 ------------------------
  o add example of msaplot in vignette <2015-05-22, Fri>
