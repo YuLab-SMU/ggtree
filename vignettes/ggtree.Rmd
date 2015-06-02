@@ -757,7 +757,7 @@ p <- ggtree(beast_tree, time_scale=TRUE) %>% add_legend
 gheatmap(p, genotype, width=1)
 ```
 
-The _width_ parameter is to control the width of each cell in the heatmap. It supports another parameter _offset_ for controling the distance between the tree and the heatmap, for instance left space for tip labels.
+The _width_ parameter is to control the width of the heatmap. It supports another parameter _offset_ for controling the distance between the tree and the heatmap, for instance left space for tip labels.
 
 ```{r fig.width=20, fig.height=16, fig.align="center"}
 gheatmap(p+geom_tiplab(size=3), genotype, offset = 2, width=0.5)
