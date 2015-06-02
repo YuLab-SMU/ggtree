@@ -5,9 +5,11 @@
 [![Build Status](https://ci.appveyor.com/api/projects/status/github/GuangchuangYu/ggtree?svg=true)](https://ci.appveyor.com/project/GuangchuangYu/ggtree/branch/master)-->
 [![Build Status](http://www.bioconductor.org/shields/build/devel/bioc/ggtree.svg)](http://bioconductor.org/checkResults/devel/bioc-LATEST/ggtree/)
 [![Bioc](http://www.bioconductor.org/shields/years-in-bioc/ggtree.svg)](http://www.bioconductor.org/packages/devel/bioc/html/ggtree.html#since)
+[![post](http://www.bioconductor.org/shields/posts/ggtree.svg)](https://support.bioconductor.org/t/ggtree/)
+
+
 [![commit](http://www.bioconductor.org/shields/commits/bioc/ggtree.svg)](http://www.bioconductor.org/packages/devel/bioc/html/ggtree.html#svn_source)
 [![download](http://www.bioconductor.org/shields/downloads/ggtree.svg)](http://bioconductor.org/packages/stats/bioc/ggtree.html)
-[![post](http://www.bioconductor.org/shields/posts/ggtree.svg)](https://support.bioconductor.org/t/ggtree/)
 
 
 The `ggtree` package extending the `ggplot2` package. It based on grammar of graphics and takes all the good parts of `ggplot2`. 
