@@ -763,13 +763,13 @@ The _width_ parameter is to control the width of each cell in the heatmap. It su
 gheatmap(p+geom_tiplab(size=3), genotype, offset = 2, width=0.5)
 ```
 
-For time scaled tree, as in this example, it's more often to use x axis by using `theme_tree2`. But with this solution, the heatmap is just another layer and will change the x axis. To over come this issue, we implemented `scale_x_heatmap` to set the x axis more reasonable. User can also use `gplot` and tweak the positions of two plot to align properly.
+For time scaled tree, as in this example, it's more often to use x axis by using `theme_tree2`. But with this solution, the heatmap is just another layer and will change the x axis. To over come this issue, we implemented `scale_x_ggtree` to set the x axis more reasonable. User can also use `gplot` and tweak the positions of two plot to align properly.
 
 ```{r fig.width=20, fig.height=16, fig.align="center"}
 p <- ggtree(beast_tree, time_scale=TRUE) + geom_tiplab(size=3, align=TRUE) + theme_tree2()
 pp <- (p + scale_y_continuous(expand=c(0, 0.3))) %>%
     gheatmap(genotype, offset=4, width=0.5, colnames=FALSE) %>%
-        scale_x_heatmap(breaks=seq(1992, 2013, by=5))
+        scale_x_ggtree()
 pp + theme(legend.position="right")
 ```
 
@@ -788,6 +788,11 @@ A specific slice of the alignment can also be displayed by specific _window_ par
 + [viewing and annotating phylogenetic tree with ggtree](http://ygc.name/2014/12/21/ggtree/)
 + [updating a tree view using %<% operator](http://ygc.name/2015/02/10/ggtree-updating-a-tree-view/)
 + [an example of drawing beast tree using ggtree](http://ygc.name/2015/04/01/an-example-of-drawing-beast-tree-using-ggtree/)
+
+# Bugs/Feature requests
+
+If you have any, [let me know](https://github.com/GuangchuangYu/ggtree/issues). Thx!
+
 
 # Session info
 Here is the output of `sessionInfo()` on the system on which this document was compiled:
