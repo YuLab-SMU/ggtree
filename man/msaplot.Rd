@@ -4,7 +4,7 @@
 \alias{msaplot}
 \title{msaplot}
 \usage{
-msaplot(p, fasta, offset = 0, width = NULL, color = NULL, window = NULL)
+msaplot(p, fasta, offset = 0, width = 1, color = NULL, window = NULL)
 }
 \arguments{
 \item{p}{tree view}
@@ -13,7 +13,7 @@ msaplot(p, fasta, offset = 0, width = NULL, color = NULL, window = NULL)
 
 \item{offset}{offset of MSA to tree}
 
-\item{width}{width of each character}
+\item{width}{total width of alignment, compare to width of tree}
 
 \item{color}{color}
 

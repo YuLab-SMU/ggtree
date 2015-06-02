@@ -4,7 +4,7 @@
 \alias{gheatmap}
 \title{gheatmap}
 \usage{
-gheatmap(p, data, offset = 0, width = NULL, low = "green", high = "red",
+gheatmap(p, data, offset = 0, width = 1, low = "green", high = "red",
   color = "white", colnames = TRUE, font.size = 4)
 }
 \arguments{
@@ -14,7 +14,7 @@ gheatmap(p, data, offset = 0, width = NULL, low = "green", high = "red",
 
 \item{offset}{offset of heatmap to tree}
 
-\item{width}{width of each cell in heatmap}
+\item{width}{total width of heatmap, compare to width of tree}
 
 \item{low}{color of lowest value}
 

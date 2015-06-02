@@ -5,7 +5,7 @@
 ##' @param p tree view
 ##' @param data matrix or data.frame
 ##' @param offset offset of heatmap to tree
-##' @param width width of each cell in heatmap
+##' @param width total width of heatmap, compare to width of tree
 ##' @param low color of lowest value
 ##' @param high color of highest value
 ##' @param color color of heatmap cell border
@@ -15,13 +15,20 @@
 ##' @importFrom reshape2 melt
 ##' @importFrom ggplot2 geom_tile
 ##' @importFrom ggplot2 geom_text
+##' @importFrom ggplot2 theme
+##' @importFrom ggplot2 element_blank
+##' @importFrom ggplot2 guides
+##' @importFrom ggplot2 guide_legend
 ##' @export
 ##' @author Guangchuang Yu
-gheatmap <- function(p, data, offset=0, width=NULL, low="green", high="red",
+gheatmap <- function(p, data, offset=0, width=1, low="green", high="red",
                      color="white", colnames=TRUE, font.size=4) {
-    if (is.null(width)) {
-        width <- (p$data$x %>% range %>% diff)/30
-    }
+    ## if (is.null(width)) {
+    ##     width <- (p$data$x %>% range %>% diff)/30
+    ## }
+
+    ## convert width to width of each cell
+    width <- width * (p$data$x %>% range %>% diff) / ncol(data)
     
     isTip <- x <- y <- variable <- value <- from <- to <- NULL
  
@@ -56,6 +63,9 @@ gheatmap <- function(p, data, offset=0, width=NULL, low="green", high="red",
     if (colnames) {
         p2 <- p2 + geom_text(data=mapping, aes(x=to, label=from), y=0, size=font.size)
     }
+
+    p2 <- p2 + theme(legend.position="right", legend.title=element_blank())
+    p2 <- p2 + guides(fill = guide_legend(override.aes = list(colour = NULL)))
     
     attr(p2, "mapping") <- mapping
     return(p2)
@@ -68,7 +78,7 @@ gheatmap <- function(p, data, offset=0, width=NULL, low="green", high="red",
 ##' @param p tree view
 ##' @param fasta fasta file, multiple sequence alignment
 ##' @param offset offset of MSA to tree
-##' @param width width of each character
+##' @param width total width of alignment, compare to width of tree
 ##' @param color color 
 ##' @param window specific a slice to display
 ##' @return tree view
@@ -80,7 +90,7 @@ gheatmap <- function(p, data, offset=0, width=NULL, low="green", high="red",
 ##' @importFrom ggplot2 geom_rect
 ##' @importFrom ggplot2 scale_fill_manual
 ##' @author Guangchuang Yu
-msaplot <- function(p, fasta, offset=0, width=NULL, color=NULL, window=NULL){
+msaplot <- function(p, fasta, offset=0, width=1, color=NULL, window=NULL){
     aln <- readBStringSet(fasta)
     if (is.null(window)) {
         window <- c(1, width(aln)[1])
@@ -101,16 +111,20 @@ msaplot <- function(p, fasta, offset=0, width=NULL, color=NULL, window=NULL){
     if(is.null(color)) {
         alphabet <- unlist(seqs) %>% unique
         alphabet <- alphabet[alphabet != '-']
-        color <- rainbow_hcl(length(alphabet))
+        ## color <- rainbow_hcl(length(alphabet))
+        color <- getCols(length(alphabet))
         names(color) <- alphabet
         color <- c(color, '-'=NA)
     }
 
     df <- p$data
-    if (is.null(width)) {
-        width <- (df$x %>% range %>% diff)/500
-    }
+    ## if (is.null(width)) {
+    ##     width <- (df$x %>% range %>% diff)/500
+    ## }
 
+    ## convert width to width of each cell
+    width <- width * (df$x %>% range %>% diff) / diff(window)
+    
     df=df[df$isTip,]
     start <- max(df$x) * 1.02 + offset
 
@@ -119,7 +133,7 @@ msaplot <- function(p, fasta, offset=0, width=NULL, color=NULL, window=NULL){
 
     h <- ceiling(diff(range(df$y))/length(df$y))
     xmax <- start + seq_along(slice) * width
-    xmin <- xmax -width
+    xmin <- xmax - width
     y <- sort(df$y)
     ymin <- y - 0.4 *h
     ymax <- y + 0.4 *h
@@ -145,13 +159,18 @@ msaplot <- function(p, fasta, offset=0, width=NULL, color=NULL, window=NULL){
                            ymin=ymin, ymax=ymax, fill=seq)) +
                                scale_fill_manual(values=color)
 
+    breaks <- hist(seq_along(slice), breaks=10, plot=FALSE)$breaks
+    pos <- start + breaks * width
+    mapping <- data.frame(from=breaks+1, to=pos)
+    attr(p, "mapping") <- mapping
+    
     return(p)
 }
 
 ##' scale x for tree with heatmap
 ##'
 ##' 
-##' @title scale_x_heatmap
+##' @title scale_x_ggtree
 ##' @param p tree view
 ##' @param breaks breaks for tree
 ##' @param labels lables for corresponding breaks
@@ -159,12 +178,16 @@ msaplot <- function(p, fasta, offset=0, width=NULL, color=NULL, window=NULL){
 ##' @importFrom ggplot2 scale_x_continuous
 ##' @export
 ##' @author Guangchuang Yu
-scale_x_heatmap <- function(p, breaks, labels=NULL) {
+scale_x_ggtree <- function(p, breaks=NULL, labels=NULL) {
+    if (is.null(breaks)) {
+        breaks <- hist(p$data$x, breaks=5, plot=FALSE)$breaks
+    }
     m <- attr(p, "mapping")
     if (is.null(labels)) {
         labels <- breaks
     }
-    p + scale_x_continuous(breaks=c(breaks, m$to), labels=c(labels, as.character(m$from)))
+    breaks <- c(breaks, m$to)
+    p + scale_x_continuous(breaks=breaks, labels=c(labels, as.character(m$from)))
 }
 
 
