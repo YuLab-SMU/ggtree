@@ -294,6 +294,14 @@ extract.treeinfo.jplace <- function(object, layout="phylogram", ladderize=TRUE, 
     return(df)
 }
 
+## convert edge number to node number for EPA/pplacer output
+edgeNum2nodeNum <- function(jp, edgeNum) {
+    edges <- attr(jp@phylo, "edgeNum")
+    nodes <- jp@phylo$edge[,1]
+
+    idx <- sapply(edgeNum, function(ee) which(edges==ee))
+    nodes[idx]
+}
 
 is.character_beast <- function(stats3, cn) {
     for (i in 1:nrow(stats3)) {
