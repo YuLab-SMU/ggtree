@@ -179,8 +179,10 @@ setMethod("get.fields", signature(object = "jplace"),
 ##' get.placements(jp, by="all")
 setMethod("get.placements", signature(object = "jplace"),
           function(object, by="best", ...) {
+
               placements <- object@placements
               place <- placements[,1]
+              
               ids <- NULL
               if (length(placements) == 2) {
                   ids <- sapply(placements[,2], function(x) x[1])
@@ -189,12 +191,29 @@ setMethod("get.placements", signature(object = "jplace"),
               if (by == "best") { ## best hit
                   place <- lapply(place, function(x) {
                       if (is(x, "data.frame") || is(x, "matrix")) {
-                          return(x[1,])
+                          if (nrow(x) == 1) {
+                              return(x)
+                          }
+                          ## http://astrostatistics.psu.edu/su07/R/html/base/html/all.equal.html
+                          ## due to precision, number are identical maynot be equal, so use all.equal which can test nearly equal number
+                          ## if not equals, the output is a descript string of the differences
+                          idx <- sapply(2:nrow(x), function(i) all.equal(x[1,2], x[i,2]))
+                          if (any(idx == TRUE)) {
+                              return(x[c(1, which(idx==TRUE)),])
+                          } else {
+                              return(x[1,])
+                          }
+                          
                       } else {
+                          ## if only 1 row, it may stored as vector
+                          ## the edge number, for example 523 can be 523.0000 due to R stored number as real number
+                          ## be careful in mapping edge number.
                           return(x)
                       }
                   })
+                  
               }
+              
               place.df <- do.call("rbind", place)
               row.names(place.df) <- NULL
               if (!is.null(ids)) {
@@ -209,8 +228,8 @@ setMethod("get.placements", signature(object = "jplace"),
               } else {
                   colnames(place.df) <- object@fields
               }
-              
               res <- as.data.frame(place.df)
+              
               ## res[] <- lapply(res, as.character)
               ## for (i in 1:ncol(res)) {
               ##     if (all(grepl("^[0-9\\.e]+$", res[,i]))) {
