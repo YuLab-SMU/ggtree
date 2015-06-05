@@ -1,5 +1,6 @@
 CHANGES IN VERSION 1.1.8
 ------------------------
+ o update get.placement <2015-06-05, Fri>
  o edgeNum2nodeNum for converting edge number to node number for EPA/pplacer output <2015-06-04, Thu>
  o mv scale_x_gheatmap to scale_x_ggtree, which also support msaplot <2015-06-02, Tue>
  o add mask function <2015-06-02, Tue>
