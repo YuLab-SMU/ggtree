@@ -591,3 +591,19 @@ add_legend <- function(p, x=NULL, y=NULL, offset=NULL, font.size=4, ...) {
                 geom_segment(x=x+d, y=y-offset/2, xend=x+d, yend=y+offset/2, ...)
     return(p)
 }
+
+##' get taxa name of a selected node
+##'
+##' 
+##' @title get_taxa_name
+##' @param tree_view tree view
+##' @param node node
+##' @return taxa name vector
+##' @export
+##' @author Guangchuang Yu
+get_taxa_name <- function(tree_view, node) {
+    df <- tree_view$data
+    sp <- get.offspring.df(df, node)
+    res <- df[sp, "label"]
+    return(res[df[sp, "isTip"]])
+}
