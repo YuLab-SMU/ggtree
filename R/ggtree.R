@@ -355,6 +355,60 @@ scaleClade <- function(tree_view, node, scale=1, vertical_only=TRUE) {
 }
 
 
+##' flip position of two selected branches
+##'
+##' 
+##' @title flip
+##' @param tree_view tree view 
+##' @param node1 node number of branch 1
+##' @param node2 node number of branch 2
+##' @return ggplot2 object
+##' @export
+##' @author Guangchuang Yu
+flip <- function(tree_view, node1, node2) {
+    df <- tree_view$data
+    p1 <- with(df, parent[node == node1])
+    p2 <- with(df, parent[node == node2])
+
+    if (p1 != p2) {
+        stop("node1 and node2 should share a same parent node...")
+    }
+
+    sp1 <- c(node1, get.offspring.df(df, node1))
+    sp2 <- c(node2, get.offspring.df(df, node2))
+
+    sp1.df <- df[sp1,]
+    sp2.df <- df[sp2,]
+
+    min_y1 <- min(sp1.df$y)
+    min_y2 <- min(sp2.df$y)
+
+    if (min_y1 < min_y2) {
+        tmp <- sp1.df
+        sp1.df <- sp2.df
+        sp2.df <- tmp
+        tmp <- sp1
+        sp1 <- sp2
+        sp2 <- tmp
+    }
+
+    min_y1 <- min(sp1.df$y)
+    min_y2 <- min(sp2.df$y)
+
+    space <- min(sp1.df$y) - max(sp2.df$y)
+    sp1.df$y <- sp1.df$y - abs(min_y1 - min_y2)
+    sp2.df$y <- sp2.df$y + max(sp1.df$y) + space - min(sp2.df$y)
+
+    df[sp1, "y"] <- sp1.df$y
+    df[sp2, "y"] <- sp2.df$y
+    df[p1, "y"] <- (df[node1, "y"] + df[node2, "y"])/2
+    
+    tree_view$data <- df
+    
+    tree_view
+}
+
+
 ##' collapse a clade
 ##'
 ##' 
