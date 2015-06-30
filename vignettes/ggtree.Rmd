@@ -581,7 +581,7 @@ cp %>% expand(node=21)
 
 ## flip clades
 
-The position of two selected branches can be flip over using __*flip*__ function.
+The positions of two selected branches can be flip over using __*flip*__ function.
 
 ```{r fig.width=20, fig.height=7, warning=FALSE}
 set.seed(2015-06-30)
