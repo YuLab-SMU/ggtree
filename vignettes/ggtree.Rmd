@@ -579,6 +579,18 @@ The collapsed clade can be expanded via _`expand`_ function.
 cp %>% expand(node=21)
 ```
 
+## flip clades
+
+The position of two selected branches can be flip over using __*flip*__ function.
+
+```{r fig.width=20, fig.height=7, warning=FALSE}
+set.seed(2015-06-30)
+p1 <- ggtree(rtree(30)) + geom_text(aes(label=node))
+p2 <- flip(p1, node1=45, node2=33)
+p3 <- flip(p2, 32, 58)
+grid.arrange(p1, p2, p3, ncol=3)
+```
+
 ## phylopic
 
 [PhyloPic](http://phylopic.org/) is a database that stores reusable silhouette images of organisms. `r Githubpkg("GuangchuangYu/ggtree")` supports downloading images from [PhyloPic](http://phylopic.org/) and annotating phylogenetic tree with the downloaded images.

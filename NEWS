@@ -1,5 +1,6 @@
 CHANGES IN VERSION 1.1.9
 ------------------------
+ o add example of flip function in vignette <2015-06-30, Tue>
  o flip function for exchanging positions of two selected branches <2015-06-30, Tue>
  
 CHANGES IN VERSION 1.1.8
