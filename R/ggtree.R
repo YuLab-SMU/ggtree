@@ -401,10 +401,14 @@ flip <- function(tree_view, node1, node2) {
 
     df[sp1, "y"] <- sp1.df$y
     df[sp2, "y"] <- sp2.df$y
-    df[p1, "y"] <- (df[node1, "y"] + df[node2, "y"])/2
+
+    anc <- getAncestor.df(df, node1)
+    ii <- match(anc, df$node)
+    df[ii, "y"] <- NA
+    currentNode <- as.vector(sapply(anc, getChild.df, df=df))
+    currentNode <- currentNode[!currentNode %in% anc]
     
-    tree_view$data <- df
-    
+    tree_view$data <- re_assign_ycoord_df(df, currentNode)
     tree_view
 }
 
@@ -427,24 +431,32 @@ rotate <- function(tree_view, node) {
     jj <- ii[order(sp.df[ii, "y"])]
     sp.df[jj,"y"] <- rev(sp.df[jj, "y"])
     sp.df[-jj, "y"] <- NA
-    currentNode <- tip
-    while(any(is.na(sp.df$y))) {
-        pNode <- with(sp.df, parent[match(currentNode, node)]) %>% unique
-        idx <- sapply(pNode, function(i) with(sp.df, all(node[parent == i] %in% currentNode)))
-        newNode <- pNode[idx]
-        sp.df[match(newNode, sp.df$node), "y"] <- sapply(newNode, function(i) {
-            with(sp.df, mean(y[parent == i], na.rm = TRUE))
-        })
-        traced_node <- as.vector(sapply(newNode, function(i) with(sp.df, node[parent == i])))
-        currentNode <- c(currentNode[! currentNode %in% traced_node], newNode)
-    }
+    sp.df <- re_assign_ycoord_df(sp.df, tip)
+
     df[sp_idx, "y"] <- sp.df$y
     df[df$node == node, "y"] <- mean(df[df$parent == node, "y"])
     pnode <- df$parent[df$node == node]
-    df[df$node == pnode, "y"] <- mean(df[df$parent == pnode, "y"])
-    
+    if (pnode != node && !is.na(pnode)) {
+        df[df$node == pnode, "y"] <- mean(df[df$parent == pnode, "y"])
+    }
     tree_view$data <- df
     tree_view
+}
+
+re_assign_ycoord_df <- function(df, currentNode) {
+    while(any(is.na(df$y))) {
+        pNode <- with(df, parent[match(currentNode, node)]) %>% unique
+        idx <- sapply(pNode, function(i) with(df, all(node[parent == i & parent != node] %in% currentNode)))
+        newNode <- pNode[idx]
+        ## newNode <- newNode[is.na(df[match(newNode, df$node), "y"])]
+        
+        df[match(newNode, df$node), "y"] <- sapply(newNode, function(i) {
+            with(df, mean(y[parent == i], na.rm = TRUE))
+        })
+        traced_node <- as.vector(sapply(newNode, function(i) with(df, node[parent == i])))
+        currentNode <- c(currentNode[! currentNode %in% traced_node], newNode)
+    }
+    return(df)
 }
 
 ##' collapse a clade
