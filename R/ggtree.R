@@ -440,8 +440,10 @@ rotate <- function(tree_view, node) {
     }
     df[sp_idx, "y"] <- sp.df$y
     df[df$node == node, "y"] <- mean(df[df$parent == node, "y"])
+    pnode <- df$parent[df$node == node]
+    df[df$node == pnode, "y"] <- mean(df[df$parent == pnode, "y"])
+    
     tree_view$data <- df
-
     tree_view
 }
 
