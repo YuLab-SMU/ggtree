@@ -1,5 +1,6 @@
 CHANGES IN VERSION 1.1.9
 ------------------------
+ o rotate function for ratating a clade by 180 degree <2015-07-01, Wed>
  o get_taxa_name function will return taxa name vector of a selected clade <2015-06-30, Tue>
  o add example of flip function in vignette <2015-06-30, Tue>
  o flip function for exchanging positions of two selected branches <2015-06-30, Tue>

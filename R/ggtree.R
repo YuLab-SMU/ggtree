@@ -408,6 +408,42 @@ flip <- function(tree_view, node1, node2) {
     tree_view
 }
 
+##' rotate 180 degree of a selected branch
+##'
+##' 
+##' @title rotate
+##' @param tree_view tree view 
+##' @param node selected node
+##' @return ggplot2 object
+##' @export
+##' @author Guangchuang Yu
+rotate <- function(tree_view, node) {
+    df <- tree_view$data
+    sp <- get.offspring.df(df, node)
+    sp_idx <- with(df, match(sp, node))
+    tip <- sp[df$isTip[sp_idx]]
+    sp.df <- df[sp_idx,]
+    ii <- with(sp.df, match(tip, node))
+    jj <- ii[order(sp.df[ii, "y"])]
+    sp.df[jj,"y"] <- rev(sp.df[jj, "y"])
+    sp.df[-jj, "y"] <- NA
+    currentNode <- tip
+    while(any(is.na(sp.df$y))) {
+        pNode <- with(sp.df, parent[match(currentNode, node)]) %>% unique
+        idx <- sapply(pNode, function(i) with(sp.df, all(node[parent == i] %in% currentNode)))
+        newNode <- pNode[idx]
+        sp.df[match(newNode, sp.df$node), "y"] <- sapply(newNode, function(i) {
+            with(sp.df, mean(y[parent == i], na.rm = TRUE))
+        })
+        traced_node <- as.vector(sapply(newNode, function(i) with(sp.df, node[parent == i])))
+        currentNode <- c(currentNode[! currentNode %in% traced_node], newNode)
+    }
+    df[sp_idx, "y"] <- sp.df$y
+    df[df$node == node, "y"] <- mean(df[df$parent == node, "y"])
+    tree_view$data <- df
+
+    tree_view
+}
 
 ##' collapse a clade
 ##'
