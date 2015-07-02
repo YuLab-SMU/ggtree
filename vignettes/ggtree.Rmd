@@ -598,8 +598,9 @@ A selected clade can be rotated by 180 degree using __*rotate*__ function.
 ```{r fig.width=16, fig.height=8, warning=FALSE}
 set.seed(2015-07-01)
 p1 <- ggtree(rtree(30)) + geom_text(aes(label=node))
-p2 <- rotate(p1, 33) %>% hilight(33)
-grid.arrange(hilight(p1, 33), p2, ncol=2)
+p1 <- hilight(p1, 33)
+p2 <- rotate(p1, 33)
+grid.arrange(p1, p2, ncol=2)
 ```
 
 ## phylopic
