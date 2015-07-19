@@ -1,7 +1,7 @@
 Package: ggtree
 Type: Package
 Title: a phylogenetic tree viewer for different types of tree annotations
-Version: 1.1.8
+Version: 1.1.9
 Author: Guangchuang Yu and Tommy Tsan-Yuk Lam
 Maintainer: Guangchuang Yu <guangchuangyu@gmail.com>
 Description: ggtree extends the ggplot2 plotting system which implemented the
@@ -33,4 +33,5 @@ License: Artistic-2.0
 URL: https://github.com/GuangchuangYu/ggtree
 BugReports: https://github.com/GuangchuangYu/ggtree/issues
 Packaged: 2014-12-03 08:16:14 UTC; root
-biocViews: Software, Annotation, Clustering, DataImport, Visualization 
+biocViews: Alignment, Annotation, Clustering, DataImport, MultipleSequenceAlignment,
+	   ReproducibleResearch, Software, Visualization 

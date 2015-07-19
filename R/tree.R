@@ -234,13 +234,39 @@ layout.unrooted <- function(tree) {
     return(df)
 }
 
+getParent.df <- function(df, node) {
+    i <- which(df$node == node)
+    res <- df$parent[i]
+    if (res == node) {
+        ## root node
+        return(0) 
+    }
+    return(res)
+}
+
+getAncestor.df <- function(df, node) {
+    anc <- getParent.df(df, node)
+    anc <- anc[anc != 0]
+    if (length(anc) == 0) {
+        stop("selected node is root...")
+    }
+    i <- 1
+    while(i<= length(anc)) {
+        anc <- c(anc, getParent.df(df, anc[i]))
+        anc <- anc[anc != 0]
+        i <- i+1
+    }
+    return(anc)
+}
+
+
 getChild.df <- function(df, node) {
     i <- which(df$parent == node)
     if (length(i) == 0) {
         return(0)
     }
-    
     res <- df[i, "node"]
+    res <- res[res != node] ## node may root
     return(res)
 }
 
