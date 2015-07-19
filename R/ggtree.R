@@ -355,6 +355,110 @@ scaleClade <- function(tree_view, node, scale=1, vertical_only=TRUE) {
 }
 
 
+##' flip position of two selected branches
+##'
+##' 
+##' @title flip
+##' @param tree_view tree view 
+##' @param node1 node number of branch 1
+##' @param node2 node number of branch 2
+##' @return ggplot2 object
+##' @export
+##' @author Guangchuang Yu
+flip <- function(tree_view, node1, node2) {
+    df <- tree_view$data
+    p1 <- with(df, parent[node == node1])
+    p2 <- with(df, parent[node == node2])
+
+    if (p1 != p2) {
+        stop("node1 and node2 should share a same parent node...")
+    }
+
+    sp1 <- c(node1, get.offspring.df(df, node1))
+    sp2 <- c(node2, get.offspring.df(df, node2))
+
+    sp1.df <- df[sp1,]
+    sp2.df <- df[sp2,]
+
+    min_y1 <- min(sp1.df$y)
+    min_y2 <- min(sp2.df$y)
+
+    if (min_y1 < min_y2) {
+        tmp <- sp1.df
+        sp1.df <- sp2.df
+        sp2.df <- tmp
+        tmp <- sp1
+        sp1 <- sp2
+        sp2 <- tmp
+    }
+
+    min_y1 <- min(sp1.df$y)
+    min_y2 <- min(sp2.df$y)
+
+    space <- min(sp1.df$y) - max(sp2.df$y)
+    sp1.df$y <- sp1.df$y - abs(min_y1 - min_y2)
+    sp2.df$y <- sp2.df$y + max(sp1.df$y) + space - min(sp2.df$y)
+
+    df[sp1, "y"] <- sp1.df$y
+    df[sp2, "y"] <- sp2.df$y
+
+    anc <- getAncestor.df(df, node1)
+    ii <- match(anc, df$node)
+    df[ii, "y"] <- NA
+    currentNode <- as.vector(sapply(anc, getChild.df, df=df))
+    currentNode <- currentNode[!currentNode %in% anc]
+    
+    tree_view$data <- re_assign_ycoord_df(df, currentNode)
+    tree_view
+}
+
+##' rotate 180 degree of a selected branch
+##'
+##' 
+##' @title rotate
+##' @param tree_view tree view 
+##' @param node selected node
+##' @return ggplot2 object
+##' @export
+##' @author Guangchuang Yu
+rotate <- function(tree_view, node) {
+    df <- tree_view$data
+    sp <- get.offspring.df(df, node)
+    sp_idx <- with(df, match(sp, node))
+    tip <- sp[df$isTip[sp_idx]]
+    sp.df <- df[sp_idx,]
+    ii <- with(sp.df, match(tip, node))
+    jj <- ii[order(sp.df[ii, "y"])]
+    sp.df[jj,"y"] <- rev(sp.df[jj, "y"])
+    sp.df[-jj, "y"] <- NA
+    sp.df <- re_assign_ycoord_df(sp.df, tip)
+
+    df[sp_idx, "y"] <- sp.df$y
+    df[df$node == node, "y"] <- mean(df[df$parent == node, "y"])
+    pnode <- df$parent[df$node == node]
+    if (pnode != node && !is.na(pnode)) {
+        df[df$node == pnode, "y"] <- mean(df[df$parent == pnode, "y"])
+    }
+    tree_view$data <- df
+    tree_view
+}
+
+re_assign_ycoord_df <- function(df, currentNode) {
+    while(any(is.na(df$y))) {
+        pNode <- with(df, parent[match(currentNode, node)]) %>% unique
+        idx <- sapply(pNode, function(i) with(df, all(node[parent == i & parent != node] %in% currentNode)))
+        newNode <- pNode[idx]
+        ## newNode <- newNode[is.na(df[match(newNode, df$node), "y"])]
+        
+        df[match(newNode, df$node), "y"] <- sapply(newNode, function(i) {
+            with(df, mean(y[parent == i], na.rm = TRUE))
+        })
+        traced_node <- as.vector(sapply(newNode, function(i) with(df, node[parent == i])))
+        currentNode <- c(currentNode[! currentNode %in% traced_node], newNode)
+    }
+    return(df)
+}
+
 ##' collapse a clade
 ##'
 ##' 
@@ -490,7 +594,7 @@ add_colorbar <- function(p, color, x=NULL, ymin=NULL, ymax=NULL, font.size=4) {
     offset <- diff(range(p$data$x))/40
     barwidth <- offset/5
     
-    p + annotate("text", x=x+offset*2, y=y[i], label=legend[i,1], size=font.size) +
+    p + annotate("text", x=x+offset*1.5, y=y[i], label=legend[i,1], size=font.size, hjust=0) +
         annotate("rect", xmin=x, xmax=x+offset, ymin=ymin,
                  ymax = ymax, fill=legend[,2], color=legend[,2]) +
                      annotate("segment", x=x, xend=x+barwidth, y=y[i], yend=y[i], color="white") +
@@ -536,4 +640,20 @@ add_legend <- function(p, x=NULL, y=NULL, offset=NULL, font.size=4, ...) {
             geom_segment(x=x, y=y-offset/2, xend=x, yend=y+offset/2, ...) +
                 geom_segment(x=x+d, y=y-offset/2, xend=x+d, yend=y+offset/2, ...)
     return(p)
+}
+
+##' get taxa name of a selected node
+##'
+##' 
+##' @title get_taxa_name
+##' @param tree_view tree view
+##' @param node node
+##' @return taxa name vector
+##' @export
+##' @author Guangchuang Yu
+get_taxa_name <- function(tree_view, node) {
+    df <- tree_view$data
+    sp <- get.offspring.df(df, node)
+    res <- df[sp, "label"]
+    return(res[df[sp, "isTip"]])
 }

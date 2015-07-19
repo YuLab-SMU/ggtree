@@ -532,4 +532,3 @@ as.data.frame.phylo_ <- function(x, layout="phylogram",
     return(res)
 }
 
-
