@@ -97,13 +97,13 @@ geom_tree <- function(layout="phylogram", color="black", linetype="solid", size=
     lineend  = "round"
     if (layout == "phylogram" || layout == "fan") {
         if (length(color) != 1) {
-            color <- c(color, color)
+            color <- rep(color, 2) ## c(color, color)
         }
         if (length(linetype) != 1) {
-            linetype <- c(linetype, linetype)
+            linetype <- rep(linetype, 2) ## c(linetype, linetype)
         }
         if (length(size) != 1) {
-            size <- c(size, size)
+            size <- rep(size, 2) ## c(size, size)
         }
         geom_segment(aes(x    = c(x[parent], x[parent]),
                          xend = c(x,         x[parent]),
