@@ -2,9 +2,8 @@ CHANGES IN VERSION 1.1.10
 ------------------------
  o solve overlapping branches for layout = "fan" || "radial",
    that are coord_polar-ized layouts.
-   see https://github.com/GuangchuangYu/ggtree/issues/6
-   contributed by Vincent Bonhomme.
-   <2015-07-22, Wed>
+   see https://github.com/GuangchuangYu/ggtree/issues/6,
+   contributed by Vincent Bonhomme. <2015-07-22, Wed>
 
 CHANGES IN VERSION 1.1.9
 ------------------------
