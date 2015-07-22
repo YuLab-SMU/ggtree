@@ -17,6 +17,7 @@
 ##' @importFrom ggplot2 ylab
 ##' @importFrom ggplot2 annotate
 ##' @importFrom ggplot2 scale_x_reverse
+##' @importFrom ggplot2 scale_y_continuous
 ##' @importFrom ggplot2 coord_flip
 ##' @importFrom ggplot2 coord_polar
 ##' @export
@@ -59,6 +60,8 @@ ggtree <- function(tr,
         p <- p + scale_x_reverse() + coord_flip()
     } else if (type == "fan" || type == "radial") {
         p <- p + coord_polar(theta = "y")
+        ## refer to: https://github.com/GuangchuangYu/ggtree/issues/6
+        p <- p + scale_y_continuous(limits=c(0, max(p$data$y)))
     } 
     
     if (showDistance == FALSE) {
