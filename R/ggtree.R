@@ -17,6 +17,7 @@
 ##' @importFrom ggplot2 ylab
 ##' @importFrom ggplot2 annotate
 ##' @importFrom ggplot2 scale_x_reverse
+##' @importFrom ggplot2 scale_y_continuous
 ##' @importFrom ggplot2 coord_flip
 ##' @importFrom ggplot2 coord_polar
 ##' @export
@@ -59,6 +60,8 @@ ggtree <- function(tr,
         p <- p + scale_x_reverse() + coord_flip()
     } else if (type == "fan" || type == "radial") {
         p <- p + coord_polar(theta = "y")
+        ## refer to: https://github.com/GuangchuangYu/ggtree/issues/6
+        p <- p + scale_y_continuous(limits=c(0, max(p$data$y)))
     } 
     
     if (showDistance == FALSE) {
@@ -97,13 +100,13 @@ geom_tree <- function(layout="phylogram", color="black", linetype="solid", size=
     lineend  = "round"
     if (layout == "phylogram" || layout == "fan") {
         if (length(color) != 1) {
-            color <- c(color, color)
+            color <- rep(color, 2) ## c(color, color)
         }
         if (length(linetype) != 1) {
-            linetype <- c(linetype, linetype)
+            linetype <- rep(linetype, 2) ## c(linetype, linetype)
         }
         if (length(size) != 1) {
-            size <- c(size, size)
+            size <- rep(size, 2) ## c(size, size)
         }
         geom_segment(aes(x    = c(x[parent], x[parent]),
                          xend = c(x,         x[parent]),
