@@ -99,23 +99,42 @@ geom_tree <- function(layout="phylogram", color="black", linetype="solid", size=
     x <- y <- parent <- NULL
     lineend  = "round"
     if (layout == "phylogram" || layout == "fan") {
-        if (length(color) != 1) {
-            color <- rep(color, 2) ## c(color, color)
-        }
-        if (length(linetype) != 1) {
-            linetype <- rep(linetype, 2) ## c(linetype, linetype)
-        }
-        if (length(size) != 1) {
-            size <- rep(size, 2) ## c(size, size)
-        }
-        geom_segment(aes(x    = c(x[parent], x[parent]),
-                         xend = c(x,         x[parent]),
-                         y    = c(y,         y[parent]),
-                         yend = c(y,         y)),
-                     color    = color,
-                     linetype = linetype,
-                     size     = size,
-                     lineend  = lineend, ...)
+        ## if (length(color) != 1) {
+        ##     color <- rep(color, 2) ## c(color, color)
+        ## }
+        ## if (length(linetype) != 1) {
+        ##     linetype <- rep(linetype, 2) ## c(linetype, linetype)
+        ## }
+        ## if (length(size) != 1) {
+        ##     size <- rep(size, 2) ## c(size, size)
+        ## }
+        ## geom_segment(aes(x    = c(x[parent], x[parent]),
+        ##                  xend = c(x,         x[parent]),
+        ##                  y    = c(y,         y[parent]),
+        ##                  yend = c(y,         y)),
+        ##              color    = color,
+        ##              linetype = linetype,
+        ##              size     = size,
+        ##              lineend  = lineend, ...)
+        list(
+            geom_segment(aes(x    = x[parent],
+                             xend = x,
+                             y    = y,
+                             yend = y),                         
+                         color    = color,
+                         linetype = linetype,
+                         size     = size,
+                         lineend  = lineend, ...),
+            
+            geom_segment(aes(x    = x[parent],
+                             xend = x[parent],
+                             y    = y[parent],
+                             yend = y),
+                         color    = color,
+                         linetype = linetype,
+                         size     = size,
+                         lineend  = lineend, ...)
+            )
     } else if (layout == "cladogram" || layout == "unrooted") {
         geom_segment(aes(x    = x[parent],
                          xend = x,
