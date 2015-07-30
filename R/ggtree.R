@@ -81,9 +81,6 @@ ggtree <- function(tr,
 ##' 
 ##' @title geom_tree
 ##' @param layout one of phylogram, cladogram
-##' @param color color
-##' @param linetype line type
-##' @param size line size
 ##' @param ... additional parameter
 ##' @return tree layer
 ##' @importFrom ggplot2 geom_segment
@@ -95,44 +92,21 @@ ggtree <- function(tr,
 ##' tr <- rtree(10)
 ##' require(ggplot2)
 ##' ggplot(tr) + geom_tree()
-geom_tree <- function(layout="phylogram", color="black", linetype="solid", size=0.5, ...) {
+geom_tree <- function(layout="phylogram", ...) {
     x <- y <- parent <- NULL
     lineend  = "round"
     if (layout == "phylogram" || layout == "fan") {
-        ## if (length(color) != 1) {
-        ##     color <- rep(color, 2) ## c(color, color)
-        ## }
-        ## if (length(linetype) != 1) {
-        ##     linetype <- rep(linetype, 2) ## c(linetype, linetype)
-        ## }
-        ## if (length(size) != 1) {
-        ##     size <- rep(size, 2) ## c(size, size)
-        ## }
-        ## geom_segment(aes(x    = c(x[parent], x[parent]),
-        ##                  xend = c(x,         x[parent]),
-        ##                  y    = c(y,         y[parent]),
-        ##                  yend = c(y,         y)),
-        ##              color    = color,
-        ##              linetype = linetype,
-        ##              size     = size,
-        ##              lineend  = lineend, ...)
         list(
             geom_segment(aes(x    = x[parent],
                              xend = x,
                              y    = y,
-                             yend = y),                         
-                         color    = color,
-                         linetype = linetype,
-                         size     = size,
+                             yend = y),
                          lineend  = lineend, ...),
             
             geom_segment(aes(x    = x[parent],
                              xend = x[parent],
                              y    = y[parent],
                              yend = y),
-                         color    = color,
-                         linetype = linetype,
-                         size     = size,
                          lineend  = lineend, ...)
             )
     } else if (layout == "cladogram" || layout == "unrooted") {
@@ -140,9 +114,6 @@ geom_tree <- function(layout="phylogram", color="black", linetype="solid", size=
                          xend = x,
                          y    = y[parent],
                          yend = y),
-                     color    = color,
-                     linetype = linetype,
-                     size     = size,
                      lineend  = lineend, ...)
     }
 }
@@ -241,6 +212,7 @@ geom_tippoint <- function(...) {
 ##' @title theme_tree
 ##' @param bgcolor background color
 ##' @param fgcolor foreground color
+##' @param ... additional parameter
 ##' @importFrom ggplot2 theme_bw
 ##' @importFrom ggplot2 theme
 ##' @importFrom ggplot2 element_blank
@@ -252,13 +224,13 @@ geom_tippoint <- function(...) {
 ##' require(ape)
 ##' tr <- rtree(10)
 ##' ggtree(tr) + theme_tree()
-theme_tree <- function(bgcolor="white", fgcolor="black") {
+theme_tree <- function(bgcolor="white", fgcolor="black", ...) {
     theme_tree2() %+replace%
     theme(panel.background=element_rect(fill=bgcolor, colour=bgcolor),
           axis.line.x = element_line(color=bgcolor),
           axis.text.x = element_blank(),
-          axis.ticks.x = element_blank()
-          )
+          axis.ticks.x = element_blank(),
+          ...)
 }
 
 ##' tree2 theme
@@ -267,6 +239,7 @@ theme_tree <- function(bgcolor="white", fgcolor="black") {
 ##' @title theme_tree2
 ##' @param bgcolor background color
 ##' @param fgcolor foreground color
+##' @param ... additional parameter
 ##' @importFrom ggplot2 theme_bw
 ##' @importFrom ggplot2 theme
 ##' @importFrom ggplot2 element_blank
@@ -280,7 +253,7 @@ theme_tree <- function(bgcolor="white", fgcolor="black") {
 ##' require(ape)
 ##' tr <- rtree(10)
 ##' ggtree(tr) + theme_tree2()
-theme_tree2 <- function(bgcolor="white", fgcolor="black") {
+theme_tree2 <- function(bgcolor="white", fgcolor="black", ...) {
     theme_bw() %+replace%
     theme(legend.position="none",
           panel.grid.minor=element_blank(),
@@ -290,8 +263,8 @@ theme_tree2 <- function(bgcolor="white", fgcolor="black") {
           axis.line=element_line(color=fgcolor),
           axis.line.y=element_line(color=bgcolor),
           axis.ticks.y=element_blank(),
-          axis.text.y=element_blank()
-          )
+          axis.text.y=element_blank(),
+          ...)
 }
 
 ##' hilight clade with rectangle

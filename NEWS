@@ -1,3 +1,8 @@
+CHANGES IN VERSION 1.1.11
+------------------------
+ o add ... in theme_tree & theme_tree2 for accepting additional parameter. <2015-07-30, Thu>
+ o better geom_tree implementation. Now we can scale the tree with aes(color=numVar). <2015-07-30, Thu>
+ 
 CHANGES IN VERSION 1.1.10
 ------------------------
  o solve overlapping branches for layout = "fan" || "radial",
