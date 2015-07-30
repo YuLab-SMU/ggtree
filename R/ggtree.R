@@ -654,3 +654,65 @@ get_taxa_name <- function(tree_view, node) {
     res <- df[sp, "label"]
     return(res[df[sp, "isTip"]])
 }
+
+##' annotate a selected clade with internal node number
+##'
+##' 
+##' @title annotation_clade
+##' @param tree_view tree view
+##' @param node node number
+##' @param label clade label
+##' @param bar.size bar size
+##' @param font.size font size
+##' @param offset offset of bar from the tree
+##' @param offset.text offset of label from bar
+##' @param ... additional parameter
+##' @export
+##' @return ggplot2
+##' @author Guangchuang Yu
+annotation_clade <- function(tree_view, node, label, bar.size=2, font.size=4, offset=0, offset.text=NULL, ...) {
+    df <- tree_view$data
+    sp <- get.offspring.df(df, node)
+    sp.df <- df[c(sp, node), ]
+    y <- sp.df$y
+
+    mx <- max(p$data$x) + offset
+    annotation_clade_internal(tree_view, mx, y, label, bar.size, font.size, offset.text, ...)
+}
+
+
+##' annotate a clade with selected upper and lower tips
+##'
+##' 
+##' @title annotation_clade2
+##' @param tree_view tree view
+##' @param tip1 tip1 label or id
+##' @param tip2 tip2 label or id
+##' @param label clade label
+##' @param bar.size bar size
+##' @param font.size font size
+##' @param offset offset of bar from the tree
+##' @param offset.text offset of label from bar
+##' @param ... additional parameter
+##' @export
+##' @return ggplot2
+##' @author Guangchuang Yu
+annotation_clade2 <- function(tree_view, tip1, tip2, label, bar.size=2, font.size=4, offset=0, offset.text=NULL, ...) {
+    df <- tree_view$data
+    
+    y <- c(df[which(tip1 == df$label | tip1 == df$node), "y"],
+           df[which(tip2 == df$label | tip2 == df$node), "y"])
+    
+    mx <- max(p$data$x) + offset
+    annotation_clade_internal(tree_view, mx, y, label, bar.size, font.size, offset.text, ...)
+}
+
+
+annotation_clade_internal <- function(tree_view, x, y, label, bar.size, font.size, offset.text, ...) {
+    mx <- x
+    if (is.null(offset.text)) {
+        offset.text <- mx * 0.02
+    }
+    tree_view + geom_segment(x=mx, xend=mx, y=min(y), yend=max(y), size=bar.size, ...) +
+        annotate("text", label=label, x=mx+offset.text, y=mean(y), angle=270, size=font.size, ...)
+}
