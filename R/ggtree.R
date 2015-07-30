@@ -608,18 +608,23 @@ add_colorbar <- function(p, color, x=NULL, ymin=NULL, ymax=NULL, font.size=4) {
 ##' @param font.size font size
 ##' @param ... additional parameter
 ##' @return tree view
+##' @importFrom grid linesGrob
+##' @importFrom grid textGrob
 ##' @export
 ##' @author Guangchuang Yu
 add_legend <- function(p, x=NULL, y=NULL, offset=NULL, font.size=4, ...) {
+    dx <- p$data$x %>% range %>% diff
+    
     if (is.null(x)) {
-        x <- min(p$data$x)
+        ## x <- min(p$data$x)
+        x <- dx/2
     }
     if (is.null(y)) {
-        y <- -0.5
+        y <- 0
     }
 
-    d <- p$data$x %>% range %>% diff
-    d <- d/20 
+
+    d <- dx/10 
     n <- 0
     while (d < 1) {
         d <- d*10
@@ -627,13 +632,10 @@ add_legend <- function(p, x=NULL, y=NULL, offset=NULL, font.size=4, ...) {
     }
     d <- floor(d)/(10^n)
     if (is.null(offset)) {
-        offset <- p$data$y %>% range %>% diff
-        offset <- offset / 100
+        offset <- 0.4
     }
-    p <- p + geom_segment(x=x, y=y, xend=x+d, yend=y, ...) +
-        geom_text(x=x+d/2, y=y-offset, label=d, size=font.size, ...) +
-            geom_segment(x=x, y=y-offset/2, xend=x, yend=y+offset/2, ...) +
-                geom_segment(x=x+d, y=y-offset/2, xend=x+d, yend=y+offset/2, ...)
+    p <- p + annotation_custom(linesGrob(), xmin=x, xmax=x+d, ymin=y, ymax=y) +
+        annotation_custom(textGrob(label=d), xmin=x+d/2, xmax=x+d/2, ymin=y+offset, ymax=y+offset)
     return(p)
 }
 
