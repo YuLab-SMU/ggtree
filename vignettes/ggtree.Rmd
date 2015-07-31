@@ -736,7 +736,7 @@ In the following example, we visualized a tree of H3 influenza viruses with thei
 ```{r fig.width=20, fig.height=16, fig.align="center"}
 genotype_file <- system.file("examples/Genotype.txt", package="ggtree")
 genotype <- read.table(genotype_file, sep="\t", stringsAsFactor=F)
-p <- ggtree(beast_tree, time_scale=TRUE) %>% add_legend
+p <- ggtree(beast_tree, time_scale=TRUE) %>% add_legend(x=2008, y=5)
 p <- p + geom_tiplab(size=3)
 gheatmap(p, genotype, offset = 2, width=0.5)
 ```
