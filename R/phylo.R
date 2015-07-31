@@ -27,17 +27,17 @@ setMethod("groupOTU", signature(object="phylo"),
 ##' @title groupOTU.phylo
 ##' @param phy tree object
 ##' @param focus tip list
-##' @return cluster index
+##' @return phylo object
 ##' @author ygc
-groupOTU.phylo <- function(phy, focus) {
+groupOTU.phylo <- function(phy, focus, group_name="groupOTU") {
     if ( is(focus, "list") ) {
         for (i in 1:length(focus)) {
-            phy <- gfocus(phy, focus[[i]])
+            phy <- gfocus(phy, focus[[i]], group_name)
         } 
     } else {
-        phy <- gfocus(phy, focus)
+        phy <- gfocus(phy, focus, group_name)
     }
-    attr(phy, "focus")
+    return(phy)
 }
 
 ##' @rdname groupClade-methods
@@ -58,7 +58,7 @@ groupClade.phylo <- function(object, node) {
         })
     }
     
-    groupOTU.phylo(object, tips)
+    groupOTU.phylo(object, tips, "groupClade")
 }
 
 

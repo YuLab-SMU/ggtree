@@ -56,31 +56,41 @@ scale_color_ <- function(phylo, by, low=NULL, high=NULL, na.color=NULL, default.
 }
 
 groupClade_ <- function(object, node) {
-    groupClade.phylo(get.tree(object), node)
+    if (is(object, "phylo")) {
+        object <- groupClade.phylo(object, node)
+    } else {
+        object@phylo <- groupClade.phylo(get.tree(object), node)
+    }
+    return(object)
 }
 
 groupOTU_ <- function(object, focus) {
-    groupOTU.phylo(get.tree(object), focus)
+    if (is(object, "phylo")) {
+        object <- groupOTU.phylo(object, focus)
+    } else {
+        object@phylo <- groupOTU.phylo(get.tree(object), focus)
+    }
+    return(object)
 }
 
 ##' @importFrom ape which.edge
-gfocus <- function(phy, focus) {
+gfocus <- function(phy, focus, group_name) {
     if (is.character(focus)) {
         focus <- which(phy$tip.label %in% focus)
     }
     
     n <- getNodeNum(phy)
-    if (is.null(attr(phy, "focus"))) {
+    if (is.null(attr(phy, group_name))) {
         ## foc <- rep(1, 2*n)
-        foc <- rep(1, n)
+        foc <- rep(0, n)
     } else {
-        foc <- attr(phy, "focus")
+        foc <- attr(phy, group_name)
     }
     i <- max(foc) + 1
     sn <- phy$edge[which.edge(phy, focus),] %>% as.vector %>% unique
     foc[sn] <- i
     ## foc[sn+n] <- i
-    attr(phy, "focus") <- foc
+    attr(phy, group_name) <- foc
 
     ## sn <- which(df$focus != 1)
     ## df$focus[df$parent] -> f2
