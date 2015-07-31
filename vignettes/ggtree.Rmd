@@ -82,6 +82,22 @@ The _`branch.length`_ is used to scale the edge, user can set the parameter _`br
 ggtree(tree, branch.length="none")
 ```
 
+## support multiple phylogenetic classes
+
+`r Githubpkg("GuangchuangYu/ggtree")` defined several S4 classes to store phylogenetic object and its associated annotation, including:
+
++ `jplace`
++ `paml_rst`
++ `codeml_mlc`
++ `codeml`
++ `hyphy`
++ `beast`
+
+In addition, it also supports _`phylo`_ (defined by `r CRANpkg("ape")`[@paradis_ape_2004]), and _`phylo4`_ (defined by `r CRANpkg("phylobase")`)
+
+User can use _`ggtree(object)`_ command to view the phylogenetic tree directly, and annotation data stored in these objects can be added as demonstrated in __[`Tree annotation with output from evolution software`](#tree-annotation-with-output-from-evolution-software)__ session.
+
+
 ## layout
 
 Currently, _`ggtree`_ supports several layout, including:
@@ -113,7 +129,7 @@ grid.arrange(ggtree(tree) + ggtitle("phylogram layout"),
 
 ```{r fig.width=9, fig.height=4, fig.align="center"}
 tree2d <- read.beast(system.file("extdata", "twoD.tree", package="ggtree"))
-ggtree(tree2d, layout="cladogram", time_scale=TRUE,
+ggtree(tree2d, time_scale=TRUE,
        yscale="NGS", yscale_mapping=c(N2=2, N3=3, N4=4, N5=5, N6=6, N7=7)) +
            theme_classic() + scale_x_continuous(breaks=seq(1965, 2015, 5)) +
                theme(panel.grid.major=element_line(color="grey20", linetype="dotted", size=.3),
@@ -124,45 +140,19 @@ ggtree(tree2d, layout="cladogram", time_scale=TRUE,
 In this example, the figure demonstrates the quantity of y increase along the trunk. User can highlight the trunk with different line size or color using the functions we described below.
 
 
-## support multiple phylogenetic classes
-
-`r Githubpkg("GuangchuangYu/ggtree")` defined several S4 classes to store phylogenetic object and its associated annotation, including:
-
-+ `jplace`
-+ `paml_rst`
-+ `codeml_mlc`
-+ `codeml`
-+ `hyphy`
-+ `beast`
-
-In addition, it also supports _`phylo`_ (defined by `r CRANpkg("ape")`[@paradis_ape_2004]), and _`phylo4`_ (defined by `r CRANpkg("phylobase")`)
-
-User can use _`ggtree(object)`_ command to view the phylogenetic tree directly, and annotation data stored in these objects can be added as demonstrated in __[`Tree annotation`](#tree-annotation)__ session.
- 
 ## display evolution distance
 
 To show evolution distance, user can use `add_legend` function.
 
 ```{r fig.width=3, fig.height=3, fig.align="center"}
-ggtree(tree) %>% add_legend(x=0, y=10, offset=0.5, font.size=3)
+ggtree(tree) %>% add_legend()
 ```
-
-User can specific the position and offset of distance from text to line segment.
 
 We can also use `theme_tree2()` or `ggtree(showDistance=TRUE)`
 
 ```{r fig.width=3, fig.height=3, fig.align="center"}
 ggtree(tree) + theme_tree2()
 ```
-
-Another way is to show the edge length of the tree. Besides, the scale of branch length can be specify via _`scale_x_continuous()`_. 
-```{r fig.width=3, fig.height=3, warning=FALSE, fig.align="center"}
-ggtree(tree, showDistance=TRUE) +
-    geom_text(aes(label=branch.length, x=branch), size = 3, 
-              vjust=-0.5, color="#F06C45") +
-      scale_x_continuous(breaks=seq(0, 60, 5))
-```
-
 
 ## display nodes/tips
 
@@ -221,8 +211,216 @@ p %<% rtree(50)
 
 Another example can be found in [`CODEML`](#codeml) session.
 
-
 # Tree annotation
+
+## zoom on a portion of tree
+
+`r Githubpkg("GuangchuangYu/ggtree")` provides _`gzoom`_ function that similar to _`zoom`_ function provided in `r CRANpkg("ape")`. This function plots simultaneously a whole phylogenetic tree and a portion of it. It aims at exploring very large trees.
+
+```{r fig.width=18, fig.height=10, fig.align="center"}
+library("ape")
+data(chiroptera)
+library("ggtree")
+gzoom(chiroptera, grep("Plecotus", chiroptera$tip.label))
+```
+
+## annotate clade
+`r Githubpkg("GuangchuangYu/ggtree")` implements _`annotation_clade`_ and _`annotation_clade2`_ functions to annotate a selected clade with a bar indicating that clade with a corresponding label.
+
+The _`annotation_clade`_ function accepts a selected internal node number and annotates that selected clade, while _`annotation_clade2`_ functions accepts two tip labels (upper one and lower one) to annotate the clade.
+
+User can use _`geom_text`_ to display all the node numbers, and select interesting clade to annotate.
+```{r fig.width=5, fig.height=5, fig.align="center", warning=FALSE}
+ggtree(tree) + geom_text(aes(label=node))
+```
+
+```{r fig.width=5, fig.height=5}
+p <- ggtree(tree) + geom_tiplab()
+annotation_clade(p, node=17, "selected clade", offset.text=2)
+```
+
+```{r fig.width=5, fig.height=5}
+annotation_clade2(p, "B", "E", "Clade X", offset.text=2) %>%
+    annotation_clade2("G", "H", "Clade Y", bar.size=4, font.size=8, offset=5, offset.text=4, color="steelblue")
+```
+The parameter `bar.size` is used to control the width of the bar and the `font.size` parameter is to control the font size of the clade lable. The parameter `offset` is used to control the distance from the annotation to the tree, while `offset.text` to control the distance from clade label to bar.
+
+
+## highlight clades
+
+`r Githubpkg("GuangchuangYu/ggtree")` implements _`hilight`_ function, that accepts tree view and internal node number and add a layer of rectangle to highlight the selected clade.
+
+```{r fig.width=5, fig.height=5, fig.align="center", warning=FALSE}
+ggtree(tree) %>% hilight(node=21, fill="steelblue", alpha=.6) %>%
+    hilight(node=17, fill="darkgreen", alpha=.6)
+```
+
+
+```{r fig.width=5, fig.height=5, fig.align="center", warning=FALSE}
+ggtree(tree, layout="fan") %>% hilight(node=21, fill="steelblue", alpha=.6) %>%
+     hilight(node=23, fill="darkgreen", alpha=.6)
+```
+
+Another way to highlight selected clades is setting the clades with different colors and/or line types as demonstrated in __[`group clades`](#group-clades)__ section.
+
+## collapse clade
+
+With _`collapse`_ function, user can collapse a selected clade.
+
+```{r fig.width=5, fig.height=5, fig.align="center", warning=FALSE}
+cp <- ggtree(tree) %>% collapse(node=21)
+cp + geom_point(subset=.(node == 21), size=5, shape=23, fill="steelblue")
+```
+
+## expand collapsed clade
+
+The collapsed clade can be expanded via _`expand`_ function.
+
+```{r fig.width=5, fig.height=5, fig.align="center", warning=FALSE}
+cp %>% expand(node=21)
+```
+
+## flip clades
+
+The positions of two selected branches can be flip over using __*flip*__ function.
+
+```{r fig.width=20, fig.height=7, warning=FALSE}
+set.seed(2015-06-30)
+p1 <- ggtree(rtree(30)) + geom_text(aes(label=node))
+p2 <- flip(p1, node1=45, node2=33)
+p3 <- flip(p2, 32, 58)
+grid.arrange(p1, p2, p3, ncol=3)
+```
+
+## rotate clade
+
+A selected clade can be rotated by 180 degree using __*rotate*__ function.
+
+```{r fig.width=16, fig.height=8, warning=FALSE}
+set.seed(2015-07-01)
+p1 <- ggtree(rtree(30)) + geom_text(aes(label=node))
+p1 <- hilight(p1, 33)
+p2 <- rotate(p1, 33)
+grid.arrange(p1, p2, ncol=2)
+```
+
+## group OTUs
+
+`r Githubpkg("GuangchuangYu/ggtree")` provides _`groupOTU`_ function to group tips and all their related ancestors. 
+
+```{r}
+tree <- groupOTU(tree, focus=c("A", "B", "C", "D", "E"))
+```
+
+```{r fig.width=5, fig.height=5, fig.align="center", warning=FALSE}
+ggtree(tree, aes(color=group)) + geom_tiplab()
+```
+
+_`groupOTU`_ can also input a list of tip groups.
+
+```{r fig.width=5, fig.height=5, fig.align="center", warning=FALSE}
+cls <- list(c1=c("A", "B", "C", "D", "E"),
+            c2=c("F", "G", "H"),
+            c3=c("L", "K", "I", "J"),
+            c4="M")
+
+tree <- groupOTU(tree, cls)
+library("colorspace")
+ggtree(tree, aes(color=group, linetype=group)) + geom_text(aes(label=label),  hjust=-.25) +
+     scale_color_manual(values=c("black", rainbow_hcl(4))) + theme(legend.position="right")
+```
+
+_`groupOTU`_ also work with tree view (ggplot2 object).
+
+
+```{r fig.width=5, fig.height=5, fig.align="center", warning=FALSE}
+p <- ggtree(tree)
+groupOTU(p, LETTERS[1:5]) + aes(color=group) + geom_tiplab() + scale_color_manual(values=c("black", "firebrick"))
+```
+
+### iris example
+
+In this example, we first build a tree based on the iris data, then grouping the tree based on different spacies.
+```{r fig.width=20, fig.height=20, fig.align="center", warning=FALSE}
+data(iris)
+rn <- paste0(iris[,5], "_", 1:150)
+rownames(iris) <- rn
+d_iris <- dist(iris[,-5], method="man")
+
+tree_iris <- bionj(d_iris)
+tree_iris <- groupOTU(tree_iris, list(setosa    = rn[1:50],
+				versicolor    = rn[51:100],
+				virginica_145 = rn[101:150]))
+cols <- rainbow_hcl(4)
+ggtree(tree_iris, aes(color=group)) +
+    geom_text(aes(label=label), hjust=-.1) +
+        scale_color_manual(values=cols, breaks=1:3,
+                           labels=c("Setosa", "Versicolor", "Virginica")) +
+                               theme(legend.position="right")
+```
+
+This example demonstrates how the separation of the _`bionj`_ is very good with the _`setosa`_ species, but misses in labeling several _`versicolor`_ and _`virginica`_ species.
+
+## group clades
+
+As demonstrated above, _`groupOTU`_ is used for clustering related OTUs. Related OTUs are not necessarily within a clade, they can be distantly related as demonstrated in __[`iris example`](#iris-example)__. _`groupOTU`_ works fine for monophyletic (clade), polyphyletic and paraphyletic. If user wants to hilight a specific clade, we provides a more friendly function _`groupClade`_ that accept an internal node or a vector of internal nodes to cluster clade/clades that works similar to _`groupOTU`_. User can also use _`hilight`_ function demonstrated in __[`hilight clades`](#hilight-clades)__ section for highlighting selected clades.
+
+```{r fig.width=5, fig.height=5, fig.align="center", warning=FALSE}
+tree <- groupClade(tree, node=21)
+ggtree(tree, aes(color=group, linetype=group))
+```
+
+```{r fig.width=5, fig.height=5, fig.align="center", warning=FALSE}
+tree <- groupClade(tree, node=c(21, 17))
+ggtree(tree, aes(color=group, linetype=group))
+```
+
+It also works with tree view, just like _`groupOTU`_.
+
+With _`groupOTU`_ and _`groupClade`_, it's easy to highlight selected taxa and easy to selecte taxa to display related feature.
+
+```{r fig.width=5, fig.height=5, fig.align="center", warning=FALSE}
+ggtree(tree, aes(color=group, linetype=group)) +
+    geom_text(subset=.(group==2), aes(label=label), hjust = -.5) +
+        geom_text(subset=.(group==1), aes(label=label), hjust = -.5, color="blue")
+```
+
+
+## scale clade
+In __[`collapse clade`](#collapse-clade)__, we have illustrated how to collapse selected clades. Another approach is to zoom out clade to a small scale.
+
+```{r fig.width=12, fig.height=6, warning=F}
+grid.arrange(ggtree(tree) %>% hilight(21, "steelblue"),
+             ggtree(tree) %>% scaleClade(21, scale=0.3) %>% hilight(21, "steelblue"),
+             ncol=2)
+```
+
+Of course, _`scaleClade`_ can accept `scale` larger than 1 and zoom in the selected portion.
+
+```{r fig.width=12, fig.height=6, warning=F}
+grid.arrange(ggtree(tree) %>% hilight(17, fill="steelblue") %>%
+                 hilight(21, fill="darkgreen"),
+             ggtree(tree) %>% scaleClade(17, scale=2) %>% scaleClade(21, scale=0.3) %>%
+                 hilight(17, "steelblue") %>% hilight(21, fill="darkgreen"),
+             ncol=2)
+```
+
+# Tree annotation with phylopic
+
+[PhyloPic](http://phylopic.org/) is a database that stores reusable silhouette images of organisms. `r Githubpkg("GuangchuangYu/ggtree")` supports downloading images from [PhyloPic](http://phylopic.org/) and annotating phylogenetic tree with the downloaded images.
+
+```{r fig.width=5, fig.height=5, fig.align="center", warning=FALSE}
+pp <- ggtree(tree) %>% phylopic("79ad5f09-cf21-4c89-8e7d-0c82a00ce728", color="steelblue", alpha = .3)
+pp
+```
+
+```{r fig.width=5, fig.height=5, fig.align="center", warning=FALSE}
+pp %>% phylopic("67382184-5135-4faa-8e98-eadff02c3e8a", color="#86B875", alpha=.8, node=4, width=4) %>%
+    phylopic("d3563b54-780f-4711-a49a-7ea051e9dacc", color="darkcyan", alpha=.8, node=17, width=8)
+```
+
+
+# Tree annotation with output from evolution software
 In `r Githubpkg("GuangchuangYu/ggtree")`, we implemented several functions to parse the output from [PAML](http://abacus.gene.ucl.ac.uk/software/paml.html)[@yang_paml_2007], [HYPHY](http://hyphy.org/w/index.php/Main_Page)[@pond_hyphy_2005], [EPA](http://sco.h-its.org/exelixis/web/software/epa/index.html)[@berger_EPA_2011], [PPLACER](http://matsen.fhcrc.org/pplacer/)[@matsen_pplacer_2010] and [BEAST](http://beast2.org/)[@bouckaert_beast_2014] and defined several classes to store phylogenetic object and associated annotation.
 
 Classes include:
@@ -266,7 +464,6 @@ plot(beast, annotation="height", ndigits=3, annotation.color="red")
 #### _`rst`_ file\
 
 
-
 _`rst`_ file from _`baseml`_ is similar to _`codeml`_ output. The only difference is the space in the sequences. For _`baseml`_, each ten bases are separated by one space, while for _`codeml`_, each three bases (triplet) are separated by one space. We defined a _`read.paml_rst`_ to parse _`rst`_ file. It supports _`baseml`_ and _`codeml`_ output. The information will be stored in _`paml_rst`_ S4 object.
 
 ```{r}
@@ -285,7 +482,6 @@ print(p)
 ### CODEML
 
 #### rst file\
-
 
 
 _`rst`_ file from _`CODEML`_ is similar to _`BASEML`_, and also parsed by _`read.paml_rst`_ function. The _`plot`_ method works also in the same way.
@@ -340,7 +536,7 @@ We can also plot the _`dN`_ or _`dS`_ tree and others. The parameter _`annotatio
 
 We annotate the tree with information presented in _`rstfile`_ and _`mlcfile`_ separately as demonstrated in previous sessions.
 
-We can also use both of them and it's highly recommended. User don't need to provide tip sequences, as it's already available in _`mlcfile`_. All the features in both files are available for annotation.
+We can also use both of them and it's highly recommended. All the features in both files are available for annotation.
 
 
 ```{r}
@@ -395,6 +591,8 @@ We may, for example, count the number of placement and annotate this information
 
 
 ## mergine tree objects
+
+
 In ggtree, objects can be merged and evidences inferred from different phylogenetic analyses can be combined or compared and visualized.
 
 User can use the command like:
@@ -422,9 +620,9 @@ merged_tree
 After merging, all evidences inferred from different tools can be used to annotate the tree simultaneously. In this example, we used 'dN/dS' inferred by CodeML to color the tree and annotate the tree with 'posterior' inferred by BEAST.
 
 ```{r fig.width=20, fig.height=26, warning=FALSE}
-cols <- scale_color(merged_tree, "dN_vs_dS", interval=seq(0, 1.5))
-ggtree(merged_tree, time_scale=TRUE, ndigits = 3, color=cols) +
-    geom_text(aes(label=posterior), vjust=.1, hjust=-.1, size=5) + theme_tree2()
+ggtree(merged_tree, aes(color=dN_vs_dS), time_scale=TRUE, ndigits = 3) +
+    geom_text(aes(label=posterior), vjust=.1, hjust=-.1, size=5) + theme_tree2() +
+        scale_color_continuous(low="steelblue", high="red")
 ```
 
 
@@ -441,7 +639,9 @@ ggtree(ml, branch.length="dN_vs_dS") +
 ```	
 
 
-## user specific annotation
+# Tree annotation with user specific annotation
+
+## the `%<+%` operator
 We provides several functions to parse and store information from common software output, and corresponding _`plot`_ methods for visualizing annotation in the tree.
 
 Here, we would like to demonstrate how to inject user specific annotation data in a tree.
@@ -478,7 +678,7 @@ After attaching the annotation data to the tree by _`%<+%`_, all the columns in 
 ```{r fig.width=6, fig.height=5, warning=FALSE, fig.align="center"}
 p <- p %<+% dd + geom_text(aes(color=place, label=label), hjust=-0.5) + 
        geom_point(aes(size=value, shape=place, color=place), alpha=0.25, subset=.(isTip))
-print(p)
+p+theme(legend.position="right")
 ```
 
 Once the data was attached, it is always attached. So we can add another layer to display the isolation sites easily.
@@ -525,269 +725,26 @@ ggtree(jp, showDistance=TRUE) +
 	   geom_text(aes(label=label), hjust=-.5)
 ```
 
-## zoom on a portion of tree
-
-`r Githubpkg("GuangchuangYu/ggtree")` provides _`gzoom`_ function that similar to _`zoom`_ function provided in `r CRANpkg("ape")`. This function plots simultaneously a whole phylogenetic tree and a portion of it. It aims at exploring very large trees.
-
-```{r fig.width=18, fig.height=10, fig.align="center"}
-library("ape")
-data(chiroptera)
-library("ggtree")
-gzoom(chiroptera, grep("Plecotus", chiroptera$tip.label))
-```
-
-## highlight clades
-
-`r Githubpkg("GuangchuangYu/ggtree")` implements _`hilight`_ function, that accepts tree view and internal node number and add a layer of rectangle to highlight the selected clade.
-
-```{r fig.width=5, fig.height=5, fig.align="center", warning=FALSE}
-nwk <- system.file("extdata", "sample.nwk", package="ggtree")
-tree <- read.tree(nwk)
-
-ggtree(tree) + geom_text(aes(label=node))
-```
-
-User can use _`geom_text`_ to display all the node numbers, and select interesting clade to highlight.
-
-```{r fig.width=5, fig.height=5, fig.align="center", warning=FALSE}
-ggtree(tree) %>% hilight(node=21, fill="steelblue", alpha=.6) %>%
-    hilight(node=17, fill="darkgreen", alpha=.6)
-```
-
-
-```{r fig.width=5, fig.height=5, fig.align="center", warning=FALSE}
-ggtree(tree, layout="fan") %>% hilight(node=21, fill="steelblue", alpha=.6) %>%
-     hilight(node=17, fill="darkgreen", alpha=.6)
-```
-
-Another way to highlight selected clades is setting the clades with different colors and/or line types as demonstrated in __[`group clades`](#group-clades)__ section.
-
-## collapse clade
-
-With _`collapse`_ function, user can collapse a selected clade.
-
-```{r fig.width=5, fig.height=5, fig.align="center", warning=FALSE}
-cp <- ggtree(tree) %>% collapse(node=21)
-cp + geom_point(subset=.(node == 21), size=5, shape=23, fill="steelblue")
-```
-
-## expand collapsed clade
-
-The collapsed clade can be expanded via _`expand`_ function.
-
-```{r fig.width=5, fig.height=5, fig.align="center", warning=FALSE}
-cp %>% expand(node=21)
-```
-
-## flip clades
-
-The positions of two selected branches can be flip over using __*flip*__ function.
-
-```{r fig.width=20, fig.height=7, warning=FALSE}
-set.seed(2015-06-30)
-p1 <- ggtree(rtree(30)) + geom_text(aes(label=node))
-p2 <- flip(p1, node1=45, node2=33)
-p3 <- flip(p2, 32, 58)
-grid.arrange(p1, p2, p3, ncol=3)
-```
-
-## rotate clade
-
-A selected clade can be rotated by 180 degree using __*rotate*__ function.
-
-```{r fig.width=16, fig.height=8, warning=FALSE}
-set.seed(2015-07-01)
-p1 <- ggtree(rtree(30)) + geom_text(aes(label=node))
-p1 <- hilight(p1, 33)
-p2 <- rotate(p1, 33)
-grid.arrange(p1, p2, ncol=2)
-```
-
-## phylopic
-
-[PhyloPic](http://phylopic.org/) is a database that stores reusable silhouette images of organisms. `r Githubpkg("GuangchuangYu/ggtree")` supports downloading images from [PhyloPic](http://phylopic.org/) and annotating phylogenetic tree with the downloaded images.
-
-```{r fig.width=5, fig.height=5, fig.align="center", warning=FALSE}
-pp <- ggtree(tree) %>% phylopic("79ad5f09-cf21-4c89-8e7d-0c82a00ce728", color="steelblue", alpha = .3)
-pp
-```
-
-```{r fig.width=5, fig.height=5, fig.align="center", warning=FALSE}
-pp %>% phylopic("67382184-5135-4faa-8e98-eadff02c3e8a", color="#86B875", alpha=.8, node=21, width=4) %>%
-    phylopic("d3563b54-780f-4711-a49a-7ea051e9dacc", color="darkcyan", alpha=.8, node=17, width=8)
-```
-
-## scale color based on numerical attribute
-
-`r Githubpkg("GuangchuangYu/ggtree")` provides _`scale_color`_ to calculate colors based on numerical attribute of the tree. The output can be used to color lines and annotation text.
-```{r fig.width=12, fig.height=6, fig.align="center", warning=FALSE}
-cols = scale_color(ml, by="dN")
-ggtree(ml, color=cols) + geom_text(aes(label=label), color=cols, hjust=.25)
-```
-
-_`scale_color`_ will auto determine the color. User can also provide parameter _`low`_ and _`high`_ to speicify the color scale.
-
-```{r fig.width=12, fig.height=6, fig.align="center", warning=FALSE}
-cols = scale_color(ml, by="dN", low="green", high="red")
-ggtree(ml, color=cols) + geom_text(aes(label=label), color=cols, hjust=.25)
-```
-
-## group OTUs
-
-`r Githubpkg("GuangchuangYu/ggtree")` provides _`groupOTU`_ function to group tips and all their related ancestors. It return a cluster index of each line segment in the tree view.
-
-```{r}
-cluster_index <- groupOTU(tree, focus=c("A", "B", "C", "D", "E"))
-cluster_index
-```
-In the _`cluster_index`_, **1** represent the cluster that not selected, while other number represent the corresponding selected group(s).
-
-```{r fig.width=5, fig.height=5, fig.align="center", warning=FALSE}
-ggtree(tree, color=c("black", "red")[cluster_index])
-```
-
-_`groupOTU`_ can also input a list of tip groups.
-
-```{r fig.width=5, fig.height=5, fig.align="center", warning=FALSE}
-cls <- list(c1=c("A", "B", "C", "D", "E"),
-            c2=c("F", "G", "H"),
-            c3=c("L", "K", "I", "J"),
-            c4="M")
-
-cls_ind <- groupOTU(tree, cls)
-library("colorspace")
-cols <- rainbow_hcl(4)
-cols <- c("black", cols)
-ggtree(tree, color=cols[cls_ind]) + geom_text(aes(label=label), color=cols[cls_ind], hjust=-.25) +
-    annotate("point", x=1, y=seq(14, 12, length.out=4), color=cols[2:5], size=6) +
-                 annotate("text", x=4, y=seq(14,12, length.out=4), label=names(cls))
-```
-
-We can change the linetype either:
-```{r fig.width=5, fig.height=5, fig.align="center", warning=FALSE}
-linetype <- c("solid", "dotted", "dashed", "dotdash", "longdash")
-ggtree(tree, color=cols[cls_ind], linetype=linetype[cls_ind]) +
-      geom_text(aes(label=label), color=cols[cls_ind], hjust=-.25)
-```
-
-And also size:
-```{r fig.width=5, fig.height=5, fig.align="center", warning=FALSE}
-size <- seq(1, 3, length.out=5)
-ggtree(tree, color=cols[cls_ind], linetype=linetype[cls_ind], size=size[cls_ind]) +
-      geom_text(aes(label=label), color=cols[cls_ind], hjust=-.25)
-```
-
-All the tree classes defined in `r Githubpkg("GuangchuangYu/ggtree")`, including _`beast`_, _`paml_rst`_, _`codeml_mlc`_, _`codeml`_, _`hyphy`_ and _`jplace`_ are all supported.
-
-
-### iris example
-
-In this example, we first build a tree based on the iris data, then grouping the tree based on different spacies.
-```{r fig.width=20, fig.height=20, fig.align="center", warning=FALSE}
-data(iris)
-rn <- paste0(iris[,5], "_", 1:150)
-rownames(iris) <- rn
-d_iris <- dist(iris[,-5], method="man")
-
-tree_iris <- bionj(d_iris)
-cls_ind <- groupOTU(tree_iris, list(setosa    = rn[1:50],
-				versicolor    = rn[51:100],
-				virginica_145 = rn[101:150]))
-cols <- rainbow_hcl(4)
-ggtree(tree_iris, color=cols[cls_ind]) +
-     geom_text(aes(label=label), color=cols[cls_ind], hjust=-.1)
-```
-
-<!--
-By adding a layer of internal node number, we can easily extract tip labels of a particular clade by the _`get.offspring.tip`_ function.
-```{r}
-ggtree(tree_iris) + geom_text(aes(label=node))
-cl1 <- get.offspring.tip(tree_iris, 242)
-cl2 <- get.offspring.tip(tree_iris, 152) 
-cl2 <- cl2[!cl2 %in% cl1]
-cl3 <- get.offspring.tip(tree_iris, 158)
-cl4 <- get.offspring.tip(tree_iris, 157)
-
-cls_ind <- groupOTU(tree_iris, list(cl1, cl2, cl3, cl4))
-```
-
-```{r fig.width=20, fig.height=24, fig.align="center", warning=FALSE}
-cols <- rainbow_hcl(3)
-cols <- c("black", cols, cols[2])
-species <- data.frame(otu=row.names(iris), species=iris[,5])
-
-ggtree(tree_iris, color=cols[cls_ind]) %<+% species + 
-     geom_text(aes(label=label, color=species), hjust=-0.1) +
-         scale_color_manual(values=cols[2:4])
-```
--->
-
-
-This example demonstrates how the separation of the _`bionj`_ is very good with the _`setosa`_ species, but misses in labeling several _`versicolor`_ and _`virginica`_ species.
-
-## group clades
-
-As demonstrated above, _`groupOTU`_ is used for clustering related OTUs. Related OTUs are not necessarily within a clade, they can be distantly related as demonstrated in __[`iris example`](#iris-example)__. _`groupOTU`_ works fine for monophyletic (clade), polyphyletic and paraphyletic. If user wants to hilight a specific clade, we provides a more friendly function _`groupClade`_ that accept an internal node or a vector of internal nodes and return cluster index just exactly like _`groupOTU`_. User can also use _`hilight`_ function demonstrated in __[`hilight clades`](#hilight-clades)__ section for highlighting selected clades.
-
-```{r fig.width=5, fig.height=5, fig.align="center", warning=FALSE}
-idx <- groupClade(tree, node=21)
-cols <- c("black", "darkgreen")[idx]
-lty <- c("solid", "dashed")[idx]
-ggtree(tree, color=cols, linetype=lty)
-```
-
-```{r fig.width=5, fig.height=5, fig.align="center", warning=FALSE}
-idx <- groupClade(tree, node=c(21, 17))
-cols <- c("black", "darkgreen", "firebrick")[idx]
-lty <- c("solid", "dashed", "dotted")[idx]
-ggtree(tree, color=cols, linetype=lty)
-```
-
-## scale clade
-In __[`collapse clade`](#collapse-clade)__, we have illustrated how to collapse selected clades. Another approach is to zoom out clade to a small scale.
-
-```{r fig.width=12, fig.height=6, warning=F}
-grid.arrange(ggtree(tree) %>% hilight(21, "steelblue"),
-             ggtree(tree) %>% scaleClade(21, scale=0.3) %>% hilight(21, "steelblue"),
-             ncol=2)
-```
-
-Of calse, _`scaleClade`_ can accept `scale` larger than 1 and zoom in the selected portion.
-
-```{r fig.width=12, fig.height=6, warning=F}
-grid.arrange(ggtree(tree) %>% hilight(17, fill="steelblue") %>%
-                 hilight(21, fill="darkgreen"),
-             ggtree(tree) %>% scaleClade(17, scale=2) %>% scaleClade(21, scale=0.3) %>%
-                 hilight(17, "steelblue") %>% hilight(21, fill="darkgreen"),
-             ncol=2)
-```
-
 
 ## visualize tree with associated matrix
 
+At first I implemented `gplot` function to visualize tree with heatmap but it has [an issue](https://github.com/GuangchuangYu/ggtree/issues/3) that it can't always guarantee the heatmap aligning to the tree properly, since the line up is between two figures and it's currently not supported internally by ggplot2. I have implemented another function `gheatmap` that can do the line up properly by creating a new layer above the tree.
+
+
 In the following example, we visualized a tree of H3 influenza viruses with their associated genotype.
 
-```{r fig.width=28, fig.height=26, fig.align="center"}
+```{r fig.width=20, fig.height=16, fig.align="center"}
 genotype_file <- system.file("examples/Genotype.txt", package="ggtree")
 genotype <- read.table(genotype_file, sep="\t", stringsAsFactor=F)
-p <- ggtree(beast_tree, time_scale=TRUE)+geom_tiplab(align=TRUE)+ xlim(1990, 2015) + theme_tree2()
-gplot(p, genotype, widths=c(5, 1))
-```
-
-`gplot` function has [an issue](https://github.com/GuangchuangYu/ggtree/issues/3) that it can't always guarantee the heatmpa aligning to the tree properly, since the line up is between two figures and it's currently not supported internally by ggplot2. I have implemented another function `gheatmap` that can do the line up properly by creating a new layer above the tree.
-
-```{r fig.width=20, fig.height=16, fig.align="center"}
 p <- ggtree(beast_tree, time_scale=TRUE) %>% add_legend
-gheatmap(p, genotype, width=1)
+p <- p + geom_tiplab(size=3)
+gheatmap(p, genotype, offset = 2, width=0.5)
 ```
 
 The _width_ parameter is to control the width of the heatmap. It supports another parameter _offset_ for controling the distance between the tree and the heatmap, for instance left space for tip labels.
 
-```{r fig.width=20, fig.height=16, fig.align="center"}
-gheatmap(p+geom_tiplab(size=3), genotype, offset = 2, width=0.5)
-```
 
-For time scaled tree, as in this example, it's more often to use x axis by using `theme_tree2`. But with this solution, the heatmap is just another layer and will change the x axis. To over come this issue, we implemented `scale_x_ggtree` to set the x axis more reasonable. User can also use `gplot` and tweak the positions of two plot to align properly.
+For time scaled tree, as in this example, it's more often to use x axis by using `theme_tree2`. But with this solution, the heatmap is just another layer and will change the `x` axis. To overcome this issue, we implemented `scale_x_ggtree` to set the x axis more reasonable. User can also use `gplot` and tweak the positions of two plot to align properly.
 
 ```{r fig.width=20, fig.height=16, fig.align="center"}
 p <- ggtree(beast_tree, time_scale=TRUE) + geom_tiplab(size=3, align=TRUE) + theme_tree2()
@@ -802,7 +759,7 @@ pp + theme(legend.position="right")
 With `msaplot` function, user can visualizes multiple sequence alignment with phylogenetic tree, as demonstrated below:
 ```{r fig.width=8, fig.height=12, fig.align='center'}
 fasta <- system.file("examples/FluA_H3_AA.fas", package="ggtree")
-msaplot(ggtree(beast_tree), fasta)
+msaplot(ggtree(beast_tree), fasta) 
 ```
 
 A specific slice of the alignment can also be displayed by specific _window_ parameter.

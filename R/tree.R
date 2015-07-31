@@ -114,10 +114,12 @@ gzoom.phylo <- function(phy, focus, subtree=FALSE, widths=c(.3, .7)) {
         focus <- which(phy$tip.label %in% focus)
     }
 
-    phy <- gfocus(phy, focus)
+    group_name <- "focus"
+    phy <- gfocus(phy, focus, group_name)
 
-    foc <- attr(phy, "focus")
-    cols <- c("black", "red")[foc]
+    foc <- attr(phy, group_name)
+    ## foc should +1 since the group index start from 0
+    cols <- c("black", "red")[foc+1]
 
     p1 <- ggtree(phy, color=cols)
     

@@ -1,5 +1,6 @@
 CHANGES IN VERSION 1.1.12
 ------------------------
+ o update vignette according to the changes <2015-07-31, Fri>
  o add mapping parameter in ggtree function <2015-07-31, Fri>
  o extend groupClade to support operating on tree view <2015-07-31, Fri>
  o extend groupOTU to support operating on tree view <2015-07-31, Fri>

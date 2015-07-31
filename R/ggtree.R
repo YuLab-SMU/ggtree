@@ -52,6 +52,11 @@ ggtree <- function(tr,
     } else {
         type <- "none"
     }
+    if (is.null(mapping)) {
+        mapping <- aes(x, y)
+    } else {
+        mapping <- modifyList(aes(x, y), mapping)
+    }
     p <- ggplot(tr, mapping=mapping,
                 layout        = layout,
                 yscale        = yscale,
@@ -627,6 +632,7 @@ add_legend <- function(p, x=NULL, y=NULL, offset=NULL, font.size=4, ...) {
     }
     if (is.null(y)) {
         y <- 0
+        p <- p + ylim(0, max(p$data$y))
     }
 
 
