@@ -3,6 +3,7 @@
 ##' 
 ##' @title ggtree
 ##' @param tr phylo object
+##' @param mapping aes mapping
 ##' @param showDistance add distance legend, logical
 ##' @param layout one of phylogram, dendrogram, cladogram, fan, radial and unrooted
 ##' @param yscale y scale
@@ -27,6 +28,7 @@
 ##' tr <- rtree(10)
 ##' ggtree(tr)
 ggtree <- function(tr,
+                   mapping = NULL,
                    showDistance=FALSE,
                    layout="phylogram",
                    yscale="none",
@@ -50,7 +52,7 @@ ggtree <- function(tr,
     } else {
         type <- "none"
     }
-    p <- ggplot(tr, aes(x, y),
+    p <- ggplot(tr, mapping=mapping,
                 layout        = layout,
                 yscale        = yscale,
                 ladderize     = ladderize,
@@ -736,43 +738,37 @@ setMethod("groupOTU", signature(object="gg"),
               groupOTU.ggplot(object, focus)
           })
 
-groupOTU.ggplot <- function(object, focus) {
+
+##' @rdname groupClade-methods
+##' @exportMethod groupClade
+setMethod("groupClade", signature(object="ggplot"),
+          function(object, node) {
+              groupClade.ggplot(object, node)
+          })
+
+
+##' @rdname groupClade-methods
+##' @exportMethod groupClade
+setMethod("groupClade", signature(object="gg"),
+          function(object, node) {
+              groupClade.ggplot(object, node)
+          })
+
+
+groupClade.ggplot <- function(object, nodes) {
     df <- object$data
     group_name <- "group"
     df[, group_name] <- 0
-    object$data <- groupOTU.df(df, focus, group_name)
-    return(object)     
-}
-
-
-groupOTU.df <- function(df, focus, group_name) {    
-    if (is(focus, "list")) {
-        for (i in 1:length(focus)) {
-            df <- gfocus.df(df, focus[[i]], group_name)
-        }
-    } else {
-        df <- gfocus.df(df, focus, group_name)
+    for (node in nodes) {
+        df <- groupClade.df(df, node, group_name)
     }
     df$group <- factor(df$group)
-    return(df)
+    object$data <- df
+    return(object)
 }
 
-gfocus.df <- function(df, focus, group_name) {
-    focus <- df$node[which(df$label %in% focus)]
-    if (length(focus) == 1) {
-        df[match(focus, df$node), group_name] <- max(df(df$group)) + 1
-        return(df)
-    }
-    
-    anc <- getAncestor.df(df, focus[1])
-    foc <- c(focus[1], anc)
-    for (j in 2:length(focus)) {
-        anc2 <- getAncestor.df(df, focus[j])
-        comAnc <- intersect(anc, anc2)
-        foc <- c(foc, focus[j], anc2)
-        foc <- foc[! foc %in% comAnc]
-        foc <- c(foc, comAnc[1])
-    }
+groupClade.df <- function(df, node, group_name) {
+    foc <- c(node, get.offspring.df(df, node))
     idx <- match(foc, df$node)
     df[idx, group_name] <- max(df$group) + 1
     return(df)
