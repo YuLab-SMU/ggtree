@@ -454,6 +454,9 @@ fortify.phylo <- function(model, data, layout="phylogram",
     if(layout == "cladogram") {
         df <- add_angle_cladogram(df)
     }
+    if (!is.null(attr(tree, "group"))) {
+        df$group <- attr(tree, "group")
+    }
     return(df)
 }
 
@@ -524,7 +527,7 @@ as.data.frame.phylo_ <- function(x, layout="phylogram",
     
     if (layout == "fan") {
         idx <- match(1:N, order(res$y))
-        angle <- -360/N * 1:N
+        angle <- -360/(N+1) * (1:N + 1)
         angle <- angle[idx]
         res$angle <- angle
     } 

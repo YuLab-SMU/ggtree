@@ -34,6 +34,10 @@ ggtree <- function(tr,
                    branch.length="branch.length",
                    ndigits = NULL, ...) {
     d <- x <- y <- NULL
+    if(yscale != "none") {
+        ## for 2d tree
+        layout <- "cladogram"
+    }
     if (layout == "fan") {
         ## layout <- "phylogram"
         type <- "fan"
@@ -715,4 +719,61 @@ annotation_clade_internal <- function(tree_view, x, y, label, bar.size, font.siz
     }
     tree_view + geom_segment(x=mx, xend=mx, y=min(y), yend=max(y), size=bar.size, ...) +
         annotate("text", label=label, x=mx+offset.text, y=mean(y), angle=270, size=font.size, ...)
+}
+
+##' @rdname groupOTU-methods
+##' @exportMethod groupOTU
+setMethod("groupOTU", signature(object="ggplot"),
+          function(object, focus) {
+              groupOTU.ggplot(object, focus)
+          })
+
+
+##' @rdname groupOTU-methods
+##' @exportMethod groupOTU
+setMethod("groupOTU", signature(object="gg"),
+          function(object, focus) {
+              groupOTU.ggplot(object, focus)
+          })
+
+groupOTU.ggplot <- function(object, focus) {
+    df <- object$data
+    group_name <- "group"
+    df[, group_name] <- 0
+    object$data <- groupOTU.df(df, focus, group_name)
+    return(object)     
+}
+
+
+groupOTU.df <- function(df, focus, group_name) {    
+    if (is(focus, "list")) {
+        for (i in 1:length(focus)) {
+            df <- gfocus.df(df, focus[[i]], group_name)
+        }
+    } else {
+        df <- gfocus.df(df, focus, group_name)
+    }
+    df$group <- factor(df$group)
+    return(df)
+}
+
+gfocus.df <- function(df, focus, group_name) {
+    focus <- df$node[which(df$label %in% focus)]
+    if (length(focus) == 1) {
+        df[match(focus, df$node), group_name] <- max(df(df$group)) + 1
+        return(df)
+    }
+    
+    anc <- getAncestor.df(df, focus[1])
+    foc <- c(focus[1], anc)
+    for (j in 2:length(focus)) {
+        anc2 <- getAncestor.df(df, focus[j])
+        comAnc <- intersect(anc, anc2)
+        foc <- c(foc, focus[j], anc2)
+        foc <- foc[! foc %in% comAnc]
+        foc <- c(foc, comAnc[1])
+    }
+    idx <- match(foc, df$node)
+    df[idx, group_name] <- max(df$group) + 1
+    return(df)
 }

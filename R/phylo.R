@@ -29,7 +29,8 @@ setMethod("groupOTU", signature(object="phylo"),
 ##' @param focus tip list
 ##' @return phylo object
 ##' @author ygc
-groupOTU.phylo <- function(phy, focus, group_name="groupOTU") {
+groupOTU.phylo <- function(phy, focus, group_name="group") {
+    attr(phy, group_name) <- NULL
     if ( is(focus, "list") ) {
         for (i in 1:length(focus)) {
             phy <- gfocus(phy, focus[[i]], group_name)
@@ -37,6 +38,7 @@ groupOTU.phylo <- function(phy, focus, group_name="groupOTU") {
     } else {
         phy <- gfocus(phy, focus, group_name)
     }
+    attr(phy, group_name) <- factor(attr(phy, group_name))
     return(phy)
 }
 
@@ -58,7 +60,7 @@ groupClade.phylo <- function(object, node) {
         })
     }
     
-    groupOTU.phylo(object, tips, "groupClade")
+    groupOTU.phylo(object, tips, "group")
 }
 
 

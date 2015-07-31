@@ -1,3 +1,8 @@
+CHANGES IN VERSION 1.1.12
+------------------------
+ o extend groupOTU to support operating on tree view <2015-07-31, Fri>
+ o new implementation of groupClade & groupOTU <2015-07-31, Fri>
+ 
 CHANGES IN VERSION 1.1.11
 ------------------------
  o annotation_clade and annotation_clade2 functions. <2015-07-30, Thu>

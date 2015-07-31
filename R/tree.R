@@ -81,7 +81,6 @@ gfocus <- function(phy, focus, group_name) {
     
     n <- getNodeNum(phy)
     if (is.null(attr(phy, group_name))) {
-        ## foc <- rep(1, 2*n)
         foc <- rep(0, n)
     } else {
         foc <- attr(phy, group_name)
@@ -89,13 +88,7 @@ gfocus <- function(phy, focus, group_name) {
     i <- max(foc) + 1
     sn <- phy$edge[which.edge(phy, focus),] %>% as.vector %>% unique
     foc[sn] <- i
-    ## foc[sn+n] <- i
     attr(phy, group_name) <- foc
-
-    ## sn <- which(df$focus != 1)
-    ## df$focus[df$parent] -> f2
-    ## f2[-sn] <- 1
-
     phy
 }
 
