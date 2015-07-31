@@ -1,4 +1,6 @@
 setOldClass("phylo")
+setOldClass("gg")
+setOldClass("ggplot")
 
 
 ##' Class "hyphy"

@@ -4,7 +4,7 @@
 \alias{groupOTU.phylo}
 \title{groupOTU.phylo}
 \usage{
-groupOTU.phylo(phy, focus)
+groupOTU.phylo(phy, focus, group_name = "group")
 }
 \arguments{
 \item{phy}{tree object}
@@ -12,7 +12,7 @@ groupOTU.phylo(phy, focus)
 \item{focus}{tip list}
 }
 \value{
-cluster index
+phylo object
 }
 \description{
 group OTU

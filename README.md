@@ -34,6 +34,7 @@ To install:
 + [viewing and annotating phylogenetic tree with ggtree](http://ygc.name/2014/12/21/ggtree/)
 + [updating a tree view using %<% operator](http://ygc.name/2015/02/10/ggtree-updating-a-tree-view/)
 + [an example of drawing beast tree using ggtree](http://ygc.name/2015/04/01/an-example-of-drawing-beast-tree-using-ggtree/)
++ [flip and rotate branches in ggtree](http://ygc.name/2015/07/01/flip-and-rotate-branches-in-ggtree/)
 
 To view the vignette of `ggtree` installed in your system, start `R` and enter:
 ```r

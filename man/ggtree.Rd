@@ -8,12 +8,14 @@
 \title{visualizing phylogenetic tree and heterogenous associated data based on grammar of graphics
 \code{ggtree} provides functions for visualizing phylogenetic tree and its associated data in R.}
 \usage{
-ggtree(tr, showDistance = FALSE, layout = "phylogram", yscale = "none",
-  ladderize = TRUE, right = FALSE, branch.length = "branch.length",
-  ndigits = NULL, ...)
+ggtree(tr, mapping = NULL, showDistance = FALSE, layout = "phylogram",
+  yscale = "none", ladderize = TRUE, right = FALSE,
+  branch.length = "branch.length", ndigits = NULL, ...)
 }
 \arguments{
 \item{tr}{phylo object}
+
+\item{mapping}{aes mapping}
 
 \item{showDistance}{add distance legend, logical}
 

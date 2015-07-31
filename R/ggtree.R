@@ -3,6 +3,7 @@
 ##' 
 ##' @title ggtree
 ##' @param tr phylo object
+##' @param mapping aes mapping
 ##' @param showDistance add distance legend, logical
 ##' @param layout one of phylogram, dendrogram, cladogram, fan, radial and unrooted
 ##' @param yscale y scale
@@ -27,6 +28,7 @@
 ##' tr <- rtree(10)
 ##' ggtree(tr)
 ggtree <- function(tr,
+                   mapping = NULL,
                    showDistance=FALSE,
                    layout="phylogram",
                    yscale="none",
@@ -34,6 +36,10 @@ ggtree <- function(tr,
                    branch.length="branch.length",
                    ndigits = NULL, ...) {
     d <- x <- y <- NULL
+    if(yscale != "none") {
+        ## for 2d tree
+        layout <- "cladogram"
+    }
     if (layout == "fan") {
         ## layout <- "phylogram"
         type <- "fan"
@@ -46,7 +52,12 @@ ggtree <- function(tr,
     } else {
         type <- "none"
     }
-    p <- ggplot(tr, aes(x, y),
+    if (is.null(mapping)) {
+        mapping <- aes(x, y)
+    } else {
+        mapping <- modifyList(aes(x, y), mapping)
+    }
+    p <- ggplot(tr, mapping=mapping,
                 layout        = layout,
                 yscale        = yscale,
                 ladderize     = ladderize,
@@ -81,9 +92,6 @@ ggtree <- function(tr,
 ##' 
 ##' @title geom_tree
 ##' @param layout one of phylogram, cladogram
-##' @param color color
-##' @param linetype line type
-##' @param size line size
 ##' @param ... additional parameter
 ##' @return tree layer
 ##' @importFrom ggplot2 geom_segment
@@ -95,35 +103,28 @@ ggtree <- function(tr,
 ##' tr <- rtree(10)
 ##' require(ggplot2)
 ##' ggplot(tr) + geom_tree()
-geom_tree <- function(layout="phylogram", color="black", linetype="solid", size=0.5, ...) {
+geom_tree <- function(layout="phylogram", ...) {
     x <- y <- parent <- NULL
     lineend  = "round"
     if (layout == "phylogram" || layout == "fan") {
-        if (length(color) != 1) {
-            color <- rep(color, 2) ## c(color, color)
-        }
-        if (length(linetype) != 1) {
-            linetype <- rep(linetype, 2) ## c(linetype, linetype)
-        }
-        if (length(size) != 1) {
-            size <- rep(size, 2) ## c(size, size)
-        }
-        geom_segment(aes(x    = c(x[parent], x[parent]),
-                         xend = c(x,         x[parent]),
-                         y    = c(y,         y[parent]),
-                         yend = c(y,         y)),
-                     color    = color,
-                     linetype = linetype,
-                     size     = size,
-                     lineend  = lineend, ...)
+        list(
+            geom_segment(aes(x    = x[parent],
+                             xend = x,
+                             y    = y,
+                             yend = y),
+                         lineend  = lineend, ...),
+            
+            geom_segment(aes(x    = x[parent],
+                             xend = x[parent],
+                             y    = y[parent],
+                             yend = y),
+                         lineend  = lineend, ...)
+            )
     } else if (layout == "cladogram" || layout == "unrooted") {
         geom_segment(aes(x    = x[parent],
                          xend = x,
                          y    = y[parent],
                          yend = y),
-                     color    = color,
-                     linetype = linetype,
-                     size     = size,
                      lineend  = lineend, ...)
     }
 }
@@ -222,6 +223,7 @@ geom_tippoint <- function(...) {
 ##' @title theme_tree
 ##' @param bgcolor background color
 ##' @param fgcolor foreground color
+##' @param ... additional parameter
 ##' @importFrom ggplot2 theme_bw
 ##' @importFrom ggplot2 theme
 ##' @importFrom ggplot2 element_blank
@@ -233,13 +235,13 @@ geom_tippoint <- function(...) {
 ##' require(ape)
 ##' tr <- rtree(10)
 ##' ggtree(tr) + theme_tree()
-theme_tree <- function(bgcolor="white", fgcolor="black") {
+theme_tree <- function(bgcolor="white", fgcolor="black", ...) {
     theme_tree2() %+replace%
     theme(panel.background=element_rect(fill=bgcolor, colour=bgcolor),
           axis.line.x = element_line(color=bgcolor),
           axis.text.x = element_blank(),
-          axis.ticks.x = element_blank()
-          )
+          axis.ticks.x = element_blank(),
+          ...)
 }
 
 ##' tree2 theme
@@ -248,6 +250,7 @@ theme_tree <- function(bgcolor="white", fgcolor="black") {
 ##' @title theme_tree2
 ##' @param bgcolor background color
 ##' @param fgcolor foreground color
+##' @param ... additional parameter
 ##' @importFrom ggplot2 theme_bw
 ##' @importFrom ggplot2 theme
 ##' @importFrom ggplot2 element_blank
@@ -261,7 +264,7 @@ theme_tree <- function(bgcolor="white", fgcolor="black") {
 ##' require(ape)
 ##' tr <- rtree(10)
 ##' ggtree(tr) + theme_tree2()
-theme_tree2 <- function(bgcolor="white", fgcolor="black") {
+theme_tree2 <- function(bgcolor="white", fgcolor="black", ...) {
     theme_bw() %+replace%
     theme(legend.position="none",
           panel.grid.minor=element_blank(),
@@ -271,8 +274,8 @@ theme_tree2 <- function(bgcolor="white", fgcolor="black") {
           axis.line=element_line(color=fgcolor),
           axis.line.y=element_line(color=bgcolor),
           axis.ticks.y=element_blank(),
-          axis.text.y=element_blank()
-          )
+          axis.text.y=element_blank(),
+          ...)
 }
 
 ##' hilight clade with rectangle
@@ -616,18 +619,24 @@ add_colorbar <- function(p, color, x=NULL, ymin=NULL, ymax=NULL, font.size=4) {
 ##' @param font.size font size
 ##' @param ... additional parameter
 ##' @return tree view
+##' @importFrom grid linesGrob
+##' @importFrom grid textGrob
 ##' @export
 ##' @author Guangchuang Yu
 add_legend <- function(p, x=NULL, y=NULL, offset=NULL, font.size=4, ...) {
+    dx <- p$data$x %>% range %>% diff
+    
     if (is.null(x)) {
-        x <- min(p$data$x)
+        ## x <- min(p$data$x)
+        x <- dx/2
     }
     if (is.null(y)) {
-        y <- -0.5
+        y <- 0
+        p <- p + ylim(0, max(p$data$y))
     }
 
-    d <- p$data$x %>% range %>% diff
-    d <- d/20 
+
+    d <- dx/10 
     n <- 0
     while (d < 1) {
         d <- d*10
@@ -635,13 +644,10 @@ add_legend <- function(p, x=NULL, y=NULL, offset=NULL, font.size=4, ...) {
     }
     d <- floor(d)/(10^n)
     if (is.null(offset)) {
-        offset <- p$data$y %>% range %>% diff
-        offset <- offset / 100
+        offset <- 0.4
     }
-    p <- p + geom_segment(x=x, y=y, xend=x+d, yend=y, ...) +
-        geom_text(x=x+d/2, y=y-offset, label=d, size=font.size, ...) +
-            geom_segment(x=x, y=y-offset/2, xend=x, yend=y+offset/2, ...) +
-                geom_segment(x=x+d, y=y-offset/2, xend=x+d, yend=y+offset/2, ...)
+    p <- p + annotation_custom(linesGrob(), xmin=x, xmax=x+d, ymin=y, ymax=y) +
+        annotation_custom(textGrob(label=d), xmin=x+d/2, xmax=x+d/2, ymin=y+offset, ymax=y+offset)
     return(p)
 }
 
@@ -659,4 +665,117 @@ get_taxa_name <- function(tree_view, node) {
     sp <- get.offspring.df(df, node)
     res <- df[sp, "label"]
     return(res[df[sp, "isTip"]])
+}
+
+##' annotate a selected clade with internal node number
+##'
+##' 
+##' @title annotation_clade
+##' @param tree_view tree view
+##' @param node node number
+##' @param label clade label
+##' @param bar.size bar size
+##' @param font.size font size
+##' @param offset offset of bar from the tree
+##' @param offset.text offset of label from bar
+##' @param ... additional parameter
+##' @export
+##' @return ggplot2
+##' @author Guangchuang Yu
+annotation_clade <- function(tree_view, node, label, bar.size=2, font.size=4, offset=0, offset.text=NULL, ...) {
+    df <- tree_view$data
+    sp <- get.offspring.df(df, node)
+    sp.df <- df[c(sp, node), ]
+    y <- sp.df$y
+
+    mx <- max(p$data$x) + offset
+    annotation_clade_internal(tree_view, mx, y, label, bar.size, font.size, offset.text, ...)
+}
+
+
+##' annotate a clade with selected upper and lower tips
+##'
+##' 
+##' @title annotation_clade2
+##' @param tree_view tree view
+##' @param tip1 tip1 label or id
+##' @param tip2 tip2 label or id
+##' @param label clade label
+##' @param bar.size bar size
+##' @param font.size font size
+##' @param offset offset of bar from the tree
+##' @param offset.text offset of label from bar
+##' @param ... additional parameter
+##' @export
+##' @return ggplot2
+##' @author Guangchuang Yu
+annotation_clade2 <- function(tree_view, tip1, tip2, label, bar.size=2, font.size=4, offset=0, offset.text=NULL, ...) {
+    df <- tree_view$data
+    
+    y <- c(df[which(tip1 == df$label | tip1 == df$node), "y"],
+           df[which(tip2 == df$label | tip2 == df$node), "y"])
+    
+    mx <- max(p$data$x) + offset
+    annotation_clade_internal(tree_view, mx, y, label, bar.size, font.size, offset.text, ...)
+}
+
+
+annotation_clade_internal <- function(tree_view, x, y, label, bar.size, font.size, offset.text, ...) {
+    mx <- x
+    if (is.null(offset.text)) {
+        offset.text <- mx * 0.02
+    }
+    tree_view + geom_segment(x=mx, xend=mx, y=min(y), yend=max(y), size=bar.size, ...) +
+        annotate("text", label=label, x=mx+offset.text, y=mean(y), angle=270, size=font.size, ...)
+}
+
+##' @rdname groupOTU-methods
+##' @exportMethod groupOTU
+setMethod("groupOTU", signature(object="ggplot"),
+          function(object, focus) {
+              groupOTU.ggplot(object, focus)
+          })
+
+
+##' @rdname groupOTU-methods
+##' @exportMethod groupOTU
+setMethod("groupOTU", signature(object="gg"),
+          function(object, focus) {
+              groupOTU.ggplot(object, focus)
+          })
+
+
+##' @rdname groupClade-methods
+##' @exportMethod groupClade
+setMethod("groupClade", signature(object="ggplot"),
+          function(object, node) {
+              groupClade.ggplot(object, node)
+          })
+
+
+##' @rdname groupClade-methods
+##' @exportMethod groupClade
+setMethod("groupClade", signature(object="gg"),
+          function(object, node) {
+              groupClade.ggplot(object, node)
+          })
+
+
+groupClade.ggplot <- function(object, nodes) {
+    df <- object$data
+    group_name <- "group"
+    df[, group_name] <- 0
+    for (node in nodes) {
+        df <- groupClade.df(df, node, group_name)
+    }
+    df$group <- factor(df$group)
+    object$data <- df
+    return(object)
+}
+
+groupClade.df <- function(df, node, group_name) {
+    foc <- c(node, get.offspring.df(df, node))
+    idx <- match(foc, df$node)
+    df[idx, group_name] <- max(df$group) + 1
+    return(df)
 }
