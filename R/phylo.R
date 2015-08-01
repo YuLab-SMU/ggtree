@@ -16,8 +16,8 @@ setMethod("scale_color", signature(object="phylo"),
 ##' @rdname groupOTU-methods
 ##' @exportMethod groupOTU
 setMethod("groupOTU", signature(object="phylo"),
-          function(object, focus) {
-              groupOTU.phylo(object, focus)
+          function(object, focus, group_name="group") {
+              groupOTU.phylo(object, focus, group_name)
           })
 
 
@@ -27,6 +27,7 @@ setMethod("groupOTU", signature(object="phylo"),
 ##' @title groupOTU.phylo
 ##' @param phy tree object
 ##' @param focus tip list
+##' @param group_name name of the group
 ##' @return phylo object
 ##' @author ygc
 groupOTU.phylo <- function(phy, focus, group_name="group") {
@@ -45,11 +46,11 @@ groupOTU.phylo <- function(phy, focus, group_name="group") {
 ##' @rdname groupClade-methods
 ##' @exportMethod groupClade
 setMethod("groupClade", signature(object="phylo"),
-          function(object, node) {
-              groupClade.phylo(object, node)
+          function(object, node, group_name="group") {
+              groupClade.phylo(object, node, group_name)
           })
 
-groupClade.phylo <- function(object, node) {
+groupClade.phylo <- function(object, node, group_name) {
     if (length(node) == 1) {
         clade <- extract.clade(object, node)
         tips <- clade$tip.label
@@ -60,7 +61,7 @@ groupClade.phylo <- function(object, node) {
         })
     }
     
-    groupOTU.phylo(object, tips, "group")
+    groupOTU.phylo(object, tips, group_name)
 }
 
 

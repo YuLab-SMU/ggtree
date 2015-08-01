@@ -4,12 +4,19 @@
 \alias{geom_tiplab}
 \title{geom_tiplab}
 \usage{
-geom_tiplab(align = FALSE, hjust = 0, ...)
+geom_tiplab(mapping = NULL, hjust = 0, align = FALSE,
+  linetype = "dotted", line.size = 1, ...)
 }
 \arguments{
-\item{align}{align tip lab or not, logical}
+\item{mapping}{aes mapping}
 
 \item{hjust}{horizontal adjustment}
+
+\item{align}{align tip lab or not, logical}
+
+\item{linetype}{linetype for adding line if align = TRUE}
+
+\item{line.size}{line size of line if align = TRUE}
 
 \item{...}{additional parameter}
 }

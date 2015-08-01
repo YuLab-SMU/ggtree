@@ -156,8 +156,11 @@ geom_hilight <- function(tree_object, node, ...) {
 ##'
 ##' 
 ##' @title geom_tiplab 
-##' @param align align tip lab or not, logical
+##' @param mapping aes mapping
 ##' @param hjust horizontal adjustment
+##' @param align align tip lab or not, logical
+##' @param linetype linetype for adding line if align = TRUE
+##' @param line.size line size of line if align = TRUE
 ##' @param ... additional parameter
 ##' @return tip label layer
 ##' @importFrom ggplot2 geom_text
@@ -167,13 +170,39 @@ geom_hilight <- function(tree_object, node, ...) {
 ##' require(ape)
 ##' tr <- rtree(10)
 ##' ggtree(tr) + geom_tiplab()
-geom_tiplab <- function(align=FALSE, hjust=0, ...) {
+geom_tiplab <- function(mapping=NULL, hjust = 0, align = FALSE, linetype = "dotted", line.size=1, ...) {
     x <- y <- label <- isTip <- NULL
     if (align == TRUE) {
-        geom_text(aes(x=max(x)+ diff(range(x))/200, label=label), subset=.(isTip), hjust=hjust, ...)
-    } else {
-        geom_text(aes(x = x + diff(range(x))/200, label=label), subset=.(isTip), hjust=hjust, ...)
+        self_mapping <- aes(x = max(x) + diff(range(x))/200, label = label)
     }
+    else {
+        self_mapping <- aes(x = x + diff(range(x))/200, label = label)
+    }
+
+    if (is.null(mapping)) {
+        text_mapping <- self_mapping          
+    } else {
+        text_mapping <- modifyList(self_mapping, mapping)
+    }
+
+    dot_mapping <- NULL
+    if (align && (!is.na(linetype) || !is.null(linetype))) {
+        dot_mapping <- aes(xend=x+diff(range(x))/200, x=max(x), yend=y)
+        if (!is.null(mapping)) {
+            dot_mapping <- modifyList(dot_mapping, mapping)
+        }
+    } 
+    
+    list(
+        geom_text(mapping=text_mapping, 
+                  subset = .(isTip),
+                  hjust = hjust, ...),
+        if (!is.null(dot_mapping))
+            geom_segment(mapping=dot_mapping,
+                         subset=.(isTip),
+                         linetype = linetype,
+                         size = line.size, ...)
+        )
 }
 
 
@@ -621,6 +650,7 @@ add_colorbar <- function(p, color, x=NULL, ymin=NULL, ymax=NULL, font.size=4) {
 ##' @return tree view
 ##' @importFrom grid linesGrob
 ##' @importFrom grid textGrob
+##' @importFrom ggplot2 ylim
 ##' @export
 ##' @author Guangchuang Yu
 add_legend <- function(p, x=NULL, y=NULL, offset=NULL, font.size=4, ...) {
@@ -688,7 +718,7 @@ annotation_clade <- function(tree_view, node, label, bar.size=2, font.size=4, of
     sp.df <- df[c(sp, node), ]
     y <- sp.df$y
 
-    mx <- max(p$data$x) + offset
+    mx <- max(df$x) + offset
     annotation_clade_internal(tree_view, mx, y, label, bar.size, font.size, offset.text, ...)
 }
 
@@ -715,7 +745,7 @@ annotation_clade2 <- function(tree_view, tip1, tip2, label, bar.size=2, font.siz
     y <- c(df[which(tip1 == df$label | tip1 == df$node), "y"],
            df[which(tip2 == df$label | tip2 == df$node), "y"])
     
-    mx <- max(p$data$x) + offset
+    mx <- max(df$x) + offset
     annotation_clade_internal(tree_view, mx, y, label, bar.size, font.size, offset.text, ...)
 }
 
@@ -732,50 +762,31 @@ annotation_clade_internal <- function(tree_view, x, y, label, bar.size, font.siz
 ##' @rdname groupOTU-methods
 ##' @exportMethod groupOTU
 setMethod("groupOTU", signature(object="ggplot"),
-          function(object, focus) {
-              groupOTU.ggplot(object, focus)
+          function(object, focus, group_name="group") {
+              groupOTU.ggplot(object, focus, group_name)
           })
 
 
 ##' @rdname groupOTU-methods
 ##' @exportMethod groupOTU
 setMethod("groupOTU", signature(object="gg"),
-          function(object, focus) {
-              groupOTU.ggplot(object, focus)
+          function(object, focus, group_name) {
+              groupOTU.ggplot(object, focus, group_name)
           })
 
 
 ##' @rdname groupClade-methods
 ##' @exportMethod groupClade
 setMethod("groupClade", signature(object="ggplot"),
-          function(object, node) {
-              groupClade.ggplot(object, node)
+          function(object, node, group_name) {
+              groupClade.ggplot(object, node, group_name)
           })
 
 
 ##' @rdname groupClade-methods
 ##' @exportMethod groupClade
 setMethod("groupClade", signature(object="gg"),
-          function(object, node) {
-              groupClade.ggplot(object, node)
+          function(object, node, group_name) {
+              groupClade.ggplot(object, node, group_name)
           })
 
-
-groupClade.ggplot <- function(object, nodes) {
-    df <- object$data
-    group_name <- "group"
-    df[, group_name] <- 0
-    for (node in nodes) {
-        df <- groupClade.df(df, node, group_name)
-    }
-    df$group <- factor(df$group)
-    object$data <- df
-    return(object)
-}
-
-groupClade.df <- function(df, node, group_name) {
-    foc <- c(node, get.offspring.df(df, node))
-    idx <- match(foc, df$node)
-    df[idx, group_name] <- max(df$group) + 1
-    return(df)
-}

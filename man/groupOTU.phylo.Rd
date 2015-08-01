@@ -10,6 +10,8 @@ groupOTU.phylo(phy, focus, group_name = "group")
 \item{phy}{tree object}
 
 \item{focus}{tip list}
+
+\item{group_name}{name of the group}
 }
 \value{
 phylo object

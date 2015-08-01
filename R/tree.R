@@ -55,20 +55,20 @@ scale_color_ <- function(phylo, by, low=NULL, high=NULL, na.color=NULL, default.
     return(color)
 }
 
-groupClade_ <- function(object, node) {
+groupClade_ <- function(object, node, group_name) {
     if (is(object, "phylo")) {
-        object <- groupClade.phylo(object, node)
+        object <- groupClade.phylo(object, node, group_name)
     } else {
-        object@phylo <- groupClade.phylo(get.tree(object), node)
+        object@phylo <- groupClade.phylo(get.tree(object), node, group_name)
     }
     return(object)
 }
 
-groupOTU_ <- function(object, focus) {
+groupOTU_ <- function(object, focus, group_name) {
     if (is(object, "phylo")) {
-        object <- groupOTU.phylo(object, focus)
+        object <- groupOTU.phylo(object, focus, group_name)
     } else {
-        object@phylo <- groupOTU.phylo(get.tree(object), focus)
+        object@phylo <- groupOTU.phylo(get.tree(object), focus, group_name)
     }
     return(object)
 }
