@@ -14,31 +14,33 @@
 \alias{groupOTU,phylo-method}
 \title{groupOTU method}
 \usage{
-groupOTU(object, focus)
+groupOTU(object, focus, group_name = "group")
 
-\S4method{groupOTU}{beast}(object, focus)
+\S4method{groupOTU}{beast}(object, focus, group_name = "group")
 
-\S4method{groupOTU}{codeml}(object, focus)
+\S4method{groupOTU}{codeml}(object, focus, group_name = "group")
 
-\S4method{groupOTU}{codeml_mlc}(object, focus)
+\S4method{groupOTU}{codeml_mlc}(object, focus, group_name = "group")
 
-\S4method{groupOTU}{ggplot}(object, focus)
+\S4method{groupOTU}{ggplot}(object, focus, group_name = "group")
 
-\S4method{groupOTU}{gg}(object, focus)
+\S4method{groupOTU}{gg}(object, focus, group_name = "group")
 
-\S4method{groupOTU}{hyphy}(object, focus)
+\S4method{groupOTU}{hyphy}(object, focus, group_name = "group")
 
-\S4method{groupOTU}{jplace}(object, focus)
+\S4method{groupOTU}{jplace}(object, focus, group_name = "group")
 
-\S4method{groupOTU}{paml_rst}(object, focus)
+\S4method{groupOTU}{paml_rst}(object, focus, group_name = "group")
 
-\S4method{groupOTU}{phylo}(object, focus)
+\S4method{groupOTU}{phylo}(object, focus, group_name = "group")
 }
 \arguments{
 \item{object}{supported objects, including phylo, paml_rst,
 codeml_mlc, codeml, jplace, beast, hyphy}
 
 \item{focus}{a vector of tip (label or number) or a list of tips.}
+
+\item{group_name}{name of the group, 'group' by default}
 }
 \value{
 group index

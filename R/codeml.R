@@ -25,16 +25,16 @@ read.codeml <- function(rstfile, mlcfile) {
 ##' @rdname groupOTU-methods
 ##' @exportMethod groupOTU
 setMethod("groupOTU", signature(object="codeml"),
-          function(object, focus) {
-              groupOTU_(object, focus)
+          function(object, focus, group_name="group") {
+              groupOTU_(object, focus, group_name)
           }
           )
 
 ##' @rdname groupClade-methods
 ##' @exportMethod groupClade
 setMethod("groupClade", signature(object="codeml"),
-          function(object, node) {
-              groupClade_(object, node)
+          function(object, node, group_name="group") {
+              groupClade_(object, node, group_name)
           }
           )
 
