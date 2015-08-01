@@ -160,7 +160,7 @@ geom_hilight <- function(tree_object, node, ...) {
 ##' @param hjust horizontal adjustment
 ##' @param align align tip lab or not, logical
 ##' @param linetype linetype for adding line if align = TRUE
-##' @param line.size line size of line if align = TRUE
+##' @param linesize line size of line if align = TRUE
 ##' @param ... additional parameter
 ##' @return tip label layer
 ##' @importFrom ggplot2 geom_text
@@ -170,7 +170,7 @@ geom_hilight <- function(tree_object, node, ...) {
 ##' require(ape)
 ##' tr <- rtree(10)
 ##' ggtree(tr) + geom_tiplab()
-geom_tiplab <- function(mapping=NULL, hjust = 0, align = FALSE, linetype = "dotted", line.size=1, ...) {
+geom_tiplab <- function(mapping=NULL, hjust = 0, align = FALSE, linetype = "dotted", linesize=1, ...) {
     x <- y <- label <- isTip <- NULL
     if (align == TRUE) {
         self_mapping <- aes(x = max(x) + diff(range(x))/200, label = label)
@@ -186,7 +186,7 @@ geom_tiplab <- function(mapping=NULL, hjust = 0, align = FALSE, linetype = "dott
     }
 
     dot_mapping <- NULL
-    if (align && (!is.na(linetype) || !is.null(linetype))) {
+    if (align && (!is.na(linetype) && !is.null(linetype))) {
         dot_mapping <- aes(xend=x+diff(range(x))/200, x=max(x), yend=y)
         if (!is.null(mapping)) {
             dot_mapping <- modifyList(dot_mapping, mapping)
@@ -201,7 +201,7 @@ geom_tiplab <- function(mapping=NULL, hjust = 0, align = FALSE, linetype = "dott
             geom_segment(mapping=dot_mapping,
                          subset=.(isTip),
                          linetype = linetype,
-                         size = line.size, ...)
+                         size = linesize, ...)
         )
 }
 

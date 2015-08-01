@@ -1,5 +1,6 @@
 CHANGES IN VERSION 1.1.13
 ------------------------
+ o implement annotation_image <2015-08-01, Sat>
  o better implementation of geom_tiplab for accepting aes mapping and auto add align dotted line <2015-08-01, Sat>
  o open group_name parameter of groupOTU/groupClade to user <2015-08-01, Sat>
  
