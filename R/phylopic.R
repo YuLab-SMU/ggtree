@@ -29,16 +29,9 @@ get.phylopic <- function(id, size=512, color="black", alpha=1) {
 ##' @export
 ##' @author Guangchuang Yu
 download.phylopic <- function(id, size=512, color="black", alpha=1) {
-    size %<>% as.character %>%
-        match.arg(c("64", "128", "256", "512", "1024"))
+    imgfile <- tempfile(fileext = ".png")
+    download.phylopic_internal(id, size, imgfile)
 
-    imgurl <- paste0("http://phylopic.org/assets/images/submissions/", id, ".", size, ".png")
-    imgfile <- tempfile(fileext = ".png") 
-    if (Sys.info()["sysname"] == "Windows") {
-        download.file(imgurl, imgfile, mode="wb", quiet = TRUE)
-    } else {
-        download.file(imgurl, imgfile, quiet = TRUE)
-    }
     img <- readImage(imgfile)
        
     color <- col2rgb(color) / 255
@@ -51,6 +44,19 @@ download.phylopic <- function(id, size=512, color="black", alpha=1) {
     
     return(img)
 }
+
+download.phylopic_internal <- function(id, size=512, outfile=NULL) {
+    size %<>% as.character %>%
+        match.arg(c("64", "128", "256", "512", "1024"))
+
+    imgurl <- paste0("http://phylopic.org/assets/images/submissions/", id, ".", size, ".png")
+    if (is.null(outfile)) {
+        outfile <- sub(".*/", "", imgurl)
+    }
+    ## mode = "wb" for Windows platform
+    download.file(imgurl, outfile, mode="wb", quiet = TRUE) 
+}
+
 
 ##' add phylopic layer
 ##'
@@ -72,7 +78,8 @@ download.phylopic <- function(id, size=512, color="black", alpha=1) {
 ##' @author Guangchuang Yu
 phylopic <- function(tree_view, phylopic_id,
                      size=512, color="black", alpha=0.5,
-                     node=NULL, x=NULL, y=NULL, width=5) {
+                     node=NULL, x=NULL, y=NULL, width=.1) {
+    width <- diff(range(tree_view$data$x)) * width
     img <- download.phylopic(phylopic_id, size, color, alpha)
     if ( is.null(node) ) {
         xmin <- ymin <- -Inf
@@ -85,9 +92,7 @@ phylopic <- function(tree_view, phylopic_id,
             x <- tree_view$data[node, "x"]
             y <- tree_view$data[node, "y"]
         }
-          
-        dims <- dim(img)[1:2]
-        AR <- dims[1]/dims[2]
+        AR <- getAR(img)
         xmin <- x - width/2
         xmax <- x + width/2
         ymin <- y - AR * width/2
@@ -99,3 +104,60 @@ phylopic <- function(tree_view, phylopic_id,
                                   rasterGrob(img))
 }
 
+getAR <- function(img) {
+    dims <- dim(img)[1:2]
+    dims[1]/dims[2]
+}
+
+
+##' annotation taxa with images
+##'
+##' 
+##' @title annotation_image
+##' @param tree_view tree view
+##' @param img_info data.frame with first column of taxa name and second column of image names
+##' @param width width of the image to be plotted in image
+##' @param align logical
+##' @param linetype line type if align = TRUE
+##' @param linesize line size if align = TRUE
+##' @param offset offset of image from the tree view
+##' @return tree view
+##' @export
+##' @author Guangchuang Yu
+annotation_image <- function(tree_view, img_info, width=0.1, align=TRUE, linetype="dotted", linesize =1, offset=0) {
+    df <- tree_view$data
+    idx <- match(img_info[,1], df$label)
+    x <- df[idx, "x"]
+    y <- df[idx, "y"]
+
+    images <- lapply(img_info[,2], readImage)
+
+    ARs <- sapply(images, getAR)
+
+    width <- width * diff(range(df$x))
+    if (align) {
+        xmin <- max(df$x) + offset
+        xmin <- rep(xmin, length(x))
+        xmax <- xmin + width
+    } else {
+        xmin <- x - width/2
+        xmax <- x + width/2
+    }
+    ymin <- y - ARs * width/2
+    ymax <- y + ARs * width/2
+    image_layers <- lapply(1:length(xmin), function(i) {
+        annotation_custom(xmin=xmin[i], ymin=ymin[i],
+                          xmax=xmax[i], ymax=ymax[i],
+                          rasterGrob(images[[i]]))
+    })
+
+    tree_view <- tree_view + image_layers
+
+    if (align && (!is.null(linetype) && !is.na(linetype))) {
+        tree_view <- tree_view + geom_segment(data=df[idx,],
+                                              x=xmin, xend = x*1.01,
+                                              y = y, yend = y,
+                                              linetype=linetype, size=linesize)
+    }
+    tree_view
+}
