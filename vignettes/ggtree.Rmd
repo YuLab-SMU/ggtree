@@ -224,6 +224,17 @@ library("ggtree")
 gzoom(chiroptera, grep("Plecotus", chiroptera$tip.label))
 ```
 
+## color tree
+
+In `r Githubpkg("GuangchuangYu/ggtree")`, coloring phylogenetic tree is easy, by using `aes(color=VAR)` to map the color of tree based on a specific variable (numeric and category are both supported).
+
+```{r fig.width=5, fig.height=5}
+ggtree(tree, aes(color=branch.length)) +
+    scale_color_continuous(low="green", high="red") +
+        theme(legend.position="bottom")
+```
+User can use any feature, including clade posterior and dN/dS _etc._, to scale the color of the tree.
+
 ## annotate clade
 `r Githubpkg("GuangchuangYu/ggtree")` implements _`annotation_clade`_ and _`annotation_clade2`_ functions to annotate a selected clade with a bar indicating that clade with a corresponding label.
 
@@ -617,12 +628,12 @@ merged_tree <- merge_tree(beast_tree, codeml_tree)
 merged_tree
 ```
 
-After merging, all evidences inferred from different tools can be used to annotate the tree simultaneously. In this example, we used 'dN/dS' inferred by CodeML to color the tree and annotate the tree with 'posterior' inferred by BEAST.
+After merging, all evidences inferred from different tools can be used to annotate the tree simultaneously. In this example, we used 'dN' inferred by CodeML to color the tree and annotate the tree with 'posterior' inferred by BEAST.
 
 ```{r fig.width=20, fig.height=26, warning=FALSE}
-ggtree(merged_tree, aes(color=dN_vs_dS), time_scale=TRUE, ndigits = 3) +
+ggtree(merged_tree, aes(color=dN), time_scale=TRUE, ndigits = 3) +
     geom_text(aes(label=posterior), vjust=.1, hjust=-.1, size=5) + theme_tree2() +
-        scale_color_continuous(low="steelblue", high="red")
+        scale_color_continuous(low="green", high="red") + theme(legend.position="right")
 ```
 
 

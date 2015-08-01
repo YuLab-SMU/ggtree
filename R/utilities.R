@@ -471,9 +471,28 @@ getCols <- function (n) {
 }
 
 
-groupOTU.ggplot <- function(object, focus) {
+
+groupClade.ggplot <- function(object, nodes, group_name) {
     df <- object$data
-    group_name <- "group"
+    df[, group_name] <- 0
+    for (node in nodes) {
+        df <- groupClade.df(df, node, group_name)
+    }
+    df[, group_name] <- factor(df[, group_name])
+    object$data <- df
+    return(object)
+}
+
+groupClade.df <- function(df, node, group_name) {
+    foc <- c(node, get.offspring.df(df, node))
+    idx <- match(foc, df$node)
+    df[idx, group_name] <- max(df[, group_name]) + 1
+    return(df)
+}
+
+
+groupOTU.ggplot <- function(object, focus, group_name) {
+    df <- object$data
     df[, group_name] <- 0
     object$data <- groupOTU.df(df, focus, group_name)
     return(object)     
@@ -488,14 +507,14 @@ groupOTU.df <- function(df, focus, group_name) {
     } else {
         df <- gfocus.df(df, focus, group_name)
     }
-    df$group <- factor(df$group)
+    df[, group_name] <- factor(df[, group_name])
     return(df)
 }
 
 gfocus.df <- function(df, focus, group_name) {
     focus <- df$node[which(df$label %in% focus)]
     if (length(focus) == 1) {
-        df[match(focus, df$node), group_name] <- max(df(df$group)) + 1
+        df[match(focus, df$node), group_name] <- max(df(df[, group_name])) + 1
         return(df)
     }
     
@@ -509,7 +528,7 @@ gfocus.df <- function(df, focus, group_name) {
         foc <- c(foc, comAnc[1])
     }
     idx <- match(foc, df$node)
-    df[idx, group_name] <- max(df$group) + 1
+    df[idx, group_name] <- max(df[, group_name]) + 1
     return(df)
 }
 

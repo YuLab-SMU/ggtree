@@ -1,3 +1,8 @@
+CHANGES IN VERSION 1.1.13
+------------------------
+ o better implementation of geom_tiplab for accepting aes mapping and auto add align dotted line <2015-08-01, Sat>
+ o open group_name parameter of groupOTU/groupClade to user <2015-08-01, Sat>
+ 
 CHANGES IN VERSION 1.1.12
 ------------------------
  o update vignette according to the changes <2015-07-31, Fri>
