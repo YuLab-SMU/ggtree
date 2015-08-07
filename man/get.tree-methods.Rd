@@ -29,7 +29,7 @@ get.tree(object, ...)
 \S4method{get.tree}{phylo}(object, ...)
 }
 \arguments{
-\item{object}{one of \code{jplace}, \code{beast} object}
+\item{object}{one of \code{phylo}, \code{jplace}, \code{beast}, \code{hyphy}, \code{codeml}, \code{codeml_mlc}, \code{paml_rst} object}
 
 \item{...}{additional parameter}
 
