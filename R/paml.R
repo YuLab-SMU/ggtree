@@ -322,6 +322,9 @@ set.paml_rst_ <- function(object) {
     types <- get.fields(object)
     for (type in types) {
         value <- subs_paml_rst(object, type)
+        if (all(is.na(value)))
+            next
+        
         if (type == "marginal_subs") {
             object@marginal_subs <- value
         } else if (type == "marginal_AA_subs") {
@@ -364,9 +367,11 @@ subs_paml_rst <- function(x, type, ...) {
         stop("tip sequences is not available...")
     }
     if (type %in% c("marginal_subs", "marginal_AA_subs")) {
-        seqs <- c(seqs, x@marginal_ancseq)
+        ancseq <- x@marginal_ancseq
+        ## seqs <- c(seqs, x@marginal_ancseq)
     } else if (type %in% c("joint_subs", "joint_AA_subs")){
-        seqs <- c(seqs, x@joint_ancseq)
+        ancseq <- x@joint_ancseq
+        ## seqs <- c(seqs, x@joint_ancseq)
     } else {
         stop("type should be one of 'marginal_subs',
                              'marginal_AA_subs', 'joint_subs' or 'joint_AA_subs'. ")
@@ -376,6 +381,10 @@ subs_paml_rst <- function(x, type, ...) {
     } else {
         translate <- TRUE
     }
-    
+
+    if (all(ancseq == "")) {
+        return(NA)
+    }
+    seqs <- c(seqs, ancseq)
     get.subs_(x@phylo, seqs, translate=translate, ...)
 }
