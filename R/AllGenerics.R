@@ -22,12 +22,22 @@ as.binary <- function(tree, ...) {
 if ( !isGeneric("plot") )
 	setGeneric("plot", function(x, ...) standardGeneric("plot"))
 
+##' @docType methods
+##' @name reroot
+##' @rdname reroot-methods
+##' @title reroot method
+##' @param object one of \code{phylo}, \code{jplace}, \code{beast}, \code{hyphy}, \code{codeml}, \code{codeml_mlc}, \code{paml_rst} object
+##' @param node internal nnode number
+##' @param ... additional parameter
+##' @return tree object
+##' @export
+setGeneric("reroot", function(object, node, ...) standardGeneric("reroot"))
 
 ##' @docType methods
 ##' @name get.tree
 ##' @rdname get.tree-methods
 ##' @title get.tree method
-##' @param object one of \code{jplace}, \code{beast} object
+##' @param object one of \code{phylo}, \code{jplace}, \code{beast}, \code{hyphy}, \code{codeml}, \code{codeml_mlc}, \code{paml_rst} object
 ##' @param ... additional parameter
 ##' @return phylo object
 ##' @export
@@ -37,7 +47,7 @@ setGeneric("get.tree", function(object, ...) standardGeneric("get.tree"))
 ##' @name get.treetext
 ##' @rdname get.treetext-methods
 ##' @title get.treetext method
-##' @param object one of \code{jplace}, \code{beast} object
+##' @param object one of \code{phylo}, \code{jplace}, \code{beast}, \code{hyphy}, \code{codeml}, \code{codeml_mlc}, \code{paml_rst} object
 ##' @param ... additional parameter
 ##' @return phylo object
 ##' @export
@@ -62,7 +72,7 @@ setGeneric("get.treeinfo", function(object, layout="phylogram", ladderize=TRUE, 
 ##' @name get.fields
 ##' @rdname get.fields-methods
 ##' @title get.fields method
-##' @param object one of \code{jplace}, \code{beast} object
+##' @param object one of \code{jplace}, \code{beast}, \code{hyphy}, \code{codeml}, \code{codeml_mlc}, \code{paml_rst} object
 ##' @param ... additional parameter
 ##' @return available annotation variables
 ##' @export
