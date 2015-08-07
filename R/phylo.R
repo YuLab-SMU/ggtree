@@ -1,3 +1,17 @@
+##' @rdname reroot-methods
+##' @exportMethod reroot
+setMethod("reroot", signature(object="phylo"),
+          function(object, node, ...) {
+              pos <- 0.5* object$edge.length[which(object$edge[,2] == node)]
+              tree <- phytools_reroot(object, node, pos)
+              attr(tree, "reroot") <- TRUE
+              node_map <- reroot_node_mapping(object, tree)
+              attr(tree, "node_map") <- node_map
+              return(tree)
+          })
+
+
+
 ##' @rdname get.tree-methods
 ##' @exportMethod get.tree
 setMethod("get.tree", signature(object="phylo"),
@@ -71,3 +85,7 @@ setMethod("gzoom", signature(object="phylo"),
           function(object, focus, subtree=FALSE, widths=c(.3, .7)) {
               gzoom.phylo(object, focus, subtree, widths)
           })
+
+
+##' @importFrom phytools reroot
+phytools_reroot <- phytools::reroot

@@ -455,7 +455,7 @@ fortify.phylo <- function(model, data, layout="phylogram",
         df <- add_angle_cladogram(df)
     }
     aa <- names(attributes(tree))
-    group <- aa[ ! aa %in% c("names", "class", "order")]
+    group <- aa[ ! aa %in% c("names", "class", "order", "reroot", "node_map")]
     if (length(group) > 0) {
         ## groupOTU & groupClade
         group_info <- attr(tree, group)

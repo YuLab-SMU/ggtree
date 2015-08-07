@@ -1,3 +1,7 @@
+CHANGES IN VERSION 1.1.15
+------------------------
+ o reroot methods for phylo and beast <2015-08-07, Fri>
+ 
 CHANGES IN VERSION 1.1.14
 ------------------------
  o update paml_rst to compatible with only marginal ancestral sequence or joint ancestral sequence available <2015-08-07, Fri>
