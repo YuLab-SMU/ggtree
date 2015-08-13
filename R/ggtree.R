@@ -650,6 +650,7 @@ add_colorbar <- function(p, color, x=NULL, ymin=NULL, ymax=NULL, font.size=4) {
 ##' @return tree view
 ##' @importFrom grid linesGrob
 ##' @importFrom grid textGrob
+##' @importFrom grid gpar
 ##' @importFrom ggplot2 ylim
 ##' @export
 ##' @author Guangchuang Yu
