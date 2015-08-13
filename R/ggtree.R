@@ -440,7 +440,7 @@ flip <- function(tree_view, node1, node2) {
     anc <- getAncestor.df(df, node1)
     ii <- match(anc, df$node)
     df[ii, "y"] <- NA
-    currentNode <- as.vector(sapply(anc, getChild.df, df=df))
+    currentNode <- unlist(as.vector(sapply(anc, getChild.df, df=df)))
     currentNode <- currentNode[!currentNode %in% anc]
     
     tree_view$data <- re_assign_ycoord_df(df, currentNode)
@@ -677,7 +677,8 @@ add_legend <- function(p, x=NULL, y=NULL, offset=NULL, font.size=4, ...) {
         offset <- 0.4
     }
     p <- p + annotation_custom(linesGrob(), xmin=x, xmax=x+d, ymin=y, ymax=y) +
-        annotation_custom(textGrob(label=d), xmin=x+d/2, xmax=x+d/2, ymin=y+offset, ymax=y+offset)
+        annotation_custom(textGrob(label=d, gp = gpar(fontsize = font.size)),
+                          xmin=x+d/2, xmax=x+d/2, ymin=y+offset, ymax=y+offset)
     return(p)
 }
 
@@ -750,13 +751,13 @@ annotation_clade2 <- function(tree_view, tip1, tip2, label, bar.size=2, font.siz
 }
 
 
-annotation_clade_internal <- function(tree_view, x, y, label, bar.size, font.size, offset.text, ...) {
+annotation_clade_internal <- function(tree_view, x, y, label, bar.size, font.size, offset.text, angel=270, ...) {
     mx <- x
     if (is.null(offset.text)) {
         offset.text <- mx * 0.02
     }
     tree_view + geom_segment(x=mx, xend=mx, y=min(y), yend=max(y), size=bar.size, ...) +
-        annotate("text", label=label, x=mx+offset.text, y=mean(y), angle=270, size=font.size, ...)
+        annotate("text", label=label, x=mx+offset.text, y=mean(y), angle=angle, size=font.size, ...)
 }
 
 ##' @rdname groupOTU-methods
