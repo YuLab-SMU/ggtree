@@ -1,5 +1,7 @@
 CHANGES IN VERSION 1.1.15
 ------------------------
+ o open text angle parameter for annotation_clade/annotation_clade2 <2015-08-13, Thu>
+ o support changing size of add_legend <2015-08-13, Thu>
  o reroot methods for phylo and beast <2015-08-07, Fri>
  
 CHANGES IN VERSION 1.1.14
