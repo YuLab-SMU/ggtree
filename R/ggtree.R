@@ -752,7 +752,7 @@ annotation_clade2 <- function(tree_view, tip1, tip2, label, bar.size=2, font.siz
 }
 
 
-annotation_clade_internal <- function(tree_view, x, y, label, bar.size, font.size, offset.text, angel=270, ...) {
+annotation_clade_internal <- function(tree_view, x, y, label, bar.size, font.size, offset.text, angle=270, ...) {
     mx <- x
     if (is.null(offset.text)) {
         offset.text <- mx * 0.02
