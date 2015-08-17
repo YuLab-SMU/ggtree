@@ -42,6 +42,15 @@ library("ggtree")
 > --- Richard Dawkins
 
 
+# Citation
+If you use `r Biocpkg("ggtree")` in published research, please cite:
+
+```
+G Yu, D Smith, H Zhu, Y Guan, TTY Lam,
+ggtree: an R package for visualization and annotation of phylogenetic tree with different types of meta-data.
+Methods in Ecology and Evolution submitted
+```
+
 # Introduction
 This project arose from my needs to annotate nucleotide substitutions in the phylogenetic tree, and I found that there is no tree visualization software can do this easily. Existing tree viewers are designed for displaying phylogenetic tree, but not annotating it. Although some tree viewers can displaying bootstrap values in the tree, it is hard/impossible to display other information in the tree. My first solution for displaying nucleotide substituitions in the tree is to add this information in the node/tip names and use traditional tree viewer to show it. I displayed the information in the tree successfully, but I believe this indirect approach is inefficient.
 
