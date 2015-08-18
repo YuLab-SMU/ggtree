@@ -25,7 +25,7 @@ Please cite the following article when using `ggtree`:
 ```
 G Yu, D Smith, H Zhu, Y Guan, TTY Lam,
 ggtree: an R package for visualization and annotation of phylogenetic tree 
-	with different types of meta-data.
+		with different types of meta-data.
 Methods in Ecology and Evolution, submitted
 ```
 
