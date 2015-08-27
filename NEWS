@@ -1,5 +1,6 @@
 CHANGES IN VERSION 1.1.17
 ------------------------
+ o bug fixed in gheatmap, remove inherit aes from ggtree <2015-08-27, Thu>
  o add 'width' parameter to add_legend, now user can specify the width of legend bar <2015-08-27, Thu>
  o add 'colnames_position' parameter to gheatmap, now colnames can be display on the top of heatmap <2015-08-27, Thu> 
  o theme_transparent to make background transparent <2015-08-27, Thu>

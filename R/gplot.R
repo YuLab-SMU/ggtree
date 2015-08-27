@@ -56,7 +56,7 @@ gheatmap <- function(p, data, offset=0, width=1, low="green", high="red",
 
     dd$x <- V2
 
-    p2 <- p + geom_tile(data=dd, aes(x, y, fill=value), color=color)
+    p2 <- p + geom_tile(data=dd, aes(x, y, fill=value), color=color, inherit.aes=FALSE)
 
     if (is(dd$value,"numeric")) {
         p2 <- p2 + scale_fill_gradient(low=low, high=high, na.value="white")
@@ -70,7 +70,7 @@ gheatmap <- function(p, data, offset=0, width=1, low="green", high="red",
         } else {
             y <- max(p$data$y) + 1
         }
-        p2 <- p2 + geom_text(data=mapping, aes(x=to, label=from), y=y, size=font.size)
+        p2 <- p2 + geom_text(data=mapping, aes(x=to, label=from), y=y, size=font.size, inherit.aes = FALSE)
     }
 
     p2 <- p2 + theme(legend.position="right", legend.title=element_blank())
