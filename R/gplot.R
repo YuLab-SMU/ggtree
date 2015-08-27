@@ -10,6 +10,7 @@
 ##' @param high color of highest value
 ##' @param color color of heatmap cell border
 ##' @param colnames logical, add matrix colnames or not
+##' @param colnames_position one of 'bottom' or 'top'
 ##' @param font.size font size of matrix colnames
 ##' @return tree view
 ##' @importFrom reshape2 melt
@@ -22,7 +23,10 @@
 ##' @export
 ##' @author Guangchuang Yu
 gheatmap <- function(p, data, offset=0, width=1, low="green", high="red",
-                     color="white", colnames=TRUE, font.size=4) {
+                     color="white", colnames=TRUE, colnames_position="bottom", font.size=4) {
+
+    colnames_position %<>% match.arg(c("bottom", "top"))
+    
     ## if (is.null(width)) {
     ##     width <- (p$data$x %>% range %>% diff)/30
     ## }
@@ -61,7 +65,12 @@ gheatmap <- function(p, data, offset=0, width=1, low="green", high="red",
     }
     
     if (colnames) {
-        p2 <- p2 + geom_text(data=mapping, aes(x=to, label=from), y=0, size=font.size)
+        if (colnames_position == "bottom") {
+            y <- 0
+        } else {
+            y <- max(p$data$y) + 1
+        }
+        p2 <- p2 + geom_text(data=mapping, aes(x=to, label=from), y=y, size=font.size)
     }
 
     p2 <- p2 + theme(legend.position="right", legend.title=element_blank())
