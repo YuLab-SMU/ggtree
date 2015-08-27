@@ -36,7 +36,12 @@ ggplotGrob <- ggplot2::ggplotGrob
 ##' @param stat The statistical transformation to use on the data for this layer
 ##' @param position The position adjustment to use for overlapping points on this layer
 ##' @param parse if TRUE, the labels will be passd into expressions
+##' @param show.legend logical
+##' @param inherit.aes logical
 ##' @param ... other arguments passed on to 'layer'
+##' @param nudge_x horizontal adjustment
+##' @param nudge_y vertical adjustment
+##' @param check_overlap if TRUE, text that overlaps previous text in the same layer will not be plotted
 ##' @source
 ##' This is just the imported function
 ##' from the ggplot2 package. The documentation you should

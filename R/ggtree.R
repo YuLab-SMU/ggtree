@@ -267,7 +267,7 @@ geom_tippoint <- function(...) {
 theme_tree <- function(bgcolor="white", fgcolor="black", ...) {
     theme_tree2() %+replace%
     theme(panel.background=element_rect(fill=bgcolor, colour=bgcolor),
-          axis.line.x = element_line(color=bgcolor),
+          axis.line.x = element_blank(),
           axis.text.x = element_blank(),
           axis.ticks.x = element_blank(),
           ...)
@@ -301,11 +301,31 @@ theme_tree2 <- function(bgcolor="white", fgcolor="black", ...) {
           panel.background=element_rect(fill=bgcolor, colour=bgcolor),
           panel.border=element_blank(),
           axis.line=element_line(color=fgcolor),
-          axis.line.y=element_line(color=bgcolor),
+          axis.line.y=element_blank(),
           axis.ticks.y=element_blank(),
           axis.text.y=element_blank(),
           ...)
 }
+
+##' transparent background theme
+##'
+##' 
+##' @title theme_transparent
+##' @param ... additional parameter to tweak the theme
+##' @return ggplot object
+##' @importFrom ggplot2 theme
+##' @importFrom ggplot2 element_rect
+##' @export
+##' @author Guangchuang Yu
+theme_transparent <- function(...) {
+    theme(panel.background = element_rect(
+              fill = "transparent",
+              colour = NA),
+          plot.background = element_rect(
+              fill = "transparent",
+              colour = NA), ...)
+}
+
 
 ##' hilight clade with rectangle
 ##'
@@ -642,6 +662,7 @@ add_colorbar <- function(p, color, x=NULL, ymin=NULL, ymax=NULL, font.size=4) {
 ##' 
 ##' @title add_legend
 ##' @param p tree view
+##' @param width width of legend
 ##' @param x x position
 ##' @param y y position
 ##' @param offset offset of text and line
@@ -654,7 +675,7 @@ add_colorbar <- function(p, color, x=NULL, ymin=NULL, ymax=NULL, font.size=4) {
 ##' @importFrom ggplot2 ylim
 ##' @export
 ##' @author Guangchuang Yu
-add_legend <- function(p, x=NULL, y=NULL, offset=NULL, font.size=4, ...) {
+add_legend <- function(p, width=NULL, x=NULL, y=NULL, offset=NULL, font.size=4, ...) {
     dx <- p$data$x %>% range %>% diff
     
     if (is.null(x)) {
@@ -666,14 +687,18 @@ add_legend <- function(p, x=NULL, y=NULL, offset=NULL, font.size=4, ...) {
         p <- p + ylim(0, max(p$data$y))
     }
 
-
-    d <- dx/10 
-    n <- 0
-    while (d < 1) {
-        d <- d*10
-        n <- n + 1
+    if (is.null(width) || is.na(width)) {
+        d <- dx/10 
+        n <- 0
+        while (d < 1) {
+            d <- d*10
+            n <- n + 1
+        }
+        d <- floor(d)/(10^n)
+    } else {
+        d <- width
     }
-    d <- floor(d)/(10^n)
+    
     if (is.null(offset)) {
         offset <- 0.4
     }
