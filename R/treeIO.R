@@ -57,9 +57,9 @@ rm.singleton.newick <- function(nwk, outfile = NULL) {
     tree <- readLines(nwk)
 
     ## remove singleton of tips
-    nodePattern <- "\\w+:[\\.0-9]+"
-    singletonPattern.with.nodename <- paste0(".*(\\(", nodePattern, "\\)\\w+:[\\.0-9]+).*")
-    singletonPattern.wo.nodename <- paste0(".*(\\(", nodePattern, "\\)[\\.0-9]+).*")
+    nodePattern <- "\\w+:[\\.0-9Ee\\+\\-]+"
+    singletonPattern.with.nodename <- paste0(".*(\\(", nodePattern, "\\)\\w+:[\\.0-9Ee\\+\\-]+).*")
+    singletonPattern.wo.nodename <- paste0(".*(\\(", nodePattern, "\\)[\\.0-9Ee\\+\\-]+).*")
     
     while(length(grep("\\([^,]+\\)", tree)) > 0) {
         singleton <- gsub(singletonPattern.with.nodename, "\\1", tree)
@@ -72,8 +72,8 @@ rm.singleton.newick <- function(nwk, outfile = NULL) {
 
         tip <- gsub("\\((\\w+).*", "\\1", singleton)
         
-        len1 <- gsub(".*[^\\.0-9]+([\\.0-9]+)", "\\1", singleton)
-        len2 <- gsub(".*:([.0-9]+)\\).*", "\\1", singleton)
+        len1 <- gsub(".*[^\\.0-9Ee\\+\\-]+([\\.0-9Ee\\+\\-]+)", "\\1", singleton)
+        len2 <- gsub(".*:([\\.0-9Ee\\+\\-]+)\\).*", "\\1", singleton)
         len <- as.numeric(len1) + as.numeric(len2)
         
         tree <- gsub(singleton, paste0(tip, ":", len), tree, fixed = TRUE)
