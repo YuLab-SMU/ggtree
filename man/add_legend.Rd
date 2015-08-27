@@ -4,10 +4,13 @@
 \alias{add_legend}
 \title{add_legend}
 \usage{
-add_legend(p, x = NULL, y = NULL, offset = NULL, font.size = 4, ...)
+add_legend(p, width = NULL, x = NULL, y = NULL, offset = NULL,
+  font.size = 4, ...)
 }
 \arguments{
 \item{p}{tree view}
+
+\item{width}{width of legend}
 
 \item{x}{x position}
 

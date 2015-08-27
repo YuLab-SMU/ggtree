@@ -5,7 +5,8 @@
 \title{gheatmap}
 \usage{
 gheatmap(p, data, offset = 0, width = 1, low = "green", high = "red",
-  color = "white", colnames = TRUE, font.size = 4)
+  color = "white", colnames = TRUE, colnames_position = "bottom",
+  font.size = 4)
 }
 \arguments{
 \item{p}{tree view}
@@ -23,6 +24,8 @@ gheatmap(p, data, offset = 0, width = 1, low = "green", high = "red",
 \item{color}{color of heatmap cell border}
 
 \item{colnames}{logical, add matrix colnames or not}
+
+\item{colnames_position}{one of 'bottom' or 'top'}
 
 \item{font.size}{font size of matrix colnames}
 }
