@@ -1,3 +1,12 @@
+CHANGES IN VERSION 1.1.18
+------------------------
+ o layout name change to 'rectangular', 'slanted', 'circular'/'fan' for phylogram and cladogram (if branch.length = 'none')
+     'unroot' is not changed. <2015-08-28. Fri>
+ o implement geom_point2, geom_text2, geom_segment2 to support subsetting <2015-08-28, Fri>
+     see https://github.com/hadley/ggplot2/issues/1295
+ o update geom_tiplab according to geom_text2 and geom_segment2 <2015-08-28, Fri>
+ o add geom_tippoint, geom_nodepoint and geom_rootpoint <2015-08-28, Fri> 
+ 
 CHANGES IN VERSION 1.1.17
 ------------------------
  o bug fixed in rm.singleton.newick by adding support of scientific notation in branch length <2015-08-27, Thu>

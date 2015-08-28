@@ -91,7 +91,7 @@ setMethod("get.fields", signature(object = "codeml_mlc"),
 ##' @param annotation one of get.fields(x)
 ##' @param ndigits round digits
 setMethod("plot", signature(x = "codeml_mlc"),
-          function(x, layout        = "phylogram",
+          function(x, layout        = "rectangular",
                    branch.length    = "branch.length",
                    show.tip.label   = TRUE,
                    tip.label.size   = 4,
