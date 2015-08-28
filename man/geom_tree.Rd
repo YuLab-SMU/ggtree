@@ -4,10 +4,10 @@
 \alias{geom_tree}
 \title{geom_tree}
 \usage{
-geom_tree(layout = "phylogram", ...)
+geom_tree(layout = "rectangular", ...)
 }
 \arguments{
-\item{layout}{one of phylogram, cladogram}
+\item{layout}{one of 'rectangular', 'slanted', 'circular', 'radial' or 'unrooted'}
 
 \item{...}{additional parameter}
 }

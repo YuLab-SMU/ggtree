@@ -45,7 +45,7 @@ read.beast <- function(file) {
 ##' beast <- read.beast(file)
 ##' plot(beast, annotation="length_0.95_HPD", branch.length="none") + theme_tree()
 setMethod("plot", signature( x= "beast"),
-          function(x, layout = "phylogram",
+          function(x, layout = "rectangular",
                    branch.length = "branch.length",
                    show.tip.label = TRUE,
                    tip.label.size = 4,

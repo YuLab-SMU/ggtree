@@ -10,30 +10,30 @@
 \alias{plot,paml_rst,ANY-method}
 \title{plot method}
 \usage{
-\S4method{plot}{beast,ANY}(x, layout = "phylogram",
+\S4method{plot}{beast,ANY}(x, layout = "rectangular",
   branch.length = "branch.length", show.tip.label = TRUE,
   tip.label.size = 4, tip.label.hjust = -0.1, position = "branch",
   annotation = "rate", ndigits = 2, annotation.size = 3,
   annotation.color = "black", ...)
 
-\S4method{plot}{codeml,ANY}(x, layout = "phylogram",
+\S4method{plot}{codeml,ANY}(x, layout = "rectangular",
   branch.length = "mlc.branch.length", show.tip.label = TRUE,
   tip.label.size = 4, tip.label.hjust = -0.1, position = "branch",
   annotation = "dN_vs_dS", annotation.size = 3,
   annotation.color = "black", ndigits = 2, ...)
 
-\S4method{plot}{codeml_mlc,ANY}(x, layout = "phylogram",
+\S4method{plot}{codeml_mlc,ANY}(x, layout = "rectangular",
   branch.length = "branch.length", show.tip.label = TRUE,
   tip.label.size = 4, tip.label.hjust = -0.1, position = "branch",
   annotation = "dN_vs_dS", annotation.size = 3,
   annotation.color = "black", ndigits = 2, ...)
 
-\S4method{plot}{hyphy,ANY}(x, layout = "phylogram", show.tip.label = TRUE,
+\S4method{plot}{hyphy,ANY}(x, layout = "rectangular", show.tip.label = TRUE,
   tip.label.size = 4, tip.label.hjust = -0.1, position = "branch",
   annotation = "subs", annotation.color = "black", annotation.size = 3,
   ...)
 
-\S4method{plot}{paml_rst,ANY}(x, layout = "phylogram",
+\S4method{plot}{paml_rst,ANY}(x, layout = "rectangular",
   show.tip.label = TRUE, tip.label.size = 4, tip.label.hjust = -0.1,
   position = "branch", annotation = "marginal_subs",
   annotation.color = "black", annotation.size = 3, ...)

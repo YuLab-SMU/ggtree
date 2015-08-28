@@ -157,7 +157,7 @@ setMethod("get.tree", signature(object = "paml_rst"),
 ##' @rdname plot-methods
 ##' @exportMethod plot
 setMethod("plot", signature(x = "paml_rst"),
-          function(x, layout        = "phylogram",
+          function(x, layout        = "rectangular",
                    show.tip.label   = TRUE,
                    tip.label.size   = 4,
                    tip.label.hjust  = -0.1,

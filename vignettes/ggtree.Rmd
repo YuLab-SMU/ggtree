@@ -48,15 +48,15 @@ If you use `r Biocpkg("ggtree")` in published research, please cite:
 ```
 G Yu, D Smith, H Zhu, Y Guan, TTY Lam,
 ggtree: an R package for visualization and annotation of phylogenetic tree with different types of meta-data.
-Methods in Ecology and Evolution submitted
+submitted.
 ```
 
 # Introduction
-This project arose from my needs to annotate nucleotide substitutions in the phylogenetic tree, and I found that there is no tree visualization software can do this easily. Existing tree viewers are designed for displaying phylogenetic tree, but not annotating it. Although some tree viewers can displaying bootstrap values in the tree, it is hard/impossible to display other information in the tree. My first solution for displaying nucleotide substituitions in the tree is to add this information in the node/tip names and use traditional tree viewer to show it. I displayed the information in the tree successfully, but I believe this indirect approach is inefficient.
+This project arose from our needs to annotate nucleotide substitutions in the phylogenetic tree, and we found that there is no tree visualization software can do this easily. Existing tree viewers are designed for displaying phylogenetic tree, but not annotating it. Although some tree viewers can displaying bootstrap values in the tree, it is hard/impossible to display other information in the tree. Our first solution for displaying nucleotide substituitions in the tree is to add this information in the node/tip names and use traditional tree viewer to show it. We displayed the information in the tree successfully, but We believe this indirect approach is inefficient.
 
-In the old day, phylogenetic tree is often small. At that time, as we almost didn't have a need to annotate a tree; displaying the evolution relationships is mostly enough. Nowadays, we can obtain a lot of data from different experiments, and we want to associate our data, for instance antigenic change, with the evolution relationship. Visualizing these associations in the phylogenetic tree can help us to identify evolution patterns. I believe we need a next generation tree viewer that can view a phylogenetic tree easily as we did with classical software and support adding annotation data in a layer above the tree. This is the objective of developing the `r Githubpkg("GuangchuangYu/ggtree")`. Common tasks of annotating a phylogenetic tree should be easy and complicated tasks can be possible to achieve by adding multiple layers of annotation.
+In the old day, phylogenetic tree is often small. At that time, as we almost didn't have a need to annotate a tree; displaying the evolution relationships is mostly enough. Nowadays, we can obtain a lot of data from different experiments, and we want to associate our data, for instance antigenic change, with the evolution relationship. Visualizing these associations in the phylogenetic tree can help us to identify evolution patterns. We believe we need a next generation tree viewer that should be programmable and extensible. It can view a phylogenetic tree easily as we did with classical software and support adding annotation data in a layer above the tree. This is the objective of developing the `r Githubpkg("GuangchuangYu/ggtree")`. Common tasks of annotating a phylogenetic tree should be easy and complicated tasks can be possible to achieve by adding multiple layers of annotation.
 
-The `r Githubpkg("GuangchuangYu/ggtree")` is designed by extending the `r CRANpkg("ggplot2")`[@wickham_ggplot2_2009] package. It is based on the grammar of graphics and takes all the good parts of `r CRANpkg("ggplot2")`. There are other R packages that implement tree viewer using `r CRANpkg("ggplot2")`, including `r CRANpkg("OutbreakTools")`, `r Biocpkg("phyloseq")`[@mcmurdie_phyloseq_2013] and `r Githubpkg("gjuggler/ggphylo")`; they mostly create complex tree view functions for their specific needs. The `r Githubpkg("GuangchuangYu/ggtree")` is different to them by allowing general flexibilities of annotating phylogenetic tree with diverse types of user inputs. 
+The `r Githubpkg("GuangchuangYu/ggtree")` is designed by extending the `r CRANpkg("ggplot2")`[@wickham_ggplot2_2009] package. It is based on the grammar of graphics and takes all the good parts of `r CRANpkg("ggplot2")`. There are other R packages that implement tree viewer using `r CRANpkg("ggplot2")`, including `r CRANpkg("OutbreakTools")`, `r Biocpkg("phyloseq")`[@mcmurdie_phyloseq_2013] and `r Githubpkg("gjuggler/ggphylo")`; they mostly create complex tree view functions for their specific needs. Internally, these packages interpret a phylogenetic as a collection of `lines`, which makes it hard to annotate diverse user input that are related to node (taxa). The `r Githubpkg("GuangchuangYu/ggtree")` is different to them by interpreting a tree as a collection of `taxa` and allowing general flexibilities of annotating phylogenetic tree with diverse types of user inputs. 
 
 # Tree visualization
 ## viewing tree with `ggtree`
@@ -85,7 +85,7 @@ By default, the tree is viewing in ladderize form, user can set the parameter _`
 ggtree(tree, ladderize=FALSE)
 ```
 
-The _`branch.length`_ is used to scale the edge, user can set the parameter _`branch.length = "none"`_ to only viewing the tree topology.
+The _`branch.length`_ is used to scale the edge, user can set the parameter _`branch.length = "none"`_ to only viewing the tree topology (cladogram) or other numerical variable to scale the tree (e.g. dN/dS).
 
 ```{r fig.width=3, fig.height=3, fig.align="center"}
 ggtree(tree, branch.length="none")
@@ -111,22 +111,24 @@ User can use _`ggtree(object)`_ command to view the phylogenetic tree directly, 
 
 Currently, _`ggtree`_ supports several layout, including:
 
- + `phylogram` (by default)
- + `cladogram`
- + `dendrogram` 
- + `fan`
- + `unrooted`. 
++ `rectangular` (by default)
++ `slanted`
++ `fan` or `circular`
+
+for `Phylogram` (by default) and `Cladogram` if user explicitly setting `branch.length='none'`.
+
+And `unrooted` layout. 
 
 Unrooted layout was implemented by the _`equal-angle algorithm`_ that described in _Inferring Phylogenies_[@felsenstein_inferring_2003 pp.578-580].
 
 ```{r fig.width=6, fig.height=9, fig.align="center"}
 library("gridExtra")
-grid.arrange(ggtree(tree) + ggtitle("phylogram layout"),
-	     ggtree(tree, layout="dendrogram") + ggtitle("dendrogram layout"),
-	     ggtree(tree, layout="cladogram") + ggtitle("cladogram layout"),
-	     ggtree(tree, layout="cladogram", branch.length="none") + 
-                 scale_x_reverse()+coord_flip() + ggtitle("cladogram layout"),
-	     ggtree(tree, layout="fan") + ggtitle("fan layout"),
+grid.arrange(ggtree(tree) + ggtitle("(Phylogram) rectangular layout"),
+             ggtree(tree, branch.length='none') + ggtitle("(Cladogram) rectangular layout"),
+	     ggtree(tree, layout="slanted") + ggtitle("(Phylogram) slanted layout"),
+             ggtree(tree, layout="slanted", branch.length='none') + ggtitle("(Cladogram) slanted layout"),
+	     ggtree(tree, layout="circular") + ggtitle("(Phylogram) circular layout"),
+             ggtree(tree, layout="circular", branch.length="none") + ggtitle("(Cladogram) circular layout"),
 	     ggtree(tree, layout="unrooted") + ggtitle("unrooted layout"),
 	     ncol=2)
 ```	
@@ -165,17 +167,15 @@ ggtree(tree) + theme_tree2()
 
 ## display nodes/tips
 
-Show all the internal nodes and tips in the tree can be done by adding a layer of points using _`geom_point`_.
+Show all the internal nodes and tips in the tree can be done by adding a layer of points using _`geom_nodepoint`_,  _`geom_tippoint`_ or _`geom_point`_.
 
 ```{r fig.width=3, fig.height=3, fig.align="center"}
 ggtree(tree)+geom_point(aes(shape=isTip, color=isTip), size=3)
 ```
  
-And of course, we can separate nodes and tips by using _`subset`_.
 ```{r fig.width=3, fig.height=3, fig.align="center"}
-p <- ggtree(tree) + geom_point(subset=.(!isTip), 
-     		       	       color="#b5e521", alpha=1/4, size=10)
-p + geom_point(color="#FDAC4F", shape=8, size=3, subset=.(isTip))
+p <- ggtree(tree) + geom_nodepoint(color="#b5e521", alpha=1/4, size=10)
+p + geom_tippoint(color="#FDAC4F", shape=8, size=3)
 ```
 
 ## display labels
@@ -186,9 +186,9 @@ Users can use _`geom_text`_ to display the node/tip labels:
 p + geom_text(aes(label=label), size=3, color="purple", hjust=-0.3)
 ```
 
-For _`fan`_ and _`unrooted`_ layout, `r Githubpkg("GuangchuangYu/ggtree")` supports rotating node labels according to the angles of the branches.
+For _`circular`_ and _`unrooted`_ layout, `r Githubpkg("GuangchuangYu/ggtree")` supports rotating node labels according to the angles of the branches.
 ```{r fig.width=6, fig.height=6, warning=FALSE, fig.align="center"}
-ggtree(tree, layout="fan") + geom_text(aes(label=label, angle=angle), size=3, color="purple", vjust=-0.3)
+ggtree(tree, layout="circular") + geom_text(aes(label=label, angle=angle), size=3, color="purple", vjust=-0.3)
 ```
 
 
@@ -211,7 +211,7 @@ grid.arrange(
 ```
 
 ## update tree viewing with a new tree
-In the [display nodes/tips](#display-nodestips) section, we have a _`p`_ object that stored the tree viewing of 13 tips and internal nodes highlighted with specific colored big dots. If you want to applied this pattern (we can imaging a more complex one) to a new tree, we don't need to build the tree step by step. `r Githubpkg("GuangchuangYu/ggtree")` provides an operator, _`%<%`_, for applying the visualization pattern to a new tree.
+In the [display nodes/tips](#display-nodestips) section, we have a _`p`_ object that stored the tree viewing of 13 tips and internal nodes highlighted with specific colored big dots. If you want to applied this pattern (we can imaging a more complex one) to a new tree, you don't need to build the tree step by step. `r Githubpkg("GuangchuangYu/ggtree")` provides an operator, _`%<%`_, for applying the visualization pattern to a new tree.
 
 For example, the pattern in the _`p`_ object will be applied to a new tree with 50 tips as shown below:
 ```{r fig.width=3, fig.height=3, fig.align="center"}
@@ -289,7 +289,7 @@ With _`collapse`_ function, user can collapse a selected clade.
 
 ```{r fig.width=5, fig.height=5, fig.align="center", warning=FALSE}
 cp <- ggtree(tree) %>% collapse(node=21)
-cp + geom_point(subset=.(node == 21), size=5, shape=23, fill="steelblue")
+cp + geom_point2(aes(subset=(node == 21)), size=5, shape=23, fill="steelblue")
 ```
 
 ## expand collapsed clade
@@ -401,8 +401,8 @@ With _`groupOTU`_ and _`groupClade`_, it's easy to highlight selected taxa and e
 
 ```{r fig.width=5, fig.height=5, fig.align="center", warning=FALSE}
 ggtree(tree, aes(color=group, linetype=group)) +
-    geom_text(subset=.(group==2), aes(label=label), hjust = -.5) +
-        geom_text(subset=.(group==1), aes(label=label), hjust = -.5, color="blue")
+    geom_text2(aes(label=label, subset=(group==2)), hjust = -.5) +
+        geom_text2(aes(label=label, subset=(group==1)), hjust = -.5, color="blue")
 ```
 
 
@@ -429,16 +429,17 @@ grid.arrange(ggtree(tree) %>% hilight(17, fill="steelblue") %>%
 
 [PhyloPic](http://phylopic.org/) is a database that stores reusable silhouette images of organisms. `r Githubpkg("GuangchuangYu/ggtree")` supports downloading images from [PhyloPic](http://phylopic.org/) and annotating phylogenetic tree with the downloaded images.
 
-```{r fig.width=5, fig.height=5, fig.align="center", warning=FALSE}
+```{r fig.width=5, fig.height=5, fig.align="center", warning=FALSE, eval=FALSE}
 pp <- ggtree(tree) %>% phylopic("79ad5f09-cf21-4c89-8e7d-0c82a00ce728", color="steelblue", alpha = .3)
-pp
+print(pp)
 ```
+![](../inst/extdata/phylopic1.png)
 
-```{r fig.width=5, fig.height=5, fig.align="center", warning=FALSE}
+```{r fig.width=5, fig.height=5, fig.align="center", warning=FALSE, eval=FALSE}
 pp %>% phylopic("67382184-5135-4faa-8e98-eadff02c3e8a", color="#86B875", alpha=.8, node=4) %>%
-    phylopic("d3563b54-780f-4711-a49a-7ea051e9dacc", color="darkcyan", alpha=.8, node=17, width=.2)
+     phylopic("d3563b54-780f-4711-a49a-7ea051e9dacc", color="darkcyan", alpha=.8, node=17, width=.2)
 ```
-
+![](../inst/extdata/phylopic2.png)
 
 # Tree annotation with output from evolution software
 In `r Githubpkg("GuangchuangYu/ggtree")`, we implemented several functions to parse the output from [PAML](http://abacus.gene.ucl.ac.uk/software/paml.html)[@yang_paml_2007], [HYPHY](http://hyphy.org/w/index.php/Main_Page)[@pond_hyphy_2005], [EPA](http://sco.h-its.org/exelixis/web/software/epa/index.html)[@berger_EPA_2011], [PPLACER](http://matsen.fhcrc.org/pplacer/)[@matsen_pplacer_2010] and [BEAST](http://beast2.org/)[@bouckaert_beast_2014] and defined several classes to store phylogenetic object and associated annotation.
@@ -697,7 +698,7 @@ After attaching the annotation data to the tree by _`%<+%`_, all the columns in 
 
 ```{r fig.width=6, fig.height=5, warning=FALSE, fig.align="center"}
 p <- p %<+% dd + geom_text(aes(color=place, label=label), hjust=-0.5) + 
-       geom_point(aes(size=value, shape=place, color=place), alpha=0.25, subset=.(isTip))
+       geom_tippoint(aes(size=value, shape=place, color=place), alpha=0.25)
 p+theme(legend.position="right")
 ```
 
@@ -748,7 +749,7 @@ ggtree(jp, showDistance=TRUE) +
 
 ## visualize tree with associated matrix
 
-At first I implemented `gplot` function to visualize tree with heatmap but it has [an issue](https://github.com/GuangchuangYu/ggtree/issues/3) that it can't always guarantee the heatmap aligning to the tree properly, since the line up is between two figures and it's currently not supported internally by ggplot2. I have implemented another function `gheatmap` that can do the line up properly by creating a new layer above the tree.
+At first we implemented `gplot` function to visualize tree with heatmap but it has [an issue](https://github.com/GuangchuangYu/ggtree/issues/3) that it can't always guarantee the heatmap aligning to the tree properly, since the line up is between two figures and it's currently not supported internally by ggplot2. I have implemented another function `gheatmap` that can do the line up properly by creating a new layer above the tree.
 
 
 In the following example, we visualized a tree of H3 influenza viruses with their associated genotype.

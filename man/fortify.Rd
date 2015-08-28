@@ -4,8 +4,8 @@
 \alias{fortify.phylo}
 \title{fortify}
 \usage{
-\method{fortify}{phylo}(model, data, layout = "phylogram", ladderize = TRUE,
-  right = FALSE, ...)
+\method{fortify}{phylo}(model, data, layout = "rectangular",
+  ladderize = TRUE, right = FALSE, ...)
 }
 \arguments{
 \item{model}{phylo object}

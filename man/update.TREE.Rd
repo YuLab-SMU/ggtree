@@ -21,8 +21,7 @@ update tree
 library("ggplot2")
 nwk <- system.file("extdata", "sample.nwk", package="ggtree")
 tree <- read.tree(nwk)
-p <- ggtree(tree) + geom_point(subset=.(!isTip),
-        	       color="#b5e521", alpha=1/4, size=10)
+p <- ggtree(tree) + geom_tippoint(color="#b5e521", alpha=1/4, size=10)
 p \%<\% rtree(30)
 }
 \author{

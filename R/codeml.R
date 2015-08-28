@@ -108,7 +108,7 @@ setMethod("get.fields", signature(object="codeml"),
 ##' @exportMethod plot
 ##' @importFrom ggplot2 aes_string
 setMethod("plot", signature(x = "codeml"),
-          function(x, layout        = "phylogram",
+          function(x, layout        = "rectangular",
                    branch.length    = "mlc.branch.length",
                    show.tip.label   = TRUE,
                    tip.label.size   = 4,
