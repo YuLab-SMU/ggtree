@@ -4,7 +4,7 @@
 \alias{as.data.frame.phylo}
 \title{as.data.frame}
 \usage{
-\method{as.data.frame}{phylo}(x, row.names, optional, layout = "phylogram",
+\method{as.data.frame}{phylo}(x, row.names, optional, layout = "rectangular",
   ...)
 }
 \arguments{

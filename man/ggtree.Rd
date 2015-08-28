@@ -8,9 +8,10 @@
 \title{visualizing phylogenetic tree and heterogenous associated data based on grammar of graphics
 \code{ggtree} provides functions for visualizing phylogenetic tree and its associated data in R.}
 \usage{
-ggtree(tr, mapping = NULL, showDistance = FALSE, layout = "phylogram",
-  yscale = "none", ladderize = TRUE, right = FALSE,
-  branch.length = "branch.length", ndigits = NULL, ...)
+ggtree(tr, mapping = NULL, showDistance = FALSE, layout = "rectangular",
+  time_scale = FALSE, yscale = "none", yscale_mapping = NULL,
+  ladderize = TRUE, right = FALSE, branch.length = "branch.length",
+  ndigits = NULL, ...)
 }
 \arguments{
 \item{tr}{phylo object}
@@ -19,15 +20,19 @@ ggtree(tr, mapping = NULL, showDistance = FALSE, layout = "phylogram",
 
 \item{showDistance}{add distance legend, logical}
 
-\item{layout}{one of phylogram, dendrogram, cladogram, fan, radial and unrooted}
+\item{layout}{one of 'rectangular', 'slanted', 'fan'/'circular', 'radial' or 'unrooted'}
+
+\item{time_scale}{logical}
 
 \item{yscale}{y scale}
+
+\item{yscale_mapping}{yscale mapping for category variable}
 
 \item{ladderize}{logical}
 
 \item{right}{logical}
 
-\item{branch.length}{variable for scaling branch}
+\item{branch.length}{variable for scaling branch, if 'none' draw cladogram}
 
 \item{ndigits}{number of digits to round numerical annotation variable}
 
