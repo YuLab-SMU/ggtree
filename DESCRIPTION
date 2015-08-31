@@ -1,7 +1,7 @@
 Package: ggtree
 Type: Package
 Title: a phylogenetic tree viewer for different types of tree annotations
-Version: 1.1.18
+Version: 1.1.19
 Author: Guangchuang Yu and Tommy Tsan-Yuk Lam
 Maintainer: Guangchuang Yu <guangchuangyu@gmail.com>
 Description: ggtree extends the ggplot2 plotting system which implemented the
@@ -13,22 +13,22 @@ Imports:
     ape,
     Biostrings,
     colorspace,
-    EBImage,
     ggplot2,
     grid,
     gridExtra,
     jsonlite,
     magrittr,
     methods,
-    phytools,
     reshape2,
     stats4
 Suggests:
-    phylobase,
     BiocStyle,
+    EBImage,
     knitr,
-    testthat,
-    rmarkdown
+    phylobase,
+    phytools,    
+    rmarkdown,
+    testthat    
 VignetteBuilder: knitr
 License: Artistic-2.0
 URL: https://github.com/GuangchuangYu/ggtree

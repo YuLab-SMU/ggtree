@@ -24,14 +24,20 @@ get.phylopic <- function(id, size=512, color="black", alpha=1) {
 ##' @return matrix
 ##' @importFrom grDevices rgb
 ##' @importFrom grDevices col2rgb
-##' @importFrom EBImage readImage
-##' @importFrom EBImage channel
+## @importFrom EBImage readImage
+## @importFrom EBImage channel
 ##' @export
 ##' @author Guangchuang Yu
 download.phylopic <- function(id, size=512, color="black", alpha=1) {
     imgfile <- tempfile(fileext = ".png")
     download.phylopic_internal(id, size, imgfile)
 
+    EBImage <- "EBImage"
+    require(EBImage, character.only = TRUE)
+
+    readImage <- eval(parse(text="readImage"))
+    channel <- eval(parse(text="channel"))
+    
     img <- readImage(imgfile)
        
     color <- col2rgb(color) / 255
@@ -130,6 +136,10 @@ annotation_image <- function(tree_view, img_info, width=0.1, align=TRUE, linetyp
     x <- df[idx, "x"]
     y <- df[idx, "y"]
 
+    EBImage <- "EBImage"
+    require(EBImage, character.only = TRUE)
+    readImage <- eval(parse(text="readImage"))
+    
     images <- lapply(img_info[,2], readImage)
 
     ARs <- sapply(images, getAR)
