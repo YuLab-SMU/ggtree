@@ -541,3 +541,25 @@ as.data.frame.phylo_ <- function(x, layout="rectangular",
     return(res)
 }
 
+
+
+##' @method fortify multiPhylo
+##' @export
+fortify.multiPhylo <-  function(model, data, layout="rectangular", 
+                                ladderize=TRUE, right=FALSE, ...) {
+
+    df.list <- lapply(model, function(x) fortify.phylo(x, layout=layout, ladderize=ladderize, right=right, ...))
+    if (is.null(names(model))) {
+        names(df.list) <- paste0("Tree ", "#", seq_along(model))
+    } else {
+        names(df.list) <- names(model)
+    }
+    df <- do.call("rbind", df.list)
+    df$.id <- rep(names(df.list), times=sapply(df.list, nrow))
+
+    nNode <- sapply(df.list, nrow)
+    nNode2 <- cumsum(nNode) - nNode[1]
+    df$parent <- df$parent + rep(nNode2, times=nNode)
+    return(df)
+}
+

@@ -1,5 +1,6 @@
 CHANGES IN VERSION 1.1.19
 ------------------------
+ o support multiPhylo object, should use + facet_wrap or + facet_grid <2015-08-31>
  o remove dependency of EBImage and phytools to speedup the installation process of ggtree <2015-08-31>
    + these two packages is not commonly used, and will be loaded automatically when needed.
  

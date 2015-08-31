@@ -147,11 +147,12 @@ plot.subs <- function(x, layout, show.tip.label,
 }
 
 .add_new_line <- function(res) {
-    if (nchar(res) > 50) {
-        idx <- gregexpr("/", res)[[1]]
-        i <- idx[floor(length(idx)/2)]
-        res <- paste0(substring(res, 1, i-1), "\n", substring(res, i+1))
-    }
+    res <- paste0(strwrap(res, 50), collapse="\n")
+    ## if (nchar(res) > 50) {
+    ##     idx <- gregexpr("/", res)[[1]]
+    ##     i <- idx[floor(length(idx)/2)]
+    ##     res <- paste0(substring(res, 1, i-1), "\n", substring(res, i+1))
+    ## }
     return(res)
 }
 
