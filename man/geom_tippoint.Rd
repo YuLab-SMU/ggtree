@@ -4,26 +4,12 @@
 \alias{geom_tippoint}
 \title{geom_tippoint}
 \usage{
-geom_tippoint(mapping = NULL, data = NULL, stat = "identity",
-  position = "identity", na.rm = FALSE, show.legend = NA,
-  inherit.aes = TRUE, ...)
+geom_tippoint(mapping = NULL, ...)
 }
 \arguments{
 \item{mapping}{aes mapping}
 
-\item{data}{data}
-
-\item{stat}{stat}
-
-\item{position}{position}
-
-\item{na.rm}{logical}
-
-\item{show.legend}{logical}
-
-\item{inherit.aes}{logical}
-
-\item{...}{addktional parameter}
+\item{...}{additional parameter}
 }
 \value{
 tip point layer

@@ -10,9 +10,7 @@ read for the geom_text function can be found here: \link[ggplot2]{geom_text}
 }
 \usage{
 geom_text(mapping = NULL, data = NULL, stat = "identity",
-  position = "identity", parse = FALSE, show.legend = NA,
-  inherit.aes = TRUE, ..., nudge_x = 0, nudge_y = 0,
-  check_overlap = FALSE)
+  position = "identity", parse = FALSE, ...)
 }
 \arguments{
 \item{mapping}{the aesthetic mapping}
@@ -26,17 +24,7 @@ only needed if you want to override he plot defaults.}
 
 \item{parse}{if TRUE, the labels will be passd into expressions}
 
-\item{show.legend}{logical}
-
-\item{inherit.aes}{logical}
-
 \item{...}{other arguments passed on to 'layer'}
-
-\item{nudge_x}{horizontal adjustment}
-
-\item{nudge_y}{vertical adjustment}
-
-\item{check_overlap}{if TRUE, text that overlaps previous text in the same layer will not be plotted}
 }
 \description{
 text annotations

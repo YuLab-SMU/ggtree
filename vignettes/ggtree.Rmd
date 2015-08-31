@@ -289,7 +289,7 @@ With _`collapse`_ function, user can collapse a selected clade.
 
 ```{r fig.width=5, fig.height=5, fig.align="center", warning=FALSE}
 cp <- ggtree(tree) %>% collapse(node=21)
-cp + geom_point2(aes(subset=(node == 21)), size=5, shape=23, fill="steelblue")
+cp + geom_point(subset=.(node == 21), size=5, shape=23, fill="steelblue")
 ```
 
 ## expand collapsed clade
@@ -401,8 +401,8 @@ With _`groupOTU`_ and _`groupClade`_, it's easy to highlight selected taxa and e
 
 ```{r fig.width=5, fig.height=5, fig.align="center", warning=FALSE}
 ggtree(tree, aes(color=group, linetype=group)) +
-    geom_text2(aes(label=label, subset=(group==2)), hjust = -.5) +
-        geom_text2(aes(label=label, subset=(group==1)), hjust = -.5, color="blue")
+    geom_text(aes(label=label), subset=.(group==2), hjust = -.5) +
+        geom_text(aes(label=label), subset=.(group==1), hjust = -.5, color="blue")
 ```
 
 
