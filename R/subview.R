@@ -9,6 +9,7 @@
 ##' @param width width of subview, [0,1]
 ##' @param height height of subview, [0,1]
 ##' @return ggplot object
+##' @importFrom grid editGrob
 ##' @importFrom ggplot2 annotation_custom
 ##' @importFrom ggplot2 ggplotGrob
 ##' @export
@@ -16,11 +17,20 @@
 subview <- function(mainview, subview, x, y, width=.1, height=.1) {
     xrng <- mainview$data$x %>% range %>% diff
     yrng <- mainview$data$y %>% range %>% diff
-   
+
+    grob <- ggplotGrob(subview)
     mainview + annotation_custom(
-        ggplotGrob(subview),
+        editGrob(grob, name=paste(grob$name, annotation_id())),
         xmin = x - width*xrng,
         xmax = x + width*xrng,
         ymin = y - height*yrng,
         ymax = y + height*yrng)
 }
+
+annotation_id <- local({
+  i <- 1
+  function() {
+    i <<- i + 1
+    i
+  }
+})

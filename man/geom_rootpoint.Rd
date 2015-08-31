@@ -4,26 +4,12 @@
 \alias{geom_rootpoint}
 \title{geom_rootpoint}
 \usage{
-geom_rootpoint(mapping = NULL, data = NULL, stat = "identity",
-  position = "identity", na.rm = FALSE, show.legend = NA,
-  inherit.aes = TRUE, ...)
+geom_rootpoint(mapping = NULL, ...)
 }
 \arguments{
 \item{mapping}{aes mapping}
 
-\item{data}{data}
-
-\item{stat}{stat}
-
-\item{position}{position}
-
-\item{na.rm}{logical}
-
-\item{show.legend}{logical}
-
-\item{inherit.aes}{logical}
-
-\item{...}{addktional parameter}
+\item{...}{additional parameter}
 }
 \value{
 root point layer
