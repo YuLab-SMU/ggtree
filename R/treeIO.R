@@ -548,7 +548,7 @@ as.data.frame.phylo_ <- function(x, layout="rectangular",
 fortify.multiPhylo <-  function(model, data, layout="rectangular", 
                                 ladderize=TRUE, right=FALSE, ...) {
 
-    df.list <- lapply(model, function(x) fortify.phylo(x, layout=layout, ladderize=ladderize, right=right, ...))
+    df.list <- lapply(model, function(x) fortify(x, layout=layout, ladderize=ladderize, right=right, ...))
     if (is.null(names(model))) {
         names(df.list) <- paste0("Tree ", "#", seq_along(model))
     } else {
