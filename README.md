@@ -47,6 +47,7 @@ To install:
 + [an example of drawing beast tree using ggtree](http://ygc.name/2015/04/01/an-example-of-drawing-beast-tree-using-ggtree/)
 + [flip and rotate branches in ggtree](http://ygc.name/2015/07/01/flip-and-rotate-branches-in-ggtree/)
 + [ggtree with funny fonts](http://ygc.name/2015/06/12/ggtree-with-funny-fonts/)
++ [embeding a subplot in ggplot via subview](http://ygc.name/2015/08/31/subview/)
 + [annotate phylogenetic tree with local images](http://ygc.name/2015/08/01/ggtree-annotate-phylogenetic-tree-with-local-images/)
 
 To view the vignette of `ggtree` installed in your system, start `R` and enter:
