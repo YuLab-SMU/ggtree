@@ -22,8 +22,6 @@ read.raxml <- function(file) {
     bootstrap <- data.frame(node = Ntip(phylo) + 1:phylo$Nnode,
                             bootstrap = bootstrap)
 
-    bootstrap <- bootstrap[!is.na(bootstrap[,2]), ] ## root node maynot have bootstrap value
-
     new("raxml",
         file      = file,
         fields    = "bootstrap",

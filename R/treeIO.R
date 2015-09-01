@@ -541,6 +541,14 @@ as.data.frame.phylo_ <- function(x, layout="rectangular",
     return(res)
 }
 
+##' @method fortify raxml
+##' @export
+fortify.raxml <- function(model, data, layout= "rectangular",
+                          ladderize=TRUE, right=FALSE, ...) {
+    df <- fortify(get.tree(model), layout=layout, ladderize=ladderize, right=right, ...)
+    df <- merge(df, model@bootstrap, by.x="node", by.y="node", all.x=TRUE)
+    return(df)
+}
 
 
 ##' @method fortify multiPhylo
