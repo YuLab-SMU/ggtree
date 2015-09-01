@@ -42,6 +42,30 @@ setClass("hyphy",
              )
          )
 
+##' Class "raxml"
+##' This class stores RAxML bootstrapping analysis result
+##'
+##'
+##' @name raxml-class
+##' @docType class
+##' @slot fields available features
+##' @slot treetext tree text
+##' @slot phylo phylo object of treetext
+##' @slot bootstrap bootstrap value
+##' @slot extraInfo extra information
+##' @exportClass raxml
+##' @author Guangchuang Yu \url{http://ygc.name}
+##' @keywords classes
+setClass("raxml",
+         representation = representation(
+             fields     = "character",
+             treetext   = "character",
+             phylo      = "phylo",
+             bootstrap  = "data.frame",
+             extraInfo  = "data.frame"
+             )
+         )
+
 
 ##' Class "paml_rst"
 ##' This class stores information of rst file from PAML output
