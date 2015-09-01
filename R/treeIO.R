@@ -110,7 +110,7 @@ fortify.beast <- function(model, data,
                           ladderize = TRUE,
                           right     =FALSE,
                           ndigits   = NULL,
-                          time_scale = FALSE, ...) {
+                          mrsd = NULL, ...) {
 
     phylo <- get.tree(model)
     df    <- fortify(phylo, layout=layout,
@@ -195,19 +195,36 @@ fortify.beast <- function(model, data,
     
     df <- scaleY(phylo, df, yscale, layout, ...)
 
-    if (time_scale) {
-        df <- scaleX_by_time(df)
+    ## if (time_scale && is.null(mrsd)) {
+    ##     df %<>% scaleX_by_time
+    ## }
+
+    if (!is.null(mrsd)) {
+        df <- scaleX_by_time_from_mrsd(df, mrsd)
     }
 
     append_extraInfo(df, model)
 }
 
+scaleX_by_time_from_mrsd <- function(df, mrsd) {
+    mrsd %<>% as.Date
+    date <- Date2decimal(mrsd)
+
+    df$x <- df$x + date - max(df$x)
+    df$branch <- (df[df$parent, "x"] + df[, "x"])/2
+    
+    df$x <- as.Date.decimal(df$x)
+    df$branch <- as.Date.decimal(df$branch)
+    return(df)
+
+}
+
+
 scaleX_by_time <- function(df) {
     time <- with(df, gsub(".*[_/]{1}(\\d+\\.*\\d+)$", "\\1", label[isTip])) %>% as.numeric
     latest <- which.max(time)
-    df$x <- df$x + time[latest] - max(df$x)
-    df$branch <- (df[df$parent, "x"] + df[, "x"])/2
-    return(df)
+
+    scaleX_by_time_from_mrsd(df, as.Date.decimal(time[latest]))
 }
 
 ##' @method fortify codeml

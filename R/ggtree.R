@@ -6,7 +6,7 @@
 ##' @param mapping aes mapping
 ##' @param showDistance add distance legend, logical
 ##' @param layout one of 'rectangular', 'slanted', 'fan'/'circular', 'radial' or 'unrooted'
-##' @param time_scale logical
+##' @param mrsd most recent sampling date
 ##' @param yscale y scale
 ##' @param yscale_mapping yscale mapping for category variable
 ##' @param ladderize logical
@@ -33,7 +33,7 @@ ggtree <- function(tr,
                    mapping = NULL,
                    showDistance=FALSE,
                    layout="rectangular",
-                   time_scale = FALSE,
+                   mrsd = NULL,
                    yscale="none",
                    yscale_mapping = NULL,
                    ladderize = TRUE, right=FALSE,
@@ -63,6 +63,7 @@ ggtree <- function(tr,
     p <- ggplot(tr, mapping=mapping,
                 layout        = layout,
                 time_scale    = time_scale,
+                mrsd          = mrsd,
                 yscale        = yscale,
                 yscale_mapping= yscale_mapping,
                 ladderize     = ladderize,
