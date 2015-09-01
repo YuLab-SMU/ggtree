@@ -12,6 +12,8 @@ This class stores RAxML bootstrapping analysis result
 \section{Slots}{
 
 \describe{
+\item{\code{file}}{input file}
+
 \item{\code{fields}}{available features}
 
 \item{\code{treetext}}{tree text}

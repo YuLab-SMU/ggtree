@@ -48,6 +48,7 @@ setClass("hyphy",
 ##'
 ##' @name raxml-class
 ##' @docType class
+##' @slot file input file
 ##' @slot fields available features
 ##' @slot treetext tree text
 ##' @slot phylo phylo object of treetext
@@ -58,6 +59,7 @@ setClass("hyphy",
 ##' @keywords classes
 setClass("raxml",
          representation = representation(
+             file       = "character",
              fields     = "character",
              treetext   = "character",
              phylo      = "phylo",

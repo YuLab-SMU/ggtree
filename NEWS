@@ -1,5 +1,9 @@
 CHANGES IN VERSION 1.1.20
 ------------------------
+ o defined 'raxml' class for RAxML bootstrapping analysis result <2015-09-01, Tue>
+   + read.raxml, parser function
+   + plot, get.tree, get.fields, groupOTU, groupClade, scale_color, gzoom, and show methods
+   + fortify.raxml method
  o bug fixed in edgeNum2nodeNum for jplace parsing jplace file <2015-09-01, Tue>
  
 CHANGES IN VERSION 1.1.19
