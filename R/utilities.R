@@ -257,7 +257,7 @@ reverse.treeview.data <- function(df) {
 
 jplace_treetext_to_phylo <- function(tree.text) {
     ## move edge label to node label separate by @
-    tr <- gsub('(:[0-9\\.eE-]+)\\{(\\d+)\\}', '\\@\\2\\1', tree.text)
+    tr <- gsub('(:[0-9\\.eE+\\-]+)\\{(\\d+)\\}', '\\@\\2\\1', tree.text)
     phylo <- read.tree(text=tr)
     if (length(grep('@', phylo$tip.label)) > 0) {
         phylo$node.label[1] %<>% gsub("(.*)\\{(\\d+)\\}", "\\1@\\2", .)
@@ -272,8 +272,7 @@ jplace_treetext_to_phylo <- function(tree.text) {
         N <- getNodeNum(phylo)
         edgeNum.df <- data.frame(node=1:N, edgeNum=c(tip.edgeNum, node.edgeNum))
         edgeNum.df <- edgeNum.df[!is.na(edgeNum.df[,2]),]
-        edgeNum <- edgeNum.df[match( phylo$edge[,2], edgeNum.df$node), 2]
-        attr(phylo, "edgeNum") <- edgeNum
+        attr(phylo, "edgeNum") <- edgeNum.df
     }
     return(phylo)
 }
@@ -298,10 +297,13 @@ extract.treeinfo.jplace <- function(object, layout="phylogram", ladderize=TRUE, 
 ## convert edge number to node number for EPA/pplacer output
 edgeNum2nodeNum <- function(jp, edgeNum) {
     edges <- attr(jp@phylo, "edgeNum")
-    nodes <- jp@phylo$edge[,1]
 
-    idx <- sapply(edgeNum, function(ee) which(edges==ee))
-    nodes[idx]
+    idx <- which(edges$edgeNum == edgeNum)
+    if (length(idx) == 0) {
+        return(NA)
+    }
+    
+    edges[idx, "node"]
 }
 
 is.character_beast <- function(stats3, cn) {
