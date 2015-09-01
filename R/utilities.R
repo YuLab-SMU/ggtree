@@ -277,11 +277,11 @@ jplace_treetext_to_phylo <- function(tree.text) {
     return(phylo)
 }
 
-extract.treeinfo.jplace <- function(object, layout="phylogram", ladderize=TRUE, right=FALSE) {
+extract.treeinfo.jplace <- function(object, layout="phylogram", ladderize=TRUE, right=FALSE, ...) {
 
     tree <- get.tree(object)
     
-    df <- fortify.phylo(tree, layout=layout, ladderize=ladderize, right=right)
+    df <- fortify.phylo(tree, layout=layout, ladderize=ladderize, right=right, ...)
 
     edgeNum <- attr(tree, "edgeNum")
     if (!is.null(edgeNum)) {

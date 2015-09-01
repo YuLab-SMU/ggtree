@@ -251,7 +251,7 @@ get.fields.jplace <- function(object, ...) {
 get.treeinfo.jplace <- function(object, layout,
                                 ladderize, right, ...) {
     extract.treeinfo.jplace(object, layout,
-                            ladderize, right)
+                            ladderize, right, ...)
 }
 
 ##' generate jplace file

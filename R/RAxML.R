@@ -33,10 +33,6 @@ read.raxml <- function(file) {
 
 ##' @rdname plot-methods
 ##' @exportMethod plot
-##' @param tip.label.size size of tip label
-##' @param tip.label.hjust hjust of tip.label
-##' @param annotation.size size of annotation
-##' @param annotation.color color of annotation
 setMethod("plot", signature( x= "raxml"),
           function(x, layout = "rectangular",
                    branch.length = "branch.length",
@@ -46,7 +42,7 @@ setMethod("plot", signature( x= "raxml"),
                    position = "branch",
                    annotation = "bootstrap",
                    ndigits = 2,
-                   annotation.size = 3,
+                   annotation.size = 4,
                    annotation.color = "black",
                    ...) {
 
@@ -58,7 +54,7 @@ setMethod("plot", signature( x= "raxml"),
                   p <- p + geom_tiplab(hjust = tip.label.hjust,
                                        size  = tip.label.size)
                   offset <- ceiling(max(p$data$x)) * 0.1
-                  p <- p + xlim(-offset, max(p$data$x) + offset)
+                  p <- p + xlim(NA, max(p$data$x) + offset)
               }
               if (!is.null(annotation) && !is.na(annotation)) {
                   if (position == "node") {
@@ -122,16 +118,9 @@ setMethod("gzoom", signature(object="raxml"),
               gzoom.phylo(get.tree(object), focus, subtree, widths)
           })
 
-##' get.tree method
-##'
-##'
-##' @docType methods
-##' @name get.tree
+
 ##' @rdname get.tree-methods
-##' @aliases get.tree,raxml
 ##' @exportMethod get.tree
-##' @author Guangchuang Yu \url{http://ygc.name}
-##' @usage get.tree(object, ...)
 setMethod("get.tree", signature(object="raxml"),
           function(object,...) {
               object@phylo

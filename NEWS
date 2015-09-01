@@ -1,5 +1,6 @@
 CHANGES IN VERSION 1.1.20
 ------------------------
+ o update scale_x_ggtree to support Date as x-axis <2015-09-01, Tue>
  o add mrsd parameter for user to specify 'most recent sampling date' for time tree <2015-09-01, Tue>
    - remove 'time_scale' parameter.
  o defined 'raxml' class for RAxML bootstrapping analysis result <2015-09-01, Tue>

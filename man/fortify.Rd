@@ -5,7 +5,7 @@
 \title{fortify}
 \usage{
 \method{fortify}{phylo}(model, data, layout = "rectangular",
-  ladderize = TRUE, right = FALSE, ...)
+  ladderize = TRUE, right = FALSE, mrsd = NULL, ...)
 }
 \arguments{
 \item{model}{phylo object}
@@ -17,6 +17,8 @@
 \item{ladderize}{ladderize, logical}
 
 \item{right}{logical}
+
+\item{mrsd}{most recent sampling date}
 
 \item{...}{additional parameter}
 }

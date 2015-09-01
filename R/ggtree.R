@@ -62,7 +62,6 @@ ggtree <- function(tr,
     }
     p <- ggplot(tr, mapping=mapping,
                 layout        = layout,
-                time_scale    = time_scale,
                 mrsd          = mrsd,
                 yscale        = yscale,
                 yscale_mapping= yscale_mapping,
@@ -82,6 +81,7 @@ ggtree <- function(tr,
     if (showDistance == FALSE) {
         p <- p + theme_tree()
     }
+    attr(p, "mrsd") <- mrsd
     attr(p, "param") <- list(layout        = layout,
                              yscale        = yscale,
                              ladderize     = ladderize,

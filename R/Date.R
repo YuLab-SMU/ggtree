@@ -16,12 +16,14 @@ Date2decimal <- function(x) {
 ##' convert decimal format to Date, eg "2014.34" to "2014-05-05"
 ##'
 ##' 
-##' @title as.Date.decimal
+##' @title decimal2Date
 ##' @param x numerical number, eg 2014.34
 ##' @return Date
 ##' @export
 ##' @author Guangchuang Yu
-as.Date.decimal <- function(x) {
+decimal2Date <- function(x) {
     date <- as.Date(paste0(floor(x), "-01-01"))
     date + as.numeric(sub("^\\d+", "0", x)) * 365
 }
+
+
