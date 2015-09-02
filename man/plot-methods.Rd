@@ -14,7 +14,7 @@
 \S4method{plot}{raxml,ANY}(x, layout = "rectangular",
   branch.length = "branch.length", show.tip.label = TRUE,
   tip.label.size = 4, tip.label.hjust = 0, position = "branch",
-  annotation = "bootstrap", ndigits = 2, annotation.size = 3,
+  annotation = "bootstrap", ndigits = 2, annotation.size = 4,
   annotation.color = "black", ...)
 
 \S4method{plot}{beast,ANY}(x, layout = "rectangular",
@@ -69,14 +69,6 @@
 \item{annotation.color}{color of annotation}
 
 \item{...}{Additional argument list}
-
-\item{tip.label.size}{size of tip label}
-
-\item{tip.label.hjust}{hjust of tip.label}
-
-\item{annotation.size}{size of annotation}
-
-\item{annotation.color}{color of annotation}
 }
 \value{
 plot

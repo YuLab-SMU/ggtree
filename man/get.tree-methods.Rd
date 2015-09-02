@@ -10,12 +10,12 @@
 \alias{get.tree,jplace-method}
 \alias{get.tree,paml_rst-method}
 \alias{get.tree,phylo-method}
-\alias{get.tree,raxml}
+\alias{get.tree,raxml-method}
 \title{get.tree method}
 \usage{
 get.tree(object, ...)
 
-get.tree(object, ...)
+\S4method{get.tree}{raxml}(object, ...)
 
 get.tree(object, ...)
 
@@ -45,8 +45,6 @@ phylo object
 get.tree method
 
 get.tree method
-
-get.tree method
 }
 \examples{
 nwk <- system.file("extdata/HYPHY", "labelledtree.tree", package="ggtree")
@@ -55,8 +53,6 @@ hy <- read.hyphy(nwk, ancseq)
 get.tree(hy)
 }
 \author{
-Guangchuang Yu \url{http://ygc.name}
-
 Guangchuang Yu \url{http://ygc.name}
 }
 
