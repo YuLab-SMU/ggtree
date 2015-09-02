@@ -443,6 +443,7 @@ as.phylo.phylo4 <- function(phylo4) {
 ##' @param ladderize ladderize, logical
 ##' @param right logical
 ##' @param mrsd most recent sampling date
+##' @param as.Date logical whether using Date class in time tree
 ##' @param ... additional parameter
 ##' @return data.frame
 ##' @importFrom ape ladderize
@@ -451,7 +452,7 @@ as.phylo.phylo4 <- function(phylo4) {
 ##' @export
 ##' @author Yu Guangchuang
 fortify.phylo <- function(model, data, layout="rectangular", 
-                          ladderize=TRUE, right=FALSE, mrsd=NULL, ...) {
+                          ladderize=TRUE, right=FALSE, mrsd=NULL, as.Date=FALSE, ...) {
     if (ladderize == TRUE) {
         tree <- ladderize(model, right=right)
     } else {
@@ -479,6 +480,10 @@ fortify.phylo <- function(model, data, layout="rectangular",
     
     if (!is.null(mrsd)) {
         df <- scaleX_by_time_from_mrsd(df, mrsd)
+        if (!as.Date) {
+            df$x <- Date2decimal(df$x)
+            df$branch <- Date2decimal(df$branch)
+        }
     }
     return(df)
 }

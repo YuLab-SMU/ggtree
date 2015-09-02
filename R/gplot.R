@@ -190,39 +190,41 @@ msaplot <- function(p, fasta, offset=0, width=1, color=NULL, window=NULL){
 ##' @author Guangchuang Yu
 scale_x_ggtree <- function(p, breaks=NULL, labels=NULL) {
     mrsd <- attr(p, "mrsd")
-    if (is.null(mrsd)) {
-        x <- p$data$x
-    } else {
+    if (!is.null(mrsd) && class(p$data$x) == "Date") {
         x <- Date2decimal(p$data$x)
+    } else {
+        x <- p$data$x
     }
+
     if (is.null(breaks)) {
         breaks <- hist(x, breaks=5, plot=FALSE)$breaks
     }
     m <- attr(p, "mapping")
 
-    if (is.null(mrsd)) {
-        to <- m$to
-    } else {
+    if (!is.null(mrsd) &&class(m$to) == "Date") {
         to <- Date2decimal(m$to)
+    } else {
+        to <- m$to
     }
-
-    idx <- which(sapply(breaks, function(x) any(x > Date2decimal(m$to))))
+    
+    idx <- which(sapply(breaks, function(x) any(x > m$to)))
     if (length(idx)) {
         breaks <- breaks[-idx]
     }
-
+    
     if (is.null(labels)) {
         labels <- breaks
     }
     
     breaks <- c(breaks, to)
     labels <- c(labels, gsub("\\.", "", as.character(m$from)))
-    
-    if (is.null(mrsd)) {
-        p <- p + scale_x_continuous(breaks=breaks, labels=labels)
-    } else {
+
+    if (!is.null(mrsd) && class(p$data$x) == "Date") {
         p <- p + scale_x_date(breaks=decimal2Date(breaks), labels)
+    } else {
+        p <- p + scale_x_continuous(breaks=breaks, labels=labels)
     }
+    return(p)    
 }
 
 

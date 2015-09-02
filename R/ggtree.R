@@ -7,6 +7,7 @@
 ##' @param showDistance add distance legend, logical
 ##' @param layout one of 'rectangular', 'slanted', 'fan'/'circular', 'radial' or 'unrooted'
 ##' @param mrsd most recent sampling date
+##' @param as.Date logical whether using Date class in time tree
 ##' @param yscale y scale
 ##' @param yscale_mapping yscale mapping for category variable
 ##' @param ladderize logical
@@ -34,6 +35,7 @@ ggtree <- function(tr,
                    showDistance=FALSE,
                    layout="rectangular",
                    mrsd = NULL,
+                   as.Date = FALSE,
                    yscale="none",
                    yscale_mapping = NULL,
                    ladderize = TRUE, right=FALSE,
@@ -67,6 +69,7 @@ ggtree <- function(tr,
     p <- ggplot(tr, mapping=mapping,
                 layout        = layout,
                 mrsd          = mrsd,
+                as.Date       = as.Date,
                 yscale        = yscale,
                 yscale_mapping= yscale_mapping,
                 ladderize     = ladderize,
@@ -529,6 +532,15 @@ expand <- function(tree_view, node) {
 ##' @importFrom ggplot2 annotate
 ##' @author Guangchuang Yu
 add_colorbar <- function(p, color, x=NULL, ymin=NULL, ymax=NULL, font.size=4) {
+    mrsd <- attr(p, "mrsd")
+    if (!is.null(mrsd)) {
+        attr(p, "mrsd") <- NULL
+        
+        p$data$x <- Date2decimal(p$data$x)
+        p$data$branch <- Date2decimal(p$data$branch)
+        ## annotation segment not support using Date as x-axis
+    }
+    
     legend <- do.call("cbind", attr(color, "scale"))
     
     legend[,1] <- round(as.numeric(legend[,1]), 2)
