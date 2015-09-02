@@ -22,14 +22,6 @@ read.codeml <- function(rstfile, mlcfile) {
 }
 
 
-##' @rdname groupOTU-methods
-##' @exportMethod groupOTU
-setMethod("groupOTU", signature(object="codeml"),
-          function(object, focus, group_name="group") {
-              groupOTU_(object, focus, group_name)
-          }
-          )
-
 ##' @rdname groupClade-methods
 ##' @exportMethod groupClade
 setMethod("groupClade", signature(object="codeml"),
@@ -101,41 +93,6 @@ setMethod("get.subs", signature(object = "codeml"),
 setMethod("get.fields", signature(object="codeml"),
           function(object, ...) {
               get.fields.tree(object)
-          }
-          )
-
-##' @rdname plot-methods
-##' @exportMethod plot
-##' @importFrom ggplot2 aes_string
-setMethod("plot", signature(x = "codeml"),
-          function(x, layout        = "rectangular",
-                   branch.length    = "mlc.branch.length",
-                   show.tip.label   = TRUE,
-                   tip.label.size   = 4,
-                   tip.label.hjust  = -0.1,
-                   position         = "branch",
-                   annotation       = "dN_vs_dS",
-                   annotation.size  = 3,
-                   annotation.color = "black",
-                   ndigits          = 2,
-                   ...) {
-
-              p <- ggtree(x, layout = layout,
-                          branch.length = branch.length,
-                          ndigits=ndigits, ...)
-
-              if (show.tip.label) {
-                  p <- p + geom_tiplab(hjust = tip.label.hjust,
-                                       size  = tip.label.size)
-              }
-              
-              if (!is.null(annotation) && !is.na(annotation)) {
-                  p <- p + geom_text(aes_string(x=position,
-                                                label = annotation),
-                                     size = annotation.size, vjust = -.5,
-                                     color = annotation.color)
-              }
-              p + theme_tree2()
           }
           )
 

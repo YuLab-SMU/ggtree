@@ -41,6 +41,10 @@ ggtree <- function(tr,
                    ndigits = NULL, ...) {
 
     layout %<>% match.arg(c("rectangular", "slanted", "fan", "circular", "radial", "unrooted"))
+
+    if (is(tr, "r8s") && branch.length == "branch.length") {
+        branch.length = "TREE"
+    }
     
     d <- x <- y <- NULL
     if(yscale != "none") {

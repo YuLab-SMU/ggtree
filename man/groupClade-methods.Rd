@@ -39,7 +39,7 @@ groupClade(object, node, group_name = "group", ...)
 \S4method{groupClade}{phylo}(object, node, group_name = "group")
 
 \S4method{groupClade}{r8s}(object, node, group_name = "group",
-  tree = "TREE", ...)
+  tree = "TREE")
 }
 \arguments{
 \item{object}{supported objects, including phylo, paml_rst,
@@ -50,6 +50,8 @@ codeml_mlc, codeml, jplace, beast, hyphy}
 \item{group_name}{name of the group, 'group' by default}
 
 \item{...}{additional parameter}
+
+\item{tree}{which tree selected}
 }
 \value{
 group index

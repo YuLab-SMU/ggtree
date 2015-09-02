@@ -32,7 +32,7 @@ scale_color(object, by, ...)
 
 \S4method{scale_color}{phylo}(object, by, ...)
 
-\S4method{scale_color}{r8s}(object, by = "bootstrap", tree = "TREE", ...)
+\S4method{scale_color}{r8s}(object, by = "bootstrap", tree = "TREE")
 }
 \arguments{
 \item{object}{supported objects, including phylo, paml_rst,
@@ -41,6 +41,8 @@ codeml_mlc, codeml, jplace, beast, hyphy}
 \item{by}{one of numerical attributes}
 
 \item{...}{additional parameter}
+
+\item{tree}{which tree selected}
 }
 \value{
 color vector

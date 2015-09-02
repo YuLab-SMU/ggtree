@@ -1,5 +1,6 @@
 CHANGES IN VERSION 1.1.20
 ------------------------
+ o update vignette by adding r8s example <2015-09-02, Wed>
  o defined r8s class, see http://loco.biosci.arizona.edu/r8s/  <2015-09-02, Wed>
    + add r8s sample files
    + read.r8s, parser function

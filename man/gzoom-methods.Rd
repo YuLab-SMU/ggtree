@@ -49,6 +49,8 @@ gzoom(object, focus, subtree = FALSE, widths = c(0.3, 0.7), ...)
 \item{widths}{widths}
 
 \item{...}{additional parameter}
+
+\item{tree}{which tree selected}
 }
 \value{
 figure

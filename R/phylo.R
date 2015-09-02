@@ -34,12 +34,6 @@ setMethod("scale_color", signature(object="phylo"),
           })
 
 
-##' @rdname groupOTU-methods
-##' @exportMethod groupOTU
-setMethod("groupOTU", signature(object="phylo"),
-          function(object, focus, group_name="group") {
-              groupOTU.phylo(object, focus, group_name)
-          })
 
 
 ##' group OTU

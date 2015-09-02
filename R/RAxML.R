@@ -31,49 +31,6 @@ read.raxml <- function(file) {
         )
 }
 
-##' @rdname plot-methods
-##' @exportMethod plot
-setMethod("plot", signature( x= "raxml"),
-          function(x, layout = "rectangular",
-                   branch.length = "branch.length",
-                   show.tip.label = TRUE,
-                   tip.label.size = 4,
-                   tip.label.hjust = 0,
-                   position = "branch",
-                   annotation = "bootstrap",
-                   ndigits = 2,
-                   annotation.size = 4,
-                   annotation.color = "black",
-                   ...) {
-
-              p <- ggtree(x, layout     = layout,
-                          branch.length = branch.length,
-                          ndigits       = ndigits, ...)
-
-              if (show.tip.label) {
-                  p <- p + geom_tiplab(hjust = tip.label.hjust,
-                                       size  = tip.label.size)
-                  offset <- ceiling(max(p$data$x)) * 0.1
-                  p <- p + xlim(NA, max(p$data$x) + offset)
-              }
-              if (!is.null(annotation) && !is.na(annotation)) {
-                  if (position == "node") {
-                      position <- "x"
-                      vjust <- 0
-                      hjust <- -.05
-                  } else {
-                      vjust <- -.5
-                      hjust <- 0
-                  }
-                  
-                  p <- p + geom_text(aes_string(x=position,
-                                                label=annotation),
-                                     size=annotation.size,
-                                     vjust= vjust, hjust = hjust,
-                                     color=annotation.color)
-              }
-              p + theme_tree2()
-          })
 
 ##' @rdname show-methods
 ##' @importFrom ape print.phylo
