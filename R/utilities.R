@@ -66,7 +66,11 @@ has.extraInfo <- function(object) {
 append_extraInfo <- function(df, object) {
     if (has.extraInfo(object)) {
         info <- object@extraInfo
-        res <- merge(df, info, by.x=c("node", "parent"), by.y=c("node", "parent"))
+        if ("parent" %in% colnames(info)) {
+            res <- merge(df, info, by.x=c("node", "parent"), by.y=c("node", "parent"))
+        } else {
+            res <- merge(df, info, by.x="node", by.y="node")
+        }
     } else {
         res <- df
     }

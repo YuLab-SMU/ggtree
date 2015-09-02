@@ -564,7 +564,7 @@ fortify.raxml <- function(model, data, layout= "rectangular",
                           ladderize=TRUE, right=FALSE, mrsd=NULL, ...) {
     df <- fortify(get.tree(model), layout=layout, ladderize=ladderize, right=right, mrsd=mrsd, ...)
     df <- merge(df, model@bootstrap, by.x="node", by.y="node", all.x=TRUE)
-    return(df)
+    append_extraInfo(df, model)
 }
 
 
