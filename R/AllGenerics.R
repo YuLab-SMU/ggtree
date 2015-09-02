@@ -121,9 +121,10 @@ setGeneric("get.tipseq", function(object, ...) standardGeneric("get.tipseq"))
 ##'               codeml_mlc, codeml, jplace, beast, hyphy
 ##' @param focus a vector of tip (label or number) or a list of tips.
 ##' @param group_name name of the group, 'group' by default
+##' @param ... additional parameter
 ##' @return group index
 ##' @export
-setGeneric("groupOTU", function(object, focus, group_name="group") standardGeneric("groupOTU"))
+setGeneric("groupOTU", function(object, focus, group_name="group", ...) standardGeneric("groupOTU"))
 
 ##' @docType methods
 ##' @name groupClade
@@ -133,9 +134,10 @@ setGeneric("groupOTU", function(object, focus, group_name="group") standardGener
 ##'               codeml_mlc, codeml, jplace, beast, hyphy
 ##' @param node a internal node or a vector of internal nodes
 ##' @param group_name name of the group, 'group' by default
+##' @param ... additional parameter
 ##' @return group index
 ##' @export
-setGeneric("groupClade", function(object, node, group_name="group") standardGeneric("groupClade"))
+setGeneric("groupClade", function(object, node, group_name="group", ...) standardGeneric("groupClade"))
 
 
 ##' @docType methods
@@ -158,6 +160,7 @@ setGeneric("scale_color", function(object, by, ...) standardGeneric("scale_color
 ##' @param focus selected tips
 ##' @param subtree logical
 ##' @param widths widths
+##' @param ... additional parameter
 ##' @return figure
 ##' @export
-setGeneric("gzoom", function(object, focus, subtree=FALSE, widths=c(.3, .7)) standardGeneric("gzoom"))
+setGeneric("gzoom", function(object, focus, subtree=FALSE, widths=c(.3, .7), ...) standardGeneric("gzoom"))

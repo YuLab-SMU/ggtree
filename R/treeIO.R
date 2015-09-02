@@ -589,3 +589,13 @@ fortify.multiPhylo <-  function(model, data, layout="rectangular",
     return(df)
 }
 
+##' @method fortify r8s
+##' @export
+fortify.r8s <- function(model, data, layout="rectangular",
+                        ladderize=TRUE, right=FALSE,
+                        branch.length = "TREE", mrsd=NULL, ...) {
+    trees <- get.tree(model)
+    branch.length %<>% match.arg(names(trees))
+    phylo <- trees[[branch.length]]
+    fortify(phylo, layout=layout, ladderize = ladderize, right=right, mrsd=mrsd, ...)
+}

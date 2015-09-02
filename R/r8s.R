@@ -27,3 +27,86 @@ read.r8s <- function(file) {
 }
 
 
+##' @rdname plot-methods
+##' @exportMethod plot
+setMethod("plot", signature( x= "r8s"),
+          function(x, layout = "rectangular",
+                   branch.length = "TREE",
+                   show.tip.label = TRUE,
+                   tip.label.size = 4,
+                   tip.label.hjust = 0,
+                   ...) {
+
+              p <- ggtree(x, layout     = layout,
+                          branch.length = branch.length, ...)
+
+              if (show.tip.label) {
+                  p <- p + geom_tiplab(hjust = tip.label.hjust,
+                                       size  = tip.label.size)
+                  offset <- ceiling(max(p$data$x)) * 0.1
+                  p <- p + xlim(NA, max(p$data$x) + offset)
+              }
+              p + theme_tree2()
+          })
+
+##' @rdname show-methods
+##' @importFrom ape print.phylo
+##' @exportMethod show
+setMethod("show", signature(object = "r8s"),
+          function(object) {
+              cat("'r8s' S4 object that stored information of\n\t",
+                  paste0("'", object@file, "'.\n\n"))
+              cat("...@ tree: ")
+              print.phylo(get.tree(object))                  
+              ## cat("\nwith the following features available:\n")
+              ## print_fields(object)
+          })
+
+##' @rdname groupOTU-methods
+##' @exportMethod groupOTU
+setMethod("groupOTU", signature(object="r8s"),
+          function(object, focus, group_name="group", tree="TREE", ...) {
+              groupOTU_(get.tree(object)[[tree]], focus, group_name)
+          }
+          )
+
+##' @rdname groupClade-methods
+##' @exportMethod groupClade
+setMethod("groupClade", signature(object="r8s"),
+          function(object, node, group_name="group", tree="TREE", ...) {
+              groupClade_(get.tree(object)[[tree]], node, group_name)
+          })
+
+##' @rdname scale_color-methods
+##' @exportMethod scale_color
+setMethod("scale_color", signature(object="r8s"),
+          function(object, by="bootstrap", tree="TREE", ...) {
+              scale_color_(get.tree(object)[[tree]], by, ...)
+          })
+
+
+##' @rdname gzoom-methods
+##' @exportMethod gzoom
+setMethod("gzoom", signature(object="r8s"),
+          function(object, focus, subtree=FALSE, widths=c(.3, .7), tree="TREE") {
+              gzoom.phylo(get.tree(object)[[tree]], focus, subtree, widths)
+          })
+
+
+##' @rdname get.tree-methods
+##' @exportMethod get.tree
+setMethod("get.tree", signature(object="r8s"),
+          function(object,...) {
+              object@phylo
+          }
+          )
+
+
+##' @rdname get.fields-methods
+##' @exportMethod get.fields
+setMethod("get.fields", signature(object="r8s"),
+          function(object, ...) {
+              get.fields.tree(object)
+          }
+          )
+
