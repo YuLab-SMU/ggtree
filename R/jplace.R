@@ -228,7 +228,7 @@ setMethod("get.placements", signature(object = "jplace"),
               } else {
                   colnames(place.df) <- object@fields
               }
-              res <- as.data.frame(place.df)
+              res <- as.data.frame(place.df, stringsAsFactor=FALSE)
               
               ## res[] <- lapply(res, as.character)
               ## for (i in 1:ncol(res)) {

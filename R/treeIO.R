@@ -373,7 +373,7 @@ fortify.jplace <- function(model, data,
     df <- df %add2% place
 
     df <- scaleY(model@phylo, df, yscale, layout, ...)
-    
+
     append_extraInfo(df, model)    
 }
 
