@@ -271,17 +271,17 @@ The parameter `bar.size` is used to control the width of the bar and the `font.s
 
 ## highlight clades
 
-`r Githubpkg("GuangchuangYu/ggtree")` implements _`hilight`_ function, that accepts tree view and internal node number and add a layer of rectangle to highlight the selected clade.
+`r Githubpkg("GuangchuangYu/ggtree")` implements _`geom_hilight`_ layer, that an internal node number and add a layer of rectangle to highlight the selected clade.
 
 ```{r fig.width=5, fig.height=5, fig.align="center", warning=FALSE}
-ggtree(tree) %>% hilight(node=21, fill="steelblue", alpha=.6) %>%
-    hilight(node=17, fill="darkgreen", alpha=.6)
+ggtree(tree) + geom_hilight(node=21, fill="steelblue", alpha=.6) +
+    geom_hilight(node=17, fill="darkgreen", alpha=.6)
 ```
 
 
 ```{r fig.width=5, fig.height=5, fig.align="center", warning=FALSE}
-ggtree(tree, layout="fan") %>% hilight(node=21, fill="steelblue", alpha=.6) %>%
-     hilight(node=23, fill="darkgreen", alpha=.6)
+ggtree(tree, layout="fan") + geom_hilight(node=21, fill="steelblue", alpha=.6) +
+    geom_hilight(node=23, fill="darkgreen", alpha=.6)
 ```
 
 Another way to highlight selected clades is setting the clades with different colors and/or line types as demonstrated in __[`group clades`](#group-clades)__ section.

@@ -141,26 +141,6 @@ geom_tree <- function(layout="rectangular", ...) {
 }
 
 
-##' hilight clade with rectangle
-##'
-##' 
-##' @title geom_hilight 
-##' @param tree_object supported tree object
-##' @param node internal node
-##' @param ... additional parameters
-##' @return ggplot layer
-##' @importFrom ape extract.clade
-##' @author Guangchuang Yu
-geom_hilight <- function(tree_object, node, ...) {
-    clade <- extract.clade(get.tree(tree_object), node)
-    idx <- groupOTU(tree_object, clade$tip.label)
-    dd <- fortify(tree_object, ...)
-    x <- dd[idx == 2, "x"]
-    y <- dd[idx == 2, "y"]
-    annotate("rect", xmin=min(x)-dd[node, "branch.length"]/2,
-             xmax=max(x), ymin=min(y)-0.5, ymax=max(y)+0.5, ...)
-}
-
 
 ##' tree theme
 ##'
@@ -242,29 +222,6 @@ theme_transparent <- function(...) {
               colour = NA), ...)
 }
 
-
-##' hilight clade with rectangle
-##'
-##' 
-##' @title hilight
-##' @param tree_view tree view 
-##' @param node clade node
-##' @param fill fill color
-##' @param alpha alpha
-##' @param ... additional parameter
-##' @return tree view
-##' @export
-##' @author Guangchuang Yu
-hilight <- function(tree_view, node, fill="steelblue", alpha=0.5, ...) {
-    df <- tree_view$data
-    sp <- get.offspring.df(df, node)
-    sp.df <- df[c(sp, node),]
-    x <- sp.df$x
-    y <- sp.df$y
-    tree_view + annotate("rect", xmin=min(x)-df[node, "branch.length"]/2,
-                         xmax=max(x), ymin=min(y)-0.5, ymax=max(y)+0.5,
-                         fill = fill, alpha = alpha, ...)
-}
 
 ##' scale clade
 ##'

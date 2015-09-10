@@ -1,3 +1,7 @@
+CHANGES IN VERSION 1.1.21
+------------------------
+ o new implementation of geom_hilight, a truly geom layer function <2015-09-10, Thu>
+ 
 CHANGES IN VERSION 1.1.20
 ------------------------
  o bug fixed in %add2%, if node available use node, otherwise use label <2015-09-04, Fri>

@@ -9,8 +9,9 @@
 \code{ggtree} provides functions for visualizing phylogenetic tree and its associated data in R.}
 \usage{
 ggtree(tr, mapping = NULL, showDistance = FALSE, layout = "rectangular",
-  mrsd = NULL, yscale = "none", yscale_mapping = NULL, ladderize = TRUE,
-  right = FALSE, branch.length = "branch.length", ndigits = NULL, ...)
+  mrsd = NULL, as.Date = FALSE, yscale = "none", yscale_mapping = NULL,
+  ladderize = TRUE, right = FALSE, branch.length = "branch.length",
+  ndigits = NULL, ...)
 }
 \arguments{
 \item{tr}{phylo object}
@@ -22,6 +23,8 @@ ggtree(tr, mapping = NULL, showDistance = FALSE, layout = "rectangular",
 \item{layout}{one of 'rectangular', 'slanted', 'fan'/'circular', 'radial' or 'unrooted'}
 
 \item{mrsd}{most recent sampling date}
+
+\item{as.Date}{logical whether using Date class in time tree}
 
 \item{yscale}{y scale}
 

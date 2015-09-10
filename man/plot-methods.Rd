@@ -29,7 +29,7 @@
 
 \S4method{plot}{raxml,ANY}(x, layout = "rectangular",
   branch.length = "branch.length", show.tip.label = TRUE,
-  tip.label.size = 4, tip.label.hjust = 0, position = "branch",
+  tip.label.size = 4, tip.label.hjust = 0, position = "node",
   annotation = "bootstrap", ndigits = 2, annotation.size = 4,
   annotation.color = "black", ...)
 

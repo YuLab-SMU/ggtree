@@ -5,7 +5,7 @@
 \title{fortify}
 \usage{
 \method{fortify}{phylo}(model, data, layout = "rectangular",
-  ladderize = TRUE, right = FALSE, mrsd = NULL, ...)
+  ladderize = TRUE, right = FALSE, mrsd = NULL, as.Date = FALSE, ...)
 }
 \arguments{
 \item{model}{phylo object}
@@ -19,6 +19,8 @@
 \item{right}{logical}
 
 \item{mrsd}{most recent sampling date}
+
+\item{as.Date}{logical whether using Date class in time tree}
 
 \item{...}{additional parameter}
 }

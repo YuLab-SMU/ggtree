@@ -555,7 +555,7 @@ as.data.frame.phylo_ <- function(x, layout="rectangular",
     
     if (layout == "circular") {
         idx <- match(1:N, order(res$y))
-        angle <- -360/(N+1) * 1:N
+        angle <- -360/(1+N) * (1:N+1)
         angle <- angle[idx]
         res$angle <- angle
     } 

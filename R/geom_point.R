@@ -106,15 +106,15 @@ geom_point2 <- function(mapping = NULL, data = NULL, stat = "identity",
 GeomPointGGtree <- ggproto("GeomPointGGtree", GeomPoint,
                            setup_data = function(data, params) {
                                data[data$subset,]
-                           },
+                           }  ## ,
                            
-                           draw_panel = function(data, panel_scales, coord, na.rm = FALSE){
-                               GeomPoint$draw_panel(data, panel_scales, coord, na.rm)
-                           },
+##                            draw_panel = function(data, panel_scales, coord, na.rm = FALSE){
+##                                GeomPoint$draw_panel(data, panel_scales, coord, na.rm)
+##                            },
                            
-                           draw_key = draw_key_point,
+##                            draw_key = draw_key_point,
                            
-                           required_aes = c("x", "y"),
-                           default_aes = aes(shape = 19, colour = "black", size = 1.5, fill = NA,
-                               alpha = NA, stroke = 0.5)
-                           )
+##                            required_aes = c("x", "y"),
+##                            default_aes = aes(shape = 19, colour = "black", size = 1.5, fill = NA,
+##                                alpha = NA, stroke = 0.5)
+                            )

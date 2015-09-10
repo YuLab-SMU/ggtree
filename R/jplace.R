@@ -199,7 +199,7 @@ setMethod("get.placements", signature(object = "jplace"),
                           ## if not equals, the output is a descript string of the differences
                           idx <- sapply(2:nrow(x), function(i) all.equal(x[1,2], x[i,2]))
                           if (any(idx == TRUE)) {
-                              return(x[c(1, which(idx==TRUE)),])
+                              return(x[c(1, which(idx==TRUE)+1),])
                           } else {
                               return(x[1,])
                           }
