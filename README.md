@@ -60,3 +60,7 @@ vignette("ggtree", package = "ggtree")
 
  - If you have any, [let me know](https://github.com/GuangchuangYu/ggtree/issues). Thx!
 
+
+
+[![Bitdeli Badge](https://d2weczhvl823v0.cloudfront.net/GuangchuangYu/ggtree/trend.png)](https://bitdeli.com/free "Bitdeli Badge")
+
