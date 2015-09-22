@@ -105,7 +105,7 @@ ggtree(tree, branch.length="none")
 + `r8s`
 
 
-In addition, it also supports _`phylo`_ (defined by `r CRANpkg("ape")`[@paradis_ape_2004]), and _`phylo4`_ (defined by `r CRANpkg("phylobase")`)
+In addition, it also supports _`phylo`_ (defined by `r CRANpkg("ape")`[@paradis_ape_2004]) and _`phylo4`_ (defined by `r CRANpkg("phylobase")`)
 
 User can use _`ggtree(object)`_ command to view the phylogenetic tree directly, and annotation data stored in these objects can be added as demonstrated in __[`Tree annotation with output from evolution software`](#tree-annotation-with-output-from-evolution-software)__ session.
 
