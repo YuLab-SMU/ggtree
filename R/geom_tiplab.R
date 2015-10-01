@@ -19,10 +19,10 @@
 geom_tiplab <- function(mapping=NULL, hjust = 0, align = FALSE, linetype = "dotted", linesize=1, ...) {
     x <- y <- label <- isTip <- NULL
     if (align == TRUE) {
-        self_mapping <- aes(x = max(x) + diff(range(x))/200, y = y, label = label, subset= isTip)
+        self_mapping <- aes(x = max(x) + diff(range(x, na.rm=TRUE))/200, y = y, label = label, subset= isTip)
     }
     else {
-        self_mapping <- aes(x = x + diff(range(x))/200, y= y, label = label, subset= isTip)
+        self_mapping <- aes(x = x + diff(range(x, na.rm=TRUE))/200, y= y, label = label, subset= isTip)
     }
 
     if (is.null(mapping)) {

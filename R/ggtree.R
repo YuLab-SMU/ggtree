@@ -411,7 +411,7 @@ collapse <- function(tree_view, node) {
 
     df[sp, "x"] <- NA
     df[sp, "y"] <- NA
-
+    
     root <- which(df$node == df$parent)
     pp <- df[node, "parent"]
     while(any(pp != root)) {
@@ -424,7 +424,7 @@ collapse <- function(tree_view, node) {
 
     ## re-calculate branch mid position
     df <- calculate_branch_mid(df)
-    
+
     tree_view$data <- df
     clade <- paste0("clade_", node)
     attr(tree_view, clade) <- sp.df
