@@ -31,13 +31,7 @@ setMethod("gzoom", signature(object="codeml_mlc"),
               gzoom.phylo(get.tree(object), focus, subtree, widths)
           })
 
-##' @rdname groupOTU-methods
-##' @exportMethod groupOTU
-setMethod("groupOTU", signature(object="codeml_mlc"),
-          function(object, focus, group_name="group") {
-              groupOTU_(object, focus, group_name)
-          }
-          )
+
 
 ##' @rdname groupClade-methods
 ##' @exportMethod groupClade
@@ -82,39 +76,6 @@ setMethod("get.fields", signature(object = "codeml_mlc"),
               get.fields.tree(object)
           })
 
-##' @rdname plot-methods
-##' @exportMethod plot
-##' @param layout layout
-##' @param branch.length branch length
-##' @param show.tip.label logical
-##' @param position one of "branch" and "node"
-##' @param annotation one of get.fields(x)
-##' @param ndigits round digits
-setMethod("plot", signature(x = "codeml_mlc"),
-          function(x, layout        = "rectangular",
-                   branch.length    = "branch.length",
-                   show.tip.label   = TRUE,
-                   tip.label.size   = 4,
-                   tip.label.hjust  = -0.1,
-                   position         = "branch",
-                   annotation       = "dN_vs_dS",
-                   annotation.size  = 3,
-                   annotation.color = "black",
-                   ndigits          = 2,
-                   ...
-                   ) {
-              
-              p <- ggtree(x, layout=layout,
-                          branch.length=branch.length,
-                          ndigits=ndigits, ...)
-              
-              if (show.tip.label) {
-                  p <- p + geom_tiplab(hjust = tip.label.hjust,
-                                       size  = tip.label.size)
-              }
-              plot.codeml_mlc_(p, position, annotation,
-                               annotation.size, annotation.color)
-          })
 
 
 plot.codeml_mlc_<- function(p, position, annotation=NULL,

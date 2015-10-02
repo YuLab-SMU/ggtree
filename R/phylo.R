@@ -3,6 +3,13 @@
 setMethod("reroot", signature(object="phylo"),
           function(object, node, ...) {
               pos <- 0.5* object$edge.length[which(object$edge[,2] == node)]
+
+              ##' @importFrom phytools reroot
+              phytools <- "phytools"
+              require(phytools, character.only = TRUE)
+              
+              phytools_reroot <- eval(parse(text="phytools::reroot"))
+
               tree <- phytools_reroot(object, node, pos)
               attr(tree, "reroot") <- TRUE
               node_map <- reroot_node_mapping(object, tree)
@@ -27,12 +34,6 @@ setMethod("scale_color", signature(object="phylo"),
           })
 
 
-##' @rdname groupOTU-methods
-##' @exportMethod groupOTU
-setMethod("groupOTU", signature(object="phylo"),
-          function(object, focus, group_name="group") {
-              groupOTU.phylo(object, focus, group_name)
-          })
 
 
 ##' group OTU
@@ -87,5 +88,3 @@ setMethod("gzoom", signature(object="phylo"),
           })
 
 
-##' @importFrom phytools reroot
-phytools_reroot <- phytools::reroot

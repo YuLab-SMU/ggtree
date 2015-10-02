@@ -95,12 +95,15 @@ ggtree(tree, branch.length="none")
 
 `r Githubpkg("GuangchuangYu/ggtree")` defined several S4 classes to store phylogenetic object and its associated annotation, including:
 
-+ `jplace`
-+ `paml_rst`
++ `beast`
 + `codeml_mlc`
 + `codeml`
 + `hyphy`
-+ `beast`
++ `jplace`
++ `paml_rst`
++ `raxml`
++ `r8s`
+
 
 In addition, it also supports _`phylo`_ (defined by `r CRANpkg("ape")`[@paradis_ape_2004]), and _`phylo4`_ (defined by `r CRANpkg("phylobase")`)
 
@@ -140,9 +143,9 @@ grid.arrange(ggtree(tree) + ggtitle("(Phylogram) rectangular layout"),
 
 ```{r fig.width=9, fig.height=4, fig.align="center"}
 tree2d <- read.beast(system.file("extdata", "twoD.tree", package="ggtree"))
-ggtree(tree2d, time_scale=TRUE,
+ggtree(tree2d, mrsd = "2014-05-01",
        yscale="NGS", yscale_mapping=c(N2=2, N3=3, N4=4, N5=5, N6=6, N7=7)) +
-           theme_classic() + scale_x_continuous(breaks=seq(1965, 2015, 5)) +
+           theme_classic() + 
                theme(panel.grid.major=element_line(color="grey20", linetype="dotted", size=.3),
                      panel.grid.major.y=element_blank()) +
                          scale_y_continuous(labels=paste0("N", 2:7))
@@ -587,6 +590,36 @@ plot(hy, annotation="AA_subs")
 ```
 
 
+## annotating tree with RAxML bootstraping analysis
+
+```{r fig.width=12, fig.height=10, width=60, warning=FALSE, fig.align="center"}
+raxml_file <- system.file("extdata/RAxML", "RAxML_bipartitionsBranchLabels.H3", package="ggtree")
+raxml <- read.raxml(raxml_file)
+plot(raxml)
+```
+
+## annotating tree with r8s output
+
+[r8s](http://loco.biosci.arizona.edu/r8s/) output contains 3 trees, namely `TREE`, `RATO` and `PHYLO` for time tree, rate tree and absolute substitution tree respectively.
+
+```{r fig.width=4, fig.height=6, width=60, warning=FALSE, fig.align="center"}
+r8s <- read.r8s(system.file("extdata/r8s", "H3_r8s_output.log", package="ggtree"))
+ggtree(r8s, branch.length="TREE", mrsd="2014-01-01") + theme_tree2()
+```
+
+
+`branch.length` should be one of `TREE`, `RATO` or `PHYLO` for selecting the corresponding tree.
+
+User can also view 3 trees simultaneously.
+
+
+```{r fig.width=16, fig.height=10, width=60, warning=FALSE, fig.align="center"}
+ggtree(get.tree(r8s)) + facet_wrap(~.id, scales="free_x") + theme_tree2()
+```
+
+
+
+
 ## annotating tree with EPA and PPLACER output
 [EPA](http://sco.h-its.org/exelixis/web/software/epa/index.html)[@berger_EPA_2011] and [PPLACER](http://matsen.fhcrc.org/pplacer/)[@matsen_pplacer_2010] have common output file format, `jplace`. 
 
@@ -641,7 +674,7 @@ merged_tree
 After merging, all evidences inferred from different tools can be used to annotate the tree simultaneously. In this example, we used 'dN' inferred by CodeML to color the tree and annotate the tree with 'posterior' inferred by BEAST.
 
 ```{r fig.width=20, fig.height=26, warning=FALSE}
-ggtree(merged_tree, aes(color=dN), time_scale=TRUE, ndigits = 3) +
+ggtree(merged_tree, aes(color=dN), mrsd="2013-01-01", ndigits = 3) +
     geom_text(aes(label=posterior), vjust=.1, hjust=-.1, size=5) + theme_tree2() +
         scale_color_continuous(low="green", high="red") + theme(legend.position="right")
 ```
@@ -757,7 +790,7 @@ In the following example, we visualized a tree of H3 influenza viruses with thei
 ```{r fig.width=20, fig.height=16, fig.align="center"}
 genotype_file <- system.file("examples/Genotype.txt", package="ggtree")
 genotype <- read.table(genotype_file, sep="\t", stringsAsFactor=F)
-p <- ggtree(beast_tree, time_scale=TRUE) %>% add_legend(x=2008, y=5)
+p <- ggtree(beast_tree, mrsd="2013-01-01") %>% add_legend(x=2008, y=5)
 p <- p + geom_tiplab(size=3)
 gheatmap(p, genotype, offset = 2, width=0.5)
 ```
@@ -768,7 +801,7 @@ The _width_ parameter is to control the width of the heatmap. It supports anothe
 For time scaled tree, as in this example, it's more often to use x axis by using `theme_tree2`. But with this solution, the heatmap is just another layer and will change the `x` axis. To overcome this issue, we implemented `scale_x_ggtree` to set the x axis more reasonable. User can also use `gplot` and tweak the positions of two plot to align properly.
 
 ```{r fig.width=20, fig.height=16, fig.align="center"}
-p <- ggtree(beast_tree, time_scale=TRUE) + geom_tiplab(size=3, align=TRUE) + theme_tree2()
+p <- ggtree(beast_tree,  mrsd="2013-01-01") + geom_tiplab(size=3, align=TRUE) + theme_tree2()
 pp <- (p + scale_y_continuous(expand=c(0, 0.3))) %>%
     gheatmap(genotype, offset=4, width=0.5, colnames=FALSE) %>%
         scale_x_ggtree()

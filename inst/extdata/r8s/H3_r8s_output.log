@@ -1,0 +1,842 @@
+Reading tree PAUP_2
+Executing blformat command...
+Number of sites in sequences set to 1698
+Branch lengths assumed to be in units of numbers of substitutions per site
+All branch lengths multipled by the 1698 sites in the sequence
+Branch lengths rounded to nearest integer
+(This may not be a good idea when using CALIBRATE on ultrametric user supplied input trees. Use ROUND=NO then)
+7 zero-length branches collapsed
+Defining clade name: root
+Unfixing age of root
+ (the age of this node WILL be estimated in future searches)
+Fixing age of CY011888_A_New_York_716_1994_H3N2_1994 at 20.000000
+ (The age of this node will no longer be estimated.)
+ (This command overides any previous age constraints for this node.)
+ (The total number of fixed ages is now 0)
+Fixing age of EU856894_A_Hong_Kong_CUHK20217_1997_H3N2_1997 at 17.000000
+ (The age of this node will no longer be estimated.)
+ (This command overides any previous age constraints for this node.)
+ (The total number of fixed ages is now 0)
+Fixing age of EU856893_A_Hong_Kong_CUHK20213_1997_H3N2_1997 at 17.000000
+ (The age of this node will no longer be estimated.)
+ (This command overides any previous age constraints for this node.)
+ (The total number of fixed ages is now 0)
+Fixing age of EU856882_A_Hong_Kong_CUHK18230_1998_H3N2_1998 at 16.000000
+ (The age of this node will no longer be estimated.)
+ (This command overides any previous age constraints for this node.)
+ (The total number of fixed ages is now 0)
+Fixing age of DQ487341_A_Moscow_10_1999_H3N2_1999 at 15.000000
+ (The age of this node will no longer be estimated.)
+ (This command overides any previous age constraints for this node.)
+ (The total number of fixed ages is now 0)
+Fixing age of EU856852_A_Hong_Kong_CUHK13033_2001_H3N2_2001 at 13.000000
+ (The age of this node will no longer be estimated.)
+ (This command overides any previous age constraints for this node.)
+ (The total number of fixed ages is now 0)
+Fixing age of EU856865_A_Hong_Kong_CUHK13658_2001_H3N2_2001 at 13.000000
+ (The age of this node will no longer be estimated.)
+ (This command overides any previous age constraints for this node.)
+ (The total number of fixed ages is now 0)
+Fixing age of EU856971_A_Hong_Kong_CUHK31490_1999_H3N2_1999 at 15.000000
+ (The age of this node will no longer be estimated.)
+ (This command overides any previous age constraints for this node.)
+ (The total number of fixed ages is now 0)
+Fixing age of EU856862_A_Hong_Kong_CUHK13483_2003_H3N2_2003 at 11.000000
+ (The age of this node will no longer be estimated.)
+ (This command overides any previous age constraints for this node.)
+ (The total number of fixed ages is now 0)
+Fixing age of EU856984_A_Hong_Kong_CUHK33851_2004_H3N2_2004 at 10.000000
+ (The age of this node will no longer be estimated.)
+ (This command overides any previous age constraints for this node.)
+ (The total number of fixed ages is now 0)
+Fixing age of CY038743_A_Hong_Kong_HKU71_2005_H3N2_2005 at 9.000000
+ (The age of this node will no longer be estimated.)
+ (This command overides any previous age constraints for this node.)
+ (The total number of fixed ages is now 0)
+Fixing age of EU857080_A_Hong_Kong_CUHK69904_2006_H3N2_2006 at 8.000000
+ (The age of this node will no longer be estimated.)
+ (This command overides any previous age constraints for this node.)
+ (The total number of fixed ages is now 0)
+Fixing age of EU199359_A_Pennsylvania_05_2007_H3N2_2007 at 7.000000
+ (The age of this node will no longer be estimated.)
+ (This command overides any previous age constraints for this node.)
+ (The total number of fixed ages is now 0)
+Fixing age of EU716426_A_Uruguay_716_2007_H3N2_2007 at 7.000000
+ (The age of this node will no longer be estimated.)
+ (This command overides any previous age constraints for this node.)
+ (The total number of fixed ages is now 0)
+Fixing age of EU199366_A_Brisbane_10_2007_H3N2_2007 at 7.000000
+ (The age of this node will no longer be estimated.)
+ (This command overides any previous age constraints for this node.)
+ (The total number of fixed ages is now 0)
+Fixing age of FJ532080_A_California_09_2008_H3N2_2008 at 6.000000
+ (The age of this node will no longer be estimated.)
+ (This command overides any previous age constraints for this node.)
+ (The total number of fixed ages is now 0)
+Fixing age of FJ966245_A_Victoria_502_2009_H3N2_2009 at 5.000000
+ (The age of this node will no longer be estimated.)
+ (This command overides any previous age constraints for this node.)
+ (The total number of fixed ages is now 0)
+Fixing age of A_Kenya_078_2010_H3N2_2010 at 4.000000
+ (The age of this node will no longer be estimated.)
+ (This command overides any previous age constraints for this node.)
+ (The total number of fixed ages is now 0)
+Fixing age of A_Nicaragua_5754_07_2013_H3N2_2013 at 1.000000
+ (The age of this node will no longer be estimated.)
+ (This command overides any previous age constraints for this node.)
+ (The total number of fixed ages is now 0)
+Fixing age of A_Czech_Republic_1_2014_H3N2_2014 at 0.000000
+ (The age of this node will no longer be estimated.)
+ (This command overides any previous age constraints for this node.)
+ (The total number of fixed ages is now 0)
+Fixing age of A_Hokkaido_M1_2014_H3N2_2014 at 0.000000
+ (The age of this node will no longer be estimated.)
+ (This command overides any previous age constraints for this node.)
+ (The total number of fixed ages is now 0)
+Fixing age of A_Ontario_41_2014_H3N2_2014 at 0.000000
+ (The age of this node will no longer be estimated.)
+ (This command overides any previous age constraints for this node.)
+ (The total number of fixed ages is now 0)
+Fixing age of A_Delhi_1191_2013_H3N2_2013 at 1.000000
+ (The age of this node will no longer be estimated.)
+ (This command overides any previous age constraints for this node.)
+ (The total number of fixed ages is now 0)
+Fixing age of A_Singapore_H2012_779_2012_H3N2_2012 at 2.000000
+ (The age of this node will no longer be estimated.)
+ (This command overides any previous age constraints for this node.)
+ (The total number of fixed ages is now 0)
+Fixing age of A_Arizona_M18_2012_H3N2_2012 at 2.000000
+ (The age of this node will no longer be estimated.)
+ (This command overides any previous age constraints for this node.)
+ (The total number of fixed ages is now 0)
+Fixing age of A_Uttarakhand_8853_2011_H3N2_2011 at 3.000000
+ (The age of this node will no longer be estimated.)
+ (This command overides any previous age constraints for this node.)
+ (The total number of fixed ages is now 0)
+Fixing age of A_Moscow_RII05_2012_H3N2_2012 at 2.000000
+ (The age of this node will no longer be estimated.)
+ (This command overides any previous age constraints for this node.)
+ (The total number of fixed ages is now 0)
+Fixing age of A_Tennessee_F2084c83_2011_H3N2_2011 at 3.000000
+ (The age of this node will no longer be estimated.)
+ (This command overides any previous age constraints for this node.)
+ (The total number of fixed ages is now 0)
+Fixing age of A_New_York_3135_2009_H3N2_2009 at 5.000000
+ (The age of this node will no longer be estimated.)
+ (This command overides any previous age constraints for this node.)
+ (The total number of fixed ages is now 0)
+Fixing age of A_Thailand_CU_H1071_2009_H3N2_2009 at 5.000000
+ (The age of this node will no longer be estimated.)
+ (This command overides any previous age constraints for this node.)
+ (The total number of fixed ages is now 0)
+Fixing age of A_Singapore_KK581_2011_H3N2_2011 at 3.000000
+ (The age of this node will no longer be estimated.)
+ (This command overides any previous age constraints for this node.)
+ (The total number of fixed ages is now 0)
+Fixing age of A_Belgrade_WRAIR2379N_2010_H3N2_2010 at 4.000000
+ (The age of this node will no longer be estimated.)
+ (This command overides any previous age constraints for this node.)
+ (The total number of fixed ages is now 0)
+Fixing age of EU857082_A_Hong_Kong_CUHK7047_2005_H3N2_2005 at 9.000000
+ (The age of this node will no longer be estimated.)
+ (This command overides any previous age constraints for this node.)
+ (The total number of fixed ages is now 0)
+Fixing age of YGSIV1044_Sw_Binh_Duong_03_08_2010 at 4.000000
+ (The age of this node will no longer be estimated.)
+ (This command overides any previous age constraints for this node.)
+ (The total number of fixed ages is now 0)
+Fixing age of YGSIV1046_Sw_Binh_Duong_03_10_2010 at 4.000000
+ (The age of this node will no longer be estimated.)
+ (This command overides any previous age constraints for this node.)
+ (The total number of fixed ages is now 0)
+Fixing age of YGSIV1427_SW_HK_2857_2011 at 3.000000
+ (The age of this node will no longer be estimated.)
+ (This command overides any previous age constraints for this node.)
+ (The total number of fixed ages is now 0)
+Fixing age of YGSIV1522_SW_HK_1071_2012 at 2.000000
+ (The age of this node will no longer be estimated.)
+ (This command overides any previous age constraints for this node.)
+ (The total number of fixed ages is now 0)
+Fixing age of YGSIV1534_SW_HK_2454_2012 at 2.000000
+ (The age of this node will no longer be estimated.)
+ (This command overides any previous age constraints for this node.)
+ (The total number of fixed ages is now 0)
+Fixing age of YGSIV1352_SW_GX_2803_2011 at 3.000000
+ (The age of this node will no longer be estimated.)
+ (This command overides any previous age constraints for this node.)
+ (The total number of fixed ages is now 0)
+Fixing age of YGSIV1369_SW_GX_NS3106_2011 at 3.000000
+ (The age of this node will no longer be estimated.)
+ (This command overides any previous age constraints for this node.)
+ (The total number of fixed ages is now 0)
+Fixing age of YGSIV1370_SW_GX_NS3108_2011 at 3.000000
+ (The age of this node will no longer be estimated.)
+ (This command overides any previous age constraints for this node.)
+ (The total number of fixed ages is now 0)
+Fixing age of YGSIV1052_Sw_GX_NS2783_2010 at 4.000000
+ (The age of this node will no longer be estimated.)
+ (This command overides any previous age constraints for this node.)
+ (The total number of fixed ages is now 0)
+Fixing age of YGSIV1598_SW_HK_NS2733_2012 at 2.000000
+ (The age of this node will no longer be estimated.)
+ (This command overides any previous age constraints for this node.)
+ (The total number of fixed ages is now 0)
+Fixing age of YGSIV1165_Sw_HK_2503_2011 at 3.000000
+ (The age of this node will no longer be estimated.)
+ (This command overides any previous age constraints for this node.)
+ (The total number of fixed ages is now 0)
+Fixing age of YGSIV1166_Sw_HK_NS2439_2011 at 3.000000
+ (The age of this node will no longer be estimated.)
+ (This command overides any previous age constraints for this node.)
+ (The total number of fixed ages is now 0)
+Fixing age of YGSIV1315_SW_GD_3767_2011 at 3.000000
+ (The age of this node will no longer be estimated.)
+ (This command overides any previous age constraints for this node.)
+ (The total number of fixed ages is now 0)
+Fixing age of YGSIV1586_SW_GX_NS2394_2012 at 2.000000
+ (The age of this node will no longer be estimated.)
+ (This command overides any previous age constraints for this node.)
+ (The total number of fixed ages is now 0)
+Fixing age of YGSIV1416_SW_HK_NS2810_2011 at 3.000000
+ (The age of this node will no longer be estimated.)
+ (This command overides any previous age constraints for this node.)
+ (The total number of fixed ages is now 0)
+Fixing age of YGSIV1597_SW_HK_NS2698_2012 at 2.000000
+ (The age of this node will no longer be estimated.)
+ (This command overides any previous age constraints for this node.)
+ (The total number of fixed ages is now 0)
+Fixing age of YGSIV1447_SW_HK_3700_2011 at 3.000000
+ (The age of this node will no longer be estimated.)
+ (This command overides any previous age constraints for this node.)
+ (The total number of fixed ages is now 0)
+Fixing age of YGSIV1501_SW_HK_168_2012 at 2.000000
+ (The age of this node will no longer be estimated.)
+ (This command overides any previous age constraints for this node.)
+ (The total number of fixed ages is now 0)
+Fixing age of YGSIV1338_SW_GD_1599_2012 at 2.000000
+ (The age of this node will no longer be estimated.)
+ (This command overides any previous age constraints for this node.)
+ (The total number of fixed ages is now 0)
+Fixing age of YGSIV1507_SW_HK_459_2012 at 2.000000
+ (The age of this node will no longer be estimated.)
+ (This command overides any previous age constraints for this node.)
+ (The total number of fixed ages is now 0)
+Fixing age of YGSIV1527_SW_HK_NS1651_2012 at 2.000000
+ (The age of this node will no longer be estimated.)
+ (This command overides any previous age constraints for this node.)
+ (The total number of fixed ages is now 0)
+Fixing age of YGSIV1574_Sw_GD_2919_2012 at 2.000000
+ (The age of this node will no longer be estimated.)
+ (This command overides any previous age constraints for this node.)
+ (The total number of fixed ages is now 0)
+Fixing age of YGSIV1603_SW_HK_3280_2012 at 2.000000
+ (The age of this node will no longer be estimated.)
+ (This command overides any previous age constraints for this node.)
+ (The total number of fixed ages is now 0)
+Fixing age of YGSIV1407_SW_GX_NS1409_2012 at 2.000000
+ (The age of this node will no longer be estimated.)
+ (This command overides any previous age constraints for this node.)
+ (The total number of fixed ages is now 0)
+Fixing age of YGSIV1562_Sw_GD_NS2701_2012 at 2.000000
+ (The age of this node will no longer be estimated.)
+ (This command overides any previous age constraints for this node.)
+ (The total number of fixed ages is now 0)
+Fixing age of YGSIV1569_Sw_GD_NS2892_2012 at 2.000000
+ (The age of this node will no longer be estimated.)
+ (This command overides any previous age constraints for this node.)
+ (The total number of fixed ages is now 0)
+Fixing age of YGSIV1405_SW_GX_650_2012 at 2.000000
+ (The age of this node will no longer be estimated.)
+ (This command overides any previous age constraints for this node.)
+ (The total number of fixed ages is now 0)
+Fixing age of YGSIV1347_SW_GX_2242_2011 at 3.000000
+ (The age of this node will no longer be estimated.)
+ (This command overides any previous age constraints for this node.)
+ (The total number of fixed ages is now 0)
+Fixing age of YGSIV1404_SW_GX_508_2012 at 2.000000
+ (The age of this node will no longer be estimated.)
+ (This command overides any previous age constraints for this node.)
+ (The total number of fixed ages is now 0)
+Fixing age of YGSIV1441_SW_HK_3238_2011 at 3.000000
+ (The age of this node will no longer be estimated.)
+ (This command overides any previous age constraints for this node.)
+ (The total number of fixed ages is now 0)
+********************* WARNING **********************
+
+You are trying to estimate the age of the root
+but with the given constraints it is possible that a range of solutions exist
+
+****************************************************
+
+
+----------------------------------------
+
+
+LINEAGE RATE/TIME ANALYSIS FOR TREE PAUP_2
+
+Method = Langley and Fitch
+Optimization via Powell's method
+
+----------------------------------------
+Substitution Model
+	Rates are equal across sites
+Global/Local Search Parameters
+	Number of searches from random starts = 1
+	Number of restarts after each search = 1
+	Local perturbation on restarts = 0.01
+	Local fractional tolerance after restarts = 0.01
+Optimization parameters
+	Maximum number of iterations  = 500
+	Function Tolerance = 1e-08
+	linminOffset = 0.05
+	Contract Factor =  0.1
+	Max number of contract iterations  = 10
+Length of tree input =  682
+Number of taxa  =  64
+Number of sites in sequences =  1698
+
+----------------------------------------
+Starting optimization (random starting point 1)
+...Checking the starting point...(for some barrier constant)...
+...Passed...now optimizing...
+...Initial solution=245.404873
+......starting perturbation 1
+......solution for perturbation 1=245.404873...best=245.404873
+*** Using analytical formula for gradient in check gradient step ***
+...checking gradient of the solution...
+
+	Norm for free parameters in gradient (10.607648) should be less than cutoff (0.534133)
+	Checking active constraints for node times only (activeEpsilon=0.001000 and window [actEps*rootage]=0.022304)
+	Param	Estimate	Gradient	Active*	Taxon
+	[1]	22.304482	0.000466	0	root
+	[2]	19.441203	0.001059	0	
+	[3]	18.394595	0.001007	0	
+	[4]	17.144431	0.002418	0	
+	[5]	16.642890	0.001861	0	
+	[6]	16.051500	0.003662	0	
+	[7]	15.727290	0.002724	0	
+	[8]	15.422617	0.000143	0	
+	[9]	11.915352	0.000299	0	
+	[10]	11.437733	0.000080	0	
+	[11]	10.340940	0.000033	0	
+	[12]	9.246936	-0.001871	0	
+	[13]	9.140003	-0.000123	0	
+	[14]	8.665209	0.000065	0	
+	[15]	7.607649	0.000051	0	
+	[16]	7.486943	0.000100	0	
+	[17]	7.449325	0.000264	0	
+	[18]	6.541445	0.001058	0	
+	[19]	6.250227	0.000727	0	
+	[20]	5.335267	0.000184	0	
+	[21]	3.967139	0.000766	0	
+	[22]	3.179963	0.000627	0	
+	[23]	2.880065	0.000972	0	
+	[24]	2.013751	0.000160	0	
+	[25]	1.258663	0.000100	0	
+	[26]	2.664956	0.000100	0	
+	[27]	3.788151	0.000101	0	
+	[28]	5.858037	0.000486	0	
+	[29]	5.474610	0.000157	0	
+	[30]	4.563364	0.000100	0	
+	[31]	10.054564	0.000173	0	
+	[32]	6.283664	0.000341	0	
+	[33]	4.157776	0.000100	0	
+	[34]	5.145632	0.000389	0	
+	[35]	3.317025	0.000748	0	
+	[36]	3.182595	0.000101	0	
+	[37]	4.453305	0.000671	0	
+	[38]	3.572507	0.000250	0	
+	[39]	3.256614	0.000100	0	
+	[40]	4.154323	0.000336	0	
+	[41]	3.836884	0.000198	0	
+	[42]	3.593886	0.001646	0	
+	[43]	3.203523	0.000200	0	
+	[44]	3.440333	0.000769	0	
+	[45]	3.003371	0.000099	0	
+	[46]	3.266063	0.000460	0	
+	[47]	2.784178	0.000427	0	
+	[48]	2.548633	0.000098	0	
+	[49]	3.000000	-10.607646	0	
+
+	Gradients for rate parameters (if any)
+	Param	Estimate	Gradient
+	[50]	6.090638	-0.000000
+------------------------------------------------------------------------------
+*Key
+	+1 = maximum age constraint is reached (gradient may not be 0)
+	-1 = minimum age constraint is reached (gradient may not be 0)
+	 0 = no constraint present or constraint not reached (gradient should be 0)
+
+	 (note that small gradient values (< |0.000053|) are not examined with respect to active constraints to avoid spurious roundoff issues)
+
+*** Gradient check FAILED ***
+Optimization replicates used in first pass...73
+Optimization replicates used in LAST restart...19
+
+Using optimization from starting point 1 as best estimate
+Test of molecular clock on soln. 1 (best): Chi squared = 102.025928 (df=63)
+
+
+Parameter estimates:
+
+	       1  
+
+Times
+p[ 1]	  0.0131  
+p[ 2]	  0.0114  
+p[ 3]	  0.0108  
+p[ 4]	  0.0101  
+p[ 5]	  0.0098  
+p[ 6]	 0.00945  
+p[ 7]	 0.00926  
+p[ 8]	 0.00908  
+p[ 9]	 0.00702  
+p[10]	 0.00674  
+p[11]	 0.00609  
+p[12]	 0.00545  
+p[13]	 0.00538  
+p[14]	  0.0051  
+p[15]	 0.00448  
+p[16]	 0.00441  
+p[17]	 0.00439  
+p[18]	 0.00385  
+p[19]	 0.00368  
+p[20]	 0.00314  
+p[21]	 0.00234  
+p[22]	 0.00187  
+p[23]	  0.0017  
+p[24]	 0.00119  
+p[25]	 0.000741  
+p[26]	 0.00157  
+p[27]	 0.00223  
+p[28]	 0.00345  
+p[29]	 0.00322  
+p[30]	 0.00269  
+p[31]	 0.00592  
+p[32]	  0.0037  
+p[33]	 0.00245  
+p[34]	 0.00303  
+p[35]	 0.00195  
+p[36]	 0.00187  
+p[37]	 0.00262  
+p[38]	  0.0021  
+p[39]	 0.00192  
+p[40]	 0.00245  
+p[41]	 0.00226  
+p[42]	 0.00212  
+p[43]	 0.00189  
+p[44]	 0.00203  
+p[45]	 0.00177  
+p[46]	 0.00192  
+p[47]	 0.00164  
+p[48]	  0.0015  
+p[49]	 0.00177  
+
+Rates (substitutions per site per unit time)
+p[50]	 0.00359  
+
+	FAILED(2) 
+__________________
+Result codes:
+PASSED = OK
+FAILED(1) = Optimization routine returned error
+FAILED(2) = Solution's gradient was not 0
+__________________
+
+
+Obj->	-245.405  
+[Printing tree 1]
+
+[CHRONOGRAM of tree PAUP_2]
+Tree is so large that it has been compressed horizontally and resolution may be lost: WINWIDTH=96 treeWidth=43
++----CY011888_A_New_York_716_1994_H3N2_1994
+|
++root+----EU856894_A_Hong_Kong_CUHK20217_1997_H3N2_1997
+|    |
++----+3+--EU856893_A_Hong_Kong_CUHK20213_1997_H3N2_1997
+     | |
+     +-+5+--EU856882_A_Hong_Kong_CUHK18230_1998_H3N2_1998
+       | |
+       +-+7---DQ487341_A_Moscow_10_1999_H3N2_1999
+         ||
+         ++9------EU856852_A_Hong_Kong_CUHK13033_2001_H3N2_2001
+          ||
+          ++11----EU856865_A_Hong_Kong_CUHK13658_2001_H3N2_2001
+           ||
+           |+-EU856971_A_Hong_Kong_CUHK31490_1999_H3N2_1999
+           +|13
+            |      +--EU856862_A_Hong_Kong_CUHK13483_2003_H3N2_2003
+            |      |
+            +15    |+---EU856984_A_Hong_Kong_CUHK33851_2004_H3N2_2004
+            |      ||
+            |      ||   +-CY038743_A_Hong_Kong_HKU71_2005_H3N2_2005
+            |      ||   |
+            |      || +-+22EU857080_A_Hong_Kong_CUHK69904_2006_H3N2_2006
+            +------+17| |
+                   || | +24--EU199359_A_Pennsylvania_05_2007_H3N2_2007
+                   || | ||
+                   || | || +-EU716426_A_Uruguay_716_2007_H3N2_2007
+                   || | ++2629
+                   || |  | +-EU199366_A_Brisbane_10_2007_H3N2_2007
+                   || |  | |
+                   || |  | +---FJ532080_A_California_09_2008_H3N2_2008
+                   ++19  +-|28
+                    | |    | +---FJ966245_A_Victoria_502_2009_H3N2_2009
+                    | |    | |
+                    | |    | | +---A_Kenya_078_2010_H3N2_2010
+                    | |    +32 |
+                    | |    | | |      +--A_Nicaragua_5754_07_2013_H3N2_2013
+                    | |    | | |    +-+42
+                    | |    | | |    | |+---A_Czech_Republic_1_2014_H3N2_2014
+                    | |    | | |    | ++44
+                    | |    +-+3437  +41+---A_Hokkaido_M1_2014_H3N2_2014
+                    | |      |||    |
+                    | |      |||    +------A_Ontario_41_2014_H3N2_2014
+                    | |      |||    +47
+                    | |      |||  +-+40--A_Delhi_1191_2013_H3N2_2013
+                    +-+21    |||  | |
+                      |      |||  | |--A_Singapore_H2012_779_2012_H3N2_2012
+                      |      ||+--+39
+                      |      ++36 | +--A_Arizona_M18_2012_H3N2_2012
+                      |       |   |
+                      |       |   +--A_Uttarakhand_8853_2011_H3N2_2011
+                      |       |   +53
+                      |       |   +----A_Moscow_RII05_2012_H3N2_2012
+                      |       |
+                      |       +------A_Tennessee_F2084c83_2011_H3N2_2011
+                      |       |
+                      |       +56A_New_York_3135_2009_H3N2_2009
+                      |       |
+                      |       |+-A_Thailand_CU_H1071_2009_H3N2_2009
+                      |       ++60
+                      |        | +---A_Singapore_KK581_2011_H3N2_2011
+                      |        +-+62
+                      |          +-A_Belgrade_WRAIR2379N_2010_H3N2_2010
+                      |
+                      |+--EU857082_A_Hong_Kong_CUHK7047_2005_H3N2_2005
+                      ||
+                      ||          +YGSIV1044_Sw_Binh_Duong_03_08_2010
+                      ||      +---+68
+                      ++65    |   +YGSIV1046_Sw_Binh_Duong_03_10_2010
+                       |      |
+                       |      |    +-YGSIV1427_SW_HK_2857_2011
+                       |      | +--+72
+                       |      | |  |+--YGSIV1522_SW_HK_1071_2012
+                       +------+67  ++74
+                              | |   +--YGSIV1534_SW_HK_2454_2012
+                              | |
+                              | |  +-YGSIV1352_SW_GX_2803_2011
+                              | |+-+79
+                              | || +-YGSIV1369_SW_GX_NS3106_2011
+                              +-+71+81
+                                || +-YGSIV1370_SW_GX_NS3108_2011
+                                ||
+                                ||+YGSIV1052_Sw_GX_NS2783_2010
+                                |||
+                                |++84--YGSIV1598_SW_HK_NS2733_2012
+                                |||
+                                ||+86YGSIV1165_Sw_HK_2503_2011
+                                |||
+                                ++77-YGSIV1166_Sw_HK_NS2439_2011
+                                 |
+                                 | +-YGSIV1315_SW_GD_3767_2011
+                                 | |
+                                 | +---YGSIV1586_SW_GX_NS2394_2012
+                                 | |
+                                 | +-YGSIV1416_SW_HK_NS2810_2011
+                                 | |
+                                 | +---YGSIV1597_SW_HK_NS2698_2012
+                                 | |
+                                 | +-YGSIV1447_SW_HK_3700_2011
+                                 | |
+                                 | +101YGSIV1501_SW_HK_168_2012
+                                 | |
+                                 | +---YGSIV1338_SW_GD_1599_2012
+                                 | |
+                                 +-+91-YGSIV1507_SW_HK_459_2012
+                                   |
+                                   |+--YGSIV1527_SW_HK_NS1651_2012
+                                   |+109
+                                   |+--YGSIV1574_Sw_GD_2919_2012
+                                   |
+                                   |---YGSIV1603_SW_HK_3280_2012
+                                   |108
+                                   |+--YGSIV1407_SW_GX_NS1409_2012
+                                   |+115
+                                   ||+-YGSIV1562_Sw_GD_NS2701_2012
+                                   |11117
+                                   | +-YGSIV1569_Sw_GD_NS2892_2012
+                                   |
+                                   |---YGSIV1405_SW_GX_650_2012
+                                   |
+                                   |+YGSIV1347_SW_GX_2242_2011
+                                   |+122
+                                   |+--YGSIV1404_SW_GX_508_2012
+                                   |
+                                   |-YGSIV1441_SW_HK_3238_2011
+                                   |
+                                   +-------YGSIV1526_SW_HK_1284_2012
+
+[Printing tree 1]
+
+[RATOGRAM of tree PAUP_2]
+Tree is so large that it has been compressed horizontally and resolution may be lost: WINWIDTH=96 treeWidth=43
++-CY011888_A_New_York_716_1994_H3N2_1994
+|
++roEU856894_A_Hong_Kong_CUHK20217_1997_H3N2_1997
+||
+++3-EU856893_A_Hong_Kong_CUHK20213_1997_H3N2_1997
+ ||
+ ++5-EU856882_A_Hong_Kong_CUHK18230_1998_H3N2_1998
+  ||
+  ++7-DQ487341_A_Moscow_10_1999_H3N2_1999
+   ||
+   ++9-EU856852_A_Hong_Kong_CUHK13033_2001_H3N2_2001
+    ||
+    ++11EU856865_A_Hong_Kong_CUHK13658_2001_H3N2_2001
+     ||
+     ||+-EU856971_A_Hong_Kong_CUHK31490_1999_H3N2_1999
+     ++13
+      ||+-EU856862_A_Hong_Kong_CUHK13483_2003_H3N2_2003
+      |||
+      ++15-EU856984_A_Hong_Kong_CUHK33851_2004_H3N2_2004
+       |||
+       ||| +-CY038743_A_Hong_Kong_HKU71_2005_H3N2_2005
+       ||| |
+       |||++22EU857080_A_Hong_Kong_CUHK69904_2006_H3N2_2006
+       ++17||
+        |||++24EU199359_A_Pennsylvania_05_2007_H3N2_2007
+        ||| ||
+        ||| || +-EU716426_A_Uruguay_716_2007_H3N2_2007
+        ||| ++2629
+        |||  ||+-EU199366_A_Brisbane_10_2007_H3N2_2007
+        |||  ||
+        |||  ||+-FJ532080_A_California_09_2008_H3N2_2008
+        ++19 ++28
+         ||   ||+-FJ966245_A_Victoria_502_2009_H3N2_2009
+         ||   |||
+         ||   ||| +-A_Kenya_078_2010_H3N2_2010
+         ||   ++32|
+         ||    || |   +-A_Nicaragua_5754_07_2013_H3N2_2013
+         ||    || |  ++42
+         ||    || |  ||+-A_Czech_Republic_1_2014_H3N2_2014
+         ||    || |  |++44
+         ||    ++3437+41-A_Hokkaido_M1_2014_H3N2_2014
+         ||     ||| ||
+         ||     ||| ||+-A_Ontario_41_2014_H3N2_2014
+         ||     ||| |++47
+         ||     |||++40-A_Delhi_1191_2013_H3N2_2013
+         ++21   |||||
+          |     |||||-A_Singapore_H2012_779_2012_H3N2_2012
+          |     ||++39
+          |     ++36+-A_Arizona_M18_2012_H3N2_2012
+          |      | |
+          |      | |+-A_Uttarakhand_8853_2011_H3N2_2011
+          |      | ++53
+          |      |  +-A_Moscow_RII05_2012_H3N2_2012
+          |      |
+          |      |+-A_Tennessee_F2084c83_2011_H3N2_2011
+          |      ||
+          |      ++5A_New_York_3135_2009_H3N2_2009
+          |       |
+          |       |+-A_Thailand_CU_H1071_2009_H3N2_2009
+          |       ++60
+          |        |+-A_Singapore_KK581_2011_H3N2_2011
+          |        ++62
+          |         +-A_Belgrade_WRAIR2379N_2010_H3N2_2010
+          |
+          |+-EU857082_A_Hong_Kong_CUHK7047_2005_H3N2_2005
+          ||
+          || +-YGSIV1044_Sw_Binh_Duong_03_08_2010
+          ||++68
+          ++65-YGSIV1046_Sw_Binh_Duong_03_10_2010
+           ||
+           || +-YGSIV1427_SW_HK_2857_2011
+           ||++72
+           ||||+-YGSIV1522_SW_HK_1071_2012
+           ++67+74
+            || +-YGSIV1534_SW_HK_2454_2012
+            ||
+            || +-YGSIV1352_SW_GX_2803_2011
+            ||++79
+            ||||+-YGSIV1369_SW_GX_NS3106_2011
+            ++71+81
+             || +-YGSIV1370_SW_GX_NS3108_2011
+             ||
+             ||+-YGSIV1052_Sw_GX_NS2783_2010
+             |||
+             |++84YGSIV1598_SW_HK_NS2733_2012
+             ||||
+             ||++8YGSIV1165_Sw_HK_2503_2011
+             || |
+             ++77-YGSIV1166_Sw_HK_NS2439_2011
+              |
+              |+-YGSIV1315_SW_GD_3767_2011
+              ||
+              |+-YGSIV1586_SW_GX_NS2394_2012
+              ||
+              |+-YGSIV1416_SW_HK_NS2810_2011
+              ||
+              |+-YGSIV1597_SW_HK_NS2698_2012
+              ||
+              ||+-YGSIV1447_SW_HK_3700_2011
+              |||
+              |++1YGSIV1501_SW_HK_168_2012
+              |||
+              ||+-YGSIV1338_SW_GD_1599_2012
+              ||
+              ++9YGSIV1507_SW_HK_459_2012
+               |
+               | +-YGSIV1527_SW_HK_NS1651_2012
+               |++109
+               ||+-YGSIV1574_Sw_GD_2919_2012
+               ||
+               ||+-YGSIV1603_SW_HK_3280_2012
+               |+108
+               |||+-YGSIV1407_SW_GX_NS1409_2012
+               ||++115
+               ||||+-YGSIV1562_Sw_GD_NS2701_2012
+               |++11117
+               | | +-YGSIV1569_Sw_GD_NS2892_2012
+               | |
+               | |-YGSIV1405_SW_GX_650_2012
+               | |
+               | |+-YGSIV1347_SW_GX_2242_2011
+               | ++122
+               |  +-YGSIV1404_SW_GX_508_2012
+               |
+               |-YGSIV1441_SW_HK_3238_2011
+               |
+               +-YGSIV1526_SW_HK_1284_2012
+
+[Printing tree 1]
+
+[TREE DESCRIPTION of tree PAUP_2]
+
+tree PAUP_2 = (CY011888_A_New_York_716_1994_H3N2_1994:2.304482,(EU856894_A_Hong_Kong_CUHK20217_1997_H3N2_1997:2.441203,(EU856893_A_Hong_Kong_CUHK20213_1997_H3N2_1997:1.394595,(EU856882_A_Hong_Kong_CUHK18230_1998_H3N2_1998:1.144431,(DQ487341_A_Moscow_10_1999_H3N2_1999:1.642890,(EU856852_A_Hong_Kong_CUHK13033_2001_H3N2_2001:3.051500,(EU856865_A_Hong_Kong_CUHK13658_2001_H3N2_2001:2.727290,(EU856971_A_Hong_Kong_CUHK31490_1999_H3N2_1999:0.422617,(EU856862_A_Hong_Kong_CUHK13483_2003_H3N2_2003:0.915352,(EU856984_A_Hong_Kong_CUHK33851_2004_H3N2_2004:1.437733,((CY038743_A_Hong_Kong_HKU71_2005_H3N2_2005:0.246936,(EU857080_A_Hong_Kong_CUHK69904_2006_H3N2_2006:1.140003,(EU199359_A_Pennsylvania_05_2007_H3N2_2007:1.665209,((EU716426_A_Uruguay_716_2007_H3N2_2007:0.486943,EU199366_A_Brisbane_10_2007_H3N2_2007:0.486943):0.120705,(FJ532080_A_California_09_2008_H3N2_2008:1.449325,(FJ966245_A_Victoria_502_2009_H3N2_2009:1.541445,((A_Kenya_078_2010_H3N2_2010:1.335267,((((A_Nicaragua_5754_07_2013_H3N2_2013:1.013751,(A_Czech_Republic_1_2014_H3N2_2014:1.258663,A_Hokkaido_M1_2014_H3N2_2014:1.258663):0.755088):0.866314,(A_Ontario_41_2014_H3N2_2014:2.664956,A_Delhi_1191_2013_H3N2_2013:1.664956):0.215109):0.299898,A_Singapore_H2012_779_2012_H3N2_2012:1.179963,A_Arizona_M18_2012_H3N2_2012:1.179963):0.787176,(A_Uttarakhand_8853_2011_H3N2_2011:0.788151,A_Moscow_RII05_2012_H3N2_2012:1.788151):0.178987):1.368128):0.914960,(A_Tennessee_F2084c83_2011_H3N2_2011:2.858037,A_New_York_3135_2009_H3N2_2009:0.858037,(A_Thailand_CU_H1071_2009_H3N2_2009:0.474610,(A_Singapore_KK581_2011_H3N2_2011:1.563364,A_Belgrade_WRAIR2379N_2010_H3N2_2010:0.563364):0.911246):0.383427):0.392190):0.291218):0.907880):0.158323):1.057560):0.474794):0.106932):1.094005,(EU857082_A_Hong_Kong_CUHK7047_2005_H3N2_2005:1.054564,((YGSIV1044_Sw_Binh_Duong_03_08_2010:0.157776,YGSIV1046_Sw_Binh_Duong_03_10_2010:0.157776):2.125888,((YGSIV1427_SW_HK_2857_2011:0.317025,(YGSIV1522_SW_HK_1071_2012:1.182595,YGSIV1534_SW_HK_2454_2012:1.182595):0.134430):1.828607,((YGSIV1352_SW_GX_2803_2011:0.572507,(YGSIV1369_SW_GX_NS3106_2011:0.256614,YGSIV1370_SW_GX_NS3108_2011:0.256614):0.315893):0.880799,(YGSIV1052_Sw_GX_NS2783_2010:0.154323,(YGSIV1598_SW_HK_NS2733_2012:1.836884,YGSIV1165_Sw_HK_2503_2011:0.836884,YGSIV1166_Sw_HK_NS2439_2011:0.836884):0.317439):0.298982,(YGSIV1315_SW_GD_3767_2011:0.593886,YGSIV1586_SW_GX_NS2394_2012:1.593886,YGSIV1416_SW_HK_NS2810_2011:0.593886,YGSIV1597_SW_HK_NS2698_2012:1.593886,(YGSIV1447_SW_HK_3700_2011:0.203523,YGSIV1501_SW_HK_168_2012:1.203523,YGSIV1338_SW_GD_1599_2012:1.203523):0.390362,YGSIV1507_SW_HK_459_2012:1.593886,((YGSIV1527_SW_HK_NS1651_2012:1.003371,YGSIV1574_Sw_GD_2919_2012:1.003371):0.436962,(YGSIV1603_SW_HK_3280_2012:1.266063,(YGSIV1407_SW_GX_NS1409_2012:0.784178,(YGSIV1562_Sw_GD_NS2701_2012:0.548633,YGSIV1569_Sw_GD_NS2892_2012:0.548633):0.235545):0.481885,YGSIV1405_SW_GX_650_2012:1.266063,(YGSIV1347_SW_GX_2242_2011:0.000000,YGSIV1404_SW_GX_508_2012:1.000000):0.266063):0.174270):0.153553,YGSIV1441_SW_HK_3238_2011:0.593886,YGSIV1526_SW_HK_1284_2012:3.593886):0.859419):0.692327):1.138032):3.770900):0.286376):1.096793):0.477619):3.507265):0.304673):0.324211):0.591390):0.501540):1.250164):1.046608):2.863279)root;
+[Printing tree 1]
+
+[RATO DESCRIPTION of tree PAUP_2]
+
+tree PAUP_2 = (CY011888_A_New_York_716_1994_H3N2_1994:0.003587,(EU856894_A_Hong_Kong_CUHK20217_1997_H3N2_1997:0.003587,(EU856893_A_Hong_Kong_CUHK20213_1997_H3N2_1997:0.003587,(EU856882_A_Hong_Kong_CUHK18230_1998_H3N2_1998:0.003587,(DQ487341_A_Moscow_10_1999_H3N2_1999:0.003587,(EU856852_A_Hong_Kong_CUHK13033_2001_H3N2_2001:0.003587,(EU856865_A_Hong_Kong_CUHK13658_2001_H3N2_2001:0.003587,(EU856971_A_Hong_Kong_CUHK31490_1999_H3N2_1999:0.003587,(EU856862_A_Hong_Kong_CUHK13483_2003_H3N2_2003:0.003587,(EU856984_A_Hong_Kong_CUHK33851_2004_H3N2_2004:0.003587,((CY038743_A_Hong_Kong_HKU71_2005_H3N2_2005:0.003587,(EU857080_A_Hong_Kong_CUHK69904_2006_H3N2_2006:0.003587,(EU199359_A_Pennsylvania_05_2007_H3N2_2007:0.003587,((EU716426_A_Uruguay_716_2007_H3N2_2007:0.003587,EU199366_A_Brisbane_10_2007_H3N2_2007:0.003587):0.003587,(FJ532080_A_California_09_2008_H3N2_2008:0.003587,(FJ966245_A_Victoria_502_2009_H3N2_2009:0.003587,((A_Kenya_078_2010_H3N2_2010:0.003587,((((A_Nicaragua_5754_07_2013_H3N2_2013:0.003587,(A_Czech_Republic_1_2014_H3N2_2014:0.003587,A_Hokkaido_M1_2014_H3N2_2014:0.003587):0.003587):0.003587,(A_Ontario_41_2014_H3N2_2014:0.003587,A_Delhi_1191_2013_H3N2_2013:0.003587):0.003587):0.003587,A_Singapore_H2012_779_2012_H3N2_2012:0.003587,A_Arizona_M18_2012_H3N2_2012:0.003587):0.003587,(A_Uttarakhand_8853_2011_H3N2_2011:0.003587,A_Moscow_RII05_2012_H3N2_2012:0.003587):0.003587):0.003587):0.003587,(A_Tennessee_F2084c83_2011_H3N2_2011:0.003587,A_New_York_3135_2009_H3N2_2009:0.003587,(A_Thailand_CU_H1071_2009_H3N2_2009:0.003587,(A_Singapore_KK581_2011_H3N2_2011:0.003587,A_Belgrade_WRAIR2379N_2010_H3N2_2010:0.003587):0.003587):0.003587):0.003587):0.003587):0.003587):0.003587):0.003587):0.003587):0.003587):0.003587,(EU857082_A_Hong_Kong_CUHK7047_2005_H3N2_2005:0.003587,((YGSIV1044_Sw_Binh_Duong_03_08_2010:0.003587,YGSIV1046_Sw_Binh_Duong_03_10_2010:0.003587):0.003587,((YGSIV1427_SW_HK_2857_2011:0.003587,(YGSIV1522_SW_HK_1071_2012:0.003587,YGSIV1534_SW_HK_2454_2012:0.003587):0.003587):0.003587,((YGSIV1352_SW_GX_2803_2011:0.003587,(YGSIV1369_SW_GX_NS3106_2011:0.003587,YGSIV1370_SW_GX_NS3108_2011:0.003587):0.003587):0.003587,(YGSIV1052_Sw_GX_NS2783_2010:0.003587,(YGSIV1598_SW_HK_NS2733_2012:0.003587,YGSIV1165_Sw_HK_2503_2011:0.003587,YGSIV1166_Sw_HK_NS2439_2011:0.003587):0.003587):0.003587,(YGSIV1315_SW_GD_3767_2011:0.003587,YGSIV1586_SW_GX_NS2394_2012:0.003587,YGSIV1416_SW_HK_NS2810_2011:0.003587,YGSIV1597_SW_HK_NS2698_2012:0.003587,(YGSIV1447_SW_HK_3700_2011:0.003587,YGSIV1501_SW_HK_168_2012:0.003587,YGSIV1338_SW_GD_1599_2012:0.003587):0.003587,YGSIV1507_SW_HK_459_2012:0.003587,((YGSIV1527_SW_HK_NS1651_2012:0.003587,YGSIV1574_Sw_GD_2919_2012:0.003587):0.003587,(YGSIV1603_SW_HK_3280_2012:0.003587,(YGSIV1407_SW_GX_NS1409_2012:0.003587,(YGSIV1562_Sw_GD_NS2701_2012:0.003587,YGSIV1569_Sw_GD_NS2892_2012:0.003587):0.003587):0.003587,YGSIV1405_SW_GX_650_2012:0.003587,(YGSIV1347_SW_GX_2242_2011:0.003587,YGSIV1404_SW_GX_508_2012:0.003587):0.003587):0.003587):0.003587,YGSIV1441_SW_HK_3238_2011:0.003587,YGSIV1526_SW_HK_1284_2012:0.003587):0.003587):0.003587):0.003587):0.003587):0.003587):0.003587):0.003587):0.003587):0.003587):0.003587):0.003587):0.003587):0.003587):0.003587):0.003587)root;
+[Printing tree 1]
+
+[PHYLO DESCRIPTION of tree PAUP_2]
+
+tree PAUP_2 = (CY011888_A_New_York_716_1994_H3N2_1994:16.000000,(EU856894_A_Hong_Kong_CUHK20217_1997_H3N2_1997:9.000000,(EU856893_A_Hong_Kong_CUHK20213_1997_H3N2_1997:8.000000,(EU856882_A_Hong_Kong_CUHK18230_1998_H3N2_1998:7.000000,(DQ487341_A_Moscow_10_1999_H3N2_1999:12.000000,(EU856852_A_Hong_Kong_CUHK13033_2001_H3N2_2001:11.000000,(EU856865_A_Hong_Kong_CUHK13658_2001_H3N2_2001:15.000000,(EU856971_A_Hong_Kong_CUHK31490_1999_H3N2_1999:3.000000,(EU856862_A_Hong_Kong_CUHK13483_2003_H3N2_2003:6.000000,(EU856984_A_Hong_Kong_CUHK33851_2004_H3N2_2004:9.000000,((CY038743_A_Hong_Kong_HKU71_2005_H3N2_2005:1.000000,(EU857080_A_Hong_Kong_CUHK69904_2006_H3N2_2006:8.000000,(EU199359_A_Pennsylvania_05_2007_H3N2_2007:10.000000,((EU716426_A_Uruguay_716_2007_H3N2_2007:4.000000,EU199366_A_Brisbane_10_2007_H3N2_2007:3.000000):1.000000,(FJ532080_A_California_09_2008_H3N2_2008:10.000000,(FJ966245_A_Victoria_502_2009_H3N2_2009:2.000000,((A_Kenya_078_2010_H3N2_2010:12.000000,((((A_Nicaragua_5754_07_2013_H3N2_2013:7.000000,(A_Czech_Republic_1_2014_H3N2_2014:4.000000,A_Hokkaido_M1_2014_H3N2_2014:7.000000):2.000000):3.000000,(A_Ontario_41_2014_H3N2_2014:17.000000,A_Delhi_1191_2013_H3N2_2013:15.000000):2.000000):2.000000,A_Singapore_H2012_779_2012_H3N2_2012:6.000000,A_Arizona_M18_2012_H3N2_2012:8.000000):5.000000,(A_Uttarakhand_8853_2011_H3N2_2011:7.000000,A_Moscow_RII05_2012_H3N2_2012:5.000000):1.000000):8.000000):8.000000,(A_Tennessee_F2084c83_2011_H3N2_2011:11.000000,A_New_York_3135_2009_H3N2_2009:7.000000,(A_Thailand_CU_H1071_2009_H3N2_2009:4.000000,(A_Singapore_KK581_2011_H3N2_2011:7.000000,A_Belgrade_WRAIR2379N_2010_H3N2_2010:4.000000):5.000000):3.000000):3.000000):3.000000):5.000000):1.000000):9.000000):4.000000):1.000000):8.000000,(EU857082_A_Hong_Kong_CUHK7047_2005_H3N2_2005:4.000000,((YGSIV1044_Sw_Binh_Duong_03_08_2010:2.000000,YGSIV1046_Sw_Binh_Duong_03_10_2010:0.000000):14.000000,((YGSIV1427_SW_HK_2857_2011:2.000000,(YGSIV1522_SW_HK_1071_2012:10.000000,YGSIV1534_SW_HK_2454_2012:6.000000):1.000000):14.000000,((YGSIV1352_SW_GX_2803_2011:0.000000,(YGSIV1369_SW_GX_NS3106_2011:3.000000,YGSIV1370_SW_GX_NS3108_2011:1.000000):3.000000):3.000000,(YGSIV1052_Sw_GX_NS2783_2010:1.000000,(YGSIV1598_SW_HK_NS2733_2012:12.000000,YGSIV1165_Sw_HK_2503_2011:4.000000,YGSIV1166_Sw_HK_NS2439_2011:6.000000):2.000000):2.000000,(YGSIV1315_SW_GD_3767_2011:8.000000,YGSIV1586_SW_GX_NS2394_2012:6.000000,YGSIV1416_SW_HK_NS2810_2011:5.000000,YGSIV1597_SW_HK_NS2698_2012:13.000000,(YGSIV1447_SW_HK_3700_2011:2.000000,YGSIV1501_SW_HK_168_2012:2.000000,YGSIV1338_SW_GD_1599_2012:7.000000):2.000000,YGSIV1507_SW_HK_459_2012:8.000000,((YGSIV1527_SW_HK_NS1651_2012:10.000000,YGSIV1574_Sw_GD_2919_2012:3.000000):3.000000,(YGSIV1603_SW_HK_3280_2012:7.000000,(YGSIV1407_SW_GX_NS1409_2012:3.000000,(YGSIV1562_Sw_GD_NS2701_2012:4.000000,YGSIV1569_Sw_GD_NS2892_2012:4.000000):2.000000):3.000000,YGSIV1405_SW_GX_650_2012:6.000000,(YGSIV1347_SW_GX_2242_2011:0.000000,YGSIV1404_SW_GX_508_2012:3.000000):2.000000):1.000000):1.000000,YGSIV1441_SW_HK_3238_2011:4.000000,YGSIV1526_SW_HK_1284_2012:3.000000):8.000000):5.000000):10.000000):35.000000):2.000000):9.000000):4.000000):31.000000):3.000000):3.000000):4.000000):4.000000):10.000000):8.000000):15.000000)root;
+[Printing tree 1]
+
+[NODE INFORMATION of tree PAUP_2]
+node   1 (root) age=22.30 len=1.7e+38
+node   2 (CY011888_A_New_York_716_1994_H3N2_1994) age=  20 | anc   1 (root) age=  22 | dur= 2.3 len=  16 rate=  6.09 nodeReal=     0 age bounds=[20..20]
+node   3 () age=  19 | anc   1 (root) age=  22 | dur= 2.9 len=  15 rate=  6.09 nodeReal=     0 age bounds=[1e+20..17]
+node   4 (EU856894_A_Hong_Kong_CUHK20217_1997_H3N2_1997) age=  17 | anc   3 () age=  19 | dur= 2.4 len=   9 rate=  6.09 nodeReal=     0 age bounds=[17..17]
+node   5 () age=  18 | anc   3 () age=  19 | dur=   1 len=   8 rate=  6.09 nodeReal=     0 age bounds=[1e+20..17]
+node   6 (EU856893_A_Hong_Kong_CUHK20213_1997_H3N2_1997) age=  17 | anc   5 () age=  18 | dur= 1.4 len=   8 rate=  6.09 nodeReal=     0 age bounds=[17..17]
+node   7 () age=  17 | anc   5 () age=  18 | dur= 1.3 len=  10 rate=  6.09 nodeReal=     0 age bounds=[1e+20..16]
+node   8 (EU856882_A_Hong_Kong_CUHK18230_1998_H3N2_1998) age=  16 | anc   7 () age=  17 | dur= 1.1 len=   7 rate=  6.09 nodeReal=     0 age bounds=[16..16]
+node   9 () age=  17 | anc   7 () age=  17 | dur= 0.5 len=   4 rate=  6.09 nodeReal=     0 age bounds=[1e+20..15]
+node  10 (DQ487341_A_Moscow_10_1999_H3N2_1999) age=  15 | anc   9 () age=  17 | dur= 1.6 len=  12 rate=  6.09 nodeReal=     0 age bounds=[15..15]
+node  11 () age=  16 | anc   9 () age=  17 | dur=0.59 len=   4 rate=  6.09 nodeReal=     0 age bounds=[1e+20..15]
+node  12 (EU856852_A_Hong_Kong_CUHK13033_2001_H3N2_2001) age=  13 | anc  11 () age=  16 | dur= 3.1 len=  11 rate=  6.09 nodeReal=     0 age bounds=[13..13]
+node  13 () age=  16 | anc  11 () age=  16 | dur=0.32 len=   3 rate=  6.09 nodeReal=     0 age bounds=[1e+20..15]
+node  14 (EU856865_A_Hong_Kong_CUHK13658_2001_H3N2_2001) age=  13 | anc  13 () age=  16 | dur= 2.7 len=  15 rate=  6.09 nodeReal=     0 age bounds=[13..13]
+node  15 () age=  15 | anc  13 () age=  16 | dur= 0.3 len=   3 rate=  6.09 nodeReal=     0 age bounds=[1e+20..15]
+node  16 (EU856971_A_Hong_Kong_CUHK31490_1999_H3N2_1999) age=  15 | anc  15 () age=  15 | dur=0.42 len=   3 rate=  6.09 nodeReal=     0 age bounds=[15..15]
+node  17 () age=  12 | anc  15 () age=  15 | dur= 3.5 len=  31 rate=  6.09 nodeReal=     0 age bounds=[1e+20..11]
+node  18 (EU856862_A_Hong_Kong_CUHK13483_2003_H3N2_2003) age=  11 | anc  17 () age=  12 | dur=0.92 len=   6 rate=  6.09 nodeReal=     0 age bounds=[11..11]
+node  19 () age=  11 | anc  17 () age=  12 | dur=0.48 len=   4 rate=  6.09 nodeReal=     0 age bounds=[1e+20..10]
+node  20 (EU856984_A_Hong_Kong_CUHK33851_2004_H3N2_2004) age=  10 | anc  19 () age=  11 | dur= 1.4 len=   9 rate=  6.09 nodeReal=     0 age bounds=[10..10]
+node  21 () age=  10 | anc  19 () age=  11 | dur= 1.1 len=   9 rate=  6.09 nodeReal=     0 age bounds=[1e+20..9]
+node  22 () age= 9.2 | anc  21 () age=  10 | dur= 1.1 len=   8 rate=  6.09 nodeReal=     0 age bounds=[1e+20..9]
+node  23 (CY038743_A_Hong_Kong_HKU71_2005_H3N2_2005) age=   9 | anc  22 () age= 9.2 | dur=0.25 len=   1 rate=  6.09 nodeReal=     0 age bounds=[9..9]
+node  24 () age= 9.1 | anc  22 () age= 9.2 | dur=0.11 len=   1 rate=  6.09 nodeReal=     0 age bounds=[1e+20..8]
+node  25 (EU857080_A_Hong_Kong_CUHK69904_2006_H3N2_2006) age=   8 | anc  24 () age= 9.1 | dur= 1.1 len=   8 rate=  6.09 nodeReal=     0 age bounds=[8..8]
+node  26 () age= 8.7 | anc  24 () age= 9.1 | dur=0.47 len=   4 rate=  6.09 nodeReal=     0 age bounds=[1e+20..7]
+node  27 (EU199359_A_Pennsylvania_05_2007_H3N2_2007) age=   7 | anc  26 () age= 8.7 | dur= 1.7 len=  10 rate=  6.09 nodeReal=     0 age bounds=[7..7]
+node  28 () age= 7.6 | anc  26 () age= 8.7 | dur= 1.1 len=   9 rate=  6.09 nodeReal=     0 age bounds=[1e+20..7]
+node  29 () age= 7.5 | anc  28 () age= 7.6 | dur=0.12 len=   1 rate=  6.09 nodeReal=     0 age bounds=[1e+20..7]
+node  30 (EU716426_A_Uruguay_716_2007_H3N2_2007) age=   7 | anc  29 () age= 7.5 | dur=0.49 len=   4 rate=  6.09 nodeReal=     0 age bounds=[7..7]
+node  31 (EU199366_A_Brisbane_10_2007_H3N2_2007) age=   7 | anc  29 () age= 7.5 | dur=0.49 len=   3 rate=  6.09 nodeReal=     0 age bounds=[7..7]
+node  32 () age= 7.4 | anc  28 () age= 7.6 | dur=0.16 len=   1 rate=  6.09 nodeReal=     0 age bounds=[1e+20..6]
+node  33 (FJ532080_A_California_09_2008_H3N2_2008) age=   6 | anc  32 () age= 7.4 | dur= 1.4 len=  10 rate=  6.09 nodeReal=     0 age bounds=[6..6]
+node  34 () age= 6.5 | anc  32 () age= 7.4 | dur=0.91 len=   5 rate=  6.09 nodeReal=     0 age bounds=[1e+20..5]
+node  35 (FJ966245_A_Victoria_502_2009_H3N2_2009) age=   5 | anc  34 () age= 6.5 | dur= 1.5 len=   2 rate=  6.09 nodeReal=     0 age bounds=[5..5]
+node  36 () age= 6.3 | anc  34 () age= 6.5 | dur=0.29 len=   3 rate=  6.09 nodeReal=     0 age bounds=[1e+20..5]
+node  37 () age= 5.3 | anc  36 () age= 6.3 | dur=0.91 len=   8 rate=  6.09 nodeReal=     0 age bounds=[1e+20..4]
+node  38 (A_Kenya_078_2010_H3N2_2010) age=   4 | anc  37 () age= 5.3 | dur= 1.3 len=  12 rate=  6.09 nodeReal=     0 age bounds=[4..4]
+node  39 () age=   4 | anc  37 () age= 5.3 | dur= 1.4 len=   8 rate=  6.09 nodeReal=     0 age bounds=[1e+20..3]
+node  40 () age= 3.2 | anc  39 () age=   4 | dur=0.79 len=   5 rate=  6.09 nodeReal=     0 age bounds=[1e+20..2]
+node  41 () age= 2.9 | anc  40 () age= 3.2 | dur= 0.3 len=   2 rate=  6.09 nodeReal=     0 age bounds=[1e+20..1]
+node  42 () age=   2 | anc  41 () age= 2.9 | dur=0.87 len=   3 rate=  6.09 nodeReal=     0 age bounds=[1e+20..1]
+node  43 (A_Nicaragua_5754_07_2013_H3N2_2013) age=   1 | anc  42 () age=   2 | dur=   1 len=   7 rate=  6.09 nodeReal=     0 age bounds=[1..1]
+node  44 () age= 1.3 | anc  42 () age=   2 | dur=0.76 len=   2 rate=  6.09 nodeReal=     0 age bounds=[1e+20..0]
+node  45 (A_Czech_Republic_1_2014_H3N2_2014) age=   0 | anc  44 () age= 1.3 | dur= 1.3 len=   4 rate=  6.09 nodeReal=     0 age bounds=[0..0]
+node  46 (A_Hokkaido_M1_2014_H3N2_2014) age=   0 | anc  44 () age= 1.3 | dur= 1.3 len=   7 rate=  6.09 nodeReal=     0 age bounds=[0..0]
+node  47 () age= 2.7 | anc  41 () age= 2.9 | dur=0.22 len=   2 rate=  6.09 nodeReal=     0 age bounds=[1e+20..1]
+node  48 (A_Ontario_41_2014_H3N2_2014) age=   0 | anc  47 () age= 2.7 | dur= 2.7 len=  17 rate=  6.09 nodeReal=     0 age bounds=[0..0]
+node  49 (A_Delhi_1191_2013_H3N2_2013) age=   1 | anc  47 () age= 2.7 | dur= 1.7 len=  15 rate=  6.09 nodeReal=     0 age bounds=[1..1]
+node  51 (A_Singapore_H2012_779_2012_H3N2_2012) age=   2 | anc  40 () age= 3.2 | dur= 1.2 len=   6 rate=  6.09 nodeReal=     0 age bounds=[2..2]
+node  52 (A_Arizona_M18_2012_H3N2_2012) age=   2 | anc  40 () age= 3.2 | dur= 1.2 len=   8 rate=  6.09 nodeReal=     0 age bounds=[2..2]
+node  53 () age= 3.8 | anc  39 () age=   4 | dur=0.18 len=   1 rate=  6.09 nodeReal=     0 age bounds=[1e+20..3]
+node  54 (A_Uttarakhand_8853_2011_H3N2_2011) age=   3 | anc  53 () age= 3.8 | dur=0.79 len=   7 rate=  6.09 nodeReal=     0 age bounds=[3..3]
+node  55 (A_Moscow_RII05_2012_H3N2_2012) age=   2 | anc  53 () age= 3.8 | dur= 1.8 len=   5 rate=  6.09 nodeReal=     0 age bounds=[2..2]
+node  56 () age= 5.9 | anc  36 () age= 6.3 | dur=0.39 len=   3 rate=  6.09 nodeReal=     0 age bounds=[1e+20..5]
+node  57 (A_Tennessee_F2084c83_2011_H3N2_2011) age=   3 | anc  56 () age= 5.9 | dur= 2.9 len=  11 rate=  6.09 nodeReal=     0 age bounds=[3..3]
+node  59 (A_New_York_3135_2009_H3N2_2009) age=   5 | anc  56 () age= 5.9 | dur=0.86 len=   7 rate=  6.09 nodeReal=     0 age bounds=[5..5]
+node  60 () age= 5.5 | anc  56 () age= 5.9 | dur=0.38 len=   3 rate=  6.09 nodeReal=     0 age bounds=[1e+20..5]
+node  61 (A_Thailand_CU_H1071_2009_H3N2_2009) age=   5 | anc  60 () age= 5.5 | dur=0.47 len=   4 rate=  6.09 nodeReal=     0 age bounds=[5..5]
+node  62 () age= 4.6 | anc  60 () age= 5.5 | dur=0.91 len=   5 rate=  6.09 nodeReal=     0 age bounds=[1e+20..4]
+node  63 (A_Singapore_KK581_2011_H3N2_2011) age=   3 | anc  62 () age= 4.6 | dur= 1.6 len=   7 rate=  6.09 nodeReal=     0 age bounds=[3..3]
+node  64 (A_Belgrade_WRAIR2379N_2010_H3N2_2010) age=   4 | anc  62 () age= 4.6 | dur=0.56 len=   4 rate=  6.09 nodeReal=     0 age bounds=[4..4]
+node  65 () age=  10 | anc  21 () age=  10 | dur=0.29 len=   2 rate=  6.09 nodeReal=     0 age bounds=[1e+20..9]
+node  66 (EU857082_A_Hong_Kong_CUHK7047_2005_H3N2_2005) age=   9 | anc  65 () age=  10 | dur= 1.1 len=   4 rate=  6.09 nodeReal=     0 age bounds=[9..9]
+node  67 () age= 6.3 | anc  65 () age=  10 | dur= 3.8 len=  35 rate=  6.09 nodeReal=     0 age bounds=[1e+20..4]
+node  68 () age= 4.2 | anc  67 () age= 6.3 | dur= 2.1 len=  14 rate=  6.09 nodeReal=     0 age bounds=[1e+20..4]
+node  69 (YGSIV1044_Sw_Binh_Duong_03_08_2010) age=   4 | anc  68 () age= 4.2 | dur=0.16 len=   2 rate=  6.09 nodeReal=     0 age bounds=[4..4]
+node  70 (YGSIV1046_Sw_Binh_Duong_03_10_2010) age=   4 | anc  68 () age= 4.2 | dur=0.16 len=   0 rate=  6.09 nodeReal=     0 age bounds=[4..4]
+node  71 () age= 5.1 | anc  67 () age= 6.3 | dur= 1.1 len=  10 rate=  6.09 nodeReal=     0 age bounds=[1e+20..4]
+node  72 () age= 3.3 | anc  71 () age= 5.1 | dur= 1.8 len=  14 rate=  6.09 nodeReal=     0 age bounds=[1e+20..3]
+node  73 (YGSIV1427_SW_HK_2857_2011) age=   3 | anc  72 () age= 3.3 | dur=0.32 len=   2 rate=  6.09 nodeReal=     0 age bounds=[3..3]
+node  74 () age= 3.2 | anc  72 () age= 3.3 | dur=0.13 len=   1 rate=  6.09 nodeReal=     0 age bounds=[1e+20..2]
+node  75 (YGSIV1522_SW_HK_1071_2012) age=   2 | anc  74 () age= 3.2 | dur= 1.2 len=  10 rate=  6.09 nodeReal=     0 age bounds=[2..2]
+node  76 (YGSIV1534_SW_HK_2454_2012) age=   2 | anc  74 () age= 3.2 | dur= 1.2 len=   6 rate=  6.09 nodeReal=     0 age bounds=[2..2]
+node  77 () age= 4.5 | anc  71 () age= 5.1 | dur=0.69 len=   5 rate=  6.09 nodeReal=     0 age bounds=[1e+20..4]
+node  79 () age= 3.6 | anc  77 () age= 4.5 | dur=0.88 len=   3 rate=  6.09 nodeReal=     0 age bounds=[1e+20..3]
+node  80 (YGSIV1352_SW_GX_2803_2011) age=   3 | anc  79 () age= 3.6 | dur=0.57 len=   0 rate=  6.09 nodeReal=     0 age bounds=[3..3]
+node  81 () age= 3.3 | anc  79 () age= 3.6 | dur=0.32 len=   3 rate=  6.09 nodeReal=     0 age bounds=[1e+20..3]
+node  82 (YGSIV1369_SW_GX_NS3106_2011) age=   3 | anc  81 () age= 3.3 | dur=0.26 len=   3 rate=  6.09 nodeReal=     0 age bounds=[3..3]
+node  83 (YGSIV1370_SW_GX_NS3108_2011) age=   3 | anc  81 () age= 3.3 | dur=0.26 len=   1 rate=  6.09 nodeReal=     0 age bounds=[3..3]
+node  84 () age= 4.2 | anc  77 () age= 4.5 | dur= 0.3 len=   2 rate=  6.09 nodeReal=     0 age bounds=[1e+20..4]
+node  85 (YGSIV1052_Sw_GX_NS2783_2010) age=   4 | anc  84 () age= 4.2 | dur=0.15 len=   1 rate=  6.09 nodeReal=     0 age bounds=[4..4]
+node  86 () age= 3.8 | anc  84 () age= 4.2 | dur=0.32 len=   2 rate=  6.09 nodeReal=     0 age bounds=[1e+20..3]
+node  87 (YGSIV1598_SW_HK_NS2733_2012) age=   2 | anc  86 () age= 3.8 | dur= 1.8 len=  12 rate=  6.09 nodeReal=     0 age bounds=[2..2]
+node  89 (YGSIV1165_Sw_HK_2503_2011) age=   3 | anc  86 () age= 3.8 | dur=0.84 len=   4 rate=  6.09 nodeReal=     0 age bounds=[3..3]
+node  90 (YGSIV1166_Sw_HK_NS2439_2011) age=   3 | anc  86 () age= 3.8 | dur=0.84 len=   6 rate=  6.09 nodeReal=     0 age bounds=[3..3]
+node  91 () age= 3.6 | anc  77 () age= 4.5 | dur=0.86 len=   8 rate=  6.09 nodeReal=     0 age bounds=[1e+20..3]
+node  92 (YGSIV1315_SW_GD_3767_2011) age=   3 | anc  91 () age= 3.6 | dur=0.59 len=   8 rate=  6.09 nodeReal=     0 age bounds=[3..3]
+node  94 (YGSIV1586_SW_GX_NS2394_2012) age=   2 | anc  91 () age= 3.6 | dur= 1.6 len=   6 rate=  6.09 nodeReal=     0 age bounds=[2..2]
+node  96 (YGSIV1416_SW_HK_NS2810_2011) age=   3 | anc  91 () age= 3.6 | dur=0.59 len=   5 rate=  6.09 nodeReal=     0 age bounds=[3..3]
+node 100 (YGSIV1597_SW_HK_NS2698_2012) age=   2 | anc  91 () age= 3.6 | dur= 1.6 len=  13 rate=  6.09 nodeReal=     0 age bounds=[2..2]
+node 101 () age= 3.2 | anc  91 () age= 3.6 | dur=0.39 len=   2 rate=  6.09 nodeReal=     0 age bounds=[1e+20..3]
+node 102 (YGSIV1447_SW_HK_3700_2011) age=   3 | anc 101 () age= 3.2 | dur= 0.2 len=   2 rate=  6.09 nodeReal=     0 age bounds=[3..3]
+node 104 (YGSIV1501_SW_HK_168_2012) age=   2 | anc 101 () age= 3.2 | dur= 1.2 len=   2 rate=  6.09 nodeReal=     0 age bounds=[2..2]
+node 105 (YGSIV1338_SW_GD_1599_2012) age=   2 | anc 101 () age= 3.2 | dur= 1.2 len=   7 rate=  6.09 nodeReal=     0 age bounds=[2..2]
+node 107 (YGSIV1507_SW_HK_459_2012) age=   2 | anc  91 () age= 3.6 | dur= 1.6 len=   8 rate=  6.09 nodeReal=     0 age bounds=[2..2]
+node 108 () age= 3.4 | anc  91 () age= 3.6 | dur=0.15 len=   1 rate=  6.09 nodeReal=     0 age bounds=[1e+20..3]
+node 109 () age=   3 | anc 108 () age= 3.4 | dur=0.44 len=   3 rate=  6.09 nodeReal=     0 age bounds=[1e+20..2]
+node 110 (YGSIV1527_SW_HK_NS1651_2012) age=   2 | anc 109 () age=   3 | dur=   1 len=  10 rate=  6.09 nodeReal=     0 age bounds=[2..2]
+node 111 (YGSIV1574_Sw_GD_2919_2012) age=   2 | anc 109 () age=   3 | dur=   1 len=   3 rate=  6.09 nodeReal=     0 age bounds=[2..2]
+node 112 () age= 3.3 | anc 108 () age= 3.4 | dur=0.17 len=   1 rate=  6.09 nodeReal=     0 age bounds=[1e+20..3]
+node 113 (YGSIV1603_SW_HK_3280_2012) age=   2 | anc 112 () age= 3.3 | dur= 1.3 len=   7 rate=  6.09 nodeReal=     0 age bounds=[2..2]
+node 115 () age= 2.8 | anc 112 () age= 3.3 | dur=0.48 len=   3 rate=  6.09 nodeReal=     0 age bounds=[1e+20..2]
+node 116 (YGSIV1407_SW_GX_NS1409_2012) age=   2 | anc 115 () age= 2.8 | dur=0.78 len=   3 rate=  6.09 nodeReal=     0 age bounds=[2..2]
+node 117 () age= 2.5 | anc 115 () age= 2.8 | dur=0.24 len=   2 rate=  6.09 nodeReal=     0 age bounds=[1e+20..2]
+node 118 (YGSIV1562_Sw_GD_NS2701_2012) age=   2 | anc 117 () age= 2.5 | dur=0.55 len=   4 rate=  6.09 nodeReal=     0 age bounds=[2..2]
+node 119 (YGSIV1569_Sw_GD_NS2892_2012) age=   2 | anc 117 () age= 2.5 | dur=0.55 len=   4 rate=  6.09 nodeReal=     0 age bounds=[2..2]
+node 121 (YGSIV1405_SW_GX_650_2012) age=   2 | anc 112 () age= 3.3 | dur= 1.3 len=   6 rate=  6.09 nodeReal=     0 age bounds=[2..2]
+node 122 () age=   3 | anc 112 () age= 3.3 | dur=0.27 len=   2 rate=  6.09 nodeReal=     0 age bounds=[1e+20..3]
+node 123 (YGSIV1347_SW_GX_2242_2011) age=   3 | anc 122 () age=   3 | dur=9e-11 len=   0 rate=  6.09 nodeReal=     0 age bounds=[3..3]
+node 124 (YGSIV1404_SW_GX_508_2012) age=   2 | anc 122 () age=   3 | dur=   1 len=   3 rate=  6.09 nodeReal=     0 age bounds=[2..2]
+node 126 (YGSIV1441_SW_HK_3238_2011) age=   3 | anc  91 () age= 3.6 | dur=0.59 len=   4 rate=  6.09 nodeReal=     0 age bounds=[3..3]
+node 127 (YGSIV1526_SW_HK_1284_2012) age=   0 | anc  91 () age= 3.6 | dur= 3.6 len=   3 rate=  6.09 nodeReal=     0 age bounds=[0..0]

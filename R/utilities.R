@@ -66,9 +66,13 @@ has.extraInfo <- function(object) {
 append_extraInfo <- function(df, object) {
     if (has.extraInfo(object)) {
         info <- object@extraInfo
-        res <- merge(df, info, by.x=c("node", "parent"), by.y=c("node", "parent"))
+        if ("parent" %in% colnames(info)) {
+            res <- merge(df, info, by.x=c("node", "parent"), by.y=c("node", "parent"))
+        } else {
+            res <- merge(df, info, by.x="node", by.y="node")
+        }
     } else {
-        res <- df
+        return(df)
     }
 
     i <- order(res$node, decreasing = FALSE)
@@ -147,6 +151,7 @@ plot.subs <- function(x, layout, show.tip.label,
 }
 
 .add_new_line <- function(res) {
+##    res <- paste0(strwrap(res, 50), collapse="\n") 
     if (nchar(res) > 50) {
         idx <- gregexpr("/", res)[[1]]
         i <- idx[floor(length(idx)/2)]
@@ -256,7 +261,7 @@ reverse.treeview.data <- function(df) {
 
 jplace_treetext_to_phylo <- function(tree.text) {
     ## move edge label to node label separate by @
-    tr <- gsub('(:[0-9\\.eE-]+)\\{(\\d+)\\}', '\\@\\2\\1', tree.text)
+    tr <- gsub('(:[0-9\\.eE+\\-]+)\\{(\\d+)\\}', '\\@\\2\\1', tree.text)
     phylo <- read.tree(text=tr)
     if (length(grep('@', phylo$tip.label)) > 0) {
         phylo$node.label[1] %<>% gsub("(.*)\\{(\\d+)\\}", "\\1@\\2", .)
@@ -271,17 +276,16 @@ jplace_treetext_to_phylo <- function(tree.text) {
         N <- getNodeNum(phylo)
         edgeNum.df <- data.frame(node=1:N, edgeNum=c(tip.edgeNum, node.edgeNum))
         edgeNum.df <- edgeNum.df[!is.na(edgeNum.df[,2]),]
-        edgeNum <- edgeNum.df[match( phylo$edge[,2], edgeNum.df$node), 2]
-        attr(phylo, "edgeNum") <- edgeNum
+        attr(phylo, "edgeNum") <- edgeNum.df
     }
     return(phylo)
 }
 
-extract.treeinfo.jplace <- function(object, layout="phylogram", ladderize=TRUE, right=FALSE) {
+extract.treeinfo.jplace <- function(object, layout="phylogram", ladderize=TRUE, right=FALSE, ...) {
 
     tree <- get.tree(object)
     
-    df <- fortify.phylo(tree, layout=layout, ladderize=ladderize, right=right)
+    df <- fortify.phylo(tree, layout=layout, ladderize=ladderize, right=right, ...)
 
     edgeNum <- attr(tree, "edgeNum")
     if (!is.null(edgeNum)) {
@@ -297,10 +301,13 @@ extract.treeinfo.jplace <- function(object, layout="phylogram", ladderize=TRUE, 
 ## convert edge number to node number for EPA/pplacer output
 edgeNum2nodeNum <- function(jp, edgeNum) {
     edges <- attr(jp@phylo, "edgeNum")
-    nodes <- jp@phylo$edge[,1]
 
-    idx <- sapply(edgeNum, function(ee) which(edges==ee))
-    nodes[idx]
+    idx <- which(edges$edgeNum == edgeNum)
+    if (length(idx) == 0) {
+        return(NA)
+    }
+    
+    edges[idx, "node"]
 }
 
 is.character_beast <- function(stats3, cn) {
@@ -384,7 +391,13 @@ is.tree_attribute_ <- function(p, var) {
 }
 
 `%add2%` <- function(d1, d2) {
-    dd <- merge(d1, d2, by.x="label", by.y=1, all.x=TRUE)
+    if ("node" %in% colnames(d2)) {
+        d2 <- d2[,-1] ## drop label column
+        dd <- merge(d1, d2, by.x="node", by.y="node", all.x=TRUE)
+    } else {
+        d2[,1] <- as.character(d2[,1])
+        dd <- merge(d1, d2, by.x="label", by.y=1, all.x=TRUE)
+    }
     dd <- dd[match(d1$node, dd$node),]
     return(dd)
 }

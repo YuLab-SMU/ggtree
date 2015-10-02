@@ -34,57 +34,6 @@ read.beast <- function(file) {
         )
 }
 
-##' @rdname plot-methods
-##' @exportMethod plot
-##' @param tip.label.size size of tip label
-##' @param tip.label.hjust hjust of tip.label
-##' @param annotation.size size of annotation
-##' @param annotation.color color of annotation
-##' @examples
-##' file <- system.file("extdata/BEAST", "beast_mcc.tree", package="ggtree")
-##' beast <- read.beast(file)
-##' plot(beast, annotation="length_0.95_HPD", branch.length="none") + theme_tree()
-setMethod("plot", signature( x= "beast"),
-          function(x, layout = "rectangular",
-                   branch.length = "branch.length",
-                   show.tip.label = TRUE,
-                   tip.label.size = 4,
-                   tip.label.hjust = -0.1,
-                   position = "branch",
-                   annotation = "rate",
-                   ndigits = 2,
-                   annotation.size = 3,
-                   annotation.color = "black",
-                   ...) {
-
-              p <- ggtree(x, layout     = layout,
-                          branch.length = branch.length,
-                          ndigits       = ndigits, ...)
-
-              if (show.tip.label) {
-                  p <- p + geom_tiplab(hjust = tip.label.hjust,
-                                       size  = tip.label.size)
-                  offset <- ceiling(max(p$data$x)) * 0.1
-                  p <- p + xlim(-offset, max(p$data$x) + offset)
-              }
-              if (!is.null(annotation) && !is.na(annotation)) {
-                  if (position == "node") {
-                      position <- "x"
-                      vjust <- 0
-                      hjust <- -.05
-                  } else {
-                      vjust <- -.5
-                      hjust <- 0
-                  }
-                  
-                  p <- p + geom_text(aes_string(x=position,
-                                                label=annotation),
-                                     size=annotation.size,
-                                     vjust= vjust, hjust = hjust,
-                                     color=annotation.color)
-              }
-              p + theme_tree2()
-          })
 
 ##' @rdname show-methods
 ##' @importFrom ape print.phylo

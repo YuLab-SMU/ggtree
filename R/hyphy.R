@@ -69,26 +69,6 @@ read.hyphy <- function(nwk, ancseq, tip.fasfile=NULL) {
     set.hyphy_(res)
 }
 
-##' @rdname plot-methods
-##' @exportMethod plot
-setMethod("plot", signature(x = "hyphy"),
-          function(x, layout        = "rectangular",
-                   show.tip.label   = TRUE,
-                   tip.label.size   = 4,
-                   tip.label.hjust  = -0.1,
-                   position         = "branch",
-                   annotation       = "subs",
-                   annotation.color = "black",
-                   annotation.size  = 3,
-                   ...) {
-              plot.subs(x, layout, show.tip.label,
-                        tip.label.size,
-                        tip.label.hjust,
-                        position, annotation,
-                        annotation.color,
-                        annotation.size,...)
-          })
-
 ##' @rdname groupOTU-methods
 ##' @exportMethod groupOTU
 setMethod("groupOTU", signature(object="hyphy"),
