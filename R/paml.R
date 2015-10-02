@@ -78,8 +78,8 @@ read.tip_seq_mlc <- function(mlcfile) {
     seqs <- mlc[2:(info$num+1)]
     seqs <- gsub("\\s+", "", seqs)
     wd <- info$width
-    res <- sapply(seqs, function(x) substring(x, (nchar(x) - wd + 1), nchar(x)))
-    nn <- sapply(seqs, function(x) substring(x, 1, (nchar(x) - wd)))
+    res <- sapply(seqs, function(x) substring(x, (base::nchar(x) - wd + 1), base::nchar(x)))
+    nn <- sapply(seqs, function(x) substring(x, 1, (base::nchar(x) - wd)))
     names(res) <- nn
     return(res)
 }
@@ -276,7 +276,7 @@ read.ancseq_paml_rst <- function(rstfile, by="Marginal") {
     res <- character(N)
     for (i in 1:N) {
         ss <- gsub(" ", "", seqs[i])
-        nn <- nchar(ss)
+        nn <- base::nchar(ss)
         res[i] <- substring(ss, nn-seq.leng+1,nn)
         seq.name[i] <- substring(ss, 1, nn-seq.leng)
     }

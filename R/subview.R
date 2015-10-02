@@ -15,8 +15,12 @@
 ##' @export
 ##' @author Guangchuang Yu
 subview <- function(mainview, subview, x, y, width=.1, height=.1) {
-    xrng <- mainview$data$x %>% range %>% diff
-    yrng <- mainview$data$y %>% range %>% diff
+    mapping <- mainview$mapping %>% as.character
+    aes_x <- mapping["x"]
+    aes_y <- mapping["y"]
+    
+    xrng <- mainview$data[, aes_x] %>% range %>% diff
+    yrng <- mainview$data[, aes_y] %>% range %>% diff
 
     grob <- ggplotGrob(subview)
     mainview + annotation_custom(

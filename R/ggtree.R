@@ -6,7 +6,8 @@
 ##' @param mapping aes mapping
 ##' @param showDistance add distance legend, logical
 ##' @param layout one of 'rectangular', 'slanted', 'fan'/'circular', 'radial' or 'unrooted'
-##' @param time_scale logical
+##' @param mrsd most recent sampling date
+##' @param as.Date logical whether using Date class in time tree
 ##' @param yscale y scale
 ##' @param yscale_mapping yscale mapping for category variable
 ##' @param ladderize logical
@@ -33,7 +34,8 @@ ggtree <- function(tr,
                    mapping = NULL,
                    showDistance=FALSE,
                    layout="rectangular",
-                   time_scale = FALSE,
+                   mrsd = NULL,
+                   as.Date=FALSE,
                    yscale="none",
                    yscale_mapping = NULL,
                    ladderize = TRUE, right=FALSE,
@@ -41,6 +43,10 @@ ggtree <- function(tr,
                    ndigits = NULL, ...) {
 
     layout %<>% match.arg(c("rectangular", "slanted", "fan", "circular", "radial", "unrooted"))
+
+    if (is(tr, "r8s") && branch.length == "branch.length") {
+        branch.length = "TREE"
+    }
     
     d <- x <- y <- NULL
     if(yscale != "none") {
@@ -62,7 +68,8 @@ ggtree <- function(tr,
     }
     p <- ggplot(tr, mapping=mapping,
                 layout        = layout,
-                time_scale    = time_scale,
+                mrsd          = mrsd,
+                as.Date       = as.Date,
                 yscale        = yscale,
                 yscale_mapping= yscale_mapping,
                 ladderize     = ladderize,
@@ -81,6 +88,7 @@ ggtree <- function(tr,
     if (showDistance == FALSE) {
         p <- p + theme_tree()
     }
+    attr(p, "mrsd") <- mrsd
     attr(p, "param") <- list(layout        = layout,
                              yscale        = yscale,
                              ladderize     = ladderize,
@@ -446,7 +454,7 @@ collapse <- function(tree_view, node) {
 
     df[sp, "x"] <- NA
     df[sp, "y"] <- NA
-
+    
     root <- which(df$node == df$parent)
     pp <- df[node, "parent"]
     while(any(pp != root)) {
@@ -524,6 +532,17 @@ expand <- function(tree_view, node) {
 ##' @importFrom ggplot2 annotate
 ##' @author Guangchuang Yu
 add_colorbar <- function(p, color, x=NULL, ymin=NULL, ymax=NULL, font.size=4) {
+    mrsd <- attr(p, "mrsd")
+    if (!is.null(mrsd)) {
+        attr(p, "mrsd") <- NULL
+        if (class(p$data$x) == "Date") {
+            p$data$x <- Date2decimal(p$data$x)
+            p$data$branch <- Date2decimal(p$data$branch)
+        }
+        ## annotation segment not support using Date as x-axis
+    }
+
+        
     legend <- do.call("cbind", attr(color, "scale"))
     
     legend[,1] <- round(as.numeric(legend[,1]), 2)

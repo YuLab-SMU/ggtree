@@ -69,13 +69,7 @@ setMethod("gzoom", signature(object="paml_rst"),
               gzoom.phylo(get.tree(object), focus, subtree, widths)
           })
 
-##' @rdname groupOTU-methods
-##' @exportMethod groupOTU
-setMethod("groupOTU", signature(object="paml_rst"),
-          function(object, focus, group_name="group") {
-              groupOTU_(object, focus, group_name)
-          }
-          )
+
 
 ##' @rdname groupClade-methods
 ##' @exportMethod groupClade
@@ -154,25 +148,6 @@ setMethod("get.tree", signature(object = "paml_rst"),
           }
           )
 
-##' @rdname plot-methods
-##' @exportMethod plot
-setMethod("plot", signature(x = "paml_rst"),
-          function(x, layout        = "rectangular",
-                   show.tip.label   = TRUE,
-                   tip.label.size   = 4,
-                   tip.label.hjust  = -0.1,
-                   position         = "branch",
-                   annotation       = "marginal_subs",
-                   annotation.color = "black",
-                   annotation.size  = 3,
-                   ...) {
-              plot.subs(x, layout, show.tip.label,
-                        tip.label.size,
-                        tip.label.hjust,
-                        position, annotation,
-                        annotation.color,
-                        annotation.size, ...)
-          })
 
 
 ##' @rdname get.subs-methods

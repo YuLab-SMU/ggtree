@@ -185,19 +185,48 @@ msaplot <- function(p, fasta, offset=0, width=1, color=NULL, window=NULL){
 ##' @param labels lables for corresponding breaks
 ##' @return tree view
 ##' @importFrom ggplot2 scale_x_continuous
+##' @importFrom ggplot2 scale_x_date
 ##' @export
 ##' @author Guangchuang Yu
 scale_x_ggtree <- function(p, breaks=NULL, labels=NULL) {
+    mrsd <- attr(p, "mrsd")
+    if (!is.null(mrsd) && class(p$data$x) == "Date") {
+        x <- Date2decimal(p$data$x)
+    } else {
+        x <- p$data$x
+    }
     if (is.null(breaks)) {
-        breaks <- hist(p$data$x, breaks=5, plot=FALSE)$breaks
+        breaks <- hist(x, breaks=5, plot=FALSE)$breaks
     }
     m <- attr(p, "mapping")
+
+    
+    if (!is.null(mrsd) &&class(m$to) == "Date") {
+        to <- Date2decimal(m$to)
+    } else {
+        to <- m$to
+    }
+    
+    idx <- which(sapply(breaks, function(x) any(x > m$to)))
+    if (length(idx)) {
+        breaks <- breaks[-idx]
+    }
+    
     if (is.null(labels)) {
         labels <- breaks
     }
-    breaks <- c(breaks, m$to)
-    p + scale_x_continuous(breaks=breaks, labels=c(labels, as.character(m$from)))
+    
+    breaks <- c(breaks, to)
+    labels <- c(labels, gsub("\\.", "", as.character(m$from)))
+    
+    if (!is.null(mrsd) && class(p$data$x) == "Date") {
+        p <- p + scale_x_date(breaks=decimal2Date(breaks), labels)
+    } else {
+        p <- p + scale_x_continuous(breaks=breaks, labels=labels)
+    }
+    return(p)
 }
+
 
 
 ##' view tree and associated matrix
