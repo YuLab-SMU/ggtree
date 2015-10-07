@@ -56,8 +56,12 @@ read.hyphy <- function(nwk, ancseq, tip.fasfile=NULL) {
 
     tr <- read.tree(nwk)
     nl <- tr$node.label
-    ##  root node may missing
-    ## most of the time it was Node1, but also canbe Node0.
+    ## root node may missing, which was supposed to be 'Node1'
+    ##
+    ## from a user's file, which is 'Node0', but it seems the file is not from the output of HYPHY.
+    ##
+    ## I am not sure. But it's safe to use "label[!label %in% nl]" instead of just assign it to "Node1".
+    ##
     ## nl[nl == ""] <- "Node1"
     nl[nl == ""] <- label[!label %in% nl]
     
