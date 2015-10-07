@@ -17,27 +17,50 @@
 ##' read.hyphy(nwk, ancseq)
 read.hyphy <- function(nwk, ancseq, tip.fasfile=NULL) {
     anc <- scan(ancseq, what="", sep="\n", quiet=TRUE)
-    end <- grep("END;", anc)
+    end <- grep("END;", anc, ignore.case=TRUE)
     
-    seq.start <- grep("MATRIX", anc)
+    seq.start <- grep("MATRIX", anc, ignore.case=TRUE)
     seq.end   <- end[end > seq.start][1]
     seq       <- anc[(seq.start+1):(seq.end-1)]
-    seq       <- gsub(" ", "", seq)
+    seq       <- seq[seq != ";"]
+    seq       <- seq[seq != ""]
 
-    label.start <- grep("TAXLABELS", anc)
-    label.end   <- end[end > label.start][1]
-    label       <- anc[(label.start+1):(label.end-1)]
+    ## some files may only contains sequences (should have TAXALABELS block that contains seq names).
+    ## some may contains sequence name like phylip format in MATRIX block (no need to have TAXALABELS block).
+    ##
+    ## extract sequence name if available
+    if (all(grepl("\\s+", seq))) {
+        ## if contains blank space, may contains seq name
+        sn <- gsub("(\\w*)\\s.*", "\\1", seq)
+    }
     
-    label <- sub("^\t+", "", label)
-    label <- sub("\\s*;$", "", label)
-    label <- unlist(strsplit(label, split="\\s+"))
-    label <- gsub("'|\"", "", label)
-
+    seq <- gsub("\\w*\\s+", "", seq)
+    
+    label.start <- grep("TAXLABELS", anc, ignore.case = TRUE)
+    if (length(label.start) == 0) {
+        if (all(sn == "")) {
+            stop("taxa labels is not available...")
+        }
+        label <- sn
+    } else {
+        label.end   <- end[end > label.start][1]
+        label       <- anc[(label.start+1):(label.end-1)]
+        
+        label <- sub("^\t+", "", label)
+        label <- sub("\\s*;$", "", label)
+        label <- unlist(strsplit(label, split="\\s+"))
+        label <- gsub("'|\"", "", label)
+    }
+    
     names(seq) <- label
 
     tr <- read.tree(nwk)
     nl <- tr$node.label
-    nl[nl == ""] <- "Node1"
+    ##  root node may missing
+    ## most of the time it was Node1, but also canbe Node0.
+    ## nl[nl == ""] <- "Node1"
+    nl[nl == ""] <- label[!label %in% nl]
+    
     tr$node.label <- nl
 
     type <- get_seqtype(seq)

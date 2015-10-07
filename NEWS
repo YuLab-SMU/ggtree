@@ -1,5 +1,6 @@
 CHANGES IN VERSION 1.1.21
 ------------------------
+ o support hyphy output of ancestral sequences that is in phylip sequential format (no TAXALABELS block available) <2015-10-07, Wed>
  o fixed bug in geom_tiplab when x contains NA (eg, removing by collapse function) <2015-10-01, Thu>
  o new implementation of geom_hilight, a truly geom layer function <2015-09-10, Thu>
  
