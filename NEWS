@@ -1,3 +1,33 @@
+CHANGES IN VERSION 1.1.20
+------------------------
+ o fixed bug in geom_tiplab when x contains NA (eg, removing by collapse function) <2015-10-01, Thu>
+ o bug fixed in %add2%, if node available use node, otherwise use label <2015-09-04, Fri>
+ o bug fixed of subview for considering aes mapping of x and y <2015-09-03, Thu>
+ o update vignette by adding r8s example <2015-09-02, Wed>
+ o defined r8s class, see http://loco.biosci.arizona.edu/r8s/  <2015-09-02, Wed>
+   + add r8s sample files
+   + read.r8s, parser function
+   + fortify method
+   + plot, get.tree, get.fields, groupOTU, groupClade, scale_color, gzoom and show methods
+ o bug fixed in fortify.multiPhylo, convert df$.id to factor of levels=names(multiPhylo_object) <2015-09-02, Wed>   
+ o update scale_x_ggtree to support Date as x-axis <2015-09-01, Tue>
+ o add mrsd parameter for user to specify 'most recent sampling date' for time tree <2015-09-01, Tue>
+   - remove 'time_scale' parameter.
+ o defined 'raxml' class for RAxML bootstrapping analysis result <2015-09-01, Tue>
+   + see http://sco.h-its.org/exelixis/web/software/raxml/hands_on.html
+   + read.raxml, parser function
+   + plot, get.tree, get.fields, groupOTU, groupClade, scale_color, gzoom and show methods
+   + fortify.raxml method
+ o bug fixed in edgeNum2nodeNum for jplace parsing jplace file <2015-09-01, Tue>
+ 
+CHANGES IN VERSION 1.1.19
+------------------------
+ o use fortify instead of fortify.phylo in fortify.multiPhylo, 
+   so that multiPhylo can be a list of beast/codeml or other supported objects. <2015-08-31, Mon>
+ o support multiPhylo object, should use + facet_wrap or + facet_grid <2015-08-31, Mon>
+ o remove dependency of EBImage and phytools to speedup the installation process of ggtree <2015-08-31, Mon>
+   + these two packages is not commonly used, and will be loaded automatically when needed.
+ 
 CHANGES IN VERSION 1.1.18
 ------------------------
  o layout name change to 'rectangular', 'slanted', 'circular'/'fan' for phylogram and cladogram (if branch.length = 'none')
@@ -112,7 +142,7 @@ CHANGES IN VERSION 1.1.2
  o add examples folder in inst that contains sample data <2015-04-29, Wed>
  o update gplot, now rowname of heatmap will not be displayed <2015-04-28, Tue>
  o add line break if substitution longer than 50 character <2015-04-28, Tue>
- o upport calculating branch for time scale tree <2015-04-28, Tue>
+ o support calculating branch for time scale tree <2015-04-28, Tue>
  o remove parsing tip sequence from mlb and mlc file <2015-04-28, Tue>
  o remove tip.fasfile in read.paml_rst for rstfile already contains tip sequence <2015-04-28, Tue>
  o scale_color accepts user specific interval and output contains 'scale' attribute that can be used for adding legend <2015-04-28, Tue>
