@@ -13,6 +13,8 @@
 ##' read.beast(file)
 read.beast <- function(file) {
     stats <- read.stats_beast(file)
+    stats$node %<>% gsub("\"*'*", "", .)
+    
     fields <- sub("_lower|_upper", "", names(stats)) %>% unique
     fields %<>% `[`(.!="node")
 
@@ -211,10 +213,12 @@ read.stats_beast <- function(file) {
     ##                                                ##
     ####################################################
     treeinfo <- fortify.phylo(phylo)
-    label2 <- c(treeinfo[treeinfo$isTip, "label"],
-                root:(root+nnode-1))
-    node <- label2[match(nn, treeinfo$label)]
-    
+    ## label2 <- c(treeinfo[treeinfo$isTip, "label"],
+    ##             root:(root+nnode-1))
+    ## node <- label2[match(nn, treeinfo$label)]
+
+    node <- treeinfo$node[match(nn, treeinfo$label)]
+
     ## stats <- unlist(strsplit(tree, "\\["))[-1]
     ## stats <- sub(":.+$", "", stats
     stats <- strsplit(tree, ":") %>% unlist
