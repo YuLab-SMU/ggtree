@@ -193,9 +193,13 @@ getSubsLabel <- function(seqs, A, B, translate, removeGap) {
         AA <- seqA %>% seq2codon %>% codon2AA
         BB <- seqB %>% seq2codon %>% codon2AA
     } else {
-        n <- nchar(seqA) ## should equals to nchar(seqB)
-        AA <- substring(seqA, 1:n, 1:n)
-        BB <- substring(seqB, 1:n, 1:n)
+        ## strsplit is faster than substring
+        ##
+        ## n <- nchar(seqA) ## should equals to nchar(seqB)
+        ## AA <- substring(seqA, 1:n, 1:n)
+        ## BB <- substring(seqB, 1:n, 1:n)
+        AA <- strsplit(seqA, split="") %>% unlist
+        BB <- strsplit(seqB, split="") %>% unlist
     }
     
     ii <- which(AA != BB)
