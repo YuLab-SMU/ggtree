@@ -34,6 +34,8 @@ only needed if you want to override he plot defaults.}
 
 \item{check_overlap}{if TRUE, text that overlaps previous text in the same layer will not be plotted}
 
+\item{na.rm}{logical}
+
 \item{show.legend}{logical}
 
 \item{inherit.aes}{logical}

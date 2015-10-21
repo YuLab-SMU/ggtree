@@ -5,7 +5,7 @@
 \title{geom_text2}
 \usage{
 geom_text2(mapping = NULL, data = NULL, stat = "identity",
-  position = "identity", parse = FALSE, show.legend = NA,
+  position = "identity", parse = FALSE, na.rm = TRUE, show.legend = NA,
   inherit.aes = TRUE, ..., nudge_x = 0, nudge_y = 0,
   check_overlap = FALSE)
 }
@@ -20,6 +20,8 @@ only needed if you want to override he plot defaults.}
 \item{position}{The position adjustment to use for overlapping points on this layer}
 
 \item{parse}{if TRUE, the labels will be passd into expressions}
+
+\item{na.rm}{logical}
 
 \item{show.legend}{logical}
 

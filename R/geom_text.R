@@ -11,7 +11,7 @@
 ##' \link[ggplot2]{geom_text}
 ##' @author Guangchuang Yu
 geom_text2 <- function(mapping = NULL, data = NULL, stat = "identity",
-  position = "identity", parse = FALSE, show.legend = NA, inherit.aes = TRUE,
+  position = "identity", parse = FALSE, na.rm=TRUE, show.legend = NA, inherit.aes = TRUE,
   ..., nudge_x = 0, nudge_y = 0, check_overlap = FALSE)
 {
   if (!missing(nudge_x) || !missing(nudge_y)) {
@@ -23,19 +23,20 @@ geom_text2 <- function(mapping = NULL, data = NULL, stat = "identity",
   }
 
   layer(
-    data = data,
-    mapping = mapping,
-    stat = stat,
-    geom = GeomTextGGtree,
-    position = position,
-    show.legend = show.legend,
-    inherit.aes = inherit.aes,
-    params = list(
-      parse = parse,
-      check_overlap = check_overlap,
-      ...
-    )
-  )
+      data = data,
+      mapping = mapping,
+      stat = stat,
+      geom = GeomTextGGtree,
+      position = position,
+      show.legend = show.legend,
+      inherit.aes = inherit.aes,
+      params = list(
+          parse = parse,
+          check_overlap = check_overlap,
+          na.rm = na.rm,
+          ...
+          )
+      )
 }
 
 ##' text annotations
@@ -47,6 +48,7 @@ geom_text2 <- function(mapping = NULL, data = NULL, stat = "identity",
 ##' @param stat The statistical transformation to use on the data for this layer
 ##' @param position The position adjustment to use for overlapping points on this layer
 ##' @param parse if TRUE, the labels will be passd into expressions
+##' @param na.rm logical
 ##' @param show.legend logical
 ##' @param inherit.aes logical
 ##' @param ... other arguments passed on to 'layer'

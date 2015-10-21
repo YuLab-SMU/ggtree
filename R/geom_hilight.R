@@ -11,38 +11,41 @@
 ##' @export
 ##' @author Guangchuang Yu
 hilight <- function(tree_view, node, fill="steelblue", alpha=0.5, ...) {
-    df <- tree_view$data
-    sp <- get.offspring.df(df, node)
-    sp.df <- df[c(sp, node),]
-    x <- sp.df$x
-    y <- sp.df$y
-    tree_view + annotate("rect", xmin=min(x)-df[node, "branch.length"]/2,
-                         xmax=max(x), ymin=min(y)-0.5, ymax=max(y)+0.5,
-                         fill = fill, alpha = alpha, ...)
+    tree_view + geom_hilight(node, fill, alpha, ...)
+    ## df <- tree_view$data
+    ## sp <- get.offspring.df(df, node)
+    ## sp.df <- df[c(sp, node),]
+    ## x <- sp.df$x
+    ## y <- sp.df$y
+    ## tree_view + annotate("rect", xmin=min(x)-df[node, "branch.length"]/2,
+    ##                      xmax=max(x), ymin=min(y)-0.5, ymax=max(y)+0.5,
+    ##                      fill = fill, alpha = alpha, ...)
 }
 
 ##' layer of hilight clade with rectangle
 ##'
 ##' 
 ##' @title geom_hilight
+##' @param node selected node to hilight
+##' @param fill color fill
+##' @param alpha alpha (transparency)
 ##' @param mapping aes mapping
 ##' @param data data
 ##' @param stat stat layer
 ##' @param position position
 ##' @param show.legend logical
+##' @param na.rm logical
 ##' @param inherit.aes logical
-##' @param node selected node to hilight
-##' @param fill color fill
-##' @param alpha alpha (transparency)
 ##' @param ... additional parameter
 ##' @return ggplot2
 ##' @export
 ##' @importFrom ggplot2 aes_
 ##' @importFrom ggplot2 GeomRect
 ##' @author Guangchuang Yu
-geom_hilight <- function(mapping=NULL, data=NULL, stat="hilight",
-                         position="identity", show.legend=NA, inherit.aes=FALSE,
-                         node, fill="steelblue", alpha=.5, ...) {
+geom_hilight <- function(node, fill="steelblue", alpha=.5,
+                         mapping=NULL, data=NULL, stat="hilight",
+                         position="identity", show.legend=NA,
+                         na.rm=FALSE, inherit.aes=FALSE, ...) {
     default_aes <- aes_(x=~x, y=~y, node=~node, parent=~parent, branch.length=~branch.length)
     if (is.null(mapping)) {
         mapping <- default_aes
@@ -60,6 +63,7 @@ geom_hilight <- function(mapping=NULL, data=NULL, stat="hilight",
         inherit.aes = inherit.aes,
         params = list(node=node,
             fill=fill, alpha=alpha,
+            na.rm = na.rm,
             ...)
         )
     

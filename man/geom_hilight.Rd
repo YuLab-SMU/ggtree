@@ -5,15 +5,21 @@
 \alias{stat_hilight}
 \title{geom_hilight}
 \usage{
-geom_hilight(mapping = NULL, data = NULL, stat = "hilight",
-  position = "identity", show.legend = NA, inherit.aes = FALSE, node,
-  fill = "steelblue", alpha = 0.5, ...)
+geom_hilight(node, fill = "steelblue", alpha = 0.5, mapping = NULL,
+  data = NULL, stat = "hilight", position = "identity",
+  show.legend = NA, na.rm = FALSE, inherit.aes = FALSE, ...)
 
 stat_hilight(mapping = NULL, data = NULL, geom = "rect",
   position = "identity", node, show.legend = NA, inherit.aes = FALSE,
   fill, alpha, ...)
 }
 \arguments{
+\item{node}{selected node to hilight}
+
+\item{fill}{color fill}
+
+\item{alpha}{alpha (transparency)}
+
 \item{mapping}{aes mapping}
 
 \item{data}{data}
@@ -24,13 +30,9 @@ stat_hilight(mapping = NULL, data = NULL, geom = "rect",
 
 \item{show.legend}{logical}
 
+\item{na.rm}{logical}
+
 \item{inherit.aes}{logical}
-
-\item{node}{selected node to hilight}
-
-\item{fill}{color fill}
-
-\item{alpha}{alpha (transparency)}
 
 \item{...}{additional parameter}
 
