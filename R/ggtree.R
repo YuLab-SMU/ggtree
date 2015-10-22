@@ -54,6 +54,7 @@ ggtree <- function(tr,
         layout <- "slanted"
     }
     if (layout == "fan" || layout == "circular") {
+        layout <- "fan"
         type <- "circular"
     } else if (layout == "radial") {
         layout <- "slanted"
