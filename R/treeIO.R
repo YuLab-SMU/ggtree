@@ -557,7 +557,7 @@ as.data.frame.phylo_ <- function(x, layout="rectangular",
         idx <- match(1:N, order(res$y))
         angle <- -360/(1+N) * (1:N+1)
         angle <- angle[idx]
-        res$angle <- angle
+        res$angle <- angle + 90
     } 
     
     return(res)

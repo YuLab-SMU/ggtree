@@ -1,5 +1,7 @@
 CHANGES IN VERSION 1.3.1
 ------------------------
+ o change angle to angle + 90, so that label will in radial direction <2015-10-22, Thu>
+   + see https://github.com/GuangchuangYu/ggtree/issues/17
  o na.rm should be always passed to layer(), fixed it in geom_hilight and geom_text2 <2015-10-21, Wed>
    + see https://github.com/hadley/ggplot2/issues/1380
  o matching beast stats with tree using internal node number instead of label <2015-10-20, Tue>
