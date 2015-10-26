@@ -63,8 +63,32 @@ setClass("r8s",
              treetext  = "character",
              phylo     = "multiPhylo",
              extraInfo = "data.frame"
-             )
          )
+         )
+
+
+##' Class "apeBootstrap"
+##' This class stores ape bootstrapping analysis result
+##'
+##'
+##' @name apeBootstrap-class
+##' @docType class
+##' @slot phylo phylo object of treetext
+##' @slot fields available features
+##' @slot bootstrap bootstrap value
+##' @slot extraInfo extra information
+##' @exportClass apeBootstrap
+##' @author Guangchuang Yu \url{http://ygc.name}
+##' @keywords classes
+setClass("apeBootstrap",
+         representation = representation(
+             phylo = "phylo",
+             fields = "character",
+             bootstrap = "data.frame",
+             extraInfo = "data.frame"
+         )
+         )
+
 
 ##' Class "raxml"
 ##' This class stores RAxML bootstrapping analysis result
@@ -84,12 +108,9 @@ setClass("r8s",
 setClass("raxml",
          representation = representation(
              file       = "character",
-             fields     = "character",
-             treetext   = "character",
-             phylo      = "phylo",
-             bootstrap  = "data.frame",
-             extraInfo  = "data.frame"
-             )
+             treetext   = "character"
+         ),
+         contains = "apeBootstrap"
          )
 
 

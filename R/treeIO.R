@@ -563,6 +563,7 @@ as.data.frame.phylo_ <- function(x, layout="rectangular",
     return(res)
 }
 
+
 ##' @method fortify raxml
 ##' @export
 fortify.raxml <- function(model, data, layout= "rectangular",
@@ -571,6 +572,10 @@ fortify.raxml <- function(model, data, layout= "rectangular",
     df <- merge(df, model@bootstrap, by.x="node", by.y="node", all.x=TRUE)
     append_extraInfo(df, model)
 }
+
+##' @method fortify apeBootstrap
+##' @export
+fortify.apeBootstrap <- fortify.raxml
 
 
 ##' @method fortify multiPhylo
