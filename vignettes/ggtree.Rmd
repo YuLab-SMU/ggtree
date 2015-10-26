@@ -34,6 +34,7 @@ library("ape")
 library("ggplot2")
 library("gridExtra")
 library("ggtree")
+library("phangorn")
 ```
 
 
@@ -95,14 +96,17 @@ ggtree(tree, branch.length="none")
 
 `r Githubpkg("GuangchuangYu/ggtree")` defined several S4 classes to store phylogenetic object and its associated annotation, including:
 
++ `apeBootstrap`
 + `beast`
 + `codeml_mlc`
 + `codeml`
 + `hyphy`
 + `jplace`
 + `paml_rst`
++ `phangorn`
 + `raxml`
 + `r8s`
+
 
 
 In addition, it also supports _`phylo`_ (defined by `r CRANpkg("ape")`[@paradis_ape_2004]) and _`phylo4`_ (defined by `r CRANpkg("phylobase")`)
@@ -191,7 +195,7 @@ p + geom_text(aes(label=label), size=3, color="purple", hjust=-0.3)
 
 For _`circular`_ and _`unrooted`_ layout, `r Githubpkg("GuangchuangYu/ggtree")` supports rotating node labels according to the angles of the branches.
 ```{r fig.width=6, fig.height=6, warning=FALSE, fig.align="center"}
-ggtree(tree, layout="circular") + geom_text(aes(label=label, angle=angle), size=3, color="purple", vjust=-0.3)
+ggtree(tree, layout="circular") + geom_text(aes(label=label, angle=angle), size=3, color="purple", hjust=-0.3)
 ```
 
 
@@ -445,16 +449,19 @@ pp %>% phylopic("67382184-5135-4faa-8e98-eadff02c3e8a", color="#86B875", alpha=.
 ![](../inst/extdata/phylopic2.png)
 
 # Tree annotation with output from evolution software
-In `r Githubpkg("GuangchuangYu/ggtree")`, we implemented several functions to parse the output from [PAML](http://abacus.gene.ucl.ac.uk/software/paml.html)[@yang_paml_2007], [HYPHY](http://hyphy.org/w/index.php/Main_Page)[@pond_hyphy_2005], [EPA](http://sco.h-its.org/exelixis/web/software/epa/index.html)[@berger_EPA_2011], [PPLACER](http://matsen.fhcrc.org/pplacer/)[@matsen_pplacer_2010] and [BEAST](http://beast2.org/)[@bouckaert_beast_2014] and defined several classes to store phylogenetic object and associated annotation.
+In `r Githubpkg("GuangchuangYu/ggtree")`, we implemented several functions to parse the output from `r CRANpkg("ape")`, `r CRANpkg("phangorn")`, [r8s](http://loco.biosci.arizona.edu/r8s/), [RAxML](http://sco.h-its.org/exelixis/web/software/raxml/), [PAML](http://abacus.gene.ucl.ac.uk/software/paml.html)[@yang_paml_2007], [HYPHY](http://hyphy.org/w/index.php/Main_Page)[@pond_hyphy_2005], [EPA](http://sco.h-its.org/exelixis/web/software/epa/index.html)[@berger_EPA_2011], [PPLACER](http://matsen.fhcrc.org/pplacer/)[@matsen_pplacer_2010] and [BEAST](http://beast2.org/)[@bouckaert_beast_2014] and defined several classes to store phylogenetic object and associated annotation.
 
 Classes include:
 
++ _`apeBootstrap`_ for bootstrap analysis of `ape::boot.phylo()`.
++ _`raxml`_ for bootstrap analysis obtained from [RAxML](http://sco.h-its.org/exelixis/web/software/raxml/).
 + _`paml_rst`_ for _`rst`_ file obtained by [PAML](http://abacus.gene.ucl.ac.uk/software/paml.html)[@yang_paml_2007], including _`BASEML`_ and _`CODEML`_.
 + _`codeml_mlc`_ for _`mlc`_ file obtained by _`CODEML`_.
 + _`codeml`_ for interpreting _`rst`_ and _`mlc`_ files obtained by _`CODEML`_.
 + _`hyphy`_ for [HYPHY](http://hyphy.org/w/index.php/Main_Page)[@pond_hyphy_2005] output.
 + _`jplace`_ for [EPA](http://sco.h-its.org/exelixis/web/software/epa/index.html)[@berger_EPA_2011] and [PPLACER](http://matsen.fhcrc.org/pplacer/)[@matsen_pplacer_2010] output.
-+ _`beast`_ for [BEAST](http://beast2.org/)[@bouckaert_beast_2014]
++ _`beast`_ for [BEAST](http://beast2.org/)[@bouckaert_beast_2014].
++ _`r8s`_ for [r8s](loco.biosci.arizona.edu/r8s/).
 
 _`jplace`_ class is also designed to store user specific annotation data, and serves as a standard format for tree annotation within the `r Githubpkg("GuangchuangYu/ggtree")` package. Please refer to the __[`jplace file format`](#jplace-file-format)__ session.
 
@@ -480,6 +487,24 @@ plot(beast, annotation="height", ndigits=3, annotation.color="red")
 ```
 
 
+## annotating tree with phangorn output
+
+```{r results='hide', message=FALSE}
+library(phangorn)
+treefile <- system.file("extdata", "pa.nwk", package="ggtree")
+tre <- read.tree(treefile)
+tipseqfile <- system.file("extdata", "pa.fas", package="ggtree")
+tipseq <- read.phyDat(tipseqfile,format="fasta")
+fit <- pml(tre, tipseq, k=4)
+fit <- optim.pml(fit, optNni=FALSE, optBf=T, optQ=T,
+                 optInv=T, optGamma=T, optEdge=TRUE,
+                 optRooted=FALSE, model = "GTR")
+```
+
+```{r fig.width=12, fig.height=10, width=60, warning=FALSE, fig.align="center"}
+phangorn <- phyPML(fit, type="ml")
+ggtree(phangorn) + geom_text(aes(label=AA_subs))
+```
 
 ## annotating tree with PAML output
 
@@ -588,6 +613,22 @@ hy
 
 ```{r fig.width=12, fig.height=10, width=60, warning=FALSE, fig.align="center"}
 plot(hy, annotation="AA_subs")
+```
+
+
+## annotating tree with ape bootstraping analysis
+
+```{r results='hide', message=FALSE}
+library(ape)
+data(woodmouse)
+d <- dist.dna(woodmouse)
+tr <- nj(d)
+bp <- boot.phylo(tr, woodmouse, function(xx) nj(dist.dna(xx)))
+```
+
+```{r fig.width=6, fig.height=6, warning=FALSE, fig.align="center"}
+tree <- apeBoot(tr, bp)
+ggtree(tree) + geom_label(aes(label=bootstrap)) + geom_tiplab()
 ```
 
 

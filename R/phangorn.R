@@ -18,6 +18,8 @@ phyPML <- function(pmlTree, type = "ml") {
         n <- length(tr$tip.label)
         nl <- (n+1):(2*n-2)
         tr$node.label <- as.character(nl)
+    } else {
+        names(sequences) <- c(tr$tip.label, tr$node.label)
     }
     
     seq_type <- get_seqtype(sequences)
@@ -130,7 +132,9 @@ pmlToSeqString <- function(pml, type, includeAncestor=TRUE) {
     if (includeAncestor == FALSE) {
         phyDat <- pml$data
     } else {
-        requireNamespace("phangorn")
+        pkg <- "phangorn"
+        require(pkg, character.only = TRUE)
+        ## requireNamespace("phangorn")
         ancestral.pml <- eval(parse(text="phangorn::ancestral.pml"))
         phyDat <- ancestral.pml(pml, type)
     }

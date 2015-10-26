@@ -1,5 +1,6 @@
 CHANGES IN VERSION 1.3.2
 ------------------------
+ o update vignette, add example of ape bootstrap and phangorn ancestral sequences <2015-10-26, Mon>
  o add support of ape bootstrap analysis <2015-10-26, Mon>
    see https://github.com/GuangchuangYu/ggtree/issues/20
  o add support of ancestral sequences inferred by phangorn <2015-10-26, Mon>

@@ -213,12 +213,15 @@ read.stats_beast <- function(file) {
     ##                                                ##
     ####################################################
     treeinfo <- fortify.phylo(phylo)
-    ## label2 <- c(treeinfo[treeinfo$isTip, "label"],
-    ##             root:(root+nnode-1))
-    ## node <- label2[match(nn, treeinfo$label)]
 
-    node <- treeinfo$node[match(nn, treeinfo$label)]
-
+    if (any(grepl("TRANSLATE", beast, ignore.case = TRUE))) {
+        label2 <- c(treeinfo[treeinfo$isTip, "label"],
+                    root:(root+nnode-1))
+        node <- label2[match(nn, treeinfo$label)]
+    } else {
+        node <- as.character(treeinfo$node[match(nn, treeinfo$label)])
+    }
+    
     ## stats <- unlist(strsplit(tree, "\\["))[-1]
     ## stats <- sub(":.+$", "", stats
     stats <- strsplit(tree, ":") %>% unlist
