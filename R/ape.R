@@ -51,6 +51,7 @@ rtree <- ape::rtree
 ##' @param phylo phylo
 ##' @param boot bootstrap values
 ##' @return an instance of 'apeBootstrap'
+##' @importFrom ape Nnode
 ##' @export
 ##' @author Guangchuang Yu
 apeBoot <- function(phylo, boot) {
@@ -75,13 +76,6 @@ setMethod("show", signature(object = "apeBootstrap"),
 
 
 
-##' @rdname groupOTU-methods
-##' @exportMethod groupOTU
-setMethod("groupOTU", signature(object="apeBootstrap"),
-          function(object, focus, group_name="group") {
-              groupOTU_(object, focus, group_name)
-          }
-          )
 
 ##' @rdname groupClade-methods
 ##' @exportMethod groupClade

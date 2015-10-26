@@ -356,6 +356,11 @@ merge_phylo_anno.paml_rst <- function(df, model) {
 }
 
 
+##' @method fortify phangorn
+##' @export
+fortify.phangorn <- fortify.paml_rst
+
+
 ##' @method fortify hyphy
 ##' @export
 fortify.hyphy <- fortify.paml_rst
