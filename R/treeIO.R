@@ -557,13 +557,14 @@ as.data.frame.phylo_ <- function(x, layout="rectangular",
 
     ## add branch mid position
     res <- calculate_branch_mid(res)
-    
-    if (layout == "circular") {
-        idx <- match(1:N, order(res$y))
-        angle <- -360/(1+N) * (1:N+1)
-        angle <- angle[idx]
-        res$angle <- angle + 90
-    } 
+
+    ## angle for all layout, if 'rectangular', user use coord_polar, can still use angle
+    ## if (layout == "circular") {
+    idx <- match(1:N, order(res$y))
+    angle <- -360/(1+N) * (1:N+1)
+    angle <- angle[idx]
+    res$angle <- angle + 90
+    ## } 
     
     return(res)
 }

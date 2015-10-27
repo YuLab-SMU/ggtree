@@ -1,3 +1,7 @@
+CHANGES IN VERSION 1.3.3
+------------------------
+ o add `angle` for also rectangular, so that it will be available for layout='rectangular' following by coord_polar() <2015-10-27, Tue>
+ 
 CHANGES IN VERSION 1.3.2
 ------------------------
  o update vignette, add example of ape bootstrap and phangorn ancestral sequences <2015-10-26, Mon>
