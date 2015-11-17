@@ -1,3 +1,7 @@
+CHANGES IN VERSION 1.3.4
+------------------------
+ o support NHX (New Hampshire X) format via read.nhx function <2015-11-17, Tue>
+ 
 CHANGES IN VERSION 1.3.3
 ------------------------
  o support color=NULL in gheatmap, then no colored line will draw within the heatmap <2015-10-30, Fri>

@@ -439,7 +439,9 @@ as.phylo.phylo4 <- function(phylo4) {
     return(phylo)
 }
 
-
+##' fortify a phylo to data.frame
+##'
+##' 
 ##' @rdname fortify
 ##' @title fortify
 ##' @param model phylo object
@@ -493,6 +495,9 @@ fortify.phylo <- function(model, data, layout="rectangular",
     return(df)
 }
 
+##' convert phylo to data.frame
+##'
+##' 
 ##' @title as.data.frame
 ##' @param x phylo object
 ##' @param row.names omitted here
@@ -567,6 +572,15 @@ as.data.frame.phylo_ <- function(x, layout="rectangular",
     ## } 
     
     return(res)
+}
+
+##' @method fortify nhx
+##' @export
+fortify.nhx <- function(model, data, layout= "rectangular",
+                        ladderize=TRUE, right=FALSE, mrsd=NULL, ...) {
+    df <- fortify(get.tree(model), layout=layout, ladderize=ladderize, right=right, mrsd=mrsd, ...)
+    df <- merge(df, model@nhx_tags, by.x="node", by.y="node", all.x=TRUE)
+    append_extraInfo(df, model)
 }
 
 

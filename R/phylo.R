@@ -1,10 +1,13 @@
+##' reroot a tree
+##'
+##' 
 ##' @rdname reroot-methods
 ##' @exportMethod reroot
 setMethod("reroot", signature(object="phylo"),
           function(object, node, ...) {
               pos <- 0.5* object$edge.length[which(object$edge[,2] == node)]
 
-              ##' @importFrom phytools reroot
+              ## @importFrom phytools reroot
               phytools <- "phytools"
               require(phytools, character.only = TRUE)
               

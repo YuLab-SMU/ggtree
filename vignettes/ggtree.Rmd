@@ -102,6 +102,7 @@ ggtree(tree, branch.length="none")
 + `codeml`
 + `hyphy`
 + `jplace`
++ `nhx`
 + `paml_rst`
 + `phangorn`
 + `raxml`
@@ -449,7 +450,7 @@ pp %>% phylopic("67382184-5135-4faa-8e98-eadff02c3e8a", color="#86B875", alpha=.
 ![](../inst/extdata/phylopic2.png)
 
 # Tree annotation with output from evolution software
-In `r Githubpkg("GuangchuangYu/ggtree")`, we implemented several functions to parse the output from `r CRANpkg("ape")`, `r CRANpkg("phangorn")`, [r8s](http://loco.biosci.arizona.edu/r8s/), [RAxML](http://sco.h-its.org/exelixis/web/software/raxml/), [PAML](http://abacus.gene.ucl.ac.uk/software/paml.html)[@yang_paml_2007], [HYPHY](http://hyphy.org/w/index.php/Main_Page)[@pond_hyphy_2005], [EPA](http://sco.h-its.org/exelixis/web/software/epa/index.html)[@berger_EPA_2011], [PPLACER](http://matsen.fhcrc.org/pplacer/)[@matsen_pplacer_2010] and [BEAST](http://beast2.org/)[@bouckaert_beast_2014] and defined several classes to store phylogenetic object and associated annotation.
+In `r Githubpkg("GuangchuangYu/ggtree")`, we implemented several functions to parse the output from `r CRANpkg("ape")`, `r CRANpkg("phangorn")`, [r8s](http://loco.biosci.arizona.edu/r8s/), [RAxML](http://sco.h-its.org/exelixis/web/software/raxml/), [PAML](http://abacus.gene.ucl.ac.uk/software/paml.html)[@yang_paml_2007], [HYPHY](http://hyphy.org/w/index.php/Main_Page)[@pond_hyphy_2005], [EPA](http://sco.h-its.org/exelixis/web/software/epa/index.html)[@berger_EPA_2011], [PPLACER](http://matsen.fhcrc.org/pplacer/)[@matsen_pplacer_2010], [PHYLDOG](http://pbil.univ-lyon1.fr/software/phyldog/)[@boussau_genome-scale_2013], [RevBayes](http://revbayes.github.io/intro.html)[@hohna_probabilistic_2014] and [BEAST](http://beast2.org/)[@bouckaert_beast_2014] and defined several classes to store phylogenetic object and associated annotation. 
 
 Classes include:
 
@@ -462,6 +463,8 @@ Classes include:
 + _`jplace`_ for [EPA](http://sco.h-its.org/exelixis/web/software/epa/index.html)[@berger_EPA_2011] and [PPLACER](http://matsen.fhcrc.org/pplacer/)[@matsen_pplacer_2010] output.
 + _`beast`_ for [BEAST](http://beast2.org/)[@bouckaert_beast_2014].
 + _`r8s`_ for [r8s](loco.biosci.arizona.edu/r8s/).
++ _`nhx`_ for NHX (New Hampshire eXtended format) file that is commonly used in phylogenetics software (e.g. [PHYLDOG](http://pbil.univ-lyon1.fr/software/phyldog/)[@boussau_genome-scale_2013], [RevBayes](http://revbayes.github.io/intro.html)[@hohna_probabilistic_2014], *etc*.)
+
 
 _`jplace`_ class is also designed to store user specific annotation data, and serves as a standard format for tree annotation within the `r Githubpkg("GuangchuangYu/ggtree")` package. Please refer to the __[`jplace file format`](#jplace-file-format)__ session.
 
@@ -662,6 +665,18 @@ User can also view 3 trees simultaneously.
 ggtree(get.tree(r8s)) + facet_wrap(~.id, scales="free_x")
 ```
 
+## annotating NHX tree
+
+NHX (New Hampshire eXtended) format is commonly used in phylogenetics software (e.g. [PHYLDOG](http://pbil.univ-lyon1.fr/software/phyldog/)[@boussau_genome-scale_2013], [RevBayes](http://revbayes.github.io/intro.html)[@hohna_probabilistic_2014], *etc*.)
+
+```{r}
+nhxfile = system.file("extdata", "ADH.nhx", package="ggtree")
+nhx <- read.nhx(nhxfile)
+ggtree(nhx) + geom_tiplab() + geom_point(aes(color=S)) + 
+    theme(legend.position="right") +
+    geom_text(aes(label=branch.length, x=branch), vjust=-.5) + 
+    xlim(NA, 0.3)
+```
 
 
 ## annotating tree with EPA and PPLACER output

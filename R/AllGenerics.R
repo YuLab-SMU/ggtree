@@ -26,7 +26,7 @@ if ( !isGeneric("plot") )
 ##' @name reroot
 ##' @rdname reroot-methods
 ##' @title reroot method
-##' @param object one of \code{phylo}, \code{jplace}, \code{beast}, \code{hyphy}, \code{codeml}, \code{codeml_mlc}, \code{paml_rst} object
+##' @param object one of \code{phylo}, \code{nhx}, \code{phangorn}, \code{jplace}, \code{beast}, \code{hyphy}, \code{codeml}, \code{codeml_mlc}, \code{paml_rst} object
 ##' @param node internal nnode number
 ##' @param ... additional parameter
 ##' @return tree object
@@ -37,7 +37,7 @@ setGeneric("reroot", function(object, node, ...) standardGeneric("reroot"))
 ##' @name get.tree
 ##' @rdname get.tree-methods
 ##' @title get.tree method
-##' @param object one of \code{phylo}, \code{jplace}, \code{beast}, \code{hyphy}, \code{codeml}, \code{codeml_mlc}, \code{paml_rst} object
+##' @param object one of \code{phylo}, \code{jplace}, \code{nhx}, \code{phangorn}, \code{beast}, \code{hyphy}, \code{codeml}, \code{codeml_mlc}, \code{paml_rst} object
 ##' @param ... additional parameter
 ##' @return phylo object
 ##' @export

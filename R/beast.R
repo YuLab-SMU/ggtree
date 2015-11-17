@@ -37,26 +37,6 @@ read.beast <- function(file) {
 }
 
 
-##' @rdname show-methods
-##' @importFrom ape print.phylo
-##' @exportMethod show
-setMethod("show", signature(object = "beast"),
-          function(object) {
-              cat("'beast' S4 object that stored information of\n\t",
-                  paste0("'", object@file, "'.\n\n"))
-              cat("...@ tree: ")
-              print.phylo(get.tree(object))                  
-              cat("\nwith the following features available:\n")
-              print_fields(object)
-          })
-
-##' @rdname groupOTU-methods
-##' @exportMethod groupOTU
-setMethod("groupOTU", signature(object="beast"),
-          function(object, focus, group_name="group") {
-              groupOTU_(object, focus, group_name)
-          }
-          )
 
 ##' @rdname groupClade-methods
 ##' @exportMethod groupClade
@@ -65,20 +45,7 @@ setMethod("groupClade", signature(object="beast"),
               groupClade_(object, node, group_name)
           })
 
-##' @rdname scale_color-methods
-##' @exportMethod scale_color
-setMethod("scale_color", signature(object="beast"),
-          function(object, by, ...) {
-              scale_color_(object, by, ...)
-          })
 
-
-##' @rdname gzoom-methods
-##' @exportMethod gzoom
-setMethod("gzoom", signature(object="beast"),
-          function(object, focus, subtree=FALSE, widths=c(.3, .7)) {
-              gzoom.phylo(get.tree(object), focus, subtree, widths)
-          })
 
 ##' get.tree method
 ##'
@@ -165,8 +132,8 @@ read.stats_beast <- function(file) {
     ## node name corresponding to stats
     nn <- strsplit(tree2, split=",") %>% unlist %>%
         strsplit(., split="\\)") %>% unlist %>%
-            gsub("\\(*", "", .) %>%
-                gsub("[:;].*", "", .)
+        gsub("\\(*", "", .) %>%
+        gsub("[:;].*", "", .) 
     
     phylo <- read.tree(text = tree2)
     root <- getRoot(phylo)

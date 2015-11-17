@@ -42,6 +42,7 @@ setClass("hyphy",
              extraInfo   = "data.frame"
              )
          )
+
 ##' Class "r8s"
 ##' This class stores output info from r8s
 ##'
@@ -66,6 +67,30 @@ setClass("r8s",
          )
          )
 
+##' Class "nhx"
+##' This class stores nhx tree
+##'
+##'
+##' @name nhx-class
+##' @rdname nhx-class
+##' @docType class
+##' @slot file input file
+##' @slot fields available feature
+##' @slot phylo phylo object
+##' @slot nhx_tags tag information in nhx file
+##' @slot extraInfo extra information
+##' @exportClass nhx
+##' @author Guangchuang Yu \url{http://ygc.name}
+##' @keywords classes
+setClass("nhx",
+         representation = representation(
+             file = "character",
+             fields = "character",
+             phylo = "phylo",
+             nhx_tags = "data.frame",
+             extraInfo = "data.frame"
+         )
+         )
 
 ##' Class "apeBootstrap"
 ##' This class stores ape bootstrapping analysis result
