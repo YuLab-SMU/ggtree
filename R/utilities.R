@@ -292,12 +292,10 @@ extract.treeinfo.jplace <- function(object, layout="phylogram", ladderize=TRUE, 
     
     df <- fortify.phylo(tree, layout=layout, ladderize=ladderize, right=right, ...)
 
-    edgeNum <- attr(tree, "edgeNum")
-    if (!is.null(edgeNum)) {
-        edgeNum.df <- data.frame(node=tree$edge[,2], edge=edgeNum)
-        df2 <- merge(df, edgeNum.df, by.x="node", by.y="node", all.x=TRUE) 
-        df <- df2[match(df[, "node"], df2[, "node"]),]
-    }
+    edgeNum.df <- attr(tree, "edgeNum")
+    df2 <- merge(df, edgeNum.df, by.x="node", by.y="node", all.x=TRUE) 
+    df <- df2[match(df[, "node"], df2[, "node"]),]
+    
     attr(df, "ladderize") <- ladderize
     attr(df, "right") <- right
     return(df)
