@@ -266,7 +266,7 @@ reverse.treeview.data <- function(df) {
 
 jplace_treetext_to_phylo <- function(tree.text) {
     ## move edge label to node label separate by @
-    tr <- gsub('(:[0-9\\.eE+\\-]+)\\{(\\d+)\\}', '\\@\\2\\1', tree.text)
+    tr <- gsub('(:[0-9\\.eE\\+\\-]+)\\{(\\d+)\\}', '\\@\\2\\1', tree.text)
     phylo <- read.tree(text=tr)
     if (length(grep('@', phylo$tip.label)) > 0) {
         phylo$node.label[1] %<>% gsub("(.*)\\{(\\d+)\\}", "\\1@\\2", .)
@@ -283,6 +283,22 @@ jplace_treetext_to_phylo <- function(tree.text) {
         edgeNum.df <- edgeNum.df[!is.na(edgeNum.df[,2]),]
         attr(phylo, "edgeNum") <- edgeNum.df
     }
+
+    ## using :edge_length{edge_num} to match edge_num to node_num
+    ## this is not a good idea since there may exists identical edge_length.
+    ## but we can use it to verify our method.
+    ##
+    ## en.matches <- gregexpr(":[0-9\\.eE\\+\\-]+\\{\\d+\\}", tree.text)
+    ## matches <- en.matches[[1]]
+    ## match.pos <- as.numeric(matches)
+    ## match.len <- attr(matches, 'match.length')
+
+    ## edgeLN <- substring(tree.text, match.pos+1, match.pos+match.len-2)
+    ## edgeLN.df <- data.frame(length=as.numeric(gsub("\\{.+", "", edgeLN)),
+    ##                         edgeNum = as.numeric(gsub(".+\\{", "", edgeLN)))
+
+    ## xx <- merge(edgeLN.df, edgeNum.df, by.x="node", by.y="node")
+    
     return(phylo)
 }
 
