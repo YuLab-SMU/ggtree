@@ -482,7 +482,7 @@ fortify.phylo <- function(model, data, layout="rectangular",
             ## groupOTU & groupClade
             group_info <- attr(tree, group_)
             if (length(group_info) == nrow(df)) {
-                df[, group] <- group_info
+                df[, group_] <- group_info
             }
         }
     }
