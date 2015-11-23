@@ -280,6 +280,7 @@ jplace_treetext_to_phylo <- function(tree.text) {
 
         N <- getNodeNum(phylo)
         edgeNum.df <- data.frame(node=1:N, edgeNum=c(tip.edgeNum, node.edgeNum))
+        ## root node is not encoded with edge number
         edgeNum.df <- edgeNum.df[!is.na(edgeNum.df[,2]),]
         attr(phylo, "edgeNum") <- edgeNum.df
     }
