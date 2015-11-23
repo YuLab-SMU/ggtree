@@ -478,10 +478,12 @@ fortify.phylo <- function(model, data, layout="rectangular",
     aa <- names(attributes(tree))
     group <- aa[ ! aa %in% c("names", "class", "order", "reroot", "node_map")]
     if (length(group) > 0) {
-        ## groupOTU & groupClade
-        group_info <- attr(tree, group)
-        if (length(group_info) == nrow(df)) {
-            df[, group] <- group_info
+        for (group_ in group) {
+            ## groupOTU & groupClade
+            group_info <- attr(tree, group_)
+            if (length(group_info) == nrow(df)) {
+                df[, group] <- group_info
+            }
         }
     }
     
