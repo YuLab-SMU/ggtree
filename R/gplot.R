@@ -83,6 +83,33 @@ gheatmap <- function(p, data, offset=0, width=1, low="green", high="red",
     return(p2)
 }
 
+##' return a data.frame that contains position information 
+##' for labeling column names of heatmap produced by `gheatmap` function
+##'
+##' 
+##' @title get_heatmap_column_position
+##' @param treeview output of `gheatmap`
+##' @param by one of 'bottom' or 'top'
+##' @return data.frame
+##' @export
+##' @author Guangchuang Yu
+get_heatmap_column_position <- function(treeview, by="bottom") {
+    by %<>% match.arg(c("bottom", "top"))
+
+    mapping <- attr(treeview, "mapping")
+    if (is.null(mapping)) {
+        stop("treeview is not an output of `gheatmap`...")
+    }
+
+    colnames(mapping) <- c("label", "x")
+    if (by == "bottom") {
+        mapping$y <- 0
+    } else {
+        mapping$y <- max(treeview$data$y) + 1
+    }
+    return(mapping)
+}
+
 ##' multiple sequence alignment with phylogenetic tree
 ##'
 ##' 
