@@ -441,6 +441,9 @@ getRoot <- function(tr) {
     edge <- tr[["edge"]]
     ## 1st col is parent,
     ## 2nd col is child,
+    if (!is.null(attr(tr, "order")) && attr(tr, "order") == "postorder")
+        return(edge[nrow(edge), 1])
+    
     parent <- unique(edge[,1])
     child <- unique(edge[,2])
     ## the node that has no parent should be the root
