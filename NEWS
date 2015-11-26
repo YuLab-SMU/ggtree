@@ -1,5 +1,7 @@
 CHANGES IN VERSION 1.3.4
 ------------------------
+ o get_clade_position function <2015-11-26, Thu>
+   + https://github.com/GuangchuangYu/ggtree/issues/28
  o get_heatmap_column_position function <2015-11-25, Wed>
    + see https://github.com/GuangchuangYu/ggtree/issues/26
  o support NHX (New Hampshire X) format via read.nhx function <2015-11-17, Tue>

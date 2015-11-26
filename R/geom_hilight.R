@@ -1,3 +1,4 @@
+
 ##' hilight clade with rectangle
 ##'
 ##' 
@@ -108,15 +109,32 @@ stat_hilight <- function(mapping=NULL, data=NULL, geom="rect",
 ##' @export
 StatHilight <- ggproto("StatHilight", Stat,
                        compute_group = function(self, data, scales, params, node) {
-                           sp <- get.offspring.df(data, node)
-                           sp.df <- data[c(sp, node),]
-                           x <- sp.df$x
-                           y <- sp.df$y
-                           data.frame(xmin=min(x)-data[node, "branch.length"]/2,
-                                      xmax=max(x),
-                                      ymin=min(y)-0.5,
-                                      ymax=max(y)+0.5)
+                           get_clade_position_(data, node)
                        },
                        required_aes = c("x", "y", "branch.length")
                        )
 
+
+##' get position of clade (xmin, xmax, ymin, ymax)
+##'
+##' 
+##' @title get_clade_position
+##' @param treeview tree view
+##' @param node selected node
+##' @return data.frame
+##' @export
+##' @author Guangchuang Yu
+get_clade_position <- function(treeview, node) {
+    get_clade_position_(treeview$data, node)
+}
+
+get_clade_position_ <- function(data, node) {
+    sp <- get.offspring.df(data, node)
+    sp.df <- data[c(sp, node),]
+    x <- sp.df$x
+    y <- sp.df$y
+    data.frame(xmin=min(x)-data[node, "branch.length"]/2,
+               xmax=max(x),
+               ymin=min(y)-0.5,
+               ymax=max(y)+0.5)
+}
