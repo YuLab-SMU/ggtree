@@ -118,6 +118,17 @@ fortify.beast <- function(model, data,
     
     stats <- model@stats
 
+    scn <- colnames(stats)
+    scn <- scn[scn != 'node']
+    
+    for (cn in scn) {
+        if (cn %in% colnames(df)) {
+            colnames(stats)[colnames(stats) == cn] <- paste0(cn, "_")
+            msg <- paste("feature", cn, "was renamed to", paste0(cn, "_"), "due to name conflict...")
+            warning(msg)
+        }
+    }
+
     idx <- which(colnames(stats) != "node")
     for (ii in idx) {
         if (is.character_beast(stats, ii)) {
