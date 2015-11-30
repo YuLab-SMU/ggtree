@@ -1,3 +1,8 @@
+CHANGES IN VERSION 1.3.5
+------------------------
+ o bug fixed, read.nhx now works with scientific notation <2015-11-30, Mon>
+   + see https://github.com/GuangchuangYu/ggtree/issues/30
+
 CHANGES IN VERSION 1.3.4
 ------------------------
  o rename beast feature when name conflict with reserve keywords (label, branch, etc) <2015-11-27, Fri>

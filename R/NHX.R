@@ -22,24 +22,25 @@ read.nhx <- function(file) {
     tree2 <- treetext
 
     for (i in 1:nnode) {
-        tree2 <- sub("(\\w+)?(:?\\d*\\.?\\d*)?\\[&&NHX.*?\\]", paste0("\\", nlab[i], "\\2"), tree2)
+        tree2 <- sub("(\\w+)?(:?\\d*\\.?\\d*[Ee]?[\\+\\-]?\\d*)?\\[&&NHX.*?\\]", paste0("\\", nlab[i], "\\2"), tree2)
     }
 
     phylo2 <- read.tree(text = tree2)
     treeinfo <- fortify(phylo2)
     node <- as.character(treeinfo$node[match(nlab, treeinfo$label)])
 
-    nhx.matches <- gregexpr("(\\w+)?(:?\\d*\\.?\\d*)?\\[&&NHX.*?\\]", treetext)
+    nhx.matches <- gregexpr("(\\w+)?(:?\\d*\\.?\\d*[Ee]?[\\+\\-]?\\d*)?\\[&&NHX.*?\\]", treetext)
     matches <- nhx.matches[[1]]
     match.pos <- as.numeric(matches)
     match.len <- attr(matches, 'match.length')
     
     nhx_str <- substring(treetext, match.pos, match.pos+match.len-1)
 
-    nhx_features <- gsub("^(\\w+)?:?[0-9\\.]+", "", nhx_str) %>%
+    ## nhx_features <- gsub("^(\\w+)?:?\\d*\\.?\\d*[Ee]?[\\+\\-]?\\d*", "", nhx_str) %>%
+    nhx_features <- gsub("^[^\\[]*", "", nhx_str) %>%
         gsub("\\[&&NHX:", "", .) %>%
-        gsub("\\]", "", .)
-
+            gsub("\\]", "", .)
+    
     nhx_stats <- get_nhx_feature(nhx_features)
     fields <- names(nhx_stats)
     for (i in ncol(nhx_stats)) {
@@ -49,7 +50,7 @@ read.nhx <- function(file) {
         }
     }
     nhx_stats$node <- node
-
+    
     new("nhx",
         file = file,
         fields = fields,
