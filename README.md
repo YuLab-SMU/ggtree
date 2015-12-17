@@ -38,20 +38,20 @@ For more information on Artistic-2.0 License see [http://opensource.org/licenses
 
 To install:
  * the latest released version: `biocLite("ggtree")`
- * the latest development version: `install_github("GuangchuangYu/ggtree")`
+ * the latest development version: `devtools::install_github("GuangchuangYu/ggtree")`
 
 ## Documentation ##
 
-+ [viewing and annotating phylogenetic tree with ggtree](http://ygc.name/2014/12/21/ggtree/)
-+ [updating a tree view using %<% operator](http://ygc.name/2015/02/10/ggtree-updating-a-tree-view/)
-+ [an example of drawing beast tree using ggtree](http://ygc.name/2015/04/01/an-example-of-drawing-beast-tree-using-ggtree/)
-+ [flip and rotate branches in ggtree](http://ygc.name/2015/07/01/flip-and-rotate-branches-in-ggtree/)
-+ [subsetting data in ggtree](http://ygc.name/2015/09/24/subsetting-data-in-ggtree/)
-+ [ggtree with funny fonts](http://ygc.name/2015/06/12/ggtree-with-funny-fonts/)
-+ [comic phylogenetic tree with ggtree and comicR](http://ygc.name/2015/09/08/comic-phylogenetic-tree-with-ggtree-and-comicr/)
-+ [embeding a subplot in ggplot via subview](http://ygc.name/2015/08/31/subview/)
-+ [annotate phylogenetic tree with local images](http://ygc.name/2015/08/01/ggtree-annotate-phylogenetic-tree-with-local-images/)
-+ [phylomoji with ggtree](http://ygc.name/2015/11/09/phylomoji-with-ggtree/)
++ [viewing and annotating phylogenetic tree with ggtree](http://guangchuangyu.github.io/2014/12/viewing-and-annotating-phylogenetic-tree-with-ggtree/)
++ [updating a tree view using %<% operator](http://guangchuangyu.github.io/2015/02/ggtree-updating-a-tree-view-using--operator/)
++ [an example of drawing beast tree using ggtree](http://guangchuangyu.github.io/2015/04/an-example-of-drawing-beast-tree-using-ggtree/)
++ [flip and rotate branches in ggtree](http://guangchuangyu.github.io/2015/07/flip-and-rotate-branches-in-ggtree/)
++ [subsetting data in ggtree](http://guangchuangyu.github.io/2015/09/subsetting-data-in-ggtree/)
++ [ggtree with funny fonts](http://guangchuangyu.github.io/2015/06/ggtree-with-funny-fonts/)
++ [comic phylogenetic tree with ggtree and comicR](http://guangchuangyu.github.io/2015/09/comic-phylogenetic-tree-with-ggtree-and-comicr/)
++ [embeding a subplot in ggplot via subview](http://guangchuangyu.github.io/2015/08/subview/)
++ [annotate phylogenetic tree with local images](http://guangchuangyu.github.io/2015/08/ggtree-annotate-phylogenetic-tree-with-local-images/)
++ [phylomoji with ggtree](http://guangchuangyu.github.io/2015/12/use-emoji-font-in-r/)
 
 
 To view the vignette of `ggtree` installed in your system, start `R` and enter:
