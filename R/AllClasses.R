@@ -3,6 +3,11 @@ setOldClass("multiPhylo")
 setOldClass("gg")
 setOldClass("ggplot")
 
+supported_tree_object <- function() {
+    c("hyphy", "r8s", "nhx", "apeBootstrap", "raxml",
+      "paml_rst", "phangorn", "codeml_mlc", "codeml",
+      "jplace", "beast")
+}
 
 ##' Class "hyphy"
 ##' This class stores information of HYPHY output
@@ -40,6 +45,29 @@ setClass("hyphy",
              tree.file   = "character",
              ancseq.file = "character",
              extraInfo   = "data.frame"
+             )
+         )
+##' Class "r8s"
+##' This class stores output info from r8s
+##'
+##'
+##' @name r8s-class
+##' @docType class
+##' @slot file input file
+##' @slot fields available feature
+##' @slot treetext tree text
+##' @slot phylo multiPhylo, time tree, rate tree and absolute substitution tree
+##' @slot extraInfo extra information
+##' @exportClass r8s
+##' @author Guangchuang Yu \url{http://ygc.name}
+##' @keywords classes
+setClass("r8s",
+         representation = representation(
+             file      = "character",
+             fields    = "character",
+             treetext  = "character",
+             phylo     = "multiPhylo",
+             extraInfo = "data.frame"
              )
          )
 

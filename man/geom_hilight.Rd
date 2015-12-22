@@ -5,9 +5,7 @@
 \alias{stat_hilight}
 \title{geom_hilight}
 \usage{
-geom_hilight(node, fill = "steelblue", alpha = 0.5, mapping = NULL,
-  data = NULL, stat = "hilight", position = "identity",
-  show.legend = NA, na.rm = FALSE, inherit.aes = FALSE, ...)
+geom_hilight(node, fill = "steelblue", alpha = 0.5)
 
 stat_hilight(mapping = NULL, data = NULL, geom = "rect",
   position = "identity", node, show.legend = NA, inherit.aes = FALSE,
@@ -19,22 +17,6 @@ stat_hilight(mapping = NULL, data = NULL, geom = "rect",
 \item{fill}{color fill}
 
 \item{alpha}{alpha (transparency)}
-
-\item{mapping}{aes mapping}
-
-\item{data}{data}
-
-\item{stat}{stat layer}
-
-\item{position}{position}
-
-\item{show.legend}{logical}
-
-\item{na.rm}{logical}
-
-\item{inherit.aes}{logical}
-
-\item{...}{additional parameter}
 
 \item{geom}{geometric object}
 }

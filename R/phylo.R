@@ -83,11 +83,5 @@ groupClade.phylo <- function(object, node, group_name) {
 }
 
 
-##' @rdname gzoom-methods
-##' @exportMethod gzoom
-setMethod("gzoom", signature(object="phylo"),
-          function(object, focus, subtree=FALSE, widths=c(.3, .7)) {
-              gzoom.phylo(object, focus, subtree, widths)
-          })
 
 

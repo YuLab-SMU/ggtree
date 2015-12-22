@@ -1,3 +1,10 @@
+CHANGES IN VERSION 1.3.6
+------------------------
+ o MRCA function for finding Most Recent Common Ancestor among a vector of tips <2015-12-22, Tue>
+ o geom_cladelabel: add bar and label to annotate a clade <2015-12-21, Mon>
+   - remove annotation_clade and annotation_clade2 functions.
+ o geom_treescale: tree scale layer. (add_legend was removed) <2015-12-21, Mon>
+ 
 CHANGES IN VERSION 1.3.5
 ------------------------
  o bug fixed, read.nhx now works with scientific notation <2015-11-30, Mon>

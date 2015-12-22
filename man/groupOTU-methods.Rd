@@ -23,7 +23,7 @@ groupOTU(object, focus, group_name = "group", ...)
 
 \S4method{groupOTU}{raxml}(object, focus, group_name = "group")
 
-\S4method{groupOTU}{ggplot}(object, focus, group_name = "group")
+\S4method{groupOTU}{paml_rst}(object, focus, group_name = "group")
 
 \S4method{groupOTU}{gg}(object, focus, group_name)
 

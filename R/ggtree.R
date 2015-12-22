@@ -83,6 +83,7 @@ ggtree <- function(tr,
     if (type == "circular" || type == "radial") {
         p <- p + coord_polar(theta = "y")
         ## refer to: https://github.com/GuangchuangYu/ggtree/issues/6
+        ## and also have some space for tree scale (legend)
         p <- p + scale_y_continuous(limits=c(0, max(p$data$y)))
     } 
     
@@ -540,56 +541,15 @@ add_colorbar <- function(p, color, x=NULL, ymin=NULL, ymax=NULL, font.size=4) {
     
 }
 
-##' add evolution distance legend
-##'
-##' 
-##' @title add_legend
-##' @param p tree view
-##' @param width width of legend
-##' @param x x position
-##' @param y y position
-##' @param offset offset of text and line
-##' @param font.size font size
-##' @param ... additional parameter
-##' @return tree view
-##' @importFrom grid linesGrob
-##' @importFrom grid textGrob
-##' @importFrom grid gpar
-##' @importFrom ggplot2 ylim
-##' @export
-##' @author Guangchuang Yu
-add_legend <- function(p, width=NULL, x=NULL, y=NULL, offset=NULL, font.size=4, ...) {
-    dx <- p$data$x %>% range %>% diff
-    
-    if (is.null(x)) {
-        ## x <- min(p$data$x)
-        x <- dx/2
-    }
-    if (is.null(y)) {
-        y <- 0
-        p <- p + ylim(0, max(p$data$y))
-    }
 
-    if (is.null(width) || is.na(width)) {
-        d <- dx/10 
-        n <- 0
-        while (d < 1) {
-            d <- d*10
-            n <- n + 1
-        }
-        d <- floor(d)/(10^n)
-    } else {
-        d <- width
-    }
-    
-    if (is.null(offset)) {
-        offset <- 0.4
-    }
-    p <- p + annotation_custom(linesGrob(), xmin=x, xmax=x+d, ymin=y, ymax=y) +
-        annotation_custom(textGrob(label=d, gp = gpar(fontsize = font.size)),
-                          xmin=x+d/2, xmax=x+d/2, ymin=y+offset, ymax=y+offset)
-    return(p)
-}
+
+
+
+
+
+
+
+
 
 ##' get taxa name of a selected node
 ##'
@@ -699,4 +659,7 @@ setMethod("groupClade", signature(object="gg"),
           function(object, node, group_name) {
               groupClade.ggplot(object, node, group_name)
           })
+
+
+
 

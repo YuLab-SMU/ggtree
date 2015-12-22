@@ -62,6 +62,7 @@ read.paml_rst <- function(rstfile) {
 }
 
 
+
 ##' @rdname groupClade-methods
 ##' @exportMethod groupClade
 setMethod("groupClade", signature(object="paml_rst"),
