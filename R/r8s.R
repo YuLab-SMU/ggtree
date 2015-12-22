@@ -84,4 +84,3 @@ setMethod("get.fields", signature(object="r8s"),
               get.fields.tree(object)
           }
           )
-

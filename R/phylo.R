@@ -1,10 +1,13 @@
+##' reroot a tree
+##'
+##' 
 ##' @rdname reroot-methods
 ##' @exportMethod reroot
 setMethod("reroot", signature(object="phylo"),
           function(object, node, ...) {
               pos <- 0.5* object$edge.length[which(object$edge[,2] == node)]
 
-              ##' @importFrom phytools reroot
+              ## @importFrom phytools reroot
               phytools <- "phytools"
               require(phytools, character.only = TRUE)
               
@@ -80,11 +83,5 @@ groupClade.phylo <- function(object, node, group_name) {
 }
 
 
-##' @rdname gzoom-methods
-##' @exportMethod gzoom
-setMethod("gzoom", signature(object="phylo"),
-          function(object, focus, subtree=FALSE, widths=c(.3, .7)) {
-              gzoom.phylo(object, focus, subtree, widths)
-          })
 
 

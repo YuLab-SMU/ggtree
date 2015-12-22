@@ -1,6 +1,58 @@
+CHANGES IN VERSION 1.3.6
+------------------------
+ o MRCA function for finding Most Recent Common Ancestor among a vector of tips <2015-12-22, Tue>
+ o geom_cladelabel: add bar and label to annotate a clade <2015-12-21, Mon>
+   - remove annotation_clade and annotation_clade2 functions.
+ o geom_treescale: tree scale layer. (add_legend was removed) <2015-12-21, Mon>
+ 
+CHANGES IN VERSION 1.3.5
+------------------------
+ o bug fixed, read.nhx now works with scientific notation <2015-11-30, Mon>
+   + see https://github.com/GuangchuangYu/ggtree/issues/30
+
+CHANGES IN VERSION 1.3.4
+------------------------
+ o rename beast feature when name conflict with reserve keywords (label, branch, etc) <2015-11-27, Fri>
+ o get_clade_position function <2015-11-26, Thu>
+   + https://github.com/GuangchuangYu/ggtree/issues/28
+ o get_heatmap_column_position function <2015-11-25, Wed>
+   + see https://github.com/GuangchuangYu/ggtree/issues/26
+ o support NHX (New Hampshire X) format via read.nhx function <2015-11-17, Tue>
+ o bug fixed in extract.treeinfo.jplace <2015-11-17, Thu>
+ 
+CHANGES IN VERSION 1.3.3
+------------------------
+ o support color=NULL in gheatmap, then no colored line will draw within the heatmap <2015-10-30, Fri>
+ o add `angle` for also rectangular, so that it will be available for layout='rectangular' following by coord_polar() <2015-10-27, Tue>
+ 
+CHANGES IN VERSION 1.3.2
+------------------------
+ o update vignette, add example of ape bootstrap and phangorn ancestral sequences <2015-10-26, Mon>
+ o add support of ape bootstrap analysis <2015-10-26, Mon>
+   see https://github.com/GuangchuangYu/ggtree/issues/20
+ o add support of ancestral sequences inferred by phangorn <2015-10-26, Mon>
+   see https://github.com/GuangchuangYu/ggtree/issues/21
+ 
+CHANGES IN VERSION 1.3.1
+------------------------
+ o change angle to angle + 90, so that label will in radial direction <2015-10-22, Thu>
+   + see https://github.com/GuangchuangYu/ggtree/issues/17
+ o na.rm should be always passed to layer(), fixed it in geom_hilight and geom_text2 <2015-10-21, Wed>
+   + see https://github.com/hadley/ggplot2/issues/1380
+ o matching beast stats with tree using internal node number instead of label <2015-10-20, Tue>
+ 
+CHANGES IN VERSION 1.3.0
+------------------------
+ o BioC 3.3 branch
+ 
+CHANGES IN VERSION 1.1.21
+------------------------
+ o support hyphy output of ancestral sequences that is in phylip sequential format (no TAXALABELS block available) <2015-10-07, Wed>
+ o fixed bug in geom_tiplab when x contains NA (eg, removing by collapse function) <2015-10-01, Thu>
+ o new implementation of geom_hilight, a truly geom layer function <2015-09-10, Thu>
+ 
 CHANGES IN VERSION 1.1.20
 ------------------------
- o fixed bug in geom_tiplab when x contains NA (eg, removing by collapse function) <2015-10-01, Thu>
  o bug fixed in %add2%, if node available use node, otherwise use label <2015-09-04, Fri>
  o bug fixed of subview for considering aes mapping of x and y <2015-09-03, Thu>
  o update vignette by adding r8s example <2015-09-02, Wed>

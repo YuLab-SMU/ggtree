@@ -151,7 +151,8 @@ plot.subs <- function(x, layout, show.tip.label,
 }
 
 .add_new_line <- function(res) {
-##    res <- paste0(strwrap(res, 50), collapse="\n") 
+    ## res <- paste0(strwrap(res, 50), collapse="\n")
+    ## res %<>% gsub("\\s/\n", "\n", .) %>% gsub("\n/\\s", "\n", .) 
     if (nchar(res) > 50) {
         idx <- gregexpr("/", res)[[1]]
         i <- idx[floor(length(idx)/2)]
@@ -192,9 +193,13 @@ getSubsLabel <- function(seqs, A, B, translate, removeGap) {
         AA <- seqA %>% seq2codon %>% codon2AA
         BB <- seqB %>% seq2codon %>% codon2AA
     } else {
-        n <- nchar(seqA) ## should equals to nchar(seqB)
-        AA <- substring(seqA, 1:n, 1:n)
-        BB <- substring(seqB, 1:n, 1:n)
+        ## strsplit is faster than substring
+        ##
+        ## n <- nchar(seqA) ## should equals to nchar(seqB)
+        ## AA <- substring(seqA, 1:n, 1:n)
+        ## BB <- substring(seqB, 1:n, 1:n)
+        AA <- strsplit(seqA, split="") %>% unlist
+        BB <- strsplit(seqB, split="") %>% unlist
     }
     
     ii <- which(AA != BB)
@@ -261,7 +266,7 @@ reverse.treeview.data <- function(df) {
 
 jplace_treetext_to_phylo <- function(tree.text) {
     ## move edge label to node label separate by @
-    tr <- gsub('(:[0-9\\.eE+\\-]+)\\{(\\d+)\\}', '\\@\\2\\1', tree.text)
+    tr <- gsub('(:[0-9\\.eE\\+\\-]+)\\{(\\d+)\\}', '\\@\\2\\1', tree.text)
     phylo <- read.tree(text=tr)
     if (length(grep('@', phylo$tip.label)) > 0) {
         phylo$node.label[1] %<>% gsub("(.*)\\{(\\d+)\\}", "\\1@\\2", .)
@@ -275,9 +280,26 @@ jplace_treetext_to_phylo <- function(tree.text) {
 
         N <- getNodeNum(phylo)
         edgeNum.df <- data.frame(node=1:N, edgeNum=c(tip.edgeNum, node.edgeNum))
+        ## root node is not encoded with edge number
         edgeNum.df <- edgeNum.df[!is.na(edgeNum.df[,2]),]
         attr(phylo, "edgeNum") <- edgeNum.df
     }
+
+    ## using :edge_length{edge_num} to match edge_num to node_num
+    ## this is not a good idea since there may exists identical edge_length.
+    ## but we can use it to verify our method.
+    ##
+    ## en.matches <- gregexpr(":[0-9\\.eE\\+\\-]+\\{\\d+\\}", tree.text)
+    ## matches <- en.matches[[1]]
+    ## match.pos <- as.numeric(matches)
+    ## match.len <- attr(matches, 'match.length')
+
+    ## edgeLN <- substring(tree.text, match.pos+1, match.pos+match.len-2)
+    ## edgeLN.df <- data.frame(length=as.numeric(gsub("\\{.+", "", edgeLN)),
+    ##                         edgeNum = as.numeric(gsub(".+\\{", "", edgeLN)))
+
+    ## xx <- merge(edgeLN.df, edgeNum.df, by.x="node", by.y="node")
+    
     return(phylo)
 }
 
@@ -287,12 +309,12 @@ extract.treeinfo.jplace <- function(object, layout="phylogram", ladderize=TRUE, 
     
     df <- fortify.phylo(tree, layout=layout, ladderize=ladderize, right=right, ...)
 
-    edgeNum <- attr(tree, "edgeNum")
-    if (!is.null(edgeNum)) {
-        edgeNum.df <- data.frame(node=tree$edge[,2], edge=edgeNum)
+    edgeNum.df <- attr(tree, "edgeNum")
+    if (!is.null(edgeNum.df)) {
         df2 <- merge(df, edgeNum.df, by.x="node", by.y="node", all.x=TRUE) 
         df <- df2[match(df[, "node"], df2[, "node"]),]
     }
+    
     attr(df, "ladderize") <- ladderize
     attr(df, "right") <- right
     return(df)
