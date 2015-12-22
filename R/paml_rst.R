@@ -62,14 +62,6 @@ read.paml_rst <- function(rstfile) {
 }
 
 
-##' @rdname gzoom-methods
-##' @exportMethod gzoom
-setMethod("gzoom", signature(object="paml_rst"),
-          function(object, focus, subtree=FALSE, widths=c(.3, .7)) {
-              gzoom.phylo(get.tree(object), focus, subtree, widths)
-          })
-
-
 
 ##' @rdname groupClade-methods
 ##' @exportMethod groupClade
@@ -79,13 +71,10 @@ setMethod("groupClade", signature(object="paml_rst"),
           }
           )
 
-##' @rdname scale_color-methods
-##' @exportMethod scale_color
-setMethod("scale_color", signature(object="paml_rst"),
-          function(object, by, ...) {
-              scale_color_(object, by, ...)
-          })
 
+##' get tipseq
+##'
+##' 
 ##' @rdname get.tipseq-methods
 ##' @exportMethod get.tipseq
 setMethod("get.tipseq", signature(object="paml_rst"),
@@ -149,7 +138,9 @@ setMethod("get.tree", signature(object = "paml_rst"),
           )
 
 
-
+##' get substitution information
+##'
+##' 
 ##' @rdname get.subs-methods
 ##' @exportMethod get.subs
 setMethod("get.subs", signature(object = "paml_rst"),

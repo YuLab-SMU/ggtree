@@ -40,12 +40,10 @@ geom_tiplab <- function(mapping=NULL, hjust = 0, align = FALSE, linetype = "dott
     } 
     
     list(
-        geom_text(mapping=text_mapping,
-                  subset=.(isTip),
-                  hjust = hjust, ...),
+        geom_text2(mapping=text_mapping, 
+                   hjust = hjust, ...),
         if (!is.null(dot_mapping))
-            geom_segment(mapping=dot_mapping,
-                         subset=.(isTip),
+            geom_segment2(mapping=dot_mapping,
                           linetype = linetype,
                           size = linesize, ...)
         )

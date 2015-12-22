@@ -35,7 +35,7 @@ ggtree <- function(tr,
                    showDistance=FALSE,
                    layout="rectangular",
                    mrsd = NULL,
-                   as.Date=FALSE,
+                   as.Date = FALSE,
                    yscale="none",
                    yscale_mapping = NULL,
                    ladderize = TRUE, right=FALSE,
@@ -54,6 +54,7 @@ ggtree <- function(tr,
         layout <- "slanted"
     }
     if (layout == "fan" || layout == "circular") {
+        layout <- "circular"
         type <- "circular"
     } else if (layout == "radial") {
         layout <- "slanted"
@@ -82,6 +83,7 @@ ggtree <- function(tr,
     if (type == "circular" || type == "radial") {
         p <- p + coord_polar(theta = "y")
         ## refer to: https://github.com/GuangchuangYu/ggtree/issues/6
+        ## and also have some space for tree scale (legend)
         p <- p + scale_y_continuous(limits=c(0, max(p$data$y)))
     } 
     
@@ -140,26 +142,6 @@ geom_tree <- function(layout="rectangular", ...) {
     }
 }
 
-
-##' hilight clade with rectangle
-##'
-##' 
-##' @title geom_hilight 
-##' @param tree_object supported tree object
-##' @param node internal node
-##' @param ... additional parameters
-##' @return ggplot layer
-##' @importFrom ape extract.clade
-##' @author Guangchuang Yu
-geom_hilight <- function(tree_object, node, ...) {
-    clade <- extract.clade(get.tree(tree_object), node)
-    idx <- groupOTU(tree_object, clade$tip.label)
-    dd <- fortify(tree_object, ...)
-    x <- dd[idx == 2, "x"]
-    y <- dd[idx == 2, "y"]
-    annotate("rect", xmin=min(x)-dd[node, "branch.length"]/2,
-             xmax=max(x), ymin=min(y)-0.5, ymax=max(y)+0.5, ...)
-}
 
 
 ##' tree theme
@@ -242,29 +224,6 @@ theme_transparent <- function(...) {
               colour = NA), ...)
 }
 
-
-##' hilight clade with rectangle
-##'
-##' 
-##' @title hilight
-##' @param tree_view tree view 
-##' @param node clade node
-##' @param fill fill color
-##' @param alpha alpha
-##' @param ... additional parameter
-##' @return tree view
-##' @export
-##' @author Guangchuang Yu
-hilight <- function(tree_view, node, fill="steelblue", alpha=0.5, ...) {
-    df <- tree_view$data
-    sp <- get.offspring.df(df, node)
-    sp.df <- df[c(sp, node),]
-    x <- sp.df$x
-    y <- sp.df$y
-    tree_view + annotate("rect", xmin=min(x)-df[node, "branch.length"]/2,
-                         xmax=max(x), ymin=min(y)-0.5, ymax=max(y)+0.5,
-                         fill = fill, alpha = alpha, ...)
-}
 
 ##' scale clade
 ##'
@@ -467,7 +426,7 @@ collapse <- function(tree_view, node) {
 
     ## re-calculate branch mid position
     df <- calculate_branch_mid(df)
-    
+
     tree_view$data <- df
     clade <- paste0("clade_", node)
     attr(tree_view, clade) <- sp.df
@@ -535,14 +494,12 @@ add_colorbar <- function(p, color, x=NULL, ymin=NULL, ymax=NULL, font.size=4) {
     mrsd <- attr(p, "mrsd")
     if (!is.null(mrsd)) {
         attr(p, "mrsd") <- NULL
-        if (class(p$data$x) == "Date") {
-            p$data$x <- Date2decimal(p$data$x)
-            p$data$branch <- Date2decimal(p$data$branch)
-        }
+        
+        p$data$x <- Date2decimal(p$data$x)
+        p$data$branch <- Date2decimal(p$data$branch)
         ## annotation segment not support using Date as x-axis
     }
-
-        
+    
     legend <- do.call("cbind", attr(color, "scale"))
     
     legend[,1] <- round(as.numeric(legend[,1]), 2)
@@ -584,56 +541,15 @@ add_colorbar <- function(p, color, x=NULL, ymin=NULL, ymax=NULL, font.size=4) {
     
 }
 
-##' add evolution distance legend
-##'
-##' 
-##' @title add_legend
-##' @param p tree view
-##' @param width width of legend
-##' @param x x position
-##' @param y y position
-##' @param offset offset of text and line
-##' @param font.size font size
-##' @param ... additional parameter
-##' @return tree view
-##' @importFrom grid linesGrob
-##' @importFrom grid textGrob
-##' @importFrom grid gpar
-##' @importFrom ggplot2 ylim
-##' @export
-##' @author Guangchuang Yu
-add_legend <- function(p, width=NULL, x=NULL, y=NULL, offset=NULL, font.size=4, ...) {
-    dx <- p$data$x %>% range %>% diff
-    
-    if (is.null(x)) {
-        ## x <- min(p$data$x)
-        x <- dx/2
-    }
-    if (is.null(y)) {
-        y <- 0
-        p <- p + ylim(0, max(p$data$y))
-    }
 
-    if (is.null(width) || is.na(width)) {
-        d <- dx/10 
-        n <- 0
-        while (d < 1) {
-            d <- d*10
-            n <- n + 1
-        }
-        d <- floor(d)/(10^n)
-    } else {
-        d <- width
-    }
-    
-    if (is.null(offset)) {
-        offset <- 0.4
-    }
-    p <- p + annotation_custom(linesGrob(), xmin=x, xmax=x+d, ymin=y, ymax=y) +
-        annotation_custom(textGrob(label=d, gp = gpar(fontsize = font.size)),
-                          xmin=x+d/2, xmax=x+d/2, ymin=y+offset, ymax=y+offset)
-    return(p)
-}
+
+
+
+
+
+
+
+
 
 ##' get taxa name of a selected node
 ##'
@@ -743,4 +659,7 @@ setMethod("groupClade", signature(object="gg"),
           function(object, node, group_name) {
               groupClade.ggplot(object, node, group_name)
           })
+
+
+
 

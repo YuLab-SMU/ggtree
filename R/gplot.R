@@ -56,8 +56,11 @@ gheatmap <- function(p, data, offset=0, width=1, low="green", high="red",
 
     dd$x <- V2
 
-    p2 <- p + geom_tile(data=dd, aes(x, y, fill=value), color=color, inherit.aes=FALSE)
-
+    if (is.null(color)) {
+        p2 <- p + geom_tile(data=dd, aes(x, y, fill=value), inherit.aes=FALSE)
+    } else {
+        p2 <- p + geom_tile(data=dd, aes(x, y, fill=value), color=color, inherit.aes=FALSE)
+    }
     if (is(dd$value,"numeric")) {
         p2 <- p2 + scale_fill_gradient(low=low, high=high, na.value="white")
     } else {
@@ -78,6 +81,33 @@ gheatmap <- function(p, data, offset=0, width=1, low="green", high="red",
     
     attr(p2, "mapping") <- mapping
     return(p2)
+}
+
+##' return a data.frame that contains position information 
+##' for labeling column names of heatmap produced by `gheatmap` function
+##'
+##' 
+##' @title get_heatmap_column_position
+##' @param treeview output of `gheatmap`
+##' @param by one of 'bottom' or 'top'
+##' @return data.frame
+##' @export
+##' @author Guangchuang Yu
+get_heatmap_column_position <- function(treeview, by="bottom") {
+    by %<>% match.arg(c("bottom", "top"))
+
+    mapping <- attr(treeview, "mapping")
+    if (is.null(mapping)) {
+        stop("treeview is not an output of `gheatmap`...")
+    }
+
+    colnames(mapping) <- c("label", "x")
+    if (by == "bottom") {
+        mapping$y <- 0
+    } else {
+        mapping$y <- max(treeview$data$y) + 1
+    }
+    return(mapping)
 }
 
 ##' multiple sequence alignment with phylogenetic tree
@@ -195,12 +225,12 @@ scale_x_ggtree <- function(p, breaks=NULL, labels=NULL) {
     } else {
         x <- p$data$x
     }
+
     if (is.null(breaks)) {
         breaks <- hist(x, breaks=5, plot=FALSE)$breaks
     }
     m <- attr(p, "mapping")
 
-    
     if (!is.null(mrsd) &&class(m$to) == "Date") {
         to <- Date2decimal(m$to)
     } else {
@@ -218,13 +248,13 @@ scale_x_ggtree <- function(p, breaks=NULL, labels=NULL) {
     
     breaks <- c(breaks, to)
     labels <- c(labels, gsub("\\.", "", as.character(m$from)))
-    
+
     if (!is.null(mrsd) && class(p$data$x) == "Date") {
         p <- p + scale_x_date(breaks=decimal2Date(breaks), labels)
     } else {
         p <- p + scale_x_continuous(breaks=breaks, labels=labels)
     }
-    return(p)
+    return(p)    
 }
 
 

@@ -17,6 +17,7 @@ output:
 vignette: >
   %\VignetteIndexEntry{ggtree: phylogenetic tree viewer and annotator}
   %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteDepends{pathview}
   %\usepackage[utf8]{inputenc}
 ---
 
@@ -34,6 +35,7 @@ library("ape")
 library("ggplot2")
 library("gridExtra")
 library("ggtree")
+library("phangorn")
 ```
 
 
@@ -95,17 +97,21 @@ ggtree(tree, branch.length="none")
 
 `r Githubpkg("GuangchuangYu/ggtree")` defined several S4 classes to store phylogenetic object and its associated annotation, including:
 
++ `apeBootstrap`
 + `beast`
 + `codeml_mlc`
 + `codeml`
 + `hyphy`
 + `jplace`
++ `nhx`
 + `paml_rst`
++ `phangorn`
 + `raxml`
 + `r8s`
 
 
-In addition, it also supports _`phylo`_ (defined by `r CRANpkg("ape")`[@paradis_ape_2004]), and _`phylo4`_ (defined by `r CRANpkg("phylobase")`)
+
+In addition, it also supports _`phylo`_ (defined by `r CRANpkg("ape")`[@paradis_ape_2004]) and _`phylo4`_ (defined by `r CRANpkg("phylobase")`)
 
 User can use _`ggtree(object)`_ command to view the phylogenetic tree directly, and annotation data stored in these objects can be added as demonstrated in __[`Tree annotation with output from evolution software`](#tree-annotation-with-output-from-evolution-software)__ session.
 
@@ -191,7 +197,7 @@ p + geom_text(aes(label=label), size=3, color="purple", hjust=-0.3)
 
 For _`circular`_ and _`unrooted`_ layout, `r Githubpkg("GuangchuangYu/ggtree")` supports rotating node labels according to the angles of the branches.
 ```{r fig.width=6, fig.height=6, warning=FALSE, fig.align="center"}
-ggtree(tree, layout="circular") + geom_text(aes(label=label, angle=angle), size=3, color="purple", vjust=-0.3)
+ggtree(tree, layout="circular") + geom_text(aes(label=label, angle=angle), size=3, color="purple", hjust=-0.3)
 ```
 
 
@@ -271,17 +277,17 @@ The parameter `bar.size` is used to control the width of the bar and the `font.s
 
 ## highlight clades
 
-`r Githubpkg("GuangchuangYu/ggtree")` implements _`hilight`_ function, that accepts tree view and internal node number and add a layer of rectangle to highlight the selected clade.
+`r Githubpkg("GuangchuangYu/ggtree")` implements _`geom_hilight`_ layer, that an internal node number and add a layer of rectangle to highlight the selected clade.
 
 ```{r fig.width=5, fig.height=5, fig.align="center", warning=FALSE}
-ggtree(tree) %>% hilight(node=21, fill="steelblue", alpha=.6) %>%
-    hilight(node=17, fill="darkgreen", alpha=.6)
+ggtree(tree) + geom_hilight(node=21, fill="steelblue", alpha=.6) +
+    geom_hilight(node=17, fill="darkgreen", alpha=.6)
 ```
 
 
 ```{r fig.width=5, fig.height=5, fig.align="center", warning=FALSE}
-ggtree(tree, layout="fan") %>% hilight(node=21, fill="steelblue", alpha=.6) %>%
-     hilight(node=23, fill="darkgreen", alpha=.6)
+ggtree(tree, layout="fan") + geom_hilight(node=21, fill="steelblue", alpha=.6) +
+    geom_hilight(node=23, fill="darkgreen", alpha=.6)
 ```
 
 Another way to highlight selected clades is setting the clades with different colors and/or line types as demonstrated in __[`group clades`](#group-clades)__ section.
@@ -292,7 +298,7 @@ With _`collapse`_ function, user can collapse a selected clade.
 
 ```{r fig.width=5, fig.height=5, fig.align="center", warning=FALSE}
 cp <- ggtree(tree) %>% collapse(node=21)
-cp + geom_point(subset=.(node == 21), size=5, shape=23, fill="steelblue")
+cp + geom_point2(aes(subset=(node == 21)), size=5, shape=23, fill="steelblue")
 ```
 
 ## expand collapsed clade
@@ -404,8 +410,8 @@ With _`groupOTU`_ and _`groupClade`_, it's easy to highlight selected taxa and e
 
 ```{r fig.width=5, fig.height=5, fig.align="center", warning=FALSE}
 ggtree(tree, aes(color=group, linetype=group)) +
-    geom_text(aes(label=label), subset=.(group==2), hjust = -.5) +
-        geom_text(aes(label=label), subset=.(group==1), hjust = -.5, color="blue")
+    geom_text2(aes(label=label, subset=(group==2)), hjust = -.5) +
+        geom_text2(aes(label=label, subset=(group==1)), hjust = -.5, color="blue")
 ```
 
 
@@ -445,16 +451,21 @@ pp %>% phylopic("67382184-5135-4faa-8e98-eadff02c3e8a", color="#86B875", alpha=.
 ![](../inst/extdata/phylopic2.png)
 
 # Tree annotation with output from evolution software
-In `r Githubpkg("GuangchuangYu/ggtree")`, we implemented several functions to parse the output from [PAML](http://abacus.gene.ucl.ac.uk/software/paml.html)[@yang_paml_2007], [HYPHY](http://hyphy.org/w/index.php/Main_Page)[@pond_hyphy_2005], [EPA](http://sco.h-its.org/exelixis/web/software/epa/index.html)[@berger_EPA_2011], [PPLACER](http://matsen.fhcrc.org/pplacer/)[@matsen_pplacer_2010] and [BEAST](http://beast2.org/)[@bouckaert_beast_2014] and defined several classes to store phylogenetic object and associated annotation.
+In `r Githubpkg("GuangchuangYu/ggtree")`, we implemented several functions to parse the output from `r CRANpkg("ape")`, `r CRANpkg("phangorn")`, [r8s](http://loco.biosci.arizona.edu/r8s/), [RAxML](http://sco.h-its.org/exelixis/web/software/raxml/), [PAML](http://abacus.gene.ucl.ac.uk/software/paml.html)[@yang_paml_2007], [HYPHY](http://hyphy.org/w/index.php/Main_Page)[@pond_hyphy_2005], [EPA](http://sco.h-its.org/exelixis/web/software/epa/index.html)[@berger_EPA_2011], [PPLACER](http://matsen.fhcrc.org/pplacer/)[@matsen_pplacer_2010], [PHYLDOG](http://pbil.univ-lyon1.fr/software/phyldog/)[@boussau_genome-scale_2013], [RevBayes](http://revbayes.github.io/intro.html)[@hohna_probabilistic_2014] and [BEAST](http://beast2.org/)[@bouckaert_beast_2014] and defined several classes to store phylogenetic object and associated annotation. 
 
 Classes include:
 
++ _`apeBootstrap`_ for bootstrap analysis of `ape::boot.phylo()`.
++ _`raxml`_ for bootstrap analysis obtained from [RAxML](http://sco.h-its.org/exelixis/web/software/raxml/).
 + _`paml_rst`_ for _`rst`_ file obtained by [PAML](http://abacus.gene.ucl.ac.uk/software/paml.html)[@yang_paml_2007], including _`BASEML`_ and _`CODEML`_.
 + _`codeml_mlc`_ for _`mlc`_ file obtained by _`CODEML`_.
 + _`codeml`_ for interpreting _`rst`_ and _`mlc`_ files obtained by _`CODEML`_.
 + _`hyphy`_ for [HYPHY](http://hyphy.org/w/index.php/Main_Page)[@pond_hyphy_2005] output.
 + _`jplace`_ for [EPA](http://sco.h-its.org/exelixis/web/software/epa/index.html)[@berger_EPA_2011] and [PPLACER](http://matsen.fhcrc.org/pplacer/)[@matsen_pplacer_2010] output.
-+ _`beast`_ for [BEAST](http://beast2.org/)[@bouckaert_beast_2014]
++ _`beast`_ for [BEAST](http://beast2.org/)[@bouckaert_beast_2014].
++ _`r8s`_ for [r8s](loco.biosci.arizona.edu/r8s/).
++ _`nhx`_ for NHX (New Hampshire eXtended format) file that is commonly used in phylogenetics software (e.g. [PHYLDOG](http://pbil.univ-lyon1.fr/software/phyldog/)[@boussau_genome-scale_2013], [RevBayes](http://revbayes.github.io/intro.html)[@hohna_probabilistic_2014], *etc*.)
+
 
 _`jplace`_ class is also designed to store user specific annotation data, and serves as a standard format for tree annotation within the `r Githubpkg("GuangchuangYu/ggtree")` package. Please refer to the __[`jplace file format`](#jplace-file-format)__ session.
 
@@ -480,6 +491,24 @@ plot(beast, annotation="height", ndigits=3, annotation.color="red")
 ```
 
 
+## annotating tree with phangorn output
+
+```{r results='hide', message=FALSE}
+library(phangorn)
+treefile <- system.file("extdata", "pa.nwk", package="ggtree")
+tre <- read.tree(treefile)
+tipseqfile <- system.file("extdata", "pa.fas", package="ggtree")
+tipseq <- read.phyDat(tipseqfile,format="fasta")
+fit <- pml(tre, tipseq, k=4)
+fit <- optim.pml(fit, optNni=FALSE, optBf=T, optQ=T,
+                 optInv=T, optGamma=T, optEdge=TRUE,
+                 optRooted=FALSE, model = "GTR")
+```
+
+```{r fig.width=12, fig.height=10, width=60, warning=FALSE, fig.align="center"}
+phangorn <- phyPML(fit, type="ml")
+ggtree(phangorn) + geom_text(aes(label=AA_subs))
+```
 
 ## annotating tree with PAML output
 
@@ -576,6 +605,7 @@ plot(ml, branch.length="mlc.branch.length", annotation="marginal_AA_subs")
 plot(ml, branch.length="dN", annotation="joint_AA_subs", annotation.color="darkgreen")
 ```
 
+
 ## annotating tree with HYPHY output
 ```{r}
 nwk <- system.file("extdata/HYPHY", "labelledtree.tree", package="ggtree")
@@ -590,21 +620,40 @@ plot(hy, annotation="AA_subs")
 ```
 
 
+## annotating tree with ape bootstraping analysis
+
+```{r results='hide', message=FALSE}
+library(ape)
+data(woodmouse)
+d <- dist.dna(woodmouse)
+tr <- nj(d)
+bp <- boot.phylo(tr, woodmouse, function(xx) nj(dist.dna(xx)))
+```
+
+```{r fig.width=6, fig.height=6, warning=FALSE, fig.align="center"}
+tree <- apeBoot(tr, bp)
+ggtree(tree) + geom_label(aes(label=bootstrap)) + geom_tiplab()
+```
+
+
 ## annotating tree with RAxML bootstraping analysis
 
 ```{r fig.width=12, fig.height=10, width=60, warning=FALSE, fig.align="center"}
 raxml_file <- system.file("extdata/RAxML", "RAxML_bipartitionsBranchLabels.H3", package="ggtree")
 raxml <- read.raxml(raxml_file)
-plot(raxml)
+## plot(raxml)
+ggtree(raxml) + geom_label(aes(label=bootstrap)) + geom_tiplab()
 ```
+
 
 ## annotating tree with r8s output
 
 [r8s](http://loco.biosci.arizona.edu/r8s/) output contains 3 trees, namely `TREE`, `RATO` and `PHYLO` for time tree, rate tree and absolute substitution tree respectively.
 
-```{r fig.width=4, fig.height=6, width=60, warning=FALSE, fig.align="center"}
+
+```{r fig.width=4, fig.height=6, width=60, warning=FALSE, fig.align="center")
 r8s <- read.r8s(system.file("extdata/r8s", "H3_r8s_output.log", package="ggtree"))
-ggtree(r8s, branch.length="TREE", mrsd="2014-01-01") + theme_tree2()
+ggtree(r8s, branch.length="TREE", mrsd="2014-01-01")
 ```
 
 
@@ -613,11 +662,22 @@ ggtree(r8s, branch.length="TREE", mrsd="2014-01-01") + theme_tree2()
 User can also view 3 trees simultaneously.
 
 
-```{r fig.width=16, fig.height=10, width=60, warning=FALSE, fig.align="center"}
-ggtree(get.tree(r8s)) + facet_wrap(~.id, scales="free_x") + theme_tree2()
+```{r fig.width=16, fig.height=10, width=60, warning=FALSE, fig.align="center")
+ggtree(get.tree(r8s)) + facet_wrap(~.id, scales="free_x")
 ```
 
+## annotating NHX tree
 
+NHX (New Hampshire eXtended) format is commonly used in phylogenetics software (e.g. [PHYLDOG](http://pbil.univ-lyon1.fr/software/phyldog/)[@boussau_genome-scale_2013], [RevBayes](http://revbayes.github.io/intro.html)[@hohna_probabilistic_2014], *etc*.)
+
+```{r}
+nhxfile = system.file("extdata", "ADH.nhx", package="ggtree")
+nhx <- read.nhx(nhxfile)
+ggtree(nhx) + geom_tiplab() + geom_point(aes(color=S)) + 
+    theme(legend.position="right") +
+    geom_text(aes(label=branch.length, x=branch), vjust=-.5) + 
+    xlim(NA, 0.3)
+```
 
 
 ## annotating tree with EPA and PPLACER output
@@ -801,7 +861,7 @@ The _width_ parameter is to control the width of the heatmap. It supports anothe
 For time scaled tree, as in this example, it's more often to use x axis by using `theme_tree2`. But with this solution, the heatmap is just another layer and will change the `x` axis. To overcome this issue, we implemented `scale_x_ggtree` to set the x axis more reasonable. User can also use `gplot` and tweak the positions of two plot to align properly.
 
 ```{r fig.width=20, fig.height=16, fig.align="center"}
-p <- ggtree(beast_tree,  mrsd="2013-01-01") + geom_tiplab(size=3, align=TRUE) + theme_tree2()
+p <- ggtree(beast_tree, mrsd="2013-01-01") + geom_tiplab(size=3, align=TRUE) + theme_tree2()
 pp <- (p + scale_y_continuous(expand=c(0, 0.3))) %>%
     gheatmap(genotype, offset=4, width=0.5, colnames=FALSE) %>%
         scale_x_ggtree()
@@ -820,12 +880,17 @@ A specific slice of the alignment can also be displayed by specific _window_ par
 
 # External documents
 
-+ [viewing and annotating phylogenetic tree with ggtree](http://ygc.name/2014/12/21/ggtree/)
-+ [updating a tree view using %<% operator](http://ygc.name/2015/02/10/ggtree-updating-a-tree-view/)
-+ [an example of drawing beast tree using ggtree](http://ygc.name/2015/04/01/an-example-of-drawing-beast-tree-using-ggtree/)
-+ [flip and rotate branches in ggtree](http://ygc.name/2015/07/01/flip-and-rotate-branches-in-ggtree/)
-+ [ggtree with funny fonts](http://ygc.name/2015/06/12/ggtree-with-funny-fonts/)
-+ [annotate phylogenetic tree with local images](http://ygc.name/2015/08/01/ggtree-annotate-phylogenetic-tree-with-local-images/)
++ [viewing and annotating phylogenetic tree with ggtree](http://guangchuangyu.github.io/2014/12/viewing-and-annotating-phylogenetic-tree-with-ggtree/)
++ [updating a tree view using %<% operator](http://guangchuangyu.github.io/2015/02/ggtree-updating-a-tree-view-using--operator/)
++ [an example of drawing beast tree using ggtree](http://guangchuangyu.github.io/2015/04/an-example-of-drawing-beast-tree-using-ggtree/)
++ [flip and rotate branches in ggtree](http://guangchuangyu.github.io/2015/07/flip-and-rotate-branches-in-ggtree/)
++ [subsetting data in ggtree](http://guangchuangyu.github.io/2015/09/subsetting-data-in-ggtree/)
++ [ggtree with funny fonts](http://guangchuangyu.github.io/2015/06/ggtree-with-funny-fonts/)
++ [comic phylogenetic tree with ggtree and comicR](http://guangchuangyu.github.io/2015/09/comic-phylogenetic-tree-with-ggtree-and-comicr/)
++ [embeding a subplot in ggplot via subview](http://guangchuangyu.github.io/2015/08/subview/)
++ [annotate phylogenetic tree with local images](http://guangchuangyu.github.io/2015/08/ggtree-annotate-phylogenetic-tree-with-local-images/)
++ [phylomoji with ggtree](http://guangchuangyu.github.io/2015/12/use-emoji-font-in-r/)
+
 
 # Bugs/Feature requests
 
