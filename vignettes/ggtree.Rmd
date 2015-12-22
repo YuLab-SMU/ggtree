@@ -17,7 +17,7 @@ output:
 vignette: >
   %\VignetteIndexEntry{ggtree: phylogenetic tree viewer and annotator}
   %\VignetteEngine{knitr::rmarkdown}
-  %\VignetteDepends{pathview}
+  %\VignetteDepends{phangorn}
   %\usepackage[utf8]{inputenc}
 ---
 

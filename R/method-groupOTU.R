@@ -81,5 +81,19 @@ setMethod("groupOTU", signature(object="r8s"),
 
 
 
+##' @rdname groupOTU-methods
+##' @exportMethod groupOTU
+setMethod("groupOTU", signature(object="ggplot"),
+          function(object, focus, group_name="group") {
+              groupOTU.ggplot(object, focus, group_name)
+          })
+
+
+##' @rdname groupOTU-methods
+##' @exportMethod groupOTU
+setMethod("groupOTU", signature(object="gg"),
+          function(object, focus, group_name) {
+              groupOTU.ggplot(object, focus, group_name)
+          })
 
 
