@@ -71,30 +71,6 @@ setClass("r8s",
              )
          )
 
-##' Class "r8s"
-##' This class stores output info from r8s
-##'
-##'
-##' @name r8s-class
-##' @docType class
-##' @slot file input file
-##' @slot fields available feature
-##' @slot treetext tree text
-##' @slot phylo multiPhylo, time tree, rate tree and absolute substitution tree
-##' @slot extraInfo extra information
-##' @exportClass r8s
-##' @author Guangchuang Yu \url{http://ygc.name}
-##' @keywords classes
-setClass("r8s",
-         representation = representation(
-             file      = "character",
-             fields    = "character",
-             treetext  = "character",
-             phylo     = "multiPhylo",
-             extraInfo = "data.frame"
-         )
-         )
-
 ##' Class "nhx"
 ##' This class stores nhx tree
 ##'
