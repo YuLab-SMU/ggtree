@@ -1,0 +1,129 @@
+---
+title: "Tree Manipulation"
+author: "\\
+
+	Guangchuang Yu (<guangchuangyu@gmail.com>) and Tommy Tsan-Yuk Lam (<ttylam@hku.hk>)\\
+
+        School of Public Health, The University of Hong Kong"
+date: "`r Sys.Date()`"
+bibliography: ggtree.bib
+csl: nature.csl
+output: 
+  BiocStyle::html_document:
+    toc: true
+  BiocStyle::pdf_document:
+    toc: true
+vignette: >
+  %\VignetteIndexEntry{03 Tree Manipulation}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\usepackage[utf8]{inputenc}
+---
+
+```{r style, echo=FALSE, results="asis", message=FALSE}
+BiocStyle::markdown()
+knitr::opts_chunk$set(tidy = FALSE,
+		   message = FALSE)
+```
+
+
+```{r echo=FALSE, results="hide", message=FALSE}
+library("ape")
+library("ggplot2")
+library("ggtree")
+```
+
+
+
+# groupClade
+The `r Githubpkg("GuangchuangYu/ggtree") package defined several functions to manipulate tree view. _`groupClade`_ and _`groupOTU`_ methods for clustering clades or related OTUs. _`groupClade`_ accepts an internal node or a vector of internal nodes to cluster clade/clades.
+
+Both _`groupClade`_ and _`groupOTU`_ work fine with tree object or tree view.
+
+```{r fig.width=5, fig.height=5, fig.align="center", warning=FALSE}
+nwk <- system.file("extdata", "sample.nwk", package="ggtree")
+tree <- read.tree(nwk)
+tree <- groupClade(tree, node=21)
+ggtree(tree, aes(color=group, linetype=group))
+```
+
+The following command will produce the same figure.
+
+```{r eval=FALSE}
+ggtree(read.tree(nwk)) %>% groupClade(node=21) + aes(color=group, linetype=group)
+```
+
+
+With `groupClade` and `groupOTU`, it's easy to highlight selected taxa and easy to select taxa to display related features.
+
+```{r fig.width=5, fig.height=5, fig.align="center", warning=FALSE}
+tree <- groupClade(tree, node=c(21, 17))
+ggtree(tree, aes(color=group, linetype=group)) + geom_text2(aes(subset=(group==2), label=label), hjust=-.5)
+```
+
+
+# group OTUs
+_`groupOTU`_ accepts a vector of OTUs (taxa name) or a list of OTUs.  _`groupOTU`_ will trace back from OTUs to their most recent common ancestor and cluster them together. Related OUTs are not necessarily within a clade, they can be monophyletic (clade), polyphyletic or paraphyletic.
+
+
+```{r}
+tree <- groupOTU(tree, focus=c("A", "B", "C", "D", "E"))
+```
+
+```{r fig.width=5, fig.height=5, fig.align="center", warning=FALSE}
+ggtree(tree, aes(color=group)) + geom_tiplab()
+```
+
+_`groupOTU`_ can also input a list of tip groups.
+
+```{r fig.width=5, fig.height=5, fig.align="center", warning=FALSE}
+cls <- list(c1=c("A", "B", "C", "D", "E"),
+            c2=c("F", "G", "H"),
+            c3=c("L", "K", "I", "J"),
+            c4="M")
+
+tree <- groupOTU(tree, cls)
+library("colorspace")
+ggtree(tree, aes(color=group, linetype=group)) + geom_text(aes(label=label),  hjust=-.25) +
+     scale_color_manual(values=c("black", rainbow_hcl(4))) + theme(legend.position="right")
+```
+
+
+```{r fig.width=5, fig.height=5, fig.align="center", warning=FALSE}
+p <- ggtree(tree)
+groupOTU(p, LETTERS[1:5]) + aes(color=group) + geom_tiplab() + scale_color_manual(values=c("black", "firebrick"))
+```
+
+
+
+# collapse clade
+
+
+# expand collapsed clade
+
+
+# scale clade
+
+
+In __[`collapse clade`](#collapse-clade)__, we have illustrated how to collapse selected clades. Another approach is to zoom out clade to a small scale.
+
+```{r fig.width=12, fig.height=6, warning=F}
+grid.arrange(ggtree(tree) %>% hilight(21, "steelblue"),
+             ggtree(tree) %>% scaleClade(21, scale=0.3) %>% hilight(21, "steelblue"),
+             ncol=2)
+```
+
+Of course, _`scaleClade`_ can accept `scale` larger than 1 and zoom in the selected portion.
+
+```{r fig.width=12, fig.height=6, warning=F}
+grid.arrange(ggtree(tree) + geom_hilight(17, fill="steelblue") +
+                 geom_hilight(21, fill="darkgreen"),
+             ggtree(tree) %>% scaleClade(17, scale=2) %>% scaleClade(21, scale=0.3) +
+                 geom_hilight(17, "steelblue") + geom_hilight(21, fill="darkgreen"),
+             ncol=2)
+```
+
+# rotate clade
+
+# flip clade
+
+
