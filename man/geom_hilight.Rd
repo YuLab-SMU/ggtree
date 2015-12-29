@@ -2,14 +2,9 @@
 % Please edit documentation in R/geom_hilight.R
 \name{geom_hilight}
 \alias{geom_hilight}
-\alias{stat_hilight}
 \title{geom_hilight}
 \usage{
 geom_hilight(node, fill = "steelblue", alpha = 0.5)
-
-stat_hilight(mapping = NULL, data = NULL, geom = "rect",
-  position = "identity", node, show.legend = NA, inherit.aes = FALSE,
-  fill, alpha, ...)
 }
 \arguments{
 \item{node}{selected node to hilight}
@@ -17,16 +12,12 @@ stat_hilight(mapping = NULL, data = NULL, geom = "rect",
 \item{fill}{color fill}
 
 \item{alpha}{alpha (transparency)}
-
-\item{geom}{geometric object}
 }
 \value{
 ggplot2
 }
 \description{
 layer of hilight clade with rectangle
-
-stat_hilight
 }
 \author{
 Guangchuang Yu

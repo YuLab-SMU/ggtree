@@ -103,7 +103,7 @@ merge_tree <- function(obj1, obj2) {
     info2$parent <- node_map.df[info2$parent, 2]
 
     cn <- colnames(info2)
-    i <- match(c("x", "y", "isTip", "label", "branch", "branch.length"), cn)
+    i <- match(c("x", "y", "isTip", "label", "branch", "branch.length", "angle"), cn)
     i <- i[!is.na(i)]
     info2 <- info2[, -i]
 

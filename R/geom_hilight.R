@@ -13,12 +13,12 @@
 geom_hilight <- function(node, fill="steelblue", alpha=.5) {
                          
     
-    data=NULL
-    stat="hilight"
-    position="identity"
-    show.legend=NA
-    na.rm=FALSE
-    inherit.aes=FALSE
+    data = NULL
+    stat = "hilight"
+    position = "identity"
+    show.legend = NA
+    na.rm = FALSE
+    inherit.aes = FALSE
     
     default_aes <- aes_(x=~x, y=~y, node=~node, parent=~parent, branch.length=~branch.length)
     mapping <- default_aes
@@ -33,15 +33,27 @@ geom_hilight <- function(node, fill="steelblue", alpha=.5) {
         show.legend=show.legend,
         inherit.aes = inherit.aes,
         params = list(node=node,
-            fill=fill, alpha=alpha,
-            na.rm = na.rm)
+                      fill=fill, alpha=alpha,
+                      na.rm = na.rm)
     )
     
 }
 
 ##' stat_hilight
-##' @rdname geom_hilight
+##'
+##'
+##' @title stat_hilight
+##' @param mapping aes mapping
+##' @param data data
 ##' @param geom geometric object
+##' @param position position
+##' @param node node number
+##' @param show.legend show legend
+##' @param inherit.aes logical
+##' @param fill fill color
+##' @param alpha transparency
+##' @param ... additional parameter
+##' @return layer
 ##' @importFrom ggplot2 layer
 ##' @export
 stat_hilight <- function(mapping=NULL, data=NULL, geom="rect",

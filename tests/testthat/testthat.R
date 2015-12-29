@@ -17,7 +17,7 @@ test_that("convert polytomy to binary tree", {
     expect_equal(is.binary.tree(bt), TRUE)
 })
 
-df <- ggtree:::fortify.phylo(rtree(10))
+df <- fortify(rtree(10))
 child <- ggtree:::getChild.df(df, 11)
 test_that("root node should not be included in its ancestor node list", {
     expect_equal(11 %in% child, FALSE)
