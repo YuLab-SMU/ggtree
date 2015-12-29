@@ -8,9 +8,6 @@ This class stores output info from r8s}
 \description{
 Class "r8s"
 This class stores output info from r8s
-
-Class "r8s"
-This class stores output info from r8s
 }
 \section{Slots}{
 
@@ -24,20 +21,8 @@ This class stores output info from r8s
 \item{\code{phylo}}{multiPhylo, time tree, rate tree and absolute substitution tree}
 
 \item{\code{extraInfo}}{extra information}
-
-\item{\code{file}}{input file}
-
-\item{\code{fields}}{available feature}
-
-\item{\code{treetext}}{tree text}
-
-\item{\code{phylo}}{multiPhylo, time tree, rate tree and absolute substitution tree}
-
-\item{\code{extraInfo}}{extra information}
 }}
 \author{
-Guangchuang Yu \url{http://ygc.name}
-
 Guangchuang Yu \url{http://ygc.name}
 }
 \keyword{classes}

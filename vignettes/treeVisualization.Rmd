@@ -1,5 +1,5 @@
 ---
-title: "Simple Tree Visualization"
+title: "Tree Visualization"
 author: "\\
 
 	Guangchuang Yu (<guangchuangyu@gmail.com>) and Tommy Tsan-Yuk Lam (<ttylam@hku.hk>)\\
@@ -14,7 +14,7 @@ output:
   BiocStyle::pdf_document:
     toc: true
 vignette: >
-  %\VignetteIndexEntry{02 Simple Tree Visualization}
+  %\VignetteIndexEntry{02 Tree Visualization}
   %\VignetteEngine{knitr::rmarkdown}
   %\usepackage[utf8]{inputenc}
 ---
@@ -130,13 +130,21 @@ Unrooted layout was implemented by the _`equal-angle algorithm`_ that described 
 ggtree(tree, layout="unrooted") + ggtitle("unrooted layout")
 ```
 
+## Time-scaled tree
+
+A phylogenetic tree can be scaled by time (time-scaled tree) by specifying the parameter, `mrsd` (most recent sampling date).
+
+```{r fig.width=9, fig.height=4, fig.align="center"}
+tree2d <- read.beast(system.file("extdata", "twoD.tree", package="ggtree"))
+ggtree(tree2d, mrsd = "2014-05-01") + theme_tree2()
+```
+
 ## Two dimensional tree
 
 `r Githubpkg("GuangchuangYu/ggtree")` implemented 2 dimensional tree. It accepts parameter _`yscale`_ to scale the y-axis based on the selected tree attribute. The attribute should be numerical variable. If it is *character*/*category* variable, user should provides a name vector of mapping the variable to numeric by passing it to parameter _`yscale_mapping`_.
 
 
 ```{r fig.width=9, fig.height=4, fig.align="center"}
-tree2d <- read.beast(system.file("extdata", "twoD.tree", package="ggtree"))
 ggtree(tree2d, mrsd = "2014-05-01",
        yscale="NGS", yscale_mapping=c(N2=2, N3=3, N4=4, N5=5, N6=6, N7=7)) +
            theme_classic() + 
@@ -145,7 +153,7 @@ ggtree(tree2d, mrsd = "2014-05-01",
                          scale_y_continuous(labels=paste0("N", 2:7))
 ```	
 
-In this example, the figure demonstrates the quantity of __*y*__ increase along the trunk. User can highlight the trunk with different line size or color using the functions described in __XXX__.
+In this example, the figure demonstrates the quantity of __*y*__ increase along the trunk. User can highlight the trunk with different line size or color using the functions described in [Tree Manipulation](treeManipulation.html) vignette.
 
 
 # Displaying tree scale (evolution distance)
@@ -215,6 +223,17 @@ p + geom_tiplab(aes(x=branch), size=3, color="purple", vjust=-0.3)
 ```
 
 Based on the middle of branch is very useful when annotating transition from parent node to child node.
+
+# update tree viewing with a new tree
+
+In previous example, we have a _`p`_ object that stored the tree viewing of 13 tips and internal nodes highlighted with specific colored big dots. If users want to applied this pattern (we can imaging a more complex one) to a new tree, you don't need to build the tree step by step. `r Githubpkg("GuangchuangYu/ggtree")` provides an operator, _`%<%`_, for applying the visualization pattern to a new tree.
+
+For example, the pattern in the _`p`_ object will be applied to a new tree with 50 tips as shown below:
+```{r fig.width=3, fig.height=3, fig.align="center"}
+p %<% rtree(50)
+```
+
+Another example can be found in the [Tree Data Import](treeImport.html#rst-file) vignette.
 
 # theme
 

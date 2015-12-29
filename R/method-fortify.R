@@ -105,14 +105,16 @@ rm.singleton.newick <- function(nwk, outfile = NULL) {
 ##' @method fortify beast
 ##' @export
 fortify.beast <- function(model, data,
-                          layout    = "rectangular",
-                          yscale    = "none",
-                          ladderize = TRUE,
-                          right     =FALSE,
-                          ndigits   = NULL,
+                          layout        = "rectangular",
+                          yscale        = "none",
+                          ladderize     = TRUE,
+                          right         = FALSE,
+                          branch.length = "branch.length",
+                          ndigits       = NULL,
                           mrsd = NULL, ...) {
 
-    phylo <- get.tree(model)
+    phylo <- set_branch_length(model, branch.length)
+
     df    <- fortify(phylo, layout=layout,
                      ladderize=ladderize, right=right, mrsd = mrsd, ...)
     
@@ -258,11 +260,9 @@ fortify.codeml <- function(model, data,
         phylo <- get.tree(model@rst)
     } else {
         if (length == "mlc.branch.length") {
-            length = "branch.length"
+            length <- "branch.length"
         }
-        phylo <- fortify.codeml_mlc_(model@mlc, data, layout,
-                                     ladderize, right,
-                                     branch.length = length, ...)
+        phylo <- set_branch_length(model@mlc, length)
     }
     
     df <- fortify(phylo, data, layout, ladderize, right,
@@ -271,7 +271,7 @@ fortify.codeml <- function(model, data,
     res <- merge_phylo_anno.codeml_mlc(df, dNdS, ndigits)
     df <- merge_phylo_anno.paml_rst(res, model@rst)
     df <- scaleY(phylo, df, yscale, layout, ...)
-
+    
     append_extraInfo(df, model)
 }
 
@@ -287,11 +287,11 @@ fortify.codeml_mlc <- function(model, data,
                                ndigits       = NULL,
                                mrsd          = NULL,
                                ...) {
+
+    phylo <- set_branch_length(model, branch.length)
         
-    phylo <- fortify.codeml_mlc_(model, data, layout,
-                                 ladderize, right,
-                                 branch.length, mrsd=mrsd, ...)
-    df <- fortify(phylo, data, layout, ladderize, right, branch.length=branch.length, ...)
+    df <- fortify(phylo, data, layout, ladderize, right,
+                  branch.length=branch.length, mrsd=mrsd, ...)
     
     dNdS <- model@dNdS
 
@@ -325,25 +325,9 @@ fortify.codeml_mlc_ <- function(model, data,
                                 right         = FALSE,
                                 branch.length = "branch.length",
                                 ...) {
-    dNdS <- model@dNdS
-    length <- match.arg(branch.length, c("none", "branch.length",
-                                         colnames(dNdS)[-c(1,2)]))
-    phylo <- get.tree(model)
 
-    if (! length %in%  c("branch.length", "none")) {
-        edge <- as.data.frame(phylo$edge)
-        colnames(edge) <- c("parent", "node")
-        
-        dd <- merge(edge, dNdS,
-                    by.x  = c("node", "parent"),
-                    by.y  = c("node", "parent"),
-                    all.x = TRUE)
-        dd <- dd[match(edge$node, dd$node),]
-        phylo$edge.length <- dd[, length]
-    }
-
-    return(phylo)
 }
+
 
     
 ##' @method fortify paml_rst

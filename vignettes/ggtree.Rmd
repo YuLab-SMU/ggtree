@@ -1,0 +1,139 @@
+---
+title: "ggtree: a phylogenetic tree viewer for different types of tree annotations"
+author: "\\
+
+	Guangchuang Yu (<guangchuangyu@gmail.com>) and Tommy Tsan-Yuk Lam (<ttylam@hku.hk>)\\
+
+        School of Public Health, The University of Hong Kong"
+date: "`r Sys.Date()`"
+bibliography: ggtree.bib
+csl: nature.csl
+output: 
+  BiocStyle::html_document:
+    toc: true
+  BiocStyle::pdf_document:
+    toc: true
+vignette: >
+  %\VignetteIndexEntry{00 ggtree introduction}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\usepackage[utf8]{inputenc}
+---
+
+```{r style, echo=FALSE, results="asis", message=FALSE}
+BiocStyle::markdown()
+knitr::opts_chunk$set(tidy = FALSE,
+		   message = FALSE)
+```
+
+
+```{r echo=FALSE, results="hide", message=FALSE}
+library("colorspace")
+library("Biostrings")
+library("ape")
+library("ggplot2")
+library("gridExtra")
+library("ggtree")
+library("phangorn")
+```
+
+
+
+> You can't even begin to understand biology, you can't understand life, unless you understand what it's all there for, how it arose - and that means evolution.
+> --- Richard Dawkins
+
+
+# Citation
+If you use `r Biocpkg("ggtree")` in published research, please cite:
+
+```
+G Yu, D Smith, H Zhu, Y Guan, TTY Lam,
+ggtree: an R package for visualization and annotation of phylogenetic tree with different types of meta-data.
+revised.
+```
+
+# Introduction
+
+This project arose from our needs to annotate nucleotide substitutions in the phylogenetic tree, and we found that there is no tree visualization software can do this easily. Existing tree viewers are designed for displaying phylogenetic tree, but not annotating it. Although some tree viewers can displaying bootstrap values in the tree, it is hard/impossible to display other information in the tree. Our first solution for displaying nucleotide substituitions in the tree is to add this information in the node/tip names and use traditional tree viewer to show it. We displayed the information in the tree successfully, but we believe this indirect approach is inefficient.
+
+In the old day, phylogenetic tree is often small. At that time, as we almost didn't have a need to annotate a tree; displaying the evolution relationships is mostly enough. Nowadays, we can obtain a lot of data from different experiments, and we want to associate our data, for instance antigenic change, with the evolution relationship. Visualizing these associations in the phylogenetic tree can help us to identify evolution patterns. We believe we need a next generation tree viewer that should be programmable and extensible. It can view a phylogenetic tree easily as we did with classical software and support adding annotation data in a layer above the tree. This is the objective of developing the `r Githubpkg("GuangchuangYu/ggtree")`. Common tasks of annotating a phylogenetic tree should be easy and complicated tasks can be possible to achieve by adding multiple layers of annotation.
+
+The `r Githubpkg("GuangchuangYu/ggtree")` is designed by extending the `r CRANpkg("ggplot2")`[@wickham_ggplot2_2009] package. It is based on the grammar of graphics and takes all the good parts of `r CRANpkg("ggplot2")`. There are other R packages that implement tree viewer using `r CRANpkg("ggplot2")`, including `r CRANpkg("OutbreakTools")`, `r Biocpkg("phyloseq")`[@mcmurdie_phyloseq_2013] and `r Githubpkg("gjuggler/ggphylo")`; they mostly create complex tree view functions for their specific needs. Internally, these packages interpret a phylogenetic as a collection of `lines`, which makes it hard to annotate diverse user input that are related to node (taxa). The `r Githubpkg("GuangchuangYu/ggtree")` is different to them by interpreting a tree as a collection of `taxa` and allowing general flexibilities of annotating phylogenetic tree with diverse types of user inputs. 
+
+
+# Getting data into `R`
+
+Most of the tree viewer software (including `R` packages) focus on `Newick` and `Nexus` file format, while there are file formats from different evolution analysis software that contain supporting evidences within the file that are ready for annotating a phylogenetic tree.
+The `r Githubpkg("GuangchuangYu/ggtree")` package define several parser functions and `S4` classes to store statistical evidences inferred by commonly used software packages. It supports several file format, including:
+
++ Newick (via `ape`)
++ Nexus (via `ape`)
++ New Hampshire eXtended format (NHX)
++ Jplace
+
+and software output from:
+
++ [BEAST](http://beast2.org/)[@bouckaert_beast_2014] 
++ [EPA](http://sco.h-its.org/exelixis/web/software/epa/index.html)[@berger_EPA_2011]
++ [HYPHY](http://hyphy.org/w/index.php/Main_Page)[@pond_hyphy_2005]
++ [PAML](http://abacus.gene.ucl.ac.uk/software/paml.html)[@yang_paml_2007]
++ [PHYLDOG](http://pbil.univ-lyon1.fr/software/phyldog/)[@boussau_genome-scale_2013]
++ [pplacer](http://matsen.fhcrc.org/pplacer/)[@matsen_pplacer_2010]
++ [r8s](http://loco.biosci.arizona.edu/r8s/)[@marazzi_locating_2012]
++ [RAxML](http://sco.h-its.org/exelixis/web/software/raxml/)[@stamatakis_raxml_2014]
++ [RevBayes](http://revbayes.github.io/intro.html)[@hohna_probabilistic_2014]
+
+
+Parsing data from a number of molecular evolution software is not only for visualization in `ggtree`, but also bring these data to `R` users for further analysis (e.g. summarization, visualization, comparision, test, _etc_).
+
+For more details, please refer to [Tree Data Import](treeImport.html) vignette.
+
+
+# Tree Visualization and Annotation
+
+Tree Visualization in `ggtree` is easy, with one line of command `ggtree(tree_object)`. It supports several layout, including `rectangular`, `slanted` and `circular` for `Phylogram` and `Cladogram`, `unrooted` layout, time-scaled and two dimentional phylogenies. [Tree Visualization](treeVisualization.html) vignette describe these feature in details.
+
+We implement several functions to manipulate a phylogenetic tree.
+
++ taxa can be clustered together using `groupClade` or `groupOTU` functions
++ clades can be collapsed via `collapse` function
++ collapsed clade can be expanded by using `expand` function
++ clade can be re-scale to zoom in or zoom out by `scaleClade` function
++ selected clade can be rotated by 180 degree using `rotate` function
++ position of two selected clades (should share a same parent) can be exchanged by `flip` function
+
+Details and examples can be found in [Tree Manipulation](treeManipulation.html) vignette.
+
+
+Most of the phylogenetic trees are scaled by evolutionary distance (substitution/site), in `ggtree` a phylogenetic tree can be re-scaled by any numerical variable inferred by evolutionary analysis (e.g. species divergence time, *dN/dS*, _etc_). Numerical and category variable can be used to color a phylogenetic tree.
+
+The `ggtree` package provides several layers to annotate a phylogenetic tree, including `geom_treescale` for adding a legend of tree scale, `geom_hilight` for highlighting selected clades and `geom_cladelabel` for labelling selected clades.
+
+It supports annotating phylogenetic trees with analyses by R packages and other commonly used evolutionary software. User's specific annotation (e.g. experimental data) can be integrated to annotate phylogenetic tree. `ggtree` provides `write.jplace` function to combine Newick tree file and user's own data to a single `jplace` file that can be parsed and the data can be used to annotate the tree directly in `ggtree`.
+
+`ggtree` integrates `phylopic` database and silhouette images of organisms can be downloaded and used to annotate phylogenetic directly. `ggtree` also supports using local images to annotate a phylogenetic tree.
+
+Visualizing an annotated phylogenetic tree with numerical matrix (e.g. genotype table) and multiple sequence alignment is also supported in `ggtree`. Examples of annotating phylogenetic trees can be found in the [Tree Annotation](treeAnnotation.html) vignette.
+
+
+# Vignette Entry
+
++ [Tree Data Import](treeImport.html)
++ [Tree Visualization](treeVisualization.html)
++ [Tree Manipulation](treeManipulation.html)
++ [Tree Annotation](treeAnnotation.html)
+
+
+# Bugs/Feature requests
+
+If you have any, [let me know](https://github.com/GuangchuangYu/ggtree/issues). Thx!
+
+
+# Session info
+
+Here is the output of `sessionInfo()` on the system on which this document was compiled:
+```{r echo=FALSE}
+sessionInfo()
+```
+
+
+# References

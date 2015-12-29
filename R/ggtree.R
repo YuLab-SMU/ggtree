@@ -4,7 +4,6 @@
 ##' @title ggtree
 ##' @param tr phylo object
 ##' @param mapping aes mapping
-##' @param showDistance add distance legend, logical
 ##' @param layout one of 'rectangular', 'slanted', 'fan'/'circular', 'radial' or 'unrooted'
 ##' @param mrsd most recent sampling date
 ##' @param as.Date logical whether using Date class in time tree
@@ -459,15 +458,6 @@ add_colorbar <- function(p, color, x=NULL, ymin=NULL, ymax=NULL, font.size=4) {
                          annotate("segment", x=x+offset-barwidth, xend=x+offset, y=y[i], yend=y[i], color="white")
     
 }
-
-
-
-
-
-
-
-
-
 
 
 ##' get taxa name of a selected node
