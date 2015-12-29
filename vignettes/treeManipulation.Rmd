@@ -16,6 +16,7 @@ output:
 vignette: >
   %\VignetteIndexEntry{03 Tree Manipulation}
   %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteDepends{gridExtra}
   %\usepackage[utf8]{inputenc}
 ---
 
@@ -30,18 +31,37 @@ knitr::opts_chunk$set(tidy = FALSE,
 library("ape")
 library("ggplot2")
 library("ggtree")
+library("gridExtra")
 ```
 
+# Internal node number
 
+Some of the functions works with clade and accepts a parameter of internal node number. To get the internal node number, user can use `geom_text2` to display it:
+
+```{r}
+nwk <- system.file("extdata", "sample.nwk", package="ggtree")
+tree <- read.tree(nwk)
+ggtree(tree) + geom_text2(aes(subset=!isTip, label=node), hjust=-.3) + geom_tiplab()
+```
+
+Another way to get the internal node number is using `MRCA()` function by providing a vector of taxa names. The function will return node number of input taxa's most recent commond ancestor (MRCA). It works with tree object and graphic object.
+
+
+```{r}
+MRCA(tree, tip=c('A', 'E'))
+MRCA(tree, tip=c('H', 'G'))
+
+p <- ggtree(tree)
+MRCA(p, tip=c('A', 'E'))
+```
 
 # groupClade
-The `r Githubpkg("GuangchuangYu/ggtree") package defined several functions to manipulate tree view. _`groupClade`_ and _`groupOTU`_ methods for clustering clades or related OTUs. _`groupClade`_ accepts an internal node or a vector of internal nodes to cluster clade/clades.
+
+The `r Githubpkg("GuangchuangYu/ggtree")` package defined several functions to manipulate tree view. _`groupClade`_ and _`groupOTU`_ methods for clustering clades or related OTUs. _`groupClade`_ accepts an internal node or a vector of internal nodes to cluster clade/clades.
 
 Both _`groupClade`_ and _`groupOTU`_ work fine with tree object or tree view.
 
 ```{r fig.width=5, fig.height=5, fig.align="center", warning=FALSE}
-nwk <- system.file("extdata", "sample.nwk", package="ggtree")
-tree <- read.tree(nwk)
 tree <- groupClade(tree, node=21)
 ggtree(tree, aes(color=group, linetype=group))
 ```
@@ -66,7 +86,7 @@ _`groupOTU`_ accepts a vector of OTUs (taxa name) or a list of OTUs.  _`groupOTU
 
 
 ```{r}
-tree <- groupOTU(tree, focus=c("A", "B", "C", "D", "E"))
+tree <- groupOTU(tree, focus=c("D", "E", "F", "G"))
 ```
 
 ```{r fig.width=5, fig.height=5, fig.align="center", warning=FALSE}
@@ -93,22 +113,67 @@ p <- ggtree(tree)
 groupOTU(p, LETTERS[1:5]) + aes(color=group) + geom_tiplab() + scale_color_manual(values=c("black", "firebrick"))
 ```
 
+## iris example
+
+In this example, we first build a tree based on the iris data, then grouping the tree based on different spacies.
+
+```{r fig.width=20, fig.height=20, fig.align="center", warning=FALSE}
+data(iris)
+rn <- paste0(iris[,5], "_", 1:150)
+rownames(iris) <- rn
+d_iris <- dist(iris[,-5], method="man")
+
+tree_iris <- bionj(d_iris)
+tree_iris <- groupOTU(tree_iris, list(setosa        = rn[1:50],
+                                      versicolor    = rn[51:100],
+                                      virginica_145 = rn[101:150]))
+cols <- rainbow_hcl(4)
+ggtree(tree_iris, aes(color=group)) +
+    geom_text(aes(label=label), hjust=-.1) +
+    scale_color_manual(values=cols, breaks=1:3,
+                       labels=c("Setosa", "Versicolor", "Virginica")) +
+    theme(legend.position="right")
+```		
+
+	
 
 
 # collapse clade
 
+With _`collapse`_ function, user can collapse a selected clade.
+
+```{r fig.width=5, fig.height=5, fig.align="center", warning=FALSE}
+cp <- ggtree(tree) %>% collapse(node=21)
+cp + geom_point2(aes(subset=(node == 21)), size=5, shape=23, fill="steelblue")
+```
 
 # expand collapsed clade
 
+The collapsed clade can be expanded via _`expand`_ function.
+
+```{r fig.width=5, fig.height=5, fig.align="center", warning=FALSE}
+cp %>% expand(node=21)
+```
+
+```{r fig.width=15, fig.height=3, warning=FALSE}
+p1 <- ggtree(tree)
+p2 <- collapse(p1, 21) + geom_point2(aes(subset=(node==21)), size=5, shape=23, fill="blue")
+p3 <- collapse(p2, 17) + geom_point2(aes(subset=(node==17)), size=5, shape=23, fill="red")
+p4 <- expand(p3, 17)
+p5 <- expand(p4, 21)
+
+library("gridExtra")
+grid.arrange(p1, p2, p3, p4, p5, ncol=5)
+```
 
 # scale clade
 
 
-In __[`collapse clade`](#collapse-clade)__, we have illustrated how to collapse selected clades. Another approach is to zoom out clade to a small scale.
+We have illustrated how to collapse selected clades. Another approach is to zoom out clade to a small scale.
 
 ```{r fig.width=12, fig.height=6, warning=F}
-grid.arrange(ggtree(tree) %>% hilight(21, "steelblue"),
-             ggtree(tree) %>% scaleClade(21, scale=0.3) %>% hilight(21, "steelblue"),
+grid.arrange(ggtree(tree) + geom_hilight(21, "steelblue"),
+             ggtree(tree) %>% scaleClade(21, scale=0.3) + geom_hilight(21, "steelblue"),
              ncol=2)
 ```
 
@@ -124,6 +189,18 @@ grid.arrange(ggtree(tree) + geom_hilight(17, fill="steelblue") +
 
 # rotate clade
 
+A selected clade can be rotated by 180 degree using __`rotate`__ function.
+
+```{r fig.width=8, fig.height=4}
+tree <- groupClade(tree, c(21, 17))
+p <- ggtree(tree, aes(color=group)) + scale_color_manual(values=c("black", "firebrick", "steelblue"))
+grid.arrange(p, p %>% rotate(21) %>% rotate(17), ncol=2)
+```
+                                                                                                                                                                         
 # flip clade
 
+The positions of two selected clades (should share a same parent) can be flip over using __`flip`__ function.
 
+```{r fig.width=8, fig.height=4}
+grid.arrange(p, flip(p, 17, 21), ncol=2)
+```

@@ -27,6 +27,8 @@ geom_cladelabel(node, label, offset = 0, offset.text = 0, align = FALSE,
 
 \item{geom}{one of 'text' or 'label'}
 
+\item{hjust}{hjust}
+
 \item{fill}{fill label background, only work with geom='label'}
 
 \item{...}{additional parameter}

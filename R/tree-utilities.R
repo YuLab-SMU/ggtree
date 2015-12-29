@@ -869,3 +869,44 @@ calculate_branch_mid <- function(res) {
     res$branch[is.na(res$branch)] <- 0
     return(res)
 }
+
+
+set_branch_length <- function(tree_object, branch.length) {
+    phylo <- get.tree(tree_object)
+    
+    if (branch.length %in%  c("branch.length", "none")) {
+        return(phylo)
+    }
+
+
+    ## if (is(tree_object, "codeml")) {
+    ##     tree_anno <- tree_object@mlc@dNdS
+    ## } else
+    
+    if (is(tree_object, "codeml_mlc")) {
+        tree_anno <- tree_object@dNdS
+    } else if (is(tree_object, "beast")) {
+        tree_anno <- tree_object@stats
+    }
+    
+    length <- match.arg(branch.length, c("none", "branch.length",
+                                         colnames(tree_anno)[-c(1,2)]))
+
+  
+    edge <- as.data.frame(phylo$edge)
+    colnames(edge) <- c("parent", "node")
+    
+    dd <- merge(edge, tree_anno,
+                by.x  = "node",
+                by.y  = "node",
+                all.x = TRUE)
+    dd <- dd[match(edge$node, dd$node),]
+    len <- unlist(dd[, length])
+    len <- as.numeric(len)
+    len[is.na(len)] <- 0
+    
+    phylo$edge.length <- len
+
+    return(phylo)
+}
+

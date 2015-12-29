@@ -1,3 +1,12 @@
+CHANGES IN VERSION 1.3.7
+------------------------
+ o split the long vignette to several vignettes
+   + 00 ggtree <2015-12-29, Tue>
+   + 01 tree data import <2015-12-28, Mon>
+   + 02 tree visualization <2015-12-28, Mon>
+   + 03 tree view manipulation <2015-12-28, Mon>
+   + 04 tree annotation <2015-12-29, Tue>
+ 
 CHANGES IN VERSION 1.3.6
 ------------------------
  o MRCA function for finding Most Recent Common Ancestor among a vector of tips <2015-12-22, Tue>

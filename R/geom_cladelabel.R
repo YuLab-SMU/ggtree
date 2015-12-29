@@ -11,6 +11,7 @@
 ##' @param fontsize size of text
 ##' @param angle angle of text
 ##' @param geom one of 'text' or 'label'
+##' @param hjust hjust
 ##' @param fill fill label background, only work with geom='label'
 ##' @param ... additional parameter
 ##' @return ggplot layers

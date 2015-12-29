@@ -16,6 +16,7 @@ output:
 vignette: >
   %\VignetteIndexEntry{01 Tree Data Import}
   %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteDepends{scales}
   %\usepackage[utf8]{inputenc}
 ---
 
@@ -229,6 +230,48 @@ head(fortify(ml))
 All the features in both files are available for annotation. For example, we can annotate _`dN/dS`_ with the tree in _`rstfile`_ and amino acid substitutions with the tree in _`mlcfile`_.
 
 
+## Parsing HYPHY output
+
+```{r warning=FALSE}
+nwk <- system.file("extdata/HYPHY", "labelledtree.tree", package="ggtree")
+ancseq <- system.file("extdata/HYPHY", "ancseq.nex", package="ggtree")
+tipfas <- system.file("extdata", "pa.fas", package="ggtree")
+hy <- read.hyphy(nwk, ancseq, tipfas)
+hy
+```
+
+```{r fig.width=12, fig.height=10, width=60, warning=FALSE, fig.align="center"}
+ggtree(hy) + geom_text(aes(x=branch, label=AA_subs), vjust=-.5)
+```
+
+## Parsing r8s output
+
+[r8s](http://loco.biosci.arizona.edu/r8s/) output contains 3 trees, namely `TREE`, `RATO` and `PHYLO` for time tree, rate tree and absolute substitution tree respectively.
+
+
+```{r fig.width=4, fig.height=6, width=60, warning=FALSE, fig.align="center")
+r8s <- read.r8s(system.file("extdata/r8s", "H3_r8s_output.log", package="ggtree"))
+ggtree(r8s, branch.length="TREE", mrsd="2014-01-01") + theme_tree2()
+```
+
+
+`branch.length` should be one of `TREE`, `RATO` or `PHYLO` for selecting the corresponding tree.
+
+User can also view 3 trees simultaneously.
+
+
+```{r fig.width=16, fig.height=10, width=60, warning=FALSE, fig.align="center")
+ggtree(get.tree(r8s), aes(color=.id)) + facet_wrap(~.id, scales="free_x")
+```
+
+## Parsing output of RAxML bootstraping analysis
+
+```{r fig.width=12, fig.height=10, width=60, warning=FALSE, fig.align="center"}
+raxml_file <- system.file("extdata/RAxML", "RAxML_bipartitionsBranchLabels.H3", package="ggtree")
+raxml <- read.raxml(raxml_file)
+ggtree(raxml) + geom_label(aes(label=bootstrap, fill=bootstrap)) + geom_tiplab() +
+    scale_fill_continuous(low='darkgreen', high='red') + theme_tree2(legend.position='right')
+```
 
 
 ## Parsing NHX tree
@@ -244,6 +287,104 @@ ggtree(nhx) + geom_tiplab() + geom_point(aes(color=S), size=5, alpha=.5) +
     xlim(NA, 0.3)
 ```
 
+
+## Parsing EPA and pplacer output
+
+[EPA](http://sco.h-its.org/exelixis/web/software/epa/index.html)[@berger_EPA_2011] and [PPLACER](http://matsen.fhcrc.org/pplacer/)[@matsen_pplacer_2010] have common output file format, `jplace`. 
+
+```{r}
+jpf <- system.file("extdata/sample.jplace",  package="ggtree")
+jp <- read.jplace(jpf)
+print(jp)
+```
+
+In `r Githubpkg("GuangchuangYu/ggtree")`, we provide _`get.placements`_ method to access the placement.
+
+```{r}
+## get only best hit
+get.placements(jp, by="best")
+## get all placement
+get.placements(jp, by="all")
+```
+
+This is only a tiny sample file. In reality, [EPA](http://sco.h-its.org/exelixis/web/software/epa/index.html) and [PPLACER](http://matsen.fhcrc.org/pplacer/) may place thousands of short reads on a reference tree.
+
+
+We may, for example, count the number of placement and annotate this information in the tree. 
+
+
+# merging tree objects
+
+
+In ggtree, tree objects can be merged and evidences inferred from different phylogenetic analyses can be combined or compared and visualized.
+
+User can use the command like:
+```r
+tree <- merge_tree(tree_object_1, tree_object_2)
+## it's chainable, and serveral tree objects can be merged into one tree object
+tree <- merge_tree(tree_object_1, tree_object_2) %>% merge_tree(tree_object_3) %>% merge_tree(tree_object_4)
+```
+
+Here we use a tree analyzed by BEAST and CodeML and merge them into one.
+
+```{r}
+beast_file <- system.file("examples/MCC_FluA_H3.tree", package="ggtree")
+beast_tree <- read.beast(beast_file)
+
+rst_file <- system.file("examples/rst", package="ggtree")
+mlc_file <- system.file("examples/mlc", package="ggtree")
+codeml_tree <- read.codeml(rst_file, mlc_file)
+
+merged_tree <- merge_tree(beast_tree, codeml_tree)
+
+merged_tree
+head(fortify(merged_tree))
+```
+
+After merging, all evidences inferred from different tools can be used to annotate the tree simultaneously. In this example, we used 'dN/dS' inferred by CodeML to color the tree and annotate the tree with 'posterior' inferred by BEAST.
+
+```{r fig.width=20, fig.height=26, warning=FALSE}
+ggtree(merged_tree, aes(color=dN), mrsd="2013-01-01", ndigits = 3) +
+    geom_text(aes(label=posterior), vjust=.1, hjust=-.1, size=5, color="black") + 
+    scale_color_continuous(name='dN/dS', limits=c(0, 1.5),
+                           oob=scales::squish, low="darkgreen", high="red")+
+    theme_tree2(legend.position="right")
+```	
+
+
+# `jplace` file format
+The _`jplace`_ file format was defined by Masten[@matsen_format_2012] for phylogenetic placements. We employed this file format to store phylogenetic tree and user specific annotation data. Suppose we have a tree, and the associated data as shown below:
+
+```{r}
+tree <- system.file("extdata", "pa.nwk", package="ggtree")
+data <- read.csv(system.file("extdata", "pa_subs.csv", package="ggtree"), stringsAsFactor=FALSE)
+print(tree)
+head(data)
+```
+
+The _`data`_ contains amino acid substitutions from parent node to child node and GC contents of each node. We can annotate the tree as demonstrated in [User specific annotation](treeAnnotation.html#user-specific-annotation) session of [Tree Annotation](treeAnnotation.html) vignette.
+
+
+`r Githubpkg("GuangchuangYu/ggtree")` provides a function, _`write.jplace`_, to combine a tree and an associated data and store them to a single _`jplace`_ file.
+```{r}
+outfile <- tempfile()
+write.jplace(tree, data, outfile)
+```
+
+Then _`read.jplace`_ function was designed to read the _`jplace`_ file and store the information to a _`jplace`_ object.
+```{r}
+jp <- read.jplace(outfile)
+print(jp)
+```
+
+Now we know the _`jp`_ object stored the tree and the associated amino acid substitution and GC content information, we can view the tree and display the associated annotation data on it directly by _`ggtree`_.
+
+```{r fig.width=12, fig.height=12, warning=FALSE, fig.align="center"}
+ggtree(jp) + 
+    geom_text(aes(x=branch, label=subs), color="purple", vjust=-1, size=3) + 
+    geom_text(aes(label=gc), color="steelblue", hjust=-.6, size=3) +
+    geom_tiplab()
+```
 
 
 
