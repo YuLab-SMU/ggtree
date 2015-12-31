@@ -1,9 +1,67 @@
+##' plots simultaneously a whole phylogenetic tree and a portion of it. 
+##'
+##' 
+##' @title gzoom
+##' @param phy phylo object
+##' @param focus selected tips
+##' @param subtree logical
+##' @param widths widths
+##' @return a list of ggplot object
+##' @importFrom ggplot2 xlim
+##' @importFrom ggplot2 scale_color_manual
+##' @importFrom ape drop.tip
+##' @importFrom gridExtra grid.arrange
+##' @author ygc
+##' @examples
+##' require(ape)
+##' data(chiroptera)
+##' gzoom(chiroptera, grep("Plecotus", chiroptera$tip.label))
+gzoom.phylo <- function(phy, focus, subtree=FALSE, widths=c(.3, .7)) {
+    if (is.character(focus)) {
+        focus <- which(phy$tip.label %in% focus)
+    }
+
+    group_name <- "focus"
+    phy <- gfocus(phy, focus, group_name)
+
+    foc <- attr(phy, group_name)
+    ## foc should +1 since the group index start from 0
+    cols <- c("black", "red")[foc+1]
+
+    p1 <- ggtree(phy, color=cols)
+    
+    subtr <- drop.tip(phy, phy$tip.label[-focus],
+                      subtree=subtree, rooted=TRUE)
+    
+    p2 <- ggtree(subtr, color="red") + geom_tiplab(hjust=-0.05)
+    p2 <- p2 + xlim(0, max(p2$data$x)*1.2)
+    grid.arrange(p1, p2, ncol=2, widths=widths)
+    
+    invisible(list(p1=p1, p2=p2))
+}
+
+
+##' @rdname gzoom-methods
+##' @exportMethod gzoom
+setMethod("gzoom", signature(object="apeBootstrap"),
+          function(object, focus, subtree=FALSE, widths=c(.3, .7)) {
+              gzoom.phylo(get.tree(object), focus, subtree, widths)
+          })
+
+
 ##' zoom selected subtree
 ##'
 ##' 
 ##' @rdname gzoom-methods
 ##' @exportMethod gzoom
 setMethod("gzoom", signature(object="beast"),
+          function(object, focus, subtree=FALSE, widths=c(.3, .7)) {
+              gzoom.phylo(get.tree(object), focus, subtree, widths)
+          })
+
+##' @rdname gzoom-methods
+##' @exportMethod gzoom
+setMethod("gzoom", signature(object="codeml"),
           function(object, focus, subtree=FALSE, widths=c(.3, .7)) {
               gzoom.phylo(get.tree(object), focus, subtree, widths)
           })

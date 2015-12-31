@@ -263,7 +263,7 @@ p <- p + geom_text(aes(color=place, label=value), hjust=1, vjust=1.4, size=3)
 print(p)
 ```
 
-## `jplace` file format
+## jplace file format
 
 In `ggtree`, we provide `write.jplace` function to store user's own data and associated newick tree to a single `jplace` file, which can be parsed directly in `ggtree` and user's data can be used to annotate the tree directly. For more detail, please refer to the [Tree Data Import](treeImport.html#jplace-file-format) vignette.
 
@@ -320,7 +320,7 @@ pp <- (p + scale_y_continuous(expand=c(0, 0.3))) %>%
 pp + theme(legend.position="right")
 ```
 
-# visualize tree with multiple sequence alignment
+# Visualize tree with multiple sequence alignment
 
 With `msaplot` function, user can visualizes multiple sequence alignment with phylogenetic tree, as demonstrated below:
 ```{r fig.width=8, fig.height=12, fig.align='center'}
@@ -329,3 +329,8 @@ msaplot(ggtree(beast_tree), fasta)
 ```
 
 A specific slice of the alignment can also be displayed by specific _window_ parameter.
+
+
+# References
+
+

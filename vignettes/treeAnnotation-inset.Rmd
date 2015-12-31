@@ -1,0 +1,106 @@
+---
+title: "Tree Annotation with inset"
+author: "\\
+
+	Guangchuang Yu (<guangchuangyu@gmail.com>) and Tommy Tsan-Yuk Lam (<ttylam@hku.hk>)\\
+
+        School of Public Health, The University of Hong Kong"
+date: "`r Sys.Date()`"
+bibliography: ggtree.bib
+csl: nature.csl
+output: 
+  BiocStyle::html_document:
+    toc: true
+  BiocStyle::pdf_document:
+    toc: true
+vignette: >
+  %\VignetteIndexEntry{05 Tree Annotation with inset}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\usepackage[utf8]{inputenc}
+---
+
+```{r style, echo=FALSE, results="asis", message=FALSE}
+BiocStyle::markdown()
+knitr::opts_chunk$set(tidy = FALSE,
+		   message = FALSE)
+```
+
+
+```{r echo=FALSE, results="hide", message=FALSE}
+library("ape")
+library("ggplot2")
+library("ggtree")
+```
+
+# Annotate a phylogenetic with insets
+
+The *ggtree* package provides a function, `inset`, for adding subplots to a phylogenetic tree. The input is a tree graphic object and a named list of ggplot graphic objects (can be any kind of charts), these objects should named by node numbers. To facilitate adding bar and pie charts (e.g. summarized stats of results from ancestral reconstruction) to phylogenetic tree, *ggtree* provides `nodepie` and `nodebar` functions to create a list of pie or bar charts.
+
+## Annotate with bar charts
+
+```{r}
+set.seed(2015-12-31)
+tr <- rtree(15)
+p <- ggtree(tr)
+
+a <- runif(14, 0, 0.33)
+b <- runif(14, 0, 0.33)
+c <- runif(14, 0, 0.33)
+d <- 1 - a - b - c
+dat <- data.frame(a=a, b=b, c=c, d=d)
+## input data should have a column of `node` that store the node number
+dat$node <- 15+1:14
+
+## cols parameter indicate which columns store stats (a, b, c and d in this example)
+bars <- nodebar(dat, cols=1:4)
+
+inset(p, bars)
+```
+
+The size of the inset can be ajusted by the paramter *width* and *height*.
+
+```{r}
+inset(p, bars, width=.03, height=.06)
+```
+
+Users can set the color via the parameter *color*. The *x* position can be one of 'node' or 'branch' and can be adjusted by the parameter *hjust* and *vjust* for horizontal and vertical adjustment respecitvely.
+
+
+```{r}
+bars2 <- nodebar(dat, cols=1:4, position='dodge',
+                 color=c(a='blue', b='red', c='green', d='cyan'))
+p2 <- inset(p, bars2, x='branch', width=.03, vjust=-.3)
+print(p2)
+```
+
+## Annotate with pie charts
+
+Similarly, users can use `nodepie` function to generate a list of pie charts and place these charts to annotate corresponding nodes. Both `nodebar` and `nodepie` accepts parameter *alpha* to allow transparency.
+
+```{r}
+pies <- nodepie(dat, cols=1:4, alpha=.6)
+inset(p, pies)
+```
+
+
+```{r}
+inset(p, pies, hjust=-.06)
+```
+
+## Annotate with other types of charts
+
+The `inset` function accepts a list of ggplot graphic objects and these input objects are not restricted to pie or bar charts. They can be any kinds of charts and hybrid of these charts.
+
+```{r}
+pies_and_bars <- bars2
+pies_and_bars[9:14] <- pies[9:14]
+inset(p, pies_and_bars)
+```
+
+After annotating with insets, users can further annotate the tree with another layer of insets.
+
+```{r}
+inset(p2, pies, x='branch', vjust=.4)
+```
+
+
