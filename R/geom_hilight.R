@@ -114,7 +114,12 @@ get_clade_position_ <- function(data, node) {
     sp.df <- data[c(sp, node),]
     x <- sp.df$x
     y <- sp.df$y
-    data.frame(xmin=min(x)-data[node, "branch.length"]/2,
+    if ("branch.length" %in% colnames(data)) {
+        xmin <- min(x)-data[node, "branch.length"]/2
+    } else {
+        xmin <- min(sp.df$branch)
+    }
+    data.frame(xmin=xmin,
                xmax=max(x),
                ymin=min(y)-0.5,
                ymax=max(y)+0.5)

@@ -39,12 +39,6 @@ setMethod("scale_color", signature(object="codeml"),
           })
 
 
-##' @rdname gzoom-methods
-##' @exportMethod gzoom
-setMethod("gzoom", signature(object="codeml"),
-          function(object, focus, subtree=FALSE, widths=c(.3, .7)) {
-              gzoom.phylo(get.tree(object), focus, subtree, widths)
-          })
 
 ##' @rdname show-methods
 ##' @exportMethod show
