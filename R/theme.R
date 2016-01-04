@@ -77,3 +77,19 @@ theme_transparent <- function(...) {
               fill = "transparent",
               colour = NA), ...)
 }
+
+##' inset theme
+##'
+##' theme for inset function
+##' @title theme_inset
+##' @param ... additional parameter
+##' @return ggplot object
+##' @export
+##' @author Guangchuang Yu
+theme_inset <- function(...) {
+    list(xlab(NULL),
+         ylab(NULL),
+         theme_tree(...),
+         theme_transparent()
+         )
+}

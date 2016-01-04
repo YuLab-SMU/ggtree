@@ -9,9 +9,9 @@ date: "`r Sys.Date()`"
 bibliography: ggtree.bib
 csl: nature.csl
 output: 
-  BiocStyle::html_document:
+  html_document:
     toc: true
-  BiocStyle::pdf_document:
+  pdf_document:
     toc: true
 vignette: >
   %\VignetteIndexEntry{03 Tree Manipulation}
@@ -21,7 +21,6 @@ vignette: >
 ---
 
 ```{r style, echo=FALSE, results="asis", message=FALSE}
-BiocStyle::markdown()
 knitr::opts_chunk$set(tidy = FALSE,
 		   message = FALSE)
 ```
@@ -30,8 +29,10 @@ knitr::opts_chunk$set(tidy = FALSE,
 ```{r echo=FALSE, results="hide", message=FALSE}
 library("ape")
 library("ggplot2")
-library("ggtree")
 library("gridExtra")
+library("ggtree")
+collapse <- ggtree::collapse
+expand <- ggtree::expand
 ```
 
 # Internal node number
@@ -57,7 +58,7 @@ MRCA(p, tip=c('A', 'E'))
 
 # groupClade
 
-The `r Githubpkg("GuangchuangYu/ggtree")` package defined several functions to manipulate tree view. _`groupClade`_ and _`groupOTU`_ methods for clustering clades or related OTUs. _`groupClade`_ accepts an internal node or a vector of internal nodes to cluster clade/clades.
+The `ggtree` package defined several functions to manipulate tree view. _`groupClade`_ and _`groupOTU`_ methods for clustering clades or related OTUs. _`groupClade`_ accepts an internal node or a vector of internal nodes to cluster clade/clades.
 
 Both _`groupClade`_ and _`groupOTU`_ work fine with tree object or tree view.
 
@@ -113,6 +114,15 @@ p <- ggtree(tree)
 groupOTU(p, LETTERS[1:5]) + aes(color=group) + geom_tiplab() + scale_color_manual(values=c("black", "firebrick"))
 ```
 
+```{r fig.width=14, fig.height=14}
+library("ape")
+data(chiroptera)
+groupInfo <- split(chiroptera$tip.label, gsub("_\\w+", "", chiroptera$tip.label))
+chiroptera <- groupOTU(chiroptera, groupInfo)
+ggtree(chiroptera, aes(color=group), layout='circular') + geom_tiplab(size=1, aes(angle=angle))
+```
+
+<!--
 ## iris example
 
 In this example, we first build a tree based on the iris data, then grouping the tree based on different spacies.
@@ -134,7 +144,7 @@ ggtree(tree_iris, aes(color=group)) +
                        labels=c("Setosa", "Versicolor", "Virginica")) +
     theme(legend.position="right")
 ```		
-
+-->
 	
 
 

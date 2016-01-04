@@ -92,12 +92,6 @@ setMethod("scale_color", signature(object="apeBootstrap"),
           })
 
 
-##' @rdname gzoom-methods
-##' @exportMethod gzoom
-setMethod("gzoom", signature(object="apeBootstrap"),
-          function(object, focus, subtree=FALSE, widths=c(.3, .7)) {
-              gzoom.phylo(get.tree(object), focus, subtree, widths)
-          })
 
 
 ##' @rdname get.tree-methods

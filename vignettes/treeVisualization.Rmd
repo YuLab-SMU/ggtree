@@ -9,9 +9,9 @@ date: "`r Sys.Date()`"
 bibliography: ggtree.bib
 csl: nature.csl
 output: 
-  BiocStyle::html_document:
+  html_document:
     toc: true
-  BiocStyle::pdf_document:
+  pdf_document:
     toc: true
 vignette: >
   %\VignetteIndexEntry{02 Tree Visualization}
@@ -20,7 +20,6 @@ vignette: >
 ---
 
 ```{r style, echo=FALSE, results="asis", message=FALSE}
-BiocStyle::markdown()
 knitr::opts_chunk$set(tidy = FALSE,
 		   message = FALSE)
 ```
@@ -34,7 +33,7 @@ library("gridExtra")
 ```
 
 
-To view a phylogenetic tree, we first need to parse the tree file into `R`. The `r Githubpkg("GuangchuangYu/ggtree")` package supports many file format including output files of commonly used software packages in evolutionary biology. For more details, plase refer to the [Tree Data Import](treeImport.html) vignette.
+To view a phylogenetic tree, we first need to parse the tree file into `R`. The `ggtree` package supports many file format including output files of commonly used software packages in evolutionary biology. For more details, plase refer to the [Tree Data Import](treeImport.html) vignette.
 
 ```{r}
 library("ggtree")
@@ -44,7 +43,7 @@ tree <- read.tree(nwk)
 
 # Viewing tree with `ggtree`
 
-The `r Githubpkg("GuangchuangYu/ggtree")` package extends _`ggplot2`_ package to support viewing phylogenetic tree.
+The `ggtree` package extends _`ggplot2`_ package to support viewing phylogenetic tree.
 It implements _`geom_tree`_ layer for displaying phylogenetic trees, as shown below:
 
 
@@ -141,7 +140,7 @@ ggtree(tree2d, mrsd = "2014-05-01") + theme_tree2()
 
 ## Two dimensional tree
 
-`r Githubpkg("GuangchuangYu/ggtree")` implemented 2 dimensional tree. It accepts parameter _`yscale`_ to scale the y-axis based on the selected tree attribute. The attribute should be numerical variable. If it is *character*/*category* variable, user should provides a name vector of mapping the variable to numeric by passing it to parameter _`yscale_mapping`_.
+`ggtree` implemented 2 dimensional tree. It accepts parameter _`yscale`_ to scale the y-axis based on the selected tree attribute. The attribute should be numerical variable. If it is *character*/*category* variable, user should provides a name vector of mapping the variable to numeric by passing it to parameter _`yscale_mapping`_.
 
 
 ```{r fig.width=9, fig.height=4, fig.align="center"}
@@ -210,7 +209,7 @@ Users can use _`geom_text`_ to display the node (if availabel) and tip labels si
 p + geom_tiplab(size=3, color="purple")
 ```
 
-For _`circular`_ and _`unrooted`_ layout, `r Githubpkg("GuangchuangYu/ggtree")` supports rotating node labels according to the angles of the branches.
+For _`circular`_ and _`unrooted`_ layout, `ggtree` supports rotating node labels according to the angles of the branches.
 
 ```{r fig.width=6, fig.height=6, warning=FALSE, fig.align="center"}
 ggtree(tree, layout="circular") + geom_tiplab(aes(angle=angle), color='blue')
@@ -226,7 +225,7 @@ Based on the middle of branch is very useful when annotating transition from par
 
 # update tree viewing with a new tree
 
-In previous example, we have a _`p`_ object that stored the tree viewing of 13 tips and internal nodes highlighted with specific colored big dots. If users want to applied this pattern (we can imaging a more complex one) to a new tree, you don't need to build the tree step by step. `r Githubpkg("GuangchuangYu/ggtree")` provides an operator, _`%<%`_, for applying the visualization pattern to a new tree.
+In previous example, we have a _`p`_ object that stored the tree viewing of 13 tips and internal nodes highlighted with specific colored big dots. If users want to applied this pattern (we can imaging a more complex one) to a new tree, you don't need to build the tree step by step. `ggtree` provides an operator, _`%<%`_, for applying the visualization pattern to a new tree.
 
 For example, the pattern in the _`p`_ object will be applied to a new tree with 50 tips as shown below:
 ```{r fig.width=3, fig.height=3, fig.align="center"}
