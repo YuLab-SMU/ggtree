@@ -56,7 +56,7 @@ nodebar <- function(data, cols, color, alpha=1, position="stack") {
     ldf <- gather(data, type, value, cols) %>% split(., .$node)
     bars <- lapply(ldf, function(df) ggplot(df, aes_(x=1, y=~value, fill=~type)) +
                                      geom_bar(stat='identity', alpha=alpha, position=position) +
-                                     inset_theme()
+                                     theme_inset()
                    )
 
     if (missingArg(color) || is.null(color) || is.na(color)) {
@@ -94,7 +94,7 @@ nodepie <- function(data, cols, color, alpha=1) {
 ggpie <- function(data, y, fill, color, alpha=1) {
     p <- ggplot(data, aes_(x=1, y=y, fill=fill)) +
         geom_bar(stat='identity', alpha=alpha) +
-        coord_polar(theta='y') + inset_theme()
+        coord_polar(theta='y') + theme_inset()
     
     if (missingArg(color) || is.null(color) || is.na(color)) {
         ## do nothing
@@ -105,12 +105,6 @@ ggpie <- function(data, y, fill, color, alpha=1) {
 }
 
 
-inset_theme <- function() {
-    list(xlab(NULL),
-         ylab(NULL),
-         theme_tree(),
-         theme_transparent())
-}
 
 
 

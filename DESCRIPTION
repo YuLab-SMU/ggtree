@@ -22,7 +22,6 @@ Imports:
     stats4,
     tidyr
 Suggests:
-    BiocStyle,
     EBImage,
     knitr,
     phylobase,

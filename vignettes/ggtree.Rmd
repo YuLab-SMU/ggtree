@@ -9,9 +9,9 @@ date: "`r Sys.Date()`"
 bibliography: ggtree.bib
 csl: nature.csl
 output: 
-  BiocStyle::html_document:
+  html_document:
     toc: true
-  BiocStyle::pdf_document:
+  pdf_document:
     toc: true
 vignette: >
   %\VignetteIndexEntry{00 ggtree introduction}
@@ -20,7 +20,6 @@ vignette: >
 ---
 
 ```{r style, echo=FALSE, results="asis", message=FALSE}
-BiocStyle::markdown()
 knitr::opts_chunk$set(tidy = FALSE,
 		   message = FALSE)
 ```
@@ -43,7 +42,7 @@ library("phangorn")
 
 
 # Citation
-If you use `r Biocpkg("ggtree")` in published research, please cite:
+If you use `ggtree` in published research, please cite:
 
 ```
 G Yu, D Smith, H Zhu, Y Guan, TTY Lam,
@@ -55,15 +54,15 @@ revised.
 
 This project arose from our needs to annotate nucleotide substitutions in the phylogenetic tree, and we found that there is no tree visualization software can do this easily. Existing tree viewers are designed for displaying phylogenetic tree, but not annotating it. Although some tree viewers can displaying bootstrap values in the tree, it is hard/impossible to display other information in the tree. Our first solution for displaying nucleotide substituitions in the tree is to add this information in the node/tip names and use traditional tree viewer to show it. We displayed the information in the tree successfully, but we believe this indirect approach is inefficient.
 
-In the old day, phylogenetic tree is often small. At that time, as we almost didn't have a need to annotate a tree; displaying the evolution relationships is mostly enough. Nowadays, we can obtain a lot of data from different experiments, and we want to associate our data, for instance antigenic change, with the evolution relationship. Visualizing these associations in the phylogenetic tree can help us to identify evolution patterns. We believe we need a next generation tree viewer that should be programmable and extensible. It can view a phylogenetic tree easily as we did with classical software and support adding annotation data in a layer above the tree. This is the objective of developing the `r Githubpkg("GuangchuangYu/ggtree")`. Common tasks of annotating a phylogenetic tree should be easy and complicated tasks can be possible to achieve by adding multiple layers of annotation.
+In the old day, phylogenetic tree is often small. At that time, as we almost didn't have a need to annotate a tree; displaying the evolution relationships is mostly enough. Nowadays, we can obtain a lot of data from different experiments, and we want to associate our data, for instance antigenic change, with the evolution relationship. Visualizing these associations in the phylogenetic tree can help us to identify evolution patterns. We believe we need a next generation tree viewer that should be programmable and extensible. It can view a phylogenetic tree easily as we did with classical software and support adding annotation data in a layer above the tree. This is the objective of developing the `ggtree`. Common tasks of annotating a phylogenetic tree should be easy and complicated tasks can be possible to achieve by adding multiple layers of annotation.
 
-The `r Githubpkg("GuangchuangYu/ggtree")` is designed by extending the `r CRANpkg("ggplot2")`[@wickham_ggplot2_2009] package. It is based on the grammar of graphics and takes all the good parts of `r CRANpkg("ggplot2")`. There are other R packages that implement tree viewer using `r CRANpkg("ggplot2")`, including `r CRANpkg("OutbreakTools")`, `r Biocpkg("phyloseq")`[@mcmurdie_phyloseq_2013] and `r Githubpkg("gjuggler/ggphylo")`; they mostly create complex tree view functions for their specific needs. Internally, these packages interpret a phylogenetic as a collection of `lines`, which makes it hard to annotate diverse user input that are related to node (taxa). The `r Githubpkg("GuangchuangYu/ggtree")` is different to them by interpreting a tree as a collection of `taxa` and allowing general flexibilities of annotating phylogenetic tree with diverse types of user inputs. 
+The `ggtree` is designed by extending the `ggplot2`[@wickham_ggplot2_2009] package. It is based on the grammar of graphics and takes all the good parts of `ggplot2`. There are other R packages that implement tree viewer using `ggplot2`, including `OutbreakTools`, `phyloseq`[@mcmurdie_phyloseq_2013] and [ggphylo](https://github.com/gjuggler/ggphylo); they mostly create complex tree view functions for their specific needs. Internally, these packages interpret a phylogenetic as a collection of `lines`, which makes it hard to annotate diverse user input that are related to node (taxa). The `ggtree` is different to them by interpreting a tree as a collection of `taxa` and allowing general flexibilities of annotating phylogenetic tree with diverse types of user inputs. 
 
 
 # Getting data into `R`
 
 Most of the tree viewer software (including `R` packages) focus on `Newick` and `Nexus` file format, while there are file formats from different evolution analysis software that contain supporting evidences within the file that are ready for annotating a phylogenetic tree.
-The `r Githubpkg("GuangchuangYu/ggtree")` package define several parser functions and `S4` classes to store statistical evidences inferred by commonly used software packages. It supports several file format, including:
+The `ggtree` package define several parser functions and `S4` classes to store statistical evidences inferred by commonly used software packages. It supports several file format, including:
 
 + Newick (via `ape`)
 + Nexus (via `ape`)
@@ -121,7 +120,7 @@ Visualizing an annotated phylogenetic tree with numerical matrix (e.g. genotype 
 + [Tree Visualization](treeVisualization.html)
 + [Tree Manipulation](treeManipulation.html)
 + [Tree Annotation](treeAnnotation.html)
-
++ [Advance Tree Annotation](advanceTreeAnnotation.html)
 
 # Bugs/Feature requests
 

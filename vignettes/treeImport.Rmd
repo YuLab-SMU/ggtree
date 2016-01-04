@@ -9,9 +9,9 @@ date: "`r Sys.Date()`"
 bibliography: ggtree.bib
 csl: nature.csl
 output: 
-  BiocStyle::html_document:
+  html_document:
     toc: true
-  BiocStyle::pdf_document:
+  pdf_document:
     toc: true
 vignette: >
   %\VignetteIndexEntry{01 Tree Data Import}
@@ -21,7 +21,6 @@ vignette: >
 ---
 
 ```{r style, echo=FALSE, results="asis", message=FALSE}
-BiocStyle::markdown()
 knitr::opts_chunk$set(tidy = FALSE,
 		   message = FALSE)
 ```
@@ -34,12 +33,12 @@ library("ggtree")
 ```
 
 
-The `r Githubpkg("GuangchuangYu/ggtree")` package should not be viewed solely as a standalone software. While it is useful for viewing, annotating and manipulating phylogenetic trees, it is also an infrastructure that enables evolutionary evidences that inferred by commonly used software packages in the field to be used in `R`. For instance, *dN/dS* values or ancestral sequences inferred by [CODEML](http://abacus.gene.ucl.ac.uk/software/paml.html)[@yang_paml_2007], *clade support values (posterior)* inferred by [BEAST](http://beast2.org/)[@bouckaert_beast_2014] and short read placement by [EPA](http://sco.h-its.org/exelixis/web/software/epa/index.html)[@berger_EPA_2011] and [pplacer](http://matsen.fhcrc.org/pplacer/)[@matsen_pplacer_2010]. These evolutionary evidences are not only used in annotating phylogenetic tree in  `r Githubpkg("GuangchuangYu/ggtree")` but can also be further analyzed in `R`.
+The `ggtree` package should not be viewed solely as a standalone software. While it is useful for viewing, annotating and manipulating phylogenetic trees, it is also an infrastructure that enables evolutionary evidences that inferred by commonly used software packages in the field to be used in `R`. For instance, *dN/dS* values or ancestral sequences inferred by [CODEML](http://abacus.gene.ucl.ac.uk/software/paml.html)[@yang_paml_2007], *clade support values (posterior)* inferred by [BEAST](http://beast2.org/)[@bouckaert_beast_2014] and short read placement by [EPA](http://sco.h-its.org/exelixis/web/software/epa/index.html)[@berger_EPA_2011] and [pplacer](http://matsen.fhcrc.org/pplacer/)[@matsen_pplacer_2010]. These evolutionary evidences are not only used in annotating phylogenetic tree in  `ggtree` but can also be further analyzed in `R`.
 
 # Supported File Formats
 
 Most of the tree viewer software (including `R` packages) focus on `Newick` and `Nexus` file format, while there are file formats from different evolution analysis software that contain supporting evidences within the file that are ready for annotating a phylogenetic tree.
-The `r Githubpkg("GuangchuangYu/ggtree")` package define several parser functions and `S4` classes to store statistical evidences inferred by commonly used software packages. It supports several file format, including:
+The `ggtree` package define several parser functions and `S4` classes to store statistical evidences inferred by commonly used software packages. It supports several file format, including:
 
 + Newick (via `ape`)
 + Nexus (via `ape`)
@@ -60,7 +59,7 @@ and software output from:
 
 # Parser functions
 
-The `r Githubpkg("GuangchuangYu/ggtree")` package implement several parser functions, including:
+The `ggtree` package implement several parser functions, including:
 
 + `read.beast` for parsing output of [BEASE](http://beast2.org/)
 + `read.codeml` for parsing output of [CODEML](http://abacus.gene.ucl.ac.uk/software/paml.html) (`rst` and `mlc` files)
@@ -74,7 +73,7 @@ The `r Githubpkg("GuangchuangYu/ggtree")` package implement several parser funct
 
 # S4 classes
 
-Correspondingly, `r Githubpkg("GuangchuangYu/ggtree")` define several `S4` classes to store evolutionary evidences inferred by these software packages, including:
+Correspondingly, `ggtree` define several `S4` classes to store evolutionary evidences inferred by these software packages, including:
 
 + _`apeBootstrap`_ for bootstrap analysis of `ape::boot.phylo()`[@paradis_ape_2004], output of `apeBoot()` defined in `ggtree`
 + _`beast`_ for storing output of `read.beast()`
@@ -89,14 +88,14 @@ Correspondingly, `r Githubpkg("GuangchuangYu/ggtree")` define several `S4` class
 + _`raxml`_ for storing output of `read.raxml()`
 
 
-The _`jplace`_ class is also designed to store user specific annotation data, and serves as a standard format for tree annotation within the `r Githubpkg("GuangchuangYu/ggtree")` package. 
+The _`jplace`_ class is also designed to store user specific annotation data, and serves as a standard format for tree annotation within the `ggtree` package. 
 
 
 Here is an overview of these `S4` classes:
 
 ![](figures/ggtree_objects.png)
 
-In addition, `ggtree` also supports _`phylo`_ (defined by `r CRANpkg("ape")`[@paradis_ape_2004]) and _`phylo4`_ (defined by `r CRANpkg("phylobase")`).
+In addition, `ggtree` also supports _`phylo`_ (defined by `ape`[@paradis_ape_2004]) and _`phylo4`_ (defined by `phylobase`).
 
 
 In `ggtree`, tree objects can be merged and evidences inferred from different phylogenetic analyses can be combined or compared and visualized.
@@ -298,7 +297,7 @@ jp <- read.jplace(jpf)
 print(jp)
 ```
 
-In `r Githubpkg("GuangchuangYu/ggtree")`, we provide _`get.placements`_ method to access the placement.
+In `ggtree`, we provide _`get.placements`_ method to access the placement.
 
 ```{r}
 ## get only best hit
@@ -365,7 +364,7 @@ head(data)
 The _`data`_ contains amino acid substitutions from parent node to child node and GC contents of each node. We can annotate the tree as demonstrated in [User specific annotation](treeAnnotation.html#user-specific-annotation) session of [Tree Annotation](treeAnnotation.html) vignette.
 
 
-`r Githubpkg("GuangchuangYu/ggtree")` provides a function, _`write.jplace`_, to combine a tree and an associated data and store them to a single _`jplace`_ file.
+`ggtree` provides a function, _`write.jplace`_, to combine a tree and an associated data and store them to a single _`jplace`_ file.
 ```{r}
 outfile <- tempfile()
 write.jplace(tree, data, outfile)
