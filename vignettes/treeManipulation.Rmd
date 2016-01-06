@@ -37,7 +37,7 @@ expand <- ggtree::expand
 
 # Internal node number
 
-Some of the functions works with clade and accepts a parameter of internal node number. To get the internal node number, user can use `geom_text2` to display it:
+Some of the functions in `ggtree` works with clade and accepts a parameter of internal node number. To get the internal node number, user can use `geom_text2` to display it:
 
 ```{r}
 nwk <- system.file("extdata", "sample.nwk", package="ggtree")
@@ -56,7 +56,7 @@ p <- ggtree(tree)
 MRCA(p, tip=c('A', 'E'))
 ```
 
-# groupClade
+# group Clades
 
 The `ggtree` package defined several functions to manipulate tree view. _`groupClade`_ and _`groupOTU`_ methods for clustering clades or related OTUs. _`groupClade`_ accepts an internal node or a vector of internal nodes to cluster clade/clades.
 
@@ -78,7 +78,7 @@ With `groupClade` and `groupOTU`, it's easy to highlight selected taxa and easy 
 
 ```{r fig.width=5, fig.height=5, fig.align="center", warning=FALSE}
 tree <- groupClade(tree, node=c(21, 17))
-ggtree(tree, aes(color=group, linetype=group)) + geom_text2(aes(subset=(group==2), label=label), hjust=-.5)
+ggtree(tree, aes(color=group, linetype=group)) + geom_tiplab(aes(subset=(group==2)))
 ```
 
 
@@ -104,7 +104,7 @@ cls <- list(c1=c("A", "B", "C", "D", "E"),
 
 tree <- groupOTU(tree, cls)
 library("colorspace")
-ggtree(tree, aes(color=group, linetype=group)) + geom_text(aes(label=label),  hjust=-.25) +
+ggtree(tree, aes(color=group, linetype=group)) + geom_tiplab() +
      scale_color_manual(values=c("black", rainbow_hcl(4))) + theme(legend.position="right")
 ```
 
@@ -179,7 +179,7 @@ grid.arrange(p1, p2, p3, p4, p5, ncol=5)
 # scale clade
 
 
-We have illustrated how to collapse selected clades. Another approach is to zoom out clade to a small scale.
+Collpase selected clades can save some space, another approach is to zoom out clade to a small scale.
 
 ```{r fig.width=12, fig.height=6, warning=F}
 grid.arrange(ggtree(tree) + geom_hilight(21, "steelblue"),
