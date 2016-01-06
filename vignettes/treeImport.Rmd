@@ -66,7 +66,7 @@ The `ggtree` package implement several parser functions, including:
 + `read.codeml_mlc` for parsing `mlc` file (output of `CODEML`)
 + `read.hyphy` for parsing output of [HYPHY](http://hyphy.org/w/index.php/Main_Page)
 + `read.jplace` for parsing `jplace` file including output from [EPA](http://sco.h-its.org/exelixis/web/software/epa/index.html) and [pplacer](http://matsen.fhcrc.org/pplacer/)
-+ `read.nhx` for parsing `NHX` file including output from [PHYLODOG](http://pbil.univ-lyon1.fr/software/phyldog/) and RevBayes](http://revbayes.github.io/intro.html)
++ `read.nhx` for parsing `NHX` file including output from [PHYLODOG](http://pbil.univ-lyon1.fr/software/phyldog/) and [RevBayes](http://revbayes.github.io/intro.html)
 + `read.paml_rst` for parsing `rst` file (output of `BASEML` and `CODEML`)
 + `read.r8s` for parsing output of [r8s](loco.biosci.arizona.edu/r8s/)
 + `read.raxml` for parsing output of [RAxML](http://sco.h-its.org/exelixis/web/software/raxml/)
@@ -82,7 +82,7 @@ Correspondingly, `ggtree` define several `S4` classes to store evolutionary evid
 + _`hyphy`_ for storing output of `read.hyphy()`
 + _`jplace`_ for storing output of `read.jplace()`
 + _`nhx`_ for storing output of `read.nhx()`
-+ _`paml_rst`_ for _`rst`_ file obtained by [PAML], including _`BASEML`_ and _`CODEML`_.
++ _`paml_rst`_ for _`rst`_ file obtained by [PAML](http://abacus.gene.ucl.ac.uk/software/paml.html), including _`BASEML`_ and _`CODEML`_.
 + _`phangorn`_ for storing ancestral sequences inferred by `R` package `phangorn`[@schliep_phangorn_2011], output of `phyPML()` defined in `ggtree`
 + _`r8s`_ for storing output of `read.r8s()`
 + _`raxml`_ for storing output of `read.raxml()`
@@ -95,7 +95,7 @@ Here is an overview of these `S4` classes:
 
 ![](figures/ggtree_objects.png)
 
-In addition, `ggtree` also supports _`phylo`_ (defined by `ape`[@paradis_ape_2004]) and _`phylo4`_ (defined by `phylobase`).
+In addition, `ggtree` also supports _`phylo`_, _`multiPhylo`_ (defined by `ape`[@paradis_ape_2004]) and _`phylo4`_ (defined by `phylobase`).
 
 
 In `ggtree`, tree objects can be merged and evidences inferred from different phylogenetic analyses can be combined or compared and visualized.
@@ -128,11 +128,11 @@ get.fields(beast)
 
 Users can use `ggtree(beast)` to visualize the tree and add layer to annotate it.
 
-```{r warning=FALSE}
+```{r warning=FALSE fig.width=10, fig.height=10}
 ggtree(beast, ndigits=2, branch.length = 'none') + geom_text(aes(x=branch, label=length_0.95_HPD), vjust=-.5, color='firebrick')
 ```
 
-With `ggtree`, evolutionary evidences inferred by commonly used software packages (`BEAST` in this example) can be easily obtained in a tidy `data.frame` by `fortify` method.
+With `ggtree`, evolutionary evidences inferred by commonly used software packages (`BEAST` in this example) can be easily transformed to a tidy `data.frame` by `fortify` method.
 
 ```{r}
 beast_data <- fortify(beast)
@@ -145,7 +145,7 @@ head(beast_data)
 
 The _`read.paml_rst`_ function can parse `rst` file from `BASEML` and `CODEML`. The only difference is the space in the sequences. For `BASEML`, each ten bases are separated by one space, while for `CODEML`, each three bases (triplet) are separated by one space.
 
-```{r fig.width=8, width=60, warning=FALSE, fig.align="center"}
+```{r fig.width=12, fig.height=10, warning=FALSE, fig.align="center"}
 brstfile <- system.file("extdata/PAML_Baseml", "rst", package="ggtree")
 brst <- read.paml_rst(brstfile)
 brst
@@ -163,9 +163,9 @@ crst
 ```
 
 
-In `ggtree`, we define the `update` operator, `%<%`, that can update a tree view (applying the same pattern of visualization and annotation) with another tree object.
+`ggtree` defines the `update` operator, `%<%`, that can update a tree view (applying the same pattern of visualization and annotation) with another tree object.
 
-```{r fig.width=8, width=60, warning=FALSE, fig.align="center"}
+```{r fig.width=12, fig.height=10, warning=FALSE, fig.align="center"}
 p %<% crst
 ```
 
@@ -189,7 +189,7 @@ Please aware that _`/`_ and _`*`_ are not valid characters in _`names`_, they we
 So _`dN_vs_dS`_ is _`dN/dS`_, _`N_x_dN`_ is _`N*dN`_, and _`S_x_dS`_ is _`S*dS`_.
 
 
-```{r fig.width=8, width=60, warning=FALSE, fig.align="center"}
+```{r fig.width=8, fig.height=8, warning=FALSE, fig.align="center"}
 ggtree(mlc) + geom_text(aes(x=branch, label=dN_vs_dS), color='blue', vjust=-.2)
 ```
 
@@ -207,9 +207,7 @@ ggtree(mlc, branch.length = "dN_vs_dS", aes(color=dN_vs_dS)) +
     theme_tree2(legend.position=c(.9, .5))
 ```
 
-We can also plot the _`dN`_ or _`dS`_ tree and others. 
-
-#### rst and mlc files
+We can also plot the _`dN`_ or _`dS`_ tree and others. More examples (include evidences inferred by BEAST) can be found in the [Tree Annotation](treeAnnotation.html) vignette.  
 
 
 #### _`CODEML`_ output: rst and mlc files\
@@ -248,7 +246,7 @@ ggtree(hy) + geom_text(aes(x=branch, label=AA_subs), vjust=-.5)
 [r8s](http://loco.biosci.arizona.edu/r8s/) output contains 3 trees, namely `TREE`, `RATO` and `PHYLO` for time tree, rate tree and absolute substitution tree respectively.
 
 
-```{r fig.width=4, fig.height=6, width=60, warning=FALSE, fig.align="center")
+```{r fig.width=4, fig.height=6, width=60, warning=FALSE, fig.align="center"}
 r8s <- read.r8s(system.file("extdata/r8s", "H3_r8s_output.log", package="ggtree"))
 ggtree(r8s, branch.length="TREE", mrsd="2014-01-01") + theme_tree2()
 ```
@@ -259,7 +257,7 @@ ggtree(r8s, branch.length="TREE", mrsd="2014-01-01") + theme_tree2()
 User can also view 3 trees simultaneously.
 
 
-```{r fig.width=16, fig.height=10, width=60, warning=FALSE, fig.align="center")
+```{r fig.width=16, fig.height=10, width=60, warning=FALSE, fig.align="center"}
 ggtree(get.tree(r8s), aes(color=.id)) + facet_wrap(~.id, scales="free_x")
 ```
 
@@ -340,13 +338,13 @@ merged_tree
 head(fortify(merged_tree))
 ```
 
-After merging, all evidences inferred from different tools can be used to annotate the tree simultaneously. In this example, we used 'dN/dS' inferred by CodeML to color the tree and annotate the tree with 'posterior' inferred by BEAST.
+After merging, all evidences inferred from different tools can be used to annotate the tree simultaneously. In this example, we used `dN/dS` inferred by CodeML to color the tree and annotate the tree with `posterior` inferred by BEAST.
 
 ```{r fig.width=20, fig.height=26, warning=FALSE}
-ggtree(merged_tree, aes(color=dN), mrsd="2013-01-01", ndigits = 3) +
+ggtree(merged_tree, aes(color=dN_vs_dS), mrsd="2013-01-01", ndigits = 3) +
     geom_text(aes(label=posterior), vjust=.1, hjust=-.1, size=5, color="black") + 
     scale_color_continuous(name='dN/dS', limits=c(0, 1.5),
-                           oob=scales::squish, low="darkgreen", high="red")+
+                           oob=scales::squish, low="green", high="red")+
     theme_tree2(legend.position="right")
 ```	
 
@@ -370,13 +368,13 @@ outfile <- tempfile()
 write.jplace(tree, data, outfile)
 ```
 
-Then _`read.jplace`_ function was designed to read the _`jplace`_ file and store the information to a _`jplace`_ object.
+The _`read.jplace`_ function was designed to read the _`jplace`_ file and store the information to a _`jplace`_ object.
 ```{r}
 jp <- read.jplace(outfile)
 print(jp)
 ```
 
-Now we know the _`jp`_ object stored the tree and the associated amino acid substitution and GC content information, we can view the tree and display the associated annotation data on it directly by _`ggtree`_.
+Now we know the _`jp`_ object that stores the tree and the associated amino acid substitution and GC content information, we can view the tree and display the associated annotation data on it directly by _`ggtree`_.
 
 ```{r fig.width=12, fig.height=12, warning=FALSE, fig.align="center"}
 ggtree(jp) + 
