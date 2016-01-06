@@ -207,7 +207,7 @@ ggtree(mlc, branch.length = "dN_vs_dS", aes(color=dN_vs_dS)) +
     theme_tree2(legend.position=c(.9, .5))
 ```
 
-We can also plot the _`dN`_ or _`dS`_ tree and others. More examples (include evidences inferred by BEAST) can be found in the [Tree Annotation](treeAnnotation.html) vignette.  
+We can also plot the _`dN`_ or _`dS`_ tree and others. More examples (including evidences inferred by BEAST) can be found in the [Tree Annotation](treeAnnotation.html) vignette.  
 
 
 #### _`CODEML`_ output: rst and mlc files\
