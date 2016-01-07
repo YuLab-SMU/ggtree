@@ -96,7 +96,8 @@ ggtree(beast_tree, aes(color=rate)) +
 User can use any feature (if available), including clade posterior and *dN/dS* _etc._, to scale the color of the tree.
 
 ## Annotate clades
-`ggtree` implements _`geom_cladelabel`_ layer to annotate a selected clade with a bar indicating that clade with a corresponding label.
+
+`ggtree` implements _`geom_cladelabel`_ layer to annotate a selected clade with a bar indicating the clade with a corresponding label.
 
 The _`geom_cladelabel`_ layer accepts a selected internal node number. To get the internal node number, please refer to [Tree Manipulation](treeManipulation.html#internal-node-number) vignette.
 
@@ -110,35 +111,35 @@ p+geom_cladelabel(node=45, label="test label") +
     geom_cladelabel(node=34, label="another clade") 
 ```
 
-We can set the parameter, `align = TRUE`, to align the clade label, and use the parameter, `offset`, to adjust the position.
+Users can set the parameter, `align = TRUE`, to align the clade label, and use the parameter, `offset`, to adjust the position.
 
 ```{r}
 p+geom_cladelabel(node=45, label="test label", align=TRUE, offset=.5) +
     geom_cladelabel(node=34, label="another clade", align=TRUE, offset=.5)
 ```
 
-We can change the color of the clade label via the parameter `color`.
+Users can change the color of the clade label via the parameter `color`.
 
 ```{r}
 p+geom_cladelabel(node=45, label="test label", align=T, color='red') +
     geom_cladelabel(node=34, label="another clade", align=T, color='blue')
 ```
 
-We can change the `angle` of the clade label text and the relative position from text to bar via the parameter `offset.text`.
+Users can change the `angle` of the clade label text and relative position from text to bar via the parameter `offset.text`.
 
 ```{r}
 p+geom_cladelabel(node=45, label="test label", align=T, angle=270, hjust='center', offset.text=.5) +
     geom_cladelabel(node=34, label="another clade", align=T, angle=45) 
 ```
 
-We can change the size of the bar and text via the parameters `barsize` and `fontsize` respectively.
+The size of the bar and text can be changed via the parameters `barsize` and `fontsize` respectively.
 
 ```{r}
 p+geom_cladelabel(node=45, label="test label", align=T, angle=270, hjust='center', offset.text=.5, barsize=1.5) +
     geom_cladelabel(node=34, label="another clade", align=T, angle=45, fontsize=8) 
 ```
 
-We can also use `geom_label` to label the text.
+Users can also use `geom_label` to label the text.
 
 ```{r}
 p+ geom_cladelabel(node=34, label="another clade", align=T, geom='label', fill='lightblue') 
@@ -146,7 +147,7 @@ p+ geom_cladelabel(node=34, label="another clade", align=T, geom='label', fill='
 
 # Highlight clades
 
-`ggtree` implements _`geom_hilight`_ layer, that an internal node number and add a layer of rectangle to highlight the selected clade.
+`ggtree` implements _`geom_hilight`_ layer, that accepts an internal node number and add a layer of rectangle to highlight the selected clade.
 
 ```{r fig.width=5, fig.height=5, fig.align="center", warning=FALSE}
 nwk <- system.file("extdata", "sample.nwk", package="ggtree")
@@ -221,11 +222,9 @@ Evolutionary evidences inferred by these software packages can be used for furth
 
 ## the `%<+%` operator
 
-We provides several functions to parse and store information from common software output.
+In addition to parse commonly used software output, `ggtree` also supports annotating a phylogenetic tree using user's own data.
 
-Here, we would like to demonstrate how to inject user specific annotation data in a tree.
-
-Suppose we have the following data that associated with the tree and would like to attach the data in the tree.
+Suppose we have the following data that associate with the tree and would like to attach the data in the tree.
 
 ```{r}
 nwk <- system.file("extdata", "sample.nwk", package="ggtree")
@@ -233,7 +232,7 @@ tree <- read.tree(nwk)
 p <- ggtree(tree)
 
 dd <- data.frame(taxa  = LETTERS[1:13], 
-      		 place = c(rep("GZ", 5), rep("HK", 3), rep("CZ", 4), NA),
+                 place = c(rep("GZ", 5), rep("HK", 3), rep("CZ", 4), NA),
                  value = round(abs(rnorm(13, mean=70, sd=10)), digits=1))
 ## you don't need to order the data
 ## data was reshuffled just for demonstration
@@ -248,38 +247,32 @@ print(dd)
 knitr::kable(dd)
 ```
 
-We can imaging that the _`place`_ column is the place we isolated the species and _`value`_ column stored numerical values for example bootstrap values.
+We can imaging that the _`place`_ column stores the location we isolated the species and _`value`_ column stores numerical values (e.g. bootstrap values).
 
-We have shown using the operator, _`%<%`_, to update a tree view with a new tree. Here, we will introduce another operator, _`%<+%`_, that attaches annotation data to a tree view. The only requirement of the input data is that its first column should be matched with the node/tip labels of the tree.
+We have demonstrated using the operator, _`%<%`_, to update a tree view with a new tree. Here, we will introduce another operator, _`%<+%`_, that attaches annotation data to a tree view. The only requirement of the input data is that its first column should be matched with the node/tip labels of the tree.
 
-After attaching the annotation data to the tree by _`%<+%`_, all the columns in the data are visible to _`ggplot2`_. As an example, here we attach the above annotation data to the tree view, _`p`_, and add a layer that showing the tip labels and colored them by the isolation site stored in _`place`_ column.
+After attaching the annotation data to the tree by _`%<+%`_, all the columns in the data are visible to _`ggtree`_. As an example, here we attach the above annotation data to the tree view, _`p`_, and add a layer that showing the tip labels and colored them by the isolation site stored in _`place`_ column.
 
 ```{r fig.width=6, fig.height=5, warning=FALSE, fig.align="center"}
-p <- p %<+% dd + geom_text(aes(color=place, label=label), hjust=-0.5) + 
+p <- p %<+% dd + geom_tiplab(aes(color=place)) + 
        geom_tippoint(aes(size=value, shape=place, color=place), alpha=0.25)
 p+theme(legend.position="right")
 ```
 
-Once the data was attached, it is always attached. So we can add another layer to display the isolation sites easily.
+Once the data was attached, it is always attached. So that we can add other layers to display these information easily. 
 ```{r fig.width=6, fig.height=5, warning=FALSE, fig.align="center"}
-p <- p + geom_text(aes(color=place, label=place), hjust=1, vjust=-0.4, size=3)
-print(p)
-```
-
-And another layer showing numerical values:
-```{r fig.width=6, fig.height=5, warning=FALSE, fig.align="center"}
-p <- p + geom_text(aes(color=place, label=value), hjust=1, vjust=1.4, size=3)
-print(p)
+p + geom_text(aes(color=place, label=place), hjust=1, vjust=-0.4, size=3) +
+  geom_text(aes(color=place, label=value), hjust=1, vjust=1.4, size=3)
 ```
 
 ## jplace file format
 
-In `ggtree`, we provide `write.jplace` function to store user's own data and associated newick tree to a single `jplace` file, which can be parsed directly in `ggtree` and user's data can be used to annotate the tree directly. For more detail, please refer to the [Tree Data Import](treeImport.html#jplace-file-format) vignette.
+`ggtree` provides `write.jplace()` function to store user's own data and associated newick tree to a single `jplace` file, which can be parsed directly in `ggtree` and user's data can be used to annotate the tree directly. For more detail, please refer to the [Tree Data Import](treeImport.html#jplace-file-format) vignette.
 
 
 # Advance tree annotation
 
-Advance tree annotation including visualizing tree with associated matrix, multiple sequence alignment, subplots and images (especially PhyloPic). For details and examples, please refer to the [Advance Tree Annotation](advanceTreeAnnotation.html) vignette.
+Advance tree annotation including visualizing phylogenetic tree with associated matrix and multiple sequence alignment; annotating tree with subplots and images (especially PhyloPic). For details and examples, please refer to the [Advance Tree Annotation](advanceTreeAnnotation.html) vignette.
 
 
 # References
