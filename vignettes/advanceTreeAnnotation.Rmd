@@ -79,10 +79,13 @@ msaplot(ggtree(beast_tree), fasta)
 
 A specific slice of the alignment can also be displayed by specific _window_ parameter.
 
+```{r fig.width=8, fig.height=12, fig.align='center'}
+msaplot(ggtree(beast_tree), fasta, window=c(150, 200)) 
+```
 
 # Annotate a phylogenetic with insets
 
-`ggtree` implemented a function, `subview`, that can add subplots into a ggplot2 object. It had successful applied to [plot pie graphs on map](http://stackoverflow.com/questions/10368180/plotting-pie-graphs-on-map-in-ggplot/32380396#32380396).
+`ggtree` implemented a function, `subview`, that can add subplots on a ggplot2 object. It had successful applied to [plot pie graphs on map](http://stackoverflow.com/questions/10368180/plotting-pie-graphs-on-map-in-ggplot/32380396#32380396).
 
 ```{r fig.width=8, fig.height=8, warning=F}
 set.seed(2016-01-04)

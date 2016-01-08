@@ -109,10 +109,14 @@ ggtree(tree, aes(color=group, linetype=group)) + geom_tiplab() +
 ```
 
 
+_`groupOTU`_ also work with graphic object.
+
 ```{r fig.width=5, fig.height=5, fig.align="center", warning=FALSE}
 p <- ggtree(tree)
 groupOTU(p, LETTERS[1:5]) + aes(color=group) + geom_tiplab() + scale_color_manual(values=c("black", "firebrick"))
 ```
+
+The following example use `groupOTU` to display taxa classification.
 
 ```{r fig.width=14, fig.height=14}
 library("ape")

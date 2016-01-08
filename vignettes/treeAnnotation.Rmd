@@ -37,7 +37,7 @@ library("gridExtra")
 
 # Rescale tree
 
-Most of the phylogenetic trees are scaled by evolutionary distance (substitution/site), in `ggtree`, we can re-scale a phylogenetic tree by any numerical variable inferred by evolutionary analysis (e.g. *dN/dS*).
+Most of the phylogenetic trees are scaled by evolutionary distance (substitution/site), in `ggtree`, users can re-scale a phylogenetic tree by any numerical variable inferred by evolutionary analysis (e.g. *dN/dS*).
 
 
 ```{r fig.width=10, fig.height=5}
@@ -215,7 +215,7 @@ In `ggtree`, we implemented several parser functions to parse output from common
 + [RAxML](http://sco.h-its.org/exelixis/web/software/raxml/)[@stamatakis_raxml_2014]
 + [RevBayes](http://revbayes.github.io/intro.html)[@hohna_probabilistic_2014]
 
-Evolutionary evidences inferred by these software packages can be used for further analysis in `R` and annotate phylogenetic tree directly in `ggtree`. For more details, please refer to the [Tree Data Import](treeImport.html) vignette.
+Evolutionary evidences inferred by these software packages can be used for further analysis in `R` and annotating phylogenetic tree directly in `ggtree`. For more details, please refer to the [Tree Data Import](treeImport.html) vignette.
 
 
 # Tree annotation with user specific annotation

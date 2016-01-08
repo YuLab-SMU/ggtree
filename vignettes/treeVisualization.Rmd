@@ -63,7 +63,7 @@ By default, the tree is viewed in ladderize form, user can set the parameter _`l
 ggtree(tree, ladderize=FALSE)
 ```
 
-The _`branch.length`_ is used to scale the edge, user can set the parameter _`branch.length = "none"`_ to only viewing the tree topology (cladogram) or other numerical variable to scale the tree (e.g. _dN/dS_, see also in [Tree Annotation](treeAnnotation.html) vignette).
+The _`branch.length`_ is used to scale the edge, user can set the parameter _`branch.length = "none"`_ to only view the tree topology (cladogram) or other numerical variable to scale the tree (e.g. _dN/dS_, see also in [Tree Annotation](treeAnnotation.html) vignette).
 
 ```{r fig.width=3, fig.height=3, fig.align="center"}
 ggtree(tree, branch.length="none")
@@ -77,8 +77,8 @@ Currently, _`ggtree`_ supports several layouts, including:
 + `slanted`
 + `fan` or `circular`
 
-for `Phylogram` (by default).
-`Cladogram` if user explicitly setting `branch.length='none'` and `unrooted` layout is also supported. 
+for `Phylogram` (by default) and `Cladogram` if user explicitly setting `branch.length='none'`.
+`ggtree` also supports `unrooted` layout.
 
 
 ## Phylogram
@@ -140,7 +140,7 @@ ggtree(tree2d, mrsd = "2014-05-01") + theme_tree2()
 
 ## Two dimensional tree
 
-`ggtree` implemented 2 dimensional tree. It accepts parameter _`yscale`_ to scale the y-axis based on the selected tree attribute. The attribute should be numerical variable. If it is *character*/*category* variable, user should provides a name vector of mapping the variable to numeric by passing it to parameter _`yscale_mapping`_.
+`ggtree` implemented two dimensional tree. It accepts parameter _`yscale`_ to scale the y-axis based on the selected tree attribute. The attribute should be numerical variable. If it is *character*/*category* variable, user should provides a name vector of mapping the variable to numeric by passing it to parameter _`yscale_mapping`_.
 
 
 ```{r fig.width=9, fig.height=4, fig.align="center"}
@@ -239,7 +239,7 @@ Another example can be found in the [Tree Data Import](treeImport.html#rst-file)
 
 # theme
 
-`theme_tree()` defined a totally blank canvas, while _`theme_tree2()`_ add phylogenetic distance (via x-axis). These two themes all accept a parameter of _`bgcolor`_ that defined the background color.
+`theme_tree()` defined a totally blank canvas, while _`theme_tree2()`_ adds phylogenetic distance (via x-axis). These two themes all accept a parameter of _`bgcolor`_ that defined the background color.
 
 ```{r fig.width=6, fig.height=3, fig.align="center"}
 grid.arrange(

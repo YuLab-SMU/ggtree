@@ -33,7 +33,7 @@ library("ggtree")
 ```
 
 
-The `ggtree` package should not be viewed solely as a standalone software. While it is useful for viewing, annotating and manipulating phylogenetic trees, it is also an infrastructure that enables evolutionary evidences that inferred by commonly used software packages in the field to be used in `R`. For instance, *dN/dS* values or ancestral sequences inferred by [CODEML](http://abacus.gene.ucl.ac.uk/software/paml.html)[@yang_paml_2007], *clade support values (posterior)* inferred by [BEAST](http://beast2.org/)[@bouckaert_beast_2014] and short read placement by [EPA](http://sco.h-its.org/exelixis/web/software/epa/index.html)[@berger_EPA_2011] and [pplacer](http://matsen.fhcrc.org/pplacer/)[@matsen_pplacer_2010]. These evolutionary evidences are not only used in annotating phylogenetic tree in  `ggtree` but can also be further analyzed in `R`.
+The `ggtree` package should not be viewed solely as a standalone software. While it is useful for viewing, annotating and manipulating phylogenetic trees, it is also an infrastructure that enables evolutionary evidences that inferred by commonly used software packages in the field to be used in `R`. For instance, *dN/dS* values or ancestral sequences inferred by [CODEML](http://abacus.gene.ucl.ac.uk/software/paml.html)[@yang_paml_2007], clade support values (posterior) inferred by [BEAST](http://beast2.org/)[@bouckaert_beast_2014] and short read placement by [EPA](http://sco.h-its.org/exelixis/web/software/epa/index.html)[@berger_EPA_2011] and [pplacer](http://matsen.fhcrc.org/pplacer/)[@matsen_pplacer_2010]. These evolutionary evidences are not only used in annotating phylogenetic tree in  `ggtree` but can also be further analyzed in `R`.
 
 # Supported File Formats
 
@@ -73,7 +73,7 @@ The `ggtree` package implement several parser functions, including:
 
 # S4 classes
 
-Correspondingly, `ggtree` define several `S4` classes to store evolutionary evidences inferred by these software packages, including:
+Correspondingly, `ggtree` defines several `S4` classes to store evolutionary evidences inferred by these software packages, including:
 
 + _`apeBootstrap`_ for bootstrap analysis of `ape::boot.phylo()`[@paradis_ape_2004], output of `apeBoot()` defined in `ggtree`
 + _`beast`_ for storing output of `read.beast()`
@@ -237,7 +237,7 @@ hy <- read.hyphy(nwk, ancseq, tipfas)
 hy
 ```
 
-```{r fig.width=12, fig.height=10, width=60, warning=FALSE, fig.align="center"}
+```{r fig.width=14, fig.height=10, warning=FALSE, fig.align="center"}
 ggtree(hy) + geom_text(aes(x=branch, label=AA_subs), vjust=-.5)
 ```
 
@@ -287,7 +287,7 @@ ggtree(nhx) + geom_tiplab() + geom_point(aes(color=S), size=5, alpha=.5) +
 
 ## Parsing EPA and pplacer output
 
-[EPA](http://sco.h-its.org/exelixis/web/software/epa/index.html)[@berger_EPA_2011] and [PPLACER](http://matsen.fhcrc.org/pplacer/)[@matsen_pplacer_2010] have common output file format, `jplace`. 
+[EPA](http://sco.h-its.org/exelixis/web/software/epa/index.html)[@berger_EPA_2011] and [PPLACER](http://matsen.fhcrc.org/pplacer/)[@matsen_pplacer_2010] have common output file format, `jplace`, which can be parse by `read.jplace()` function. 
 
 ```{r}
 jpf <- system.file("extdata/sample.jplace",  package="ggtree")
