@@ -9,6 +9,8 @@
 ##' @importFrom ggplot2 theme
 ##' @importFrom ggplot2 element_blank
 ##' @importFrom ggplot2 %+replace%
+##' @importFrom ggplot2 xlab
+##' @importFrom ggplot2 ylab
 ##' @export
 ##' @return updated ggplot object with new theme
 ##' @author Yu Guangchuang
@@ -17,12 +19,15 @@
 ##' tr <- rtree(10)
 ##' ggtree(tr) + theme_tree()
 theme_tree <- function(bgcolor="white", fgcolor="black", ...) {
-    theme_tree2() %+replace%
-    theme(panel.background=element_rect(fill=bgcolor, colour=bgcolor),
-          axis.line.x = element_blank(),
-          axis.text.x = element_blank(),
-          axis.ticks.x = element_blank(),
-          ...)
+    list(xlab(NULL),
+         ylab(NULL),
+	 theme_tree2_internal() %+replace%
+            theme(panel.background=element_rect(fill=bgcolor, colour=bgcolor),
+            axis.line.x = element_blank(),
+            axis.text.x = element_blank(),
+            axis.ticks.x = element_blank(),
+            ...)
+	 )
 }
 
 ##' tree2 theme
@@ -46,6 +51,13 @@ theme_tree <- function(bgcolor="white", fgcolor="black", ...) {
 ##' tr <- rtree(10)
 ##' ggtree(tr) + theme_tree2()
 theme_tree2 <- function(bgcolor="white", fgcolor="black", ...) {
+     list(xlab(NULL),
+          ylab(NULL),
+	  theme_tree2_internal(bgcolor, fgcolor, ...)
+	  )
+}
+
+theme_tree2_internal <- function(bgcolor="white", fgcolor="black", ...) {
     theme_bw() %+replace%
     theme(legend.position="none",
           panel.grid.minor=element_blank(),
