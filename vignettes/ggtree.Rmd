@@ -61,35 +61,15 @@ The `ggtree` is designed by extending the `ggplot2`[@wickham_ggplot2_2009] packa
 
 # Getting data into `R`
 
-Most of the tree viewer software (including `R` packages) focus on `Newick` and `Nexus` file format, while there are file formats from different evolution analysis software that contain supporting evidences within the file that are ready for annotating a phylogenetic tree.
-The `ggtree` package define several parser functions and `S4` classes to store statistical evidences inferred by commonly used software packages. It supports several file format, including:
-
-+ Newick (via `ape`)
-+ Nexus (via `ape`)
-+ New Hampshire eXtended format (NHX)
-+ Jplace
-
-and software output from:
-
-+ [BEAST](http://beast2.org/)[@bouckaert_beast_2014] 
-+ [EPA](http://sco.h-its.org/exelixis/web/software/epa/index.html)[@berger_EPA_2011]
-+ [HYPHY](http://hyphy.org/w/index.php/Main_Page)[@pond_hyphy_2005]
-+ [PAML](http://abacus.gene.ucl.ac.uk/software/paml.html)[@yang_paml_2007]
-+ [PHYLDOG](http://pbil.univ-lyon1.fr/software/phyldog/)[@boussau_genome-scale_2013]
-+ [pplacer](http://matsen.fhcrc.org/pplacer/)[@matsen_pplacer_2010]
-+ [r8s](http://loco.biosci.arizona.edu/r8s/)[@marazzi_locating_2012]
-+ [RAxML](http://sco.h-its.org/exelixis/web/software/raxml/)[@stamatakis_raxml_2014]
-+ [RevBayes](http://revbayes.github.io/intro.html)[@hohna_probabilistic_2014]
-
+Most of the tree viewer software (including `R` packages) focus on `Newick` and `Nexus` file format, while there are file formats from different evolution analysis software that contain supporting evidences within the file that are ready for annotating a phylogenetic tree. In addition to `Newick` and `Nexus`, ggtree supports `NHX` and `jplace` file formats. `ggtree` also supports software outputs from [BEAST](http://beast2.org/)[@bouckaert_beast_2014], [EPA](http://sco.h-its.org/exelixis/web/software/epa/index.html)[@berger_EPA_2011], [HYPHY](http://hyphy.org/w/index.php/Main_Page)[@pond_hyphy_2005], [PAML](http://abacus.gene.ucl.ac.uk/software/paml.html)[@yang_paml_2007], [PHYLDOG](http://pbil.univ-lyon1.fr/software/phyldog/)[@boussau_genome-scale_2013], [pplacer](http://matsen.fhcrc.org/pplacer/)[@matsen_pplacer_2010], [r8s](http://loco.biosci.arizona.edu/r8s/)[@marazzi_locating_2012], [RAxML](http://sco.h-its.org/exelixis/web/software/raxml/)[@stamatakis_raxml_2014] and [RevBayes](http://revbayes.github.io/intro.html)[@hohna_probabilistic_2014].
 
 Parsing data from a number of molecular evolution software is not only for visualization in `ggtree`, but also bring these data to `R` users for further analysis (e.g. summarization, visualization, comparision, test, _etc_).
 
 For more details, please refer to [Tree Data Import](treeImport.html) vignette.
 
-
 # Tree Visualization and Annotation
 
-Tree Visualization in `ggtree` is easy, with one line of command `ggtree(tree_object)`. It supports several layout, including `rectangular`, `slanted` and `circular` for `Phylogram` and `Cladogram`, `unrooted` layout, time-scaled and two dimentional phylogenies. [Tree Visualization](treeVisualization.html) vignette describe these feature in details.
+Tree Visualization in `ggtree` is easy, with one line of command `ggtree(tree_object)`. It supports several layouts, including `rectangular`, `slanted` and `circular` for `Phylogram` and `Cladogram`, `unrooted` layout, time-scaled and two dimentional phylogenies. [Tree Visualization](treeVisualization.html) vignette describes these feature in details.
 
 We implement several functions to manipulate a phylogenetic tree.
 
@@ -105,13 +85,13 @@ Details and examples can be found in [Tree Manipulation](treeManipulation.html) 
 
 Most of the phylogenetic trees are scaled by evolutionary distance (substitution/site), in `ggtree` a phylogenetic tree can be re-scaled by any numerical variable inferred by evolutionary analysis (e.g. species divergence time, *dN/dS*, _etc_). Numerical and category variable can be used to color a phylogenetic tree.
 
-The `ggtree` package provides several layers to annotate a phylogenetic tree, including `geom_treescale` for adding a legend of tree scale, `geom_hilight` for highlighting selected clades and `geom_cladelabel` for labelling selected clades.
+The `ggtree` package provides several layers to annotate a phylogenetic tree, including `geom_tiplab` for adding tip labels, `geom_treescale` for adding a legend of tree scale, `geom_hilight` for highlighting selected clades and `geom_cladelabel` for labelling selected clades. 
 
-It supports annotating phylogenetic trees with analyses by R packages and other commonly used evolutionary software. User's specific annotation (e.g. experimental data) can be integrated to annotate phylogenetic tree. `ggtree` provides `write.jplace` function to combine Newick tree file and user's own data to a single `jplace` file that can be parsed and the data can be used to annotate the tree directly in `ggtree`.
+It supports annotating phylogenetic trees with analyses obtained from R packages and other commonly used evolutionary software. User's specific annotation (e.g. experimental data) can be integrated to annotate phylogenetic trees. `ggtree` provides `write.jplace` function to combine Newick tree file and user's own data to a single `jplace` file that can be parsed and the data can be used to annotate the tree directly in `ggtree`.
 
 `ggtree` integrates `phylopic` database and silhouette images of organisms can be downloaded and used to annotate phylogenetic directly. `ggtree` also supports using local images to annotate a phylogenetic tree.
 
-Visualizing an annotated phylogenetic tree with numerical matrix (e.g. genotype table) and multiple sequence alignment is also supported in `ggtree`. Examples of annotating phylogenetic trees can be found in the [Tree Annotation](treeAnnotation.html) vignette.
+Visualizing an annotated phylogenetic tree with numerical matrix (e.g. genotype table), multiple sequence alignment and subplots are also supported in `ggtree`. Examples of annotating phylogenetic trees can be found in the [Tree Annotation](treeAnnotation.html) and [Advance Tree Annotation](advanceTreeAnnotation.html) vignettes.
 
 
 # Vignette Entry
@@ -122,10 +102,11 @@ Visualizing an annotated phylogenetic tree with numerical matrix (e.g. genotype 
 + [Tree Annotation](treeAnnotation.html)
 + [Advance Tree Annotation](advanceTreeAnnotation.html)
 
+More documents can be found in <http://guangchuangyu.github.io/categories/ggtree>.
+
 # Bugs/Feature requests
 
 If you have any, [let me know](https://github.com/GuangchuangYu/ggtree/issues). Thx!
-
 
 # Session info
 

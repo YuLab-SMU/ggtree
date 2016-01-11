@@ -77,7 +77,7 @@ ggtree <- function(tr,
                 branch.length = branch.length,
                 ndigits       = ndigits, ...)
     
-    p <- p + geom_tree(layout, ...) + xlab(NULL) + ylab(NULL) + theme_tree()
+    p <- p + geom_tree(layout, ...)  + theme_tree()
     
     if (type == "circular" || type == "radial") {
         p <- p + coord_polar(theta = "y")

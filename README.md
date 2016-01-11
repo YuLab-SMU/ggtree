@@ -42,22 +42,13 @@ To install:
 
 ## Documentation ##
 
-+ [viewing and annotating phylogenetic tree with ggtree](http://guangchuangyu.github.io/2014/12/viewing-and-annotating-phylogenetic-tree-with-ggtree/)
-+ [updating a tree view using %<% operator](http://guangchuangyu.github.io/2015/02/ggtree-updating-a-tree-view-using--operator/)
-+ [an example of drawing beast tree using ggtree](http://guangchuangyu.github.io/2015/04/an-example-of-drawing-beast-tree-using-ggtree/)
-+ [flip and rotate branches in ggtree](http://guangchuangyu.github.io/2015/07/flip-and-rotate-branches-in-ggtree/)
-+ [subsetting data in ggtree](http://guangchuangyu.github.io/2015/09/subsetting-data-in-ggtree/)
-+ [ggtree with funny fonts](http://guangchuangyu.github.io/2015/06/ggtree-with-funny-fonts/)
-+ [comic phylogenetic tree with ggtree and comicR](http://guangchuangyu.github.io/2015/09/comic-phylogenetic-tree-with-ggtree-and-comicr/)
-+ [embeding a subplot in ggplot via subview](http://guangchuangyu.github.io/2015/08/subview/)
-+ [annotate phylogenetic tree with local images](http://guangchuangyu.github.io/2015/08/ggtree-annotate-phylogenetic-tree-with-local-images/)
-+ [phylomoji with ggtree](http://guangchuangyu.github.io/2015/12/use-emoji-font-in-r/)
-
-
 To view the vignette of `ggtree` installed in your system, start `R` and enter:
 ```r
 vignette("ggtree", package = "ggtree")
 ```
+
+More documents can be found in <http://guangchuangyu.github.io/categories/ggtree>.
+
 
 ## Bugs/Feature requests ##
 

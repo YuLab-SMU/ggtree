@@ -48,7 +48,7 @@ It implements _`geom_tree`_ layer for displaying phylogenetic trees, as shown be
 
 
 ```{r fig.width=3, fig.height=3, fig.align="center"}
-ggplot(tree, aes(x, y)) + geom_tree() + theme_tree() + xlab(NULL) + ylab(NULL)
+ggplot(tree, aes(x, y)) + geom_tree() + theme_tree()
 ```
 
 The function, _`ggtree`_, was implemented as a short cut to visualize a tree, and it works exactly the same as shown above.
@@ -58,12 +58,12 @@ _`ggtree`_ takes all the advantages of _`ggplot2`_. For example, we can change t
 ggtree(tree, color="firebrick", size=1, linetype="dotted")
 ```
 
-By default, the tree is viewing in ladderize form, user can set the parameter _`ladderize = FALSE`_ to disable it.
+By default, the tree is viewed in ladderize form, user can set the parameter _`ladderize = FALSE`_ to disable it.
 ```{r fig.width=3, fig.height=3, fig.align="center"}
 ggtree(tree, ladderize=FALSE)
 ```
 
-The _`branch.length`_ is used to scale the edge, user can set the parameter _`branch.length = "none"`_ to only viewing the tree topology (cladogram) or other numerical variable to scale the tree (e.g. _dN/dS_).
+The _`branch.length`_ is used to scale the edge, user can set the parameter _`branch.length = "none"`_ to only view the tree topology (cladogram) or other numerical variable to scale the tree (e.g. _dN/dS_, see also in [Tree Annotation](treeAnnotation.html) vignette).
 
 ```{r fig.width=3, fig.height=3, fig.align="center"}
 ggtree(tree, branch.length="none")
@@ -71,14 +71,14 @@ ggtree(tree, branch.length="none")
 
 # Layout
 
-Currently, _`ggtree`_ supports several layout, including:
+Currently, _`ggtree`_ supports several layouts, including:
 
 + `rectangular` (by default)
 + `slanted`
 + `fan` or `circular`
 
-for `Phylogram` (by default).
-`Cladogram` if user explicitly setting `branch.length='none'` and `unrooted` layout are also supported. 
+for `Phylogram` (by default) and `Cladogram` if user explicitly setting `branch.length='none'`.
+`ggtree` also supports `unrooted` layout.
 
 
 ## Phylogram
@@ -133,14 +133,14 @@ ggtree(tree, layout="unrooted") + ggtitle("unrooted layout")
 
 A phylogenetic tree can be scaled by time (time-scaled tree) by specifying the parameter, `mrsd` (most recent sampling date).
 
-```{r fig.width=9, fig.height=4, fig.align="center"}
+```{r fig.width=9, fig.height=9, fig.align="center"}
 tree2d <- read.beast(system.file("extdata", "twoD.tree", package="ggtree"))
 ggtree(tree2d, mrsd = "2014-05-01") + theme_tree2()
 ```
 
 ## Two dimensional tree
 
-`ggtree` implemented 2 dimensional tree. It accepts parameter _`yscale`_ to scale the y-axis based on the selected tree attribute. The attribute should be numerical variable. If it is *character*/*category* variable, user should provides a name vector of mapping the variable to numeric by passing it to parameter _`yscale_mapping`_.
+`ggtree` implemented two dimensional tree. It accepts parameter _`yscale`_ to scale the y-axis based on the selected tree attribute. The attribute should be numerical variable. If it is *character*/*category* variable, user should provides a name vector of mapping the variable to numeric by passing it to parameter _`yscale_mapping`_.
 
 
 ```{r fig.width=9, fig.height=4, fig.align="center"}
@@ -188,9 +188,12 @@ We can also use `theme_tree2()` to display the tree scale by adding `x axis`.
 ggtree(tree) + theme_tree2()
 ```
 
+Tree scale is not restricted to evolution distance, `ggtree` can re-scale the tree with other numerical variable. More details can be found in the [Tree Annotation](treeAnnotation.html) vignette.
+
+
 # Displaying nodes/tips
 
-Show all the internal nodes and tips in the tree can be done by adding a layer of points using _`geom_nodepoint`_,  _`geom_tippoint`_ or _`geom_point`_.
+Showing all the internal nodes and tips in the tree can be done by adding a layer of points using _`geom_nodepoint`_,  _`geom_tippoint`_ or _`geom_point`_.
 
 ```{r fig.width=3, fig.height=3, fig.align="center"}
 ggtree(tree)+geom_point(aes(shape=isTip, color=isTip), size=3)
@@ -223,9 +226,9 @@ p + geom_tiplab(aes(x=branch), size=3, color="purple", vjust=-0.3)
 
 Based on the middle of branch is very useful when annotating transition from parent node to child node.
 
-# update tree viewing with a new tree
+# update tree view with a new tree
 
-In previous example, we have a _`p`_ object that stored the tree viewing of 13 tips and internal nodes highlighted with specific colored big dots. If users want to applied this pattern (we can imaging a more complex one) to a new tree, you don't need to build the tree step by step. `ggtree` provides an operator, _`%<%`_, for applying the visualization pattern to a new tree.
+In previous example, we have a _`p`_ object that stored the tree viewing of 13 tips and internal nodes highlighted with specific colored big dots. If users want to apply this pattern (we can imaging a more complex one) to a new tree, you don't need to build the tree step by step. `ggtree` provides an operator, _`%<%`_, for applying the visualization pattern to a new tree.
 
 For example, the pattern in the _`p`_ object will be applied to a new tree with 50 tips as shown below:
 ```{r fig.width=3, fig.height=3, fig.align="center"}
@@ -236,7 +239,7 @@ Another example can be found in the [Tree Data Import](treeImport.html#rst-file)
 
 # theme
 
-`theme_tree()` defined a totally blank canvas, while _`theme_tree2()`_ add phylogenetic distance (via x-axis). These two themes all accept a parameter of _`bgcolor`_ that defined the background color.
+`theme_tree()` defined a totally blank canvas, while _`theme_tree2()`_ adds phylogenetic distance (via x-axis). These two themes all accept a parameter of _`bgcolor`_ that defined the background color.
 
 ```{r fig.width=6, fig.height=3, fig.align="center"}
 grid.arrange(

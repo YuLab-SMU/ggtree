@@ -35,8 +35,11 @@ library("ggtree")
 
 # Visualize tree with associated matrix
 
+<!--
 At first we implemented `gplot` function to visualize tree with heatmap but it has [an issue](https://github.com/GuangchuangYu/ggtree/issues/3) that it can't always guarantee the heatmap aligning to the tree properly, since the line up is between two figures and it's currently not supported internally by ggplot2. I have implemented another function `gheatmap` that can do the line up properly by creating a new layer above the tree.
+-->
 
+The `gheatmap` function is designed to visualize phylogenetic tree with heatmap of associated matrix.
 
 In the following example, we visualized a tree of H3 influenza viruses with their associated genotype.
 
@@ -51,12 +54,14 @@ p <- p + geom_tiplab(size=3)
 gheatmap(p, genotype, offset = 2, width=0.5)
 ```
 
-The _width_ parameter is to control the width of the heatmap. It supports another parameter _offset_ for controling the distance between the tree and the heatmap, for instance left space for tip labels.
+The _width_ parameter is to control the width of the heatmap. It supports another parameter _offset_ for controling the distance between the tree and the heatmap, for instance to allocate space for tip labels.
 
 
-For time scaled tree, as in this example, it's more often to use x axis by using `theme_tree2`. But with this solution, the heatmap is just another layer and will change the `x` axis. To overcome this issue, we implemented `scale_x_ggtree` to set the x axis more reasonable. User can also use `gplot` and tweak the positions of two plot to align properly.
+For time-scaled tree, as in this example, it's more often to use x axis by using `theme_tree2`. But with this solution, the heatmap is just another layer and will change the `x` axis. To overcome this issue, we implemented `scale_x_ggtree` to set the x axis more reasonable. 
 
-```{r fig.width=20, fig.height=16, fig.align="center"}
+<!-- User can also use `gplot` and tweak the positions of two plot to align properly. -->
+
+```{r fig.width=20, fig.height=16, fig.align="center", warning=FALSE}
 p <- ggtree(beast_tree, mrsd="2013-01-01") + geom_tiplab(size=3, align=TRUE) + theme_tree2()
 pp <- (p + scale_y_continuous(expand=c(0, 0.3))) %>%
     gheatmap(genotype, offset=4, width=0.5, colnames=FALSE) %>%
@@ -66,7 +71,7 @@ pp + theme(legend.position="right")
 
 # Visualize tree with multiple sequence alignment
 
-With `msaplot` function, user can visualizes multiple sequence alignment with phylogenetic tree, as demonstrated below:
+With `msaplot` function, user can visualize multiple sequence alignment with phylogenetic tree, as demonstrated below:
 ```{r fig.width=8, fig.height=12, fig.align='center'}
 fasta <- system.file("examples/FluA_H3_AA.fas", package="ggtree")
 msaplot(ggtree(beast_tree), fasta) 
@@ -74,10 +79,13 @@ msaplot(ggtree(beast_tree), fasta)
 
 A specific slice of the alignment can also be displayed by specific _window_ parameter.
 
+```{r fig.width=8, fig.height=12, fig.align='center'}
+msaplot(ggtree(beast_tree), fasta, window=c(150, 200)) 
+```
 
 # Annotate a phylogenetic with insets
 
-`ggtree` implemented a function, `subview`, that can add subplots into a ggplot2 object. It had successful applied to [plot pie graphs on map](http://stackoverflow.com/questions/10368180/plotting-pie-graphs-on-map-in-ggplot/32380396#32380396).
+`ggtree` implemented a function, `subview`, that can add subplots on a ggplot2 object. It had successful applied to [plot pie graphs on map](http://stackoverflow.com/questions/10368180/plotting-pie-graphs-on-map-in-ggplot/32380396#32380396).
 
 ```{r fig.width=8, fig.height=8, warning=F}
 set.seed(2016-01-04)
@@ -113,7 +121,7 @@ bars <- nodebar(dat, cols=1:4)
 inset(p, bars)
 ```
 
-The size of the inset can be ajusted by the paramter *width* and *height*.
+The sizes of the insets can be ajusted by the paramter *width* and *height*.
 
 ```{r}
 inset(p, bars, width=.03, height=.06)
@@ -190,8 +198,7 @@ d2$panel <- 'Stats'
 d1$panel <- factor(d1$panel, levels=c("Tree", "Stats"))
 d2$panel <- factor(d2$panel, levels=c("Tree", "Stats"))
 
-p <- ggplot(mapping=aes(x=x, y=y)) + facet_grid(.~panel, scale="free_x") +
-    xlab(NULL)+ylab(NULL)+theme_tree2()
+p <- ggplot(mapping=aes(x=x, y=y)) + facet_grid(.~panel, scale="free_x") + theme_tree2()
 p+geom_tree(data=d1) + geom_point(data=d2, aes(x=tipstats)) 
 ```
 
@@ -204,13 +211,13 @@ p+geom_tree(data=d1) + geom_point(data=d2, aes(x=tipstats))
 pp <- ggtree(tree) %>% phylopic("79ad5f09-cf21-4c89-8e7d-0c82a00ce728", color="steelblue", alpha = .3)
 print(pp)
 ```
-![](../inst/extdata/phylopic1.png)
+![](figures/phylopic1.png)
 
 ```{r fig.width=5, fig.height=5, fig.align="center", warning=FALSE, eval=FALSE}
 pp %>% phylopic("67382184-5135-4faa-8e98-eadff02c3e8a", color="#86B875", alpha=.8, node=4) %>%
      phylopic("d3563b54-780f-4711-a49a-7ea051e9dacc", color="darkcyan", alpha=.8, node=17, width=.2)
 ```
-![](../inst/extdata/phylopic2.png)
+![](figures/phylopic2.png)
 
 
 Annotate phylogenetic tree with local images is also supported, please refer to the [blog post](http://guangchuangyu.github.io/2015/08/ggtree-annotate-phylogenetic-tree-with-local-images/).
