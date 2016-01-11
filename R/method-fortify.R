@@ -626,3 +626,24 @@ fortify.r8s <- function(model, data, layout="rectangular",
     phylo <- trees[[branch.length]]
     fortify(phylo, layout=layout, ladderize = ladderize, right=right, mrsd=mrsd, ...)
 }
+
+##' @method fortify obkData
+##' @export
+fortify.obkData <- function(model, data, layout="rectangular",
+                            ladderize=TRUE, right=FALSE, mrsd = NULL, ...) {
+
+    df <- fortify(model@trees[[1]], layout=layout, ladderize=ladderize, right=right, mrsd=mrsd, ...)
+
+    meta.df <- model@dna@meta
+    meta.df <- data.frame(taxa=rownames(meta.df), meta.df)
+    loc <- model@individuals
+    loc <- data.frame(individualID=rownames(loc), loc)
+    meta_loc <- merge(meta.df, loc, by="individualID")
+    meta_loc <- meta_loc[,-1]
+
+    df <- merge(df, meta_loc, by.x="label", by.y="taxa", all.x=TRUE)
+    df <- df[order(df$node, decreasing = FALSE),]
+    return(df)
+}
+                            
+                         
