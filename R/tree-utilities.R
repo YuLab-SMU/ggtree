@@ -576,7 +576,11 @@ getYcoord <- function(tr, step=1) {
     edge <- tr[["edge"]]
     parent <- edge[,1]
     child <- edge[,2]
-   
+
+    cl <- split(child, parent)
+    child_list <- list()
+    child_list[as.numeric(names(cl))] <- cl
+    
     y <- numeric(N)
     tip.idx <- child[child <= Ntip]
     y[tip.idx] <- 1:Ntip * step
@@ -584,18 +588,24 @@ getYcoord <- function(tr, step=1) {
 
     currentNode <- 1:Ntip
     while(any(is.na(y))) {
-        pNode <- child %in% currentNode %>% which %>%
-            parent[.] %>% unique
-        idx <- sapply(pNode, function(i) all(child[parent == i] %in% currentNode))
+        pNode <- unique(parent[child %in% currentNode])
+        ## piping is slower
+        ##
+        ## child %in% currentNode %>% which %>% parent[.] %>% unique
+        ## idx <- sapply(pNode, function(i) all(child[parent == i] %in% currentNode))
+        idx <- sapply(pNode, function(i) all(child_list[[i]] %in% currentNode))
         newNode <- pNode[idx]
         
         y[newNode] <- sapply(newNode, function(i) {
-            child[parent == i] %>% y[.] %>% mean(na.rm=TRUE)           
+            mean(y[child_list[[i]]], na.rm=TRUE)
+            ##child[parent == i] %>% y[.] %>% mean(na.rm=TRUE)           
         })
         
-        currentNode <- parent %in% newNode %>% child[.] %>%
-            `%in%`(currentNode, .) %>% `!` %>%
-                currentNode[.] %>% c(., newNode)
+        currentNode <- c(currentNode[!currentNode %in% unlist(child_list[newNode])], newNode)
+        ## currentNode <- c(currentNode[!currentNode %in% child[parent %in% newNode]], newNode)
+        ## parent %in% newNode %>% child[.] %>%
+        ##     `%in%`(currentNode, .) %>% `!` %>%
+        ##         currentNode[.] %>% c(., newNode)
     }
     
     return(y)
