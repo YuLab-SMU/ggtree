@@ -213,7 +213,7 @@ msaplot <- function(p, fasta, offset=0, width=1, color=NULL, window=NULL){
 ##'
 ##' 
 ##' @title scale_x_ggtree
-##' @param p tree view
+##' @param tree_view tree view
 ##' @param breaks breaks for tree
 ##' @param labels lables for corresponding breaks
 ##' @return tree view
@@ -221,7 +221,9 @@ msaplot <- function(p, fasta, offset=0, width=1, color=NULL, window=NULL){
 ##' @importFrom ggplot2 scale_x_date
 ##' @export
 ##' @author Guangchuang Yu
-scale_x_ggtree <- function(p, breaks=NULL, labels=NULL) {
+scale_x_ggtree <- function(tree_view, breaks=NULL, labels=NULL) {
+    p <- get_tree_view(tree_view)
+    
     mrsd <- attr(p, "mrsd")
     if (!is.null(mrsd) && class(p$data$x) == "Date") {
         x <- Date2decimal(p$data$x)

@@ -870,3 +870,20 @@ set_branch_length <- function(tree_object, branch.length) {
     return(phylo)
 }
 
+
+re_assign_ycoord_df <- function(df, currentNode) {
+    while(any(is.na(df$y))) {
+        pNode <- with(df, parent[match(currentNode, node)]) %>% unique
+        idx <- sapply(pNode, function(i) with(df, all(node[parent == i & parent != node] %in% currentNode)))
+        newNode <- pNode[idx]
+        ## newNode <- newNode[is.na(df[match(newNode, df$node), "y"])]
+        
+        df[match(newNode, df$node), "y"] <- sapply(newNode, function(i) {
+            with(df, mean(y[parent == i], na.rm = TRUE))
+        })
+        traced_node <- as.vector(sapply(newNode, function(i) with(df, node[parent == i])))
+        currentNode <- c(currentNode[! currentNode %in% traced_node], newNode)
+    }
+    return(df)
+}
+
