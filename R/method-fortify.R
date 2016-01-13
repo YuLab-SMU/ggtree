@@ -611,7 +611,7 @@ fortify.multiPhylo <-  function(model, data, layout="rectangular",
     df$.id <- factor(df$.id, levels=names(df.list))
     
     nNode <- sapply(df.list, nrow)
-    nNode2 <- cumsum(nNode) - nNode[1]
+    nNode2 <- cumsum(c(0, nNode[-length(nNode)])) 
     df$parent <- df$parent + rep(nNode2, times=nNode)
     return(df)
 }
@@ -647,3 +647,17 @@ fortify.obkData <- function(model, data, layout="rectangular",
 }
                             
                          
+## fortify.cophylo <- function(model, data, layout="rectangular",
+##                             ladderize=TRUE, right=FALSE, mrsd = NULL, ...) {
+##     trees <- model$trees
+##     df.list <- lapply(trees, function(x) fortify(x, layout=layout, ladderize=ladderize, right=right, mrsd=mrsd, ...))
+##     df1 <- df.list[[1]]
+##     df2 <- df.list[[2]]
+
+##     df2$x <- max(df2$x) + df2$x * -1 + max(df1$x) * 1.1
+##     df2$parent <- df2$parent+nrow(df1)
+##     df <- rbind(df1, df2)
+
+##     ggplot(df) + geom_tree()
+
+## }
