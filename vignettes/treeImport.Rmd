@@ -38,7 +38,7 @@ The `ggtree` package should not be viewed solely as a standalone software. While
 # Supported File Formats
 
 Most of the tree viewer software (including `R` packages) focus on `Newick` and `Nexus` file format, while there are file formats from different evolution analysis software that contain supporting evidences within the file that are ready for annotating a phylogenetic tree.
-The `ggtree` package define several parser functions and `S4` classes to store statistical evidences inferred by commonly used software packages. It supports several file format, including:
+The `ggtree` package define several parser functions and `S4` classes to store statistical evidences inferred by commonly used software packages. It supports several file formats, including:
 
 + Newick (via `ape`)
 + Nexus (via `ape`)
