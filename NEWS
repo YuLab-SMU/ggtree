@@ -1,5 +1,6 @@
 CHANGES IN VERSION 1.3.9
 ------------------------
+ o add 'multiPhylo' example in 'Tree Visualization' vignette <2016-01-13, Wed>
  o viewClade, scaleClade, collapse, expand, rotate, flip, get_taxa_name and scale_x_ggtree accepts input tree_view=NULL.
    these function will access the last plot if tree_view=NULL. <2016-01-13, Wed>
    + > ggtree(rtree(30)); viewClade(node=35) works. no need to pipe.
