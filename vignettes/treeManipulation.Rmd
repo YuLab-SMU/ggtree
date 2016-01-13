@@ -56,6 +56,15 @@ p <- ggtree(tree)
 MRCA(p, tip=c('A', 'E'))
 ```
 
+# view Clade
+
+`ggtree` provides a function `viewClade` to visualize a clade of a phylogenetic tree.
+
+```{r fig.width=5, fig.height=5, fig.align="center", warning=FALSE}
+viewClade(p+geom_tiplab(), node=21)
+```
+
+
 # group Clades
 
 The `ggtree` package defined several functions to manipulate tree view. _`groupClade`_ and _`groupOTU`_ methods for clustering clades or related OTUs. _`groupClade`_ accepts an internal node or a vector of internal nodes to cluster clade/clades.

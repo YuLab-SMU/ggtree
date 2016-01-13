@@ -109,6 +109,9 @@ The _`groupOTU`_ method is used for clustering related OTUs (from tips to their 
 
 The _`fortify`_ method is used to convert tree object to a `data.frame` which is familiar by `R` users and easy to manipulate. The output `data.frame` contains tree information and all evolutionary evidences (if available, e.g. _*dN/dS*_ in `codeml` object).
 
+Detail descriptions of `slots` defined in each class are documented in class man pages. Users can use `class?className` (e.g. `class?beast`) to access man page of a class.
+
+
 # Getting Tree Data into R
 
 ## Parsing BEAST output

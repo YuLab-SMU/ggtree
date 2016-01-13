@@ -4,10 +4,10 @@
 \alias{scale_x_ggtree}
 \title{scale_x_ggtree}
 \usage{
-scale_x_ggtree(p, breaks = NULL, labels = NULL)
+scale_x_ggtree(tree_view, breaks = NULL, labels = NULL)
 }
 \arguments{
-\item{p}{tree view}
+\item{tree_view}{tree view}
 
 \item{breaks}{breaks for tree}
 

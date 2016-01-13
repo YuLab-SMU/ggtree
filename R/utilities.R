@@ -1,3 +1,11 @@
+get_tree_view <- function(tree_view) {
+    if (is.null(tree_view)) 
+        tree_view <- last_plot()
+
+    return(tree_view)
+}
+
+
 has.slot <- function(object, slotName) {
     if (!isS4(object)) {
         return(FALSE)
@@ -406,23 +414,6 @@ is.tree_attribute_ <- function(p, var) {
     is.tree_attribute(p$data, var)
 }
 
-
-`%add%` <- function(p, data) {
-    p$data <- p$data %add2% data
-    return(p)
-}
-
-`%add2%` <- function(d1, d2) {
-    if ("node" %in% colnames(d2)) {
-        d2 <- d2[,-1] ## drop label column
-        dd <- merge(d1, d2, by.x="node", by.y="node", all.x=TRUE)
-    } else {
-        d2[,1] <- as.character(d2[,1])
-        dd <- merge(d1, d2, by.x="label", by.y=1, all.x=TRUE)
-    }
-    dd <- dd[match(d1$node, dd$node),]
-    return(dd)
-}
 
 `%place%` <- function(pg, tree) {
     param <- attr(pg, "param")
