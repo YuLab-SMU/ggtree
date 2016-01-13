@@ -248,4 +248,31 @@ grid.arrange(
 	ncol=2)
 ```
 
+# Visualize a list of trees
+
+`ggtree` supports `multiPhylo` object and a list of trees can be view simultaneously.
+
+```{r fig.width=12, fig.height=4}
+trees <- lapply(c(10, 20, 40), rtree)
+class(trees) <- "multiPhylo"
+ggtree(trees) + facet_wrap(~.id, scale="free") + geom_tiplab()
+```
+
+One hundred bootstrap trees can also be view simultaneously.
+```{r fig.width=20, fig.height=20}
+btrees <- read.tree(system.file("extdata/RAxML", "RAxML_bootstrap.H3", package="ggtree"))
+ggtree(btrees) + facet_wrap(~.id, ncol=10)
+```
+
+Another way to view the bootstrap trees is to merge them together to form a density tree. We can add a layer of the best tree on the top of the density tree.
+
+```{r}
+p <- ggtree(btrees, layout="rectangular",   color="lightblue", alpha=.3)
+
+best_tree <- read.tree(system.file("extdata/RAxML", "RAxML_bipartitionsBranchLabels.H3", package="ggtree"))
+df <- fortify(best_tree, branch.length = 'none')
+p+geom_tree(data=df, color='firebrick')
+```
+
+
 # References
