@@ -427,20 +427,27 @@ get.path_length <- function(phylo, from, to, weight=NULL) {
 getNodes_by_postorder <- function(tree) {
     tree <- reorder.phylo(tree, "postorder")
     unique(rev(as.vector(t(tree$edge[,c(2,1)]))))
-    ## tree$edge[,c(2,1)] %>% t %>%
-    ##     as.vector %>% rev %>% unique
 }
 
-getNodes_by_postorder2 <- function(tree) {
-    tree$edge[,c(2,1)] %>>% t %>>%
-        as.vector %>>% rev %>>% unique
-}
+## getNodes_by_postorder2 <- function(tree) {
+##     tree$edge[,c(2,1)] %>>% t %>>%
+##         as.vector %>>% rev %>>% unique
+## }
 
-getNodes_by_postorder3 <- function(tree) {
-    tree$edge[,c(2,1)] %>% t %>%
-        as.vector %>% rev %>% unique
-}
+## getNodes_by_postorder3 <- function(tree) {
+##     tree$edge[,c(2,1)] %>% t %>%
+##         as.vector %>% rev %>% unique
+## }
 
+## > system.time(replicate(1000, getNodes_by_postorder(tree)))
+##    user  system elapsed
+##   0.079   0.004   0.082
+## > system.time(replicate(1000, getNodes_by_postorder2(tree)))
+##    user  system elapsed
+##   0.062   0.001   0.063
+## > system.time(replicate(1000, getNodes_by_postorder3(tree)))
+##    user  system elapsed
+##   0.136   0.000   0.135
 
 getXcoord2 <- function(x, root, parent, child, len, start=0, rev=FALSE) {
     x[root] <- start
