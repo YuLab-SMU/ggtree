@@ -12,7 +12,7 @@ read.raxml <- function(file) {
     phylo <- read.tree(text=tree_text)
     if(any(grepl('@', phylo$node.label))) {
         bootstrap <- as.numeric(gsub("[^@]*@(\\d+)", "\\1", phylo$node.label))
-        phylo$node.label %<>% gsub("@\\d+", "", .)
+        phylo$node.label <- gsub("@\\d+", "", phylo$node.label)
     }
 
     if (all(phylo$node.label == "")) {

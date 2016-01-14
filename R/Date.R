@@ -7,7 +7,7 @@
 ##' @export
 ##' @author Guangchuang Yu
 Date2decimal <- function(x) {
-    x %<>% as.Date
+    x <- as.Date(x)
     year <- format(x, "%Y")
     y <- x - as.Date(paste0(year, "-01-01"))
     as.numeric(year) + as.numeric(y)/365
