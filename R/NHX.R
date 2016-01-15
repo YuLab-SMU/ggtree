@@ -86,14 +86,6 @@ get_nhx_feature_internal <- function(feature, nameSET) {
 }
 
 
-##' @rdname get.tree-methods
-##' @exportMethod get.tree
-setMethod("get.tree", signature(object = "nhx"),
-          function(object) {
-              object@phylo
-          }
-          )
-
 
 
 

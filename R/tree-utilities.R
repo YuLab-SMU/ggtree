@@ -87,93 +87,11 @@ scale_color_ <- function(phylo, by, low=NULL, high=NULL, na.color=NULL, default.
     return(color)
 }
 
-groupClade_ <- function(object, node, group_name) {
-    if (is(object, "phylo")) {
-        object <- groupClade.phylo(object, node, group_name)
-    } else {
-        object@phylo <- groupClade.phylo(get.tree(object), node, group_name)
-    }
-    return(object)
-}
-
-groupOTU_ <- function(object, focus, group_name) {
-    if (is(object, "phylo")) {
-        object <- groupOTU.phylo(object, focus, group_name)
-    } else {
-        object@phylo <- groupOTU.phylo(get.tree(object), focus, group_name)
-    }
-    return(object)
-}
-
-##' @importFrom ape which.edge
-gfocus <- function(phy, focus, group_name) {
-    if (is.character(focus)) {
-        focus <- which(phy$tip.label %in% focus)
-    }
-    
-    n <- getNodeNum(phy)
-    if (is.null(attr(phy, group_name))) {
-        foc <- rep(0, n)
-    } else {
-        foc <- attr(phy, group_name)
-    }
-    i <- max(foc) + 1
-    sn <- phy$edge[which.edge(phy, focus),] %>% as.vector %>% unique
-    foc[sn] <- i
-    attr(phy, group_name) <- foc
-    phy
-}
 
 
 
-##' update tree 
-##'
-##'
-##' @rdname update.TREE
-##' @title \%<\%
-##' @param pg ggplot2 object
-##' @param x update by x
-##' @return updated ggplot object
-##' @export
-##' @author Yu Guangchuang
-##' @examples
-##' library("ggplot2")
-##' nwk <- system.file("extdata", "sample.nwk", package="ggtree")
-##' tree <- read.tree(nwk)
-##' p <- ggtree(tree) + geom_tippoint(color="#b5e521", alpha=1/4, size=10)
-##' p %<% rtree(30)
-`%<%` <- function(pg, x) {
-    if (! is.tree(x)) {
-        stop("input should be a tree object...")
-    }
-    pg %place% x
-}
 
-##' add annotation data to a tree
-##'
-##'
-##' @rdname add.TREEDATA
-##' @title \%<+\%
-##' @param pg ggplot2 object
-##' @param data annotation data
-##' @return ggplot object with annotation data added
-##' @export
-##' @author Yu Guangchuang
-##' @examples
-##' nwk <- system.file("extdata", "sample.nwk", package="ggtree")
-##' tree <- read.tree(nwk)
-##' p <- ggtree(tree) 
-##' dd <- data.frame(taxa=LETTERS[1:13], 
-##'    		 place=c(rep("GZ", 5), rep("HK", 3), rep("CZ", 4), NA),
-##'              value=round(abs(rnorm(13, mean=70, sd=10)), digits=1))
-##' row.names(dd) <- NULL
-##' p %<+% dd + geom_text(aes(color=place, label=label), hjust=-0.5)
-`%<+%` <- function(pg, data) {
-    if (! is.data.frame(data)) {
-        stop("input should be a data.frame...")
-    }
-    pg %add% data
-}
+
 
 
 ##' @importFrom ape reorder.phylo
@@ -473,8 +391,7 @@ get.path_length <- function(phylo, from, to, weight=NULL) {
 
 getNodes_by_postorder <- function(tree) {
     tree <- reorder.phylo(tree, "postorder")
-    tree$edge[,c(2,1)] %>% t %>%
-        as.vector %>% rev %>% unique
+    unique(rev(as.vector(t(tree$edge[,c(2,1)]))))
 }
 
 getXcoord2 <- function(x, root, parent, child, len, start=0, rev=FALSE) {
@@ -510,6 +427,10 @@ getXcoord_no_length <- function(tr) {
     currentNode <- 1:ntip
     x[-currentNode] <- NA
 
+    cl <- split(child, parent)
+    child_list <- list()
+    child_list[as.numeric(names(cl))] <- cl
+    
     while(any(is.na(x))) {
         idx <- match(currentNode, child)
         pNode <- parent[idx]
@@ -519,15 +440,19 @@ getXcoord_no_length <- function(tr) {
         np <- names(p2)
         i <- p1[np] == p2
         newNode <- as.numeric(np[i])
-        exclude <- c()
+
+        exclude <- rep(NA, max(child))
         for (j in newNode) {
-            jj <- which(parent == j)
-            x[j] <- min(x[child[jj]]) - 1
-            exclude %<>% c(., child[jj])
+            x[j] <- min(x[child_list[[j]]]) - 1
+            exclude[child_list[[j]]] <- child_list[[j]]
         }
-        
-        currentNode %<>% `[`(!(. %in% exclude))
-        currentNode %<>% c(., newNode) %>% unique
+        exclude <- exclude[!is.na(exclude)]
+
+        ## currentNode %<>% `[`(!(. %in% exclude))
+        ## currentNode %<>% c(., newNode) %>% unique
+        currentNode <- currentNode[!currentNode %in% exclude]
+        currentNode <- unique(c(currentNode, newNode))
+
     }
     x <- x - min(x) 
     return(x)    
@@ -576,7 +501,11 @@ getYcoord <- function(tr, step=1) {
     edge <- tr[["edge"]]
     parent <- edge[,1]
     child <- edge[,2]
-   
+
+    cl <- split(child, parent)
+    child_list <- list()
+    child_list[as.numeric(names(cl))] <- cl
+    
     y <- numeric(N)
     tip.idx <- child[child <= Ntip]
     y[tip.idx] <- 1:Ntip * step
@@ -584,18 +513,25 @@ getYcoord <- function(tr, step=1) {
 
     currentNode <- 1:Ntip
     while(any(is.na(y))) {
-        pNode <- child %in% currentNode %>% which %>%
-            parent[.] %>% unique
-        idx <- sapply(pNode, function(i) all(child[parent == i] %in% currentNode))
+        pNode <- unique(parent[child %in% currentNode])
+        ## piping of magrittr is slower than nested function call.
+        ## pipeR is fastest, may consider to use pipeR
+        ##
+        ## child %in% currentNode %>% which %>% parent[.] %>% unique
+        ## idx <- sapply(pNode, function(i) all(child[parent == i] %in% currentNode))
+        idx <- sapply(pNode, function(i) all(child_list[[i]] %in% currentNode))
         newNode <- pNode[idx]
         
         y[newNode] <- sapply(newNode, function(i) {
-            child[parent == i] %>% y[.] %>% mean(na.rm=TRUE)           
+            mean(y[child_list[[i]]], na.rm=TRUE)
+            ##child[parent == i] %>% y[.] %>% mean(na.rm=TRUE)           
         })
         
-        currentNode <- parent %in% newNode %>% child[.] %>%
-            `%in%`(currentNode, .) %>% `!` %>%
-                currentNode[.] %>% c(., newNode)
+        currentNode <- c(currentNode[!currentNode %in% unlist(child_list[newNode])], newNode)
+        ## currentNode <- c(currentNode[!currentNode %in% child[parent %in% newNode]], newNode)
+        ## parent %in% newNode %>% child[.] %>%
+        ##     `%in%`(currentNode, .) %>% `!` %>%
+        ##         currentNode[.] %>% c(., newNode)
     }
     
     return(y)

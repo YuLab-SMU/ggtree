@@ -25,7 +25,7 @@ This class stores RAxML bootstrapping analysis result
 \item{\code{extraInfo}}{extra information}
 }}
 \author{
-Guangchuang Yu \url{http://ygc.name}
+Guangchuang Yu \url{http://guangchuangyu.github.io}
 }
 \keyword{classes}
 

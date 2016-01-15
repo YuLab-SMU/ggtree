@@ -1,3 +1,4 @@
+##' @importFrom ggplot2 last_plot
 get_tree_view <- function(tree_view) {
     if (is.null(tree_view)) 
         tree_view <- last_plot()
@@ -415,17 +416,6 @@ is.tree_attribute_ <- function(p, var) {
 }
 
 
-`%place%` <- function(pg, tree) {
-    param <- attr(pg, "param")
-    pg$data <- fortify(tree,
-                       layout        = param[["layout"]],
-                       yscale        = param[["yscale"]],
-                       ladderize     = param[["ladderize"]],
-                       right         = param[["right"]],
-                       branch.length = param[["branch.length"]],
-                       ndigits       = param[["ndigits"]])
-    return(pg)
-}
 
 
 ## `%IN%` <- function(x, table) {
@@ -469,17 +459,6 @@ roundDigit <- function(d) {
     structure(as.list(match.call()[-1]), env = .env, class = "quoted")
 }
 
-##' pipe
-##' @importFrom magrittr %>%
-##' @name %>%
-##' @export
-##' @rdname pipe
-##' @param lhs left hand side
-##' @param rhs right hand side
-##' @usage lhs \%>\% rhs
-##' @seealso
-##' \link[magrittr]{pipe}
-NULL
 
 
 ## from ChIPseeker
@@ -498,63 +477,5 @@ getCols <- function (n) {
 
 
 
-groupClade.ggplot <- function(object, nodes, group_name) {
-    df <- object$data
-    df[, group_name] <- 0
-    for (node in nodes) {
-        df <- groupClade.df(df, node, group_name)
-    }
-    df[, group_name] <- factor(df[, group_name])
-    object$data <- df
-    return(object)
-}
 
-groupClade.df <- function(df, node, group_name) {
-    foc <- c(node, get.offspring.df(df, node))
-    idx <- match(foc, df$node)
-    df[idx, group_name] <- max(df[, group_name]) + 1
-    return(df)
-}
-
-
-groupOTU.ggplot <- function(object, focus, group_name) {
-    df <- object$data
-    df[, group_name] <- 0
-    object$data <- groupOTU.df(df, focus, group_name)
-    return(object)     
-}
-
-
-groupOTU.df <- function(df, focus, group_name) {    
-    if (is(focus, "list")) {
-        for (i in 1:length(focus)) {
-            df <- gfocus.df(df, focus[[i]], group_name)
-        }
-    } else {
-        df <- gfocus.df(df, focus, group_name)
-    }
-    df[, group_name] <- factor(df[, group_name])
-    return(df)
-}
-
-gfocus.df <- function(df, focus, group_name) {
-    focus <- df$node[which(df$label %in% focus)]
-    if (length(focus) == 1) {
-        df[match(focus, df$node), group_name] <- max(df(df[, group_name])) + 1
-        return(df)
-    }
-    
-    anc <- getAncestor.df(df, focus[1])
-    foc <- c(focus[1], anc)
-    for (j in 2:length(focus)) {
-        anc2 <- getAncestor.df(df, focus[j])
-        comAnc <- intersect(anc, anc2)
-        foc <- c(foc, focus[j], anc2)
-        foc <- foc[! foc %in% comAnc]
-        foc <- c(foc, comAnc[1])
-    }
-    idx <- match(foc, df$node)
-    df[idx, group_name] <- max(df[, group_name]) + 1
-    return(df)
-}
 

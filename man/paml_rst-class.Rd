@@ -41,7 +41,7 @@ This class stores information of rst file from PAML output
 \item{\code{extraInfo}}{extra information}
 }}
 \author{
-Guangchuang Yu \url{http://ygc.name}
+Guangchuang Yu \url{http://guangchuangyu.github.io}
 }
 \seealso{
 \linkS4class{codeml} \linkS4class{codeml_mlc}
