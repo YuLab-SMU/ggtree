@@ -22,13 +22,6 @@ read.codeml <- function(rstfile, mlcfile) {
 }
 
 
-##' @rdname groupClade-methods
-##' @exportMethod groupClade
-setMethod("groupClade", signature(object="codeml"),
-          function(object, node, group_name="group") {
-              groupClade_(object, node, group_name)
-          }
-          )
 
 
 ##' @rdname scale_color-methods
@@ -40,19 +33,6 @@ setMethod("scale_color", signature(object="codeml"),
 
 
 
-##' @rdname show-methods
-##' @exportMethod show
-setMethod("show", signature(object = "codeml"),
-          function(object) {
-              cat("'codeml' S4 object that stored information of\n\t",
-                  paste0("'", object@rst@rstfile, "' and \n\t'",
-                         object@mlc@mlcfile, "'."),
-                  "\n\n")
-              cat("...@ tree:")
-              print.phylo(get.tree(object))                  
-              cat("\nwith the following features available:\n")
-              print_fields(object, len=4)
-          })
 
 ##' @rdname get.tipseq-methods
 ##' @exportMethod get.tipseq
@@ -61,17 +41,6 @@ setMethod("get.tipseq", signature(object = "codeml"),
               return(object@rst@tip_seq)
           })
 
-##' @rdname get.tree-methods
-##' @exportMethod get.tree
-##' @param by one of rst or mlc
-setMethod("get.tree", signature(object="codeml"),
-          function(object, by="rst", ...) {
-              if (by == "rst") {
-                  return(object@rst@phylo)
-              } else {
-                  return(object@mlc@phylo)
-              }
-          })
 
 ##' @rdname get.subs-methods
 ##' @exportMethod get.subs

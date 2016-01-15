@@ -34,7 +34,7 @@ This class stores information of jplace file.
 \item{\code{extraInfo}}{extra information}
 }}
 \author{
-Guangchuang Yu \url{http://ygc.name}
+Guangchuang Yu \url{http://guangchuangyu.github.io}
 }
 \seealso{
 \code{\link{show}} \code{\link{get.tree}}

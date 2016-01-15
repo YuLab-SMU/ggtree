@@ -92,17 +92,6 @@ setMethod("scale_color", signature(object="apeBootstrap"),
           })
 
 
-
-
-##' @rdname get.tree-methods
-##' @exportMethod get.tree
-setMethod("get.tree", signature(object="apeBootstrap"),
-          function(object,...) {
-              object@phylo
-          }
-          )
-
-
 ##' @rdname get.fields-methods
 ##' @exportMethod get.fields
 setMethod("get.fields", signature(object="apeBootstrap"),

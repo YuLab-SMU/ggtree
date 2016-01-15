@@ -79,8 +79,8 @@ msaplot(ggtree(beast_tree), fasta)
 
 A specific slice of the alignment can also be displayed by specific _window_ parameter.
 
-```{r fig.width=8, fig.height=12, fig.align='center'}
-msaplot(ggtree(beast_tree), fasta, window=c(150, 200)) 
+```{r fig.width=16, fig.height=16, fig.align='center'}
+msaplot(ggtree(beast_tree), fasta, window=c(150, 200)) + coord_polar(theta='y')
 ```
 
 # Annotate a phylogenetic tree with insets

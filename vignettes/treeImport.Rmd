@@ -37,13 +37,14 @@ The `ggtree` package should not be viewed solely as a standalone software. While
 
 # Supported File Formats
 
-Most of the tree viewer software (including `R` packages) focus on `Newick` and `Nexus` file format, while there are file formats from different evolution analysis software that contain supporting evidences within the file that are ready for annotating a phylogenetic tree.
+Most of the tree viewer software (including `R` packages) focus on `Newick` and `Nexus` file formats, while there are file formats from different evolution analysis software that contain supporting evidences within the file that are ready for annotating a phylogenetic tree.
 The `ggtree` package define several parser functions and `S4` classes to store statistical evidences inferred by commonly used software packages. It supports several file formats, including:
 
 + Newick (via `ape`)
 + Nexus (via `ape`)
 + New Hampshire eXtended format (NHX)
 + Jplace
++ Phylip
 
 and software output from:
 
@@ -285,6 +286,23 @@ ggtree(nhx) + geom_tiplab() + geom_point(aes(color=S), size=5, alpha=.5) +
     theme(legend.position="right") +
     geom_text(aes(label=branch.length, x=branch), vjust=-.5) + 
     xlim(NA, 0.3)
+```
+
+## Parsing Phylip tree
+
+Phylip format contains taxa sequences with Newick tree text.
+
+```{r}
+phyfile <- system.file("extdata", "sample.phy", package="ggtree")
+phylip <- read.phylip(phyfile)
+phylip
+ggtree(phylip) + geom_tiplab()
+```
+
+User can view sequence alignment with the tree via `msaplot()` function.
+
+```{r fig.width=10, fig.height=6}
+msaplot(phylip, offset=1)
 ```
 
 
