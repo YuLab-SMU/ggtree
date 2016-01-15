@@ -37,7 +37,7 @@ This class stores information of HYPHY output
 \item{\code{extraInfo}}{extra information}
 }}
 \author{
-Guangchuang Yu \url{http://ygc.name}
+Guangchuang Yu \url{http://guangchuangyu.github.io}
 }
 \seealso{
 \linkS4class{paml_rst}

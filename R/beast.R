@@ -38,32 +38,6 @@ read.beast <- function(file) {
 
 
 
-##' @rdname groupClade-methods
-##' @exportMethod groupClade
-setMethod("groupClade", signature(object="beast"),
-          function(object, node, group_name="group") {
-              groupClade_(object, node, group_name)
-          })
-
-
-
-##' get.tree method
-##'
-##'
-##' @docType methods
-##' @name get.tree
-##' @rdname get.tree-methods
-##' @aliases get.tree,beast
-##' @exportMethod get.tree
-##' @author Guangchuang Yu \url{http://ygc.name}
-##' @usage get.tree(object, ...)
-setMethod("get.tree", signature(object="beast"),
-          function(object,...) {
-              object@phylo
-          }
-          )
-
-
 ##' @rdname get.fields-methods
 ##' @exportMethod get.fields
 setMethod("get.fields", signature(object="beast"),

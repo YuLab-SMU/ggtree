@@ -26,21 +26,6 @@ read.jplace <- function(file) {
          )
 }
 
-##' @rdname groupOTU-methods
-##' @exportMethod groupOTU
-setMethod("groupOTU", signature(object="jplace"),
-          function(object, focus, group_name="group") {
-              groupOTU_(object, focus, group_name)
-          }
-          )
-
-##' @rdname groupClade-methods
-##' @exportMethod groupClade
-setMethod("groupClade", signature(object="jplace"),
-          function(object, node, group_name="group") {
-              groupClade_(object, node, group_name)
-          }
-          )
 
 
 ##' @rdname scale_color-methods
@@ -51,53 +36,7 @@ setMethod("scale_color", signature(object="jplace"),
           })
 
 
-##' @rdname get.tree-methods
-##' @exportMethod get.tree
-setMethod("get.tree", signature(object="jplace"),
-          function(object) {
-              object@phylo
-          })
 
-
-##' show method for \code{jplace} instance
-##'
-##' 
-##' @name show
-##' @docType methods
-##' @rdname show-methods
-##'
-##' @title show method
-##' @param object one of \code{jplace}, \code{beast} object
-##' @return print info
-##' @importFrom methods show
-##' @exportMethod show
-##' @usage show(object)
-##' @author Guangchuang Yu \url{http://ygc.name}
-##' @examples
-##' jp <- system.file("extdata", "sample.jplace", package="ggtree")
-##' jp <- read.jplace(jp)
-##' show(jp)
-setMethod("show", signature(object = "jplace"),
-          function(object) {
-              cat("'jplace' S4 object that stored information of\n\t",
-                  paste0("'", object@file, "'."),
-                  "\n\n")
-
-              cat("...@ tree: ")
-
-              phylo <- get.tree(object)
-              phylo$node.label <- NULL
-              phylo$tip.label %<>% gsub("\\@\\d+", "", .) 
-        
-              print.phylo(phylo)
-
-              cat("\nwith the following features availables:\n")
-              cat("\t", paste0("'",
-                               paste(get.fields(object), collapse="',\t'"),
-                               "'."),
-                  "\n")
-          }
-          )
 
 ##' get.treeinfo method
 ##'

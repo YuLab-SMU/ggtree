@@ -1,7 +1,7 @@
 ##' update tree 
 ##'
 ##'
-##' @rdname update.TREE
+##' @rdname update-TREE
 ##' @title \%<\%
 ##' @param pg ggplot2 object
 ##' @param x update by x
@@ -24,7 +24,7 @@
 ##' add annotation data to a tree
 ##'
 ##'
-##' @rdname add.TREEDATA
+##' @rdname add-TREEDATA
 ##' @title \%<+\%
 ##' @param pg ggplot2 object
 ##' @param data annotation data
@@ -79,3 +79,14 @@
     return(dd)
 }
 
+##' pipe
+##' @importFrom magrittr %>%
+##' @name %>%
+##' @export
+##' @rdname pipe
+##' @param lhs left hand side
+##' @param rhs right hand side
+##' @usage lhs \%>\% rhs
+##' @seealso
+##' \link[magrittr]{pipe}
+NULL

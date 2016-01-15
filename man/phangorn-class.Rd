@@ -29,7 +29,7 @@ This class stores ancestral sequences inferred from 'phangorn'
 \item{\code{extraInfo}}{extra information}
 }}
 \author{
-Guangchuang Yu \url{http://ygc.name}
+Guangchuang Yu \url{http://guangchuangyu.github.io}
 }
 \seealso{
 \linkS4class{paml_rst}

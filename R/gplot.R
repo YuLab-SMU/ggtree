@@ -133,7 +133,25 @@ get_heatmap_column_position <- function(treeview, by="bottom") {
 ##' @importFrom ggplot2 scale_fill_manual
 ##' @author Guangchuang Yu
 msaplot <- function(p, fasta, offset=0, width=1, color=NULL, window=NULL){
-    aln <- readBStringSet(fasta)
+    if (missingArg(fasta)) {
+        aln <- NULL
+    } else if (is(fasta, "BStringSet")) {
+        aln <- fasta
+    } else if (is(fasta, "character")) {
+        aln <- readBStringSet(fasta)
+    } else {
+        aln <- NULL
+    }
+        
+    if (is(p, "phylip")) {
+        aln <- p@sequence
+        p <- ggtree(p) + geom_tiplab()
+    }
+
+    if (is.null(aln)) {
+        stop("multiple sequence alignment is not available...\n-> check the parameter 'fasta'...")
+    }
+    
     if (is.null(window)) {
         window <- c(1, width(aln)[1])
     }

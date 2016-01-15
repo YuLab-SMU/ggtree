@@ -87,43 +87,8 @@ scale_color_ <- function(phylo, by, low=NULL, high=NULL, na.color=NULL, default.
     return(color)
 }
 
-groupClade_ <- function(object, node, group_name) {
-    if (is(object, "phylo")) {
-        object <- groupClade.phylo(object, node, group_name)
-    } else {
-        object@phylo <- groupClade.phylo(get.tree(object), node, group_name)
-    }
-    return(object)
-}
 
-groupOTU_ <- function(object, focus, group_name) {
-    if (is(object, "phylo")) {
-        object <- groupOTU.phylo(object, focus, group_name)
-    } else {
-        object@phylo <- groupOTU.phylo(get.tree(object), focus, group_name)
-    }
-    return(object)
-}
 
-##' @importFrom ape which.edge
-gfocus <- function(phy, focus, group_name) {
-    if (is.character(focus)) {
-        focus <- which(phy$tip.label %in% focus)
-    }
-    
-    n <- getNodeNum(phy)
-    if (is.null(attr(phy, group_name))) {
-        foc <- rep(0, n)
-    } else {
-        foc <- attr(phy, group_name)
-    }
-    i <- max(foc) + 1
-    ## sn <- phy$edge[which.edge(phy, focus),] %>% as.vector %>% unique
-    sn <- unique(as.vector(phy$edge[which.edge(phy, focus),]))
-    foc[sn] <- i
-    attr(phy, group_name) <- foc
-    phy
-}
 
 
 
