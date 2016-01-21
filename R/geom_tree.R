@@ -127,7 +127,7 @@ setup_tree_data <- function(data) {
     if (nrow(data) == length(unique(data$node)))
         return(data)
     data[match(unique(data$node), data$node),]
-    data <- data[order(data$node, decreasing = FALSE), ]
+    # data[order(data$node, decreasing = FALSE), ]
 }
 
 
