@@ -76,8 +76,14 @@ ggtree <- function(tr,
                 right         = right,
                 branch.length = branch.length,
                 ndigits       = ndigits, ...)
+
+    if (is(tr, "phyloseq")) {
+        p <- p + geom_tree2(layout, ...)
+    } else {
+        p <- p + geom_tree(layout, ...)
+    }
     
-    p <- p + geom_tree(layout, ...)  + theme_tree()
+    p <- p + theme_tree()
     
     if (type == "circular" || type == "radial") {
         p <- p + coord_polar(theta = "y")

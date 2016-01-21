@@ -114,6 +114,8 @@ geom_point2 <- function(mapping = NULL, data = NULL, stat = "identity",
 ##' @importFrom ggplot2 draw_key_point
 GeomPointGGtree <- ggproto("GeomPointGGtree", GeomPoint,
                            setup_data = function(data, params) {
+                               if (is.null(data$subset))
+                                   return(data)
                                data[data$subset,]
                            }  ## ,
                            

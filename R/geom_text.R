@@ -23,39 +23,39 @@
 ##' \link[ggplot2]{geom_text}
 ##' @author Guangchuang Yu
 geom_text2 <- function(mapping = NULL, data = NULL, stat = "identity",
-  position = "identity", parse = FALSE, na.rm=TRUE, show.legend = NA, inherit.aes = TRUE,
-  ..., nudge_x = 0, nudge_y = 0, check_overlap = FALSE)
-{
-  if (!missing(nudge_x) || !missing(nudge_y)) {
-    if (!missing(position)) {
-      stop("Specify either `position` or `nudge_x`/`nudge_y`", call. = FALSE)
+                       position = "identity", parse = FALSE, na.rm=TRUE, show.legend = NA, inherit.aes = TRUE,
+                       ..., nudge_x = 0, nudge_y = 0, check_overlap = FALSE) {
+
+    if (!missing(nudge_x) || !missing(nudge_y)) {
+        if (!missing(position)) {
+            stop("Specify either `position` or `nudge_x`/`nudge_y`", call. = FALSE)
+        }
+        
+        position <- position_nudge(nudge_x, nudge_y)
     }
-
-    position <- position_nudge(nudge_x, nudge_y)
-  }
-
-  default_aes <- aes_(node=~node)
-  if (is.null(mapping)) {
-      mapping <- default_aes
-  } else {
-      mapping <- modifyList(mapping, default_aes)
-  }
     
-  layer(
-      data = data,
-      mapping = mapping,
-      stat = StatTreeLabel,
-      geom = GeomTextGGtree,
-      position = position,
-      show.legend = show.legend,
-      inherit.aes = inherit.aes,
-      params = list(
+    default_aes <- aes_(node=~node)
+    if (is.null(mapping)) {
+        mapping <- default_aes
+    } else {
+        mapping <- modifyList(mapping, default_aes)
+    }
+    
+    layer(
+        data = data,
+        mapping = mapping,
+        stat = StatTreeLabel,
+        geom = GeomTextGGtree,
+        position = position,
+        show.legend = show.legend,
+        inherit.aes = inherit.aes,
+        params = list(
           parse = parse,
           check_overlap = check_overlap,
           na.rm = na.rm,
           ...
-          )
-      )
+        )
+    )
 }
 
 

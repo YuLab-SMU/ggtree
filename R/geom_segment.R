@@ -75,22 +75,24 @@ geom_segment2 <- function(mapping = NULL, data = NULL, stat = "identity",
 ##' @importFrom ggplot2 GeomSegment
 ##' @importFrom ggplot2 draw_key_path
 GeomSegmentGGtree <- ggproto("GeomSegmentGGtree", GeomSegment,
-                          setup_data = function(data, params) {
-                              data[data$subset,]
-                          },
-                          
-                          draw_panel = function(data, panel_scales, coord, arrow = NULL,
-                              lineend = "butt", na.rm = FALSE) {
-
-                              GeomSegment$draw_panel(data, panel_scales, coord, arrow,
-                                                     lineend, na.rm)
-                          },
-                          
-                          required_aes = c("x", "y", "xend", "yend"),
-                          default_aes = aes(colour = "black", size = 0.5, linetype = 1, alpha = NA),
-                          
-                          draw_key = draw_key_path
-                          )
+                             setup_data = function(data, params) {
+                                 if (is.null(data$subset))
+                                     return(data)
+                                 data[data$subset,]
+                             },
+                             
+                             draw_panel = function(data, panel_scales, coord, arrow = NULL,
+                                                   lineend = "butt", na.rm = FALSE) {
+                                 
+                                 GeomSegment$draw_panel(data, panel_scales, coord, arrow,
+                                                        lineend, na.rm)
+                             },
+                             
+                             required_aes = c("x", "y", "xend", "yend"),
+                             default_aes = aes(colour = "black", size = 0.5, linetype = 1, alpha = NA),
+                             
+                             draw_key = draw_key_path
+                             )
 
 
 StatTreeSegment <-  ggproto("StatTreeSegment", Stat,

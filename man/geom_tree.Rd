@@ -4,14 +4,10 @@
 \alias{geom_tree}
 \title{geom_tree}
 \usage{
-geom_tree(layout = "rectangular", data = NULL, mapping = NULL, ...)
+geom_tree(layout = "rectangular", ...)
 }
 \arguments{
 \item{layout}{one of 'rectangular', 'slanted', 'circular', 'radial' or 'unrooted'}
-
-\item{data}{data}
-
-\item{mapping}{aes mapping}
 
 \item{...}{additional parameter}
 }
@@ -20,12 +16,6 @@ tree layer
 }
 \description{
 add tree layer
-}
-\examples{
-require(ape)
-tr <- rtree(10)
-require(ggplot2)
-ggplot(tr) + geom_tree()
 }
 \author{
 Yu Guangchuang
