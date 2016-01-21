@@ -47,21 +47,29 @@ geom_segment2 <- function(mapping = NULL, data = NULL, stat = "identity",
                          position = "identity", arrow = NULL, lineend = "butt",
                          na.rm = FALSE, show.legend = NA, inherit.aes = TRUE,
                          ...) {
-  layer(
-    data = data,
-    mapping = mapping,
-    stat = stat,
-    geom = GeomSegmentGGtree,
-    position = position,
-    show.legend = show.legend,
-    inherit.aes = inherit.aes,
-    params = list(
-      arrow = arrow,
-      lineend = lineend,
-      na.rm = na.rm,
-      ...
+
+    default_aes <- aes_(node=~node)
+    if (is.null(mapping)) {
+        mapping <- default_aes
+    } else {
+        mapping <- modifyList(mapping, default_aes)
+    }
+    
+    layer(
+        data = data,
+        mapping = mapping,
+        stat = StatTreeSegment,
+        geom = GeomSegmentGGtree,
+        position = position,
+        show.legend = show.legend,
+        inherit.aes = inherit.aes,
+        params = list(
+            arrow = arrow,
+            lineend = lineend,
+            na.rm = na.rm,
+            ...
+        )
     )
-  )
 }
 
 ##' @importFrom ggplot2 GeomSegment
@@ -83,3 +91,13 @@ GeomSegmentGGtree <- ggproto("GeomSegmentGGtree", GeomSegment,
                           
                           draw_key = draw_key_path
                           )
+
+
+StatTreeSegment <-  ggproto("StatTreeSegment", Stat,
+                          required_aes = "node",
+                          compute_group = function(data, scales) {
+                              setup_tree_data(data)
+                          }
+                          )
+
+

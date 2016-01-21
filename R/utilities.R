@@ -477,35 +477,4 @@ getCols <- function (n) {
 
 
 
-##' plot multiple ggplot objects in one page
-##'
-##' 
-##' @title multiplot
-##' @param ... plots
-##' @param ncol number of column
-##' @param widths widths of plots 
-##' @return plot
-##' @importFrom grid grid.newpage
-##' @importFrom grid unit
-##' @importFrom grid viewport
-##' @importFrom grid pushViewport
-##' @importFrom grid grid.layout
-##' @export
-##' @author Guangchuang Yu
-multiplot <- function(..., ncol, widths = rep_len(1, ncol)) {
-    plots <- list(...)
-    n <- length(plots)
-    layout <- matrix(seq(1, ncol * ceiling(n/ncol)),
-                     ncol = ncol, nrow = ceiling(n/ncol))
-    
-    grid.newpage()
-    pushViewport(viewport(layout = grid.layout(nrow(layout), ncol(layout), widths=unit(widths, "null"))))
-    for (i in 1:n) {
-        ii <- as.data.frame(which(layout == i, arr.ind = TRUE))
-        print(plots[[i]], vp = viewport(layout.pos.row = ii$row,
-                                        layout.pos.col = ii$col)
-              )
-    }
-}
-
 

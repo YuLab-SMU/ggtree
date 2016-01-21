@@ -96,54 +96,6 @@ ggtree <- function(tr,
     return(p)
 }
 
-##' add tree layer
-##'
-##' 
-##' @title geom_tree
-##' @param layout one of 'rectangular', 'slanted', 'circular', 'radial' or 'unrooted'
-##' @param ... additional parameter
-##' @return tree layer
-##' @importFrom ggplot2 geom_segment
-##' @importFrom ggplot2 aes
-##' @export
-##' @author Yu Guangchuang
-##' @examples
-##' require(ape)
-##' tr <- rtree(10)
-##' require(ggplot2)
-##' ggplot(tr) + geom_tree()
-geom_tree <- function(layout="rectangular", ...) {
-    x <- y <- parent <- NULL
-    lineend  = "round"
-    if (layout == "rectangular" || layout == "fan" || layout == "circular") {
-        list(
-            geom_segment(aes(x    = x[parent],
-                             xend = x,
-                             y    = y,
-                             yend = y),
-                         lineend  = lineend, ...),
-            
-            geom_segment(aes(x    = x[parent],
-                             xend = x[parent],
-                             y    = y[parent],
-                             yend = y),
-                         lineend  = lineend, ...)
-            )
-    } else if (layout == "slanted" || layout == "radial" || layout == "unrooted") {
-        geom_segment(aes(x    = x[parent],
-                         xend = x,
-                         y    = y[parent],
-                         yend = y),
-                     lineend  = lineend, ...)
-    }
-}
-
-
-
-
-
-
-
 
 
 ##' add colorbar legend

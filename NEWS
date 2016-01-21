@@ -1,5 +1,8 @@
 CHANGES IN VERSION 1.3.11
 ------------------------
+ o support phyloseq object <2016-01-21, Thu>
+ o update geom_point2, geom_text2 and geom_segment2 to support setup_tree_data <2016-01-21, Thu>
+ o re-design geom_tree layer that support duplicated node records via the setup_tree_data function <2016-01-21, Thu>
  o rescale_tree function for rescaling branch length of tree object <2016-01-20, Wed>
  o upgrade set_branch_length, now branch can be rescaled using feature in extraInfo slot <2016-01-20, Wed>
  
