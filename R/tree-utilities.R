@@ -31,7 +31,7 @@ reroot_node_mapping <- function(tree, tree2) {
 }
 
 
-##' @importFrom colorspace rainbow_hcl
+## @importFrom colorspace rainbow_hcl
 scale_color_ <- function(phylo, by, low=NULL, high=NULL, na.color=NULL, default.color="darkgrey", interval=NULL) {
     df <- fortify(phylo)    
     vals <- df[, by]
@@ -47,6 +47,9 @@ scale_color_ <- function(phylo, by, low=NULL, high=NULL, na.color=NULL, default.
     if (!is.null(low) & ! is.null(high)) {
         cols <- color_scale(low, high, n)
     } else {
+        colorspace <- "colorspace"
+        require(colorspace, character.only = TRUE)
+        rainbow_hcl <- eval(parse(text="rainbow_hcl"))
         cols <- rainbow_hcl(n)
     }
 
@@ -784,11 +787,18 @@ set_branch_length <- function(tree_object, branch.length) {
     } else if (is(tree_object, "beast")) {
         tree_anno <- tree_object@stats
     }
+    if (has.extraInfo(tree_object)) {
+        tree_anno <- merge(tree_anno, tree_object@extraInfo, by.x="node", by.y="node")
+    }
+    cn <- colnames(tree_anno)
+    cn <- cn[!cn %in% c('node', 'parent')]
     
-    length <- match.arg(branch.length, c("none", "branch.length",
-                                         colnames(tree_anno)[-c(1,2)]))
+    length <- match.arg(branch.length, cn)
 
-  
+    if (all(is.na(as.numeric(tree_anno[, length])))) {
+        stop("branch.length should be numerical attributes...")
+    }
+    
     edge <- as.data.frame(phylo$edge)
     colnames(edge) <- c("parent", "node")
     
