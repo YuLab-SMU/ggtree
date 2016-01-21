@@ -1,5 +1,7 @@
 CHANGES IN VERSION 1.3.11
 ------------------------
+ o change compute_group() to compute_panel in geom_tree2() <2016-01-21, Thu>
+   + fixed issue, https://github.com/GuangchuangYu/ggtree/issues/36
  o support phyloseq object <2016-01-21, Thu>
  o update geom_point2, geom_text2 and geom_segment2 to support setup_tree_data <2016-01-21, Thu>
  o implement geom_tree2 layer that support duplicated node records via the setup_tree_data function <2016-01-21, Thu>

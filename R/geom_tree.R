@@ -72,7 +72,7 @@ stat_tree <- function(mapping=NULL, data=NULL, geom="segment", position="identit
 
 StatTreeHorizontal <- ggproto("StatTreeHorizontal", Stat,
                               required_aes = c("parent", "x", "y"),
-                              compute_group = function(self, data, scales, params, layout, lineend) {
+                              compute_panel = function(self, data, scales, params, layout, lineend) {
                                   df <- setup_tree_data(data)
                                   x <- df$x
                                   y <- df$y
@@ -86,7 +86,7 @@ StatTreeHorizontal <- ggproto("StatTreeHorizontal", Stat,
 
 StatTreeVertical <- ggproto("StatTreeVertical", Stat,
                             required_aes = c("parent", "x", "y"),
-                            compute_group = function(self, data, scales, params, layout, lineend) {
+                            compute_panel = function(self, data, scales, params, layout, lineend) {
                                 df <- setup_tree_data(data)
                                 x <- df$x
                                 y <- df$y
@@ -109,7 +109,7 @@ StatTreeVertical <- ggproto("StatTreeVertical", Stat,
 
 StatTree <- ggproto("StatTree", Stat,
                     required_aes = c("parent", "x", "y"),
-                    compute_group = function(self, data, scales, params, layout, lineend) {
+                    compute_panel = function(self, data, scales, params, layout, lineend) {
                         df <- setup_tree_data(data)
                         x <- df$x
                         y <- df$y
