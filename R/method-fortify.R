@@ -115,7 +115,7 @@ fortify.beast <- function(model, data,
 
     phylo <- set_branch_length(model, branch.length)
 
-    df    <- fortify(phylo, layout=layout,
+    df    <- fortify(phylo, layout=layout, branch.length=branch.length,
                      ladderize=ladderize, right=right, mrsd = mrsd, ...)
     
     stats <- model@stats
@@ -515,6 +515,10 @@ as.data.frame.phylo <- function(x, row.names, optional,
 
 as.data.frame.phylo_ <- function(x, layout="rectangular",
                                  branch.length="branch.length", ...) {
+    if (branch.length != 'none') {
+        branch.length = "branch.length"
+    }
+    
     tip.label <- x[["tip.label"]]
     Ntip <- length(tip.label)
     N <- getNodeNum(x)

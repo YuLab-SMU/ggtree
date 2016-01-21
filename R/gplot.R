@@ -127,7 +127,7 @@ get_heatmap_column_position <- function(treeview, by="bottom") {
 ##' @export
 ##' @importFrom Biostrings readBStringSet
 ##' @importMethodsFrom Biostrings width
-##' @importFrom colorspace rainbow_hcl
+## @importFrom colorspace rainbow_hcl
 ##' @importFrom ggplot2 geom_segment
 ##' @importFrom ggplot2 geom_rect
 ##' @importFrom ggplot2 scale_fill_manual

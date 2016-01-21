@@ -13,16 +13,16 @@ Depends:
 Imports:
     ape,
     Biostrings,
-    colorspace,
     grid,
-    gridExtra,
     jsonlite,
     magrittr,
     methods,
     stats4,
     tidyr
 Suggests:
+    colorspace,
     EBImage,
+    gridExtra,
     knitr,
     phylobase,
     phytools,
