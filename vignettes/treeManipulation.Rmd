@@ -16,7 +16,6 @@ output:
 vignette: >
   %\VignetteIndexEntry{03 Tree Manipulation}
   %\VignetteEngine{knitr::rmarkdown}
-  %\VignetteDepends{gridExtra}
   %\usepackage[utf8]{inputenc}
 ---
 
@@ -29,7 +28,6 @@ knitr::opts_chunk$set(tidy = FALSE,
 ```{r echo=FALSE, results="hide", message=FALSE}
 library("ape")
 library("ggplot2")
-library("gridExtra")
 library("ggtree")
 collapse <- ggtree::collapse
 expand <- ggtree::expand
@@ -92,7 +90,7 @@ ggtree(tree, aes(color=group, linetype=group)) + geom_tiplab(aes(subset=(group==
 
 
 # group OTUs
-_`groupOTU`_ accepts a vector of OTUs (taxa name) or a list of OTUs.  _`groupOTU`_ will trace back from OTUs to their most recent common ancestor and cluster them together. Related OUTs are not necessarily within a clade, they can be monophyletic (clade), polyphyletic or paraphyletic.
+_`groupOTU`_ accepts a vector of OTUs (taxa name) or a list of OTUs.  _`groupOTU`_ will trace back from OTUs to their most recent common ancestor and cluster them together. Related OTUs are not necessarily within a clade, they can be monophyletic (clade), polyphyletic or paraphyletic.
 
 
 ```{r}
@@ -185,8 +183,7 @@ p3 <- collapse(p2, 17) + geom_point2(aes(subset=(node==17)), size=5, shape=23, f
 p4 <- expand(p3, 17)
 p5 <- expand(p4, 21)
 
-library("gridExtra")
-grid.arrange(p1, p2, p3, p4, p5, ncol=5)
+multiplot(p1, p2, p3, p4, p5, ncol=5)
 ```
 
 # scale clade
@@ -195,7 +192,7 @@ grid.arrange(p1, p2, p3, p4, p5, ncol=5)
 Collpase selected clades can save some space, another approach is to zoom out clade to a small scale.
 
 ```{r fig.width=12, fig.height=6, warning=F}
-grid.arrange(ggtree(tree) + geom_hilight(21, "steelblue"),
+multiplot(ggtree(tree) + geom_hilight(21, "steelblue"),
              ggtree(tree) %>% scaleClade(21, scale=0.3) + geom_hilight(21, "steelblue"),
              ncol=2)
 ```
@@ -203,7 +200,7 @@ grid.arrange(ggtree(tree) + geom_hilight(21, "steelblue"),
 Of course, _`scaleClade`_ can accept `scale` larger than 1 and zoom in the selected portion.
 
 ```{r fig.width=12, fig.height=6, warning=F}
-grid.arrange(ggtree(tree) + geom_hilight(17, fill="steelblue") +
+multiplot(ggtree(tree) + geom_hilight(17, fill="steelblue") +
                  geom_hilight(21, fill="darkgreen"),
              ggtree(tree) %>% scaleClade(17, scale=2) %>% scaleClade(21, scale=0.3) +
                  geom_hilight(17, "steelblue") + geom_hilight(21, fill="darkgreen"),
@@ -217,7 +214,7 @@ A selected clade can be rotated by 180 degree using __`rotate`__ function.
 ```{r fig.width=8, fig.height=4}
 tree <- groupClade(tree, c(21, 17))
 p <- ggtree(tree, aes(color=group)) + scale_color_manual(values=c("black", "firebrick", "steelblue"))
-grid.arrange(p, p %>% rotate(21) %>% rotate(17), ncol=2)
+multiplot(p, p %>% rotate(21) %>% rotate(17), ncol=2)
 ```
                                                                                                                                                                          
 # flip clade
@@ -225,5 +222,5 @@ grid.arrange(p, p %>% rotate(21) %>% rotate(17), ncol=2)
 The positions of two selected clades (should share a same parent) can be flip over using __`flip`__ function.
 
 ```{r fig.width=8, fig.height=4}
-grid.arrange(p, flip(p, 17, 21), ncol=2)
+multiplot(p, flip(p, 17, 21), ncol=2)
 ```
