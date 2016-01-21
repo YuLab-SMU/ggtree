@@ -2,7 +2,19 @@
 ##'
 ##' 
 ##' @title geom_text2
-##' @inheritParams geom_text
+##' @param mapping the aesthetic mapping
+##' @param data A layer specific dataset -
+##'             only needed if you want to override he plot defaults.
+##' @param stat The statistical transformation to use on the data for this layer
+##' @param position The position adjustment to use for overlapping points on this layer
+##' @param parse if TRUE, the labels will be passd into expressions
+##' @param na.rm logical
+##' @param show.legend logical
+##' @param inherit.aes logical
+##' @param ... other arguments passed on to 'layer'
+##' @param nudge_x horizontal adjustment
+##' @param nudge_y vertical adjustment
+##' @param check_overlap if TRUE, text that overlaps previous text in the same layer will not be plotted
 ##' @return text layer
 ##' @importFrom ggplot2 layer
 ##' @importFrom ggplot2 position_nudge

@@ -21,7 +21,7 @@ geom_tree <- function(layout="rectangular", data=NULL, mapping=NULL, ...) {
     show.legend <- NA
     na.rm <- FALSE
     inherit.aes <- FALSE
-    
+
     stat_tree(layout=layout, data=data, mapping=mapping, geom="segment",
               position=position, show.legend=show.legend,
               inherit.aes=inherit.aes, na.rm=na.rm, ...)
@@ -39,43 +39,92 @@ stat_tree <- function(mapping=NULL, data=NULL, geom="segment", position="identit
         mapping <- modifyList(mapping, default_aes)
     }
 
-    layer(stat=StatTree,
-          data=data,
-          mapping=mapping,
-          geom = geom,
-          position=position,
-          show.legend = show.legend,
-          inherit.aes = inherit.aes,
-          params=list(layout=layout,
-                      na.rm=na.rm,
-                      ...)
-          )
+    if (layout %in% c("rectangular", "fan", "circular")) {
+        list(layer(stat=StatTreeHorizontal,
+                   data=data,
+                   mapping=mapping,
+                   geom = geom,
+                   position=position,
+                   show.legend = show.legend,
+                   inherit.aes = inherit.aes,
+                   params=list(layout=layout,
+                               na.rm=na.rm,
+                          ...)
+                   ),
+             layer(stat=StatTreeVertical,
+                   data=data,
+                   mapping=mapping,
+                   geom = geom,
+                   position=position,
+                   show.legend = show.legend,
+                   inherit.aes = inherit.aes,
+                   params=list(layout=layout,
+                               na.rm=na.rm,
+                               ...)
+                   )
+             )
+    } else if (layout %in% c("slanted", "radial", "unrooted")) {
+        layer(stat=StatTree,
+              data=data,
+              mapping=mapping,
+              geom = geom,
+              position=position,
+              show.legend = show.legend,
+              inherit.aes = inherit.aes,
+              params=list(layout=layout,
+                          na.rm=na.rm,
+                          ...)
+              )
+    }    
 }
-   
-StatTree <- ggproto("StatTree", Stat,
+
+StatTreeHorizontal <- ggproto("StatTreeHorizontal", Stat,
+                    compute_group = function(self, data, scales, params, layout) {
+                        df <- setup_tree_data(data)
+                        x <- df$x
+                        y <- df$y
+                        parent <- df$parent
+                        data.frame(x = x[parent],
+                                   y = y,
+                                   xend = x,
+                                   yend = y)
+                    },
+                    required_aes = c("x", "y", "xend", "yend")
+                    )
+
+StatTreeVertical <- ggproto("StatTreeVertical", Stat,
                     compute_group = function(self, data, scales, params, layout) {
                         df <- setup_tree_data(data)
                         x <- df$x
                         y <- df$y
                         parent <- df$parent
 
-                        if (layout %in% c("rectangular", "fan", "circular")) {
-                            df2 <- data.frame(x = c(x[parent], x[parent]),
-                                              y = c(y, y[parent]), 
-                                              xend = c(x, x[parent]),
-                                              yend = c(y, y))
-                        } else if (layout %in% c("slanted", "radial", "unrooted")) {
-                            df2 <- data.frame(x = x[parent],
-                                              y = y[parent],
-                                              xend = x,
-                                              yend = y)
-                        }
-                        return(df2)
+                        data.frame(x = x[parent],
+                                   y = y[parent], 
+                                   xend = x[parent],
+                                   yend = y)
                     },
                     required_aes = c("x", "y", "xend", "yend")
                     )
 
-                    
+
+
+StatTree <- ggproto("StatTree", Stat,
+                    compute_group = function(self, data, scales, params, layout) {
+                        df <- setup_tree_data(data)
+                        x <- df$x
+                        y <- df$y
+                        parent <- df$parent
+                        data.frame(x = x[parent],
+                                   y = y[parent],
+                                   xend = x,
+                                   yend = y)
+                        
+                    },
+                    required_aes = c("x", "y", "xend", "yend")
+                    )
+
+
 setup_tree_data <- function(data) {
     data <- data[order(data$node, decreasing = FALSE), ]
     data[match(unique(data$node), data$node),]
