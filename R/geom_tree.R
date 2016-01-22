@@ -2,26 +2,33 @@
 ##'
 ##' 
 ##' @title geom_tree2
+##' @param mapping aesthetic mapping
+##' @param data data
 ##' @param layout one of 'rectangular', 'slanted', 'circular', 'radial' or 'unrooted'
+##' @param setup_data logical
 ##' @param ... additional parameter
 ##' @return tree layer
 ##' @importFrom ggplot2 geom_segment
 ##' @importFrom ggplot2 aes
 ##' @export
 ##' @author Yu Guangchuang
-geom_tree2 <- function(layout="rectangular", ...) {
-    stat_tree(layout=layout, data=NULL, mapping=NULL,
+geom_tree2 <- function(mapping=NULL, data=NULL, layout="rectangular", setup_data=FALSE, ...) {
+    stat_tree(data=data, mapping=mapping, geom="segment",
+              layout=layout, setup_data=setup_data, lineend="round", 
               position='identity', show.legend=NA,
-              inherit.aes=TRUE, na.rm=TRUE, lineend="round", ...)
+              inherit.aes=TRUE, na.rm=TRUE, ...)
 }
 
 
 stat_tree <- function(mapping=NULL, data=NULL, geom="segment", position="identity",
-                      layout, lineend, ...,
+                      layout="rectangular", setup_data=FALSE, lineend="round", ...,
                       show.legend=NA, inherit.aes=TRUE, na.rm=FALSE) {
     
     default_aes <- aes_(x=~x, y=~y,node=~node, parent=~parent)
-
+    if (setup_data) {
+        default_aes <- modifyList(default_aes, aes_(.id=~.id))
+    }
+    
     if (is.null(mapping)) {
         mapping <- default_aes
     } else {
@@ -36,9 +43,10 @@ stat_tree <- function(mapping=NULL, data=NULL, geom="segment", position="identit
                    position=position,
                    show.legend = show.legend,
                    inherit.aes = inherit.aes,
-                   params=list(layout=layout,
+                   params=list(layout = layout,
+                               setup_data = setup_data,
                                lineend = lineend,
-                               na.rm=na.rm,
+                               na.rm = na.rm,
                           ...)
                    ),
              layer(data=data,
@@ -48,9 +56,10 @@ stat_tree <- function(mapping=NULL, data=NULL, geom="segment", position="identit
                    position=position,
                    show.legend = show.legend,
                    inherit.aes = inherit.aes,
-                   params=list(layout=layout,
+                   params=list(layout = layout,
+                               setup_data = setup_data,
                                lineend = lineend,
-                               na.rm=na.rm,
+                               na.rm = na.rm,
                                ...)
                    )
              )
@@ -62,18 +71,19 @@ stat_tree <- function(mapping=NULL, data=NULL, geom="segment", position="identit
               position=position,
               show.legend = show.legend,
               inherit.aes = inherit.aes,
-              params=list(layout=layout,
+              params=list(layout = layout,
+                          setup_data = setup_data,
                           lineend = lineend,
-                          na.rm=na.rm,
+                          na.rm = na.rm,
                           ...)
               )
     }    
 }
 
 StatTreeHorizontal <- ggproto("StatTreeHorizontal", Stat,
-                              required_aes = c("parent", "x", "y"),
-                              compute_panel = function(self, data, scales, params, layout, lineend) {
-                                  df <- setup_tree_data(data)
+                              required_aes = c("node", "parent", "x", "y"),
+                              compute_panel = function(self, data, scales, params, layout, setup_data, lineend) {
+                                  df <- setup_tree_data(data, setup_data)
                                   x <- df$x
                                   y <- df$y
                                   parent <- df$parent
@@ -85,9 +95,9 @@ StatTreeHorizontal <- ggproto("StatTreeHorizontal", Stat,
                               )
 
 StatTreeVertical <- ggproto("StatTreeVertical", Stat,
-                            required_aes = c("parent", "x", "y"),
-                            compute_panel = function(self, data, scales, params, layout, lineend) {
-                                df <- setup_tree_data(data)
+                            required_aes = c("node", "parent", "x", "y"),
+                            compute_panel = function(self, data, scales, params, layout, setup_data, lineend) {                                
+                                df <- setup_tree_data(data, setup_data)
                                 x <- df$x
                                 y <- df$y
                                 parent <- df$parent
@@ -108,9 +118,9 @@ StatTreeVertical <- ggproto("StatTreeVertical", Stat,
 
 
 StatTree <- ggproto("StatTree", Stat,
-                    required_aes = c("parent", "x", "y"),
-                    compute_panel = function(self, data, scales, params, layout, lineend) {
-                        df <- setup_tree_data(data)
+                    required_aes = c("node", "parent", "x", "y"),
+                    compute_panel = function(self, data, scales, params, layout, setup_data, lineend) {
+                        df <- setup_tree_data(data, setup_data)
                         x <- df$x
                         y <- df$y
                         parent <- df$parent
@@ -123,9 +133,12 @@ StatTree <- ggproto("StatTree", Stat,
                     )
 
 
-setup_tree_data <- function(data) {
+setup_tree_data <- function(data, setup_data=FALSE) {
+    if (!setup_data)
+        return(data)
     if (nrow(data) == length(unique(data$node)))
         return(data)
+    
     data[match(unique(data$node), data$node),]
     # data[order(data$node, decreasing = FALSE), ]
 }

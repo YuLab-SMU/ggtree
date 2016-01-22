@@ -77,11 +77,7 @@ ggtree <- function(tr,
                 branch.length = branch.length,
                 ndigits       = ndigits, ...)
 
-    if (is(tr, "phyloseq")) {
-        p <- p + geom_tree2(layout, ...)
-    } else {
-        p <- p + geom_tree(layout, ...)
-    }
+    p <- p + geom_tree(layout=layout, ...)
     
     p <- p + theme_tree()
     
