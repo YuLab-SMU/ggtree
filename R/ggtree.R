@@ -77,8 +77,20 @@ ggtree <- function(tr,
                 branch.length = branch.length,
                 ndigits       = ndigits, ...)
 
-    p <- p + geom_tree(layout=layout, ...)
+    ## if (is(tr, "multiPhylo")) {
+    ##     multiPhylo <- TRUE
+    ## } else {
+    ##     multiPhylo <- FALSE
+    ## }
     
+    ## p <- p + geom_tree2(layout=layout, multiPhylo=multiPhylo, ...)
+
+    if (is(tr, "phyloseq")) {
+        p <- p + geom_tree2(layout=layout, ...)
+    } else {
+        p <- p + geom_tree(layout=layout, ...)
+    }
+
     p <- p + theme_tree()
     
     if (type == "circular" || type == "radial") {

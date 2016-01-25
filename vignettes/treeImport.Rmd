@@ -241,7 +241,7 @@ hy <- read.hyphy(nwk, ancseq, tipfas)
 hy
 ```
 
-```{r fig.width=14, fig.height=10, warning=FALSE, fig.align="center"}
+```{r fig.width=16, fig.height=10, warning=FALSE, fig.align="center"}
 ggtree(hy) + geom_text(aes(x=branch, label=AA_subs), vjust=-.5)
 ```
 
