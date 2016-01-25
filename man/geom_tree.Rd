@@ -4,10 +4,17 @@
 \alias{geom_tree}
 \title{geom_tree}
 \usage{
-geom_tree(layout = "rectangular", ...)
+geom_tree(mapping = NULL, data = NULL, layout = "rectangular",
+  multiPhylo = FALSE, ...)
 }
 \arguments{
+\item{mapping}{aesthetic mapping}
+
+\item{data}{data}
+
 \item{layout}{one of 'rectangular', 'slanted', 'circular', 'radial' or 'unrooted'}
+
+\item{multiPhylo}{logical}
 
 \item{...}{additional parameter}
 }

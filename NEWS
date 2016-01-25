@@ -1,5 +1,8 @@
 CHANGES IN VERSION 1.3.12
 ------------------------
+ o exchange function name of geom_tree and geom_tree2  <2016-01-25, Mon>
+ o solved issues of geom_tree2 <2016-01-25, Mon>
+   + https://github.com/hadley/ggplot2/issues/1512
  o colnames_level parameter in gheatmap <2016-01-25, Mon>
  o raxml2nwk function for converting raxml bootstrap tree to newick format <2016-01-25, Mon> 
  

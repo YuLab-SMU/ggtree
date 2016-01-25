@@ -1,7 +1,7 @@
 ##' add tree layer
 ##'
 ##' 
-##' @title geom_tree2
+##' @title geom_tree
 ##' @param mapping aesthetic mapping
 ##' @param data data
 ##' @param layout one of 'rectangular', 'slanted', 'circular', 'radial' or 'unrooted'
@@ -12,7 +12,7 @@
 ##' @importFrom ggplot2 aes
 ##' @export
 ##' @author Yu Guangchuang
-geom_tree2 <- function(mapping=NULL, data=NULL, layout="rectangular", multiPhylo=FALSE, ...) {
+geom_tree <- function(mapping=NULL, data=NULL, layout="rectangular", multiPhylo=FALSE, ...) {
     stat_tree(data=data, mapping=mapping, geom="segment",
               layout=layout, multiPhylo=multiPhylo, lineend="round", 
               position='identity', show.legend=NA,
@@ -84,12 +84,10 @@ StatTreeHorizontal <- ggproto("StatTreeHorizontal", Stat,
                                       df <- setup_tree_data(data)
                                       x <- df$x
                                       y <- df$y
-                                      parent <- df$parent
                                       df$xend <- x
                                       df$yend <- y
-                                      df$x <- x[parent]
-                                      ii <- is.na(x)
-                                      df$x[ii] <- NA
+                                      ii <- with(df, match(parent, node))
+                                      df$x <- x[ii]
                                       return(df)
                                   }
                                   
@@ -110,15 +108,11 @@ StatTreeVertical <- ggproto("StatTreeVertical", Stat,
                                     df <- setup_tree_data(data)
                                     x <- df$x
                                     y <- df$y
-                                    parent <- df$parent
-                                    df$x <- x[parent]
-                                    df$y <- y[parent]
-                                    df$xend <- x[parent]
+                                    ii <- with(df, match(parent, node))
+                                    df$x <- x[ii]
+                                    df$y <- y[ii]
+                                    df$xend <- x[ii]
                                     df$yend <- y
-                                    ii <- is.na(x)
-                                    df$x[ii] <- NA
-                                    df$y[ii] <- NA
-                                    df$xend[ii] <- NA
                                     return(df)
                                 }
                                 if ('.id' %in% names(data)) {
@@ -140,14 +134,11 @@ StatTree <- ggproto("StatTree", Stat,
                             df <- setup_tree_data(data)
                             x <- df$x
                             y <- df$y
-                            parent <- df$parent
-                            df$x <- x[parent]
-                            df$y <- y[parent]
+                            ii <- with(df, match(parent, node))
+                            df$x <- x[ii]
+                            df$y <- y[ii]
                             df$xend <- x
                             df$yend <- y
-                            ii <- is.na(x)
-                            df$x[ii] <- NA
-                            df$y[ii] <- NA
                             return(df)
                         }
                         if ('.id' %in% names(data)) {
@@ -173,7 +164,7 @@ setup_tree_data <- function(data) {
 ##' add tree layer
 ##'
 ##' 
-##' @title geom_tree
+##' @title geom_tree2
 ##' @param layout one of 'rectangular', 'slanted', 'circular', 'radial' or 'unrooted'
 ##' @param ... additional parameter
 ##' @return tree layer
@@ -181,7 +172,7 @@ setup_tree_data <- function(data) {
 ##' @importFrom ggplot2 aes
 ##' @export
 ##' @author Yu Guangchuang
-geom_tree <- function(layout="rectangular", ...) {
+geom_tree2 <- function(layout="rectangular", ...) {
     x <- y <- parent <- NULL
     lineend  = "round"
     if (layout == "rectangular" || layout == "fan" || layout == "circular") {

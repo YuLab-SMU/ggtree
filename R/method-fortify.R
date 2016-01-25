@@ -614,9 +614,9 @@ fortify.multiPhylo <-  function(model, data, layout="rectangular",
     df$.id <- rep(names(df.list), times=sapply(df.list, nrow))
     df$.id <- factor(df$.id, levels=names(df.list))
     
-    nNode <- sapply(df.list, nrow)
-    nNode2 <- cumsum(c(0, nNode[-length(nNode)])) 
-    df$parent <- df$parent + rep(nNode2, times=nNode)
+    ## nNode <- sapply(df.list, nrow)
+    ## nNode2 <- cumsum(c(0, nNode[-length(nNode)])) 
+    ## df$parent <- df$parent + rep(nNode2, times=nNode)
     return(df)
 }
 
