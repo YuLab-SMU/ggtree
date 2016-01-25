@@ -53,10 +53,10 @@ gheatmap <- function(p, data, offset=0, width=1, low="green", high="red", color=
     if (any(dd$value == "")) {
         dd$value[dd$value == ""] <- NA
     }
-    if (!is.null(colnames_level)) {
-        dd$variable <- factor(dd$variable, levels=colnames_level)
+    if (is.null(colnames_level)) {
+        dd$variable <- factor(dd$variable, levels=colnames(data))
     } else {
-        dd$variable <- factor(dd$variable)
+        dd$variable <- factor(dd$variable, levels=colnames_level)
     }
     V2 <- start + as.numeric(dd$variable) * width
     mapping <- data.frame(from=dd$variable, to=V2)
