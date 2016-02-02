@@ -1,3 +1,8 @@
+CHANGES IN VERSION 1.3.13
+------------------------
+ o geom_cladelabel work with collapse, 
+   + see https://github.com/GuangchuangYu/ggtree/issues/38
+
 CHANGES IN VERSION 1.3.12
 ------------------------
  o exchange function name of geom_tree and geom_tree2  <2016-01-25, Mon>

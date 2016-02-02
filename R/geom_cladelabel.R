@@ -146,7 +146,8 @@ get_cladelabel_position_ <- function(data, node) {
     sp <- get.offspring.df(data, node)
     sp.df <- data[c(sp, node),]
     y <- sp.df$y
-    mx <- max(sp.df$x) 
+    y <- y[!is.na(y)]
+    mx <- max(sp.df$x, na.rm=TRUE) 
     data.frame(x=mx, y=min(y), yend=max(y))
 }
 
