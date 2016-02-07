@@ -1,7 +1,8 @@
 CHANGES IN VERSION 1.3.13
 ------------------------
- o geom_cladelabel work with collapse, 
-   + see https://github.com/GuangchuangYu/ggtree/issues/38
+ o add example of rescale_tree function in treeAnnotation.Rmd <2016-02-07, Sun>
+ o geom_cladelabel work with collapse <2016-02-07, Sun>
+   + see https://github.com/GuangchuangYu/ggtree/issues/38 
 
 CHANGES IN VERSION 1.3.12
 ------------------------

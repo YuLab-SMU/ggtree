@@ -59,6 +59,13 @@ p2 <- ggtree(mlc_tree, branch.length='dN_vs_dS') + theme_tree2() +
 multiplot(p1, p2, ncol=2)
 ```
 
+In addition to specify `branch.length` in tree visualization, users can change branch length stored in tree object by using `rescale_tree` function.
+
+```{r}
+beast_tree2 <- rescale_tree(beast_tree, branch.length = 'rate')
+ggtree(beast_tree2) + theme_tree2()
+```
+
 # Zoom on a portion of tree
 
 `ggtree` provides _`gzoom`_ function that similar to _`zoom`_ function provided in `ape`. This function plots simultaneously a whole phylogenetic tree and a portion of it. It aims at exploring very large trees.
