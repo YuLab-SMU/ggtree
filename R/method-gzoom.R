@@ -10,7 +10,6 @@
 ##' @importFrom ggplot2 xlim
 ##' @importFrom ggplot2 scale_color_manual
 ##' @importFrom ape drop.tip
-##' @importFrom gridExtra grid.arrange
 ##' @author ygc
 ##' @examples
 ##' require(ape)
@@ -35,7 +34,7 @@ gzoom.phylo <- function(phy, focus, subtree=FALSE, widths=c(.3, .7)) {
     
     p2 <- ggtree(subtr, color="red") + geom_tiplab(hjust=-0.05)
     p2 <- p2 + xlim(0, max(p2$data$x)*1.2)
-    grid.arrange(p1, p2, ncol=2, widths=widths)
+    multiplot(p1, p2, ncol=2, widths=widths) 
     
     invisible(list(p1=p1, p2=p2))
 }
@@ -46,7 +45,7 @@ gzoom.ggplot <- function(tree_view, focus, widths=c(.3, .7), xmax_adjust=0) {
     p2 <- with(cpos, tree_view+
                      xlim(xmin, xmax+xmax_adjust)+
                      ylim(ymin, ymax))
-    grid.arrange(tree_view, p2, ncol=2, widths=widths)
+    multiplot(tree_view, p2, ncol=2, widths=widths)
     invisible(list(p1=tree_view, p2=p2))
 }
 

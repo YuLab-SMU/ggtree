@@ -29,7 +29,6 @@ knitr::opts_chunk$set(tidy = FALSE,
 library("ape")
 library("ggplot2")
 library("ggtree")
-library("gridExtra")
 ```
 
 
@@ -41,7 +40,7 @@ nwk <- system.file("extdata", "sample.nwk", package="ggtree")
 tree <- read.tree(nwk)
 ```
 
-# Viewing tree with `ggtree`
+# Viewing a phylogenetic tree with `ggtree`
 
 The `ggtree` package extends _`ggplot2`_ package to support viewing phylogenetic tree.
 It implements _`geom_tree`_ layer for displaying phylogenetic trees, as shown below:
@@ -242,10 +241,10 @@ Another example can be found in the [Tree Data Import](treeImport.html#rst-file)
 `theme_tree()` defined a totally blank canvas, while _`theme_tree2()`_ adds phylogenetic distance (via x-axis). These two themes all accept a parameter of _`bgcolor`_ that defined the background color.
 
 ```{r fig.width=6, fig.height=3, fig.align="center"}
-grid.arrange(
-	ggtree(rtree(30), color="red") + theme_tree("steelblue"),
-	ggtree(rtree(20), color="white") + theme_tree("black"),
-	ncol=2)
+multiplot(
+    ggtree(rtree(30), color="red") + theme_tree("steelblue"),
+    ggtree(rtree(20), color="white") + theme_tree("black"),
+    ncol=2)
 ```
 
 # Visualize a list of trees

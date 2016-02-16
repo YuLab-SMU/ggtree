@@ -17,7 +17,6 @@ vignette: >
   %\VignetteIndexEntry{04 Tree Annotation}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteDepends{phangorn}
-  %\VignetteDepends{gridExtra}
   %\usepackage[utf8]{inputenc}
 ---
 
@@ -31,7 +30,6 @@ knitr::opts_chunk$set(tidy = FALSE,
 library("ape")
 library("ggplot2")
 library("ggtree")
-library("gridExtra")
 ```
 
 
@@ -48,8 +46,7 @@ p1 <- ggtree(beast_tree, mrsd='2013-01-01') + theme_tree2() +
     ggtitle("Divergence time")
 p2 <- ggtree(beast_tree, branch.length = 'rate') + theme_tree2() +
     ggtitle("Substitution rate")
-require(gridExtra)
-grid.arrange(p1, p2, ncol=2)
+multiplot(p1, p2, ncol=2)
 ```
 
 ```{r fig.width=10, fig.height=5}
@@ -59,7 +56,14 @@ p1 <- ggtree(mlc_tree) + theme_tree2() +
     ggtitle("nucleotide substitutions per codon")
 p2 <- ggtree(mlc_tree, branch.length='dN_vs_dS') + theme_tree2() +
     ggtitle("dN/dS tree")
-grid.arrange(p1, p2, ncol=2)
+multiplot(p1, p2, ncol=2)
+```
+
+In addition to specify `branch.length` in tree visualization, users can change branch length stored in tree object by using `rescale_tree` function.
+
+```{r}
+beast_tree2 <- rescale_tree(beast_tree, branch.length = 'rate')
+ggtree(beast_tree2) + theme_tree2()
 ```
 
 # Zoom on a portion of tree
@@ -218,7 +222,7 @@ In `ggtree`, we implemented several parser functions to parse output from common
 Evolutionary evidences inferred by these software packages can be used for further analysis in `R` and annotating phylogenetic tree directly in `ggtree`. For more details, please refer to the [Tree Data Import](treeImport.html) vignette.
 
 
-# Tree annotation with user specific annotation
+# Tree annotation with user specified annotation
 
 ## the `%<+%` operator
 
