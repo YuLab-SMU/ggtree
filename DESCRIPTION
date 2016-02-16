@@ -1,7 +1,7 @@
 Package: ggtree
 Type: Package
 Title: a phylogenetic tree viewer for different types of tree annotations
-Version: 1.3.10
+Version: 1.3.13
 Author: Guangchuang Yu and Tommy Tsan-Yuk Lam
 Maintainer: Guangchuang Yu <guangchuangyu@gmail.com>
 Description: ggtree extends the ggplot2 plotting system which implemented the
@@ -13,16 +13,16 @@ Depends:
 Imports:
     ape,
     Biostrings,
-    colorspace,
     grid,
-    gridExtra,
     jsonlite,
     magrittr,
     methods,
     stats4,
     tidyr
 Suggests:
+    colorspace,
     EBImage,
+    gridExtra,
     knitr,
     phylobase,
     phytools,

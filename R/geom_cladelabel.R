@@ -24,7 +24,7 @@ geom_cladelabel <- function(node, label, offset=0, offset.text=0,
     data <- NULL
     position <- "identity"
     show.legend <- NA
-    na.rm <- FALSE
+    na.rm <- TRUE
     inherit.aes <- FALSE
 
     if (geom == "text") {
@@ -133,7 +133,7 @@ StatCladeBar <- ggproto("StatCladBar", Stat,
 get_cladelabel_position <- function(data, node, offset, align, adjustRatio) {
     df <- get_cladelabel_position_(data, node)
     if (align) {
-        mx <- max(data$x)
+        mx <- max(data$x, na.rm=TRUE)
     } else {
         mx <- df$x
     }
@@ -144,9 +144,12 @@ get_cladelabel_position <- function(data, node, offset, align, adjustRatio) {
 
 get_cladelabel_position_ <- function(data, node) {
     sp <- get.offspring.df(data, node)
-    sp.df <- data[c(sp, node),]
+    sp2 <- c(sp, node)
+    sp.df <- data[match(sp2, data$node),]
+
     y <- sp.df$y
-    mx <- max(sp.df$x) 
+    y <- y[!is.na(y)]
+    mx <- max(sp.df$x, na.rm=TRUE) 
     data.frame(x=mx, y=min(y), yend=max(y))
 }
 

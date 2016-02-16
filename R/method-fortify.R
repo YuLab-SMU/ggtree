@@ -115,7 +115,7 @@ fortify.beast <- function(model, data,
 
     phylo <- set_branch_length(model, branch.length)
 
-    df    <- fortify(phylo, layout=layout,
+    df    <- fortify(phylo, layout=layout, branch.length=branch.length,
                      ladderize=ladderize, right=right, mrsd = mrsd, ...)
     
     stats <- model@stats
@@ -515,6 +515,10 @@ as.data.frame.phylo <- function(x, row.names, optional,
 
 as.data.frame.phylo_ <- function(x, layout="rectangular",
                                  branch.length="branch.length", ...) {
+    if (branch.length != 'none') {
+        branch.length = "branch.length"
+    }
+    
     tip.label <- x[["tip.label"]]
     Ntip <- length(tip.label)
     N <- getNodeNum(x)
@@ -610,9 +614,9 @@ fortify.multiPhylo <-  function(model, data, layout="rectangular",
     df$.id <- rep(names(df.list), times=sapply(df.list, nrow))
     df$.id <- factor(df$.id, levels=names(df.list))
     
-    nNode <- sapply(df.list, nrow)
-    nNode2 <- cumsum(c(0, nNode[-length(nNode)])) 
-    df$parent <- df$parent + rep(nNode2, times=nNode)
+    ## nNode <- sapply(df.list, nrow)
+    ## nNode2 <- cumsum(c(0, nNode[-length(nNode)])) 
+    ## df$parent <- df$parent + rep(nNode2, times=nNode)
     return(df)
 }
 
@@ -654,7 +658,30 @@ fortify.obkData <- function(model, data, layout="rectangular",
     df <- df[order(df$node, decreasing = FALSE),]
     return(df)
 }
-                            
+
+##' @method fortify phyloseq
+##' @export
+fortify.phyloseq <- function(model, data, layout="rectangular",
+                             ladderize=TRUE, right=FALSE, mrsd=NULL, ...) {
+
+    df <- fortify(model@phy_tree, layout=layout, ladderize=ladderize, right=right, mrsd=mrsd, ...)
+    phyloseq <- "phyloseq"
+    require(phyloseq, character.only=TRUE)
+    psmelt <- eval(parse(text="psmelt"))
+    dd <- psmelt(model)
+    if ('Abundance' %in% colnames(dd)) {
+        dd <- dd[dd$Abundance > 0, ]
+    }
+    
+    data <- merge(df, dd, by.x="label", by.y="OTU", all.x=TRUE)
+    spacing <- 0.02
+    idx <- with(data, sapply(table(node)[unique(node)], function(i) 1:i)) %>% unlist
+    data$hjust <- spacing * idx * max(data$x)
+    ## data$hjust <- data$x + hjust
+
+    data[order(data$node, decreasing = FALSE), ]
+}
+
                          
 ## fortify.cophylo <- function(model, data, layout="rectangular",
 ##                             ladderize=TRUE, right=FALSE, mrsd = NULL, ...) {

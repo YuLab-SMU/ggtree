@@ -89,7 +89,7 @@ Correspondingly, `ggtree` defines several `S4` classes to store evolutionary evi
 + _`raxml`_ for storing output of `read.raxml()`
 
 
-The _`jplace`_ class is also designed to store user specific annotation data, and serves as a standard format for tree annotation within the `ggtree` package. 
+The _`jplace`_ class is also designed to store user specified annotation data, and serves as a standard format for tree annotation within the `ggtree` package. 
 
 
 Here is an overview of these `S4` classes:
@@ -241,7 +241,7 @@ hy <- read.hyphy(nwk, ancseq, tipfas)
 hy
 ```
 
-```{r fig.width=14, fig.height=10, warning=FALSE, fig.align="center"}
+```{r fig.width=16, fig.height=10, warning=FALSE, fig.align="center"}
 ggtree(hy) + geom_text(aes(x=branch, label=AA_subs), vjust=-.5)
 ```
 
@@ -371,7 +371,7 @@ ggtree(merged_tree, aes(color=dN_vs_dS), mrsd="2013-01-01", ndigits = 3) +
 
 
 # `jplace` file format
-The _`jplace`_ file format was defined by Masten[@matsen_format_2012] for phylogenetic placements. We employed this file format to store phylogenetic tree and user specific annotation data. Suppose we have a tree, and the associated data as shown below:
+The _`jplace`_ file format was defined by Masten[@matsen_format_2012] for phylogenetic placements. We employed this file format to store phylogenetic tree and user specified annotation data. Suppose we have a tree, and the associated data as shown below:
 
 ```{r}
 tree <- system.file("extdata", "pa.nwk", package="ggtree")
@@ -380,7 +380,7 @@ print(tree)
 head(data)
 ```
 
-The _`data`_ contains amino acid substitutions from parent node to child node and GC contents of each node. We can annotate the tree as demonstrated in [User specific annotation](treeAnnotation.html#user-specific-annotation) session of [Tree Annotation](treeAnnotation.html) vignette.
+The _`data`_ contains amino acid substitutions from parent node to child node and GC contents of each node. We can annotate the tree as demonstrated in [User specified annotation](treeAnnotation.html#user-specified-annotation) session of [Tree Annotation](treeAnnotation.html) vignette.
 
 
 `ggtree` provides a function, _`write.jplace`_, to combine a tree and an associated data and store them to a single _`jplace`_ file.
