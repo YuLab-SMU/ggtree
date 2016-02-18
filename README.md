@@ -47,7 +47,7 @@ To view the vignette of `ggtree` installed in your system, start `R` and enter:
 vignette("ggtree", package = "ggtree")
 ```
 
-More documents can be found in <http://guangchuangyu.github.io/categories/ggtree>.
+More documents can be found in <http://guangchuangyu.github.io/tags/ggtree>.
 
 
 ## Bugs/Feature requests ##
