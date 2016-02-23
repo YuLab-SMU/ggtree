@@ -13,7 +13,7 @@
 ##' @export
 ##' @author Guangchuang Yu
 inset <- function(tree_view, insets, width=0.05, height=0.05, hjust=0, vjust=0, x="node") {
-    df <- tree_view$data[names(insets),]
+    df <- tree_view$data[as.numeric(names(insets)),]
     x <- match.arg(x, c("node", "branch", "edge"))
 
     if (x == 'node') {
