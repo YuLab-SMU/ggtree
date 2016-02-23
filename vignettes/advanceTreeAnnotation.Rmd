@@ -181,6 +181,17 @@ bx2 <- lapply(bx, function(g) g+coord_flip())
 inset(p2, bx2, width=.2, height=.03, vjust=.04, hjust=p2$data$x[1:15]-4) + xlim(NA, 4.5)
 ```
 
+## Annotate with image files
+
+```{r}
+imgfile <- tempfile(, fileext=".png")
+download.file("https://avatars1.githubusercontent.com/u/626539?v=3&u=e731426406dd3f45a73d96dd604bc45ae2e7c36f&s=140", destfile=imgfile, mode='wb')
+img <- list(imgfile, imgfile)
+names(img) <- c("18", "22")
+inset(p, img)
+```
+
+
 # Align tree with other plots on a page
 
 This is currently difficult to achieve in `ggplot2`. However, it is possible to obtain good results by creating a dummy faceting of data.
@@ -217,10 +228,6 @@ pp %>% phylopic("67382184-5135-4faa-8e98-eadff02c3e8a", color="#86B875", alpha=.
      phylopic("d3563b54-780f-4711-a49a-7ea051e9dacc", color="darkcyan", alpha=.8, node=17, width=.2)
 ```
 ![](figures/phylopic2.png)
-
-
-Annotate phylogenetic tree with local images is also supported, please refer to the [blog post](http://guangchuangyu.github.io/2015/08/ggtree-annotate-phylogenetic-tree-with-local-images/).
-
 
 
 

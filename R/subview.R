@@ -3,7 +3,7 @@
 ##' 
 ##' @title subview
 ##' @param mainview main view
-##' @param subview sub view
+##' @param subview a ggplot or grob object
 ##' @param x x position
 ##' @param y y position
 ##' @param width width of subview, [0,1]
@@ -20,11 +20,28 @@ subview <- function(mainview, subview, x, y, width=.1, height=.1) {
     
     xrng <- mainview$data[, aes_x] %>% range %>% diff
     yrng <- mainview$data[, aes_y] %>% range %>% diff
-   
+
+    if (!any(class(subview) %in% c("ggplot", "grob", "character"))) {
+        stop("subview should be a ggplot or grob object, or an image file...")
+    }
+    
+    if (is(subview, "ggplot")) {
+        sv <- ggplotGrob(subview)
+    } else if (is(subview, "grob")) {
+        sv <- subview
+    } else if (file.exists(subview)) {
+            EBImage <- "EBImage"
+            require(EBImage, character.only = TRUE)
+            readImage <- eval(parse(text="readImage"))
+            sv <- rasterGrob(readImage(subview))
+    } else {
+        stop("subview should be a ggplot or grob object, or an image file...")
+    }
+
     mainview + annotation_custom(
-        ggplotGrob(subview),
-        xmin = x - width*xrng,
-        xmax = x + width*xrng,
-        ymin = y - height*yrng,
-        ymax = y + height*yrng)
+                   sv,
+                   xmin = x - width*xrng,
+                   xmax = x + width*xrng,
+                   ymin = y - height*yrng,
+                   ymax = y + height*yrng)
 }

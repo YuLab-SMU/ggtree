@@ -9,7 +9,7 @@ subview(mainview, subview, x, y, width = 0.1, height = 0.1)
 \arguments{
 \item{mainview}{main view}
 
-\item{subview}{sub view}
+\item{subview}{a ggplot or grob object}
 
 \item{x}{x position}
 
