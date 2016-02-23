@@ -30,10 +30,7 @@ subview <- function(mainview, subview, x, y, width=.1, height=.1) {
     } else if (is(subview, "grob")) {
         sv <- subview
     } else if (file.exists(subview)) {
-            EBImage <- "EBImage"
-            require(EBImage, character.only = TRUE)
-            readImage <- eval(parse(text="readImage"))
-            sv <- rasterGrob(readImage(subview))
+        sv <- rasterGrob(readImage(subview))
     } else {
         stop("subview should be a ggplot or grob object, or an image file...")
     }

@@ -475,6 +475,9 @@ getCols <- function (n) {
     colorRampPalette(col3)(n)
 }
 
-
-
-
+readImage <- function(...) {
+    EBImage <- "EBImage"
+    require(EBImage, character.only = TRUE)
+    EBImage_readImage <- eval(parse(text="readImage"))
+    EBImage_readImage(...)
+}

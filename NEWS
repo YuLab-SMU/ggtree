@@ -1,5 +1,7 @@
 CHANGES IN VERSION 1.3.14
 ------------------------
+ o offset works in `align=FFALSE` with `annotation_image` function <2016-02-23, Tue>
+   + see https://github.com/GuangchuangYu/ggtree/issues/46
  o subview and inset now supports annotating with img files <2016-02-23, Tue>
  
 CHANGES IN VERSION 1.3.13

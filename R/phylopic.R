@@ -136,10 +136,6 @@ annotation_image <- function(tree_view, img_info, width=0.1, align=TRUE, linetyp
     x <- df[idx, "x"]
     y <- df[idx, "y"]
 
-    EBImage <- "EBImage"
-    require(EBImage, character.only = TRUE)
-    readImage <- eval(parse(text="readImage"))
-    
     images <- lapply(img_info[,2], readImage)
 
     ARs <- sapply(images, getAR)
@@ -148,11 +144,11 @@ annotation_image <- function(tree_view, img_info, width=0.1, align=TRUE, linetyp
     if (align) {
         xmin <- max(df$x) + offset
         xmin <- rep(xmin, length(x))
-        xmax <- xmin + width
     } else {
-        xmin <- x - width/2
-        xmax <- x + width/2
+        xmin <- x - width/2 + offset
     }
+    xmax <- xmin + width
+    
     ymin <- y - ARs * width/2
     ymax <- y + ARs * width/2
     image_layers <- lapply(1:length(xmin), function(i) {
