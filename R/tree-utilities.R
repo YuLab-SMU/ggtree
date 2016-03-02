@@ -321,7 +321,7 @@ get.path_length <- function(phylo, from, to, weight=NULL) {
 
     for(i in 1:(length(path)-1)) {
         ee <- get_edge_index(df, path[i], path[i+1])
-        res <- res + df[ee, weights]
+        res <- res + df[ee, weight]
     }
     
     return(res)

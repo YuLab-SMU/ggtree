@@ -30,7 +30,6 @@ library("colorspace")
 library("Biostrings")
 library("ape")
 library("ggplot2")
-library("gridExtra")
 library("ggtree")
 library("phangorn")
 ```

@@ -32,12 +32,8 @@ download.phylopic <- function(id, size=512, color="black", alpha=1) {
     imgfile <- tempfile(fileext = ".png")
     download.phylopic_internal(id, size, imgfile)
 
-    EBImage <- "EBImage"
-    require(EBImage, character.only = TRUE)
-
-    readImage <- eval(parse(text="readImage"))
-    channel <- eval(parse(text="channel"))
-    
+    requireNamespace("EBImage")
+    channel <- eval(parse(text=paste0("EBImage::", "channel")))
     img <- readImage(imgfile)
        
     color <- col2rgb(color) / 255
@@ -51,6 +47,8 @@ download.phylopic <- function(id, size=512, color="black", alpha=1) {
     return(img)
 }
 
+##' @importFrom utils download.file
+##' @importFrom utils modifyList
 download.phylopic_internal <- function(id, size=512, outfile=NULL) {
     size %<>% as.character %>%
         match.arg(c("64", "128", "256", "512", "1024"))
