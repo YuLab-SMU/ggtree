@@ -462,6 +462,7 @@ roundDigit <- function(d) {
 
 
 ## from ChIPseeker
+##' @importFrom grDevices colorRampPalette
 getCols <- function (n) {
     col <- c("#8dd3c7", "#ffffb3", "#bebada", "#fb8072", "#80b1d3", 
              "#fdb462", "#b3de69", "#fccde5", "#d9d9d9", "#bc80bd", 
@@ -475,9 +476,16 @@ getCols <- function (n) {
     colorRampPalette(col3)(n)
 }
 
-readImage <- function(...) {
-    EBImage <- "EBImage"
-    require(EBImage, character.only = TRUE)
-    EBImage_readImage <- eval(parse(text="readImage"))
-    EBImage_readImage(...)
+
+get_fun_from_pkg <- function(pkg, fun) {
+    requireNamespace(pkg)
+    eval(parse(text=paste0(pkg, "::", fun)))
 }
+
+hist <- get_fun_from_pkg("graphics", "hist")
+
+readImage <- get_fun_from_pkg("EBImage", "readImage")
+
+
+
+
