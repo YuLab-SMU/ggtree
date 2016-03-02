@@ -20,7 +20,7 @@ subview <- function(mainview, subview, x, y, width=.1, height=.1) {
     
     xrng <- mainview$data[, aes_x] %>% range %>% diff
     yrng <- mainview$data[, aes_y] %>% range %>% diff
-
+    
     if (!any(class(subview) %in% c("ggplot", "grob", "character"))) {
         stop("subview should be a ggplot or grob object, or an image file...")
     }
@@ -34,11 +34,11 @@ subview <- function(mainview, subview, x, y, width=.1, height=.1) {
     } else {
         stop("subview should be a ggplot or grob object, or an image file...")
     }
-
+    
     mainview + annotation_custom(
-                   sv,
-                   xmin = x - width*xrng,
-                   xmax = x + width*xrng,
-                   ymin = y - height*yrng,
-                   ymax = y + height*yrng)
+        sv,
+        xmin = x - width*xrng,
+        xmax = x + width*xrng,
+        ymin = y - height*yrng,
+        ymax = y + height*yrng)
 }

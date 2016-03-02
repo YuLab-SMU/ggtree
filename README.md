@@ -14,6 +14,8 @@ The `ggtree` package extending the `ggplot2` package. It based on grammar of gra
 
 `ggtree` is designed for not only viewing phylogenetic tree but also displaying annotation data in the tree. 
 
+A discussion forum can be found at <https://groups.google.com/forum/#!forum/bioc-ggtree>
+
 ## Authors ##
 
 Guangchuang Yu and Tommy Tsan-Yuk Lam, School of Public Health, The University of Hong Kong.
