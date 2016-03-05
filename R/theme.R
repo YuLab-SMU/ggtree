@@ -65,6 +65,7 @@ theme_tree2_internal <- function(bgcolor="white", fgcolor="black", ...) {
           panel.background=element_rect(fill=bgcolor, colour=bgcolor),
           panel.border=element_blank(),
           axis.line=element_line(color=fgcolor),
+          axis.line.x=element_line(),
           axis.line.y=element_blank(),
           axis.ticks.y=element_blank(),
           axis.text.y=element_blank(),
