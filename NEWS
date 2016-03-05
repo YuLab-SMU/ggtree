@@ -1,5 +1,6 @@
 CHANGES IN VERSION 1.3.14
 ------------------------
+ o geom_tiplab works with NA values, compatible with collapse <2016-03-05, Sat>
  o update theme_tree2 due to the issue of https://github.com/hadley/ggplot2/issues/1567 <2016-03-05, Sat>
  o offset works in `align=FFALSE` with `annotation_image` function <2016-02-23, Tue>
    + see https://github.com/GuangchuangYu/ggtree/issues/46

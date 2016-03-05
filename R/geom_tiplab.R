@@ -19,7 +19,7 @@
 geom_tiplab <- function(mapping=NULL, hjust = 0, align = FALSE, linetype = "dotted", linesize=1, ...) {
     x <- y <- label <- isTip <- NULL
     if (align == TRUE) {
-        self_mapping <- aes(x = max(x) + diff(range(x, na.rm=TRUE))/200, y = y, label = label, subset= isTip)
+        self_mapping <- aes(x = max(x, na.rm=TRUE) + diff(range(x, na.rm=TRUE))/200, y = y, label = label, subset= isTip)
     }
     else {
         self_mapping <- aes(x = x + diff(range(x, na.rm=TRUE))/200, y= y, label = label, subset= isTip)
@@ -33,7 +33,7 @@ geom_tiplab <- function(mapping=NULL, hjust = 0, align = FALSE, linetype = "dott
 
     dot_mapping <- NULL
     if (align && (!is.na(linetype) && !is.null(linetype))) {
-        dot_mapping <- aes(xend=x+diff(range(x))/200, x=max(x), y=y, yend=y, subset=isTip)
+        dot_mapping <- aes(xend=x+diff(range(x, na.rm=TRUE))/200, x=max(x, na.rm=TRUE), y=y, yend=y, subset=isTip)
         if (!is.null(mapping)) {
             dot_mapping <- modifyList(dot_mapping, mapping)
         }
