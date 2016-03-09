@@ -94,7 +94,7 @@ The _`jplace`_ class is also designed to store user specified annotation data, a
 
 Here is an overview of these `S4` classes:
 
-![](figures/ggtree_objects.png)
+![](figures/ggtree_objects_v2.png)
 
 In addition, `ggtree` also supports _`phylo`_, _`multiPhylo`_ (defined by `ape`[@paradis_ape_2004]) and _`phylo4`_ (defined by `phylobase`).
 
