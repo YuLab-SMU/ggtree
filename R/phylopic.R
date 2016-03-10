@@ -93,8 +93,9 @@ phylopic <- function(tree_view, phylopic_id,
             if (is.null(node)) {
                 stop("node or x and y should not be NULL...")
             }
-            x <- tree_view$data[node, "x"]
-            y <- tree_view$data[node, "y"]
+            df <- tree_view$data
+            x <- df[match(node, df$node), "x"]
+            y <- df[match(node, df$node), "y"]
         }
         AR <- getAR(img)
         xmin <- x - width/2

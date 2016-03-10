@@ -111,11 +111,13 @@ get_clade_position <- function(treeview, node) {
 
 get_clade_position_ <- function(data, node) {
     sp <- get.offspring.df(data, node)
-    sp.df <- data[c(sp, node),]
+    ## sp.df <- data[c(sp, node),]
+    sp <- c(sp, node)
+    sp.df <- data[match(sp, data$node),]
     x <- sp.df$x
     y <- sp.df$y
     if ("branch.length" %in% colnames(data)) {
-        xmin <- min(x)-data[node, "branch.length"]/2
+        xmin <- min(x)-data[match(node, data$node), "branch.length"]/2
     } else {
         xmin <- min(sp.df$branch)
     }
