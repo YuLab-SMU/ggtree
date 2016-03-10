@@ -35,7 +35,7 @@ library("ggtree")
 
 # Rescale tree
 
-Most of the phylogenetic trees are scaled by evolutionary distance (substitution/site), in `ggtree`, users can re-scale a phylogenetic tree by any numerical variable inferred by evolutionary analysis (e.g. *dN/dS*).
+Most of the phylogenetic trees are scaled by evolutionary distance (substitution/site). In `ggtree`, users can re-scale a phylogenetic tree by any numerical variable inferred by evolutionary analysis (e.g. *dN/dS*).
 
 
 ```{r fig.width=10, fig.height=5}
@@ -251,7 +251,7 @@ print(dd)
 knitr::kable(dd)
 ```
 
-We can imaging that the _`place`_ column stores the location we isolated the species and _`value`_ column stores numerical values (e.g. bootstrap values).
+We can imaging that the _`place`_ column stores the location that we isolated the species and _`value`_ column stores numerical values (e.g. bootstrap values).
 
 We have demonstrated using the operator, _`%<%`_, to update a tree view with a new tree. Here, we will introduce another operator, _`%<+%`_, that attaches annotation data to a tree view. The only requirement of the input data is that its first column should be matched with the node/tip labels of the tree.
 

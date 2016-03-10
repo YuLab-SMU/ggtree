@@ -89,14 +89,14 @@ Correspondingly, `ggtree` defines several `S4` classes to store evolutionary evi
 + _`raxml`_ for storing output of `read.raxml()`
 
 
-The _`jplace`_ class is also designed to store user specified annotation data, and serves as a standard format for tree annotation within the `ggtree` package. 
+The _`jplace`_ class is also designed to store user specified annotation data.
 
 
 Here is an overview of these `S4` classes:
 
 ![](figures/ggtree_objects_v2.png)
 
-In addition, `ggtree` also supports _`phylo`_, _`multiPhylo`_ (defined by `ape`[@paradis_ape_2004]) and _`phylo4`_ (defined by `phylobase`).
+In addition, `ggtree` also supports _`phylo`_, _`multiPhylo`_ (defined by `ape`[@paradis_ape_2004]), _`phylo4`_ (defined by `phylobase`) _`obkData`_ (defined in `OutbreakTools`) and _`phyloseq`_ (defined in `phyloseq`).
 
 
 In `ggtree`, tree objects can be merged and evidences inferred from different phylogenetic analyses can be combined or compared and visualized.
@@ -104,7 +104,7 @@ In `ggtree`, tree objects can be merged and evidences inferred from different ph
 Viewing a phylogenetic tree in `ggtree` is easy by using the command `ggtree(tree_object)` and annotating a phylogenetic tree is simple by adding graphic layers using the grammar of graphics.
 
 
-For each class, we defined _`get.fields`_ method to get the annotation features that available in the object that can be used to annotate a phylogenetic tree directly in `ggtree`. A _`get.tree`_ method can be used to convert tree object to `phylo` object that are widely supported by other `R` packages. 
+For each class, we defined _`get.fields`_ method to get the annotation features that available in the object that can be used to annotate a phylogenetic tree directly in `ggtree`. A _`get.tree`_ method can be used to convert tree object to `phylo` (or `multiPhylo` for `r8s`) object that are widely supported by other `R` packages. 
 
 The _`groupOTU`_ method is used for clustering related OTUs (from tips to their most recent common ancestor). Related OTUs are not necessarily within a clade, they can be distantly related. _`groupOTU`_ works fine for monophyletic (clade), polyphyletic and paraphyletic, while _`groupClade`_ only works for clade (monophyletic). These methods are useful for clustering related OTUs or clades.
 
@@ -308,7 +308,7 @@ msaplot(phylip, offset=1)
 
 ## Parsing EPA and pplacer output
 
-[EPA](http://sco.h-its.org/exelixis/web/software/epa/index.html)[@berger_EPA_2011] and [PPLACER](http://matsen.fhcrc.org/pplacer/)[@matsen_pplacer_2010] have common output file format, `jplace`, which can be parse by `read.jplace()` function. 
+[EPA](http://sco.h-its.org/exelixis/web/software/epa/index.html)[@berger_EPA_2011] and [PPLACER](http://matsen.fhcrc.org/pplacer/)[@matsen_pplacer_2010] have common output file format, `jplace`, which can be parsed by `read.jplace()` function. 
 
 ```{r}
 jpf <- system.file("extdata/sample.jplace",  package="ggtree")

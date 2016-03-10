@@ -32,7 +32,7 @@ library("ggtree")
 ```
 
 
-To view a phylogenetic tree, we first need to parse the tree file into `R`. The `ggtree` package supports many file format including output files of commonly used software packages in evolutionary biology. For more details, plase refer to the [Tree Data Import](treeImport.html) vignette.
+To view a phylogenetic tree, we first need to parse the tree file into `R`. The `ggtree` package supports many file formats including output files of commonly used software packages in evolutionary biology. For more details, plase refer to the [Tree Data Import](treeImport.html) vignette.
 
 ```{r}
 library("ggtree")
@@ -43,7 +43,7 @@ tree <- read.tree(nwk)
 # Viewing a phylogenetic tree with `ggtree`
 
 The `ggtree` package extends _`ggplot2`_ package to support viewing phylogenetic tree.
-It implements _`geom_tree`_ layer for displaying phylogenetic trees, as shown below:
+It implements _`geom_tree`_ layer for displaying phylogenetic tree, as shown below:
 
 
 ```{r fig.width=3, fig.height=3, fig.align="center"}
@@ -249,7 +249,7 @@ multiplot(
 
 # Visualize a list of trees
 
-`ggtree` supports `multiPhylo` object and a list of trees can be view simultaneously.
+`ggtree` supports `multiPhylo` object and a list of trees can be viewed simultaneously.
 
 ```{r fig.width=12, fig.height=4}
 trees <- lapply(c(10, 20, 40), rtree)
