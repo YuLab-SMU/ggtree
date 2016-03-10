@@ -53,7 +53,7 @@ p <- p + geom_tiplab(size=3)
 gheatmap(p, genotype, offset = 2, width=0.5)
 ```
 
-The _width_ parameter is to control the width of the heatmap. It supports another parameter _offset_ for controling the distance between the tree and the heatmap, for instance to allocate space for tip labels.
+The _width_ parameter is to control the width of the heatmap. It supports another parameter _offset_ for controlling the distance between the tree and the heatmap, for instance to allocate space for tip labels.
 
 
 For time-scaled tree, as in this example, it's more often to use x axis by using `theme_tree2`. But with this solution, the heatmap is just another layer and will change the `x` axis. To overcome this issue, we implemented `scale_x_ggtree` to set the x axis more reasonable. 

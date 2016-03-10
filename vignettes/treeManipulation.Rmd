@@ -37,7 +37,7 @@ flip <- ggtree::flip
 
 # Internal node number
 
-Some of the functions in `ggtree` works with clade and accepts a parameter of internal node number. To get the internal node number, user can use `geom_text2` to display it:
+Some of the functions in `ggtree` work with clade and accept a parameter of internal node number. To get the internal node number, user can use `geom_text2` to display it:
 
 ```{r}
 nwk <- system.file("extdata", "sample.nwk", package="ggtree")
@@ -45,7 +45,7 @@ tree <- read.tree(nwk)
 ggtree(tree) + geom_text2(aes(subset=!isTip, label=node), hjust=-.3) + geom_tiplab()
 ```
 
-Another way to get the internal node number is using `MRCA()` function by providing a vector of taxa names. The function will return node number of input taxa's most recent commond ancestor (MRCA). It works with tree object and graphic object.
+Another way to get the internal node number is using `MRCA()` function by providing a vector of taxa names. The function will return node number of input taxa's most recent commond ancestor (MRCA). It works with tree and graphic object.
 
 
 ```{r}
@@ -67,9 +67,9 @@ viewClade(p+geom_tiplab(), node=21)
 
 # group Clades
 
-The `ggtree` package defined several functions to manipulate tree view. _`groupClade`_ and _`groupOTU`_ methods for clustering clades or related OTUs. _`groupClade`_ accepts an internal node or a vector of internal nodes to cluster clade/clades.
+The `ggtree` package defined several functions to manipulate tree view. _`groupClade`_ and _`groupOTU`_ methods were designed for clustering clades or related OTUs. _`groupClade`_ accepts an internal node or a vector of internal nodes to cluster clade/clades.
 
-Both _`groupClade`_ and _`groupOTU`_ work fine with tree object or tree view.
+Both _`groupClade`_ and _`groupOTU`_ work fine with tree and graphic object.
 
 ```{r fig.width=5, fig.height=5, fig.align="center", warning=FALSE}
 tree <- groupClade(tree, node=21)
