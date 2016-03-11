@@ -145,8 +145,8 @@ ggtree(tree2d, mrsd = "2014-05-01") + theme_tree2()
 ```{r fig.width=9, fig.height=4, fig.align="center"}
 ggtree(tree2d, mrsd = "2014-05-01",
        yscale="NGS", yscale_mapping=c(N2=2, N3=3, N4=4, N5=5, N6=6, N7=7)) +
-           theme_classic() + 
-               theme(panel.grid.major=element_line(color="grey20", linetype="dotted", size=.3),
+           theme_classic() + theme(axis.line.x=element_line(), axis.line.y=element_line()) +
+               theme(panel.grid.major.x=element_line(color="grey20", linetype="dotted", size=.3),
                      panel.grid.major.y=element_blank()) +
                          scale_y_continuous(labels=paste0("N", 2:7))
 ```	
