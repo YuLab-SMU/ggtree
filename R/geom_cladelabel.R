@@ -13,13 +13,14 @@
 ##' @param geom one of 'text' or 'label'
 ##' @param hjust hjust
 ##' @param fill fill label background, only work with geom='label'
+##' @param family sans by default, can be any supported font
 ##' @param ... additional parameter
 ##' @return ggplot layers
 ##' @export
 ##' @author Guangchuang Yu
 geom_cladelabel <- function(node, label, offset=0, offset.text=0,
                             align=FALSE, barsize=0.5, fontsize=3.88,
-                            angle=0, geom="text", hjust = 0, fill=NA, ...) {
+                            angle=0, geom="text", hjust = 0, fill=NA, family="sans", ...) {
     mapping <- NULL
     data <- NULL
     position <- "identity"
@@ -30,14 +31,14 @@ geom_cladelabel <- function(node, label, offset=0, offset.text=0,
     if (geom == "text") {
         ## no fill parameter
         layer_text = stat_cladeText(node=node, label=label, offset=offset+offset.text,
-                                    align=align, size=fontsize, angle=angle,
+                                    align=align, size=fontsize, angle=angle, family=family,
                                     mapping=mapping, data=data, geom=geom, hjust=hjust,
                                     position=position, show.legend = show.legend,
                                     inherit.aes = inherit.aes, na.rm=na.rm, ...)
         
     } else {
         layer_text = stat_cladeText(node=node, label=label, offset=offset+offset.text,
-                                    align=align, size=fontsize, angle=angle, fill=fill,
+                                    align=align, size=fontsize, angle=angle, fill=fill,family=family,
                                     mapping=mapping, data=data, geom=geom, hjust=hjust,
                                     position=position, show.legend = show.legend,
                                     inherit.aes = inherit.aes, na.rm=na.rm, ...)
