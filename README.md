@@ -34,7 +34,7 @@ Methods in Ecology and Evolution, submitted
 ## License ##
 
 All source code is copyright, under the Artistic-2.0 License.
-For more information on Artistic-2.0 License see [http://opensource.org/licenses/Artistic-2.0](http://opensource.org/licenses/Artistic-2.0)
+For more information on Artistic-2.0 License see <http://opensource.org/licenses/Artistic-2.0>
 
 ## Installation ##
 
