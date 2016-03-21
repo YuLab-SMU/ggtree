@@ -10,6 +10,10 @@
 ##' @export
 ##' @author Guangchuang Yu
 merge_tree <- function(obj1, obj2) {
+    ##
+    ## INFO:
+    ## ape::all.equal.phylo can be used to test equal phylo topology.
+    ##
     
     if (has.slot(obj1, "extraInfo") == FALSE) {
         stop("input tree object is not supported...")
