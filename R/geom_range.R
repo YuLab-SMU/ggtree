@@ -9,8 +9,6 @@
 ##' @export
 ##' @author Guangchuang Yu
 geom_range <- function(range="height_0.95_HPD", ...) {
-
-    stat = "range"
     position = "identity"
     show.legend = NA
     na.rm = TRUE
