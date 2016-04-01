@@ -17,7 +17,7 @@ geom_hilight <- function(node, fill="steelblue", alpha=.5) {
     stat = "hilight"
     position = "identity"
     show.legend = NA
-    na.rm = FALSE
+    na.rm = TRUE
     inherit.aes = FALSE
     
     default_aes <- aes_(x=~x, y=~y, node=~node, parent=~parent, branch.length=~branch.length)
