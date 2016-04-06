@@ -1,3 +1,4 @@
+
 ##' @importFrom ggplot2 last_plot
 get_tree_view <- function(tree_view) {
     if (is.null(tree_view)) 
@@ -458,7 +459,6 @@ roundDigit <- function(d) {
 . <- function (..., .env = parent.frame()) {
     structure(as.list(match.call()[-1]), env = .env, class = "quoted")
 }
-
 
 
 ## from ChIPseeker
