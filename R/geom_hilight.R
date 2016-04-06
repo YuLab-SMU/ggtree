@@ -36,7 +36,6 @@ geom_hilight <- function(node, fill="steelblue", alpha=.5) {
                       fill=fill, alpha=alpha,
                       na.rm = na.rm)
     )
-    
 }
 
 ##' stat_hilight

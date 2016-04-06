@@ -94,16 +94,6 @@ ggtree <- function(tr,
         ## and also have some space for tree scale (legend)
         p <- p + scale_y_continuous(limits=c(0, max(p$data$y)))
     } 
-    
-    attr(p, "mrsd") <- mrsd
-    attr(p, "param") <- list(layout        = layout,
-                             yscale        = yscale,
-                             ladderize     = ladderize,
-                             right         = right,
-                             branch.length = branch.length,
-                             ndigits       = ndigits)
+
     return(p)
 }
-
-
-
