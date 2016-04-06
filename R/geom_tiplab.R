@@ -50,5 +50,28 @@ geom_tiplab <- function(mapping=NULL, hjust = 0, align = FALSE, linetype = "dott
 }
 
 
+##' add tip label for circular layout
+##'
+##' 
+##' @title geom_tiplab2
+##' @param mapping aes mapping
+##' @param ... additional parameter, see geom_tiplab
+##' @return tip label layer
+##' @export
+##' @author Guangchuang Yu
+##' @references \url{https://groups.google.com/forum/#!topic/bioc-ggtree/o35PV3iHO-0}
+geom_tiplab2 <- function(mapping=NULL, ...) {
 
+    angle <- NULL
+    m1 <- aes(subset=(abs(angle) < 90), angle=angle)
+    m2 <- aes(subset=(abs(angle) >= 90), angle=angle+180)
+        
+    if (!is.null(mapping)) {
+        m1 <- modifyList(mapping, m1)
+        m2 <- modifyList(mapping, m2)
+    }
 
+    list(geom_tiplab(m1, ...),
+         geom_tiplab(m2, hjust=1, ...)
+         )
+}
