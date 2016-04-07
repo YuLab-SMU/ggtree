@@ -7,7 +7,7 @@
 ##' @return tip point layer
 ##' @export
 ##' @author Guangchuang Yu
-geom_tippoint <- function(mapping = NULL, data = NULL, stat = "identity",
+geom_tippoint <- function(mapping = NULL, data = NULL, 
                        position = "identity", na.rm = FALSE,
                           show.legend = NA, inherit.aes = TRUE, ...) {
     isTip <- NULL
@@ -17,7 +17,7 @@ geom_tippoint <- function(mapping = NULL, data = NULL, stat = "identity",
     } else {
         mapping %<>% modifyList(self_mapping)
     }
-    geom_point2(mapping, data, stat, position, na.rm, show.legend, inherit.aes, ...)    
+    geom_point2(mapping, data, position, na.rm, show.legend, inherit.aes, ...)    
 }
 
 ##' add node point
@@ -28,7 +28,7 @@ geom_tippoint <- function(mapping = NULL, data = NULL, stat = "identity",
 ##' @return node point layer
 ##' @export
 ##' @author Guangchuang Yu
-geom_nodepoint <- function(mapping = NULL, data = NULL, stat = "identity",
+geom_nodepoint <- function(mapping = NULL, data = NULL, 
                        position = "identity", na.rm = FALSE,
                        show.legend = NA, inherit.aes = TRUE, ...) {
     isTip <- NULL
@@ -38,7 +38,7 @@ geom_nodepoint <- function(mapping = NULL, data = NULL, stat = "identity",
     } else {
         mapping %<>% modifyList(self_mapping)
     }
-    geom_point2(mapping, data, stat, position, na.rm, show.legend, inherit.aes, ...)    
+    geom_point2(mapping, data, position, na.rm, show.legend, inherit.aes, ...)    
 }
 
 
@@ -50,7 +50,7 @@ geom_nodepoint <- function(mapping = NULL, data = NULL, stat = "identity",
 ##' @return root point layer
 ##' @export
 ##' @author Guangchuang Yu
-geom_rootpoint <- function(mapping = NULL, data = NULL, stat = "identity",
+geom_rootpoint <- function(mapping = NULL, data = NULL, 
                            position = "identity", na.rm = FALSE,
                            show.legend = NA, inherit.aes = TRUE, ...) {
     isTip <- node <- parent <- NULL
@@ -60,7 +60,7 @@ geom_rootpoint <- function(mapping = NULL, data = NULL, stat = "identity",
     } else {
         mapping %<>% modifyList(self_mapping)
     }
-    geom_point2(mapping, data, stat, position, na.rm, show.legend, inherit.aes, ...)
+    geom_point2(mapping, data, position, na.rm, show.legend, inherit.aes, ...)
 }
 
 
@@ -70,7 +70,6 @@ geom_rootpoint <- function(mapping = NULL, data = NULL, stat = "identity",
 ##' @title geom_point2
 ##' @param mapping aes mapping
 ##' @param data data
-##' @param stat stat
 ##' @param position position
 ##' @param na.rm logical
 ##' @param show.legend logical
@@ -82,7 +81,7 @@ geom_rootpoint <- function(mapping = NULL, data = NULL, stat = "identity",
 ##' \link[ggplot2]{geom_point}
 ##' @return point layer
 ##' @author Guangchuang Yu
-geom_point2 <- function(mapping = NULL, data = NULL, stat = "identity",
+geom_point2 <- function(mapping = NULL, data = NULL,
                        position = "identity", na.rm = FALSE,
                        show.legend = NA, inherit.aes = TRUE, ...) {
 
@@ -97,7 +96,7 @@ geom_point2 <- function(mapping = NULL, data = NULL, stat = "identity",
     layer(
         data = data,
         mapping = mapping,
-        stat = StatTreePoint,
+        stat = StatTreeData,
         geom = GeomPointGGtree,
         position = position,
         show.legend = show.legend,
@@ -130,10 +129,3 @@ GeomPointGGtree <- ggproto("GeomPointGGtree", GeomPoint,
                            ##                   alpha = NA, stroke = 0.5)
                             )
 
-
-StatTreePoint <-  ggproto("StatTreePoint", Stat,
-                          required_aes = "node",
-                          compute_group = function(data, scales) {
-                              setup_tree_data(data)
-                          }
-                          )

@@ -5,7 +5,6 @@
 ##' @param mapping the aesthetic mapping
 ##' @param data A layer specific dataset -
 ##'             only needed if you want to override he plot defaults.
-##' @param stat The statistical transformation to use on the data for this layer
 ##' @param position The position adjustment to use for overlapping points on this layer
 ##' @param parse if TRUE, the labels will be passd into expressions
 ##' @param na.rm logical
@@ -22,7 +21,7 @@
 ##' @seealso
 ##' \link[ggplot2]{geom_text}
 ##' @author Guangchuang Yu
-geom_text2 <- function(mapping = NULL, data = NULL, stat = "identity",
+geom_text2 <- function(mapping = NULL, data = NULL,
                        position = "identity", parse = FALSE, na.rm=TRUE, show.legend = NA, inherit.aes = TRUE,
                        ..., nudge_x = 0, nudge_y = 0, check_overlap = FALSE) {
 
@@ -44,7 +43,7 @@ geom_text2 <- function(mapping = NULL, data = NULL, stat = "identity",
     layer(
         data = data,
         mapping = mapping,
-        stat = StatTreeLabel,
+        stat = StatTreeData,
         geom = GeomTextGGtree,
         position = position,
         show.legend = show.legend,
@@ -80,11 +79,11 @@ GeomTextGGtree <- ggproto("GeomTextGGtree", GeomText,
                           draw_key = draw_key_text
                           )
 
-StatTreeLabel <-  ggproto("StatTreeLabel", Stat,
-                          required_aes = "node",
-                          compute_group = function(data, scales) {
-                              setup_tree_data(data)
-                          }
-                          )
+StatTreeData <-  ggproto("StatTreeLabel", Stat,
+                         required_aes = "node",
+                         compute_group = function(data, scales) {
+                             setup_tree_data(data)
+                         }
+                         )
 
 

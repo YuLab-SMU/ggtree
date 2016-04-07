@@ -29,7 +29,6 @@ geom_aline <- function(mapping=NULL, linetype="dotted", size=1, ...) {
 ##' @title geom_segment2
 ##' @param mapping aes mapping 
 ##' @param data data
-##' @param stat stat
 ##' @param position position
 ##' @param arrow arrow
 ##' @param lineend lineend
@@ -43,7 +42,7 @@ geom_aline <- function(mapping=NULL, linetype="dotted", size=1, ...) {
 ##' \link[ggplot2]{geom_segment}
 ##' @return add segment layer
 ##' @author Guangchuang Yu
-geom_segment2 <- function(mapping = NULL, data = NULL, stat = "identity",
+geom_segment2 <- function(mapping = NULL, data = NULL, 
                          position = "identity", arrow = NULL, lineend = "butt",
                          na.rm = FALSE, show.legend = NA, inherit.aes = TRUE,
                          ...) {
@@ -58,7 +57,7 @@ geom_segment2 <- function(mapping = NULL, data = NULL, stat = "identity",
     layer(
         data = data,
         mapping = mapping,
-        stat = StatTreeSegment,
+        stat = StatTreeData,
         geom = GeomSegmentGGtree,
         position = position,
         show.legend = show.legend,
@@ -95,11 +94,5 @@ GeomSegmentGGtree <- ggproto("GeomSegmentGGtree", GeomSegment,
                              )
 
 
-StatTreeSegment <-  ggproto("StatTreeSegment", Stat,
-                          required_aes = "node",
-                          compute_group = function(data, scales) {
-                              setup_tree_data(data)
-                          }
-                          )
 
 
