@@ -5,7 +5,7 @@
 \title{geom_tiplab}
 \usage{
 geom_tiplab(mapping = NULL, hjust = 0, align = FALSE,
-  linetype = "dotted", linesize = 1, ...)
+  linetype = "dotted", linesize = 1, geom = "text", ...)
 }
 \arguments{
 \item{mapping}{aes mapping}
@@ -17,6 +17,8 @@ geom_tiplab(mapping = NULL, hjust = 0, align = FALSE,
 \item{linetype}{linetype for adding line if align = TRUE}
 
 \item{linesize}{line size of line if align = TRUE}
+
+\item{geom}{one of 'text' and 'label'}
 
 \item{...}{additional parameter}
 }
