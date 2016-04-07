@@ -4,16 +4,13 @@
 \alias{geom_tippoint}
 \title{geom_tippoint}
 \usage{
-geom_tippoint(mapping = NULL, data = NULL, stat = "identity",
-  position = "identity", na.rm = FALSE, show.legend = NA,
-  inherit.aes = TRUE, ...)
+geom_tippoint(mapping = NULL, data = NULL, position = "identity",
+  na.rm = FALSE, show.legend = NA, inherit.aes = TRUE, ...)
 }
 \arguments{
 \item{mapping}{aes mapping}
 
 \item{data}{data}
-
-\item{stat}{stat}
 
 \item{position}{position}
 

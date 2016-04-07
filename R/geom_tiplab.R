@@ -7,6 +7,7 @@
 ##' @param align align tip lab or not, logical
 ##' @param linetype linetype for adding line if align = TRUE
 ##' @param linesize line size of line if align = TRUE
+##' @param geom one of 'text' and 'label'
 ##' @param ... additional parameter
 ##' @return tip label layer
 ##' @importFrom ggplot2 geom_text
@@ -16,7 +17,9 @@
 ##' require(ape)
 ##' tr <- rtree(10)
 ##' ggtree(tr) + geom_tiplab()
-geom_tiplab <- function(mapping=NULL, hjust = 0, align = FALSE, linetype = "dotted", linesize=1, ...) {
+geom_tiplab <- function(mapping=NULL, hjust = 0, align = FALSE, linetype = "dotted", linesize=1, geom="text", ...) {
+    geom <- match.arg(geom, c("text", "label"))
+
     x <- y <- label <- isTip <- NULL
     if (align == TRUE) {
         self_mapping <- aes(x = max(x, na.rm=TRUE) + diff(range(x, na.rm=TRUE))/200, y = y, label = label, subset= isTip)
@@ -40,13 +43,18 @@ geom_tiplab <- function(mapping=NULL, hjust = 0, align = FALSE, linetype = "dott
     } 
     
     list(
-        geom_text2(mapping=text_mapping, 
-                   hjust = hjust, ...),
+        if (geom == "text") {
+            geom_text2(mapping=text_mapping, 
+                       hjust = hjust, ...)
+        } else {
+            geom_label2(mapping=text_mapping, 
+                        hjust = hjust, ...)
+        },
         if (!is.null(dot_mapping))
             geom_segment2(mapping=dot_mapping,
                           linetype = linetype,
                           size = linesize, ...)
-        )
+    )
 }
 
 
