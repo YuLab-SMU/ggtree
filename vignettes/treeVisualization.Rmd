@@ -205,7 +205,7 @@ p + geom_tippoint(color="#FDAC4F", shape=8, size=3)
 
 ## Displaying labels
 
-Users can use _`geom_text`_ to display the node (if availabel) and tip labels simultaneously or `geom_tiplab` to only display tip labels:
+Users can use _`geom_text`_ to display the node (if available) and tip labels simultaneously or `geom_tiplab` to only display tip labels:
 
 ```{r fig.width=3, fig.height=3, warning=FALSE, fig.align="center"}
 p + geom_tiplab(size=3, color="purple")
