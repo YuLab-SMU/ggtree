@@ -4,10 +4,12 @@
 \alias{geom_tiplab2}
 \title{geom_tiplab2}
 \usage{
-geom_tiplab2(mapping = NULL, ...)
+geom_tiplab2(mapping = NULL, hjust = 0, ...)
 }
 \arguments{
 \item{mapping}{aes mapping}
+
+\item{hjust}{horizontal adjustment}
 
 \item{...}{additional parameter, see geom_tiplab}
 }
