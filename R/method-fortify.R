@@ -460,6 +460,13 @@ fortify.phylo <- function(model, data, layout="rectangular",
     } else {
         tree <- model
     }
+
+    if (! is.null(tree$edge.length)) {
+        if (any(is.na(tree$edge.length))) {
+            warning("'edge.length' contains NA values...\n## setting 'edge.length' to NULL automatically when plotting the tree...")
+            tree$edge.length <- NULL
+        }
+    }
     
     df <- as.data.frame(tree, layout=layout, ...)
     idx <- is.na(df$parent)
@@ -525,6 +532,7 @@ as.data.frame.phylo_ <- function(x, layout="rectangular",
     
     edge <- as.data.frame(x[["edge"]])
     colnames(edge) <- c("parent", "node")
+    
     if (! is.null(x$edge.length)) {
         edge$length <- x$edge.length
         if (branch.length == "none") {
