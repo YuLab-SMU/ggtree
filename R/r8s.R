@@ -21,25 +21,12 @@ read.r8s <- function(file) {
     names(trees) <- label
 
     new("r8s",
-        file = file,
+        file = filename(file),
         fields = label,
         phylo = trees)
 }
 
 
-
-##' @rdname show-methods
-##' @importFrom ape print.phylo
-##' @exportMethod show
-setMethod("show", signature(object = "r8s"),
-          function(object) {
-              cat("'r8s' S4 object that stored information of\n\t",
-                  paste0("'", object@file, "'.\n\n"))
-              cat("...@ tree: ")
-              print.phylo(get.tree(object))                  
-              ## cat("\nwith the following features available:\n")
-              ## print_fields(object)
-          })
 
 
 ##' @rdname groupClade-methods

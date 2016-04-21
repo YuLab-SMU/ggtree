@@ -79,7 +79,7 @@ read.hyphy <- function(nwk, ancseq, tip.fasfile=NULL) {
                phylo = tr,
                seq_type = type,
                ancseq = seq,
-               tree.file = nwk,
+               tree.file = filename(nwk),
                ancseq.file = ancseq
                )
 

@@ -20,7 +20,7 @@ read.codeml_mlc <- function(mlcfile) {
         dNdS     = dNdS,
         ## seq_type = get_seqtype(tip_seq),
         ## tip_seq  = tip_seq,
-        mlcfile  = mlcfile)
+        mlcfile  = filename(mlcfile))
 }
 
 
@@ -49,24 +49,6 @@ setMethod("scale_color", signature(object="codeml_mlc"),
               scale_color_(object, by, ...)
           })
 
-##' @rdname show-methods
-##' @exportMethod show
-setMethod("show", signature(object = "codeml_mlc"),
-          function(object) {
-              cat("'codeml_mlc' S4 object that stored information of\n\t",
-                  paste0("'", object@mlcfile, "'."),
-                  "\n\n")
-              
-              cat("...@ tree:")
-              print.phylo(get.tree(object))                  
-              
-              cat("\nwith the following features available:\n")
-              cat("\t", paste0("'",
-                                 paste(get.fields(object), collapse="',\t'"),
-                                 "'."),
-                  "\n")
-          }
-          )
 
 
 ##' @rdname get.fields-methods
