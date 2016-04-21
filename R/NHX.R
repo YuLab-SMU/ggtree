@@ -16,7 +16,7 @@ read.nhx <- function(file) {
     }
     treetext %<>% gsub(" ", "",. )
     
-    phylo <- read.tree(file)
+    phylo <- read.tree( text = treetext )
     nnode <- phylo$Nnode + Ntip(phylo)
     nlab <- paste("X", 1:nnode, sep="")
     tree2 <- treetext
@@ -52,7 +52,7 @@ read.nhx <- function(file) {
     nhx_stats$node <- node
     
     new("nhx",
-        file = file,
+        file = treetext,
         fields = fields,
         phylo = phylo,
         nhx_tags = nhx_stats
