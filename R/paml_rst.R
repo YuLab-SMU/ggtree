@@ -46,7 +46,7 @@ read.paml_rst <- function(rstfile) {
                seq_type        = type,
                marginal_ancseq = ms,
                joint_ancseq    = read.ancseq_paml_rst(rstfile, by = "Joint"),
-               rstfile = rstfile
+               rstfile = filename(rstfile)
                )
     ## if (!is.null(tip.fasfile)) {
     ##     seqs <- readBStringSet(tip.fasfile)
@@ -86,36 +86,6 @@ setMethod("get.tipseq", signature(object="paml_rst"),
               }
           })
 
-##' @rdname show-methods
-##' @exportMethod show
-setMethod("show", signature(object = "paml_rst"),
-          function(object) {
-              cat("'paml_rst' S4 object that stored information of\n\t",
-                  paste0("'", object@rstfile, "'.\n\n"))
-              ## if (length(object@tip.fasfile) != 0) {
-              ##     cat(paste0(" and \n\t'", object@tip.fasfile, "'.\n\n"))
-              ## } else {
-              ##     cat(".\n\n")
-              ## }
-              fields <- get.fields(object)
-
-              if (nrow(object@marginal_subs) == 0) {
-                  fields <- fields[fields != "marginal_subs"]
-                  fields <- fields[fields != "marginal_AA_subs"]
-              }
-              if (nrow(object@joint_subs) == 0) {
-                  fields <- fields[fields != "joint_subs"]
-                  fields <- fields[fields != "joint_AA_subs"]
-              }
-              
-              cat("...@ tree:")
-              print.phylo(get.tree(object))                  
-              cat("\nwith the following features available:\n")
-              cat("\t", paste0("'",
-                               paste(fields, collapse="',\t'"),
-                               "'."),
-                  "\n")
-          })
 
 ##' @rdname get.fields-methods
 ##' @exportMethod get.fields

@@ -34,7 +34,7 @@ read.phylip <- function(file) {
     }
     
     new("phylip",
-        file = file,
+        file = filename(file),
         phylo = trees,
         ntree = ntree,
         sequence = seq_obj

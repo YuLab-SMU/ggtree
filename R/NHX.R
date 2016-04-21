@@ -52,7 +52,7 @@ read.nhx <- function(file) {
     nhx_stats$node <- node
     
     new("nhx",
-        file = file,
+        file = filename(file),
         fields = fields,
         phylo = phylo,
         nhx_tags = nhx_stats

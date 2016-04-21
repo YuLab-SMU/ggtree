@@ -1,3 +1,13 @@
+filename <- function(file) {
+    ## textConnection(text_string) will work just like a file
+    ## in this case, just set the filename as ""
+    file_name <- ""
+    if (is.character(file)) {
+        file_name <- file
+    }
+    return(file_name)
+}
+
 
 ##' @importFrom ggplot2 last_plot
 get_tree_view <- function(tree_view) {

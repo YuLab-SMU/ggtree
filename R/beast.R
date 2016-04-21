@@ -32,7 +32,7 @@ read.beast <- function(file) {
         phylo       = phylo,
         translation = read.trans_beast(file),
         stats       = stats,
-        file        = file
+        file        = filename(file)
         )
 }
 
