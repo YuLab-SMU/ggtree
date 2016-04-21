@@ -21,7 +21,7 @@ read.jplace <- function(file) {
              placements = placements,
              version    = version,
              metadata   = metadata,
-             file       = file
+             file       = filename(file)
              )
          )
 }
