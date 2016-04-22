@@ -152,7 +152,8 @@ rotate <- function(tree_view=NULL, node) {
     sp.df <- re_assign_ycoord_df(sp.df, tip)
 
     df[sp_idx, "y"] <- sp.df$y
-    df[df$node == node, "y"] <- mean(df[df$parent == node, "y"])
+    ## df$node == node is TRUE when node was root
+    df[df$node == node, "y"] <- mean(df[df$parent == node & df$node != node, "y"])
     pnode <- df$parent[df$node == node]
     if (pnode != node && !is.na(pnode)) {
         df[df$node == pnode, "y"] <- mean(df[df$parent == pnode, "y"])
