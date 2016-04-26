@@ -33,7 +33,7 @@ Suggests:
     testthat
 VignetteBuilder: knitr
 License: Artistic-2.0
-URL: http://guangchuangyu.github.io/ggtree/
+URL: http://guangchuangyu.github.io/ggtree
 BugReports: https://github.com/GuangchuangYu/ggtree/issues
 Packaged: 2014-12-03 08:16:14 UTC; root
 biocViews: Alignment, Annotation, Clustering, DataImport,
