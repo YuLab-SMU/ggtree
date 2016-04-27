@@ -5,7 +5,7 @@
 \title{geom_treescale}
 \usage{
 geom_treescale(x = NULL, y = NULL, width = NULL, offset = NULL,
-  color = "black", linesize = 0.5, fontsize = 3.88)
+  color = "black", linesize = 0.5, fontsize = 3.88, family = "sans")
 }
 \arguments{
 \item{x}{x position}
@@ -21,6 +21,8 @@ geom_treescale(x = NULL, y = NULL, width = NULL, offset = NULL,
 \item{linesize}{size of line}
 
 \item{fontsize}{size of text}
+
+\item{family}{sans by default, can be any supported font}
 }
 \value{
 ggplot layers
