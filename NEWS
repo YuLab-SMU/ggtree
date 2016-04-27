@@ -1,5 +1,7 @@
 CHANGES IN VERSION 1.3.16
 ------------------------
+ o geom_treescale() supports family argument <2016-04-27, Wed>
+   + https://github.com/GuangchuangYu/ggtree/issues/56
  o update fortify.phylo to work with phylo that has missing value of edge length <2016-04-21, Thu>
    + https://github.com/GuangchuangYu/ggtree/issues/54
  o support passing textConnection(text_string) as a file <2016-04-21, Thu>

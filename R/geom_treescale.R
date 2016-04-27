@@ -9,11 +9,12 @@
 ##' @param color color
 ##' @param linesize size of line
 ##' @param fontsize size of text
+##' @param family sans by default, can be any supported font
 ##' @return ggplot layers
 ##' @export
 ##' @author Guangchuang Yu
 geom_treescale <- function(x=NULL, y=NULL, width=NULL, offset=NULL, color="black",
-                           linesize=0.5, fontsize=3.88) {
+                           linesize=0.5, fontsize=3.88, family="sans") {
     
     data=NULL
     position="identity"
@@ -29,7 +30,8 @@ geom_treescale <- function(x=NULL, y=NULL, width=NULL, offset=NULL, color="black
                            mapping=mapping, data=data,
                            position=position, show.legend = show.legend,
                            inherit.aes = inherit.aes, na.rm=na.rm),
-        stat_treeScaleText(xx=x, yy=y, width=width, color=color, offset=offset, size=fontsize,
+        stat_treeScaleText(xx=x, yy=y, width=width, color=color, offset=offset,
+                           size=fontsize, family = family, 
                            mapping=mapping, data=data,
                            position=position, show.legend = show.legend,
                            inherit.aes = inherit.aes, na.rm=na.rm)
