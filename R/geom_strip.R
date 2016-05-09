@@ -165,8 +165,13 @@ get_striplabel_position_ <- function(data, taxa1, taxa2, barextend=0) {
     data.frame(x=max(xx), y=min(yy)-barextend, yend=max(yy)+barextend)
 }
 
-
+## used in geom_strip, geom_taxalink
 taxa2node <- function(data, taxa) {
-    node <- with(data, node[taxa == label | taxa == node])
-    node[!is.na(node)]
+    idx <- with(data, which(taxa == label | taxa == node))
+
+    if (length(idx) == 0) {
+        stop("input taxa is not valid...")
+    }
+    
+    return(data$node[idx])
 }
