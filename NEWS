@@ -1,5 +1,8 @@
 CHANGES IN VERSION 1.5.1
 ------------------------
+ o gheatmap now works with data.frame of only one column <2016-05-09, Mon>
+   + contributed by Justin Silverman <jsilve24@gmail.com>
+   + https://github.com/GuangchuangYu/ggtree/pull/57
  o geom_strip for associated taxa <2016-05-09, Mon>
    + https://github.com/GuangchuangYu/ggtree/issues/52
  
