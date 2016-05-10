@@ -1,5 +1,9 @@
 CHANGES IN VERSION 1.5.1
 ------------------------
+ o update vignettes <2016-05-10, Tue>
+   + add geom_range example in treeImport
+   + add geom_strip and geom_taxalink example in treeAnnotation
+   + add ggtreeUtilities vignette
  o gheatmap now works with data.frame of only one column <2016-05-09, Mon>
    + contributed by Justin Silverman <jsilve24@gmail.com>
    + https://github.com/GuangchuangYu/ggtree/pull/57

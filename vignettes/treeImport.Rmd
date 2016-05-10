@@ -136,6 +136,18 @@ Users can use `ggtree(beast)` to visualize the tree and add layer to annotate it
 ggtree(beast, ndigits=2, branch.length = 'none') + geom_text(aes(x=branch, label=length_0.95_HPD), vjust=-.5, color='firebrick')
 ```
 
+`ggtree` provides `geom_range` layer to display uncertainty of branch length.
+
+```{r warning=FALSE, fig.width=10, fig.height=10}
+ggtree(beast) + geom_range(range='height_0.95_HPD', color='red', alpha=.6, size=2)
+```
+
+In `FigTree`, only `heigh_0.95_HPD` is meaningful since the branch is scaled by `height`. In `ggtree` we can display HPD of `rate`, `height` or other variable if available since `ggtree` can rescale a tree using `rescale_tree` function or by specifing `branch.length` in `ggtree` function.
+
+```{r warning=FALSE, fig.width=10, fig.height=10}
+ggtree(beast, branch.length = 'rate') + geom_range(range='rate_0.95_HPD', color='red', alpha=.6, size=2)
+```
+
 With `ggtree`, evolutionary evidences inferred by commonly used software packages (`BEAST` in this example) can be easily transformed to a tidy `data.frame` by `fortify` method.
 
 ```{r}

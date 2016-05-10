@@ -36,7 +36,7 @@ geom_strip <- function(taxa1, taxa2, label=NA, offset=0, offset.text=0,
                                position=position, show.legend = show.legend,
                                inherit.aes = inherit.aes, na.rm=na.rm, ...)
 
-    if (is.na(label)) {
+    if (is.na(label) || is.null(label)) {
         return(layer_bar)
     }
     
