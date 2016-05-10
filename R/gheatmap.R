@@ -44,15 +44,17 @@ gheatmap <- function(p, data, offset=0, width=1, low="green", high="red", color=
     start <- max(df$x) + offset
     
     dd <- data
-    dd$lab <- rownames(dd)
-    dd <- dd[df$label[order(df$y)],]
+    ## dd$lab <- rownames(dd)
+    lab <- df$label[order(df$y)]
+    dd <- dd[lab, ]
     dd$y <- sort(df$y)
-    
+    dd$lab <- lab
     ## dd <- melt(dd, id=c("lab", "y"))
     dd <- gather(dd, variable, value, -c(lab, y))
-    
-    if (any(dd$value == "")) {
-        dd$value[dd$value == ""] <- NA
+
+    i <- which(dd$value == "")
+    if (length(i) > 0) {
+        dd$value[i] <- NA
     }
     if (is.null(colnames_level)) {
         dd$variable <- factor(dd$variable, levels=colnames(data))
@@ -87,7 +89,7 @@ gheatmap <- function(p, data, offset=0, width=1, low="green", high="red", color=
     }
     
     p2 <- p2 + theme(legend.position="right", legend.title=element_blank())
-    p2 <- p2 + guides(fill = guide_legend(override.aes = list(colour = NULL)))
+    ## p2 <- p2 + guides(fill = guide_legend(override.aes = list(colour = NULL)))
     
     attr(p2, "mapping") <- mapping
     return(p2)
