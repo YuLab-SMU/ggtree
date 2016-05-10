@@ -412,6 +412,15 @@ fortify.phylo4 <- function(model, data, layout="rectangular", yscale="none",
     scaleY(phylo, df, yscale, layout, ...)
 }
 
+##' @method fortify phylo4d
+##' @export
+fortify.phylo4d <- function(model, data, layout="rectangular", yscale="none",
+                            ladderize=TRUE, right=FALSE, mrsd=NULL, ...) {
+    res <- fortify.phylo4(model, data, layout, yscale, ladderize, right, mrsd, ...)
+    tdata <- model@data[match(res$node, rownames(model@data)), , drop=FALSE]
+    cbind(res, tdata)
+}
+
 as.phylo.phylo4 <- function(phylo4) {
     edge <- phylo4@edge
     edge <- edge[edge[,1] != 0, ]
