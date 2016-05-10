@@ -99,7 +99,7 @@ ggtree(beast_tree, aes(color=rate)) +
 
 User can use any feature (if available), including clade posterior and *dN/dS* _etc._, to scale the color of the tree.
 
-## Annotate clades
+# Annotate clades
 
 `ggtree` implements _`geom_cladelabel`_ layer to annotate a selected clade with a bar indicating the clade with a corresponding label.
 
@@ -167,6 +167,23 @@ ggtree(tree, layout="circular") + geom_hilight(node=21, fill="steelblue", alpha=
 ```
 
 Another way to highlight selected clades is setting the clades with different colors and/or line types as demonstrated in [Tree Manipulation](treeManipulation.html#groupclade) vignette.
+
+
+# labelling associated taxa (Monophyletic, Polyphyletic or Paraphyletic)
+
+`geom_cladelabel` is designed to labelling Monophyletic (Clade) while there are related taxa that are not form a clade. `ggtree` provides `geom_strip` to add a strip/bar to indicate the association with optional label (see [the issue](https://github.com/GuangchuangYu/ggtree/issues/52)).
+
+```{r fig.width=5, fig.height=5, fig.align="center", warning=FALSE}
+ggtree(tree) + geom_tiplab() + geom_strip('E', 'G', barsize=2, color='red') + geom_strip('F', 'L', barsize=2, color='blue')
+```
+
+# taxa connection
+
+Some evolutionary events (e.g. reassortment, horizontal gene transfer) can be modeled by a simple tree. `ggtree` provides `geom_taxalink` layer that allows drawing straight or curved lines between any of two nodes in the tree, allow it to represent evolutionary events by connecting taxa.
+
+```{r fig.width=5, fig.height=5, fig.align="center", warning=FALSE}
+ggtree(tree) + geom_tiplab() + geom_taxalink('A', 'E') + geom_taxalink('F', 'K', color='red', arrow=grid::arrow(length = grid::unit(0.02, "npc")))
+```
 
 
 # Tree annotation with analysis of R packages

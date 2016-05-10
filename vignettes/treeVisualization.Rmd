@@ -217,6 +217,12 @@ For _`circular`_ and _`unrooted`_ layout, `ggtree` supports rotating node labels
 ggtree(tree, layout="circular") + geom_tiplab(aes(angle=angle), color='blue')
 ```
 
+To make it more readable for human eye, `ggtree` provides a `geom_tiplab2` for `circular` layout (see post [1](https://groups.google.com/forum/?utm_medium=email&utm_source=footer#!topic/bioc-ggtree/o35PV3iHO-0) and [2](https://groups.google.com/forum/#!topic/bioc-ggtree/p42R5l8J-14)).
+
+```{r fig.width=6, fig.height=6, warning=FALSE, fig.align="center"}
+ggtree(tree, layout="circular") + geom_tiplab2(color='blue')
+```
+
 By default, the positions are based on the node positions, we can change them to based on the middle of the branch/edge.
 
 ```{r fig.width=4, fig.height=3, warning=FALSE, fig.align="center"}

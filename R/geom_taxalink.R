@@ -37,10 +37,8 @@ geom_taxalink <- function(taxa1, taxa2, curvature=0.5, ...) {
 
 StatTaxalink <- ggproto("StatTaxalink", Stat,
                         compute_group = function(self, data, scales, params, taxa1, taxa2) {
-                            node <- data$node
-                            label <- data$label
-                            node1 <- which(taxa1 == label | taxa1 == node)
-                            node2 <- which(taxa2 == label | taxa2 == node)
+                            node1 <- taxa2node(data, taxa1)
+                            node2 <- taxa2node(data, taxa2)
                             x <- data$x
                             y <- data$y
                             
