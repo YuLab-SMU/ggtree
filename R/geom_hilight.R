@@ -5,12 +5,14 @@
 ##' @param node selected node to hilight
 ##' @param fill color fill
 ##' @param alpha alpha (transparency)
+##' @param extend extend xmax of the rectangle
+##' @param extendto extend xmax to extendto
 ##' @return ggplot2
 ##' @export
 ##' @importFrom ggplot2 aes_
 ##' @importFrom ggplot2 GeomRect
 ##' @author Guangchuang Yu
-geom_hilight <- function(node, fill="steelblue", alpha=.5) {
+geom_hilight <- function(node, fill="steelblue", alpha=.5, extend=0, extendto=NULL) {
                          
     
     data = NULL
@@ -33,7 +35,10 @@ geom_hilight <- function(node, fill="steelblue", alpha=.5) {
         show.legend=show.legend,
         inherit.aes = inherit.aes,
         params = list(node=node,
-                      fill=fill, alpha=alpha,
+                      fill=fill,
+                      alpha=alpha,
+                      extend=extend,
+                      extendto=extendto,
                       na.rm = na.rm)
     )
 }
@@ -51,6 +56,8 @@ geom_hilight <- function(node, fill="steelblue", alpha=.5) {
 ##' @param inherit.aes logical
 ##' @param fill fill color
 ##' @param alpha transparency
+##' @param extend extend xmax of the rectangle
+##' @param extendto extend xmax to extendto
 ##' @param ... additional parameter
 ##' @return layer
 ##' @importFrom ggplot2 layer
@@ -58,7 +65,7 @@ geom_hilight <- function(node, fill="steelblue", alpha=.5) {
 stat_hilight <- function(mapping=NULL, data=NULL, geom="rect",
                          position="identity",  node, 
                          show.legend=NA, inherit.aes=FALSE,
-                        fill, alpha,
+                        fill, alpha, extend=0, xmax=NULL,
                          ...) {
     default_aes <- aes_(x=~x, y=~y, node=~node, parent=~parent, branch.length=~branch.length)
     if (is.null(mapping)) {
@@ -76,8 +83,9 @@ stat_hilight <- function(mapping=NULL, data=NULL, geom="rect",
         show.legend=show.legend,
         inherit.aes = inherit.aes,
         params = list(node=node,
-            fill=fill, alpha=alpha,
-            ...)
+                      fill=fill, alpha=alpha,
+                      extend=extend, extendto=extendto,
+                      ...)
         )
 }
 
@@ -88,8 +96,17 @@ stat_hilight <- function(mapping=NULL, data=NULL, geom="rect",
 ##' @importFrom ggplot2 Stat
 ##' @export
 StatHilight <- ggproto("StatHilight", Stat,
-                       compute_group = function(self, data, scales, params, node) {
-                           get_clade_position_(data, node)
+                       compute_group = function(self, data, scales, params, node, extend, extendto) {
+                           df <- get_clade_position_(data, node)
+                           df$xmax <- df$xmax + extend
+                           if (!is.null(extendto) && !is.na(extendto)) {
+                               if (extendto < df$xmax) {
+                                   warning("extendto is too small, keep the original xmax value...")
+                               } else {
+                                   df$xmax <- extendto
+                               }
+                           }
+                           return(df)
                        },
                        required_aes = c("x", "y", "branch.length")
                        )
@@ -109,14 +126,22 @@ get_clade_position <- function(treeview, node) {
 }
 
 get_clade_position_ <- function(data, node) {
-    sp <- get.offspring.df(data, node)
-    ## sp.df <- data[c(sp, node),]
-    sp <- c(sp, node)
-    sp.df <- data[match(sp, data$node),]
+    sp <- tryCatch(get.offspring.df(data, node), error=function(e) NULL)
+
+    i <- match(node, data$node)
+    if (is.null(sp)) {
+        ## tip
+        sp.df <- data[i,]
+    } else {
+        sp <- c(sp, node)
+        sp.df <- data[match(sp, data$node),]
+    }
+
     x <- sp.df$x
     y <- sp.df$y
+    
     if ("branch.length" %in% colnames(data)) {
-        xmin <- min(x)-data[match(node, data$node), "branch.length"]/2
+        xmin <- min(x)-data[i, "branch.length"]/2
     } else {
         xmin <- min(sp.df$branch)
     }
