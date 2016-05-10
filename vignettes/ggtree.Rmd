@@ -84,7 +84,16 @@ Details and examples can be found in [Tree Manipulation](treeManipulation.html) 
 
 Most of the phylogenetic trees are scaled by evolutionary distance (substitution/site), in `ggtree` a phylogenetic tree can be re-scaled by any numerical variable inferred by evolutionary analysis (e.g. species divergence time, *dN/dS*, _etc_). Numerical and category variable can be used to color a phylogenetic tree.
 
-The `ggtree` package provides several layers to annotate a phylogenetic tree, including `geom_tiplab` for adding tip labels, `geom_treescale` for adding a legend of tree scale, `geom_hilight` for highlighting selected clades and `geom_cladelabel` for labelling selected clades. 
+The `ggtree` package provides several layers to annotate a phylogenetic tree, including:
+
++ `geom_cladelabel` for labelling selected clades
++ `geom_hilight` for highlighting selected clades 
++ `geom_range` to indicate uncertainty of branch lengths
++ `geom_strip` for adding strip/bar to label associated taxa (with optional label)
++ `geom_taxalink` for connecting related taxa
++ `geom_tiplab` for adding tip labels
++ `geom_treescale` for adding a legend of tree scale
+
 
 It supports annotating phylogenetic trees with analyses obtained from R packages and other commonly used evolutionary software. User's specific annotation (e.g. experimental data) can be integrated to annotate phylogenetic trees. `ggtree` provides `write.jplace` function to combine Newick tree file and user's own data to a single `jplace` file that can be parsed and the data can be used to annotate the tree directly in `ggtree`.
 
@@ -100,8 +109,10 @@ Visualizing an annotated phylogenetic tree with numerical matrix (e.g. genotype 
 + [Tree Manipulation](treeManipulation.html)
 + [Tree Annotation](treeAnnotation.html)
 + [Advance Tree Annotation](advanceTreeAnnotation.html)
++ [ggtree utilities](ggtreeUtilities.html)
 
-More documents can be found in <http://guangchuangyu.github.io/tags/ggtree>.
+
+More documents can be found in <http://guangchuangyu.github.io/ggtree>.
 
 # Bugs/Feature requests
 
