@@ -92,7 +92,7 @@ ggtree <- function(tr,
         p <- p + coord_polar(theta = "y")
         ## refer to: https://github.com/GuangchuangYu/ggtree/issues/6
         ## and also have some space for tree scale (legend)
-        p <- p + scale_y_continuous(limits=c(0, max(p$data$y)))
+        p <- p + scale_y_continuous(limits=c(0, max(p$data$y)+1))
     } 
 
     return(p)

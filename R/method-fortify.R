@@ -584,7 +584,7 @@ as.data.frame.phylo_ <- function(x, layout="rectangular",
     ## angle for all layout, if 'rectangular', user use coord_polar, can still use angle
     ## if (layout == "circular") {
     idx <- match(1:N, order(res$y))
-    angle <- -360/(1+N) * (1:N+1)
+    angle <- -360/(3+N) * (1:N+1)
     angle <- angle[idx]
     res$angle <- angle + 90
     ## } 
