@@ -1,5 +1,7 @@
 CHANGES IN VERSION 1.5.2
 ------------------------
+ o more accurate ylim & angle for circular layout <2016-05-10, Tue>
+   + https://github.com/GuangchuangYu/ggtree/issues/40
  o supports phylo4d object <2016-05-10, Tue>
    + https://github.com/GuangchuangYu/ggtree/issues/47
  
