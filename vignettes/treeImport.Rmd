@@ -96,7 +96,7 @@ Here is an overview of these `S4` classes:
 
 ![](figures/ggtree_objects_v2.png)
 
-In addition, `ggtree` also supports _`phylo`_, _`multiPhylo`_ (defined by `ape`[@paradis_ape_2004]), _`phylo4`_ (defined by `phylobase`) _`obkData`_ (defined in `OutbreakTools`) and _`phyloseq`_ (defined in `phyloseq`).
+In addition, `ggtree` also supports _`phylo`_, _`multiPhylo`_ (defined by `ape`[@paradis_ape_2004]), _`phylo4`_, _`phylo4d`_ (defined by `phylobase`) _`obkData`_ (defined in `OutbreakTools`) and _`phyloseq`_ (defined in `phyloseq`).
 
 
 In `ggtree`, tree objects can be merged and evidences inferred from different phylogenetic analyses can be combined or compared and visualized.
