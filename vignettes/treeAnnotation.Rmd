@@ -17,6 +17,7 @@ vignette: >
   %\VignetteIndexEntry{04 Tree Annotation}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteDepends{phangorn}
+  %\VignetteDepends{phylobase}
   %\usepackage[utf8]{inputenc}
 ---
 
@@ -283,9 +284,23 @@ p+theme(legend.position="right")
 Once the data was attached, it is always attached. So that we can add other layers to display these information easily. 
 ```{r fig.width=6, fig.height=5, warning=FALSE, fig.align="center"}
 p + geom_text(aes(color=place, label=place), hjust=1, vjust=-0.4, size=3) +
-  geom_text(aes(color=place, label=value), hjust=1, vjust=1.4, size=3)
+    geom_text(aes(color=place, label=value), hjust=1, vjust=1.4, size=3)
 ```
 
+## phylo4d
+ 
+`phylo4d` was defined in the `phylobase` package, which can be employed to integrate user's data with phylogenetic tree. `phylo4d` was supported in `ggtree` and the data stored in the object can be used directly to annotate the tree.
+	  
+```{r fig.width=6, fig.height=5, warning=FALSE, fig.align="center"}
+dd2 <- dd[, -1]
+rownames(dd2) <- dd[,1]
+require(phylobase)
+tr2 <- phylo4d(tree, dd2)
+ggtree(tr2) + geom_tiplab(aes(color=place)) + 
+    geom_tippoint(aes(size=value, shape=place, color=place), alpha=0.25)
+```
+
+	
 ## jplace file format
 
 `ggtree` provides `write.jplace()` function to store user's own data and associated newick tree to a single `jplace` file, which can be parsed directly in `ggtree` and user's data can be used to annotate the tree directly. For more detail, please refer to the [Tree Data Import](treeImport.html#jplace-file-format) vignette.
