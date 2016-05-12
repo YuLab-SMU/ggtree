@@ -12,30 +12,51 @@
 ##' file <- system.file("extdata/BEAST", "beast_mcc.tree", package="ggtree")
 ##' read.beast(file)
 read.beast <- function(file) {
+    translation <- read.trans_beast(file)
+    treetext <- read.treetext_beast(file)
     stats <- read.stats_beast(file)
+    phylo <- read.nexus(file)
+    
+    if (length(treetext) == 1) {
+        obj <- BEAST(file, treetext, translation, stats, phylo)
+    } else {
+        obj <- lapply(seq_along(treetext), function(i) {
+            BEAST(file, treetext[i], translation, stats[[i]], phylo[[i]])
+        })
+        class(obj) <- "beastList"
+    }
+    return(obj)
+}
+
+
+BEAST <- function(file, treetext, translation, stats, phylo) {
     stats$node %<>% gsub("\"*'*", "", .)
     
     fields <- sub("_lower|_upper", "", names(stats)) %>% unique
     fields %<>% `[`(.!="node")
+        
+    phylo <- remove_quote_in_tree_label(phylo)
+        
+    obj <- new("beast",
+               fields      = fields,
+               treetext    = treetext,
+               phylo       = phylo,
+               translation = translation,
+               stats       = stats,
+               file        = filename(file)
+               )
+    return(obj)
+}
 
-    phylo <- read.nexus(file)
+remove_quote_in_tree_label <- function(phylo) {
     if (!is.null(phylo$node.label)) {
         phylo$node.label %<>% gsub("\"*'*", "", .)
     }
     if ( !is.null(phylo$tip.label)) {
         phylo$tip.label %<>% gsub("\"*'*", "", .) 
     }
-    
-    new("beast",
-        fields      = fields,
-        treetext    = read.treetext_beast(file),
-        phylo       = phylo,
-        translation = read.trans_beast(file),
-        stats       = stats,
-        file        = filename(file)
-        )
+    return(phylo)
 }
-
 
 
 ##' @rdname get.fields-methods
@@ -49,24 +70,33 @@ setMethod("get.fields", signature(object="beast"),
 
 read.treetext_beast <- function(file) {
     beast <- readLines(file)
-    ii <- grep("tree TREE1\\s+=", beast)
+    ## ii <- grep("^tree TREE1\\s+=", beast)
+    ii <- grep("^tree ", beast)
     if (length(ii) == 0) {
-        ii <- grep("begin trees;", beast)
+        ii <- grep("[Bb]egin trees;", beast)
     }
     
     jj <- grep("[Ee]nd;", beast)
-    jj <- jj[jj > ii][1]
-    tree <- beast[ii:(jj-1)]
-    if (length(tree) > 1) {
-        tree <- paste0(tree)
-    }
-    ## tree %<>% sub("tree TREE1\\s+=\\s+\\[&R\\]\\s+", "", .)
-    ## tree %<>% sub("[^(]*", "", .)
-    tree %<>% sub("[^=]+=", "", .) %>%
-        sub("\\s+\\[&R\\]\\s+", "", .) %>%
-            sub("[^(]*", "", .)
+    jj <- jj[jj > max(ii)][1]
 
-    return(tree)
+    ## tree <- beast[ii:(jj-1)]
+    ## if (length(tree) > 1) {
+    ##     tree <- paste0(tree)
+    ## }
+    ## tree %<>% sub("[^=]+=", "", .) %>%
+    ##     sub("\\s+\\[&R\\]\\s+", "", .) %>%
+    ##         sub("[^(]*", "", .)
+    
+    jj <- c(ii[-1], jj)
+    trees <- sapply(seq_along(ii), function(i) {
+        tree <- beast[ii[i]:(jj[i]-1)]
+        if (length(tree) > 1) {
+            tree <- paste0(tree)
+        }
+        sub("[^(]*", "", tree)
+    })
+
+    return(trees)
 }
 
 read.trans_beast <- function(file) {
@@ -89,20 +119,22 @@ read.trans_beast <- function(file) {
     return(trans)
 }
 
+
 read.stats_beast <- function(file) {
     beast <- readLines(file)
-    tree <- read.treetext_beast(file)
+    trees <- read.treetext_beast(file)
+    if (length(trees) == 1) {
+        return(read.stats_beast_internal(beast, trees))
+    }
+    lapply(trees, read.stats_beast_internal, beast=beast)
+}
 
+read.stats_beast_internal <- function(beast, tree) {
     tree2 <- gsub("\\[[^\\[]*\\]", "", tree)
     phylo <- read.tree(text = tree2)
-    if(is.null(phylo$node.label)) {
-        nnode <- phylo$Nnode
-        nlab <- paste("X", 1:nnode, sep="")
-        for (i in 1:nnode) {
-            tree2 <- sub("\\)([:;])", paste0("\\)", nlab[i], "\\1"), tree2)
-        }
-    }
 
+    tree2 <- add_pseudo_nodelabel(phylo, tree2)
+    
     ## node name corresponding to stats
     nn <- strsplit(tree2, split=",") %>% unlist %>%
         strsplit(., split="\\)") %>% unlist %>%
@@ -242,6 +274,18 @@ read.stats_beast <- function(file) {
     ## stats3$node <- node
     stats3$node <- names(stats)
     return(stats3)
+}
+
+add_pseudo_nodelabel <- function(phylo, treetext) {
+    if(is.null(phylo$node.label)) {
+        nnode <- phylo$Nnode
+        nlab <- paste("X", 1:nnode, sep="")
+        for (i in 1:nnode) {
+            treetext <- sub("\\)([:;])", paste0("\\)", nlab[i], "\\1"), treetext)
+        }
+    }
+
+   return(treetext)
 }
 
 

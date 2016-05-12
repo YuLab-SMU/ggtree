@@ -6,7 +6,7 @@
 \usage{
 stat_hilight(mapping = NULL, data = NULL, geom = "rect",
   position = "identity", node, show.legend = NA, inherit.aes = FALSE,
-  fill, alpha, extend = 0, xmax = NULL, ...)
+  fill, alpha, extend = 0, extendto = NULL, ...)
 }
 \arguments{
 \item{mapping}{aes mapping}
@@ -29,9 +29,9 @@ stat_hilight(mapping = NULL, data = NULL, geom = "rect",
 
 \item{extend}{extend xmax of the rectangle}
 
-\item{...}{additional parameter}
-
 \item{extendto}{extend xmax to extendto}
+
+\item{...}{additional parameter}
 }
 \value{
 layer

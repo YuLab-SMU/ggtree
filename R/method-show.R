@@ -1,5 +1,3 @@
-
-
 ##' @rdname show-methods
 ##' @importFrom ape print.phylo
 ##' @exportMethod show
