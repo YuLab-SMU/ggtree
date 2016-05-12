@@ -170,7 +170,7 @@ inset(p2, bx2, width=.2, height=.03, vjust=.04, hjust=p2$data$x[1:15]-4) + xlim(
 
 ## Annotate with image files
 
-```{r}
+```{r eval=FALSE}
 imgfile <- tempfile(, fileext=".png")
 download.file("https://avatars1.githubusercontent.com/u/626539?v=3&u=e731426406dd3f45a73d96dd604bc45ae2e7c36f&s=140", destfile=imgfile, mode='wb')
 img <- list(imgfile, imgfile)
@@ -178,6 +178,7 @@ names(img) <- c("18", "22")
 inset(p, img)
 ```
 
+![](figures/inset_img.png)
 
 # Align tree with other plots on a page
 
