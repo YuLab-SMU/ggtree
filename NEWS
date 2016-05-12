@@ -1,5 +1,7 @@
 CHANGES IN VERSION 1.5.3
 ------------------------
+ o add angle in ggtree function, fan layout supported <2016-05-12, Thu>
+ o rotate_tree and open_tree function <2016-05-12, Thu> 
  o support reading BEAST MCC trees (multiple trees in one file) via the read.beast function <2016-05-12, Thu>
  
 CHANGES IN VERSION 1.5.2
