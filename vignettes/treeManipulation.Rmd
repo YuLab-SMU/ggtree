@@ -33,6 +33,7 @@ collapse <- ggtree::collapse
 expand <- ggtree::expand
 rotate <- ggtree::rotate
 flip <- ggtree::flip
+MRCA <- ggtree::MRCA
 ```
 
 # Internal node number

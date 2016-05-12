@@ -65,7 +65,7 @@ geom_hilight <- function(node, fill="steelblue", alpha=.5, extend=0, extendto=NU
 stat_hilight <- function(mapping=NULL, data=NULL, geom="rect",
                          position="identity",  node, 
                          show.legend=NA, inherit.aes=FALSE,
-                        fill, alpha, extend=0, xmax=NULL,
+                         fill, alpha, extend=0, extendto=NULL,
                          ...) {
     default_aes <- aes_(x=~x, y=~y, node=~node, parent=~parent, branch.length=~branch.length)
     if (is.null(mapping)) {
@@ -83,8 +83,10 @@ stat_hilight <- function(mapping=NULL, data=NULL, geom="rect",
         show.legend=show.legend,
         inherit.aes = inherit.aes,
         params = list(node=node,
-                      fill=fill, alpha=alpha,
-                      extend=extend, extendto=extendto,
+                      fill=fill,
+                      alpha=alpha,
+                      extend=extend,
+                      extendto=extendto,
                       ...)
         )
 }
