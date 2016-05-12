@@ -14,7 +14,7 @@ output:
   pdf_document:
     toc: true
 vignette: >
-  %\VignetteIndexEntry{00 ggtree introduction}
+  %\VignetteIndexEntry{06 ggtree utilities}
   %\VignetteEngine{knitr::rmarkdown}
   %\usepackage[utf8]{inputenc}
 ---
@@ -48,6 +48,16 @@ file <- system.file("extdata/BEAST", "beast_mcc.tree", package="ggtree")
 beast <- read.beast(file)
 ggtree(beast) + geom_point2(aes(subset=!is.na(posterior) & posterior > 0.75), color='firebrick')
 ```
+
+# Multiple graphs on one page
+
+To support viewing multiple plots, ggtree provides `multiplot` function that similar to `gridExtra::grid.arrange` with extra feature of labeling the plots.
+
+
+```{r fig.width=8, fig.height=4, warning=FALSE}
+multiplot(ggtree(rtree(30)), ggtree(rtree(40)), ncol=2, labels=c('A', 'B'))
+```
+
 
 # subplots in ggplot object
 

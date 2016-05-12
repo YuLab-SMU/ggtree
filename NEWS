@@ -1,5 +1,6 @@
 CHANGES IN VERSION 1.5.2
 ------------------------
+ o add multiplot in ggtreeUtilities vignette <2016-05-12, Thu>
  o add example of integrate user's data using phylo4d in treeAnnotation vignette <2016-05-11, Wed>
  o add extend, extendto parameter in geom_hilight <2016-05-10, Tue>
  o geom_hilight now supports hilight tips <2016-05-10, Tue>
