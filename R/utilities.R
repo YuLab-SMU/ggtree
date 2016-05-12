@@ -209,6 +209,10 @@ getSubsLabel <- function(seqs, A, B, translate, removeGap) {
     seqA <- seqs[A]
     seqB <- seqs[B]
 
+    if (nchar(seqA) != nchar(seqB)) {
+        stop("seqA should have equal length to seqB")
+    }
+    
     if (translate == TRUE) {
         AA <- seqA %>% seq2codon %>% codon2AA
         BB <- seqB %>% seq2codon %>% codon2AA

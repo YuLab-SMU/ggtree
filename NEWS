@@ -1,3 +1,7 @@
+CHANGES IN VERSION 1.5.3
+------------------------
+ o support reading BEAST MCC trees (multiple trees in one file) via the read.beast function <2016-05-12, Thu>
+ 
 CHANGES IN VERSION 1.5.2
 ------------------------
  o add multiplot in ggtreeUtilities vignette <2016-05-12, Thu>

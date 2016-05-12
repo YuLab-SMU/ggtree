@@ -24,7 +24,9 @@ read.hyphy <- function(nwk, ancseq, tip.fasfile=NULL) {
     seq       <- anc[(seq.start+1):(seq.end-1)]
     seq       <- seq[seq != ";"]
     seq       <- seq[seq != ""]
-
+    seq       <- gsub(" ", "", seq)
+    seq       <- gsub(";", "", seq)
+    
     ## some files may only contains sequences (should have TAXALABELS block that contains seq names).
     ## some may contains sequence name like phylip format in MATRIX block (no need to have TAXALABELS block).
     ##
