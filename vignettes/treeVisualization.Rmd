@@ -74,7 +74,8 @@ Currently, _`ggtree`_ supports several layouts, including:
 
 + `rectangular` (by default)
 + `slanted`
-+ `fan` or `circular`
++ `circular`
++ `fan`
 
 for `Phylogram` (by default) and `Cladogram` if user explicitly setting `branch.length='none'`.
 `ggtree` also supports `unrooted` layout.
@@ -100,6 +101,13 @@ __`circular`__
 ggtree(tree, layout="circular") + ggtitle("(Phylogram) circular layout")
 ```	
 
+__`fan`__
+
+```{r fig.height=5, fig.width=5, fig.align="center"}
+ggtree(tree, layout="fan", open.angle=180) + ggtitle("(Phylogram) circular layout")
+```	
+
+
 ## Cladogram
 
 __`rectangular`__
@@ -119,6 +127,13 @@ __`circular`__
 ```{r fig.height=5, fig.width=5, fig.align="center"}
 ggtree(tree, layout="circular", branch.length="none") + ggtitle("(Cladogram) circular layout")
 ```
+
+__`fan`__
+
+```{r fig.height=5, fig.width=5, fig.align="center"}
+ggtree(tree, layout="fan", open.angle=180, branch.length="none") + ggtitle("(Cladogram) circular layout")
+```	
+
 
 ## Unrooted
 

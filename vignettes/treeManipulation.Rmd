@@ -222,6 +222,19 @@ p2 <- rotate(p, 21) %>% rotate(17)
 multiplot(p, p2, ncol=2)
 ```
 
+```{r eval=F}
+set.seed(2016-05-29)
+p <- ggtree(tree <- rtree(50)) + geom_tiplab()
+for (n in reorder(tree, 'postorder')$edge[,1] %>% unique) {
+    p <- rotate(p, n)
+    print(p + geom_point2(aes(subset = (node == n)), color='red'))
+}
+```
+
+![](figures/rotate_clade.gif)
+
+
+
 # flip clade
 
 The positions of two selected clades (should share a same parent) can be flip over using __`flip`__ function.
@@ -229,3 +242,34 @@ The positions of two selected clades (should share a same parent) can be flip ov
 ```{r fig.width=8, fig.height=4}
 multiplot(p, flip(p, 17, 21), ncol=2)
 ```
+
+
+# open tree
+
+`ggtree` supports `fan` layout and can also transform the `circular` layout tree to a `fan` tree by specifying an open `angle` to `open_tree` function.
+
+```{r eval=FALSE}
+set.seed(123)
+tr = rtree(50)
+
+p <- ggtree(tr, layout='circular') + geom_tiplab2()
+
+for (angle in seq(0, 270, 10)) {
+    print(open_tree(p, angle=angle) + ggtitle(paste("open angle:", angle)))
+}
+```
+
+![](figures/fan_layout.gif)
+
+
+# rotate tree
+
+Rotating a `circular` tree is supported by `rotate_tree` function.
+
+```{r eval=FALSE}
+for (angle in seq(0, 270, 10)) {
+    print(rotate_tree(p, angle) + ggtitle(paste("rotate angle:", angle)))
+}
+```
+
+![](figures/rotate_tree.gif)
