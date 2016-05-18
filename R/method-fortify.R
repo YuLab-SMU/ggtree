@@ -471,7 +471,7 @@ fortify.phylo <- function(model, data, layout="rectangular",
     }
 
     if (! is.null(tree$edge.length)) {
-        if (any(is.na(tree$edge.length))) {
+        if (anyNA(tree$edge.length)) {
             warning("'edge.length' contains NA values...\n## setting 'edge.length' to NULL automatically when plotting the tree...")
             tree$edge.length <- NULL
         }
