@@ -32,6 +32,7 @@ Suggests:
     scales,
     testthat
 VignetteBuilder: knitr
+ByteCompile: true
 License: Artistic-2.0
 URL: http://guangchuangyu.github.io/ggtree
 BugReports: https://github.com/GuangchuangYu/ggtree/issues
