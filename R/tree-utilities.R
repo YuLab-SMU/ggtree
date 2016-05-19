@@ -16,7 +16,7 @@ reroot_node_mapping <- function(tree, tree2) {
         
         cc <- getChild(tree, ip)
         node2 <- node_map[cc,2]
-        if (any(is.na(node2))) {
+        if (anyNA(node2)) {
             node <- c(node, k)
             next
         }
@@ -341,7 +341,7 @@ getXcoord2 <- function(x, root, parent, child, len, start=0, rev=FALSE) {
     if (rev == TRUE) {
         direction <- -1
     }
-    while(any(is.na(x))) {
+    while(anyNA(x)) {
         idx <- which(parent %in% currentNode)
         newNode <- child[idx]
         x[newNode] <- x[parent[idx]]+len[idx] * direction
@@ -369,7 +369,7 @@ getXcoord_no_length <- function(tr) {
     child_list <- list()
     child_list[as.numeric(names(cl))] <- cl
     
-    while(any(is.na(x))) {
+    while(anyNA(x)) {
         idx <- match(currentNode, child)
         pNode <- parent[idx]
         ## child number table
@@ -450,7 +450,7 @@ getYcoord <- function(tr, step=1) {
     y[-tip.idx] <- NA
 
     currentNode <- 1:Ntip
-    while(any(is.na(y))) {
+    while(anyNA(y)) {
         pNode <- unique(parent[child %in% currentNode])
         ## piping of magrittr is slower than nested function call.
         ## pipeR is fastest, may consider to use pipeR
@@ -490,7 +490,7 @@ getYcoord_scale <- function(tr, df, yscale) {
     child <- edge[,2]
 
     currentNodes <- root
-    while(any(is.na(y))) {
+    while(anyNA(y)) {
         newNodes <- c()
         for (currentNode in currentNodes) {
             idx <- which(parent %in% currentNode)
@@ -564,7 +564,7 @@ getYcoord_scale2 <- function(tr, df, yscale) {
     child <- df[, "node"]
     
     currentNodes <- root
-    while(any(is.na(y))) {
+    while(anyNA(y)) {
         newNodes <- c()
         for (currentNode in currentNodes) {
             idx <- which(parent %in% currentNode)
@@ -594,7 +594,7 @@ getYcoord_scale_numeric <- function(tr, df, yscale, ...) {
     
     y <- df[, yscale]
 
-    if (any(is.na(y))) {
+    if (anyNA(y)) {
         warning("NA found in y scale mapping, all were setting to 0")
         y[is.na(y)] <- 0
     }
@@ -674,7 +674,7 @@ getYcoord_scale_category <- function(tr, df, yscale, yscale_mapping=NULL, ...) {
     
     y <- df[, yscale]
 
-    if (any(is.na(y))) {
+    if (anyNA(y)) {
         warning("NA found in y scale mapping, all were setting to 0")
         y[is.na(y)] <- 0
     }
@@ -753,7 +753,7 @@ set_branch_length <- function(tree_object, branch.length) {
 
 
 re_assign_ycoord_df <- function(df, currentNode) {
-    while(any(is.na(df$y))) {
+    while(anyNA(df$y)) {
         pNode <- with(df, parent[match(currentNode, node)]) %>% unique
         idx <- sapply(pNode, function(i) with(df, all(node[parent == i & parent != node] %in% currentNode)))
         newNode <- pNode[idx]
