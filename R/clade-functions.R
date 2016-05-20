@@ -70,16 +70,8 @@ collapse <- function(tree_view=NULL, node) {
     df[sp, "x"] <- NA
     df[sp, "y"] <- NA
     
-    root <- which(df$node == df$parent)
-    pp <- df[node, "parent"]
-    while(any(pp != root)) {
-        df[pp, "y"] <- mean(df[getChild.df(df, pp), "y"])
-        pp <- df[pp, "parent"]
-    }
-    j <- getChild.df(df, pp)
-    j <- j[j!=pp]
-    df[pp, "y"] <- mean(df[j, "y"])
-
+    df <- reassign_y_from_node_to_root(df, node)
+    
     ## re-calculate branch mid position
     df <- calculate_branch_mid(df)
 
@@ -260,7 +252,7 @@ scaleClade <- function(tree_view=NULL, node, scale=1, vertical_only=TRUE) {
     ## new_span <- span * scale
     old.sp.df <- sp.df
     sp.df$y <- df[node, "y"] + (sp.df$y - df[node, "y"]) * scale
-    if (vertical_only == FALSE) {
+    if (! vertical_only) {
         sp.df$x <- df[node, "x"] + (sp.df$x - df[node, "x"]) * scale
     }
     
@@ -284,9 +276,25 @@ scaleClade <- function(tree_view=NULL, node, scale=1, vertical_only=TRUE) {
     }
     df[sp, "scale"] <- df[sp, "scale"] * scale
 
+    df <- reassign_y_from_node_to_root(df, node)
+    
     ## re-calculate branch mid position
     df <- calculate_branch_mid(df)
     
     tree_view$data <- df
     tree_view
+}
+
+
+reassign_y_from_node_to_root <- function(df, node) {
+    root <- which(df$node == df$parent)
+    pp <- df[node, "parent"]
+    while(any(pp != root)) {
+        df[pp, "y"] <- mean(df[getChild.df(df, pp), "y"])
+        pp <- df[pp, "parent"]
+    }
+    j <- getChild.df(df, pp)
+    j <- j[j!=pp]
+    df[pp, "y"] <- mean(df[j, "y"])
+    return(df)
 }
