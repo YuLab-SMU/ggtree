@@ -47,10 +47,16 @@ viewClade <- function(tree_view=NULL, node, xmax_adjust=0) {
 ##' @export
 ##' @seealso expand
 ##' @author Guangchuang Yu
-collapse <- function(tree_view=NULL, node) {
+collapse <- function(tree_view=NULL, node) {    
     tree_view %<>% get_tree_view
     
     df <- tree_view$data
+
+    if (is.na(df$x[df$node == node])) {
+        warning("specific node was already collapsed...")
+        return(tree_view)
+    }
+    
     sp <- get.offspring.df(df, node)
     sp.df <- df[sp,]
     df[node, "isTip"] <- TRUE
