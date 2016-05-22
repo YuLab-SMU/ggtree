@@ -1,5 +1,6 @@
 CHANGES IN VERSION 1.5.4
 ------------------------
+ o reroot method for raxml object <2016-05-22, Sun>
  o bug fixed in scaleClade, now y positions are (hopefully) always correct. <2016-05-20, Fri>
  o bug fixed in collapse <2016-05-20, Fri>
    + if user collapse a node that is an offspring of a collapsed node, print warning msg and return the tree directly
