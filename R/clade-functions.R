@@ -60,7 +60,7 @@ collapse <- function(tree_view=NULL, node) {
     sp <- get.offspring.df(df, node)
     sp.df <- df[sp,]
     df[node, "isTip"] <- TRUE
-    sp_y <- range(sp.df$y)
+    sp_y <- range(sp.df$y, na.rm=TRUE)
     ii <- which(df$y > max(sp_y))
     if (length(ii)) {
         df$y[ii] <- df$y[ii] - diff(sp_y)
