@@ -211,26 +211,6 @@ fortify.beast <- function(model, data,
     append_extraInfo(df, model)
 }
 
-scaleX_by_time_from_mrsd <- function(df, mrsd) {
-    mrsd %<>% as.Date
-    date <- Date2decimal(mrsd)
-
-    df$x <- df$x + date - max(df$x)
-    df$branch <- (df[df$parent, "x"] + df[, "x"])/2
-    
-    df$x <- decimal2Date(df$x)
-    df$branch <- decimal2Date(df$branch)
-    return(df)
-
-}
-
-
-scaleX_by_time <- function(df) {
-    time <- with(df, gsub(".*[_/]{1}(\\d+\\.*\\d+)$", "\\1", label[isTip])) %>% as.numeric
-    latest <- which.max(time)
-
-    scaleX_by_time_from_mrsd(df, decimal2Date(time[latest]))
-}
 
 ##' @method fortify codeml
 ##' @export
@@ -499,11 +479,7 @@ fortify.phylo <- function(model, data, layout="rectangular",
     }
     
     if (!is.null(mrsd)) {
-        df <- scaleX_by_time_from_mrsd(df, mrsd)
-        if (!as.Date) {
-            df$x <- Date2decimal(df$x)
-            df$branch <- Date2decimal(df$branch)
-        }
+        df <- scaleX_by_time_from_mrsd(df, mrsd, as.Date)
     }
     return(df)
 }

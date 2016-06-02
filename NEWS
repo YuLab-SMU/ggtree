@@ -1,5 +1,12 @@
+CHANGES IN VERSION 1.5.5
+------------------------
+ o bug fixed if time-scaled tree extend into the BCE. <2016-06-02, Thu>
+   + as.Date won't work for BCE time.
+   + as.Date=FALSE by default in fortify method, just use the time in decimal format (real number, not Date object).
+ 
 CHANGES IN VERSION 1.5.4
 ------------------------
+ o reroot method for raxml object <2016-05-22, Sun>
  o bug fixed in scaleClade, now y positions are (hopefully) always correct. <2016-05-20, Fri>
  o bug fixed in collapse <2016-05-20, Fri>
    + if user collapse a node that is an offspring of a collapsed node, print warning msg and return the tree directly

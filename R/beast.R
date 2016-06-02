@@ -289,17 +289,4 @@ add_pseudo_nodelabel <- function(phylo, treetext) {
 }
 
 
-##' @rdname reroot-methods
-##' @exportMethod reroot
-setMethod("reroot", signature(object="beast"),
-          function(object, node, ...) {
-              object@phylo <- reroot(object@phylo, node, ...)
-
-              node_map <- attr(object@phylo, "node_map")
-              idx <- match(object@stats$node, node_map[,1])
-              object@stats$node <- node_map[idx, 2]
-              
-              return(object)
-          })
-
 

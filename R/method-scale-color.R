@@ -24,6 +24,12 @@ setMethod("scale_color", signature(object="paml_rst"),
           })
 
 
+##' @rdname scale_color-methods
+##' @exportMethod scale_color
+setMethod("scale_color", signature(object="phylo"),
+          function(object, by, ...) {
+              scale_color_(object, by, ...)
+          })
 
 
 ##' add colorbar legend
