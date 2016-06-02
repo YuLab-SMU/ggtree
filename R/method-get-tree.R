@@ -59,3 +59,9 @@ setMethod("get.tree", signature(object="phylip"),
           }
           )
 
+##' @rdname get.tree-methods
+##' @exportMethod get.tree
+setMethod("get.tree", signature(object="phylo"),
+          function(object, ...) {
+              return(object)
+          })
