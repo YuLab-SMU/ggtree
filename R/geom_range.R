@@ -14,13 +14,8 @@ geom_range <- function(range="height_0.95_HPD", ...) {
     na.rm = TRUE
     inherit.aes = FALSE    
 
-    if (range == "height_0.95_HPD") {
-        branch.length = "height"
-    } else {
-        branch.length = "branch.length"
-    }
     default_aes <- aes_(x=~x, y=~y)
-    mapping <- modifyList(default_aes, aes_string(branch.length=branch.length, label=range))
+    mapping <- modifyList(default_aes, aes_string(branch.length="branch.length", label=range))
         
     layer(
         stat = StatRange,
