@@ -1,5 +1,6 @@
 CHANGES IN VERSION 1.5.5
 ------------------------
+ o update geom_tiplab2 according to angle change introduced by open_tree <2016-06-20, Mon>
  o bug fixed in collapse, now work with collapse a clade that contain a subclade that was already collapsed <2016-06-02-Thu>
  o bug fixed if time-scaled tree extend into the BCE. <2016-06-02, Thu>
    + as.Date won't work for BCE time.
