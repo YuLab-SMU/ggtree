@@ -169,10 +169,19 @@ ggtree(tree, layout="circular") + geom_hilight(node=21, fill="steelblue", alpha=
 
 Another way to highlight selected clades is setting the clades with different colors and/or line types as demonstrated in [Tree Manipulation](treeManipulation.html#groupclade) vignette.
 
+# Highlight balances
+In addition to _`geom_hilight`_, `ggtree` also implements _`geom_balance`_
+which is designed to highlight neighboring subclades of a given internal node. 
+
+```{r fig.width=4, fig.height=5, fig.align='center', warning=FALSE}
+ggtree(tree) + 
+  geom_balance(node=16, fill='steelblue', color='white', alpha=0.6, extend=1) +
+  geom_balance(node=19, fill='darkgreen', color='white', alpha=0.6, extend=1)
+```
 
 # labelling associated taxa (Monophyletic, Polyphyletic or Paraphyletic)
 
-`geom_cladelabel` is designed to labelling Monophyletic (Clade) while there are related taxa that are not form a clade. `ggtree` provides `geom_strip` to add a strip/bar to indicate the association with optional label (see [the issue](https://github.com/GuangchuangYu/ggtree/issues/52)).
+`geom_cladelabel` is designed for labelling Monophyletic (Clade) while there are related taxa that are not form a clade. `ggtree` provides `geom_strip` to add a strip/bar to indicate the association with optional label (see [the issue](https://github.com/GuangchuangYu/ggtree/issues/52)).
 
 ```{r fig.width=5, fig.height=5, fig.align="center", warning=FALSE}
 ggtree(tree) + geom_tiplab() + geom_strip('E', 'G', barsize=2, color='red') + geom_strip('F', 'L', barsize=2, color='blue')
