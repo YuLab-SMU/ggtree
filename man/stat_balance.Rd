@@ -2,7 +2,7 @@
 % Please edit documentation in R/geom_balance.R
 \name{stat_balance}
 \alias{stat_balance}
-\title{stat_hilight}
+\title{stat_balance}
 \usage{
 stat_balance(mapping = NULL, data = NULL, geom = "rect",
   position = "identity", node, show.legend = NA, inherit.aes = FALSE,
@@ -25,6 +25,8 @@ stat_balance(mapping = NULL, data = NULL, geom = "rect",
 
 \item{fill}{fill color}
 
+\item{color}{color to outline highlights and divide balance}
+
 \item{alpha}{transparency}
 
 \item{extend}{extend xmax of the rectangle}
@@ -37,6 +39,6 @@ stat_balance(mapping = NULL, data = NULL, geom = "rect",
 layer
 }
 \description{
-stat_hilight
+stat_balance
 }
 

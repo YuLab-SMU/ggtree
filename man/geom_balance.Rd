@@ -8,11 +8,11 @@ geom_balance(node, fill = "steelblue", color = "white", alpha = 0.5,
   extend = 0, extendto = NULL)
 }
 \arguments{
-\item{node}{selected node (balance) to hilight}
+\item{node}{selected node (balance) to highlight}
 
 \item{fill}{color fill}
 
-\item{color}{color to outline hilights and divide balance}
+\item{color}{color to outline highlights and divide balance}
 
 \item{alpha}{alpha (transparency)}
 
@@ -24,7 +24,7 @@ geom_balance(node, fill = "steelblue", color = "white", alpha = 0.5,
 ggplot2
 }
 \description{
-hilight the two subclades of an internal node
+highlights the two direct descendant clades of an internal node
 }
 \details{
 Particularly useful when studying neighboring clades. Note that balances that
@@ -32,5 +32,9 @@ correspond to multichotomies will not be displayed.
 }
 \author{
 Justin Silverman
+}
+\references{
+J. Silverman, et al. \emph{A phylogenetic transform enhances
+  analysis of compositional microbiota data}. (in preparation)
 }
 
