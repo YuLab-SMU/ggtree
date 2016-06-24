@@ -2,7 +2,7 @@ citHeader("To cite ggtree in publications use:")
 
 citEntry(
     entry  = "article",
-    title  = "ggtree: an R package for visualization and annotation of phylogenetic tree with different types of meta-data",
+    title  = "ggtree: an R package for visualization and annotation of phylogenetic trees with their covariates and other associated data.",
     author = personList(
         as.person("Guangchuang Yu"),
         as.person("David Smith"),
@@ -10,7 +10,7 @@ citEntry(
         as.person("Yi Guan"),
         as.person("Tommy Tsan-Yuk Lam")
         ),
-    year    = "submitted",
+    year    = "revised",
     journal = "Methods in Ecology and Evolution",
     volume  = "",
     issue   = "",
@@ -20,7 +20,7 @@ citEntry(
     PMID    = "",
     url     = "", 
     textVersion = paste("Guangchuang Yu, David Smith, Huachen Zhu, Yi Guan, Tommy Tsan-Yuk Lam.",
-        "ggtree: an R package for visualization and annotation of phylogenetic tree with different types of meta-data.",
-        "Methods in Ecology and Evolution submitted")
+        "ggtree: an R package for visualization and annotation of phylogenetic trees with their covariates and other associated data.",
+        "Methods in Ecology and Evolution revised")
 )
 

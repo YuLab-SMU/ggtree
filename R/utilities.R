@@ -1,3 +1,4 @@
+
 filename <- function(file) {
     ## textConnection(text_string) will work just like a file
     ## in this case, just set the filename as ""

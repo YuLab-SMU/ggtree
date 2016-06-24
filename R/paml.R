@@ -31,20 +31,25 @@ mask <- function(tree_object, field, site, mask_site=FALSE) {
     }
 
     field_data <- sapply(field_data, gsub, pattern="\n", replacement="/")
+
+    x <- field_data[field_data != ""]
+    x <- x[!is.na(x)]
+    pos <- strsplit(x, " / ") %>% unlist %>%
+        gsub("^[a-zA-Z]+", "", . ) %>%
+        gsub("[a-zA-Z]\\s*$", "", .) %>%
+        as.numeric
     
     if (mask_site == FALSE) {
-        x <- field_data[field_data != ""]
-        x <- x[!is.na(x)]
-        pos <- strsplit(x, " / ") %>% unlist %>%
-            gsub("^[a-zA-Z]+", "", . ) %>%
-                gsub("[a-zA-Z]\\s*$", "", .) %>%
-                    as.numeric
         pos2 <- 1:max(pos)
         pos2 <- pos2[-site]
         site <- pos2
     }
     
+    site <- site[site %in% pos]
+    
     for (i in seq_along(field_data)) {
+        if (is.na(field_data[i]))
+            next
         for (j in seq_along(site)) {
             pattern <- paste0("/*\\s*[a-zA-Z]", site[j], "[a-zA-Z]\\s*")
             field_data[i] <- gsub(pattern, "",  field_data[i])

@@ -1,24 +1,6 @@
-##' read newick tree
+
 ##' @export
-##' @rdname read.tree
-##' @param file file name
-##' @param text alternatively, using newick text
-##' @param tree.names if read several trees, specify their names
-##' @param skip number of lines of the input file to skip
-##' @param comment.char a single character,
-##'                     the remaining of the line after this character is ignored.
-##' @param keep.multi if 'TRUE' and 'tree.names = NULL'
-##'                   then single trees are returned in 'multiPhylo' format
-##'                   with any name that is present. Default is 'FALSE'
-##' @param ... further arguments to be passed to 'scan()'.
-##' @source
-##' This is just the imported function
-##' from the ape package. The documentation you should
-##' read for the read.tree function can be found here: \link[ape]{read.tree}
-##'
-##' @seealso
-##' \link[ape]{read.tree}
-read.tree <- ape::read.tree
+ape::read.tree
 
 
 ##' generate random tree
