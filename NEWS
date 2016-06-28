@@ -1,5 +1,7 @@
 CHANGES IN VERSION 1.5.6
 ------------------------
+ o identify method for ggtree <2016-06-28, Tue>
+   + see https://guangchuangyu.github.io/2016/06/identify-method-for-ggtree
  o geom_balance contributed by Justin Silverman <2016-06-22, Wed>
    + see https://github.com/GuangchuangYu/ggtree/pull/64
 
