@@ -43,7 +43,7 @@ ggtree <- function(tr,
                    branch.length  = "branch.length",
                    ndigits        = NULL,
                    ...) {
-
+    
     layout %<>% match.arg(c("rectangular", "slanted", "fan", "circular", "radial", "unrooted"))
 
     if (is(tr, "r8s") && branch.length == "branch.length") {
@@ -90,6 +90,6 @@ ggtree <- function(tr,
     } else if (layout == "fan") {
         p <- layout_fan(p, open.angle)
     }
-    
+
     return(p)
 }
