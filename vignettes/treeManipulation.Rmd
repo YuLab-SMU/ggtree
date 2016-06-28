@@ -273,3 +273,9 @@ for (angle in seq(0, 270, 10)) {
 ```
 
 ![](figures/rotate_tree.gif)
+
+
+# Interactive tree manipulation
+
+Interactive tree manipulation is also possible, please refer to <https://guangchuangyu.github.io/2016/06/identify-method-for-ggtree>.
+
