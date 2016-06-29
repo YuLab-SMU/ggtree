@@ -112,11 +112,13 @@ Visualizing an annotated phylogenetic tree with numerical matrix (e.g. genotype 
 + [ggtree utilities](ggtreeUtilities.html)
 
 
-More documents can be found in <http://guangchuangyu.github.io/ggtree>.
+More documents can be found in <https://guangchuangyu.github.io/ggtree>.
 
-# Bugs/Feature requests
+## Feedback ##
 
-If you have any, [let me know](https://github.com/GuangchuangYu/ggtree/issues). Thx!
+ - For bugs or feature request, please post to [github issue](https://github.com/GuangchuangYu/ggtree/issues).
+ - For user questions, please post to [google group](https://groups.google.com/forum/#!forum/bioc-ggtree) or post to [Bioconductor support site](https://support.bioconductor.org/) or [Biostars](https://www.biostars.org/). We are following every post tagged with **ggtree**.
+  
 
 # Session info
 
