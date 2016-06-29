@@ -10,52 +10,9 @@
 [![download](http://www.bioconductor.org/shields/downloads/ggtree.svg)](https://bioconductor.org/packages/stats/bioc/ggtree/)
 
 
-
 The `ggtree` package extending the `ggplot2` package. It based on grammar of graphics and takes all the good parts of `ggplot2`. 
 
-`ggtree` is designed for not only viewing phylogenetic tree but also displaying annotation data in the tree. 
-
-A discussion forum can be found at <https://groups.google.com/forum/#!forum/bioc-ggtree>
-
-## Authors ##
-
-Guangchuang Yu and Tommy Tsan-Yuk Lam, School of Public Health, The University of Hong Kong.
-
-## Citation ##
-
-Please cite the following article when using `ggtree`:
-
-```
-G Yu, D Smith, H Zhu, Y Guan, TTY Lam,
-ggtree: an R package for visualization and annotation of phylogenetic trees 
-        with their covariates and other associated data.
-Methods in Ecology and Evolution, revised
-```
-
-## License ##
-
-All source code is copyright, under the Artistic-2.0 License.
-For more information on Artistic-2.0 License see <http://opensource.org/licenses/Artistic-2.0>
-
-## Installation ##
-
-To install:
- * the latest released version: `biocLite("ggtree")`
- * the latest development version: `devtools::install_github("GuangchuangYu/ggtree")`
-
-## Documentation ##
-
-To view the vignette of `ggtree` installed in your system, start `R` and enter:
-```r
-vignette("ggtree", package = "ggtree")
-```
-
-More documents can be found in <https://guangchuangyu.github.io/ggtree>.
+`ggtree` is designed for not only viewing phylogenetic tree but also displaying annotation data on the tree. 
 
 
-## Feedback ##
-
- - For bugs or feature request, please post to [github issue](https://github.com/GuangchuangYu/ggtree/issues).
- - For user questions, please post to [google group](https://groups.google.com/forum/#!forum/bioc-ggtree) or post to [Bioconductor support site](https://support.bioconductor.org/) or [Biostars](https://www.biostars.org/). We are following every post tagged with **ggtree**.
- 
-
+For details, please visit the project website, <https://guangchuangyu.github.io/ggtree>.
