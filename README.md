@@ -1,4 +1,4 @@
-#  ggtree: a phylogenetic tree viewer for different types of tree annotations
+#  ggtree: an R package for visualization and annotation of phylogenetic trees with their covariates and other associated data
 
 <!--[![Build Status](https://travis-ci.org/GuangchuangYu/ggtree.svg?branch=master)](https://travis-ci.org/GuangchuangYu/ggtree)
 [![Build Status](https://ci.appveyor.com/api/projects/status/github/GuangchuangYu/ggtree?svg=true)](https://ci.appveyor.com/project/GuangchuangYu/ggtree/branch/master)-->
@@ -53,7 +53,9 @@ vignette("ggtree", package = "ggtree")
 More documents can be found in <https://guangchuangyu.github.io/ggtree>.
 
 
-## Bugs/Feature requests ##
+## Feedback ##
 
- - If you have any, [let me know](https://github.com/GuangchuangYu/ggtree/issues). Thx!
+ - For bugs or feature request, please post to [github issue](https://github.com/GuangchuangYu/ggtree/issues).
+ - For user questions, please post to [google group](https://groups.google.com/forum/#!forum/bioc-ggtree) or post to [Bioconductor support site](https://support.bioconductor.org/) or [Biostars](https://www.biostars.org/). We are following every post tagged with **ggtree**.
+ 
 
