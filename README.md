@@ -15,4 +15,4 @@ The `ggtree` package extending the `ggplot2` package. It based on grammar of gra
 `ggtree` is designed for not only viewing phylogenetic tree but also displaying annotation data on the tree. 
 
 
-For details, please visit the project website, <https://guangchuangyu.github.io/ggtree>.
+For details, please visit our project website, <https://guangchuangyu.github.io/ggtree>.
