@@ -59,7 +59,7 @@ rm.singleton.newick <- function(nwk, outfile = NULL) {
     ## remove singleton of tips
     nodePattern <- "\\w+:[\\.0-9Ee\\+\\-]+"
     singletonPattern.with.nodename <- paste0(".*(\\(", nodePattern, "\\)\\w+:[\\.0-9Ee\\+\\-]+).*")
-    singletonPattern.wo.nodename <- paste0(".*(\\(", nodePattern, "\\)[\\.0-9Ee\\+\\-]+).*")
+    singletonPattern.wo.nodename <- paste0(".*(\\(", nodePattern, "\\):[\\.0-9Ee\\+\\-]+).*")
     
     while(length(grep("\\([^,]+\\)", tree)) > 0) {
         singleton <- gsub(singletonPattern.with.nodename, "\\1", tree)
