@@ -7,8 +7,8 @@
 ##'               one of hyphy output
 ##' @param tip.fasfile tip sequence file
 ##' @return A hyphy object
-##' @importFrom Biostrings readBStringSet
-##' @importFrom Biostrings toString
+## @importFrom Biostrings readBStringSet
+## @importFrom Biostrings toString
 ##' @export
 ##' @author Guangchuang Yu \url{http://ygc.name}
 ##' @examples
@@ -86,6 +86,9 @@ read.hyphy <- function(nwk, ancseq, tip.fasfile=NULL) {
                )
 
     if ( !is.null(tip.fasfile) ) {
+        readBStringSet <- get_fun_from_pkg("Biostrings", "readBStringSet")
+        toString <- get_fun_from_pkg("Biostrings", "toString")
+        
         tip_seq <- readBStringSet(tip.fasfile)
         nn <- names(tip_seq)
         tip_seq <- sapply(seq_along(tip_seq), function(i) {

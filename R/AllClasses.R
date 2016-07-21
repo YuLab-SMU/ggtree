@@ -309,6 +309,7 @@ setClass("phangorn",
          )
 
 
+
 ##' Class "phylip"
 ##' This class stores phylip tree(s)
 ##'
@@ -330,7 +331,7 @@ setClass("phylip",
              fields = "character",
              phylo = "phyloOrmultiPhylo",
              ntree = "numeric",
-             sequence = "BStringSet",
+             sequence = "character",
              extraInfo = "data.frame")
          )
 

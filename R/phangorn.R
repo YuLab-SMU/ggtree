@@ -119,10 +119,11 @@ setMethod("get.fields", signature(object="phangorn"),
 ##' @param pml pml object
 ##' @param includeAncestor logical 
 ##' @return XStringSet
-##' @importFrom Biostrings DNAStringSet
+## @importFrom Biostrings DNAStringSet
 ##' @export
 ##' @author ygc
 pmlToSeq <- function(pml, includeAncestor=TRUE) {
+    DNAStringSet <- get_fun_from_pkg("Biostrings", "DNAStringSet")
     pmlToSeqString(pml, includeAncestor) %>%
         DNAStringSet
 }
@@ -132,10 +133,7 @@ pmlToSeqString <- function(pml, type, includeAncestor=TRUE) {
     if (includeAncestor == FALSE) {
         phyDat <- pml$data
     } else {
-        pkg <- "phangorn"
-        require(pkg, character.only = TRUE)
-        ## requireNamespace("phangorn")
-        ancestral.pml <- eval(parse(text="phangorn::ancestral.pml"))
+        ancestral.pml <- get_fun_from_pkg("phangorn", "ancestral.pml")
         phyDat <- ancestral.pml(pml, type)
     }
     

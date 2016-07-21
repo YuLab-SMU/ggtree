@@ -32,8 +32,9 @@ download.phylopic <- function(id, size=512, color="black", alpha=1) {
     imgfile <- tempfile(fileext = ".png")
     download.phylopic_internal(id, size, imgfile)
 
-    requireNamespace("EBImage")
-    channel <- eval(parse(text=paste0("EBImage::", "channel")))
+    channel <- get_fun_from_pkg("EBImage", "channel")
+    readImage <- get_fun_from_pkg("EBImage", "readImage")
+    
     img <- readImage(imgfile)
        
     color <- col2rgb(color) / 255
@@ -135,6 +136,7 @@ annotation_image <- function(tree_view, img_info, width=0.1, align=TRUE, linetyp
     x <- df[idx, "x"]
     y <- df[idx, "y"]
 
+    readImage <- get_fun_from_pkg("EBImage", "readImage")
     images <- lapply(img_info[,2], readImage)
 
     ARs <- sapply(images, getAR)
