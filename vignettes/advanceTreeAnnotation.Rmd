@@ -16,6 +16,7 @@ output:
 vignette: >
   %\VignetteIndexEntry{05 Advance Tree Annotation}
   %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteDepends{Biostrings}
   %\usepackage[utf8]{inputenc}
 ---
 
@@ -27,6 +28,7 @@ knitr::opts_chunk$set(tidy = FALSE,
 
 ```{r echo=FALSE, results="hide", message=FALSE}
 library("ape")
+library("Biostrings")
 library("ggplot2")
 library("ggtree")
 ```

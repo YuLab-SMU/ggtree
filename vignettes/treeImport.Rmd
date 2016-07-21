@@ -17,6 +17,7 @@ vignette: >
   %\VignetteIndexEntry{01 Tree Data Import}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteDepends{scales}
+  %\VignetteDepends{Biostrings)
   %\usepackage[utf8]{inputenc}
 ---
 
@@ -28,6 +29,7 @@ knitr::opts_chunk$set(tidy = FALSE,
 
 ```{r echo=FALSE, results="hide", message=FALSE}
 library("ape")
+library("Biostrings")
 library("ggplot2")
 library("ggtree")
 ```
@@ -139,7 +141,7 @@ ggtree(beast, ndigits=2, branch.length = 'none') + geom_text(aes(x=branch, label
 `ggtree` provides `geom_range` layer to display uncertainty of branch length.
 
 ```{r warning=FALSE, fig.width=10, fig.height=10}
-ggtree(beast) + geom_range(range='height_0.95_HPD', color='red', alpha=.6, size=2)
+ggtree(beast) + geom_range(range='length_0.95_HPD', color='red', alpha=.6, size=2)
 ```
 
 In `FigTree`, only `heigh_0.95_HPD` is meaningful since the branch is scaled by `height`. In `ggtree` we can display HPD of `rate`, `height` or other variable if available since `ggtree` can rescale a tree using `rescale_tree` function or by specifing `branch.length` in `ggtree` function.
