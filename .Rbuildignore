@@ -3,3 +3,4 @@ TODO.md
 appveyor.yml
 .gitignore
 .svnignore
+Makefile
