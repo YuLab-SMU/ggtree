@@ -493,13 +493,15 @@ getCols <- function (n) {
 
 
 get_fun_from_pkg <- function(pkg, fun) {
-    requireNamespace(pkg)
-    eval(parse(text=paste0(pkg, "::", fun)))
+    ## requireNamespace(pkg)
+    ## eval(parse(text=paste0(pkg, "::", fun)))
+    require(pkg, character.only = TRUE)
+    eval(parse(text = fun))
 }
 
 hist <- get_fun_from_pkg("graphics", "hist")
 
-readImage <- get_fun_from_pkg("EBImage", "readImage")
+
 
 
 

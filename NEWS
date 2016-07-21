@@ -1,5 +1,7 @@
 CHANGES IN VERSION 1.5.6
 ------------------------
+ o remove dependency of EBImage for building & installing ggtree <2016-07-21, Thu>
+   + the package is still needed if user want to annotate tree with image file
  o `%<+%` now works with tbl_df <2016-07-21, Thu>
    + https://github.com/GuangchuangYu/ggtree/issues/66
  o identify method for ggtree <2016-06-28, Tue>
