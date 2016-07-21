@@ -16,8 +16,6 @@ output:
 vignette: >
   %\VignetteIndexEntry{04 Tree Annotation}
   %\VignetteEngine{knitr::rmarkdown}
-  %\VignetteDepends{phangorn}
-  %\VignetteDepends{phylobase}
   %\usepackage[utf8]{inputenc}
 ---
 
@@ -215,7 +213,7 @@ ggtree(tree) + geom_label(aes(label=bootstrap)) + geom_tiplab()
 
 ## annotating tree with phangorn output
 
-```{r results='hide', message=FALSE}
+```{r results='hide', message=FALSE, fig.width=12, fig.height=10, width=60, warning=FALSE, fig.align="center", eval=FALSE}
 library(phangorn)
 treefile <- system.file("extdata", "pa.nwk", package="ggtree")
 tre <- read.tree(treefile)
@@ -225,12 +223,12 @@ fit <- pml(tre, tipseq, k=4)
 fit <- optim.pml(fit, optNni=FALSE, optBf=T, optQ=T,
                  optInv=T, optGamma=T, optEdge=TRUE,
                  optRooted=FALSE, model = "GTR")
-```
 
-```{r fig.width=12, fig.height=10, width=60, warning=FALSE, fig.align="center"}
 phangorn <- phyPML(fit, type="ml")
 ggtree(phangorn) + geom_text(aes(x=branch, label=AA_subs, vjust=-.5))
 ```
+
+![](figures/phangorn_example.png)
 
 # Tree annotation with output from evolution software
 
@@ -300,7 +298,7 @@ p + geom_text(aes(color=place, label=place), hjust=1, vjust=-0.4, size=3) +
  
 `phylo4d` was defined in the `phylobase` package, which can be employed to integrate user's data with phylogenetic tree. `phylo4d` was supported in `ggtree` and the data stored in the object can be used directly to annotate the tree.
 	  
-```{r fig.width=6, fig.height=5, warning=FALSE, fig.align="center"}
+```{r fig.width=6, fig.height=5, warning=FALSE, fig.align="center", eval=FALSE}
 dd2 <- dd[, -1]
 rownames(dd2) <- dd[,1]
 require(phylobase)
@@ -309,7 +307,9 @@ ggtree(tr2) + geom_tiplab(aes(color=place)) +
     geom_tippoint(aes(size=value, shape=place, color=place), alpha=0.25)
 ```
 
-	
+
+![](figures/phylobase_example.png)
+
 ## jplace file format
 
 `ggtree` provides `write.jplace()` function to store user's own data and associated newick tree to a single `jplace` file, which can be parsed directly in `ggtree` and user's data can be used to annotate the tree directly. For more detail, please refer to the [Tree Data Import](treeImport.html#jplace-file-format) vignette.

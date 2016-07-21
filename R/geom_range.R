@@ -15,6 +15,7 @@ geom_range <- function(range="height_0.95_HPD", ...) {
     inherit.aes = FALSE    
 
     default_aes <- aes_(x=~x, y=~y)
+    
     mapping <- modifyList(default_aes, aes_string(branch.length="branch.length", label=range))
         
     layer(

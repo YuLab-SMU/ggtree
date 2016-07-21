@@ -10,8 +10,8 @@
 ##' @param window specific a slice to display
 ##' @return tree view
 ##' @export
-##' @importFrom Biostrings readBStringSet
-##' @importMethodsFrom Biostrings width
+## @importFrom Biostrings readBStringSet
+## @importMethodsFrom Biostrings width
 ## @importFrom colorspace rainbow_hcl
 ##' @importFrom ggplot2 geom_segment
 ##' @importFrom ggplot2 geom_rect
@@ -23,22 +23,26 @@ msaplot <- function(p, fasta, offset=0, width=1, color=NULL, window=NULL){
     } else if (is(fasta, "BStringSet")) {
         aln <- fasta
     } else if (is(fasta, "character")) {
+        readBStringSet <- get_fun_from_pkg("Biostrings", "readBStringSet")
         aln <- readBStringSet(fasta)
     } else {
         aln <- NULL
     }
         
     if (is(p, "phylip")) {
-        aln <- p@sequence
+        BStringSet <- get_fun_from_pkg("Biostrings", "BStringSet")
+        aln <- BStringSet(p@sequence)
         p <- ggtree(p) + geom_tiplab()
     }
 
     if (is.null(aln)) {
         stop("multiple sequence alignment is not available...\n-> check the parameter 'fasta'...")
     }
+
+    width_fun <- get_fun_from_pkg("Biostrings", "width")
     
     if (is.null(window)) {
-        window <- c(1, width(aln)[1])
+        window <- c(1, width_fun(aln)[1])
     }
     slice <- seq(window[1], window[2], by=1)
     

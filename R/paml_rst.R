@@ -20,8 +20,8 @@ read.baseml <- function(rstfile, mlbfile) {
 ##' read rst file from paml output
 ##'
 ##' 
-##' @importFrom Biostrings readBStringSet
-##' @importFrom Biostrings toString
+## @importFrom Biostrings readBStringSet
+## @importFrom Biostrings toString
 ##' @title read.paml_rst
 ##' @param rstfile rst file
 ##' @return A \code{paml_rst} object

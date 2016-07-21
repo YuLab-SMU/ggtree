@@ -19,6 +19,7 @@ get_tree_view <- function(tree_view) {
 }
 
 
+##' @importFrom methods .hasSlot is missingArg new slot slot<-
 has.slot <- function(object, slotName) {
     if (!isS4(object)) {
         return(FALSE)
@@ -251,8 +252,10 @@ seq2codon <- function(x) {
     substring(x, first=seq(1, nchar(x)-2, 3), last=seq(3, nchar(x), 3))
 }
 
-##' @importFrom Biostrings GENETIC_CODE
+## @importFrom Biostrings GENETIC_CODE
 codon2AA <- function(codon) {
+    ## a genetic code name vector
+    GENETIC_CODE <- get_fun_from_pkg("Biostrings", "GENETIC_CODE") 
     aa <- GENETIC_CODE[codon]
     aa[is.na(aa)] <- "X"
     return(aa)
@@ -493,13 +496,15 @@ getCols <- function (n) {
 
 
 get_fun_from_pkg <- function(pkg, fun) {
-    requireNamespace(pkg)
-    eval(parse(text=paste0(pkg, "::", fun)))
+    ## requireNamespace(pkg)
+    ## eval(parse(text=paste0(pkg, "::", fun)))
+    require(pkg, character.only = TRUE)
+    eval(parse(text = fun))
 }
 
 hist <- get_fun_from_pkg("graphics", "hist")
 
-readImage <- get_fun_from_pkg("EBImage", "readImage")
+
 
 
 

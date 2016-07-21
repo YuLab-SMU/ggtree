@@ -81,7 +81,7 @@
         d2 <- d2[, ii]
         dd <- merge(d1, d2, by.x="node", by.y="node", all.x=TRUE)
     } else {
-        d2[,1] <- as.character(d2[,1])
+        d2[,1] <- as.character(unlist(d2[,1])) ## `unlist` to work with tbl_df
         dd <- merge(d1, d2, by.x="label", by.y=1, all.x=TRUE)
     }
     dd <- dd[match(d1$node, dd$node),]

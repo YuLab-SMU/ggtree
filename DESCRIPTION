@@ -11,7 +11,6 @@ Depends:
     ggplot2 (>= 2.0.0)
 Imports:
     ape,
-    Biostrings,
     grDevices,
     grid,
     jsonlite,
@@ -21,19 +20,17 @@ Imports:
     tidyr,
     utils
 Suggests:
+    Biostrings,
     colorspace,
     EBImage,
     knitr,
-    phylobase,
-    phytools,
-    phangorn,
     rmarkdown,
     scales,
     testthat
 VignetteBuilder: knitr
 ByteCompile: true
 License: Artistic-2.0
-URL: http://guangchuangyu.github.io/ggtree
+URL: https://guangchuangyu.github.io/ggtree
 BugReports: https://github.com/GuangchuangYu/ggtree/issues
 Packaged: 2014-12-03 08:16:14 UTC; root
 biocViews: Alignment, Annotation, Clustering, DataImport,

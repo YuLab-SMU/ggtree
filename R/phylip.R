@@ -5,7 +5,7 @@
 ##' @param file phylip file
 ##' @return an instance of 'phylip'
 ##' @export
-##' @importFrom Biostrings BStringSet
+## @importFrom Biostrings BStringSet
 ##' @author Guangchuang Yu
 read.phylip <- function(file) {
     phylip <- readLines(file)
@@ -27,17 +27,16 @@ read.phylip <- function(file) {
     seq_with_name <- lapply(seqlines, function(x) unlist(strsplit(x, "\\s+")))
     seqs <- sapply(seq_with_name, function(x) x[2])
     names(seqs) <- sapply(seq_with_name, function(x) x[1])
-    seq_obj <- BStringSet(seqs)
 
-    if (any(width(seq_obj) != seqLen)) {
-        stop(paste("sequence length not consistent...\n->", paste0(width(seq_obj), collapse=" ")))
+    if (any(nchar(seqs) != seqLen)) {
+        stop(paste("sequence length not consistent...\n->", paste0(nchar(seqs), collapse=" ")))
     }
     
     new("phylip",
         file = filename(file),
         phylo = trees,
         ntree = ntree,
-        sequence = seq_obj
+        sequence = seqs
         )
 }
 

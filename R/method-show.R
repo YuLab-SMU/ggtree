@@ -107,7 +107,7 @@ setMethod("show", signature(object = "phylip"),
               cat("...@ tree: ")
               print.phylo(get.tree(object))                  
               msg <- paste0("\nwith sequence alignment available (", length(object@sequence),
-                            " sequences of length ", width(object@sequence)[1], ")\n")
+                            " sequences of length ", nchar(object@sequence)[1], ")\n")
               cat(msg)
           })
 
