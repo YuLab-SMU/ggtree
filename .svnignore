@@ -1,4 +1,7 @@
 .git
 .Rhistory
 R/.Rhistory
-
+Makefile
+TODO.md
+README.md
+appveyor.yml
