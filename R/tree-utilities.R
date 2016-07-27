@@ -23,7 +23,7 @@ nodeid.tree <- function(tree, label) {
 nodeid.gg <- function(p, label) {
     p$data$node[match(label, p$data$label)]
 }
-    
+
 
 reroot_node_mapping <- function(tree, tree2) {
     root <- getRoot(tree)

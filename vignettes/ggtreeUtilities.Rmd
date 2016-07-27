@@ -57,7 +57,6 @@ To support viewing multiple plots, ggtree provides `multiplot` function that sim
 multiplot(ggtree(rtree(30)), ggtree(rtree(40)), ncol=2, labels=c('A', 'B'))
 ```
 
-
 # subplots in ggplot object
 
 `ggtree` implemented a function, `subview`, that can add subplots on a ggplot2 object. 

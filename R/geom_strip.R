@@ -179,3 +179,4 @@ taxa2node <- function(data, taxa) {
     
     return(data$node[idx])
 }
+
