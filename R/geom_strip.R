@@ -30,7 +30,7 @@ geom_strip <- function(taxa1, taxa2, label=NA, offset=0, offset.text=0,
     na.rm <- TRUE
     inherit.aes <- FALSE
 
-    layer_bar <- stat_stripBar(taxa1=taxa1, taxa2=taxa2, offset=offset, align=align,
+    layer_bar <- stat_stripBar(taxa1=taxa1, taxa2=taxa2, label=label, offset=offset, align=align,
                                size=barsize, barextend=barextend,
                                mapping=mapping, data=data, 
                                position=position, show.legend = show.legend,
@@ -67,7 +67,13 @@ stat_stripText <- function(mapping=NULL, data=NULL,
                            geom="text", position="identity",
                            taxa1, taxa2, label, offset, align, barextend, ...,
                            show.legend=NA, inherit.aes=FALSE, na.rm=FALSE) {
-    default_aes <- aes_(x=~x, y=~y, node=~node)
+
+    if (is.null(label) || is.na(label)) {
+        default_aes <- aes_(x=~x, y=~y, node=~node, label=~label)
+    } else {
+        default_aes <- aes_(x=~x, y=~y, node=~node)
+    }
+    
     if (is.null(mapping)) {
         mapping <- default_aes
     } else {
@@ -95,9 +101,15 @@ stat_stripText <- function(mapping=NULL, data=NULL,
 
 stat_stripBar <- function(mapping=NULL, data=NULL,
                           geom="segment", position="identity",
-                          taxa1, taxa2, offset, align, barextend, ...,
+                          taxa1, taxa2, label=label, offset, align, barextend, ...,
                           show.legend=NA, inherit.aes=FALSE, na.rm=FALSE) {
-    default_aes <- aes_(x=~x, y=~y, node=~node)
+
+    if (is.null(label) || is.na(label)) {
+        default_aes <- aes_(x=~x, y=~y, node=~node, label=~label)
+    } else {
+        default_aes <- aes_(x=~x, y=~y, node=~node)
+    }
+
     if (is.null(mapping)) {
         mapping <- default_aes
     } else {
