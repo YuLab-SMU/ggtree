@@ -1,6 +1,7 @@
 CHANGES IN VERSION 1.5.7
 ------------------------
- o geom_strip now only accept node id as input and support labeling strip <2016-07-27, Wed>
+ o geom_strip can accept taxa name as input but labeling strip will not supported.
+   To support labeling strip, user need to input node id  <2016-07-27, Wed>
  o nodeid function for converting node label(s) to node id(s) <2016-07-27, Wed> 
  
 CHANGES IN VERSION 1.5.6
