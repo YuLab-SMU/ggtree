@@ -1,8 +1,6 @@
 .git
 .Rhistory
 R/.Rhistory
-
-Makefile
 Makefile
 TODO.md
 README.md

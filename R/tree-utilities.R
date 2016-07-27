@@ -1,3 +1,30 @@
+##' convert tip or node label(s) to internal node number
+##'
+##' 
+##' @title nodeid
+##' @param x tree object or graphic object return by ggtree
+##' @param label tip or node label(s)
+##' @return internal node number
+##' @export
+##' @author Guangchuang Yu
+nodeid <- function(x, label) {
+    if (is(x, "gg")) 
+        return(nodeid.gg(x, label))
+    
+    nodeid.tree(x, label)
+}
+
+nodeid.tree <- function(tree, label) {
+    tr <- get.tree(tree)
+    lab <- c(tr$tip.label, tr$node.label)
+    match(label, lab)
+}
+
+nodeid.gg <- function(p, label) {
+    p$data$node[match(label, p$data$label)]
+}
+    
+
 reroot_node_mapping <- function(tree, tree2) {
     root <- getRoot(tree)
 

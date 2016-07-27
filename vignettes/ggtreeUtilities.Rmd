@@ -31,7 +31,6 @@ library("ggplot2")
 library("ggtree")
 ```
 
-
 # Layers that allows subsetting
 
 `Subsetting` is not supported in layers defined in `ggplot2`, while it is quite useful in phylogenetic annotation since it allows us to annotate at specific node(s). 
