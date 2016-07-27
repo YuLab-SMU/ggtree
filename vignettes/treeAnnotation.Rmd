@@ -182,7 +182,7 @@ ggtree(tree) +
 `geom_cladelabel` is designed for labelling Monophyletic (Clade) while there are related taxa that are not form a clade. `ggtree` provides `geom_strip` to add a strip/bar to indicate the association with optional label (see [the issue](https://github.com/GuangchuangYu/ggtree/issues/52)).
 
 ```{r fig.width=5, fig.height=5, fig.align="center", warning=FALSE}
-ggtree(tree) + geom_tiplab() + geom_strip('E', 'G', barsize=2, color='red') + geom_strip('F', 'L', barsize=2, color='blue')
+ggtree(tree) + geom_tiplab() + geom_strip(5, 7, barsize=2, color='red') + geom_strip(6, 12, barsize=2, color='blue')
 ```
 
 # taxa connection
