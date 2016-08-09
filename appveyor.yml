@@ -13,8 +13,7 @@ install:
 # Adapt as necessary starting from here
 
 build_script:
-  - travis-tool.sh install_r base64
-   - travis-tool.sh install_bioc BiocInstaller BiocStyle Biostrings  
+  - travis-tool.sh install_bioc BiocStyle Biostrings  
   - travis-tool.sh install_deps
 
 test_script:
@@ -38,7 +37,7 @@ artifacts:
     name: Logs
 
   - path: '\*_*.tar.gz'
-    name: Bits
+    name: Linux Package
 
   - path: '\*_*.zip'
-    name: Bits
+    name: Windows Package
