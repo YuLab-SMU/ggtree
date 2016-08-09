@@ -11,7 +11,7 @@ html_preview: false
 [![Build Status](http://www.bioconductor.org/shields/build/devel/bioc/ggtree.svg)](https://bioconductor.org/checkResults/devel/bioc-LATEST/ggtree/)
 [![Linux/Mac Travis Build Status](https://img.shields.io/travis/GuangchuangYu/ggtree/master.svg?label=Mac%20OSX%20%26%20Linux)](https://travis-ci.org/GuangchuangYu/ggtree)
 [![AppVeyor Build Status](https://img.shields.io/appveyor/ci/Guangchuangyu/ggtree/master.svg?label=Windows)](https://ci.appveyor.com/project/GuangchuangYu/ggtree)
-
+[![install with bioconda](https://img.shields.io/badge/install%20with-bioconda-green.svg?style=flat)](http://bioconda.github.io/recipes/bioconductor-ggtree/README.html)
 
 [![packageversion](https://img.shields.io/badge/Package%20version-`r x=readLines("DESCRIPTION"); y=x[grep("^Version", x)]; sub("Version: ", "", y)`-green.svg?style=flat)](https://github.com/GuangchuangYu/ggtree/blob/master/DESCRIPTION)
 [![Bioc](http://www.bioconductor.org/shields/years-in-bioc/ggtree.svg)](https://www.bioconductor.org/packages/devel/bioc/html/ggtree.html#since)
