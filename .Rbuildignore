@@ -4,3 +4,5 @@ appveyor.yml
 .gitignore
 .svnignore
 Makefile
+^appveyor\.yml$
+README.Rmd

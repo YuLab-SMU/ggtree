@@ -5,3 +5,5 @@ Makefile
 TODO.md
 README.md
 appveyor.yml
+.travis.yml
+README.Rmd
