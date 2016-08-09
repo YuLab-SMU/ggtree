@@ -13,6 +13,9 @@ os:
   - osx
 
 
+apt_packages:
+  - libfftw3-dev
+
 env:
   global:
     - _R_CHECK_FORCE_SUGGESTS_=False
