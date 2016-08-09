@@ -1,34 +1,38 @@
 ## reference: http://docs.travis-ci.com/user/languages/r/
 
 language: r
+r:
+  - devel
+  - bioc-devel
+  
+cache: packages
 bioc_required: true
+
+os:
+  - linux
+  - osx
+
 
 apt_packages:
   - libfftw3-dev
 
-r_packages:
-  - ape
-  - phylobase
-  - colorspace
-  - grid
-  - ggplot2
-  - gridExtra
-  - jsonlite
-  - magrittr
-  - reshape2
-  - rmarkdown
-  - testthat
-  - knitr
-bioc_packages:
-  - Biostrings
-  - EBImage
-  - BiocStyle
+env:
+  global:
+    - _R_CHECK_FORCE_SUGGESTS_=False
+    - R_LIBS="http://cran.rstudio.com"
+
   
 after_failure:
   - ./travis-tool.sh dump_logs
 
-notifications:
-  email:
-    on_success: change
-    on_failure: change
+r_github_packages:
+  - jimhester/covr
+
+after_success:
+- Rscript -e 'library(covr); codecov()'
+
+## notifications:
+##   email:
+##     on_success: change
+##     on_failure: change
 
