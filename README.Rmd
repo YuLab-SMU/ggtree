@@ -52,7 +52,7 @@ For details, please visit our project website, <https://guangchuangyu.github.io/
 ```{r echo=F, comment=NA}
 x <- dlstats::bioc_stats("ggtree")
 x <- x[-nrow(x), ] # last month data is not complete
-txtplot::txtplot(ggtree::Date2decimal(x$end), x$Nb_of_downloads, width=120, height=25)
+txtplot::txtplot(ggtree::Date2decimal(x$end), x$Nb_of_downloads, width=110, height=25)
 ```
 
 ### Example
