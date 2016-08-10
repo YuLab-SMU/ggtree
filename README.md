@@ -23,7 +23,37 @@ For details, please visit our project website, <https://guangchuangyu.github.io/
 
 -   [Documentation](https://guangchuangyu.github.io/ggtree/documentation/)
 -   [FAQ](https://guangchuangyu.github.io/ggtree/faq/)
--   [Feedback](https://guangchuangyu.github.io/ggtree/#feedback)
 -   [Featured Articles](https://guangchuangyu.github.io/ggtree/featuredArticles/)
+-   [Feedback](https://guangchuangyu.github.io/ggtree/#feedback)
+
+### Download stats
+
+         +---------------------------+---------------------------+----------------------------+--------+
+         |                                                                                    *        |
+    1200 +                                                                                             +
+         |                                                                      *                      |
+         |                                                                                         *   |
+    1000 +                                                                          *    *             +
+         |                                                                                             |
+         |                                                                                             |
+         |                                                                                             |
+     800 +                                                  *         *                                +
+         |                                                                 *                           |
+         |                                              *        *                                     |
+     600 +                                         *                                                   +
+         |                                                                                             |
+         |                                                                                             |
+         |                                    *                                                        |
+     400 +                           *   *                                                             +
+         |                      *                                                                      |
+         |                                                                                             |
+     200 +                 *                                                                           +
+         |                                                                                             |
+         |                                                                                             |
+         |   *    *   *                                                                                |
+       0 +---------------------------+---------------------------+----------------------------+--------+
+                                  2015.5                       2016                        2016.5       
+
+### Example
 
 [![](https://guangchuangyu.github.io/ggtree/featured_img/2015_peiyu_1-s2.0-S1567134815300721-gr1.jpg)](https://guangchuangyu.github.io/ggtree/featuredArticles/)

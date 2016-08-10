@@ -44,7 +44,19 @@ For details, please visit our project website, <https://guangchuangyu.github.io/
 
 + [Documentation](https://guangchuangyu.github.io/ggtree/documentation/)
 + [FAQ](https://guangchuangyu.github.io/ggtree/faq/)
-+ [Feedback](https://guangchuangyu.github.io/ggtree/#feedback)
 + [Featured Articles](https://guangchuangyu.github.io/ggtree/featuredArticles/)
++ [Feedback](https://guangchuangyu.github.io/ggtree/#feedback)
+
+### Download stats
+
+```{r echo=F, comment=NA}
+x <- dlstats::bioc_stats("ggtree")
+x <- x[-nrow(x), ] # last month data is not complete
+txtplot::txtplot(ggtree::Date2decimal(x$end), x$Nb_of_downloads, width=100, height=25)
+```
+
+### Example
 
 [![](https://guangchuangyu.github.io/ggtree/featured_img/2015_peiyu_1-s2.0-S1567134815300721-gr1.jpg)](https://guangchuangyu.github.io/ggtree/featuredArticles/)
+
+
