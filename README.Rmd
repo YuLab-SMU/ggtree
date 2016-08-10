@@ -22,7 +22,7 @@ html_preview: false
 
 
 [![releaseVersion](https://img.shields.io/badge/release%20version-`r url="https://bioconductor.org/packages/release/bioc/html/ggtree.html"; x=readLines(url); gsub("\\D+(\\d+\\.\\d+\\.\\d+)\\D+", "\\1", x[grep("Version", x) +1])`-green.svg?style=flat)](https://bioconductor.org/packages/ggtree)
-[![develVersion](https://img.shields.io/badge/devel%20version-`r x=readLines("DESCRIPTION"); y=x[grep("^Version", x)]; sub("Version: ", "", y)`-green.svg?style=flat)](https://github.com/GuangchuangYu/ggtree/blob/master/DESCRIPTION)
+[![develVersion](https://img.shields.io/badge/devel%20version-`r x=readLines("DESCRIPTION"); y=x[grep("^Version", x)]; sub("Version: ", "", y)`-green.svg?style=flat)](https://github.com/GuangchuangYu/ggtree)
 [![Bioc](http://www.bioconductor.org/shields/years-in-bioc/ggtree.svg)](https://www.bioconductor.org/packages/devel/bioc/html/ggtree.html#since)
 [![post](http://www.bioconductor.org/shields/posts/ggtree.svg)](https://support.bioconductor.org/t/ggtree/)
 [![download](http://www.bioconductor.org/shields/downloads/ggtree.svg)](https://bioconductor.org/packages/stats/bioc/ggtree/)
