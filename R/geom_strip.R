@@ -105,7 +105,7 @@ stat_stripBar <- function(mapping=NULL, data=NULL,
                           show.legend=NA, inherit.aes=FALSE, na.rm=FALSE) {
 
     if (is.null(label) || is.na(label)) {
-        default_aes <- aes_(x=~x, y=~y, node=~node, label=~label)
+        default_aes <- aes_(x=~x, y=~y, node=~node, label=~label, xend=~x, yend=~y)
     } else {
         default_aes <- aes_(x=~x, y=~y, node=~node)
     }

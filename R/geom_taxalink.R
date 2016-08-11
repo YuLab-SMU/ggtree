@@ -18,10 +18,10 @@ geom_taxalink <- function(taxa1, taxa2, curvature=0.5, ...) {
     na.rm = TRUE
     inherit.aes = FALSE    
 
-    mapping <- aes_(x=~x, y=~y, node=~node, label=~label)
+    mapping <- aes_(x=~x, y=~y, node=~node, label=~label, xend=~x, yend=~y)
 
     layer(stat=StatTaxalink,
-          mapping=aes_(x=~x, y=~y, node=~node, label=~label),
+          mapping=mapping,
           geom=GeomCurve,
           position='identity',
           show.legend=show.legend,
