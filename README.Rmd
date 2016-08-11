@@ -14,7 +14,7 @@ html_preview: false
 [![install with bioconda](https://img.shields.io/badge/install%20with-bioconda-green.svg?style=flat)](http://bioconda.github.io/recipes/bioconductor-ggtree/README.html)
 
 [![Project Status: Active - The project has reached a stable, usable state and is being actively developed.](http://www.repostatus.org/badges/latest/active.svg)](http://www.repostatus.org/#active)
-[![codecov](https://codecov.io/gh/GuangchuangYu/ggtree/branch/master/graph/badge.svg)](https://codecov.io/gh/GuangchuangYu/ggtree/branch/master/graph/badge.svg)
+[![codecov](https://codecov.io/gh/GuangchuangYu/ggtree/branch/master/graph/badge.svg)](https://codecov.io/gh/GuangchuangYu/ggtree)
 [![Last-changedate](https://img.shields.io/badge/last%20change-`r gsub('-', '--', Sys.Date())`-green.svg)](https://github.com/GuangchuangYu/ggtree/commits/master)
 [![commit](http://www.bioconductor.org/shields/commits/bioc/ggtree.svg)](https://www.bioconductor.org/packages/devel/bioc/html/ggtree.html#svn_source)
 [![GitHub forks](https://img.shields.io/github/forks/GuangchuangYu/ggtree.svg)](https://github.com/GuangchuangYu/ggtree/network) 
@@ -30,13 +30,15 @@ html_preview: false
 
 The `ggtree` package extending the `ggplot2` package. It based on grammar of graphics and takes all the good parts of `ggplot2`. `ggtree` is designed for not only viewing phylogenetic tree but also displaying annotation data on the tree. 
 
+[![Twitter](https://img.shields.io/twitter/url/https/github.com/GuangchuangYu/ggtree.svg?style=social)](https://twitter.com/intent/tweet?hashtags=ggtree&url=https://guangchuangyu.github.io/ggtree)
+
 -----------------------------------------------------
 
 Please cite the following article when using `ggtree`:
 
 __G Yu__, DK Smith, H Zhu, Y Guan, TTY Lam^\*^. ggtree: an R package for visualization and annotation of phylogenetic trees with their covariates and other associated data. __*Methods in Ecology and Evolution*__. _accepted_
 
-[![Twitter](https://img.shields.io/twitter/url/https/github.com/GuangchuangYu/ggtree.svg?style=social)](https://twitter.com/intent/tweet?hashtags=ggtree&url=https://guangchuangyu.github.io/ggtree)
+
 
 ----------------------------------------------------------------------------------------
 
@@ -53,6 +55,10 @@ For details, please visit our project website, <https://guangchuangyu.github.io/
 
 
 ### Download stats
+
+[![download](http://www.bioconductor.org/shields/downloads/ggtree.svg)](https://bioconductor.org/packages/stats/bioc/ggtree/)
+[![total](https://img.shields.io/badge/downloads-`r sum(dlstats::bioc_stats("ggtree")$Nb_of_downloads)`/tatal-blue.svg?style=flat)](https://bioconductor.org/packages/stats/bioc/ggtree/)
+[![month](https://img.shields.io/badge/downloads-`r x <- dlstats::bioc_stats("ggtree"); x$Nb_of_downloads[nrow(x)-1]`/month-blue.svg?style=flat)](https://bioconductor.org/packages/stats/bioc/ggtree/)
 
 ```{r echo=F, comment=NA}
 x <- dlstats::bioc_stats("ggtree")
