@@ -1,8 +1,9 @@
-TODO.md
 .travis.yml
-appveyor.yml
 .gitignore
 .svnignore
-Makefile
 ^appveyor\.yml$
+^.*\.DS_Store
+TODO.md
+appveyor.yml
+Makefile
 README.Rmd

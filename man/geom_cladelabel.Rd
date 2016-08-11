@@ -6,7 +6,7 @@
 \usage{
 geom_cladelabel(node, label, offset = 0, offset.text = 0, align = FALSE,
   barsize = 0.5, fontsize = 3.88, angle = 0, geom = "text", hjust = 0,
-  fill = NA, family = "sans", ...)
+  color = NULL, fill = NA, family = "sans", parse = FALSE, ...)
 }
 \arguments{
 \item{node}{selected node}
@@ -29,9 +29,13 @@ geom_cladelabel(node, label, offset = 0, offset.text = 0, align = FALSE,
 
 \item{hjust}{hjust}
 
+\item{color}{color for clade & label, of length 1 or 2}
+
 \item{fill}{fill label background, only work with geom='label'}
 
 \item{family}{sans by default, can be any supported font}
+
+\item{parse}{logical, whether parse label}
 
 \item{...}{additional parameter}
 }

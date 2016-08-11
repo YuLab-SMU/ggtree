@@ -45,7 +45,7 @@ stat_treeScaleLine <- function(mapping=NULL, data=NULL,
                            xx, yy, width, offset, color, ..., 
                            show.legend=NA, inherit.aes=FALSE, na.rm=FALSE){
     
-    default_aes <- aes_(x=~x, y=~y)
+    default_aes <- aes_(x=~x, y=~y, xend=~x, yend=~y)
     if (is.null(mapping)) {
         mapping <- default_aes
     } else {
@@ -74,7 +74,7 @@ stat_treeScaleText <- function(mapping=NULL, data=NULL,
                                xx, yy, width, offset, color, ...,
                                show.legend=NA, inherit.aes=TRUE, na.rm=FALSE) {
 
-    default_aes <- aes_(x=~x, y=~y)
+    default_aes <- aes_(x=~x, y=~y, label=~label)
     if (is.null(mapping)) {
         mapping <- default_aes
     } else {

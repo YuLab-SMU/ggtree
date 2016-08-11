@@ -12,15 +12,19 @@
 ##' @param angle angle of text
 ##' @param geom one of 'text' or 'label'
 ##' @param hjust hjust
+##' @param color color for clade & label, of length 1 or 2
 ##' @param fill fill label background, only work with geom='label'
 ##' @param family sans by default, can be any supported font
+##' @param parse logical, whether parse label
 ##' @param ... additional parameter
 ##' @return ggplot layers
 ##' @export
 ##' @author Guangchuang Yu
 geom_cladelabel <- function(node, label, offset=0, offset.text=0,
                             align=FALSE, barsize=0.5, fontsize=3.88,
-                            angle=0, geom="text", hjust = 0, fill=NA, family="sans", ...) {
+                            angle=0, geom="text", hjust = 0,
+                            color = NULL, fill=NA,
+                            family="sans", parse=FALSE, ...) {
     mapping <- NULL
     data <- NULL
     position <- "identity"
@@ -28,30 +32,73 @@ geom_cladelabel <- function(node, label, offset=0, offset.text=0,
     na.rm <- TRUE
     inherit.aes <- FALSE
 
-    if (geom == "text") {
-        ## no fill parameter
-        layer_text = stat_cladeText(node=node, label=label, offset=offset+offset.text,
-                                    align=align, size=fontsize, angle=angle, family=family,
-                                    mapping=mapping, data=data, geom=geom, hjust=hjust,
-                                    position=position, show.legend = show.legend,
-                                    inherit.aes = inherit.aes, na.rm=na.rm, ...)
-        
+    if (!is.null(color)) {
+        if (length(color) > 2) {
+            stop("color should be of length 1 or 2")
+        }
+        if (length(color) == 0) {
+            color = NULL
+        } else if (length(color) == 1) {
+            barcolor <- color
+            labelcolor <- color
+        } else {
+            barcolor <- color[1]
+            labelcolor <- color[2]
+        }
+    }
+
+    if (is.null(color)) {
+        if (geom == "text") {
+            ## no fill parameter
+            layer_text = stat_cladeText(node=node, label=label, offset=offset+offset.text,
+                                        align=align, size=fontsize, angle=angle, family=family,
+                                        mapping=mapping, data=data, geom=geom, hjust=hjust,
+                                        position=position, show.legend = show.legend,
+                                        inherit.aes = inherit.aes, na.rm=na.rm, parse=parse, ...)
+            
+        } else {
+            layer_text = stat_cladeText(node=node, label=label, offset=offset+offset.text,
+                                        align=align, size=fontsize, angle=angle, fill=fill,family=family,
+                                        mapping=mapping, data=data, geom=geom, hjust=hjust,
+                                        position=position, show.legend = show.legend,
+                                        inherit.aes = inherit.aes, na.rm=na.rm,
+                                        parse = parse, ...)
+        }
+
+        layer_bar <- stat_cladeBar(node=node, offset=offset, align=align,
+                                   size=barsize,
+                                   mapping=mapping, data=data, 
+                                   position=position, show.legend = show.legend,
+                                   inherit.aes = inherit.aes, na.rm=na.rm, ...)
     } else {
-        layer_text = stat_cladeText(node=node, label=label, offset=offset+offset.text,
-                                    align=align, size=fontsize, angle=angle, fill=fill,family=family,
-                                    mapping=mapping, data=data, geom=geom, hjust=hjust,
-                                    position=position, show.legend = show.legend,
-                                    inherit.aes = inherit.aes, na.rm=na.rm, ...)
+        if (geom == "text") {
+            ## no fill parameter
+            layer_text = stat_cladeText(node=node, label=label, offset=offset+offset.text,
+                                        align=align, size=fontsize, angle=angle, color=labelcolor, family=family,
+                                        mapping=mapping, data=data, geom=geom, hjust=hjust,
+                                        position=position, show.legend = show.legend,
+                                        inherit.aes = inherit.aes, na.rm=na.rm, parse=parse, ...)
+            
+        } else {
+            layer_text = stat_cladeText(node=node, label=label, offset=offset+offset.text,
+                                        align=align, size=fontsize, angle=angle, color=labelcolor, fill=fill,family=family,
+                                        mapping=mapping, data=data, geom=geom, hjust=hjust,
+                                        position=position, show.legend = show.legend,
+                                        inherit.aes = inherit.aes, na.rm=na.rm,
+                                        parse = parse, ...)
+        }
+
+        layer_bar <- stat_cladeBar(node=node, offset=offset, align=align,
+                                   size=barsize, color = barcolor,
+                                   mapping=mapping, data=data, 
+                                   position=position, show.legend = show.legend,
+                                   inherit.aes = inherit.aes, na.rm=na.rm, ...)
+        
     }
     
     list(
-        stat_cladeBar(node=node, offset=offset, align=align,
-                      size=barsize,
-                      mapping=mapping, data=data, 
-                      position=position, show.legend = show.legend,
-                      inherit.aes = inherit.aes, na.rm=na.rm, ...),
-        
-        layer_text
+       layer_bar,
+       layer_text
     )
 }
 
@@ -59,7 +106,8 @@ geom_cladelabel <- function(node, label, offset=0, offset.text=0,
 stat_cladeText <- function(mapping=NULL, data=NULL,
                            geom="text", position="identity",
                            node, label, offset, align, ...,
-                           show.legend=NA, inherit.aes=FALSE, na.rm=FALSE) {
+                           show.legend=NA, inherit.aes=FALSE,
+                           na.rm=FALSE, parse=FALSE) {
     default_aes <- aes_(x=~x, y=~y, node=~node, parent=~parent)
     if (is.null(mapping)) {
         mapping <- default_aes
@@ -75,10 +123,11 @@ stat_cladeText <- function(mapping=NULL, data=NULL,
           show.legend = show.legend,
           inherit.aes = inherit.aes,
           params=list(node=node,
-                      label=label,
-                      offset=offset,
-                      align=align,
-                      na.rm=na.rm,
+                      label  = label,
+                      offset = offset,
+                      align  = align,
+                      na.rm  = na.rm,
+                      parse  = parse,
                       ...)
           )
     
@@ -88,7 +137,7 @@ stat_cladeBar <- function(mapping=NULL, data=NULL,
                           geom="segment", position="identity",
                           node, offset, align,  ...,
                           show.legend=NA, inherit.aes=FALSE, na.rm=FALSE) {
-    default_aes <- aes_(x=~x, y=~y, node=~node, parent=~parent)
+    default_aes <- aes_(x=~x, y=~y, node=~node, parent=~parent, xend=~x, yend=~y)
     if (is.null(mapping)) {
         mapping <- default_aes
     } else {
