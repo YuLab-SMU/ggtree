@@ -49,15 +49,11 @@ For details, please visit our project website, <https://guangchuangyu.github.io/
 + [Featured Articles](https://guangchuangyu.github.io/ggtree/featuredArticles/)
 + [Feedback](https://guangchuangyu.github.io/ggtree/#feedback)
 
-### Example
-
-[![](https://guangchuangyu.github.io/ggtree/featured_img/2015_peiyu_1-s2.0-S1567134815300721-gr1.jpg)](https://guangchuangyu.github.io/ggtree/featuredArticles/)
-
 
 ### Download stats
 
 [![download](http://www.bioconductor.org/shields/downloads/ggtree.svg)](https://bioconductor.org/packages/stats/bioc/ggtree/)
-[![total](https://img.shields.io/badge/downloads-`r sum(dlstats::bioc_stats("ggtree")$Nb_of_downloads)`/tatal-blue.svg?style=flat)](https://bioconductor.org/packages/stats/bioc/ggtree/)
+[![total](https://img.shields.io/badge/downloads-`r sum(dlstats::bioc_stats("ggtree")$Nb_of_downloads)`/total-blue.svg?style=flat)](https://bioconductor.org/packages/stats/bioc/ggtree/)
 [![month](https://img.shields.io/badge/downloads-`r x <- dlstats::bioc_stats("ggtree"); x$Nb_of_downloads[nrow(x)-1]`/month-blue.svg?style=flat)](https://bioconductor.org/packages/stats/bioc/ggtree/)
 
 ```{r echo=F, comment=NA}

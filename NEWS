@@ -1,3 +1,7 @@
+CHANGES IN VERSION 1.5.9
+------------------------
+ o update citation info <2016-08-12, Fri>
+ 
 CHANGES IN VERSION 1.5.8
 ------------------------
  o add color parameter in geom_cladelabel, color should be of length 1 or 2 <2016-08-11, Thu>

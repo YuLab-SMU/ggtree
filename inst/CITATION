@@ -10,7 +10,7 @@ citEntry(
         as.person("Yi Guan"),
         as.person("Tommy Tsan-Yuk Lam")
         ),
-    year    = "revised",
+    year    = "accepted",
     journal = "Methods in Ecology and Evolution",
     volume  = "",
     issue   = "",
