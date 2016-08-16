@@ -1,3 +1,8 @@
+CHANGES IN VERSION 1.5.10
+------------------------
+ o fixed issue #72 for label of geom_treescale not displayed <2016-08-16, Tue>
+   + https://github.com/GuangchuangYu/ggtree/issues/72
+ 
 CHANGES IN VERSION 1.5.9
 ------------------------
  o update citation info <2016-08-12, Fri>
