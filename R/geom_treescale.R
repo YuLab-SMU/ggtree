@@ -19,7 +19,7 @@ geom_treescale <- function(x=NULL, y=NULL, width=NULL, offset=NULL, color="black
     data=NULL
     position="identity"
     show.legend=NA
-    na.rm=FALSE
+    na.rm=TRUE
     inherit.aes=FALSE
 
     default_aes <- aes_(x=~x, y=~y)
@@ -74,7 +74,7 @@ stat_treeScaleText <- function(mapping=NULL, data=NULL,
                                xx, yy, width, offset, color, ...,
                                show.legend=NA, inherit.aes=TRUE, na.rm=FALSE) {
 
-    default_aes <- aes_(x=~x, y=~y, label=~label)
+    default_aes <- aes_(x=~x, y=~y, label=~x)
     if (is.null(mapping)) {
         mapping <- default_aes
     } else {
@@ -149,9 +149,9 @@ get_treescale_position <- function(data, xx, yy, width, offset=NULL) {
          TextPosition=data.frame(x=x+d/2, y=y+offset, label=d))
 }
 
-##' add evolution distance legend
-##'
-##' 
+## ##' add evolution distance legend
+## ##'
+## ##' 
 ## ##' @title add_legend
 ## ##' @param p tree view
 ## ##' @param width width of legend
