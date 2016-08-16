@@ -17,7 +17,7 @@ Please cite the following article when using `ggtree`:
 
 **G Yu**, DK Smith, H Zhu, Y Guan, TTY Lam<sup>\*</sup>. ggtree: an R package for visualization and annotation of phylogenetic trees with their covariates and other associated data. ***Methods in Ecology and Evolution***. *accepted*
 
-[![doi](https://img.shields.io/badge/doi-10.1111/2041-210X.12628-green.svg?style=flat)](http://dx.doi.org/10.1111/2041-210X.12628)
+[![doi](https://img.shields.io/badge/doi-10.1111/2041--210X.12628-green.svg?style=flat)](http://dx.doi.org/10.1111/2041-210X.12628)
 
 ------------------------------------------------------------------------
 
