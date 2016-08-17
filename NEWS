@@ -1,3 +1,9 @@
+CHANGES IN VERSION 1.5.11
+------------------------
+ o bug fixed in geom_tiplab <2016-08-17, Wed>
+   + https://groups.google.com/forum/?utm_medium=email&utm_source=footer#!msg/bioc-ggtree/Tm9ULK7hd9E/HviXEh3CBwAJ
+ o update citation info, add doi. <2016-08-16, Tue>
+ 
 CHANGES IN VERSION 1.5.10
 ------------------------
  o fixed issue #72 for label of geom_treescale not displayed <2016-08-16, Tue>
