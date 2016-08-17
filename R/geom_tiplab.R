@@ -38,7 +38,7 @@ geom_tiplab <- function(mapping=NULL, hjust = 0, align = FALSE, linetype = "dott
     if (align && (!is.na(linetype) && !is.null(linetype))) {
         dot_mapping <- aes(xend=x+diff(range(x, na.rm=TRUE))/200, x=max(x, na.rm=TRUE), y=y, yend=y, subset=isTip)
         if (!is.null(mapping)) {
-            dot_mapping <- modifyList(mapping, dot_mapping)
+            dot_mapping <- modifyList(dot_mapping, mapping)
         }
     } 
     
