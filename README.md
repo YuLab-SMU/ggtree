@@ -32,12 +32,6 @@ For details, please visit our project website, <https://guangchuangyu.github.io/
 
 [![download](http://www.bioconductor.org/shields/downloads/ggtree.svg)](https://bioconductor.org/packages/stats/bioc/ggtree/) [![total](https://img.shields.io/badge/downloads-12113/total-blue.svg?style=flat)](https://bioconductor.org/packages/stats/bioc/ggtree/) [![month](https://img.shields.io/badge/downloads-1091/month-blue.svg?style=flat)](https://bioconductor.org/packages/stats/bioc/ggtree/)
 
-    If you use ggtree in published research, please cite:
-
-    Guangchuang Yu, David Smith, Huachen Zhu, Yi Guan, Tommy Tsan-Yuk Lam.
-    ggtree: an R package for visualization and annotation of phylogenetic trees with their covariates and other associated data.
-    Methods in Ecology and Evolution 2016, doi:10.1111/2041-210X.12628
-
          +---------------------------+---------------------------+----------------------------+--------+
          |                                                                                    *        |
     1200 +                                                                                             +
