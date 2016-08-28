@@ -4,3 +4,5 @@ vignettes/.DS_Store
 *~
 *.Rhistory
 .svn
+__init__.py
+__pycache__
