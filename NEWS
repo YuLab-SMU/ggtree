@@ -1,5 +1,7 @@
 CHANGES IN VERSION 1.5.11
 ------------------------
+ o gheatmap works with matrix <2016-08-28, Sun>
+   + https://groups.google.com/forum/?utm_medium=email&utm_source=footer#!msg/bioc-ggtree/2YLvXHMJJ6U/c4zS7yfGCAAJ
  o support parsing expression in geom_strip <2016-08-18, Thu>
  o bug fixed in geom_tiplab <2016-08-17, Wed>
    + https://groups.google.com/forum/?utm_medium=email&utm_source=footer#!msg/bioc-ggtree/Tm9ULK7hd9E/HviXEh3CBwAJ
