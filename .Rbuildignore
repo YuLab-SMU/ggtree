@@ -7,3 +7,5 @@ TODO.md
 appveyor.yml
 Makefile
 README.Rmd
+mkdocs
+docs

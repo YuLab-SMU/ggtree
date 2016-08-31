@@ -7,7 +7,7 @@
 geom_strip(taxa1, taxa2, label = NA, offset = 0, offset.text = 0,
   align = TRUE, barsize = 0.5, barextend = 0, fontsize = 3.88,
   angle = 0, geom = "text", hjust = 0, fill = NA, family = "sans",
-  ...)
+  parse = FALSE, ...)
 }
 \arguments{
 \item{taxa1}{taxa1}
@@ -37,6 +37,8 @@ geom_strip(taxa1, taxa2, label = NA, offset = 0, offset.text = 0,
 \item{fill}{fill label background, only work with geom='label'}
 
 \item{family}{sans by default, can be any supported font}
+
+\item{parse}{logical, whether parse label}
 
 \item{...}{additional parameter}
 }
