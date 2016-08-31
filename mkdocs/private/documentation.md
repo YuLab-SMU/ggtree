@@ -46,6 +46,10 @@
 
 + [flip and rotate branches in ggtree](https://guangchuangyu.github.io/2015/07/flip-and-rotate-branches-in-ggtree)
 
+### <i class="fa fa-joomla"></i> Application
+
++ [ggtree for microbiome data](https://guangchuangyu.github.io/2016/09/ggtree-for-microbiome-data/)
+
 ### <i class="fa fa-angle-double-right"></i> Funny stuff
 
 + [ggtree with funny fonts](https://guangchuangyu.github.io/2015/06/ggtree-with-funny-fonts)
@@ -59,7 +63,7 @@
 
 <i class="fa fa-hand-o-right"></i> Find out more on <https://guangchuangyu.github.io/tags/ggtree/>.
 
-## <i class="fa fa-slideshare"></i> Slides
+## <i class="fa fa-film"></i> Slides
 
 + [ggtree for visualization and annotation of phylogenetic trees](https://guangchuangyu.github.io/presentation/2016-ggtree-chinar/)
 
