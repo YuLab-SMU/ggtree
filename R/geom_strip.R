@@ -16,13 +16,15 @@
 ##' @param hjust hjust
 ##' @param fill fill label background, only work with geom='label'
 ##' @param family sans by default, can be any supported font
+##' @param parse logical, whether parse label
 ##' @param ... additional parameter
 ##' @return ggplot layers
 ##' @export
 ##' @author Guangchuang Yu
 geom_strip <- function(taxa1, taxa2, label=NA, offset=0, offset.text=0,
                        align=TRUE, barsize=0.5, barextend=0, fontsize=3.88,
-                       angle=0, geom="text", hjust=0, fill=NA, family="sans", ...) {
+                       angle=0, geom="text", hjust=0, fill=NA, family="sans",
+                       parse=FALSE, ...) {
     mapping <- NULL
     data <- NULL
     position <- "identity"
@@ -46,14 +48,14 @@ geom_strip <- function(taxa1, taxa2, label=NA, offset=0, offset.text=0,
                                     align=align, size=fontsize, barextend=barextend, angle=angle, family=family,
                                     mapping=mapping, data=data, geom=geom, hjust=hjust,
                                     position=position, show.legend = show.legend,
-                                    inherit.aes = inherit.aes, na.rm=na.rm, ...)
+                                    inherit.aes = inherit.aes, na.rm=na.rm, parse=parse, ...)
         
     } else {
         layer_text <- stat_stripText(taxa1=taxa1, taxa2=taxa2, label=label, offset=offset+offset.text,
                                     align=align, size=fontsize, barextend=barextend, angle=angle, fill=fill,family=family,
                                     mapping=mapping, data=data, geom=geom, hjust=hjust,
                                     position=position, show.legend = show.legend,
-                                    inherit.aes = inherit.aes, na.rm=na.rm, ...)
+                                    inherit.aes = inherit.aes, na.rm=na.rm, parse=parse, ...)
     }
     
     list(
@@ -66,7 +68,7 @@ geom_strip <- function(taxa1, taxa2, label=NA, offset=0, offset.text=0,
 stat_stripText <- function(mapping=NULL, data=NULL,
                            geom="text", position="identity",
                            taxa1, taxa2, label, offset, align, barextend, ...,
-                           show.legend=NA, inherit.aes=FALSE, na.rm=FALSE) {
+                           show.legend=NA, inherit.aes=FALSE, na.rm=FALSE, parse=FALSE) {
 
     if (is.null(label) || is.na(label)) {
         default_aes <- aes_(x=~x, y=~y, node=~node, label=~label)
@@ -94,6 +96,7 @@ stat_stripText <- function(mapping=NULL, data=NULL,
                       align=align,
                       barextend=barextend,
                       na.rm=na.rm,
+                      parse=parse,
                       ...)
           )
     

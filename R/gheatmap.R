@@ -43,7 +43,7 @@ gheatmap <- function(p, data, offset=0, width=1, low="green", high="red", color=
     df <- df[df$isTip,]
     start <- max(df$x) + offset
     
-    dd <- data
+    dd <- as.data.frame(data)
     ## dd$lab <- rownames(dd)
     lab <- df$label[order(df$y)]
     dd <- dd[lab, , drop=FALSE]
