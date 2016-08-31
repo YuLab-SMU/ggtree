@@ -46,7 +46,7 @@
 
 + [flip and rotate branches in ggtree](https://guangchuangyu.github.io/2015/07/flip-and-rotate-branches-in-ggtree)
 
-### <i class="fa fa-joomla"></i> Application
+### <i class="fa fa-angle-double-right"></i> Application
 
 + [ggtree for microbiome data](https://guangchuangyu.github.io/2016/09/ggtree-for-microbiome-data/)
 
