@@ -1,5 +1,6 @@
 CHANGES IN VERSION 1.5.12
 ------------------------
+ o use data in all layers instead of the base layer for coordination calculation in subview <2016-09-01, Thu>
  o bug fixed in subview, width & height should be width/2 & height/2 <2016-09-01, Thu>
  
 CHANGES IN VERSION 1.5.11
