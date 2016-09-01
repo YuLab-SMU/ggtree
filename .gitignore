@@ -6,3 +6,4 @@ vignettes/.DS_Store
 .svn
 __init__.py
 __pycache__
+__init__.pyc
