@@ -8,11 +8,7 @@ html_preview: false
 #  ggtree: an R package for visualization and annotation of phylogenetic trees with their covariates and other associated data
 
 ```{r echo=FALSE, results="hide", message=FALSE}
-library("ggtree") 
 library("txtplot")
-library("scholar")
-library("dlstats")
-library("rvcheck")
 library("ypages")
 ```
 
@@ -30,8 +26,8 @@ library("ypages")
 [![GitHub stars](https://img.shields.io/github/stars/GuangchuangYu/ggtree.svg)](https://github.com/GuangchuangYu/ggtree/stargazers) 
 
 
-[![releaseVersion](https://img.shields.io/badge/release%20version-`r check_bioc("ggtree")$latest_version`-green.svg?style=flat)](https://bioconductor.org/packages/ggtree)
-[![develVersion](https://img.shields.io/badge/devel%20version-`r ver_devel("ggtree")`-green.svg?style=flat)](https://github.com/GuangchuangYu/ggtree)
+`r badge_release("ggtree", "green")`
+`r badge_devel("ggtree", "green")`
 [![Bioc](http://www.bioconductor.org/shields/years-in-bioc/ggtree.svg)](https://www.bioconductor.org/packages/devel/bioc/html/ggtree.html#since)
 [![post](http://www.bioconductor.org/shields/posts/ggtree.svg)](https://support.bioconductor.org/t/ggtree/)
 [![download](http://www.bioconductor.org/shields/downloads/ggtree.svg)](https://bioconductor.org/packages/stats/bioc/ggtree/)
@@ -47,7 +43,7 @@ Please cite the following article when using `ggtree`:
 
 __G Yu__, DK Smith, H Zhu, Y Guan, TTY Lam^\*^. ggtree: an R package for visualization and annotation of phylogenetic trees with their covariates and other associated data. __*Methods in Ecology and Evolution*__. _accepted_
 
-[![doi](https://img.shields.io/badge/doi-10.1111/2041--210X.12628-green.svg?style=flat)](http://dx.doi.org/10.1111/2041-210X.12628)
+`r badge_doi("10.1111/2041-210X.12628", "green")`
 `r badge_altmetric("10533079", "green")`
 
 ----------------------------------------------------------------------------------------
@@ -63,14 +59,14 @@ For details, please visit our project website, <https://guangchuangyu.github.io/
 ### Download stats
 
 [![download](http://www.bioconductor.org/shields/downloads/ggtree.svg)](https://bioconductor.org/packages/stats/bioc/ggtree/)
-[![total](https://img.shields.io/badge/downloads-`r sum(bioc_stats("ggtree")$Nb_of_downloads)`/total-blue.svg?style=flat)](https://bioconductor.org/packages/stats/bioc/ggtree/)
-[![month](https://img.shields.io/badge/downloads-`r x <- bioc_stats("ggtree"); x$Nb_of_downloads[nrow(x)-1]`/month-blue.svg?style=flat)](https://bioconductor.org/packages/stats/bioc/ggtree/)
+`r badge_download("ggtree", "total", "blue")`
+`r badge_download("ggtree", "month", "blue")`
 
 
 ```{r echo=F, comment=NA}
-x <- bioc_stats("ggtree")
+x <- dlstats::bioc_stats("ggtree")
 x <- x[-nrow(x), ] # last month data is not complete
-txtplot(Date2decimal(x$end), x$Nb_of_downloads, width=100, height=25)
+txtplot(ggtree::Date2decimal(x$end), x$Nb_of_downloads, width=100, height=25)
 ```
 
 

@@ -10,7 +10,7 @@
 
 
 [![releaseVersion](https://img.shields.io/badge/release%20version-1.4.18-blue.svg?style=flat)](https://bioconductor.org/packages/ggtree)
-[![develVersion](https://img.shields.io/badge/devel%20version-1.5.11-blue.svg?style=flat)](https://github.com/GuangchuangYu/ggtree)
+[![develVersion](https://img.shields.io/badge/devel%20version-1.5.12-blue.svg?style=flat)](https://github.com/GuangchuangYu/ggtree)
 [![total](https://img.shields.io/badge/downloads-12736/total-blue.svg?style=flat)](https://bioconductor.org/packages/stats/bioc/ggtree)
 [![month](https://img.shields.io/badge/downloads-1091/month-blue.svg?style=flat)](https://bioconductor.org/packages/stats/bioc/ggtree)
 
@@ -27,7 +27,7 @@ Guangchuang Yu and Tommy Tsan-Yuk Lam, School of Public Health, The University o
 ## <i class="fa fa-book"></i> Citation
 
 [![doi](https://img.shields.io/badge/doi-10.1111/2041--210X.12628-blue.svg?style=flat)](http://dx.doi.org/10.1111/2041-210X.12628)
-[![Altmetric](https://img.shields.io/badge/Altmetric-127-blue.svg?style=flat)](https://www.altmetric.com/details/10533079)
+[![Altmetric](https://img.shields.io/badge/Altmetric-128-blue.svg?style=flat)](https://www.altmetric.com/details/10533079)
 
 Please cite the following article when using `ggtree`:
 
