@@ -382,7 +382,7 @@ is.tree <- function(x) {
                         "baseml",
                         "paml_rst",
                         "baseml_mlc",
-                        "codeml_mlc"
+                        "codeml_mlc",
                         "codeml",
                         "hyphy",
                         "beast")
