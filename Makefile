@@ -38,7 +38,10 @@ clean:
 
 mkdocs: featuredArticles.md index.md documentation.md
 	cd mkdocs;\
-	mkdocs build
+	mkdocs build;\
+	cd ../docs;\
+	rm -rf fonts;\
+	rm -rf css/font-awesome*
 
 index.md:
 	cd mkdocs;\

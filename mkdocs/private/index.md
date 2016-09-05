@@ -5,6 +5,8 @@
 <!-- download:=ggtree:=total -->
 <!-- download:=ggtree:=month -->
 
+<link rel="stylesheet" href="https://guangchuangyu.github.io/css/font-awesome.min.css">
+
 The `ggtree` package extending the `ggplot2` package. It based on grammar of graphics and takes all the good parts of `ggplot2`.  `ggtree` is designed for not only viewing phylogenetic tree but also displaying annotation data on the tree. 
 
 

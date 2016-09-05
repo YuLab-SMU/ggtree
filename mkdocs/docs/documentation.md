@@ -9,6 +9,8 @@
 <!-- AddToAny END -->
 
 
+<link rel="stylesheet" href="https://guangchuangyu.github.io/css/font-awesome.min.css">
+
 ## <i class="fa fa-book"></i> Vignettes
 
 + [ggtree](https://bioconductor.org/packages/devel/bioc/vignettes/ggtree/inst/doc/ggtree.html)
@@ -72,10 +74,15 @@
 
 <i class="fa fa-hand-o-right"></i> Find out more on <https://guangchuangyu.github.io/tags/ggtree/>.
 
-## <i class="fa fa-film"></i> Slides
+## <i class="fa fa-slideshare"></i> Slides
 
 + [ggtree for visualization and annotation of phylogenetic trees](https://guangchuangyu.github.io/presentation/2016-ggtree-chinar/)
 
+## <i class="fa fa-youtube-play"></i> Video
+
++ [interactive clade highlighting](https://www.youtube.com/watch?v=KcF8Ec38mzI)
++ [interactive rotating clades](https://www.youtube.com/watch?v=lKNn4QlPO0E)
++ [interactive clade labeling](https://www.youtube.com/watch?v=SmcceRD_jxg)
 
 ## <i class="fa fa-gift"></i> Workflow
 
