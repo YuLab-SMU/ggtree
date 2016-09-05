@@ -15,8 +15,8 @@ library("ypages")
 `r badge_release("ggtree", "green")`
 `r badge_devel("ggtree", "green")`
 [![Bioc](http://www.bioconductor.org/shields/years-in-bioc/ggtree.svg)](https://www.bioconductor.org/packages/devel/bioc/html/ggtree.html#since)
-`r badge_download("ggtree", "total", "green")`
-`r badge_download("ggtree", "month", "green")`
+`r badge_download("ggtree", "total", "blue")`
+`r badge_download("ggtree", "month", "blue")`
 
 
 [![Project Status: Active - The project has reached a stable, usable state and is being actively developed.](http://www.repostatus.org/badges/latest/active.svg)](http://www.repostatus.org/#active)
@@ -44,8 +44,8 @@ Please cite the following article when using `ggtree`:
 
 __G Yu__, DK Smith, H Zhu, Y Guan, TTY Lam^\*^. ggtree: an R package for visualization and annotation of phylogenetic trees with their covariates and other associated data. __*Methods in Ecology and Evolution*__. _accepted_
 
-`r badge_doi("10.1111/2041-210X.12628", "yellowgreen")`
-`r badge_altmetric("10533079", "yellowgreen")`
+`r badge_doi("10.1111/2041-210X.12628", "green")`
+`r badge_altmetric("10533079", "green")`
 
 ----------------------------------------------------------------------------------------
 
