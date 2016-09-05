@@ -17,8 +17,6 @@
 <link rel="stylesheet" href="https://guangchuangyu.github.io/css/font-awesome.min.css">
 
 The `ggtree` package extending the `ggplot2` package. It based on grammar of graphics and takes all the good parts of `ggplot2`.  `ggtree` is designed for not only viewing phylogenetic tree but also displaying annotation data on the tree. 
-
-
 `ggtree` is released within the [Bioconductor](https://bioconductor.org/packages/ggtree/) project and the source code is hosted on <a href="https://github.com/GuangchuangYu/ggtree"><i class="fa fa-github fa-lg"></i> GitHub</a>.
 
 
@@ -28,10 +26,10 @@ Guangchuang Yu and Tommy Tsan-Yuk Lam, School of Public Health, The University o
 
 ## <i class="fa fa-book"></i> Citation
 
+Please cite the following article when using `ggtree`:
+
 [![doi](https://img.shields.io/badge/doi-10.1111/2041--210X.12628-blue.svg?style=flat)](http://dx.doi.org/10.1111/2041-210X.12628)
 [![Altmetric](https://img.shields.io/badge/Altmetric-131-blue.svg?style=flat)](https://www.altmetric.com/details/10533079)
-
-Please cite the following article when using `ggtree`:
 
 __G Yu__, DK Smith, H Zhu, Y Guan, TTY Lam<sup>\*</sup>. ggtree: an R package for visualization and annotation of phylogenetic trees with their covariates and other associated data. __*Methods in Ecology and Evolution*__. *accepted*. 
 
