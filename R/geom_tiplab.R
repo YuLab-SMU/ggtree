@@ -4,6 +4,7 @@
 ##' @title geom_tiplab 
 ##' @param mapping aes mapping
 ##' @param hjust horizontal adjustment
+##' @param offset tiplab offset
 ##' @param align align tip lab or not, logical
 ##' @param linetype linetype for adding line if align = TRUE
 ##' @param linesize line size of line if align = TRUE
@@ -17,9 +18,13 @@
 ##' require(ape)
 ##' tr <- rtree(10)
 ##' ggtree(tr) + geom_tiplab()
-geom_tiplab <- function(mapping=NULL, hjust = 0, align = FALSE, linetype = "dotted", linesize=1, geom="text", ...) {
+geom_tiplab <- function(mapping=NULL, hjust = 0,  align = FALSE, linetype = "dotted", linesize=1, geom="text", offset = 0, ...) {
     geom <- match.arg(geom, c("text", "label"))
-
+    if (geom == "text") {
+        text_geom <- geom_text2
+    } else {
+        text_geom <- geom_label2
+    }
     x <- y <- label <- isTip <- NULL
     if (align == TRUE) {
         self_mapping <- aes(x = max(x, na.rm=TRUE) + diff(range(x, na.rm=TRUE))/200, y = y, label = label, subset= isTip)
@@ -34,26 +39,21 @@ geom_tiplab <- function(mapping=NULL, hjust = 0, align = FALSE, linetype = "dott
         text_mapping <- modifyList(self_mapping, mapping)
     }
 
-    dot_mapping <- NULL
-    if (align && (!is.na(linetype) && !is.null(linetype))) {
-        dot_mapping <- aes(xend=x+diff(range(x, na.rm=TRUE))/200, x=max(x, na.rm=TRUE), y=y, yend=y, subset=isTip)
-        if (!is.null(mapping)) {
-            dot_mapping <- modifyList(dot_mapping, mapping)
-        }
-    } 
     
+    show_segment <- FALSE
+    if (align && (!is.na(linetype) && !is.null(linetype))) {
+        show_segment <- TRUE
+    }  
+
     list(
-        if (geom == "text") {
-            geom_text2(mapping=text_mapping, 
-                       hjust = hjust, ...)
-        } else {
-            geom_label2(mapping=text_mapping, 
-                        hjust = hjust, ...)
-        },
-        if (!is.null(dot_mapping))
-            geom_segment2(mapping=dot_mapping,
-                          linetype = linetype,
-                          size = linesize, ...)
+        text_geom(mapping=text_mapping, 
+                  hjust = hjust, nudge_x = offset, ...)
+        ,
+        if (show_segment)
+            geom_tipsegment(mapping = aes(subset=isTip),
+                            offset = offset,
+                            linetype = linetype,
+                            size = linesize, ...)
     )
 }
 
@@ -86,3 +86,46 @@ geom_tiplab2 <- function(mapping=NULL, hjust=0, ...) {
          geom_tiplab(m2, hjust=1-hjust, ...)
          )
 }
+
+geom_tipsegment <- function(mapping=NULL, data=NULL,
+                            geom=GeomSegmentGGtree, position = "identity",
+                            offset,  ...,
+                            show.legend=NA, inherit.aes=FALSE, na.rm=TRUE) {
+    
+    default_aes <- aes_(x=~x, y=~y)
+    if (is.null(mapping)) {
+        mapping <- default_aes
+    } else {
+        mapping <- modifyList(default_aes, mapping)
+    }
+    
+    layer(stat=StatTipSegment,
+          data = data,
+          mapping = mapping,
+          geom = geom,
+          position = position,
+          show.legend = show.legend,
+          inherit.aes = inherit.aes,
+          params = list(offset = offset,
+                        na.rm = na.rm,
+                        ...)
+          )
+}
+
+StatTipSegment <- ggproto("StatTipSegment", Stat,
+                        compute_group = function(self, data, scales, params, offset) {
+                            get_tipsegment_position(data, offset)
+                        },
+                        required_aes = c("x", "y")
+                        )
+
+
+get_tipsegment_position <- function(data, offset, adjustRatio=1/200) {
+    adjust <- diff(range(data$x, na.rm=TRUE)) * adjustRatio
+    xend <- data$x + adjust
+    x <- max(data$x, na.rm = TRUE)  + offset
+    y <- data$y
+    data.frame(x=x, xend=xend, y=y, yend=y)
+}
+
+
