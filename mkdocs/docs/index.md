@@ -4,10 +4,14 @@
 <a class="a2a_button_facebook"></a>
 <a class="a2a_button_twitter"></a>
 <a class="a2a_button_google_plus"></a>
+<a class="a2a_button_pinterest"></a>
+<a class="a2a_button_reddit"></a>
+<a class="a2a_button_sina_weibo"></a>
+<a class="a2a_button_wechat"></a>
+<a class="a2a_button_douban"></a>
 </div>
 <script async src="//static.addtoany.com/menu/page.js"></script>
 <!-- AddToAny END -->
-
 
 [![releaseVersion](https://img.shields.io/badge/release%20version-1.4.20-blue.svg?style=flat)](https://bioconductor.org/packages/ggtree)
 [![develVersion](https://img.shields.io/badge/devel%20version-1.5.13-blue.svg?style=flat)](https://github.com/GuangchuangYu/ggtree)
