@@ -36,24 +36,19 @@ clean:
 	cd ..;\
 	$(RM) -r $(PKGNAME).Rcheck/
 
-mkdocs: featuredArticles.md index.md documentation.md
+mkdocs: mdfiles
 	cd mkdocs;\
 	mkdocs build;\
 	cd ../docs;\
 	rm -rf fonts;\
 	rm -rf css/font-awesome*
 
-index.md:
+mdfiles:
 	cd mkdocs;\
-	Rscript -e 'library(ypages); gendoc("private/index.md", "blue", "docs/index.md")'
-
-documentation.md:
-	cd mkdocs;\
-	Rscript -e 'library(ypages); gendoc("private/documentation.md", "blue", "docs/documentation.md")'
-
-featuredArticles.md:
-	cd mkdocs;\
-	Rscript -e 'library(ypages); gendoc("private/featuredArticles.md", "blue", "docs/featuredArticles.md")'
+	Rscript -e 'library(ypages); gendoc("private/index.md", "blue", "docs/index.md")';\
+	Rscript -e 'library(ypages); gendoc("private/documentation.md", "blue", "docs/documentation.md")';\
+	Rscript -e 'library(ypages); gendoc("private/featuredArticles.md", "blue", "docs/featuredArticles.md")';\
+	Rscript -e 'library(ypages); gendoc("private/faq.md", "blue", "docs/faq.md")'
 
 svnignore:
 	svn propset svn:ignore -F .svnignore .
