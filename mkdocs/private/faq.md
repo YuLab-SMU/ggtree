@@ -1,3 +1,8 @@
+<!-- addtoany:= -->
+
+<link rel="stylesheet" href="https://guangchuangyu.github.io/css/font-awesome.min.css">
+
+
 # <i class="fa fa-download"></i> Installation
 
 ## <i class="fa fa-angle-double-right"></i> Could not find function 
