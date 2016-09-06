@@ -1,5 +1,6 @@
 <!-- addtoany:= -->
 
+<link rel="stylesheet" href="https://guangchuangyu.github.io/css/font-awesome.min.css">
 
 Let us know if you have published using `ggtree` and your publication will be featured here.
 

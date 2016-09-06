@@ -13,6 +13,7 @@
 <script async src="//static.addtoany.com/menu/page.js"></script>
 <!-- AddToAny END -->
 
+<link rel="stylesheet" href="https://guangchuangyu.github.io/css/font-awesome.min.css">
 
 Let us know if you have published using `ggtree` and your publication will be featured here.
 
