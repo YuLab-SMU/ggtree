@@ -51,6 +51,8 @@
 ### <i class="fa fa-angle-double-right"></i> Application
 
 + [ggtree for microbiome data](https://guangchuangyu.github.io/2016/09/ggtree-for-microbiome-data/)
++ [ggtree version of plotTree.R](https://github.com/GuangchuangYu/plotTree-ggtree)
+
 
 ### <i class="fa fa-angle-double-right"></i> Funny stuff
 
