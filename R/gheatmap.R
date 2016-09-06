@@ -11,8 +11,12 @@
 ##' @param color color of heatmap cell border
 ##' @param colnames logical, add matrix colnames or not
 ##' @param colnames_position one of 'bottom' or 'top'
+##' @param colnames_angle angle of column names
 ##' @param colnames_level levels of colnames
+##' @param colnames_offset_x x offset for column names
+##' @param colnames_offset_y y offset for column names
 ##' @param font.size font size of matrix colnames
+##' @param hjust hjust for column names (0: align left, 0.5: align center, 1: align righ)
 ##' @return tree view
 ##' @importFrom ggplot2 geom_tile
 ##' @importFrom ggplot2 geom_text
@@ -25,7 +29,8 @@
 ##' @export
 ##' @author Guangchuang Yu
 gheatmap <- function(p, data, offset=0, width=1, low="green", high="red", color="white",
-                     colnames=TRUE, colnames_position="bottom", colnames_level=NULL, font.size=4) {
+                     colnames=TRUE, colnames_position="bottom", colnames_angle=0, colnames_level=NULL,
+                     colnames_offset_x = 0, colnames_offset_y = 0, font.size=4, hjust=0.5) {
     
     colnames_position %<>% match.arg(c("bottom", "top"))
     variable <- value <- lab <- y <- NULL
@@ -85,7 +90,9 @@ gheatmap <- function(p, data, offset=0, width=1, low="green", high="red", color=
         } else {
             y <- max(p$data$y) + 1
         }
-        p2 <- p2 + geom_text(data=mapping, aes(x=to, label=from), y=y, size=font.size, inherit.aes = FALSE)
+        mapping$y <- y
+        p2 <- p2 + geom_text(data=mapping, aes(x=to, y = y, label=from), size=font.size, inherit.aes = FALSE,
+                             angle=colnames_angle, nudge_x=colnames_offset_x, nudge_y = colnames_offset_y, hjust=hjust)
     }
     
     p2 <- p2 + theme(legend.position="right", legend.title=element_blank())
