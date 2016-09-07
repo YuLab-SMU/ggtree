@@ -182,24 +182,20 @@ inset(p, img)
 
 ![](figures/inset_img.png)
 
-# Align tree with other plots on a page
+# Plot tree with associated data
 
-This is currently difficult to achieve in `ggplot2`. However, it is possible to obtain good results by creating a dummy faceting of data.
+For associating phylogenetic tree with different type of plot produced by user's data, `ggtree` provides `facet_plot` function which accepts an input `data.frame` and a 'geom' function to draw the input data. The data will be displayed in an additional panel of the plot.
 
 ```{r warning=F, fig.width=10, fig.height=6}
 tr <- rtree(30)
-df <- fortify(tr)
-df$tipstats <- NA
-d1 <- df
-d2 <- df
-d2$tipstats[d2$isTip] <- abs(rnorm(30))
-d1$panel <- 'Tree'
-d2$panel <- 'Stats'
-d1$panel <- factor(d1$panel, levels=c("Tree", "Stats"))
-d2$panel <- factor(d2$panel, levels=c("Tree", "Stats"))
 
-p <- ggplot(mapping=aes(x=x, y=y)) + facet_grid(.~panel, scale="free_x") + theme_tree2()
-p+geom_tree(data=d1) + geom_point(data=d2, aes(x=tipstats)) 
+d1 <- data.frame(id=tr$tip.label, val=rnorm(30, sd=3))
+p <- ggtree(tr)
+
+p2 <- facet_plot(p, panel="dot", data=d1, geom=geom_point, aes(x=val), color='firebrick')
+d2 <- data.frame(id=tr$tip.label, value = abs(rnorm(30, mean=100, sd=50)))
+
+facet_plot(p2, panel='bar', data=d2, geom=geom_segment, aes(x=0, xend=value, y=y, yend=y), size=3, color='steelblue') + theme_tree2()
 ```
 
 # Tree annotation with Phylopic

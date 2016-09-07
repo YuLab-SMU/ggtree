@@ -18,8 +18,46 @@ subview <- function(mainview, subview, x, y, width=.1, height=.1) {
     aes_x <- mapping["x"]
     aes_y <- mapping["y"]
     
-    xrng <- mainview$data[, aes_x] %>% range %>% diff
-    yrng <- mainview$data[, aes_y] %>% range %>% diff
+    xrng <- mainview$data[, aes_x] %>% range 
+    yrng <- mainview$data[, aes_y] %>% range
+
+    for (i in seq_along(mainview$layers)) {
+        layer <- mainview$layers[[i]]
+        dd <- layer$data
+        if (is(dd, "data.frame")) {
+            mapping <- as.character(layer$mapping)
+            mn <- names(mapping)
+            if ('x' %in% mn) {
+                aes_x <- mapping["x"]
+                xrng <- c(xrng, layer$data[, aes_x])
+            }
+            if ('xmin' %in% mn) {
+                aes_x <- mapping["xmin"]
+                xrng <- c(xrng, layer$data[, aes_x])
+            }
+            if ('xmax' %in% mn) {
+                aes_x <- mapping["xmax"]
+                xrng <- c(xrng, layer$data[, aes_x])
+            }
+            if ('y' %in% mn) {
+                aes_y <- mapping["y"]
+                yrng <- c(yrng, layer$data[, aes_y])
+            }
+            if ('ymin' %in% mn) {
+                aes_y <- mapping["ymin"]
+                yrng <- c(yrng, layer$data[, aes_y])
+            }
+            if ('ymax' %in% mn) {
+                aes_y <- mapping["ymax"]
+                yrng <- c(yrng, layer$data[, aes_y])
+            }
+            xrng <- range(xrng)
+            yrng <- range(yrng)
+        }
+    }
+
+    xrng <- diff(xrng)
+    yrng <- diff(yrng)
     
     if (!any(class(subview) %in% c("ggplot", "grob", "character"))) {
         stop("subview should be a ggplot or grob object, or an image file...")

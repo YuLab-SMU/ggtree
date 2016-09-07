@@ -1,5 +1,16 @@
+CHANGES IN VERSION 1.5.13
+------------------------
+ o facet_plot for plotting data with tree <2016-09-06, Tue>
+ o more parameters for column names in gheatmap <2016-09-06, Tue>
+   + colnames_angle
+   + colnames_offset_x
+   + colnames_offset_y
+   + hjust
+ o offset parameter in geom_tiplab and geom_tiplab2 <2016-09-05, Mon>
+ 
 CHANGES IN VERSION 1.5.12
 ------------------------
+ o use data in all layers instead of the base layer for coordination calculation in subview <2016-09-01, Thu>
  o bug fixed in subview, width & height should be width/2 & height/2 <2016-09-01, Thu>
  
 CHANGES IN VERSION 1.5.11
