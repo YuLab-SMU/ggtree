@@ -192,10 +192,10 @@ tr <- rtree(30)
 d1 <- data.frame(id=tr$tip.label, val=rnorm(30, sd=3))
 p <- ggtree(tr)
 
-p2 <- alnplot(p, panel="dot", data=d1, geom=geom_point, aes(x=val), color='firebrick')
+p2 <- facet_plot(p, panel="dot", data=d1, geom=geom_point, aes(x=val), color='firebrick')
 d2 <- data.frame(id=tr$tip.label, value = abs(rnorm(30, mean=100, sd=50)))
 
-alnplot(p2, panel='bar', data=d2, geom=geom_segment, aes(x=0, xend=value, y=y, yend=y), size=3, color='steelblue') + theme_tree2()
+facet_plot(p2, panel='bar', data=d2, geom=geom_segment, aes(x=0, xend=value, y=y, yend=y), size=3, color='steelblue') + theme_tree2()
 ```
 
 # Tree annotation with Phylopic
