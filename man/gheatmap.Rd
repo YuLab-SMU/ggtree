@@ -6,7 +6,8 @@
 \usage{
 gheatmap(p, data, offset = 0, width = 1, low = "green", high = "red",
   color = "white", colnames = TRUE, colnames_position = "bottom",
-  colnames_level = NULL, font.size = 4)
+  colnames_angle = 0, colnames_level = NULL, colnames_offset_x = 0,
+  colnames_offset_y = 0, font.size = 4, hjust = 0.5)
 }
 \arguments{
 \item{p}{tree view}
@@ -27,9 +28,17 @@ gheatmap(p, data, offset = 0, width = 1, low = "green", high = "red",
 
 \item{colnames_position}{one of 'bottom' or 'top'}
 
+\item{colnames_angle}{angle of column names}
+
 \item{colnames_level}{levels of colnames}
 
+\item{colnames_offset_x}{x offset for column names}
+
+\item{colnames_offset_y}{y offset for column names}
+
 \item{font.size}{font size of matrix colnames}
+
+\item{hjust}{hjust for column names (0: align left, 0.5: align center, 1: align righ)}
 }
 \value{
 tree view

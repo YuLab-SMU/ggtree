@@ -88,6 +88,25 @@
     return(dd)
 }
 
+##' update data with tree info (y coordination and panel)
+##'
+##'
+##' @rdname add_TREEINFO
+##' @title \%+>\%
+##' @param p tree view 
+##' @param data data.frame
+##' @return updated data.frame
+##' @export
+##' @author Guangchuang Yu
+`%+>%` <- function(p, data) {
+    df <- p$data
+    res <- merge(df[, c('label', 'y')], data, by.x='label', by.y=1, all.x=TRUE)
+    lv <- levels(df$panel)
+    res$panel <- factor(lv[length(lv)], levels=lv)
+    return(res)
+}
+
+
 ##' pipe
 ##' @importFrom magrittr %>%
 ##' @name %>%
