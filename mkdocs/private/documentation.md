@@ -69,6 +69,7 @@
 
 ## <i class="fa fa-slideshare"></i> Slides
 
++ [Generating publication quality figures using R & ggplot2](https://guangchuangyu.github.io/presentation/2014-ggplot2/)
 + [ggtree for visualization and annotation of phylogenetic trees](https://guangchuangyu.github.io/presentation/2016-ggtree-chinar/)
 
 ## <i class="fa fa-youtube-play"></i> Video
