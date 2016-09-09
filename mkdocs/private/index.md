@@ -65,9 +65,15 @@ If you have problems when installing some of the dependent packages, please refe
 
 <i class="fa fa-hand-o-right"></i> Find out details and examples on <i class="fa fa-book"></i> [Documentation](https://guangchuangyu.github.io/ggtree/documentation/).
 
-<!-- 
+
 ## <i class="fa fa-code-fork"></i> Projects that depend on ggtree
 
+#### <i class="fa fa-angle-double-right"></i> CRAN packages
+
++ [emojifont](https://cran.r-project.org/package=emojifont): Emoji Fonts for using in R
+
+
+<!--
 <i class="fa fa-hand-o-right"></i> Find out <del>more</del> on <i class="fa fa-github-alt"></i> [github](http://scisoft-net-map.isri.cmu.edu/application/ggtree/gitprojects).
 -->
 
