@@ -1,5 +1,6 @@
 CHANGES IN VERSION 1.5.14
 ------------------------
+ o update angle calculation for geom_tiplab <2016-09-13, Thu>
  o as.polytomy to collapse binary tree to polytomy by applying 'fun' to selected 'feature' (e.g. bootstrap value less than 70). <2016-09-13, Tue>
    + currently only phylo object supported.
    + add test for as.polytomy
