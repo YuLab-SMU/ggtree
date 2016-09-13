@@ -1,3 +1,4 @@
+
 ##' collapse binary tree to polytomy by applying 'fun' to 'feature'
 ##'
 ##' 
@@ -8,7 +9,7 @@
 ##' @return polytomy tree
 ##' @author Guangchuang
 ##' @importFrom ape Ntip
-##' @importFrom ape di2mult
+##' @importFrom ape di2multi
 ##' @export
 as.polytomy <- function(tree, feature, fun) {
     if (!is(tree, 'phylo')) {

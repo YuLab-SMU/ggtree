@@ -16,8 +16,8 @@
 <link rel="stylesheet" href="https://guangchuangyu.github.io/css/font-awesome.min.css">
 
 [![releaseVersion](https://img.shields.io/badge/release%20version-1.4.20-blue.svg?style=flat)](https://bioconductor.org/packages/ggtree)
-[![develVersion](https://img.shields.io/badge/devel%20version-1.5.13-blue.svg?style=flat)](https://github.com/GuangchuangYu/ggtree)
-[![total](https://img.shields.io/badge/downloads-12979/total-blue.svg?style=flat)](https://bioconductor.org/packages/stats/bioc/ggtree)
+[![develVersion](https://img.shields.io/badge/devel%20version-1.5.14-blue.svg?style=flat)](https://github.com/GuangchuangYu/ggtree)
+[![total](https://img.shields.io/badge/downloads-13115/total-blue.svg?style=flat)](https://bioconductor.org/packages/stats/bioc/ggtree)
 [![month](https://img.shields.io/badge/downloads-1122/month-blue.svg?style=flat)](https://bioconductor.org/packages/stats/bioc/ggtree)
 
 
@@ -34,7 +34,7 @@ Guangchuang Yu and Tommy Tsan-Yuk Lam, School of Public Health, The University o
 Please cite the following article when using `ggtree`:
 
 [![doi](https://img.shields.io/badge/doi-10.1111/2041--210X.12628-blue.svg?style=flat)](http://dx.doi.org/10.1111/2041-210X.12628)
-[![Altmetric](https://img.shields.io/badge/Altmetric-143-blue.svg?style=flat)](https://www.altmetric.com/details/10533079)
+[![Altmetric](https://img.shields.io/badge/Altmetric-148-blue.svg?style=flat)](https://www.altmetric.com/details/10533079)
 
 __G Yu__, DK Smith, H Zhu, Y Guan, TTY Lam<sup>\*</sup>. ggtree: an R package for visualization and annotation of phylogenetic trees with their covariates and other associated data. __*Methods in Ecology and Evolution*__. *accepted*. 
 
@@ -79,15 +79,14 @@ If you have problems when installing some of the dependent packages, please refe
 <i class="fa fa-hand-o-right"></i> Find out details and examples on <i class="fa fa-book"></i> [Documentation](https://guangchuangyu.github.io/ggtree/documentation/).
 
 
+<!--
+
 ## <i class="fa fa-code-fork"></i> Projects that depend on ggtree
 
 #### <i class="fa fa-angle-double-right"></i> CRAN packages
 
 + [emojifont](https://cran.r-project.org/package=emojifont): Emoji Fonts for using in R
 
-
-<!--
-<i class="fa fa-hand-o-right"></i> Find out <del>more</del> on <i class="fa fa-github-alt"></i> [github](http://scisoft-net-map.isri.cmu.edu/application/ggtree/gitprojects).
 -->
 
 
