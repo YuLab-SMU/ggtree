@@ -10,6 +10,7 @@ html_preview: false
 ```{r echo=FALSE, results="hide", message=FALSE}
 library("txtplot")
 library("ypages")
+library("txtplot")
 ```
 
 `r badge_release("ggtree", "green")`
@@ -45,6 +46,7 @@ Please cite the following article when using `ggtree`:
 __G Yu__, DK Smith, H Zhu, Y Guan, TTY Lam^\*^. ggtree: an R package for visualization and annotation of phylogenetic trees with their covariates and other associated data. __*Methods in Ecology and Evolution*__. _accepted_
 
 `r badge_doi("10.1111/2041-210X.12628", "green")`
+`r badge_citation("HtEfBTGE9r8C", "7268358477862164627", "green")`
 `r badge_altmetric("10533079", "green")`
 
 ----------------------------------------------------------------------------------------
@@ -56,6 +58,15 @@ For details, please visit our project website, <https://guangchuangyu.github.io/
 + [Featured Articles](https://guangchuangyu.github.io/ggtree/featuredArticles/)
 + [Feedback](https://guangchuangyu.github.io/ggtree/#feedback)
 
+### Citation 
+
+`r badge_citation("HtEfBTGE9r8C", "7268358477862164627", "green")`
+
+
+```{r echo=F, comment=NA}
+d <- get_article_cite_history('DO5oG40AAAAJ', 'HtEfBTGE9r8C')
+txtplot(d$year, d$cites)
+```
 
 ### Download stats
 

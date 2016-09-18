@@ -21,6 +21,7 @@ Guangchuang Yu and Tommy Tsan-Yuk Lam, School of Public Health, The University o
 Please cite the following article when using `ggtree`:
 
 <!-- doi:=10.1111/2041-210X.12628 -->
+<!-- citation:=HtEfBTGE9r8C:=7268358477862164627 -->
 <!-- altmetric:=10533079 -->
 
 __G Yu__, DK Smith, H Zhu, Y Guan, TTY Lam<sup>\*</sup>. ggtree: an R package for visualization and annotation of phylogenetic trees with their covariates and other associated data. __*Methods in Ecology and Evolution*__. *accepted*. 
@@ -66,15 +67,13 @@ If you have problems when installing some of the dependent packages, please refe
 <i class="fa fa-hand-o-right"></i> Find out details and examples on <i class="fa fa-book"></i> [Documentation](https://guangchuangyu.github.io/ggtree/documentation/).
 
 
-<!--
 
-## <i class="fa fa-code-fork"></i> Projects that depend on ggtree
 
-#### <i class="fa fa-angle-double-right"></i> CRAN packages
+## <i class="fa fa-code-fork"></i> Projects that depend on _ggtree_
 
-+ [emojifont](https://cran.r-project.org/package=emojifont): Emoji Fonts for using in R
+<!-- package_depend:=ggtree:=CRAN -->
 
--->
+<!-- package_depend:=ggtree:=BioC -->
 
 
 ## <i class="fa fa-comments"></i> Feedback

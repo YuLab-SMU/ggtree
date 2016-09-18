@@ -18,6 +18,48 @@
 
 Let us know if you have published using `ggtree` and your publication will be featured here.
 
+[![citation](https://img.shields.io/badge/cited%20by-1-blue.svg?style=flat)](https://scholar.google.com.hk/scholar?oi=bibs&hl=en&cites=7268358477862164627)
+
+<link rel='stylesheet' href=https://guangchuangyu.github.io/resume/css/morris.css>
+<script src='https://guangchuangyu.github.io/resume/css/jquery.min.js' type='text/javascript'></script>
+<script src='https://guangchuangyu.github.io/resume/css/raphael-min.js' type='text/javascript'></script>
+<script src='https://guangchuangyu.github.io/resume/css/morris-0.4.2.min.js' type='text/javascript'></script>
+
+
+<style>
+  .rChart {
+    display: block;
+    margin-left: auto; 
+    margin-right: auto;
+    width: 800px;
+    height: 300px;
+  }  
+  </style>
+
+<div id = 'chart71c27d2943a5' class = 'rChart morris'></div>
+<script type='text/javascript'>
+    var chartParams = {
+ "element": "chart71c27d2943a5",
+"width":            800,
+"height":            400,
+"xkey": "year",
+"ykeys": [
+ "cites" 
+],
+"data": [
+ {
+ "year": 2016,
+"cites":              1,
+"pubid": "HtEfBTGE9r8C" 
+} 
+],
+"id": "chart71c27d2943a5",
+"labels": "cites" 
+},
+      chartType = "Bar"
+    new Morris[chartType](chartParams)
+</script>
+
 
 ## <i class="fa fa-calendar"></i> 2016
 

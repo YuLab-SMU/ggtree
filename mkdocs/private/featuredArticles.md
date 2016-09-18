@@ -5,6 +5,10 @@
 
 Let us know if you have published using `ggtree` and your publication will be featured here.
 
+<!-- citation:=HtEfBTGE9r8C:=7268358477862164627 -->
+
+<!-- article_citation:=HtEfBTGE9r8C -->
+
 
 ## <i class="fa fa-calendar"></i> 2016
 
