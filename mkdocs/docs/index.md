@@ -34,6 +34,7 @@ Guangchuang Yu and Tommy Tsan-Yuk Lam, School of Public Health, The University o
 Please cite the following article when using `ggtree`:
 
 [![doi](https://img.shields.io/badge/doi-10.1111/2041--210X.12628-blue.svg?style=flat)](http://dx.doi.org/10.1111/2041-210X.12628)
+[![citation](https://img.shields.io/badge/cited%20by-1-blue.svg?style=flat)](https://scholar.google.com.hk/scholar?oi=bibs&hl=en&cites=7268358477862164627)
 [![Altmetric](https://img.shields.io/badge/Altmetric-147-blue.svg?style=flat)](https://www.altmetric.com/details/10533079)
 
 __G Yu__, DK Smith, H Zhu, Y Guan, TTY Lam<sup>\*</sup>. ggtree: an R package for visualization and annotation of phylogenetic trees with their covariates and other associated data. __*Methods in Ecology and Evolution*__. *accepted*. 
@@ -79,15 +80,13 @@ If you have problems when installing some of the dependent packages, please refe
 <i class="fa fa-hand-o-right"></i> Find out details and examples on <i class="fa fa-book"></i> [Documentation](https://guangchuangyu.github.io/ggtree/documentation/).
 
 
-<!--
 
-## <i class="fa fa-code-fork"></i> Projects that depend on ggtree
 
-#### <i class="fa fa-angle-double-right"></i> CRAN packages
+## <i class="fa fa-code-fork"></i> Projects that depend on _ggtree_
 
-+ [emojifont](https://cran.r-project.org/package=emojifont): Emoji Fonts for using in R
 
--->
+#### <i class="fa fa-angle-double-right"></i> Bioconductor packages
++ [philr](https://www.bioconductor.org/packages/philr): Phylogenetic paritioning based ILR transform for metagenomics data
 
 
 ## <i class="fa fa-comments"></i> Feedback

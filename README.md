@@ -17,7 +17,7 @@ Please cite the following article when using `ggtree`:
 
 **G Yu**, DK Smith, H Zhu, Y Guan, TTY Lam<sup>\*</sup>. ggtree: an R package for visualization and annotation of phylogenetic trees with their covariates and other associated data. ***Methods in Ecology and Evolution***. *accepted*
 
-[![doi](https://img.shields.io/badge/doi-10.1111/2041--210X.12628-green.svg?style=flat)](http://dx.doi.org/10.1111/2041-210X.12628) [![Altmetric](https://img.shields.io/badge/Altmetric-147-green.svg?style=flat)](https://www.altmetric.com/details/10533079)
+[![doi](https://img.shields.io/badge/doi-10.1111/2041--210X.12628-green.svg?style=flat)](http://dx.doi.org/10.1111/2041-210X.12628) [![citation](https://img.shields.io/badge/cited%20by-1-green.svg?style=flat)](https://scholar.google.com.hk/scholar?oi=bibs&hl=en&cites=7268358477862164627) [![Altmetric](https://img.shields.io/badge/Altmetric-147-green.svg?style=flat)](https://www.altmetric.com/details/10533079)
 
 ------------------------------------------------------------------------
 
@@ -27,6 +27,26 @@ For details, please visit our project website, <https://guangchuangyu.github.io/
 -   [FAQ](https://guangchuangyu.github.io/ggtree/faq/)
 -   [Featured Articles](https://guangchuangyu.github.io/ggtree/featuredArticles/)
 -   [Feedback](https://guangchuangyu.github.io/ggtree/#feedback)
+
+### Citation
+
+[![citation](https://img.shields.io/badge/cited%20by-1-green.svg?style=flat)](https://scholar.google.com.hk/scholar?oi=bibs&hl=en&cites=7268358477862164627)
+
+        +---------+---------------+----------------+-----------+
+        |                                                      |
+        |                                                      |
+    1.2 +                                                      +
+        |                                                      |
+        |                                                      |
+      1 +                          *                           +
+        |                                                      |
+        |                                                      |
+        |                                                      |
+    0.8 +                                                      +
+        |                                                      |
+        |                                                      |
+    0.6 +---------+---------------+----------------+-----------+
+                1500            2000             2500           
 
 ### Download stats
 
