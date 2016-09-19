@@ -100,7 +100,7 @@
 ##' @author Guangchuang Yu
 `%+>%` <- function(p, data) {
     df <- p$data
-    res <- merge(df[, c('label', 'y')], data, by.x='label', by.y=1, all.x=TRUE)
+    res <- merge(df[, c('label', 'y')], data, by.x='label', by.y=1) ## , all.x=TRUE)
     lv <- levels(df$panel)
     res$panel <- factor(lv[length(lv)], levels=lv)
     return(res)
