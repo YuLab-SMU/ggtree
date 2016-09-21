@@ -36,10 +36,10 @@ Let us know if you have published using `ggtree` and your publication will be fe
   }  
   </style>
 
-<div id = 'chart330312a992d' class = 'rChart morris'></div>
+<div id = 'chart8267536a858' class = 'rChart morris'></div>
 <script type='text/javascript'>
     var chartParams = {
- "element": "chart330312a992d",
+ "element": "chart8267536a858",
 "width":            800,
 "height":            400,
 "xkey": "year",
@@ -53,7 +53,7 @@ Let us know if you have published using `ggtree` and your publication will be fe
 "pubid": "HtEfBTGE9r8C" 
 } 
 ],
-"id": "chart330312a992d",
+"id": "chart8267536a858",
 "labels": "cites" 
 },
       chartType = "Bar"

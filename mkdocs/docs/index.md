@@ -90,6 +90,8 @@ If you have problems when installing some of the dependent packages, please refe
 
 #### <i class="fa fa-angle-double-right"></i> Other applications
 + [BreadCrumbs](https://bitbucket.org/biobakery/breadcrumbs): Collection of scripts for metagenomics analysis
++ [DegeneratePrimerTools](https://github.com/esnapd/DegeneratePrimerTools): Utilities for Creating and Validating Degenerate primers
++ [phyloscan](https://github.com/olli0601/phyloscan): scan phylogenies created along a genome for patterns
 
 
 ## <i class="fa fa-comments"></i> Feedback
@@ -100,4 +102,3 @@ If you have problems when installing some of the dependent packages, please refe
 	<li><i class="fa-li fa fa-support"></i> We are also following every post tagged with **ggtree** on [Bioconductor support site](https://support.bioconductor.org/) and [Biostars](https://www.biostars.org/)</li>
 	<li><i class="fa-li fa fa-commenting"></i> Join the group chat on <a href="https://twitter.com/hashtag/ggtree"><i class="fa fa-twitter fa-lg"></i></a> and <a href="http://huati.weibo.com/k/ggtree"><i class="fa fa-weibo fa-lg"></i></a></li>
 </ul>
-
