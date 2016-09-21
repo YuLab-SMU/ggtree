@@ -8,7 +8,7 @@
 <!-- download:=ggtree:=month -->
 
 
-The `ggtree` package extending the `ggplot2` package. It based on grammar of graphics and takes all the good parts of `ggplot2`.  `ggtree` is designed for not only viewing phylogenetic tree but also displaying annotation data on the tree. 
+The `ggtree` package extending the `ggplot2` package. It based on grammar of graphics and takes all the good parts of `ggplot2`.  `ggtree` is designed for not only viewing phylogenetic tree but also displaying annotation data on the tree.
 `ggtree` is released within the [Bioconductor](https://bioconductor.org/packages/ggtree/) project and the source code is hosted on <a href="https://github.com/GuangchuangYu/ggtree"><i class="fa fa-github fa-lg"></i> GitHub</a>.
 
 
@@ -24,7 +24,7 @@ Please cite the following article when using `ggtree`:
 <!-- citation:=HtEfBTGE9r8C:=7268358477862164627 -->
 <!-- altmetric:=10533079 -->
 
-__G Yu__, DK Smith, H Zhu, Y Guan, TTY Lam<sup>\*</sup>. ggtree: an R package for visualization and annotation of phylogenetic trees with their covariates and other associated data. __*Methods in Ecology and Evolution*__. *accepted*. 
+__G Yu__, DK Smith, H Zhu, Y Guan, TTY Lam<sup>\*</sup>. ggtree: an R package for visualization and annotation of phylogenetic trees with their covariates and other associated data. __*Methods in Ecology and Evolution*__. *accepted*.
 
 ## <i class="fa fa-pencil"></i> Featured Articles
 
@@ -74,6 +74,9 @@ If you have problems when installing some of the dependent packages, please refe
 <!-- package_depend:=ggtree:=CRAN -->
 
 <!-- package_depend:=ggtree:=BioC -->
+
+#### <i class="fa fa-angle-double-right"></i> Other applications
++ [BreadCrumbs](https://bitbucket.org/biobakery/breadcrumbs): Collection of scripts for metagenomics analysis
 
 
 ## <i class="fa fa-comments"></i> Feedback

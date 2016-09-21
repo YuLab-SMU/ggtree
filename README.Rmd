@@ -64,7 +64,7 @@ For details, please visit our project website, <https://guangchuangyu.github.io/
 
 ```{r echo=F, comment=NA}
 d <- get_article_cite_history('DO5oG40AAAAJ', 'HtEfBTGE9r8C')
-txtplot(d$year, d$cites)
+txtplot(d$year, d$cites, xlim=c(2015, 2017))
 ```
 
 ### Download stats
