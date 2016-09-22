@@ -86,6 +86,7 @@ If you have problems when installing some of the dependent packages, please refe
 
 
 #### <i class="fa fa-angle-double-right"></i> Bioconductor packages
++ [LINC](https://www.bioconductor.org/packages/LINC): annotation of noncoding RNAs and coexpressed genes
 + [philr](https://www.bioconductor.org/packages/philr): Phylogenetic paritioning based ILR transform for metagenomics data
 
 #### <i class="fa fa-angle-double-right"></i> Other applications
