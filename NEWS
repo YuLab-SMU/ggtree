@@ -1,5 +1,7 @@
 CHANGES IN VERSION 1.5.14
 ------------------------
+ o unit test for groupOTU and groupClade <2016-09-22, Thu>
+ o groupOTU label groups by input group names (when input is a named list) <2016-09-22, Thu>
  o update angle calculation for geom_tiplab <2016-09-13, Thu>
  o as.polytomy to collapse binary tree to polytomy by applying 'fun' to selected 'feature' (e.g. bootstrap value less than 70). <2016-09-13, Tue>
    + currently only phylo object supported.
