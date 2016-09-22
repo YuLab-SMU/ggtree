@@ -90,7 +90,7 @@ setMethod("groupOTU", signature(object="paml_rst"),
 
 ##' group tree based on selected OTU, will traceback to MRCA
 ##'
-##' 
+##'
 ##' @rdname groupOTU-methods
 ##' @exportMethod groupOTU
 setMethod("groupOTU", signature(object="phylo"),
@@ -111,21 +111,26 @@ setMethod("groupOTU", signature(object="r8s"),
 
 
 ##' @importFrom ape which.edge
-gfocus <- function(phy, focus, group_name) {
+gfocus <- function(phy, focus, group_name, focus_label=NULL) {
     if (is.character(focus)) {
         focus <- which(phy$tip.label %in% focus)
     }
-    
+
     n <- getNodeNum(phy)
     if (is.null(attr(phy, group_name))) {
         foc <- rep(0, n)
     } else {
         foc <- attr(phy, group_name)
     }
-    i <- max(foc) + 1
+    i <- max(suppressWarnings(as.numeric(foc)), na.rm=TRUE) + 1
     ## sn <- phy$edge[which.edge(phy, focus),] %>% as.vector %>% unique
     sn <- unique(as.vector(phy$edge[which.edge(phy, focus),]))
-    foc[sn] <- i
+    if (is.null(focus_label)) {
+        foc[sn] <- i
+    } else {
+        foc[sn] <- focus_label
+    }
+
     attr(phy, group_name) <- foc
     phy
 }
@@ -133,7 +138,7 @@ gfocus <- function(phy, focus, group_name) {
 
 ##' group OTU
 ##'
-##' 
+##'
 ##' @title groupOTU.phylo
 ##' @param phy tree object
 ##' @param focus tip list
@@ -144,8 +149,8 @@ groupOTU.phylo <- function(phy, focus, group_name="group") {
     attr(phy, group_name) <- NULL
     if ( is(focus, "list") ) {
         for (i in 1:length(focus)) {
-            phy <- gfocus(phy, focus[[i]], group_name)
-        } 
+            phy <- gfocus(phy, focus[[i]], group_name, names(focus)[i])
+        }
     } else {
         phy <- gfocus(phy, focus, group_name)
     }
@@ -167,14 +172,14 @@ groupOTU.ggplot <- function(object, focus, group_name) {
     df <- object$data
     df[, group_name] <- 0
     object$data <- groupOTU.df(df, focus, group_name)
-    return(object)     
+    return(object)
 }
 
 
-groupOTU.df <- function(df, focus, group_name) {    
+groupOTU.df <- function(df, focus, group_name) {
     if (is(focus, "list")) {
         for (i in 1:length(focus)) {
-            df <- gfocus.df(df, focus[[i]], group_name)
+            df <- gfocus.df(df, focus[[i]], group_name, names(focus)[i])
         }
     } else {
         df <- gfocus.df(df, focus, group_name)
@@ -183,13 +188,16 @@ groupOTU.df <- function(df, focus, group_name) {
     return(df)
 }
 
-gfocus.df <- function(df, focus, group_name) {
+gfocus.df <- function(df, focus, group_name, focus_label=NULL) {
     focus <- df$node[which(df$label %in% focus)]
+    if (is.null(focus_label))
+        focus_label <- max(suppressWarnings(as.numeric(df[, group_name])), na.rm=TRUE) + 1
+
     if (length(focus) == 1) {
-        df[match(focus, df$node), group_name] <- max(df(df[, group_name])) + 1
+        df[match(focus, df$node), group_name] <-focus_label
         return(df)
     }
-    
+
     anc <- getAncestor.df(df, focus[1])
     foc <- c(focus[1], anc)
     for (j in 2:length(focus)) {
@@ -200,7 +208,7 @@ gfocus.df <- function(df, focus, group_name) {
         foc <- c(foc, comAnc[1])
     }
     idx <- match(foc, df$node)
-    df[idx, group_name] <- max(df[, group_name]) + 1
+    df[idx, group_name] <- focus_label
     return(df)
 }
 
