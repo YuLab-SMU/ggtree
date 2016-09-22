@@ -4,7 +4,7 @@ CHANGES IN VERSION 1.5.14
  o as.polytomy to collapse binary tree to polytomy by applying 'fun' to selected 'feature' (e.g. bootstrap value less than 70). <2016-09-13, Tue>
    + currently only phylo object supported.
    + add test for as.polytomy
-   
+
 CHANGES IN VERSION 1.5.13
 ------------------------
  o facet_plot for plotting data with tree <2016-09-06, Tue>
@@ -14,12 +14,12 @@ CHANGES IN VERSION 1.5.13
    + colnames_offset_y
    + hjust
  o offset parameter in geom_tiplab and geom_tiplab2 <2016-09-05, Mon>
- 
+
 CHANGES IN VERSION 1.5.12
 ------------------------
  o use data in all layers instead of the base layer for coordination calculation in subview <2016-09-01, Thu>
  o bug fixed in subview, width & height should be width/2 & height/2 <2016-09-01, Thu>
- 
+
 CHANGES IN VERSION 1.5.11
 ------------------------
  o gheatmap works with matrix <2016-08-28, Sun>
@@ -28,27 +28,27 @@ CHANGES IN VERSION 1.5.11
  o bug fixed in geom_tiplab <2016-08-17, Wed>
    + https://groups.google.com/forum/?utm_medium=email&utm_source=footer#!msg/bioc-ggtree/Tm9ULK7hd9E/HviXEh3CBwAJ
  o update citation info, add doi. <2016-08-16, Tue>
- 
+
 CHANGES IN VERSION 1.5.10
 ------------------------
  o fixed issue #72 for label of geom_treescale not displayed <2016-08-16, Tue>
    + https://github.com/GuangchuangYu/ggtree/issues/72
- 
+
 CHANGES IN VERSION 1.5.9
 ------------------------
  o update citation info <2016-08-12, Fri>
- 
+
 CHANGES IN VERSION 1.5.8
 ------------------------
  o add color parameter in geom_cladelabel, color should be of length 1 or 2 <2016-08-11, Thu>
  o geom_cladelabel support parsing expression <2016-08-11, Thu>
- 
+
 CHANGES IN VERSION 1.5.7
 ------------------------
  o geom_strip can accept taxa name as input but labeling strip will not supported.
    To support labeling strip, user need to input node id  <2016-07-27, Wed>
- o nodeid function for converting node label(s) to node id(s) <2016-07-27, Wed> 
- 
+ o nodeid function for converting node label(s) to node id(s) <2016-07-27, Wed>
+
 CHANGES IN VERSION 1.5.6
 ------------------------
  o remove dependency of Biostring for installing ggtree <2016-07-21, Thu>
@@ -69,7 +69,7 @@ CHANGES IN VERSION 1.5.5
  o bug fixed if time-scaled tree extend into the BCE. <2016-06-02, Thu>
    + as.Date won't work for BCE time.
    + as.Date=FALSE by default in fortify method, just use the time in decimal format (real number, not Date object).
- 
+
 CHANGES IN VERSION 1.5.4
 ------------------------
  o reroot method for raxml object <2016-05-22, Sun>
@@ -77,7 +77,7 @@ CHANGES IN VERSION 1.5.4
  o bug fixed in collapse <2016-05-20, Fri>
    + if user collapse a node that is an offspring of a collapsed node, print warning msg and return the tree directly
  o use byte compiler <2016-05-18, Wed>
- o change any(is.na()) to anyNA() which is more efficient <2016-05-18, Wed> 
+ o change any(is.na()) to anyNA() which is more efficient <2016-05-18, Wed>
  o https://github.com/Bioconductor-mirror/ggtree/commit/559548c66b51253e8ccb983d353385838a81f106
 
 CHANGES IN VERSION 1.5.3
@@ -86,9 +86,9 @@ CHANGES IN VERSION 1.5.3
    + add fan layout example in treeVisualization vignette
    + add open_tree and rotate_tree example in treeManipulation vignette
  o add angle in ggtree function, fan layout supported <2016-05-12, Thu>
- o rotate_tree and open_tree function <2016-05-12, Thu> 
+ o rotate_tree and open_tree function <2016-05-12, Thu>
  o support reading BEAST MCC trees (multiple trees in one file) via the read.beast function <2016-05-12, Thu>
- o https://github.com/Bioconductor-mirror/ggtree/commit/51eec4721595c274c24dc4df2f1fdf40700cb1a5 
+ o https://github.com/Bioconductor-mirror/ggtree/commit/51eec4721595c274c24dc4df2f1fdf40700cb1a5
 
 CHANGES IN VERSION 1.5.2
 ------------------------
@@ -101,7 +101,7 @@ CHANGES IN VERSION 1.5.2
    + https://github.com/GuangchuangYu/ggtree/issues/40
  o supports phylo4d object <2016-05-10, Tue>
    + https://github.com/GuangchuangYu/ggtree/issues/47
- 
+
 CHANGES IN VERSION 1.5.1
 ------------------------
  o update vignettes <2016-05-10, Tue>
@@ -113,11 +113,11 @@ CHANGES IN VERSION 1.5.1
    + https://github.com/GuangchuangYu/ggtree/pull/57
  o geom_strip for associated taxa <2016-05-09, Mon>
    + https://github.com/GuangchuangYu/ggtree/issues/52
- 
+
 CHANGES IN VERSION 1.4.0
 ------------------------
  o BioC 3.3 released <2016-05-05, Thu>
- 
+
 CHANGES IN VERSION 1.3.16
 ------------------------
  o geom_treescale() supports family argument <2016-04-27, Wed>
@@ -127,7 +127,7 @@ CHANGES IN VERSION 1.3.16
  o support passing textConnection(text_string) as a file <2016-04-21, Thu>
    + contributed by Casey Dunn <casey_dunn@brown.edu>
    + https://github.com/GuangchuangYu/ggtree/pull/55#issuecomment-212859693
- 
+
 CHANGES IN VERSION 1.3.15
 ------------------------
  o geom_tiplab2 supports parameter hjust <2016-04-18, Mon>
@@ -135,9 +135,9 @@ CHANGES IN VERSION 1.3.15
  o geom_label2 that support subsetting <2016-04-07, Thu>
  o geom_tiplab2 for adding tip label of circular layout <2016-04-06, Wed>
  o use plot$plot_env to access ggplot2 parameter <2016-04-06, Wed>
- o geom_taxalink for connecting related taxa <2016-04-01, Fri> 
+ o geom_taxalink for connecting related taxa <2016-04-01, Fri>
  o geom_range for adding range of HPD to present uncertainty of evolutionary inference <2016-04-01, Fri>
- 
+
 CHANGES IN VERSION 1.3.14
 ------------------------
  o geom_tiplab works with NA values, compatible with collapse <2016-03-05, Sat>
@@ -145,12 +145,12 @@ CHANGES IN VERSION 1.3.14
  o offset works in `align=FFALSE` with `annotation_image` function <2016-02-23, Tue>
    + see https://github.com/GuangchuangYu/ggtree/issues/46
  o subview and inset now supports annotating with img files <2016-02-23, Tue>
- 
+
 CHANGES IN VERSION 1.3.13
 ------------------------
  o add example of rescale_tree function in treeAnnotation.Rmd <2016-02-07, Sun>
  o geom_cladelabel works with collapse <2016-02-07, Sun>
-   + see https://github.com/GuangchuangYu/ggtree/issues/38 
+   + see https://github.com/GuangchuangYu/ggtree/issues/38
 
 CHANGES IN VERSION 1.3.12
 ------------------------
@@ -158,8 +158,8 @@ CHANGES IN VERSION 1.3.12
  o solved issues of geom_tree2 <2016-01-25, Mon>
    + https://github.com/hadley/ggplot2/issues/1512
  o colnames_level parameter in gheatmap <2016-01-25, Mon>
- o raxml2nwk function for converting raxml bootstrap tree to newick format <2016-01-25, Mon> 
- 
+ o raxml2nwk function for converting raxml bootstrap tree to newick format <2016-01-25, Mon>
+
 CHANGES IN VERSION 1.3.11
 ------------------------
  o solved issues of geom_tree2 <2016-01-25, Mon>
@@ -171,7 +171,7 @@ CHANGES IN VERSION 1.3.11
  o implement geom_tree2 layer that support duplicated node records via the setup_tree_data function <2016-01-21, Thu>
  o rescale_tree function for rescaling branch length of tree object <2016-01-20, Wed>
  o upgrade set_branch_length, now branch can be rescaled using feature in extraInfo slot <2016-01-20, Wed>
- 
+
 CHANGES IN VERSION 1.3.10
 ------------------------
  o remove dependency of gridExtra by implementing multiplot function instead of using grid.arrange <2016-01-20, Wed>
@@ -185,7 +185,7 @@ CHANGES IN VERSION 1.3.9
  o viewClade, scaleClade, collapse, expand, rotate, flip, get_taxa_name and scale_x_ggtree accepts input tree_view=NULL.
    these function will access the last plot if tree_view=NULL. <2016-01-13, Wed>
    + > ggtree(rtree(30)); viewClade(node=35) works. no need to pipe.
- 
+
 CHANGES IN VERSION 1.3.8
 ------------------------
  o add example of viewClade in 'Tree Manipulation' vignette <2016-01-13, Wed>
@@ -195,7 +195,7 @@ CHANGES IN VERSION 1.3.8
  o 05 advance tree annotation vignette <2016-01-04, Mon>
  o export theme_inset <2016-01-04, Mon>
  o inset, nodebar, nodepie functions <2015-12-31, Thu>
- 
+
 CHANGES IN VERSION 1.3.7
 ------------------------
  o split the long vignette to several vignettes
@@ -204,14 +204,14 @@ CHANGES IN VERSION 1.3.7
    + 02 tree visualization <2015-12-28, Mon>
    + 03 tree manipulation <2015-12-28, Mon>
    + 04 tree annotation <2015-12-29, Tue>
- 
+
 CHANGES IN VERSION 1.3.6
 ------------------------
  o MRCA function for finding Most Recent Common Ancestor among a vector of tips <2015-12-22, Tue>
  o geom_cladelabel: add bar and label to annotate a clade <2015-12-21, Mon>
    - remove annotation_clade and annotation_clade2 functions.
  o geom_treescale: tree scale layer. (add_legend was removed) <2015-12-21, Mon>
- 
+
 CHANGES IN VERSION 1.3.5
 ------------------------
  o bug fixed, read.nhx now works with scientific notation <2015-11-30, Mon>
@@ -226,12 +226,12 @@ CHANGES IN VERSION 1.3.4
    + see https://github.com/GuangchuangYu/ggtree/issues/26
  o support NHX (New Hampshire X) format via read.nhx function <2015-11-17, Tue>
  o bug fixed in extract.treeinfo.jplace <2015-11-17, Thu>
- 
+
 CHANGES IN VERSION 1.3.3
 ------------------------
  o support color=NULL in gheatmap, then no colored line will draw within the heatmap <2015-10-30, Fri>
  o add `angle` for also rectangular, so that it will be available for layout='rectangular' following by coord_polar() <2015-10-27, Tue>
- 
+
 CHANGES IN VERSION 1.3.2
 ------------------------
  o update vignette, add example of ape bootstrap and phangorn ancestral sequences <2015-10-26, Mon>
@@ -239,7 +239,7 @@ CHANGES IN VERSION 1.3.2
    see https://github.com/GuangchuangYu/ggtree/issues/20
  o add support of ancestral sequences inferred by phangorn <2015-10-26, Mon>
    see https://github.com/GuangchuangYu/ggtree/issues/21
- 
+
 CHANGES IN VERSION 1.3.1
 ------------------------
  o change angle to angle + 90, so that label will in radial direction <2015-10-22, Thu>
@@ -247,17 +247,17 @@ CHANGES IN VERSION 1.3.1
  o na.rm should be always passed to layer(), fixed it in geom_hilight and geom_text2 <2015-10-21, Wed>
    + see https://github.com/hadley/ggplot2/issues/1380
  o matching beast stats with tree using internal node number instead of label <2015-10-20, Tue>
- 
+
 CHANGES IN VERSION 1.2.0
 ------------------------
  o BioC 3.2 released
- 
+
 CHANGES IN VERSION 1.1.21
 ------------------------
  o support hyphy output of ancestral sequences that is in phylip sequential format (no TAXALABELS block available) <2015-10-07, Wed>
  o fixed bug in geom_tiplab when x contains NA (eg, removing by collapse function) <2015-10-01, Thu>
  o new implementation of geom_hilight, a truly geom layer function <2015-09-10, Thu>
- 
+
 CHANGES IN VERSION 1.1.20
 ------------------------
  o bug fixed in %add2%, if node available use node, otherwise use label <2015-09-04, Fri>
@@ -268,7 +268,7 @@ CHANGES IN VERSION 1.1.20
    + read.r8s, parser function
    + fortify method
    + plot, get.tree, get.fields, groupOTU, groupClade, scale_color, gzoom and show methods
- o bug fixed in fortify.multiPhylo, convert df$.id to factor of levels=names(multiPhylo_object) <2015-09-02, Wed>   
+ o bug fixed in fortify.multiPhylo, convert df$.id to factor of levels=names(multiPhylo_object) <2015-09-02, Wed>
  o update scale_x_ggtree to support Date as x-axis <2015-09-01, Tue>
  o add mrsd parameter for user to specify 'most recent sampling date' for time tree <2015-09-01, Tue>
    - remove 'time_scale' parameter.
@@ -278,15 +278,15 @@ CHANGES IN VERSION 1.1.20
    + plot, get.tree, get.fields, groupOTU, groupClade, scale_color, gzoom and show methods
    + fortify.raxml method
  o bug fixed in edgeNum2nodeNum for jplace parsing jplace file <2015-09-01, Tue>
- 
+
 CHANGES IN VERSION 1.1.19
 ------------------------
- o use fortify instead of fortify.phylo in fortify.multiPhylo, 
+ o use fortify instead of fortify.phylo in fortify.multiPhylo,
    so that multiPhylo can be a list of beast/codeml or other supported objects. <2015-08-31, Mon>
  o support multiPhylo object, should use + facet_wrap or + facet_grid <2015-08-31, Mon>
  o remove dependency of EBImage and phytools to speedup the installation process of ggtree <2015-08-31, Mon>
    + these two packages is not commonly used, and will be loaded automatically when needed.
- 
+
 CHANGES IN VERSION 1.1.18
 ------------------------
  o layout name change to 'rectangular', 'slanted', 'circular'/'fan' for phylogram and cladogram (if branch.length = 'none')
@@ -294,37 +294,37 @@ CHANGES IN VERSION 1.1.18
  o implement geom_point2, geom_text2, geom_segment2 to support subsetting <2015-08-28, Fri>
      see https://github.com/hadley/ggplot2/issues/1295
  o update geom_tiplab according to geom_text2 and geom_segment2 <2015-08-28, Fri>
- o add geom_tippoint, geom_nodepoint and geom_rootpoint <2015-08-28, Fri> 
- 
+ o add geom_tippoint, geom_nodepoint and geom_rootpoint <2015-08-28, Fri>
+
 CHANGES IN VERSION 1.1.17
 ------------------------
  o bug fixed in rm.singleton.newick by adding support of scientific notation in branch length <2015-08-27, Thu>
  o bug fixed in gheatmap, remove inherit aes from ggtree <2015-08-27, Thu>
  o add 'width' parameter to add_legend, now user can specify the width of legend bar <2015-08-27, Thu>
- o add 'colnames_position' parameter to gheatmap, now colnames can be display on the top of heatmap <2015-08-27, Thu> 
+ o add 'colnames_position' parameter to gheatmap, now colnames can be display on the top of heatmap <2015-08-27, Thu>
  o theme_transparent to make background transparent <2015-08-27, Thu>
- o subview for adding ggplot object (subview) to another ggplot object (mainview) <2015-08-27, Thu>  
- 
+ o subview for adding ggplot object (subview) to another ggplot object (mainview) <2015-08-27, Thu>
+
 CHANGES IN VERSION 1.1.16
 ------------------------
  o update citation <2015-08-17, Mon>
- 
+
 CHANGES IN VERSION 1.1.15
 ------------------------
  o open text angle parameter for annotation_clade/annotation_clade2 <2015-08-13, Thu>
  o support changing size of add_legend <2015-08-13, Thu>
  o reroot methods for phylo and beast <2015-08-07, Fri>
- 
+
 CHANGES IN VERSION 1.1.14
 ------------------------
  o update paml_rst to compatible with only marginal ancestral sequence or joint ancestral sequence available <2015-08-07, Fri>
- 
+
 CHANGES IN VERSION 1.1.13
 ------------------------
  o implement annotation_image <2015-08-01, Sat>
  o better implementation of geom_tiplab for accepting aes mapping and auto add align dotted line <2015-08-01, Sat>
  o open group_name parameter of groupOTU/groupClade to user <2015-08-01, Sat>
- 
+
 CHANGES IN VERSION 1.1.12
 ------------------------
  o update vignette according to the changes <2015-07-31, Fri>
@@ -332,14 +332,14 @@ CHANGES IN VERSION 1.1.12
  o extend groupClade to support operating on tree view <2015-07-31, Fri>
  o extend groupOTU to support operating on tree view <2015-07-31, Fri>
  o new implementation of groupClade & groupOTU <2015-07-31, Fri>
- 
+
 CHANGES IN VERSION 1.1.11
 ------------------------
  o annotation_clade and annotation_clade2 functions. <2015-07-30, Thu>
  o better add_legend implementation. <2015-07-30, Thu>
  o add ... in theme_tree & theme_tree2 for accepting additional parameter. <2015-07-30, Thu>
  o better geom_tree implementation. Now we can scale the tree with aes(color=numVar). <2015-07-30, Thu>
- 
+
 CHANGES IN VERSION 1.1.10
 ------------------------
  o solve overlapping branches for layout = "fan" || "radial",
@@ -355,32 +355,32 @@ CHANGES IN VERSION 1.1.9
  o get_taxa_name function will return taxa name vector of a selected clade <2015-06-30, Tue>
  o add example of flip function in vignette <2015-06-30, Tue>
  o flip function for exchanging positions of two selected branches <2015-06-30, Tue>
- 
+
 CHANGES IN VERSION 1.1.8
 ------------------------
  o update get.placement <2015-06-05, Fri>
  o edgeNum2nodeNum for converting edge number to node number for EPA/pplacer output <2015-06-04, Thu>
  o mv scale_x_gheatmap to scale_x_ggtree, which also support msaplot <2015-06-02, Tue>
  o add mask function <2015-06-02, Tue>
- 
+
 CHANGES IN VERSION 1.1.7
 ------------------------
  o add example of msaplot in vignette <2015-05-22, Fri>
  o msaplot for adding multiple sequence alignment <2015-05-22, Fri>
- 
+
 CHANGES IN VERSION 1.1.6
 ------------------------
  o add vertical_only parameter to scaleClade and set to TRUE by default.
    only vertical will be scaled by default. <2015-05-22, Fri>
  o update add_colorbar & add_legend <2015-05-21, Thu>
- o add example of add_legend and gheatmap in vignette <2015-05-18, Mon> 
+ o add example of add_legend and gheatmap in vignette <2015-05-18, Mon>
  o gheatmap implementation of gplot <2015-05-18, Mon>
  o add_legend for adding evolution distance legend <2015-05-18, Mon>
- 
+
 CHANGES IN VERSION 1.1.5
 ------------------------
  o implement scaleClade <2015-05-12, Tue>
- 
+
 CHANGES IN VERSION 1.1.4
 ------------------------
  o better performance of parsing beast tree  <2015-05-11, Mon>
@@ -388,13 +388,13 @@ CHANGES IN VERSION 1.1.4
    + support file that only contains one evidence for some of the nodes/tips
  o update add_colorbar to auto determine the position <2015-05-04, Mon>
  o add_colorbar function <2015-04-30, Thu>
- 
+
 CHANGES IN VERSION 1.1.3
 ------------------------
  o add space between residue substitution (e.g. K123R / E155D) <2015-04-30, Thu>
  o remove slash line in heatmap legend <2015-04-30, Thu>
  o update vignette to add example of merge_tree <2015-04-29, Wed>
- 
+
 CHANGES IN VERSION 1.1.2
 ------------------------
  o in addition to parsing beast time scale tree in XXX_year[\\.\\d]*, now supports XXX/year[\\.\\d]* <2015-04-29, Wed>
@@ -409,17 +409,17 @@ CHANGES IN VERSION 1.1.2
  o extend get.fields methods to support additional fields <2015-04-28, Tue>
  o extend tree class to support additional info by merging two tree <2015-04-28, Tue>
  o implement merge_tree function to merge two tree objects into one <2015-04-28, Tue>
- 
+
 CHANGES IN VERSION 1.1.1
 ------------------------
  o minor bug fixed in extracting node ID of rst file <2015-04-27, Mon>
  o update parsing beast time scale tree to support _year (originally supports _year.\\d+) <2015-04-27, Mon>
  o add Tommy in author <2015-04-27, Mon>
- 
+
 CHANGES IN VERSION 0.99.28
 ------------------------
  o update vignette with floating table of content <2015-04-08, Wed>
- 
+
 CHANGES IN VERSION 0.99.27
 ------------------------
  o bug fixed, see https://github.com/GuangchuangYu/ggtree/issues/4 <2015-03-07, Tue>
@@ -428,42 +428,42 @@ CHANGES IN VERSION 0.99.26
 ------------------------
  o update geom_tiplab <2015-03-31, Tue>
  o update plot method of beast <2015-03-17, Tue>
- 
+
 CHANGES IN VERSION 0.99.25
 ------------------------
  o implement groupClade <2015-03-13, Fri>
- 
+
 CHANGES IN VERSION 0.99.24
 ------------------------
  o use "round" segment end, look very better <2015-03-12, Thu>
  o update vignett <2015-03-11, Wed>
- 
+
 CHANGES IN VERSION 0.99.23
 ------------------------
  o mv geom_hilight to hilight <2015-03-11, Wed>
  o mv geom_phylopic to phylopic <2015-03-11, Wed>
- o implement collapse and expand for collapse and expand a selected clade <2015-03-11, Wed> 
- 
+ o implement collapse and expand for collapse and expand a selected clade <2015-03-11, Wed>
+
 CHANGES IN VERSION 0.99.22
 ------------------------
  o remove quote in beast tip/node labels <2015-03-10, Tue>
- 
+
 CHANGES IN VERSION 0.99.21
 ------------------------
  o fixed downloading png file in Windows platform, should explicitly setting mode="wb". <2015-03-03, Tue>
- 
+
 CHANGES IN VERSION 0.99.19
 ------------------------
  o for time scale tree inferred by BEAST, now user can use time_scale=TRUE parameter in ggtree function <2015-02-12, Thu>
- 
+
 CHANGES IN VERSION 0.99.18
 ------------------------
  o bug fixed in reorder the labels in gplot.heatmap <2015-02-12, Thu>
- 
+
 CHANGES IN VERSION 0.99.17
 ------------------------
  o add angle and branch.y variable in cladogram layout <2015-02-10, Tue>
- 
+
 CHANGES IN VERSION 0.99.16
 ------------------------
  o correct typo in vignette <2015-02-10, Tue>
@@ -471,7 +471,7 @@ CHANGES IN VERSION 0.99.16
 CHANGES IN VERSION 0.99.15
 ------------------------
  o fully support of replace operator, %<% <2015-02-09, Mon>
- 
+
 CHANGES IN VERSION 0.99.14
 ------------------------
  o add example in groupOTU for adding legend manually <2015-02-09, Mon>.
@@ -479,13 +479,13 @@ CHANGES IN VERSION 0.99.14
 CHANGES IN VERSION 0.99.13
 ------------------------
  o two dimensional tree <2015-02-06, Fri>
- 
+
 CHANGES IN VERSION 0.99.12
 ------------------------
  o update vignette <2015-02-04, Wed>
  o gzoom methods that supports all tree objects <2015-02-04, Wed>
- o geom_hilight layer for highlighting clade <2015-02-04, Wed> 
- 
+ o geom_hilight layer for highlighting clade <2015-02-04, Wed>
+
 CHANGES IN VERSION 0.99.11
 ------------------------
  o add scale_color to support colored lines and text based on numerical values and update vignette <2015-02-04, Wed>
@@ -499,12 +499,12 @@ CHANGES IN VERSION 0.99.10
 CHANGES IN VERSION 0.99.9
 ------------------------
  o update vignette <2015-02-02, Mon>
- 
+
 CHANGES IN VERSION 0.99.8
 ------------------------
  o add get.phylopic function to read the online phylo pic and convert it to grob object,
    which can be use to annotate ggplot figure using annotation_custom <2015-01-30, Fri>
- 
+
 CHANGES IN VERSION 0.99.7
 ------------------------
  o add angle information for 'fan' & 'unrooted' layout <2015-01-29, Thu>
@@ -513,7 +513,7 @@ CHANGES IN VERSION 0.99.6
 ------------------------
  o read.beast now supports support values of sets such as {x, y, z} <2015-01-19, Mon>
  o now read.beast supports characters in support values <2015-01-18, Sun>
- o add example of gzoom and groupOTU in vignette <2015-01-14, Wed> 
+ o add example of gzoom and groupOTU in vignette <2015-01-14, Wed>
  o implement groupOTU methods <2015-01-14, Wed>
  o export get.offspring.tip <2015-01-14, Wed>
 
@@ -524,7 +524,7 @@ CHANGES IN VERSION 0.99.5
  o add gzoom function, similar to zoom function in ape <2015-01-07, Wed>
  o add examples in man pages of %<% and %<+% operators <2015-01-06, Tue>
  o remove <<- and update vignette <2015-01-06, Tue>
- o update vignette and use BibTex and CSL for references <2015-01-05, Mon>  
+ o update vignette and use BibTex and CSL for references <2015-01-05, Mon>
  o update cladogram layout <2015-01-05, Mon>
  o read.baseml function and update vignette with baseml example <2015-01-04, Sun>
  o plot method for hyphy and hyphy example in vignette <2015-01-04, Sun>
@@ -532,9 +532,9 @@ CHANGES IN VERSION 0.99.5
 
 CHANGES IN VERSION 0.99.4
 ------------------------
- o ggtree now support branch.length = "none" to only draw tree topology <2015-01-03, Sat> 
+ o ggtree now support branch.length = "none" to only draw tree topology <2015-01-03, Sat>
  o get.subs method for hyphy object <2015-01-03, Sat>
- o show, get.tree and get.subs methods of hyphy <2015-01-02, Fri> 
+ o show, get.tree and get.subs methods of hyphy <2015-01-02, Fri>
  o export read.hyphy <2015-01-02, Fri>
  o export hyphy class <2015-01-01, Thu>
  o plot method for beast class and get.tree method for codeml class <2014-12-31, Wed>
@@ -547,7 +547,7 @@ CHANGES IN VERSION 0.99.4
  o update man file and add example file of beast output <2014-12-26, Fri>
  o get.tree and get.fileds methods of beast class <2014-12-26, Fri>
  o read.beast <2014-12-26, Fri>
- o beast class and show method <2014-12-26, Fri> 
+ o beast class and show method <2014-12-26, Fri>
  o coplot prototype<2014-12-24, Wed>
  o parse translation matrix in beast nexus <2014-12-24, Wed>
  o extract beast stats info <2014-12-23, Tue>
@@ -560,7 +560,7 @@ CHANGES IN VERSION 0.99.3
  o write.jplace and fully supports of jplace by ggtree. <2014-12-21, Sun>
  o support unrooted layout in ggplot. <2014-12-21, Sun>
  o support fan, radial, dendrogram layout in geom_tree. <2014-12-21, Sun>
- 
+
 CHANGES IN VERSION 0.99.2
 ------------------------
  o layout of unrooted tree, implemented equal-angle algorithm that described in Chapter 34
