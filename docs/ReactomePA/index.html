@@ -6,10 +6,10 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         
         <meta name="author" content="Guangchuang Yu">
-        <link rel="canonical" href="https://guangchuangyu.github.io/ggtree/faq/">
+        <link rel="canonical" href="https://guangchuangyu.github.io/ggtree/ReactomePA/">
         <link rel="shortcut icon" href="../img/favicon.ico">
 
-	<title>FAQ - ggtree</title>
+	<title>ReactomePA - ggtree</title>
 
         <link href="../css/bootstrap-custom.min.css" rel="stylesheet">
         <link href="../css/font-awesome-4.0.3.css" rel="stylesheet">
@@ -72,8 +72,8 @@
             
             
             
-                <li class="active">
-                    <a href="./">FAQ</a>
+                <li >
+                    <a href="../faq/">FAQ</a>
                 </li>
             
             
@@ -84,7 +84,7 @@
             
             
             
-                <li class="dropdown">
+                <li class="dropdown active">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown">My Software <b class="caret"></b></a>
                     <ul class="dropdown-menu">
                     
@@ -119,8 +119,8 @@
 
                     
                         
-<li >
-    <a href="../ReactomePA/">ReactomePA</a>
+<li class="active">
+    <a href="./">ReactomePA</a>
 </li>
 
                     
@@ -138,12 +138,12 @@
                     </a>
                 </li>
                 <li >
-                    <a rel="next" href="../documentation/">
+                    <a rel="next" href="../GOSemSim/">
                         <i class="fa fa-arrow-left"></i> Previous
                     </a>
                 </li>
-                <li >
-                    <a rel="prev" href="../featuredArticles/">
+                <li class="disabled">
+                    <a rel="prev" >
                         Next <i class="fa fa-arrow-right"></i>
                     </a>
                 </li>
@@ -166,99 +166,11 @@
             <div class="col-md-3"><div class="bs-sidebar hidden-print affix well" role="complementary">
     <ul class="nav bs-sidenav">
     
-        <li class="main active"><a href="#installation"> Installation</a></li>
-        
-            <li><a href="#could-not-find-function"> Could not find function</a></li>
-        
-    
-        <li class="main "><a href="#text-label"> Text &amp; Label</a></li>
-        
-            <li><a href="#tip-label-truncated"> Tip label truncated</a></li>
-        
-            <li><a href="#formatting-tip-labels"> Formatting (tip) labels</a></li>
-        
-            <li><a href="#avoid-overlapping-text-labels"> Avoid overlapping text labels</a></li>
-        
-    
-        <li class="main "><a href="#aesthetic-mapping"> aesthetic mapping</a></li>
-        
-            <li><a href="#inherit-aes"> inherit aes</a></li>
-        
-    
     </ul>
 </div></div>
             <div class="col-md-9" role="main">
 
-<!-- AddToAny BEGIN -->
-
-<div class="a2a_kit a2a_kit_size_32 a2a_default_style">
-<a class="a2a_dd" href="//www.addtoany.com/share"></a>
-<a class="a2a_button_facebook"></a>
-<a class="a2a_button_twitter"></a>
-<a class="a2a_button_google_plus"></a>
-<a class="a2a_button_pinterest"></a>
-<a class="a2a_button_reddit"></a>
-<a class="a2a_button_sina_weibo"></a>
-<a class="a2a_button_wechat"></a>
-<a class="a2a_button_douban"></a>
-</div>
-
-<script async src="//static.addtoany.com/menu/page.js"></script>
-
-<!-- AddToAny END -->
-
-<p><link rel="stylesheet" href="https://guangchuangyu.github.io/css/font-awesome.min.css"></p>
-<h1 id="installation"><i class="fa fa-download"></i> Installation</h1>
-<h2 id="could-not-find-function"><i class="fa fa-angle-double-right"></i> Could not find function</h2>
-<p>If you got <a href="https://github.com/GuangchuangYu/ggtree/issues/12">this error</a>, please make sure you are using the latest R and <code>ggtree</code>. </p>
-<p>Packages in Bioconductor, like <code>ggtree</code>, have different release policy compare to CRAN. There are two branches, release and devel, in parallel. Release branch is more stable and only document improvement and bug fixes will commit to it. New functions will only commit to <code>devel</code> branch.</p>
-<p>Sometimes I may write blog post to introduce new functions which is not available in <code>release</code> branch, you need to install the <code>devel</code> version of <code>ggtree</code> in order to use these new functions.</p>
-<p>You can download the <code>devel</code> version of <code>ggtree</code> from <a href="http://bioconductor.org/packages/devel/bioc/html/ggtree.html">http://bioconductor.org/packages/devel/bioc/html/ggtree.html</a> and install it, or install the github version of <code>ggtree</code>.</p>
-<p>This also applied to other of my packages, including <code>GOSemSim</code>, <code>DOSE</code>, <code>clusterProfiler</code>, <code>ReactomePA</code> and <code>ChIPseeker</code>. If you got the <code>could not find function</code> error, upgrade your installation to latest release. If the error still exists after upgrading to latest release, you need to install the devel version.</p>
-<h1 id="text-label"><i class="fa fa-text-height"></i> Text &amp; Label</h1>
-<h2 id="tip-label-truncated"><i class="fa fa-angle-double-right"></i> Tip label truncated</h2>
-<p>ggplot2 can't auto adjust xlim based on added text. </p>
-<pre><code class="r">library(ggtree)
-## example tree from https://support.bioconductor.org/p/72398/
-tree&lt;-read.tree(text=&quot;(Organism1.006G249400.1:0.03977,(Organism2.022118m:0.01337,(Organism3.J34265.1:0.00284,Organism4.G02633.1:0.00468)0.51:0.0104):0.02469);&quot;)
-ggtree(tree) + geom_tiplab()
-</code></pre>
-
-<p>This is because the units are in two different spaces (data and pixel). Users can use xlim to allocate more space for tip label.</p>
-<pre><code class="r">ggtree(tree) + geom_tiplab() + xlim(0, 0.06)
-</code></pre>
-
-<h2 id="formatting-tip-labels"><i class="fa fa-angle-double-right"></i> Formatting (tip) labels</h2>
-<p>If you want to format labels, you need to set <code>parse=TRUE</code> in <code>geom_text</code>/<code>geom_tiplab</code> and the <code>label</code> should be string that can be parsed into expression and displayed as described in <code>?plotmath</code>.</p>
-<p>For example, the tiplabels contains two parts, species name and accession number and we want to display species name in <em>italic</em>, we can use command like this:</p>
-<pre><code>ggtree(rtree(30)) + geom_tiplab(aes(subset=node==35), label='paste(italic(&quot;species name&quot;), &quot;accession number&quot;)', parse=T)
-</code></pre>
-
-<h2 id="avoid-overlapping-text-labels"><i class="fa fa-angle-double-right"></i> Avoid overlapping text labels</h2>
-<p>User can use <a href="https://cran.r-project.org/web/packages/ggrepel/">ggrepel</a> package to repel overlapping text labels.</p>
-<p>For example:</p>
-<pre><code class="r">library(ggrepel)
-library(ggtree)
-raxml_file &lt;- system.file(&quot;extdata/RAxML&quot;, &quot;RAxML_bipartitionsBranchLabels.H3&quot;, package=&quot;ggtree&quot;)
-raxml &lt;- read.raxml(raxml_file)
-ggtree(raxml) + geom_label_repel(aes(label=bootstrap, fill=bootstrap))
-</code></pre>
-
-<p>For details, please refer to <a href="https://cran.r-project.org/web/packages/ggrepel/vignettes/ggrepel.html">ggrepel usage examples</a>.</p>
-<h1 id="aesthetic-mapping"><i class="fa fa-map-marker"></i> <em>aesthetic</em> mapping</h1>
-<h2 id="inherit-aes"><i class="fa fa-angle-double-right"></i> inherit <em>aes</em></h2>
-<pre><code class="r">ggtree(rtree(30)) + geom_point()
-</code></pre>
-
-<p>For example, we can add symbolic points to nodes with <code>geom_point()</code> directly. 
-The magic here is we don't need to map <code>x</code> and <code>y</code> position of the points by providing <code>aes(x, y)</code> to <code>geom_point()</code> since it was already mapped by <code>ggtree</code> function and it serves as a global mapping for all layers. </p>
-<p>But what if we provide a <code>dataset</code> in a layer and the <code>dataset</code> doesn't contain column of <code>x</code> and/or <code>y</code>, 
-the layer function also try to map <code>x</code> and <code>y</code> and also others if you map them in <code>ggtree</code> function. 
-As these variable is not available in your <code>dataset</code>, you will get the following error:</p>
-<pre><code>Error in eval(expr, envir, enclos) : object 'x' not found
-</code></pre>
-
-<p>This can be fixed by using parameter <code>inherit.aes=FALSE</code> which will disable inheriting mapping from <code>ggtree</code> function.</p></div>
+<p><meta http-equiv="refresh" content="0; url=https://guangchuangyu.github.io/ReactomePA" /></p></div>
         </div>
 
         <footer class="col-md-12">
