@@ -1,5 +1,7 @@
 CHANGES IN VERSION 1.5.14
 ------------------------
+ o add `compute_group` according to ggplot (v2.1.0) <2016-09-29, Thu>
+   + https://github.com/hadley/ggplot2/issues/1797
  o unit test for groupOTU and groupClade <2016-09-22, Thu>
  o groupOTU label groups by input group names (when input is a named list) <2016-09-22, Thu>
  o update angle calculation for geom_tiplab <2016-09-13, Thu>
