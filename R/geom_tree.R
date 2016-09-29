@@ -1,6 +1,6 @@
 ##' add tree layer
 ##'
-##' 
+##'
 ##' @title geom_tree
 ##' @param mapping aesthetic mapping
 ##' @param data data
@@ -14,7 +14,7 @@
 ##' @author Yu Guangchuang
 geom_tree <- function(mapping=NULL, data=NULL, layout="rectangular", multiPhylo=FALSE, ...) {
     stat_tree(data=data, mapping=mapping, geom="segment",
-              layout=layout, multiPhylo=multiPhylo, lineend="round", 
+              layout=layout, multiPhylo=multiPhylo, lineend="round",
               position='identity', show.legend=NA,
               inherit.aes=TRUE, na.rm=TRUE, ...)
 }
@@ -23,12 +23,12 @@ geom_tree <- function(mapping=NULL, data=NULL, layout="rectangular", multiPhylo=
 stat_tree <- function(mapping=NULL, data=NULL, geom="segment", position="identity",
                       layout="rectangular", multiPhylo=FALSE, lineend="round", ...,
                       show.legend=NA, inherit.aes=TRUE, na.rm=FALSE) {
-    
+
     default_aes <- aes_(x=~x, y=~y,node=~node, parent=~parent)
     if (multiPhylo) {
         default_aes <- modifyList(default_aes, aes_(.id=~.id))
     }
-    
+
     if (is.null(mapping)) {
         mapping <- default_aes
     } else {
@@ -74,11 +74,14 @@ stat_tree <- function(mapping=NULL, data=NULL, geom="segment", position="identit
                           na.rm = na.rm,
                           ...)
               )
-    }    
+    }
 }
 
 StatTreeHorizontal <- ggproto("StatTreeHorizontal", Stat,
                               required_aes = c("node", "parent", "x", "y"),
+                              compute_group = function(data, params) {
+                                  data
+                              },
                               compute_panel = function(self, data, scales, params, layout, lineend) {
                                   .fun <- function(data) {
                                       df <- setup_tree_data(data)
@@ -90,7 +93,7 @@ StatTreeHorizontal <- ggproto("StatTreeHorizontal", Stat,
                                       df$x <- x[ii]
                                       return(df)
                                   }
-                                  
+
                                   if ('.id' %in% names(data)) {
                                       ldf <- split(data, data$.id)
                                       df <- do.call(rbind, lapply(ldf, .fun))
@@ -103,6 +106,9 @@ StatTreeHorizontal <- ggproto("StatTreeHorizontal", Stat,
 
 StatTreeVertical <- ggproto("StatTreeVertical", Stat,
                             required_aes = c("node", "parent", "x", "y"),
+                            compute_group = function(data, params) {
+                                data
+                            },
                             compute_panel = function(self, data, scales, params, layout, lineend) {
                                 .fun <- function(data) {
                                     df <- setup_tree_data(data)
@@ -129,6 +135,9 @@ StatTreeVertical <- ggproto("StatTreeVertical", Stat,
 
 StatTree <- ggproto("StatTree", Stat,
                     required_aes = c("node", "parent", "x", "y"),
+                    compute_group = function(data, params) {
+                        data
+                    },
                     compute_panel = function(self, data, scales, params, layout, lineend) {
                         .fun <- function(data) {
                             df <- setup_tree_data(data)
@@ -155,7 +164,7 @@ StatTree <- ggproto("StatTree", Stat,
 setup_tree_data <- function(data) {
     if (nrow(data) == length(unique(data$node)))
         return(data)
-    
+
     data[match(unique(data$node), data$node),]
     ## data[order(data$node, decreasing = FALSE), ]
 }
@@ -163,7 +172,7 @@ setup_tree_data <- function(data) {
 
 ##' add tree layer
 ##'
-##' 
+##'
 ##' @title geom_tree2
 ##' @param layout one of 'rectangular', 'slanted', 'circular', 'radial' or 'unrooted'
 ##' @param ... additional parameter
@@ -182,7 +191,7 @@ geom_tree2 <- function(layout="rectangular", ...) {
                              y    = y,
                              yend = y),
                          lineend  = lineend, ...),
-            
+
             geom_segment(aes(x    = x[parent],
                              xend = x[parent],
                              y    = y[parent],
