@@ -1,6 +1,6 @@
 ##' tree theme
 ##'
-##' 
+##'
 ##' @title theme_tree
 ##' @param bgcolor background color
 ##' @param fgcolor foreground color
@@ -32,7 +32,7 @@ theme_tree <- function(bgcolor="white", fgcolor="black", ...) {
 
 ##' tree2 theme
 ##'
-##' 
+##'
 ##' @title theme_tree2
 ##' @param bgcolor background color
 ##' @param fgcolor foreground color
@@ -57,24 +57,31 @@ theme_tree2 <- function(bgcolor="white", fgcolor="black", ...) {
 	  )
 }
 
-theme_tree2_internal <- function(bgcolor="white", fgcolor="black", ...) {
+theme_tree2_internal <- function(bgcolor="white", fgcolor="black",
+                                 legend.position="none",
+                                 panel.grid.minor=element_blank(),
+                                 panel.grid.major=element_blank(),
+                                 panel.border=element_blank(),
+                                 axis.line.y=element_blank(),
+                                 axis.ticks.y=element_blank(),
+                                 axis.text.y=element_blank(),...) {
     theme_bw() %+replace%
-    theme(legend.position="none",
-          panel.grid.minor=element_blank(),
-          panel.grid.major=element_blank(),
+    theme(legend.position=legend.position,
+          panel.grid.minor=panel.grid.minor,
+          panel.grid.major=panel.grid.major,
           panel.background=element_rect(fill=bgcolor, colour=bgcolor),
-          panel.border=element_blank(),
+          panel.border=panel.border,
           ## axis.line=element_line(color=fgcolor),
           axis.line.x=element_line(color=fgcolor),
-          axis.line.y=element_blank(),
-          axis.ticks.y=element_blank(),
-          axis.text.y=element_blank(),
+          axis.line.y=axis.line.y,
+          axis.ticks.y=axis.ticks.y,
+          axis.text.y=axis.text.y,
           ...)
 }
 
 ##' transparent background theme
 ##'
-##' 
+##'
 ##' @title theme_transparent
 ##' @param ... additional parameter to tweak the theme
 ##' @return ggplot object
