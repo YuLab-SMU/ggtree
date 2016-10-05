@@ -20,21 +20,25 @@ geom_tippoint <- function(mapping = NULL, data = NULL,
     geom_point2(mapping, data, position, na.rm, show.legend, inherit.aes, ...)
 }
 
-geom_tippoint2 <- function(mapping=NULL, hjust=0, ...) {
-    angle <- NULL
-    isTip <- NULL
-    m1 <- aes(subset=(isTip & (angle < 90 | angle > 270)), angle=angle)
-    m2 <- aes(subset=(isTip & (angle >= 90 & angle <=270)), angle=angle+180)
+## angle is not supported,
+## https://github.com/GuangchuangYu/ggtree/issues/77
+##
+##
+## geom_tippoint2 <- function(mapping=NULL, hjust=0, ...) {
+##     angle <- NULL
+##     isTip <- NULL
+##     m1 <- aes(subset=(isTip & (angle < 90 | angle > 270)), angle=angle)
+##     m2 <- aes(subset=(isTip & (angle >= 90 & angle <=270)), angle=angle+180)
 
-    if (!is.null(mapping)) {
-        m1 <- modifyList(mapping, m1)
-        m2 <- modifyList(mapping, m2)
-    }
+##     if (!is.null(mapping)) {
+##         m1 <- modifyList(mapping, m1)
+##         m2 <- modifyList(mapping, m2)
+##     }
 
-    list(geom_tippoint(m1, hjust=hjust, ...),
-         geom_tippoint(m2, hjust=1-hjust, ...)
-         )
-}
+##     list(geom_tippoint(m1, hjust=hjust, ...),
+##          geom_tippoint(m2, hjust=1-hjust, ...)
+##          )
+## }
 
 
 ##' add node point
