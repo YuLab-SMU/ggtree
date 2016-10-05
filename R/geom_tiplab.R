@@ -1,7 +1,7 @@
 ##' add tip label layer
 ##'
-##' 
-##' @title geom_tiplab 
+##'
+##' @title geom_tiplab
 ##' @param mapping aes mapping
 ##' @param hjust horizontal adjustment
 ##' @param offset tiplab offset
@@ -34,19 +34,19 @@ geom_tiplab <- function(mapping=NULL, hjust = 0,  align = FALSE, linetype = "dot
     }
 
     if (is.null(mapping)) {
-        text_mapping <- self_mapping          
+        text_mapping <- self_mapping
     } else {
         text_mapping <- modifyList(self_mapping, mapping)
     }
 
-    
+
     show_segment <- FALSE
     if (align && (!is.na(linetype) && !is.null(linetype))) {
         show_segment <- TRUE
-    }  
+    }
 
     list(
-        text_geom(mapping=text_mapping, 
+        text_geom(mapping=text_mapping,
                   hjust = hjust, nudge_x = offset, ...)
         ,
         if (show_segment)
@@ -60,7 +60,7 @@ geom_tiplab <- function(mapping=NULL, hjust = 0,  align = FALSE, linetype = "dot
 
 ##' add tip label for circular layout
 ##'
-##' 
+##'
 ##' @title geom_tiplab2
 ##' @param mapping aes mapping
 ##' @param hjust horizontal adjustment
@@ -72,11 +72,12 @@ geom_tiplab <- function(mapping=NULL, hjust = 0,  align = FALSE, linetype = "dot
 geom_tiplab2 <- function(mapping=NULL, hjust=0, ...) {
 
     angle <- NULL
+    isTip <- NULL
     ## m1 <- aes(subset=(abs(angle) < 90), angle=angle)
     ## m2 <- aes(subset=(abs(angle) >= 90), angle=angle+180)
-    m1 <- aes(subset=(angle < 90 | angle > 270), angle=angle)
-    m2 <- aes(subset=(angle >= 90 & angle <=270), angle=angle+180)
-    
+    m1 <- aes(subset=(isTip & (angle < 90 | angle > 270)), angle=angle)
+    m2 <- aes(subset=(isTip & (angle >= 90 & angle <=270)), angle=angle+180)
+
     if (!is.null(mapping)) {
         m1 <- modifyList(mapping, m1)
         m2 <- modifyList(mapping, m2)
@@ -91,14 +92,14 @@ geom_tipsegment <- function(mapping=NULL, data=NULL,
                             geom=GeomSegmentGGtree, position = "identity",
                             offset,  ...,
                             show.legend=NA, inherit.aes=FALSE, na.rm=TRUE) {
-    
+
     default_aes <- aes_(x=~x, y=~y)
     if (is.null(mapping)) {
         mapping <- default_aes
     } else {
         mapping <- modifyList(default_aes, mapping)
     }
-    
+
     layer(stat=StatTipSegment,
           data = data,
           mapping = mapping,
