@@ -185,6 +185,11 @@
             <li><a href="#inherit-aes"> inherit aes</a></li>
         
     
+        <li class="main "><a href="#annotation"> Annotation</a></li>
+        
+            <li><a href="#colouring-edges-by-user-data"> colouring edges by user data</a></li>
+        
+    
     </ul>
 </div></div>
             <div class="col-md-9" role="main">
@@ -210,14 +215,14 @@
 <p><link rel="stylesheet" href="https://guangchuangyu.github.io/css/font-awesome.min.css"></p>
 <h1 id="installation"><i class="fa fa-download"></i> Installation</h1>
 <h2 id="could-not-find-function"><i class="fa fa-angle-double-right"></i> Could not find function</h2>
-<p>If you got <a href="https://github.com/GuangchuangYu/ggtree/issues/12">this error</a>, please make sure you are using the latest R and <code>ggtree</code>. </p>
+<p>If you got <a href="https://github.com/GuangchuangYu/ggtree/issues/12">this error</a>, please make sure you are using the latest R and <code>ggtree</code>.</p>
 <p>Packages in Bioconductor, like <code>ggtree</code>, have different release policy compare to CRAN. There are two branches, release and devel, in parallel. Release branch is more stable and only document improvement and bug fixes will commit to it. New functions will only commit to <code>devel</code> branch.</p>
 <p>Sometimes I may write blog post to introduce new functions which is not available in <code>release</code> branch, you need to install the <code>devel</code> version of <code>ggtree</code> in order to use these new functions.</p>
 <p>You can download the <code>devel</code> version of <code>ggtree</code> from <a href="http://bioconductor.org/packages/devel/bioc/html/ggtree.html">http://bioconductor.org/packages/devel/bioc/html/ggtree.html</a> and install it, or install the github version of <code>ggtree</code>.</p>
 <p>This also applied to other of my packages, including <code>GOSemSim</code>, <code>DOSE</code>, <code>clusterProfiler</code>, <code>ReactomePA</code> and <code>ChIPseeker</code>. If you got the <code>could not find function</code> error, upgrade your installation to latest release. If the error still exists after upgrading to latest release, you need to install the devel version.</p>
 <h1 id="text-label"><i class="fa fa-text-height"></i> Text &amp; Label</h1>
 <h2 id="tip-label-truncated"><i class="fa fa-angle-double-right"></i> Tip label truncated</h2>
-<p>ggplot2 can't auto adjust xlim based on added text. </p>
+<p>ggplot2 can't auto adjust xlim based on added text.</p>
 <pre><code class="r">library(ggtree)
 ## example tree from https://support.bioconductor.org/p/72398/
 tree&lt;-read.tree(text=&quot;(Organism1.006G249400.1:0.03977,(Organism2.022118m:0.01337,(Organism3.J34265.1:0.00284,Organism4.G02633.1:0.00468)0.51:0.0104):0.02469);&quot;)
@@ -250,15 +255,18 @@ ggtree(raxml) + geom_label_repel(aes(label=bootstrap, fill=bootstrap))
 <pre><code class="r">ggtree(rtree(30)) + geom_point()
 </code></pre>
 
-<p>For example, we can add symbolic points to nodes with <code>geom_point()</code> directly. 
-The magic here is we don't need to map <code>x</code> and <code>y</code> position of the points by providing <code>aes(x, y)</code> to <code>geom_point()</code> since it was already mapped by <code>ggtree</code> function and it serves as a global mapping for all layers. </p>
-<p>But what if we provide a <code>dataset</code> in a layer and the <code>dataset</code> doesn't contain column of <code>x</code> and/or <code>y</code>, 
-the layer function also try to map <code>x</code> and <code>y</code> and also others if you map them in <code>ggtree</code> function. 
+<p>For example, we can add symbolic points to nodes with <code>geom_point()</code> directly.
+The magic here is we don't need to map <code>x</code> and <code>y</code> position of the points by providing <code>aes(x, y)</code> to <code>geom_point()</code> since it was already mapped by <code>ggtree</code> function and it serves as a global mapping for all layers.</p>
+<p>But what if we provide a <code>dataset</code> in a layer and the <code>dataset</code> doesn't contain column of <code>x</code> and/or <code>y</code>,
+the layer function also try to map <code>x</code> and <code>y</code> and also others if you map them in <code>ggtree</code> function.
 As these variable is not available in your <code>dataset</code>, you will get the following error:</p>
 <pre><code>Error in eval(expr, envir, enclos) : object 'x' not found
 </code></pre>
 
-<p>This can be fixed by using parameter <code>inherit.aes=FALSE</code> which will disable inheriting mapping from <code>ggtree</code> function.</p></div>
+<p>This can be fixed by using parameter <code>inherit.aes=FALSE</code> which will disable inheriting mapping from <code>ggtree</code> function.</p>
+<h1 id="annotation"><i class="fa fa-tree"></i> Annotation</h1>
+<h2 id="colouring-edges-by-user-data"><i class="fa fa-angle-double-right"></i> colouring edges by user data</h2>
+<p>see my answer on <a href="https://github.com/GuangchuangYu/ggtree/issues/76">https://github.com/GuangchuangYu/ggtree/issues/76</a>.</p></div>
         </div>
 
         <footer class="col-md-12">

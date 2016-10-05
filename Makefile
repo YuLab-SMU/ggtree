@@ -2,7 +2,7 @@ PKGNAME := $(shell sed -n "s/Package: *\([^ ]*\)/\1/p" DESCRIPTION)
 PKGVERS := $(shell sed -n "s/Version: *\([^ ]*\)/\1/p" DESCRIPTION)
 PKGSRC  := $(shell basename `pwd`)
 
-all: alldocs check clean
+all: rd readme check clean
 
 alldocs: rd readme mkdocs
 
@@ -35,6 +35,8 @@ bioccheck:
 clean:
 	cd ..;\
 	$(RM) -r $(PKGNAME).Rcheck/
+
+site: mkdocs
 
 mkdocs: mdfiles
 	cd mkdocs;\

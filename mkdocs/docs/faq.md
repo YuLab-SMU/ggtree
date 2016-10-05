@@ -18,9 +18,9 @@
 
 # <i class="fa fa-download"></i> Installation
 
-## <i class="fa fa-angle-double-right"></i> Could not find function 
+## <i class="fa fa-angle-double-right"></i> Could not find function
 
-If you got [this error](https://github.com/GuangchuangYu/ggtree/issues/12), please make sure you are using the latest R and `ggtree`. 
+If you got [this error](https://github.com/GuangchuangYu/ggtree/issues/12), please make sure you are using the latest R and `ggtree`.
 
 Packages in Bioconductor, like `ggtree`, have different release policy compare to CRAN. There are two branches, release and devel, in parallel. Release branch is more stable and only document improvement and bug fixes will commit to it. New functions will only commit to `devel` branch.
 
@@ -35,7 +35,7 @@ This also applied to other of my packages, including `GOSemSim`, `DOSE`, `cluste
 
 ## <i class="fa fa-angle-double-right"></i> Tip label truncated
 
-ggplot2 can't auto adjust xlim based on added text. 
+ggplot2 can't auto adjust xlim based on added text.
 
 ```r
 library(ggtree)
@@ -85,13 +85,13 @@ For details, please refer to [ggrepel usage examples](https://cran.r-project.org
 ggtree(rtree(30)) + geom_point()
 ```
 
-For example, we can add symbolic points to nodes with `geom_point()` directly. 
-The magic here is we don't need to map `x` and `y` position of the points by providing `aes(x, y)` to `geom_point()` since it was already mapped by `ggtree` function and it serves as a global mapping for all layers. 
+For example, we can add symbolic points to nodes with `geom_point()` directly.
+The magic here is we don't need to map `x` and `y` position of the points by providing `aes(x, y)` to `geom_point()` since it was already mapped by `ggtree` function and it serves as a global mapping for all layers.
 
-But what if we provide a `dataset` in a layer and the `dataset` doesn't contain column of `x` and/or `y`, 
-the layer function also try to map `x` and `y` and also others if you map them in `ggtree` function. 
+But what if we provide a `dataset` in a layer and the `dataset` doesn't contain column of `x` and/or `y`,
+the layer function also try to map `x` and `y` and also others if you map them in `ggtree` function.
 As these variable is not available in your `dataset`, you will get the following error:
- 
+
 ```
 Error in eval(expr, envir, enclos) : object 'x' not found
 ```
@@ -99,3 +99,8 @@ Error in eval(expr, envir, enclos) : object 'x' not found
 This can be fixed by using parameter `inherit.aes=FALSE` which will disable inheriting mapping from `ggtree` function.
 
 
+# <i class="fa fa-tree"></i> Annotation
+
+## <i class="fa fa-angle-double-right"></i> colouring edges by user data
+
+see my answer on <https://github.com/GuangchuangYu/ggtree/issues/76>.
