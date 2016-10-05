@@ -22,6 +22,7 @@ geom_tippoint <- function(mapping = NULL, data = NULL,
 
 geom_tippoint2 <- function(mapping=NULL, hjust=0, ...) {
     angle <- NULL
+    isTip <- NULL
     m1 <- aes(subset=(isTip & (angle < 90 | angle > 270)), angle=angle)
     m2 <- aes(subset=(isTip & (angle >= 90 & angle <=270)), angle=angle+180)
 
