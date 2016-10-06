@@ -75,9 +75,16 @@ collapse <- function(tree_view=NULL, node) {
     ## re-calculate branch mid position
     df <- calculate_branch_mid(df)
 
+    ii <- which(!is.na(df$x))
+    df$angle[ii] <- 360/(diff(range(df$y[ii])) + 2) * df$y[ii]
+    
     tree_view$data <- df
     clade <- paste0("clade_", node)
     attr(tree_view, clade) <- sp.df
+    if (get("layout", envir=tree_view$plot_env) == "circular") { 
+        tree_view <- tree_view +
+            scale_y_continuous(limits = c(0, max(tree_view$data$y, na.rm=TRUE) + 1))
+    }
     tree_view
 }
 
@@ -120,6 +127,7 @@ expand <- function(tree_view=NULL, node) {
 
     ## re-calculate branch mid position
     df <- calculate_branch_mid(df)
+    df$angle <- 360/(diff(range(df$y)) + 2) * df$y
     
     tree_view$data <- df
     attr(tree_view, clade) <- NULL
@@ -156,6 +164,7 @@ rotate <- function(tree_view=NULL, node) {
     if (pnode != node && !is.na(pnode)) {
         df[df$node == pnode, "y"] <- mean(df[df$parent == pnode, "y"])
     }
+    df$angle <- 360/(diff(range(df$y)) + 2) * df$y
     tree_view$data <- df
     tree_view
 }

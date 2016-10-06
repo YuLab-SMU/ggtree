@@ -566,7 +566,7 @@ as.data.frame.phylo_ <- function(x, layout="rectangular",
     ## ## res$angle <- angle + 90
     ## res$angle <- angle
     ## } 
-    res$angle <- 360/(diff(range(res$y)) + 1) * res$y
+    res$angle <- 360/(diff(range(res$y)) + 2) * res$y
     return(res)
 }
 
