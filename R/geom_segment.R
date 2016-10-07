@@ -67,7 +67,8 @@ geom_segment2 <- function(mapping = NULL, data = NULL,
             lineend = lineend,
             na.rm = na.rm,
             ...
-        )
+        ),
+        check.aes = FALSE
     )
 }
 

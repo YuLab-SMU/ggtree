@@ -112,7 +112,7 @@ inset(p, bars)
 The sizes of the insets can be ajusted by the paramter *width* and *height*.
 
 ```{r}
-inset(p, bars, width=.03, height=.06)
+inset(p, bars, width=.06, height=.1)
 ```
 
 Users can set the color via the parameter *color*. The *x* position can be one of 'node' or 'branch' and can be adjusted by the parameter *hjust* and *vjust* for horizontal and vertical adjustment respecitvely.
@@ -121,7 +121,7 @@ Users can set the color via the parameter *color*. The *x* position can be one o
 ```{r}
 bars2 <- nodebar(dat, cols=1:4, position='dodge',
                  color=c(a='blue', b='red', c='green', d='cyan'))
-p2 <- inset(p, bars2, x='branch', width=.03, vjust=-.3)
+p2 <- inset(p, bars2, x='branch', width=.06, vjust=-.3)
 print(p2)
 ```
 
@@ -157,7 +157,7 @@ bx <- lapply(d, function(y) {
     ggplot(dd, aes(x=1, y=y))+geom_boxplot() + ylim(ylim) + theme_inset()
 })
 names(bx) <- 1:15
-inset(p, bx, width=.03, height=.1, hjust=-.05)
+inset(p, bx, width=.06, height=.2, hjust=-.05)
 ```
 
 
@@ -167,7 +167,7 @@ After annotating with insets, users can further annotate the tree with another l
 p2 <- inset(p, bars2, x='branch', width=.03, vjust=-.4)
 p2 <- inset(p2, pies, x='branch', vjust=.4)
 bx2 <- lapply(bx, function(g) g+coord_flip())
-inset(p2, bx2, width=.2, height=.03, vjust=.04, hjust=p2$data$x[1:15]-4) + xlim(NA, 4.5)
+inset(p2, bx2, width=.4, height=.06, vjust=.04, hjust=p2$data$x[1:15]-4) + xlim(NA, 4.5)
 ```
 
 ## Annotate with image files

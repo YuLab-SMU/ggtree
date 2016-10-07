@@ -97,7 +97,8 @@ stat_stripText <- function(mapping=NULL, data=NULL,
                       barextend=barextend,
                       na.rm=na.rm,
                       parse=parse,
-                      ...)
+                      ...),
+          check.aes = FALSE
           )
     
 }
@@ -132,7 +133,8 @@ stat_stripBar <- function(mapping=NULL, data=NULL,
                       align=align,
                       barextend=barextend,
                       na.rm=na.rm,
-                      ...)
+                      ...),
+          check.aes = FALSE
           )
 
 }

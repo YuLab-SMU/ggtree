@@ -66,7 +66,8 @@ geom_label2 <- function(mapping = NULL, data = NULL,
             label.size = label.size,
             na.rm = na.rm,
             ...
-        )
+        ),
+        check.aes = FALSE
     )
 }
 
