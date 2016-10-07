@@ -22,7 +22,8 @@
 ##' \link[ggplot2]{geom_text}
 ##' @author Guangchuang Yu
 geom_text2 <- function(mapping = NULL, data = NULL,
-                       position = "identity", parse = FALSE, na.rm=TRUE, show.legend = NA, inherit.aes = TRUE,
+                       position = "identity", parse = FALSE, na.rm=TRUE, show.legend = NA,
+                       inherit.aes = TRUE,
                        ..., nudge_x = 0, nudge_y = 0, check_overlap = FALSE) {
 
     if (!missing(nudge_x) || !missing(nudge_y)) {
@@ -53,7 +54,8 @@ geom_text2 <- function(mapping = NULL, data = NULL,
           check_overlap = check_overlap,
           na.rm = na.rm,
           ...
-        )
+        ),
+        check.aes = FALSE
     )
 }
 

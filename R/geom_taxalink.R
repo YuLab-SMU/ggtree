@@ -30,7 +30,8 @@ geom_taxalink <- function(taxa1, taxa2, curvature=0.5, ...) {
                         taxa2 = taxa2,
                         curvature = curvature,
                         na.rm = na.rm,
-                        ...)
+                        ...),
+          check.aes = FALSE
           )
 }
 

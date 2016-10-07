@@ -128,7 +128,8 @@ stat_cladeText <- function(mapping=NULL, data=NULL,
                       align  = align,
                       na.rm  = na.rm,
                       parse  = parse,
-                      ...)
+                      ...),
+          check.aes = FALSE
           )
 
 }
@@ -155,9 +156,9 @@ stat_cladeBar <- function(mapping=NULL, data=NULL,
                       offset=offset,
                       align=align,
                       na.rm=na.rm,
-                      ...)
+                      ...),
+          check.aes = FALSE
           )
-
 }
 
 StatCladeText <- ggproto("StatCladeText", Stat,

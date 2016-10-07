@@ -4,7 +4,7 @@
 \alias{inset}
 \title{inset}
 \usage{
-inset(tree_view, insets, width = 0.05, height = 0.05, hjust = 0,
+inset(tree_view, insets, width = 0.1, height = 0.1, hjust = 0,
   vjust = 0, x = "node")
 }
 \arguments{

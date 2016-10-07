@@ -1,5 +1,6 @@
 CHANGES IN VERSION 1.5.15
 ------------------------
+ o check.aes for layers defined in ggtree <2016-10-07, Fri>
  o recalculate 'angle' when collapse, expand and rotate clade <2016-10-06, Thu>
    + https://github.com/GuangchuangYu/ggtree/issues/78
 

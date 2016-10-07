@@ -91,7 +91,8 @@ geom_tiplab2 <- function(mapping=NULL, hjust=0, ...) {
 geom_tipsegment <- function(mapping=NULL, data=NULL,
                             geom=GeomSegmentGGtree, position = "identity",
                             offset,  ...,
-                            show.legend=NA, inherit.aes=FALSE, na.rm=TRUE) {
+                            show.legend=NA, inherit.aes=FALSE,
+                            na.rm=TRUE) {
 
     default_aes <- aes_(x=~x, y=~y)
     if (is.null(mapping)) {
@@ -109,7 +110,8 @@ geom_tipsegment <- function(mapping=NULL, data=NULL,
           inherit.aes = inherit.aes,
           params = list(offset = offset,
                         na.rm = na.rm,
-                        ...)
+                        ...),
+          check.aes = FALSE
           )
 }
 

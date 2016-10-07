@@ -76,15 +76,11 @@ collapse <- function(tree_view=NULL, node) {
     df <- calculate_branch_mid(df)
 
     ii <- which(!is.na(df$x))
-    df$angle[ii] <- 360/(diff(range(df$y[ii])) + 2) * df$y[ii]
+    df$angle[ii] <- calculate_angle(df[ii,])$angle
     
     tree_view$data <- df
     clade <- paste0("clade_", node)
     attr(tree_view, clade) <- sp.df
-    if (get("layout", envir=tree_view$plot_env) == "circular") { 
-        tree_view <- tree_view +
-            scale_y_continuous(limits = c(0, max(tree_view$data$y, na.rm=TRUE) + 1))
-    }
     tree_view
 }
 
@@ -127,9 +123,8 @@ expand <- function(tree_view=NULL, node) {
 
     ## re-calculate branch mid position
     df <- calculate_branch_mid(df)
-    df$angle <- 360/(diff(range(df$y)) + 2) * df$y
     
-    tree_view$data <- df
+    tree_view$data <- calculate_angle(df)
     attr(tree_view, clade) <- NULL
     tree_view
 }
@@ -164,8 +159,8 @@ rotate <- function(tree_view=NULL, node) {
     if (pnode != node && !is.na(pnode)) {
         df[df$node == pnode, "y"] <- mean(df[df$parent == pnode, "y"])
     }
-    df$angle <- 360/(diff(range(df$y)) + 2) * df$y
-    tree_view$data <- df
+
+    tree_view$data <- calculate_angle(df)
     tree_view
 }
 
@@ -227,6 +222,7 @@ flip <- function(tree_view=NULL, node1, node2) {
     currentNode <- currentNode[!currentNode %in% anc]
     
     tree_view$data <- re_assign_ycoord_df(df, currentNode)
+    tree_view$data <- calculate_angle(tree_view$data)
     tree_view
 }
 
@@ -290,7 +286,7 @@ scaleClade <- function(tree_view=NULL, node, scale=1, vertical_only=TRUE) {
     ## re-calculate branch mid position
     df <- calculate_branch_mid(df)
     
-    tree_view$data <- df
+    tree_view$data <- calculate_angle(df)
     tree_view
 }
 
