@@ -21,7 +21,7 @@
 ##' @importFrom ggplot2 ylab
 ##' @importFrom ggplot2 annotate
 ##' @importFrom ggplot2 scale_x_reverse
-##' @importFrom ggplot2 scale_y_continuous
+##' @importFrom ggplot2 ylim
 ##' @importFrom ggplot2 coord_flip
 ##' @importFrom ggplot2 coord_polar
 ##' @export
@@ -86,7 +86,7 @@ ggtree <- function(tr,
         p <- layout_circular(p)
         ## refer to: https://github.com/GuangchuangYu/ggtree/issues/6
         ## and also have some space for tree scale (legend)
-        p <- p + scale_y_continuous(limits=c(0, max(p$data$y)+1))
+        p <- p + ylim(0, NA) 
     } else if (layout == "fan") {
         p <- layout_fan(p, open.angle)
     }

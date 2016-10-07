@@ -25,6 +25,7 @@ layout_circular <- function(treeview) {
 ##' @param treeview tree view
 ##' @param angle angle
 ##' @return updated tree view
+##' @importFrom ggplot2 scale_y_continuous
 ##' @export
 ##' @author Guangchuang Yu
 open_tree <- function(treeview, angle) {
@@ -36,7 +37,7 @@ open_tree <- function(treeview, angle) {
     N <- nrow(p$data)
     idx <- match(1:N, order(p$data$y))
     NN <- N *(1+angle/(360-angle))
-    angle <- 360/(3+NN) * (1:N+1)
+    angle <- 360/(2+NN) * (1:N+1)
     angle <- angle[idx]
     p$data$angle <- angle
     return(p)

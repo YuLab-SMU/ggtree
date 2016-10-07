@@ -44,7 +44,8 @@ geom_balance <- function(node, fill="steelblue", color='white', alpha=.5, extend
                   extend=extend,
                   extendto=extendto,
                   direction=1, 
-                  na.rm = na.rm)
+                  na.rm = na.rm),
+    check.aes = FALSE
   )
   l2 <- layer(
     stat=StatBalance,
@@ -61,7 +62,8 @@ geom_balance <- function(node, fill="steelblue", color='white', alpha=.5, extend
                   extend=extend,
                   extendto=extendto,
                   direction=2,
-                  na.rm = na.rm)
+                  na.rm = na.rm),
+    check.aes = FALSE
   )
   return(c(l1,l2))
 }
@@ -113,7 +115,8 @@ stat_balance <- function(mapping=NULL, data=NULL, geom="rect",
                   extend=extend,
                   extendto=extendto,
                   direction=1,
-                  ...)
+                  ...),
+    check.aes = FALSE
   )
   l2 <- layer(
     stat=StatBalance,
@@ -130,7 +133,8 @@ stat_balance <- function(mapping=NULL, data=NULL, geom="rect",
                   extend=extend,
                   extendto=extendto,
                   direction=2,
-                  ...)
+                  ...),
+    check.aes = FALSE
   )
   return(c(l1,l2))
 }

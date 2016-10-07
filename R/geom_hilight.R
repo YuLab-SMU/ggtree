@@ -39,7 +39,8 @@ geom_hilight <- function(node, fill="steelblue", alpha=.5, extend=0, extendto=NU
                       alpha=alpha,
                       extend=extend,
                       extendto=extendto,
-                      na.rm = na.rm)
+                      na.rm = na.rm),
+        check.aes = FALSE
     )
 }
 

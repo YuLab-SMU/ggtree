@@ -141,7 +141,7 @@ ggtree(chiroptera, aes(color=group), layout='circular') + geom_tiplab(size=1, ae
 
 In this example, we first build a tree based on the iris data, then grouping the tree based on different spacies.
 
-```{r fig.width=20, fig.height=20, fig.align="center", warning=FALSE}
+#```{r fig.width=20, fig.height=20, fig.align="center", warning=FALSE}
 data(iris)
 rn <- paste0(iris[,5], "_", 1:150)
 rownames(iris) <- rn
@@ -157,7 +157,7 @@ ggtree(tree_iris, aes(color=group)) +
     scale_color_manual(values=cols, breaks=1:3,
                        labels=c("Setosa", "Versicolor", "Virginica")) +
     theme(legend.position="right")
-```		
+#```		
 -->
 	
 

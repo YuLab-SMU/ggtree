@@ -558,15 +558,7 @@ as.data.frame.phylo_ <- function(x, layout="rectangular",
     res <- calculate_branch_mid(res)
 
     ## ## angle for all layout, if 'rectangular', user use coord_polar, can still use angle
-    ## ## if (layout == "circular") {
-    ## idx <- match(1:N, order(res$y))
-    ## ## angle <- -360/(3+N) * (1:N+1)
-    ## angle <- 360/(3+N) * (1:N+1)
-    ## angle <- angle[idx]
-    ## ## res$angle <- angle + 90
-    ## res$angle <- angle
-    ## } 
-    res$angle <- 360/(diff(range(res$y)) + 1) * res$y
+    res <- calculate_angle(res)
     return(res)
 }
 
@@ -692,3 +684,9 @@ fortify.phyloseq <- function(model, data, layout="rectangular",
 ##     ggplot(df) + geom_tree()
 
 ## }
+
+
+calculate_angle <- function(data) {
+    data$angle <- 360/(diff(range(data$y)) + 1) * data$y
+    return(data)
+}

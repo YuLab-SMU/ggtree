@@ -46,7 +46,8 @@ stat_tree <- function(mapping=NULL, data=NULL, geom="segment", position="identit
                    params=list(layout = layout,
                                lineend = lineend,
                                na.rm = na.rm,
-                          ...)
+                               ...),
+                   check.aes = FALSE
                    ),
              layer(data=data,
                    mapping=mapping,
@@ -58,7 +59,8 @@ stat_tree <- function(mapping=NULL, data=NULL, geom="segment", position="identit
                    params=list(layout = layout,
                                lineend = lineend,
                                na.rm = na.rm,
-                               ...)
+                               ...),
+                   check.aes = FALSE
                    )
              )
     } else if (layout %in% c("slanted", "radial", "unrooted")) {
@@ -72,7 +74,8 @@ stat_tree <- function(mapping=NULL, data=NULL, geom="segment", position="identit
               params=list(layout = layout,
                           lineend = lineend,
                           na.rm = na.rm,
-                          ...)
+                          ...),
+              check.aes = FALSE
               )
     }
 }

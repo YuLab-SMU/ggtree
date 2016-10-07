@@ -8,7 +8,6 @@
 ##' @importFrom ggplot2 theme_bw
 ##' @importFrom ggplot2 theme
 ##' @importFrom ggplot2 element_blank
-##' @importFrom ggplot2 %+replace%
 ##' @importFrom ggplot2 xlab
 ##' @importFrom ggplot2 ylab
 ##' @export
@@ -21,12 +20,12 @@
 theme_tree <- function(bgcolor="white", fgcolor="black", ...) {
     list(xlab(NULL),
          ylab(NULL),
-	 theme_tree2_internal() %+replace%
-            theme(panel.background=element_rect(fill=bgcolor, colour=bgcolor),
-            axis.line.x = element_blank(),
-            axis.text.x = element_blank(),
-            axis.ticks.x = element_blank(),
-            ...)
+	 theme_tree2_internal() + 
+         theme(panel.background=element_rect(fill=bgcolor, colour=bgcolor),
+               axis.line.x = element_blank(),
+               axis.text.x = element_blank(),
+               axis.ticks.x = element_blank(),
+               ...)
 	 )
 }
 
@@ -41,7 +40,6 @@ theme_tree <- function(bgcolor="white", fgcolor="black", ...) {
 ##' @importFrom ggplot2 theme
 ##' @importFrom ggplot2 element_blank
 ##' @importFrom ggplot2 element_line
-##' @importFrom ggplot2 %+replace%
 ##' @importFrom ggplot2 element_rect
 ##' @export
 ##' @return updated ggplot object with new theme
@@ -65,18 +63,18 @@ theme_tree2_internal <- function(bgcolor="white", fgcolor="black",
                                  axis.line.y=element_blank(),
                                  axis.ticks.y=element_blank(),
                                  axis.text.y=element_blank(),...) {
-    theme_bw() %+replace%
-    theme(legend.position=legend.position,
-          panel.grid.minor=panel.grid.minor,
-          panel.grid.major=panel.grid.major,
-          panel.background=element_rect(fill=bgcolor, colour=bgcolor),
-          panel.border=panel.border,
-          ## axis.line=element_line(color=fgcolor),
-          axis.line.x=element_line(color=fgcolor),
-          axis.line.y=axis.line.y,
-          axis.ticks.y=axis.ticks.y,
-          axis.text.y=axis.text.y,
-          ...)
+    theme_bw() + 
+        theme(legend.position=legend.position,
+              panel.grid.minor=panel.grid.minor,
+              panel.grid.major=panel.grid.major,
+              panel.background=element_rect(fill=bgcolor, colour=bgcolor),
+              panel.border=panel.border,
+              ## axis.line=element_line(color=fgcolor),
+              axis.line.x=element_line(color=fgcolor),
+              axis.line.y=axis.line.y,
+              axis.ticks.y=axis.ticks.y,
+              axis.text.y=axis.text.y,
+              ...)
 }
 
 ##' transparent background theme

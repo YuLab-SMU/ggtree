@@ -125,7 +125,8 @@ geom_point2 <- function(mapping = NULL, data = NULL,
         params = list(
             na.rm = na.rm,
             ...
-        )
+        ),
+        check.aes = FALSE
     )
 }
 
