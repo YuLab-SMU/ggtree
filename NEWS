@@ -1,3 +1,8 @@
+CHANGES IN VERSION 1.5.16
+------------------------
+ o fixed R check <2016-10-10, Mon>
+   + check.aes parameter is not available in release version of ggplot2 yet
+ 
 CHANGES IN VERSION 1.5.15
 ------------------------
  o check.aes for layers defined in ggtree <2016-10-07, Fri>

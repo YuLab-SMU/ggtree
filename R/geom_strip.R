@@ -98,7 +98,7 @@ stat_stripText <- function(mapping=NULL, data=NULL,
                       na.rm=na.rm,
                       parse=parse,
                       ...),
-          check.aes = FALSE
+          if (packageVersion('ggplot2') > '2.1.0') check.aes = FALSE
           )
     
 }
@@ -134,7 +134,7 @@ stat_stripBar <- function(mapping=NULL, data=NULL,
                       barextend=barextend,
                       na.rm=na.rm,
                       ...),
-          check.aes = FALSE
+          if (packageVersion('ggplot2') > '2.1.0') check.aes = FALSE
           )
 
 }
