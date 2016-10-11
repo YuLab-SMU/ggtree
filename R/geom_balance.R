@@ -14,6 +14,7 @@
 #' @export
 #' @importFrom ggplot2 aes_
 #' @importFrom ggplot2 GeomRect
+#' @importFrom utils packageVersion
 #' @author Justin Silverman
 #' @references J. Silverman, et al. \emph{A phylogenetic transform enhances
 #'   analysis of compositional microbiota data}. (in preparation)
@@ -45,7 +46,7 @@ geom_balance <- function(node, fill="steelblue", color='white', alpha=.5, extend
                   extendto=extendto,
                   direction=1, 
                   na.rm = na.rm),
-    check.aes = FALSE
+    if (packageVersion('ggplot2') > '2.1.0') check.aes = FALSE
   )
   l2 <- layer(
     stat=StatBalance,
@@ -63,7 +64,7 @@ geom_balance <- function(node, fill="steelblue", color='white', alpha=.5, extend
                   extendto=extendto,
                   direction=2,
                   na.rm = na.rm),
-    check.aes = FALSE
+    if (packageVersion('ggplot2') > '2.1.0') check.aes = FALSE
   )
   return(c(l1,l2))
 }
@@ -116,7 +117,7 @@ stat_balance <- function(mapping=NULL, data=NULL, geom="rect",
                   extendto=extendto,
                   direction=1,
                   ...),
-    check.aes = FALSE
+    if (packageVersion('ggplot2') > '2.1.0') check.aes = FALSE
   )
   l2 <- layer(
     stat=StatBalance,
@@ -134,7 +135,7 @@ stat_balance <- function(mapping=NULL, data=NULL, geom="rect",
                   extendto=extendto,
                   direction=2,
                   ...),
-    check.aes = FALSE
+    if (packageVersion('ggplot2') > '2.1.0') check.aes = FALSE
   )
   return(c(l1,l2))
 }
