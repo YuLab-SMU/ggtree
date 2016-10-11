@@ -1,6 +1,6 @@
 ##' link between taxa
 ##'
-##' 
+##'
 ##' @title geom_taxalink
 ##' @param taxa1 taxa1, can be label or node number
 ##' @param taxa2 taxa2, can be label or node number
@@ -16,12 +16,13 @@ geom_taxalink <- function(taxa1, taxa2, curvature=0.5, ...) {
     position = "identity"
     show.legend = NA
     na.rm = TRUE
-    inherit.aes = FALSE    
+    inherit.aes = FALSE
 
     mapping <- aes_(x=~x, y=~y, node=~node, label=~label, xend=~x, yend=~y)
 
     layer(stat=StatTaxalink,
           mapping=mapping,
+          data = NULL,
           geom=GeomCurve,
           position='identity',
           show.legend=show.legend,
@@ -42,12 +43,12 @@ StatTaxalink <- ggproto("StatTaxalink", Stat,
                             node2 <- taxa2node(data, taxa2)
                             x <- data$x
                             y <- data$y
-                            
+
                             data.frame(x = x[node1],
                                        xend = x[node2],
                                        y = y[node1],
                                        yend = y[node2])
-                            
+
                         },
                         required_aes = c("x", "y", "xend", "yend")
                         )

@@ -1,6 +1,6 @@
 ##' annotate associated taxa (from taxa1 to taxa2, can be Monophyletic, Polyphyletic or Paraphyletc Taxa) with bar and (optional) text label
 ##'
-##' 
+##'
 ##' @title geom_strip
 ##' @param taxa1 taxa1
 ##' @param taxa2 taxa2
@@ -34,14 +34,14 @@ geom_strip <- function(taxa1, taxa2, label=NA, offset=0, offset.text=0,
 
     layer_bar <- stat_stripBar(taxa1=taxa1, taxa2=taxa2, label=label, offset=offset, align=align,
                                size=barsize, barextend=barextend,
-                               mapping=mapping, data=data, 
+                               mapping=mapping, data=data,
                                position=position, show.legend = show.legend,
                                inherit.aes = inherit.aes, na.rm=na.rm, ...)
 
     if (is.na(label) || is.null(label)) {
         return(layer_bar)
     }
-    
+
     if (geom == "text") {
         ## no fill parameter
         layer_text <- stat_stripText(taxa1=taxa1, taxa2=taxa2, label=label, offset=offset+offset.text,
@@ -49,7 +49,7 @@ geom_strip <- function(taxa1, taxa2, label=NA, offset=0, offset.text=0,
                                     mapping=mapping, data=data, geom=geom, hjust=hjust,
                                     position=position, show.legend = show.legend,
                                     inherit.aes = inherit.aes, na.rm=na.rm, parse=parse, ...)
-        
+
     } else {
         layer_text <- stat_stripText(taxa1=taxa1, taxa2=taxa2, label=label, offset=offset+offset.text,
                                     align=align, size=fontsize, barextend=barextend, angle=angle, fill=fill,family=family,
@@ -57,7 +57,7 @@ geom_strip <- function(taxa1, taxa2, label=NA, offset=0, offset.text=0,
                                     position=position, show.legend = show.legend,
                                     inherit.aes = inherit.aes, na.rm=na.rm, parse=parse, ...)
     }
-    
+
     list(
         layer_bar,
         layer_text
@@ -75,13 +75,13 @@ stat_stripText <- function(mapping=NULL, data=NULL,
     } else {
         default_aes <- aes_(x=~x, y=~y, node=~node)
     }
-    
+
     if (is.null(mapping)) {
         mapping <- default_aes
     } else {
         mapping <- modifyList(mapping, default_aes)
     }
-    
+
     layer(stat=StatStripText,
           data=data,
           mapping=mapping,
@@ -100,7 +100,7 @@ stat_stripText <- function(mapping=NULL, data=NULL,
                       ...),
           if (packageVersion('ggplot2') > '2.1.0') check.aes = FALSE
           )
-    
+
 }
 
 stat_stripBar <- function(mapping=NULL, data=NULL,
@@ -111,7 +111,7 @@ stat_stripBar <- function(mapping=NULL, data=NULL,
     if (is.null(label) || is.na(label)) {
         default_aes <- aes_(x=~x, y=~y, node=~node, label=~label, xend=~x, yend=~y)
     } else {
-        default_aes <- aes_(x=~x, y=~y, node=~node)
+        default_aes <- aes_(x=~x, y=~y, node=~node, xend=~x, yend=~y)
     }
 
     if (is.null(mapping)) {
@@ -119,7 +119,7 @@ stat_stripBar <- function(mapping=NULL, data=NULL,
     } else {
         mapping <- modifyList(mapping, default_aes)
     }
-    
+
     layer(stat=StatStripBar,
           data=data,
           mapping=mapping,
@@ -150,8 +150,8 @@ StatStripText <- ggproto("StatStripText", Stat,
                          required_aes = c("x", "y", "label")
                          )
 
-                         
-                          
+
+
 StatStripBar <- ggproto("StatStripBar", Stat,
                         compute_group = function(self, data, scales, params,
                                                  taxa1, taxa2, offset, align, barextend) {
@@ -193,7 +193,7 @@ taxa2node <- function(data, taxa) {
     if (length(idx) == 0) {
         stop("input taxa is not valid...")
     }
-    
+
     return(data$node[idx])
 }
 
