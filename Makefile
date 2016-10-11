@@ -67,5 +67,6 @@ svncommit:
 	git svn rebase;\
 	git merge master --log;\
 	git svn dcommit;\
+	git push -u origin devel;\
 	git checkout master;\
 	git merge devel
