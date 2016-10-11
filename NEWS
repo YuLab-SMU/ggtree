@@ -1,5 +1,7 @@
 CHANGES IN VERSION 1.5.16
 ------------------------
+ o read.phyloT for parsing newick format of phyloT output <2016-10-11, Tue>
+   + https://www.biostars.org/p/210401/#216128
  o fixed aes mapping in geom_strip <2016-10-11, Tue>
  o fixed R check <2016-10-10, Mon>
    + check.aes parameter is not available in release version of ggplot2 yet
