@@ -40,7 +40,7 @@ geom_hilight <- function(node, fill="steelblue", alpha=.5, extend=0, extendto=NU
                       extend=extend,
                       extendto=extendto,
                       na.rm = na.rm),
-        check.aes = FALSE
+        if (packageVersion('ggplot2') > '2.1.0') check.aes = FALSE
     )
 }
 

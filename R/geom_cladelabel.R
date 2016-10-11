@@ -129,7 +129,7 @@ stat_cladeText <- function(mapping=NULL, data=NULL,
                       na.rm  = na.rm,
                       parse  = parse,
                       ...),
-          check.aes = FALSE
+          if (packageVersion('ggplot2') > '2.1.0') check.aes = FALSE
           )
 
 }
@@ -157,7 +157,7 @@ stat_cladeBar <- function(mapping=NULL, data=NULL,
                       align=align,
                       na.rm=na.rm,
                       ...),
-          check.aes = FALSE
+          if (packageVersion('ggplot2') > '2.1.0') check.aes = FALSE
           )
 }
 

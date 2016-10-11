@@ -68,7 +68,7 @@ geom_segment2 <- function(mapping = NULL, data = NULL,
             na.rm = na.rm,
             ...
         ),
-        check.aes = FALSE
+        if (packageVersion('ggplot2') > '2.1.0') check.aes = FALSE
     )
 }
 
