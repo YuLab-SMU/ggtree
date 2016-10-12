@@ -17,7 +17,7 @@
 
 [![releaseVersion](https://img.shields.io/badge/release%20version-1.4.20-blue.svg?style=flat)](https://bioconductor.org/packages/ggtree)
 [![develVersion](https://img.shields.io/badge/devel%20version-1.5.16-blue.svg?style=flat)](https://github.com/GuangchuangYu/ggtree)
-[![total](https://img.shields.io/badge/downloads-14940/total-blue.svg?style=flat)](https://bioconductor.org/packages/stats/bioc/ggtree)
+[![total](https://img.shields.io/badge/downloads-15163/total-blue.svg?style=flat)](https://bioconductor.org/packages/stats/bioc/ggtree)
 [![month](https://img.shields.io/badge/downloads-1678/month-blue.svg?style=flat)](https://bioconductor.org/packages/stats/bioc/ggtree)
 
 
