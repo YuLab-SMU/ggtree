@@ -1,3 +1,8 @@
+CHANGES IN VERSION 1.5.17
+------------------------
+ o read.nhx support newick file <2016-10-17, Mon>
+   + https://github.com/GuangchuangYu/ggtree/issues/79
+
 CHANGES IN VERSION 1.5.16
 ------------------------
  o read.phyloT for parsing newick format of phyloT output <2016-10-11, Tue>
