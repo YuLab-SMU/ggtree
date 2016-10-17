@@ -28,7 +28,7 @@ __G Yu__, DK Smith, H Zhu, Y Guan, TTY Lam<sup>\*</sup>. ggtree: an R package fo
 
 ## <i class="fa fa-pencil"></i> Featured Articles
 
-![](featured_img/2015_peiyu_1-s2.0-S1567134815300721-gr1.jpg)
+![](https://guangchuangyu.github.io/featured_img/ggtree/2015_peiyu_1-s2.0-S1567134815300721-gr1.jpg)
 
 <i class="fa fa-hand-o-right"></i> Find out more on <i class="fa fa-pencil"></i> [Featured Articles](https://guangchuangyu.github.io/ggtree/featuredArticles/).
 
