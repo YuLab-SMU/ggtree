@@ -15,7 +15,7 @@ read.nhx <- function(file) {
         treetext <- paste0(treetext, collapse = '')
     }
     treetext %<>% gsub(" ", "",. )
-    
+
     phylo <- read.tree(text=treetext)
     nnode <- phylo$Nnode + Ntip(phylo)
     nlab <- paste("X", 1:nnode, sep="")
@@ -32,25 +32,29 @@ read.nhx <- function(file) {
     nhx.matches <- gregexpr("(\\w+)?(:?\\d*\\.?\\d*[Ee]?[\\+\\-]?\\d*)?\\[&&NHX.*?\\]", treetext)
     matches <- nhx.matches[[1]]
     match.pos <- as.numeric(matches)
-    match.len <- attr(matches, 'match.length')
-    
-    nhx_str <- substring(treetext, match.pos, match.pos+match.len-1)
+    if (length(match.pos) == 1 && (match.pos == -1)) {
+        nhx_stats <- data.frame(node = treeinfo$node)
+    } else {
+        match.len <- attr(matches, 'match.length')
 
-    ## nhx_features <- gsub("^(\\w+)?:?\\d*\\.?\\d*[Ee]?[\\+\\-]?\\d*", "", nhx_str) %>%
-    nhx_features <- gsub("^[^\\[]*", "", nhx_str) %>%
-        gsub("\\[&&NHX:", "", .) %>%
+        nhx_str <- substring(treetext, match.pos, match.pos+match.len-1)
+
+        ## nhx_features <- gsub("^(\\w+)?:?\\d*\\.?\\d*[Ee]?[\\+\\-]?\\d*", "", nhx_str) %>%
+        nhx_features <- gsub("^[^\\[]*", "", nhx_str) %>%
+            gsub("\\[&&NHX:", "", .) %>%
             gsub("\\]", "", .)
-    
-    nhx_stats <- get_nhx_feature(nhx_features)
-    fields <- names(nhx_stats)
-    for (i in ncol(nhx_stats)) {
-        if(any(grepl("\\D+", nhx_stats[,i])) == FALSE) {
-            ## should be numerical varialbe
-            nhx_stats[,i] <- as.numeric(nhx_stats[,i])
+
+        nhx_stats <- get_nhx_feature(nhx_features)
+        fields <- names(nhx_stats)
+        for (i in ncol(nhx_stats)) {
+            if(any(grepl("\\D+", nhx_stats[,i])) == FALSE) {
+                ## should be numerical varialbe
+                nhx_stats[,i] <- as.numeric(nhx_stats[,i])
+            }
         }
+        nhx_stats$node <- node
     }
-    nhx_stats$node <- node
-    
+
     new("nhx",
         file = filename(file),
         fields = fields,
