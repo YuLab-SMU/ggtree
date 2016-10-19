@@ -63,6 +63,30 @@ ggtree(raxml) + geom_label_repel(aes(label=bootstrap, fill=bootstrap))
 
 For details, please refer to [ggrepel usage examples](https://cran.r-project.org/web/packages/ggrepel/vignettes/ggrepel.html).
 
+## <i class="fa fa-angle-double-right"></i> bootstrap values from newick format
+
+It's quite command to store `bootstrap` value as node label in `newick` format. Visualizing node label is easy using `geom_text2(aes(subset = !isTip, label=label))`.
+
+If you want to only display a subset of `bootstrap` (e.g. bootstrap > 80), you can simply using `geom_text2(subset= (label > 80), label=label)` since `label` is a character vector, which contains node label (bootstrap value) and tip label (taxa name). If we use `geom_text2(subset=(as.numeric(label) > 80), label=label)`, it will also fail since `NAs` were introduced by coercion. We need to convert `NAs` to logical `FALSE`, this can be done by the following code:
+
+```r
+nwk <- system.file("extdata/RAxML","RAxML_bipartitions.H3", package='ggtree')
+tr <- read.tree(nwk)
+ggtree(tr) + geom_text2(aes(label=label, subset = !is.na(as.numeric(label)) & as.numeric(label) > 80))
+```
+
+Another solution is converting the bootstrap value outside `ggtree` as I recommended in [google group](https://groups.google.com/forum/?utm_medium=email&utm_source=footer#!msg/bioc-ggtree/hiRBjGaAfI0/Y-2zDpvtAwAJ).
+
+```r
+q <- ggtree(tr)
+d <- q$data
+d <- d[!d$isTip,]
+d$label <- as.numeric(d$label)
+d <- d[d$label > 80,]
+
+q + geom_text(data=d, aes(label=label))
+```
+
 
 # <i class="fa fa-map-marker"></i> _aesthetic_ mapping
 

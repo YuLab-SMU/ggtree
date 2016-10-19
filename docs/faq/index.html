@@ -191,6 +191,8 @@
         
             <li><a href="#avoid-overlapping-text-labels"> Avoid overlapping text labels</a></li>
         
+            <li><a href="#bootstrap-values-from-newick-format"> bootstrap values from newick format</a></li>
+        
     
         <li class="main "><a href="#aesthetic-mapping"> aesthetic mapping</a></li>
         
@@ -262,6 +264,24 @@ ggtree(raxml) + geom_label_repel(aes(label=bootstrap, fill=bootstrap))
 </code></pre>
 
 <p>For details, please refer to <a href="https://cran.r-project.org/web/packages/ggrepel/vignettes/ggrepel.html">ggrepel usage examples</a>.</p>
+<h2 id="bootstrap-values-from-newick-format"><i class="fa fa-angle-double-right"></i> bootstrap values from newick format</h2>
+<p>It's quite command to store <code>bootstrap</code> value as node label in <code>newick</code> format. Visualizing node label is easy using <code>geom_text2(aes(subset = !isTip, label=label))</code>.</p>
+<p>If you want to only display a subset of <code>bootstrap</code> (e.g. bootstrap &gt; 80), you can simply using <code>geom_text2(subset= (label &gt; 80), label=label)</code> since <code>label</code> is a character vector, which contains node label (bootstrap value) and tip label (taxa name). If we use <code>geom_text2(subset=(as.numeric(label) &gt; 80), label=label)</code>, it will also fail since <code>NAs</code> were introduced by coercion. We need to convert <code>NAs</code> to logical <code>FALSE</code>, this can be done by the following code:</p>
+<pre><code class="r">nwk &lt;- system.file(&quot;extdata/RAxML&quot;,&quot;RAxML_bipartitions.H3&quot;, package='ggtree')
+tr &lt;- read.tree(nwk)
+ggtree(tr) + geom_text2(aes(label=label, subset = !is.na(as.numeric(label)) &amp; as.numeric(label) &gt; 80))
+</code></pre>
+
+<p>Another solution is converting the bootstrap value outside <code>ggtree</code> as I recommended in <a href="https://groups.google.com/forum/?utm_medium=email&amp;utm_source=footer#!msg/bioc-ggtree/hiRBjGaAfI0/Y-2zDpvtAwAJ">google group</a>.</p>
+<pre><code class="r">q &lt;- ggtree(tr)
+d &lt;- q$data
+d &lt;- d[!d$isTip,]
+d$label &lt;- as.numeric(d$label)
+d &lt;- d[d$label &gt; 80,]
+
+q + geom_text(data=d, aes(label=label))
+</code></pre>
+
 <h1 id="aesthetic-mapping"><i class="fa fa-map-marker"></i> <em>aesthetic</em> mapping</h1>
 <h2 id="inherit-aes"><i class="fa fa-angle-double-right"></i> inherit <em>aes</em></h2>
 <pre><code class="r">ggtree(rtree(30)) + geom_point()
