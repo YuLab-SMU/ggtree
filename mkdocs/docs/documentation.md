@@ -36,6 +36,7 @@
 + [BioC 3.2: NEWS of my BioC packages](https://guangchuangyu.github.io/2015/10/news-of-my-bioc-packages)
 + [News of ggtree](https://guangchuangyu.github.io/2015/12/news-of-ggtree)
 + [BioC 3.3: NEWS of my BioC packages](https://guangchuangyu.github.io/2016/05/news-of-my-bioc-packages)
++ [BioC 3.4: NEWS of my BioC packages](https://guangchuangyu.github.io/2016/10/bioc-34-news-of-my-bioc-packages)
 + [ggtree paper published](https://guangchuangyu.github.io/2016/08/ggtree-paper-published)
 
 ### <i class="fa fa-angle-double-right"></i> Data manipulation
