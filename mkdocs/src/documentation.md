@@ -19,10 +19,10 @@
 
 + [viewing and annotating phylogenetic tree with ggtree](https://guangchuangyu.github.io/2014/12/viewing-and-annotating-phylogenetic-tree-with-ggtree)
 + [ggtree in Bioconductor 3.1](https://guangchuangyu.github.io/2015/01/ggtree-in-bioconductor-3.1)
-+ [BioC 3.1: NEWS of my BioC packages](https://guangchuangyu.github.io/2015/04/news-of-my-bioc-packages)
-+ [BioC 3.2: NEWS of my BioC packages](https://guangchuangyu.github.io/2015/10/news-of-my-bioc-packages)
++ [BioC 3.1: NEWS of my BioC packages](https://guangchuangyu.github.io/2015/04/bioc-31-news-of-my-bioc-packages)
++ [BioC 3.2: NEWS of my BioC packages](https://guangchuangyu.github.io/2015/10/bioc-32-news-of-my-bioc-packages)
 + [News of ggtree](https://guangchuangyu.github.io/2015/12/news-of-ggtree)
-+ [BioC 3.3: NEWS of my BioC packages](https://guangchuangyu.github.io/2016/05/news-of-my-bioc-packages)
++ [BioC 3.3: NEWS of my BioC packages](https://guangchuangyu.github.io/2016/05/bioc-33-news-of-my-bioc-packages/)
 + [BioC 3.4: NEWS of my BioC packages](https://guangchuangyu.github.io/2016/10/bioc-34-news-of-my-bioc-packages)
 + [ggtree paper published](https://guangchuangyu.github.io/2016/08/ggtree-paper-published)
 
