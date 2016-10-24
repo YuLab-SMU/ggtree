@@ -184,7 +184,7 @@ inset(p, img)
 
 # Plot tree with associated data
 
-For associating phylogenetic tree with different type of plot produced by user's data, `ggtree` provides `facet_plot` function which accepts an input `data.frame` and a 'geom' function to draw the input data. The data will be displayed in an additional panel of the plot.
+For associating phylogenetic tree with different type of plot produced by user's data, `ggtree` provides `facet_plot` function which accepts an input `data.frame` and a `geom` function to draw the input data. The data will be displayed in an additional panel of the plot.
 
 ```{r warning=F, fig.width=10, fig.height=6}
 tr <- rtree(30)
