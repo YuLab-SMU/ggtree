@@ -5,7 +5,8 @@ Version: 1.7.1
 Authors@R: c(
 	   person("Guangchuang", "Yu", email = "guangchuangyu@gmail.com", role = c("aut", "cre")),
 	   person("Tommy Tsan-Yuk", "Lam", email = "tylam.tommy@gmail.com", rol = "aut"),
-	   person("Justin", "Silverman", email = "jsilve24@gmail.com", rol = "ctb", comment = "geom_balance")
+	   person("Justin", "Silverman", email = "jsilve24@gmail.com", rol = "ctb", comment = "geom_balance"),
+	   person("Casey", "Dunn", email = "casey_dunn@brown.edu", comment = "propose using txtConnection so that parser function can use tree strings as input")
 	   )
 Author: Guangchuang Yu <guangchuangyu@gmail.com> and Tommy Tsan-Yuk Lam with contributions from
    	Justin Silverman.
