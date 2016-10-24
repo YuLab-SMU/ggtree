@@ -1,7 +1,7 @@
 Package: ggtree
 Type: Package
 Title: an R package for visualization and annotation of phylogenetic trees with their covariates and other associated data
-Version: 1.7.0
+Version: 1.7.1
 Author: Guangchuang Yu and Tommy Tsan-Yuk Lam
 Maintainer: Guangchuang Yu <guangchuangyu@gmail.com>
 Description: 'ggtree' extends the 'ggplot2' plotting system which implemented the grammar of graphics.
