@@ -1,4 +1,4 @@
-##' update tree 
+##' update tree
 ##'
 ##'
 ##' @rdname update-TREE
@@ -34,8 +34,8 @@
 ##' @examples
 ##' nwk <- system.file("extdata", "sample.nwk", package="ggtree")
 ##' tree <- read.tree(nwk)
-##' p <- ggtree(tree) 
-##' dd <- data.frame(taxa=LETTERS[1:13], 
+##' p <- ggtree(tree)
+##' dd <- data.frame(taxa=LETTERS[1:13],
 ##'    		 place=c(rep("GZ", 5), rep("HK", 3), rep("CZ", 4), NA),
 ##'              value=round(abs(rnorm(13, mean=70, sd=10)), digits=1))
 ##' row.names(dd) <- NULL
@@ -55,8 +55,8 @@
     right     <- get("right", envir = pg$plot_env)
     branch.length <- get("branch.length", envir = pg$plot_env)
     ndigits <- get("ndigits", envir = pg$plot_env)
-    
-    
+
+
     pg$data <- fortify(tree,
                        layout        = layout,
                        yscale        = yscale,
@@ -93,14 +93,15 @@
 ##'
 ##' @rdname add_TREEINFO
 ##' @title \%+>\%
-##' @param p tree view 
+##' @param p tree view
 ##' @param data data.frame
 ##' @return updated data.frame
 ##' @export
 ##' @author Guangchuang Yu
 `%+>%` <- function(p, data) {
     df <- p$data
-    res <- merge(df[, c('label', 'y')], data, by.x='label', by.y=1) ## , all.x=TRUE)
+    ## res <- merge(df[, c('label', 'y')], data, by.x='label', by.y=1) ## , all.x=TRUE)
+    res <- merge(df, data, by.x='label', by.y=1) ## , all.x=TRUE)
     lv <- levels(df$panel)
     res$panel <- factor(lv[length(lv)], levels=lv)
     return(res)

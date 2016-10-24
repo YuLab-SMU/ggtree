@@ -1,7 +1,11 @@
+CHANGES IN VERSION 1.7.1
+------------------------
+ o make tree stats available in facet_plot <2016-10-24, Mon>
+
 CHANGES IN VERSION 1.6.0
 ------------------------
  o BioC 3.4 released <2016-10-18, Tue>
- 
+
 CHANGES IN VERSION 1.5.17
 ------------------------
  o read.nhx support newick file <2016-10-17, Mon>
