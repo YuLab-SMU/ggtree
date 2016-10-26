@@ -57,6 +57,7 @@
 + [ggtree annotate phylogenetic tree with local images](https://guangchuangyu.github.io/2015/08/ggtree-annotate-phylogenetic-tree-with-local-images)
 + [embed images in ggplot2 via subview and annotate a phylogenetic tree with images using inset function](https://guangchuangyu.github.io/2016/03/embed-images-in-ggplot2-via-subview-and-annotate-a-phylogenetic-tree-with-images-using-inset-function)
 + [identify method for ggtree](https://guangchuangyu.github.io/2016/06/identify-method-for-ggtree)
++ [facet_plot: a general solution to associate data with phylogenetic tree](https://guangchuangyu.github.io/2016/10/facet_plot-a-general-solution-to-associate-data-with-phylogenetic-tree/)
 
 ### <i class="fa fa-angle-double-right"></i> Tree manipulation
 
