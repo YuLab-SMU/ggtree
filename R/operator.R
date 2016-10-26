@@ -100,10 +100,22 @@
 ##' @author Guangchuang Yu
 `%+>%` <- function(p, data) {
     df <- p$data
-    ## res <- merge(df[, c('label', 'y')], data, by.x='label', by.y=1) ## , all.x=TRUE)
-    res <- merge(df, data, by.x='label', by.y=1) ## , all.x=TRUE)
     lv <- levels(df$panel)
-    res$panel <- factor(lv[length(lv)], levels=lv)
+
+    if (is(data, "GRanges") || is(data, "GRangesList")) {
+        names(data) <- df$y[match(names(data), df$label)]
+        res <- data[order(as.numeric(names(data)))]
+        mcols <- get_fun_from_pkg("GenomicRanges", "mcols")
+        `mcols<-` <- get_fun_from_pkg("GenomicRanges", "`mcols<-`")
+        mcols(res)$panel <- factor(lv[length(lv)], levels=lv)
+    } else if (is(data, "data.frame") || is(data, "tbl_df")) {
+        data <- as.data.frame(data)
+        ## res <- merge(df[, c('label', 'y')], data, by.x='label', by.y=1) ## , all.x=TRUE)
+        res <- merge(df, data, by.x='label', by.y=1) ## , all.x=TRUE)
+        res$panel <- factor(lv[length(lv)], levels=lv)
+    } else {
+        stop("input 'data' is not supported...")
+    }
     return(res)
 }
 

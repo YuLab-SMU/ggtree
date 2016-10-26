@@ -1,5 +1,7 @@
 CHANGES IN VERSION 1.7.1
 ------------------------
+ o facet_plot supports ggbio::geom_alignment <2016-10-26, Wed>
+   + https://github.com/tengfei/ggbio/issues/83
  o make tree stats available in facet_plot <2016-10-24, Mon>
 
 CHANGES IN VERSION 1.6.0
