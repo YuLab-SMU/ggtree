@@ -6,7 +6,8 @@ Authors@R: c(
 	   person("Guangchuang", "Yu", email = "guangchuangyu@gmail.com", role = c("aut", "cre")),
 	   person("Tommy Tsan-Yuk", "Lam", email = "tylam.tommy@gmail.com", rol = "ths"),
 	   person("Justin", "Silverman", email = "jsilve24@gmail.com", rol = "ctb", comment = "geom_balance"),
-	   person("Casey", "Dunn", email = "casey_dunn@brown.edu", rol = "ctb", comment = "propose using txtConnection so that parser functions can use tree strings as input")
+	   person("Casey", "Dunn", email = "casey_dunn@brown.edu", rol = "ctb",
+	          comment = "propose using txtConnection so that parser functions can use tree strings as input")
 	   )
 Maintainer: Guangchuang Yu <guangchuangyu@gmail.com>
 Description: 'ggtree' extends the 'ggplot2' plotting system which implemented the grammar of graphics.
