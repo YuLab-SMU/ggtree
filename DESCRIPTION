@@ -4,7 +4,7 @@ Title: an R package for visualization and annotation of phylogenetic trees with 
 Version: 1.7.1
 Authors@R: c(
 	   person("Guangchuang", "Yu", email = "guangchuangyu@gmail.com", role = c("aut", "cre")),
-	   person("Tommy Tsan-Yuk", "Lam", email = "tylam.tommy@gmail.com", rol = "ths"),
+	   person("Tommy Tsan-Yuk", "Lam", email = "tylam.tommy@gmail.com", rol = c("aut", "ths")),
 	   person("Justin", "Silverman", email = "jsilve24@gmail.com", rol = "ctb", comment = "geom_balance"),
 	   person("Casey", "Dunn", email = "casey_dunn@brown.edu", rol = "ctb",
 	          comment = "propose using txtConnection so that parser functions can use tree strings as input")
