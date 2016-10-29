@@ -57,12 +57,21 @@ test_that("can parse phyldog nhx tree string", {
 	# Assumes that node identity order is the same between phy and nhx@phylo
 	tags = nhx@nhx_tags
 	tags$node = as.numeric(tags$node)
-	tags = tags[ tags$node > length(nhx@phylo$tip.label), ] # Consider internal nodes only
 	tags = tags[order(tags$node),]
+	internal_tags = tags[ tags$node > length(nhx@phylo$tip.label), ] # Consider internal nodes only
+
 
 	phy = read.tree(text=simplify_nhx_string(test_phyldog_nhx_text))
 	phy_S=unlist(lapply(strsplit(phy$node.label, "_"), function(x) x[[2]])) # Get the S field
 	phy_S=unlist(lapply(strsplit(phy_S, "-"), function(x) x[[2]])) # Get the value
 	phy_S=as.numeric(phy_S)
-	expect_equal( phy_S, as.numeric(tags$S) )
+	expect_equal( phy_S, as.numeric(internal_tags$S) )
+
+	# Verify that S fild of tips was correctly parsed
+	# by comparison against expected values
+	tip_tags = tags[1:length(nhx@phylo$tip.label),]
+	tip.labels = c("Prayidae_D27SS7@2825365", "Kephyes_ovata@2606431", "Chuniphyes_multidentata@1277217", "Apolemia_sp_@1353964", "Bargmannia_amoena@263997", "Bargmannia_elongata@946788", "Physonect_sp_@2066767", "Stephalia_dilata@2960089", "Frillagalma_vityazi@1155031", "Resomia_ornicephala@3111757", "Lychnagalma_utricularia@2253871", "Nanomia_bijuga@717864", "Cordagalma_sp_@1525873", "Rhizophysa_filiformis@3073669", "Hydra_magnipapillata@52244", "Ectopleura_larynx@3556167")
+	S.tip.values = c(58, 69, 70, 31, 37, 38, 61, 52, 53, 54, 65, 71, 64, 26, 16, 15)
+	expect_equal( S.tip.values[match(nhx@phylo$tip.label, tip.labels)], as.numeric(tip_tags$S))
+
 })
