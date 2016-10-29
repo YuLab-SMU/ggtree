@@ -27,7 +27,7 @@ read.nhx <- function(file) {
 
     phylo2 <- read.tree(text = tree2)
     treeinfo <- fortify(phylo2)
-    node <- as.character(treeinfo$node[match(nlab, treeinfo$label)])
+    node <- as.character(treeinfo$node[match(nlab, sub(".+(X\\d+)$","\\1",treeinfo$label))])
 
     nhx.matches <- gregexpr("(\\w+)?(:?\\d*\\.?\\d*[Ee]?[\\+\\-]?\\d*)?\\[&&NHX.*?\\]", treetext)
     matches <- nhx.matches[[1]]
