@@ -1,6 +1,6 @@
 CHANGES IN VERSION 1.7.1
 ------------------------
- o set_tree_xlim function and test <2016-10-31, Mon>
+ o xlim_tree layer and test <2016-10-31, Mon>
    + set x axis limit for Tree panel for facet_plot
  o update read.nhx <2016-10-30, Sun>
    + add tip numbers to @nhx_tags and add tests

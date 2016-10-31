@@ -31,25 +31,14 @@ add_panel <- function(p, panel) {
 ##' set x axis limits for Tree panel
 ##'
 ##'
-##' @title set_tree_xlim
-##' @param tree_view tree view
+##' @title xlim_tree
 ##' @param xlim xlim, should be of length 2
 ##' @return updated tree view
 ##' @export
 ##' @importFrom ggplot2 geom_blank
 ##' @author guangchuang yu
-set_tree_xlim <- function(tree_view, xlim) {
-    if (length(xlim) != 2) {
-        stop('-> xlim should be of length 2...')
-    }
-    x <- tree_view$data$x
-    if (is.na(xlim[1])) {
-        xlim[1] <- min(x)
-    }
-    if (is.na(xlim[2])) {
-        xlim[2] <- max(x)
-    }
+xlim_tree <- function(xlim) {
     dummy <- data.frame(x=xlim, panel='Tree')
-    tree_view + geom_blank(aes(x=x), dummy, inherit.aes = FALSE)
+    geom_blank(aes_(x=~x), dummy, inherit.aes = FALSE)
 }
 

@@ -36,10 +36,10 @@
   }  
   </style>
 
-<div id = 'chart19ad646a81f1' class = 'rChart morris'></div>
+<div id = 'chart371c6b358a50' class = 'rChart morris'></div>
 <script type='text/javascript'>
     var chartParams = {
- "element": "chart19ad646a81f1",
+ "element": "chart371c6b358a50",
 "width":            800,
 "height":            400,
 "xkey": "year",
@@ -53,7 +53,7 @@
 "pubid": "HtEfBTGE9r8C" 
 } 
 ],
-"id": "chart19ad646a81f1",
+"id": "chart371c6b358a50",
 "labels": "cites" 
 },
       chartType = "Bar"
