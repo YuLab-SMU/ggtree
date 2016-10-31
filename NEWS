@@ -1,3 +1,8 @@
+CHANGES IN VERSION 1.7.2
+------------------------
+ o bug fixed of parsing tree text in beast file <2016-10-31, Mon>
+   + https://github.com/GuangchuangYu/ggtree/issues/84
+
 CHANGES IN VERSION 1.7.1
 ------------------------
  o xlim_tree layer and test <2016-10-31, Mon>

@@ -1,7 +1,7 @@
 
 ##' read beast output
 ##'
-##' 
+##'
 ##' @title read.beast
 ##' @param file beast file
 ##' @return \code{beast} object
@@ -16,7 +16,7 @@ read.beast <- function(file) {
     treetext <- read.treetext_beast(file)
     stats <- read.stats_beast(file)
     phylo <- read.nexus(file)
-    
+
     if (length(treetext) == 1) {
         obj <- BEAST(file, treetext, translation, stats, phylo)
     } else {
@@ -31,12 +31,12 @@ read.beast <- function(file) {
 
 BEAST <- function(file, treetext, translation, stats, phylo) {
     stats$node %<>% gsub("\"*'*", "", .)
-    
+
     fields <- sub("_lower|_upper", "", names(stats)) %>% unique
     fields %<>% `[`(.!="node")
-        
+
     phylo <- remove_quote_in_tree_label(phylo)
-        
+
     obj <- new("beast",
                fields      = fields,
                treetext    = treetext,
@@ -53,7 +53,7 @@ remove_quote_in_tree_label <- function(phylo) {
         phylo$node.label %<>% gsub("\"*'*", "", .)
     }
     if ( !is.null(phylo$tip.label)) {
-        phylo$tip.label %<>% gsub("\"*'*", "", .) 
+        phylo$tip.label %<>% gsub("\"*'*", "", .)
     }
     return(phylo)
 }
@@ -70,29 +70,18 @@ setMethod("get.fields", signature(object="beast"),
 
 read.treetext_beast <- function(file) {
     beast <- readLines(file)
-    ## ii <- grep("^tree TREE1\\s+=", beast)
-    ii <- grep("^tree ", beast)
-    if (length(ii) == 0) {
-        ii <- grep("[Bb]egin trees;", beast)
-    }
-    
+
+    ii <- grep("[Bb]egin trees;", beast)
     jj <- grep("[Ee]nd;", beast)
     jj <- jj[jj > max(ii)][1]
-
-    ## tree <- beast[ii:(jj-1)]
-    ## if (length(tree) > 1) {
-    ##     tree <- paste0(tree)
-    ## }
-    ## tree %<>% sub("[^=]+=", "", .) %>%
-    ##     sub("\\s+\\[&R\\]\\s+", "", .) %>%
-    ##         sub("[^(]*", "", .)
-    
     jj <- c(ii[-1], jj)
+
     trees <- sapply(seq_along(ii), function(i) {
-        tree <- beast[ii[i]:(jj[i]-1)]
-        if (length(tree) > 1) {
-            tree <- paste0(tree)
-        }
+        tree <- beast[(ii[i]+1):(jj[i]-1)]
+        tree <- tree[grep("\\s*[Tt]ree", tree)]
+        ## if (length(tree) > 1) {
+        ##     tree <- paste0(tree, collapse='')
+        ## }
         sub("[^(]*", "", tree)
     })
 
@@ -134,17 +123,17 @@ read.stats_beast_internal <- function(beast, tree) {
     phylo <- read.tree(text = tree2)
 
     tree2 <- add_pseudo_nodelabel(phylo, tree2)
-    
+
     ## node name corresponding to stats
     nn <- strsplit(tree2, split=",") %>% unlist %>%
         strsplit(., split="\\)") %>% unlist %>%
         gsub("\\(*", "", .) %>%
-        gsub("[:;].*", "", .) 
-    
+        gsub("[:;].*", "", .)
+
     phylo <- read.tree(text = tree2)
     root <- getRoot(phylo)
     nnode <- phylo$Nnode
-    
+
     ## phylo2 <- read.nexus(file)
     ## treeinfo <- fortify.phylo(phylo)
     ## treeinfo2 <- fortify.phylo(phylo2)
@@ -178,7 +167,7 @@ read.stats_beast_internal <- function(beast, tree) {
     ## ## convert nn to node that encoded in phylo2
     ## node <- treeinfo$label2[match(nn, treeinfo$label)]
 
-    
+
     ####################################################
     ##                                                ##
     ##  after doing it in the hard way                ##
@@ -194,7 +183,7 @@ read.stats_beast_internal <- function(beast, tree) {
     } else {
         node <- as.character(treeinfo$node[match(nn, treeinfo$label)])
     }
-    
+
     ## stats <- unlist(strsplit(tree, "\\["))[-1]
     ## stats <- sub(":.+$", "", stats
     stats <- strsplit(tree, ":") %>% unlist
@@ -204,7 +193,7 @@ read.stats_beast_internal <- function(beast, tree) {
 
     stats <- sub("^&", "", stats)
     stats <- sub("];*$", "", stats)
-        
+
     stats2 <- lapply(stats, function(x) {
         y <- unlist(strsplit(x, ","))
         sidx <- grep("=\\{", y)
@@ -215,18 +204,18 @@ read.stats_beast_internal <- function(beast, tree) {
             flag <- TRUE
             SETS <- sapply(seq_along(sidx), function(k) {
                 p <- y[sidx[k]:eidx[k]]
-                gsub(".*=\\{", "", p) %>% gsub("\\}$", "", .) %>% list                
+                gsub(".*=\\{", "", p) %>% gsub("\\}$", "", .) %>% list
             })
             names(SETS) <- gsub("=.*", "", y[sidx])
 
             kk <- sapply(seq_along(sidx), function(k) sidx[k]:eidx[k]) %>% unlist
             y <- y[-kk]
         }
-        
-        
+
+
         name <- gsub("=.*", "", y)
         val <- gsub(".*=", "", y) %>% gsub("^\\{", "", .) %>%
-            gsub("\\}$", "", .) 
+            gsub("\\}$", "", .)
 
 
         if (flag) {
@@ -234,7 +223,7 @@ read.stats_beast_internal <- function(beast, tree) {
         } else {
             nn <- name
         }
-        
+
         res <- character(length(nn))
         names(res) <- nn
 
@@ -247,7 +236,7 @@ read.stats_beast_internal <- function(beast, tree) {
                 res[i+j] <- SETS[i]
             }
         }
-        
+
         return(res)
     })
 
@@ -270,7 +259,7 @@ read.stats_beast_internal <- function(beast, tree) {
         colnames(stats3) <- nn
     }
     colnames(stats3) <- gsub("(\\d+)%", "0.\\1", colnames(stats3))
-    
+
     ## stats3$node <- node
     stats3$node <- names(stats)
     return(stats3)
