@@ -16,6 +16,6 @@ nhx object
 read nhx tree file
 }
 \author{
-Guangchuang Yu \url{http://ygc.name}
+Guangchuang Yu \url{https://guangchuangyu.github.io}
 }
 

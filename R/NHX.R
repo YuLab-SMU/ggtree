@@ -5,7 +5,7 @@
 ##' @param file nhx file
 ##' @return nhx object
 ##' @export
-##' @author Guangchuang Yu \url{http://ygc.name}
+##' @author Guangchuang Yu \url{https://guangchuangyu.github.io}
 read.nhx <- function(file) {
     treetext <- suppressWarnings(readLines(file))
     treetext <- treetext[treetext != ""]
@@ -27,7 +27,7 @@ read.nhx <- function(file) {
 
     phylo2 <- read.tree(text = tree2)
     treeinfo <- fortify(phylo2)
-    node <- as.character(treeinfo$node[match(nlab, treeinfo$label)])
+    node <- treeinfo$node[match(nlab, sub(".+(X\\d+)$","\\1",treeinfo$label))] # as.character
 
     nhx.matches <- gregexpr("(\\w+)?(:?\\d*\\.?\\d*[Ee]?[\\+\\-]?\\d*)?\\[&&NHX.*?\\]", treetext)
     matches <- nhx.matches[[1]]

@@ -1,6 +1,6 @@
 ##' plot tree associated data in an additional panel
 ##'
-##' 
+##'
 ##' @title facet_plot
 ##' @param p tree view
 ##' @param panel panel name for plot of input data
@@ -27,3 +27,18 @@ add_panel <- function(p, panel) {
     p$data <- df
     p + facet_grid(.~panel, scales="free_x")
 }
+
+##' set x axis limits for Tree panel
+##'
+##'
+##' @title xlim_tree
+##' @param xlim xlim, should be of length 2
+##' @return updated tree view
+##' @export
+##' @importFrom ggplot2 geom_blank
+##' @author guangchuang yu
+xlim_tree <- function(xlim) {
+    dummy <- data.frame(x=xlim, panel='Tree')
+    geom_blank(aes_(x=~x), dummy, inherit.aes = FALSE)
+}
+
