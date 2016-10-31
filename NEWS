@@ -1,5 +1,11 @@
 CHANGES IN VERSION 1.7.1
 ------------------------
+ o set_tree_xlim function and test <2016-10-31, Mon>
+   + set x axis limit for Tree panel for facet_plot
+ o update read.nhx <2016-10-30, Sun>
+   + add tip numbers to @nhx_tags and add tests
+   + https://github.com/GuangchuangYu/ggtree/pull/83
+   + store nhx_tags$node as numeric values <2016-10-31, Mon>
  o facet_plot supports ggbio::geom_alignment <2016-10-26, Wed>
    + https://github.com/tengfei/ggbio/issues/83
  o make tree stats available in facet_plot <2016-10-24, Mon>
