@@ -1,12 +1,14 @@
 CHANGES IN VERSION 1.7.2
 ------------------------
+ o expand_xlim for setting x axis limits of specific panel <2016-11-01, Tue>
+   + xlim_tree is now a specific case of expand_xlim(xlim, panel='Tree')
  o bug fixed of parsing tree text in beast file <2016-10-31, Mon>
    + https://github.com/GuangchuangYu/ggtree/issues/84
 
 CHANGES IN VERSION 1.7.1
 ------------------------
  o xlim_tree layer and test <2016-10-31, Mon>
-   + set x axis limit for Tree panel for facet_plot
+   + set x axis limits for Tree panel for facet_plot
  o update read.nhx <2016-10-30, Sun>
    + add tip numbers to @nhx_tags and add tests
    + https://github.com/GuangchuangYu/ggtree/pull/83
