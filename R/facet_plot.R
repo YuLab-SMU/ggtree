@@ -20,25 +20,11 @@ facet_plot <- function(p, panel, data, geom, mapping=NULL, ...) {
 ##' @importFrom ggplot2 facet_grid
 add_panel <- function(p, panel) {
     df <- p$data
-    if (is.null(df$panel)) {
-        df$panel <- factor("Tree")
+    if (is.null(df$.panel)) {
+        df$.panel <- factor("Tree")
     }
-    levels(df$panel) %<>% c(., panel)
+    levels(df$.panel) %<>% c(., panel)
     p$data <- df
-    p + facet_grid(.~panel, scales="free_x")
-}
-
-##' set x axis limits for Tree panel
-##'
-##'
-##' @title xlim_tree
-##' @param xlim xlim, should be of length 2
-##' @return updated tree view
-##' @export
-##' @importFrom ggplot2 geom_blank
-##' @author guangchuang yu
-xlim_tree <- function(xlim) {
-    dummy <- data.frame(x=xlim, panel='Tree')
-    geom_blank(aes_(x=~x), dummy, inherit.aes = FALSE)
+    p + facet_grid(.~.panel, scales="free_x")
 }
 
