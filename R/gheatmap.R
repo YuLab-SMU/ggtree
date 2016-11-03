@@ -79,9 +79,9 @@ gheatmap <- function(p, data, offset=0, width=1, low="green", high="red", color=
         p2 <- p + geom_tile(data=dd, aes(x, y, fill=value), width=width, color=color, inherit.aes=FALSE)
     }
     if (is(dd$value,"numeric")) {
-        p2 <- p2 + scale_fill_gradient(low=low, high=high, na.value="white")
+        p2 <- p2 + scale_fill_gradient(low=low, high=high, na.value=NA) # "white")
     } else {
-        p2 <- p2 + scale_fill_discrete(na.value="white")
+        p2 <- p2 + scale_fill_discrete(na.value=NA) #"white")
     }
     
     if (colnames) {
