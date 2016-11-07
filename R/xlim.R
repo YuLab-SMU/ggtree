@@ -26,3 +26,17 @@ xlim_expand <- function(xlim, panel) {
     geom_blank(aes_(x=~x), dummy, inherit.aes = FALSE)
 }
 
+##' reverse timescle x-axis
+##'
+##'
+##' @title revts
+##' @param treeview treeview
+##' @return updated treeview
+##' @export
+##' @author guangchuang yu
+revts <- function(treeview) {
+    x <- treeview$data$x
+    x <- x - max(x)
+    treeview$data$x <- x
+    treeview
+}

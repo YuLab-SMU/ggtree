@@ -1,3 +1,8 @@
+CHANGES IN VERSION 1.7.3
+------------------------
+ o reverse timescale x-axis <2016-11-07, Mon>
+   + https://github.com/GuangchuangYu/ggtree/issues/87
+
 CHANGES IN VERSION 1.7.2
 ------------------------
  o make missing colors in gheatmap invisible (previously use 'white') <2016-11-03, Thu>
