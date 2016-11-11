@@ -17,6 +17,9 @@ apt_packages:
 
 r_packages:
   - covr
+  - ape
+  - ggplot2
+  - tidyr
 
 env:
   global:
