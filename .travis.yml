@@ -20,6 +20,7 @@ r_packages:
   - ape
   - ggplot2
   - tidyr
+  - abind
 
 env:
   global:
