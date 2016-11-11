@@ -3,7 +3,7 @@
 language: r
 r:
   - bioc-devel
-  
+
 cache: packages
 bioc_required: true
 
@@ -15,17 +15,20 @@ os:
 apt_packages:
   - libfftw3-dev
 
+r_packages:
+  - covr
+
 env:
   global:
     - _R_CHECK_FORCE_SUGGESTS_=False
     - R_LIBS="http://cran.rstudio.com"
 
-  
+
 after_failure:
   - ./travis-tool.sh dump_logs
 
-r_github_packages:
-  - jimhester/covr
+## r_github_packages:
+##   - jimhester/covr
 
 after_success:
 - Rscript -e 'library(covr); codecov()'

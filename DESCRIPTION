@@ -7,7 +7,7 @@ Authors@R: c(
 	   person("Tommy Tsan-Yuk", "Lam", email = "tylam.tommy@gmail.com", rol = c("aut", "ths")),
 	   person("Justin", "Silverman", email = "jsilve24@gmail.com", rol = "ctb", comment = "geom_balance"),
 	   person("Casey", "Dunn", email = "casey_dunn@brown.edu", rol = "ctb",
-	          comment = c("NHX"))
+	          comment = "NHX")
 	   )
 Maintainer: Guangchuang Yu <guangchuangyu@gmail.com>
 Description: 'ggtree' extends the 'ggplot2' plotting system which implemented the grammar of graphics.
