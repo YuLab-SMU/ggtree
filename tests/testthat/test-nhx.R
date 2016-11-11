@@ -75,3 +75,11 @@ test_that("can parse phyldog nhx tree string", {
 	expect_equal( S.tip.values[match(nhx@phylo$tip.label, tip.labels)], as.numeric(tip_tags$S))
 
 })
+
+test_that("can drop tips", {
+	nhx <- read.nhx( textConnection(test_phyldog_nhx_text) )
+		to_drop = c("Physonect_sp_@2066767", "Lychnagalma_utricularia@2253871", "Kephyes_ovata@2606431")
+	
+	nhx_reduced = drop.tip(nhx, to_drop)
+	expect_equal( length(nhx_reduced@phylo$tip.label), 13 )
+})
