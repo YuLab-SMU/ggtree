@@ -1,6 +1,6 @@
-##' plots simultaneously a whole phylogenetic tree and a portion of it. 
+##' plots simultaneously a whole phylogenetic tree and a portion of it.
 ##'
-##' 
+##'
 ##' @title gzoom
 ##' @param phy phylo object
 ##' @param focus selected tips
@@ -9,7 +9,6 @@
 ##' @return a list of ggplot object
 ##' @importFrom ggplot2 xlim
 ##' @importFrom ggplot2 scale_color_manual
-##' @importFrom ape drop.tip
 ##' @author ygc
 ##' @examples
 ##' require(ape)
@@ -28,14 +27,14 @@ gzoom.phylo <- function(phy, focus, subtree=FALSE, widths=c(.3, .7)) {
     cols <- c("black", "red")[foc+1]
 
     p1 <- ggtree(phy, color=cols)
-    
+
     subtr <- drop.tip(phy, phy$tip.label[-focus],
                       subtree=subtree, rooted=TRUE)
-    
+
     p2 <- ggtree(subtr, color="red") + geom_tiplab(hjust=-0.05)
     p2 <- p2 + xlim(0, max(p2$data$x)*1.2)
-    multiplot(p1, p2, ncol=2, widths=widths) 
-    
+    multiplot(p1, p2, ncol=2, widths=widths)
+
     invisible(list(p1=p1, p2=p2))
 }
 
@@ -68,7 +67,7 @@ setMethod("gzoom", signature(object="apeBootstrap"),
 
 ##' zoom selected subtree
 ##'
-##' 
+##'
 ##' @rdname gzoom-methods
 ##' @exportMethod gzoom
 setMethod("gzoom", signature(object="beast"),

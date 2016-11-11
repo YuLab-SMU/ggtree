@@ -164,3 +164,19 @@ setGeneric("scale_color", function(object, by, ...) standardGeneric("scale_color
 ##' @return figure
 ##' @export
 setGeneric("gzoom", function(object, focus, subtree=FALSE, widths=c(.3, .7), ...) standardGeneric("gzoom"))
+
+
+##' @docType methods
+##' @name drop.tip
+##' @rdname drop.tip-methods
+##' @title drop.tip method
+##' @param object An nhx or phylo object
+##' @param tip a vector of mode numeric or character specifying the tips to delete
+##' @param ... additional parameters
+##' @return updated object
+##' @export
+setGeneric (
+	name = "drop.tip",
+	def = function( object, tip, ... )
+		{ standardGeneric("drop.tip") }
+)

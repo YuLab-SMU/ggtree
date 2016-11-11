@@ -1,8 +1,8 @@
 ##' site mask
 ##'
-##' 
+##'
 ##' @title mask
-##' @param tree_object tree object 
+##' @param tree_object tree object
 ##' @param field selected field
 ##' @param site site
 ##' @param mask_site if TRUE, site will be masked.
@@ -38,15 +38,15 @@ mask <- function(tree_object, field, site, mask_site=FALSE) {
         gsub("^[a-zA-Z]+", "", . ) %>%
         gsub("[a-zA-Z]\\s*$", "", .) %>%
         as.numeric
-    
+
     if (mask_site == FALSE) {
         pos2 <- 1:max(pos)
         pos2 <- pos2[-site]
         site <- pos2
     }
-    
+
     site <- site[site %in% pos]
-    
+
     for (i in seq_along(field_data)) {
         if (is.na(field_data[i]))
             next
@@ -95,7 +95,7 @@ read.dnds_mlc <- function(mlcfile) {
     mlc <- readLines(mlcfile)
     i <- grep("dN & dS for each branch", mlc)
     j <- grep("tree length for dN", mlc)
-    
+
     mlc <- mlc[i:j]
     hi <- grep("dN/dS", mlc)
     cn <- strsplit(mlc[hi], " ") %>% unlist %>% `[`(nzchar(.))
@@ -110,14 +110,14 @@ read.dnds_mlc <- function(mlcfile) {
         yy <- c(edge, y[-1])
         as.numeric(yy)
     }))
-             
+
     row.names(res) <- NULL
     colnames(res) <- c("parent", "node", cn[-1])
     colnames(res) <- gsub("\\*", "_x_", colnames(res))
     colnames(res) <- gsub("\\/", "_vs_", colnames(res))
     return(res)
 }
-    
+
 read.treetext_paml_mlc <- function(mlcfile) {
     read.treetext_paml(mlcfile, "mlc")
 }
@@ -138,14 +138,13 @@ read.treetext_paml <- function(file, by) {
     } else {
         stop("_by_ should be one of 'rst' or 'mlc'")
     }
-        
+
     return(x[tr.idx][ii])
 }
 
-##' @importFrom ape Ntip
 read.phylo_paml_mlc <- function(mlcfile) {
     parent <- node <- label <- NULL
-    
+
     mlc <- readLines(mlcfile)
     edge <- get_tree_edge_paml(mlc)
 
@@ -189,7 +188,7 @@ read.phylo_paml_mlc <- function(mlcfile) {
                 }
                 treeinfo[ii, "visited"] <- TRUE
             }
-            
+
         }
         currentNode <- unique(pNode)
     }
@@ -211,7 +210,7 @@ read.phylo_paml_mlc <- function(mlcfile) {
 ##' @importFrom ape reorder.phylo
 read.phylo_paml_rst <- function(rstfile) {
     parent <- node <- label <- NULL
-    
+
     ## works fine with baseml and codeml
     rst <- readLines(rstfile)
     tr.idx <- get_tree_index_paml(rst)
@@ -220,7 +219,7 @@ read.phylo_paml_rst <- function(rstfile) {
     tr3 <- read.tree(text=rst[tr.idx][3])
 
     edge <- get_tree_edge_paml(rst)
-    
+
     label=c(tr3$tip.label, tr3$node.label)
     root <- getRoot(tr3)
     label %<>% `[`(. != root)
@@ -231,14 +230,14 @@ read.phylo_paml_rst <- function(rstfile) {
     ## node.length$node <- sub("_\\w+", "", node.length$label
     node.length$node <- gsub("^(\\d+)_.*", "\\1", node.length$label)
     node.length$label %<>% sub("\\d+_", "", .)
-    
+
     edge <- as.data.frame(edge)
     colnames(edge) <- c("parent", "node")
 
     treeinfo <- merge(edge, node.length, by.x="node", by.y="node")
     edge2 <- treeinfo[, c("parent", "node")]
     edge2 %<>% as.matrix
-    
+
     ntip <- Ntip(tr3)
 
     phylo <- with(treeinfo,
@@ -253,7 +252,7 @@ read.phylo_paml_rst <- function(rstfile) {
 
     class(phylo) <- "phylo"
     phylo <- reorder.phylo(phylo, "cladewise")
-    
+
     return(phylo)
 }
 
@@ -262,10 +261,10 @@ read.ancseq_paml_rst <- function(rstfile, by="Marginal") {
     rst <- readLines(rstfile)
 
     by <- match.arg(by, c("Marginal", "Joint"))
-    query <- paste(by, "reconstruction of ancestral sequences") 
+    query <- paste(by, "reconstruction of ancestral sequences")
     idx <- grep(query, rst)
     if(length(idx) == 0) {
-        ## in some paml setting, joint_ancseq are not available. 
+        ## in some paml setting, joint_ancseq are not available.
         return("")
     }
     si <- grep("reconstructed sequences", rst)
@@ -323,13 +322,13 @@ set.paml_rst_ <- function(object) {
     if (length(object@tip_seq) == 0) {
         return(object)
     }
-    
+
     types <- get.fields(object)
     for (type in types) {
         value <- subs_paml_rst(object, type)
         if (all(is.na(value)))
             next
-        
+
         if (type == "marginal_subs") {
             object@marginal_subs <- value
         } else if (type == "marginal_AA_subs") {

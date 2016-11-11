@@ -7,16 +7,16 @@ test_phyldog_nhx_text = "(((Prayidae_D27SS7@2825365:0.0682841[&&NHX:Ev=S:S=58:ND
 
 test_notung_nhx_text = "((((Rhizophysa_filiformis@2564549:0.09666991738603078[&&NHX:S=Rhizophysa_filiformis],((Marrus_claudanielis@2027078:0.03368582974818837[&&NHX:S=Marrus_claudanielis],((Erenna_richardi@1434201:0.014306889954561298[&&NHX:S=Erenna_richardi],Marrus_claudanielis@2027079:0.010842363778569869[&&NHX:S=Marrus_claudanielis])n5940011:0.01779384958849464[&&NHX:S=n57:D=N],(((Agalma_elegans@88626:0.05872379503260147[&&NHX:S=Agalma_elegans],Lychnagalma_utricularia@1828459:0.04211137470826968[&&NHX:S=Lychnagalma_utricularia])n5940018:0.02375590664436535[&&NHX:S=n47:D=N],(((Bargmannia_amoena@3459111:0.19058396964770352[&&NHX:S=Bargmannia_amoena],Bargmannia_elongata@469437:1.00000050002909E-6[&&NHX:S=Bargmannia_elongata])n5939974:0.11560220708003867[&&NHX:S=n22:D=N],Cordagalma_sp_@1115328:0.04829417133033771[&&NHX:S=Cordagalma_sp_])n5939976:0.011316847557531757[&&NHX:S=n62:D=N],Forskalia_asymmetrica@1220430:0.01667566952752948[&&NHX:S=Forskalia_asymmetrica])n5939978:0.0063213422810751655[&&NHX:S=n62:D=Y])n5940014:0.017792661031819083[&&NHX:S=n62:D=Y],(Resomia_ornicephala@2657185:0.004262563771468986[&&NHX:S=Resomia_ornicephala],Frillagalma_vityazi@663744:0.028441637105547157[&&NHX:S=Frillagalma_vityazi])n5939981:0.006136291467151878[&&NHX:S=n51:D=N])n5940013:0.013546839136761205[&&NHX:S=n62:D=Y])n5940012:0.011839606018978143[&&NHX:S=n62:D=Y])n5940008:0.013840645450221475[&&NHX:S=n62:D=Y],(((Chelophyes_appendiculata@1615707:0.007647023552225329[&&NHX:S=Chelophyes_appendiculata],Clytia_hemisphaerica@756642:0.643907456299178[&&NHX:S=Clytia_hemisphaerica])n5939984:0.08603691877960613[&&NHX:S=n67:D=N],(Chuniphyes_multidentata@930929:0.01248550133310033[&&NHX:S=Chuniphyes_multidentata],Kephyes_ovata@1966030:0.014671165587181996[&&NHX:S=Kephyes_ovata])n5939987:0.013285803501636162[&&NHX:S=n27:D=N])n5939988:0.008000411801689693[&&NHX:S=n67:D=Y],(((Hippopodius_hippopus@1084434:0.0505718831943577[&&NHX:S=Hippopodius_hippopus],Prayidae_D27D2@2878798:0.00905875758406546[&&NHX:S=Prayidae_D27D2])n5939991:0.021772123626769023[&&NHX:S=n38:D=N],Prayidae_D27SS7@2181711:0.029009000260863272[&&NHX:S=Prayidae_D27SS7])n5939993:1.00000050002909E-6[&&NHX:S=n38:D=Y],Prayidae_D27D2@2878801:1.00000050002909E-6[&&NHX:S=Prayidae_D27D2])n5939995:0.00916688375355408[&&NHX:S=n38:D=Y])n5939996:0.05191099091093772[&&NHX:S=n67:D=Y])n5940006:0.03953811931719265[&&NHX:S=n67:D=Y])n5940005:0.10134081070615458[&&NHX:S=n67:D=Y],(Podocoryna_carnea@3033951:0.11270255504816476[&&NHX:S=Podocoryna_carnea],Hydractinia_symbiolongicarpus@1679508:0.030168043235021993[&&NHX:S=Hydractinia_symbiolongicarpus])n5939999:0.17223048099362362[&&NHX:S=n11:D=N])n5940003:0.16233679521228994[&&NHX:S=n67:D=Y],Hydra_magnipapillata@801936:0.585696573276294[&&NHX:S=Hydra_magnipapillata])n5940002:0.4403044529817829[&&NHX:S=n68:D=N],Aegina_citrea@825314:0.4403044529817829[&&NHX:S=Aegina_citrea])n5942419[&&NHX:S=n70:D=N];"
 
-# A function to simplify NHX text so that it can be parsed by 
-# ape::read.tree(). Discards much useful information. Intent is to 
+# A function to simplify NHX text so that it can be parsed by
+# ape::read.tree(). Discards much useful information. Intent is to
 # be able to compare node annotations that have been independently
-# parsed with different methods. 
+# parsed with different methods.
 simplify_nhx_string <- function( text ){
 	# Remove branch lengths so NHX tags are adjacent to nodes
 	# Accommodate lengths in scientific notation, eg 1e-6
 	text = gsub( "\\:[\\d\\.]+e[\\d\\-]+","", text, perl=TRUE )
 	text = gsub( "\\:[\\d\\.]+","", text, perl=TRUE )
-	
+
 	# Remove NHX tags at tips
 	text = gsub( "([^\\)])\\[.+?\\]","\\1", text, perl=TRUE )
 
@@ -27,7 +27,7 @@ simplify_nhx_string <- function( text ){
 	# Replace NHX tag formatting characters that aren't allowed
 	text = gsub( ":","_", text, perl=TRUE )
 	text = gsub( "=","-", text, perl=TRUE )
-	
+
 	return(text)
 }
 
@@ -78,8 +78,9 @@ test_that("can parse phyldog nhx tree string", {
 
 test_that("can drop tips", {
 	nhx <- read.nhx( textConnection(test_phyldog_nhx_text) )
-		to_drop = c("Physonect_sp_@2066767", "Lychnagalma_utricularia@2253871", "Kephyes_ovata@2606431")
-	
+        to_drop = c("Physonect_sp_@2066767", "Lychnagalma_utricularia@2253871", "Kephyes_ovata@2606431")
+
 	nhx_reduced = drop.tip(nhx, to_drop)
 	expect_equal( length(nhx_reduced@phylo$tip.label), 13 )
+        expect_true( all(nhx_reduced@nhx_tags$node %in% fortify(nhx_reduced)$node) )
 })

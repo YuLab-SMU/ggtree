@@ -1,5 +1,6 @@
 CHANGES IN VERSION 1.7.3
 ------------------------
+ o drop.tip method for NHX object <2016-11-11, Fri>
  o update startup message <2016-11-09, Wed>
  o reverse timescale x-axis <2016-11-07, Mon>
    + https://github.com/GuangchuangYu/ggtree/issues/87
