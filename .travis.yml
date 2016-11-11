@@ -21,6 +21,7 @@ r_packages:
   - ggplot2
   - tidyr
   - abind
+  - tiff
 
 env:
   global:
