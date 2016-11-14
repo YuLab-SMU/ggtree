@@ -1,5 +1,6 @@
-ggtree: an R package for visualization and annotation of phylogenetic trees with their covariates and other associated data
-===========================================================================================================================
+<!-- README.md is generated from README.Rmd. Please edit that file -->
+ggtree: an R package for visualization and annotation of phylogenetic trees with their covariates and other associated data <img src="logo.png" align="right" />
+================================================================================================================================================================
 
 [![releaseVersion](https://img.shields.io/badge/release%20version-1.6.3-green.svg?style=flat)](https://bioconductor.org/packages/ggtree) [![develVersion](https://img.shields.io/badge/devel%20version-1.7.3-green.svg?style=flat)](https://github.com/GuangchuangYu/ggtree) [![Bioc](http://www.bioconductor.org/shields/years-in-bioc/ggtree.svg)](https://www.bioconductor.org/packages/devel/bioc/html/ggtree.html#since) [![total](https://img.shields.io/badge/downloads-16443/total-blue.svg?style=flat)](https://bioconductor.org/packages/stats/bioc/ggtree) [![month](https://img.shields.io/badge/downloads-1621/month-blue.svg?style=flat)](https://bioconductor.org/packages/stats/bioc/ggtree)
 

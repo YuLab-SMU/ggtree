@@ -5,7 +5,10 @@ output:
 html_preview: false
 ---
 
-#  ggtree: an R package for visualization and annotation of phylogenetic trees with their covariates and other associated data
+<!-- README.md is generated from README.Rmd. Please edit that file -->
+
+
+#  ggtree: an R package for visualization and annotation of phylogenetic trees with their covariates and other associated data <img src="logo.png" align="right" />
 
 ```{r echo=FALSE, results="hide", message=FALSE}
 library("txtplot")
