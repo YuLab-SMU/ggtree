@@ -15,7 +15,7 @@
 
 <link rel="stylesheet" href="https://guangchuangyu.github.io/css/font-awesome.min.css">
 
-[![releaseVersion](https://img.shields.io/badge/release%20version-1.6.2-blue.svg?style=flat)](https://bioconductor.org/packages/ggtree)
+[![releaseVersion](https://img.shields.io/badge/release%20version-1.6.3-blue.svg?style=flat)](https://bioconductor.org/packages/ggtree)
 [![develVersion](https://img.shields.io/badge/devel%20version-1.7.3-blue.svg?style=flat)](https://github.com/GuangchuangYu/ggtree)
 [![total](https://img.shields.io/badge/downloads-16443/total-blue.svg?style=flat)](https://bioconductor.org/packages/stats/bioc/ggtree)
 [![month](https://img.shields.io/badge/downloads-1621/month-blue.svg?style=flat)](https://bioconductor.org/packages/stats/bioc/ggtree)
@@ -25,7 +25,7 @@ The `ggtree` package extending the `ggplot2` package. It based on grammar of gra
 `ggtree` is released within the [Bioconductor](https://bioconductor.org/packages/ggtree/) project and the source code is hosted on <a href="https://github.com/GuangchuangYu/ggtree"><i class="fa fa-github fa-lg"></i> GitHub</a>.
 
 
-## <i class="fa fa-user"></i> Authors
+## <i class="fa fa-user"></i> Authors <img src="logo.png" align="right" />
 
 Guangchuang Yu and Tommy Tsan-Yuk Lam, School of Public Health, The University of Hong Kong.
 
@@ -35,7 +35,7 @@ Please cite the following article when using `ggtree`:
 
 [![doi](https://img.shields.io/badge/doi-10.1111/2041--210X.12628-blue.svg?style=flat)](http://dx.doi.org/10.1111/2041-210X.12628)
 [![citation](https://img.shields.io/badge/cited%20by-1-blue.svg?style=flat)](https://scholar.google.com.hk/scholar?oi=bibs&hl=en&cites=7268358477862164627)
-[![Altmetric](https://img.shields.io/badge/Altmetric-274-blue.svg?style=flat)](https://www.altmetric.com/details/10533079)
+[![Altmetric](https://img.shields.io/badge/Altmetric-273-blue.svg?style=flat)](https://www.altmetric.com/details/10533079)
 
 __G Yu__, DK Smith, H Zhu, Y Guan, TTY Lam<sup>\*</sup>. ggtree: an R package for visualization and annotation of phylogenetic trees with their covariates and other associated data. __*Methods in Ecology and Evolution*__. *accepted*.
 

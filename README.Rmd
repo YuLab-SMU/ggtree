@@ -8,7 +8,7 @@ html_preview: false
 <!-- README.md is generated from README.Rmd. Please edit that file -->
 
 
-#  ggtree: an R package for visualization and annotation of phylogenetic trees with their covariates and other associated data <img src="logo.png" align="right" />
+#  ggtree: an R package for visualization and annotation of phylogenetic trees with their covariates and other associated data
 
 ```{r echo=FALSE, results="hide", message=FALSE}
 library("txtplot")
@@ -20,7 +20,7 @@ library("ypages")
 [![Bioc](http://www.bioconductor.org/shields/years-in-bioc/ggtree.svg)](https://www.bioconductor.org/packages/devel/bioc/html/ggtree.html#since)
 `r badge_download("ggtree", "total", "blue")`
 `r badge_download("ggtree", "month", "blue")`
-
+<img src="logo.png" align="right" />
 
 [![Project Status: Active - The project has reached a stable, usable state and is being actively developed.](http://www.repostatus.org/badges/latest/active.svg)](http://www.repostatus.org/#active)
 [![codecov](https://codecov.io/gh/GuangchuangYu/ggtree/branch/master/graph/badge.svg)](https://codecov.io/gh/GuangchuangYu/ggtree)
