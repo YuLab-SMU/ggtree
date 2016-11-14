@@ -1,6 +1,6 @@
 ##' geom_text2 support aes(subset) via setup_data
 ##'
-##' 
+##'
 ##' @title geom_text2
 ##' @param mapping the aesthetic mapping
 ##' @param data A layer specific dataset -
@@ -9,7 +9,7 @@
 ##' @param parse if TRUE, the labels will be passd into expressions
 ##' @param nudge_x horizontal adjustment
 ##' @param nudge_y vertical adjustment
-##' @param label.padding Amount of padding around label. 
+##' @param label.padding Amount of padding around label.
 ##' @param label.r Radius of rounded corners.
 ##' @param label.size Size of label border, in mm
 ##' @param na.rm logical
@@ -35,22 +35,22 @@ geom_label2 <- function(mapping = NULL, data = NULL,
                         inherit.aes = TRUE) {
 
     position = "identity"
-    
+
     if (!missing(nudge_x) || !missing(nudge_y)) {
         if (!missing(position)) {
             stop("Specify either `position` or `nudge_x`/`nudge_y`", call. = FALSE)
         }
-        
+
         position <- position_nudge(nudge_x, nudge_y)
     }
-    
+
     default_aes <- aes_(node=~node)
     if (is.null(mapping)) {
         mapping <- default_aes
     } else {
         mapping <- modifyList(mapping, default_aes)
     }
-    
+
     layer(
         data = data,
         mapping = mapping,
@@ -67,7 +67,7 @@ geom_label2 <- function(mapping = NULL, data = NULL,
             na.rm = na.rm,
             ...
         ),
-        if (packageVersion('ggplot2') > '2.1.0') check.aes = FALSE
+        check.aes = FALSE
     )
 }
 
@@ -89,13 +89,13 @@ GeomLabelGGtree <- ggproto("GeomLabelGGtree", GeomLabel,
                                                    na.rm, label.padding, label.r, label.size)
                            },
                            required_aes = c("node", "x", "y", "label"),
-                           
+
                            default_aes = aes(
                                colour = "black", fill = "white", size = 3.88, angle = 0,
                                hjust = 0.5, vjust = 0.5, alpha = NA, family = "", fontface = 1,
                                lineheight = 1.2
                            ),
-                           
+
                            draw_key = draw_key_label
                            )
 

@@ -14,7 +14,7 @@ Description: 'ggtree' extends the 'ggplot2' plotting system which implemented th
 	     'ggtree' is designed for visualization and annotation of phylogenetic trees with their covariates and other associated data.
 Depends:
     R (>= 3.3.1),
-    ggplot2 (>= 2.1.0)
+    ggplot2 (>= 2.2.0)
 Imports:
     ape,
     grDevices,

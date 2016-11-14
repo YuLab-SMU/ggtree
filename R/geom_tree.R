@@ -47,7 +47,7 @@ stat_tree <- function(mapping=NULL, data=NULL, geom="segment", position="identit
                                lineend = lineend,
                                na.rm = na.rm,
                                ...),
-                   if (packageVersion('ggplot2') > '2.1.0') check.aes = FALSE
+                   check.aes = FALSE
                    ),
              layer(data=data,
                    mapping=mapping,
@@ -60,7 +60,7 @@ stat_tree <- function(mapping=NULL, data=NULL, geom="segment", position="identit
                                lineend = lineend,
                                na.rm = na.rm,
                                ...),
-                   if (packageVersion('ggplot2') > '2.1.0') check.aes = FALSE
+                   check.aes = FALSE
                    )
              )
     } else if (layout %in% c("slanted", "radial", "unrooted")) {
@@ -75,7 +75,7 @@ stat_tree <- function(mapping=NULL, data=NULL, geom="segment", position="identit
                           lineend = lineend,
                           na.rm = na.rm,
                           ...),
-              if (packageVersion('ggplot2') > '2.1.0') check.aes = FALSE
+              check.aes = FALSE
               )
     }
 }

@@ -27,7 +27,7 @@ geom_range <- function(range="height_0.95_HPD", ...) {
         show.legend=show.legend,
         inherit.aes = inherit.aes,
         params = list(na.rm = na.rm, ...),
-        if (packageVersion('ggplot2') > '2.1.0') check.aes = FALSE
+        check.aes = FALSE
     )
 
 }
