@@ -51,7 +51,7 @@ For details, please visit our project website, <https://guangchuangyu.github.io/
 
 ### Download stats
 
-[![download](http://www.bioconductor.org/shields/downloads/ggtree.svg)](https://bioconductor.org/packages/stats/bioc/ggtree/) [![total](https://img.shields.io/badge/downloads-16443/total-blue.svg?style=flat)](https://bioconductor.org/packages/stats/bioc/ggtree) [![month](https://img.shields.io/badge/downloads-1621/month-blue.svg?style=flat)](https://bioconductor.org/packages/stats/bioc/ggtree)
+[![download](http://www.bioconductor.org/shields/downloads/ggtree.svg)](https://bioconductor.org/packages/stats/bioc/ggtree) [![total](https://img.shields.io/badge/downloads-16443/total-blue.svg?style=flat)](https://bioconductor.org/packages/stats/bioc/ggtree) [![month](https://img.shields.io/badge/downloads-1621/month-blue.svg?style=flat)](https://bioconductor.org/packages/stats/bioc/ggtree)
 
          +------------------------+-----------------------+-----------------------+--------------------+
          |                                                                                    *        |

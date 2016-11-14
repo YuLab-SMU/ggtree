@@ -72,7 +72,7 @@ txtplot(d$year, d$cites, xlim=c(2015, 2017))
 
 ### Download stats
 
-[![download](http://www.bioconductor.org/shields/downloads/ggtree.svg)](https://bioconductor.org/packages/stats/bioc/ggtree/)
+`r badge_download_bioc("ggtree")`
 `r badge_download("ggtree", "total", "blue")`
 `r badge_download("ggtree", "month", "blue")`
 
