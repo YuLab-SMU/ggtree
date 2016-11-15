@@ -1,4 +1,5 @@
 <!-- addtoany:= -->
+<img src="https://raw.githubusercontent.com/GuangchuangYu/ggtree/master/logo.png" align="right" />
 
 <link rel="stylesheet" href="https://guangchuangyu.github.io/css/font-awesome.min.css">
 
@@ -12,7 +13,7 @@ The `ggtree` package extending the `ggplot2` package. It based on grammar of gra
 `ggtree` is released within the [Bioconductor](https://bioconductor.org/packages/ggtree/) project and the source code is hosted on <a href="https://github.com/GuangchuangYu/ggtree"><i class="fa fa-github fa-lg"></i> GitHub</a>.
 
 
-## <i class="fa fa-user"></i> Authors <img src="https://raw.githubusercontent.com/GuangchuangYu/ggtree/master/logo.png" align="right" />
+## <i class="fa fa-user"></i> Authors
 
 Guangchuang Yu and Tommy Tsan-Yuk Lam, School of Public Health, The University of Hong Kong.
 
