@@ -32,7 +32,7 @@ geom_taxalink <- function(taxa1, taxa2, curvature=0.5, ...) {
                         curvature = curvature,
                         na.rm = na.rm,
                         ...),
-          if (packageVersion('ggplot2') > '2.1.0') check.aes = FALSE
+          check.aes = FALSE
           )
 }
 

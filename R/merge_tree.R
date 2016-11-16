@@ -1,12 +1,11 @@
 ##' merge two tree object
 ##'
-##' 
+##'
 ##' @title merge_tree
 ##' @param obj1 tree object 1
 ##' @param obj2 tree object 2
 ##' @return tree object
 ##' @importFrom magrittr %<>%
-##' @importFrom ape Ntip
 ##' @export
 ##' @author Guangchuang Yu
 merge_tree <- function(obj1, obj2) {
@@ -14,11 +13,11 @@ merge_tree <- function(obj1, obj2) {
     ## INFO:
     ## ape::all.equal.phylo can be used to test equal phylo topology.
     ##
-    
+
     if (has.slot(obj1, "extraInfo") == FALSE) {
         stop("input tree object is not supported...")
     }
-    
+
     if ((is.tree(obj1) & is.tree(obj2)) == FALSE) {
         stop("input should be tree objects...")
     }
@@ -33,7 +32,7 @@ merge_tree <- function(obj1, obj2) {
     if (Ntip(tr1) != Ntip(tr2)) {
         stop("number of tips not equals...")
     }
-    
+
     if (all(tr1$tip.label %in% tr2$tip.label) == FALSE) {
         stop("tip names not match...")
     }
@@ -56,7 +55,7 @@ merge_tree <- function(obj1, obj2) {
     node_map$from %<>% c(root.2)
     node_map$to %<>% c(root)
 
-    
+
     currentNode <- 1:Ntip(tr1)
     while(length(currentNode)) {
         p1 <- sapply(currentNode, getParent, tr=tr1)
@@ -75,7 +74,7 @@ merge_tree <- function(obj1, obj2) {
             tr2$edge[jj,1] <- p1[notNA]
         }
 
-        
+
         ii <- match(p2, tr2$edge[,2])
         if (length(ii)) {
             notNA <- which(!is.na(ii))
@@ -87,7 +86,7 @@ merge_tree <- function(obj1, obj2) {
 
         node_map$from %<>% c(p2)
         node_map$to %<>% c(p1)
-        
+
         ## parent of root will return 0, which is in-valid node ID
         currentNode <- unique(p1[p1 != 0])
     }
@@ -95,7 +94,7 @@ merge_tree <- function(obj1, obj2) {
     if ( any(tr2$edge != tr2$edge) ) {
         stop("trees are not identical...")
     }
-    
+
     node_map.df <- do.call("cbind", node_map)
     node_map.df <- unique(node_map.df)
     node_map.df <- node_map.df[node_map.df[,1] != 0,]
@@ -118,6 +117,6 @@ merge_tree <- function(obj1, obj2) {
         info <- merge(extraInfo, info2, by.x =c("node", "parent"), by.y = c("node", "parent"))
         obj1@extraInfo <- info
     }
-    
+
     return(obj1)
 }

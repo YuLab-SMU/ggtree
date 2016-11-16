@@ -1,8 +1,8 @@
 #' highlights the two direct descendant clades of an internal node
-#' 
+#'
 #' Particularly useful when studying neighboring clades. Note that balances that
 #' correspond to multichotomies will not be displayed.
-#' 
+#'
 #' @title geom_balance
 #' @param node selected node (balance) to highlight
 #' @param fill color fill
@@ -19,17 +19,17 @@
 #' @references J. Silverman, et al. \emph{A phylogenetic transform enhances
 #'   analysis of compositional microbiota data}. (in preparation)
 geom_balance <- function(node, fill="steelblue", color='white', alpha=.5, extend=0, extendto=NULL) {
-  
+
   data = NULL
   stat = "balance"
   position = "identity"
   show.legend = NA
   na.rm = TRUE
   inherit.aes = FALSE
-  
+
   default_aes <- aes_(x=~x, y=~y, node=~node, parent=~parent, branch.length=~branch.length)
   mapping <- default_aes
-  
+
   l1 <- layer(
     stat=StatBalance,
     data = data,
@@ -44,9 +44,9 @@ geom_balance <- function(node, fill="steelblue", color='white', alpha=.5, extend
                   alpha=alpha,
                   extend=extend,
                   extendto=extendto,
-                  direction=1, 
+                  direction=1,
                   na.rm = na.rm),
-    if (packageVersion('ggplot2') > '2.1.0') check.aes = FALSE
+    check.aes = FALSE
   )
   l2 <- layer(
     stat=StatBalance,
@@ -64,7 +64,7 @@ geom_balance <- function(node, fill="steelblue", color='white', alpha=.5, extend
                   extendto=extendto,
                   direction=2,
                   na.rm = na.rm),
-    if (packageVersion('ggplot2') > '2.1.0') check.aes = FALSE
+    check.aes = FALSE
   )
   return(c(l1,l2))
 }
@@ -90,7 +90,7 @@ geom_balance <- function(node, fill="steelblue", color='white', alpha=.5, extend
 #' @importFrom ggplot2 layer
 #' @export
 stat_balance <- function(mapping=NULL, data=NULL, geom="rect",
-                         position="identity",  node, 
+                         position="identity",  node,
                          show.legend=NA, inherit.aes=FALSE,
                          fill, color, alpha, extend=0, extendto=NULL,
                          ...) {
@@ -100,7 +100,7 @@ stat_balance <- function(mapping=NULL, data=NULL, geom="rect",
   } else {
     mapping <- modifyList(mapping, default_aes)
   }
-  
+
   l1 <- layer(
     stat=StatBalance,
     data = data,
@@ -117,7 +117,7 @@ stat_balance <- function(mapping=NULL, data=NULL, geom="rect",
                   extendto=extendto,
                   direction=1,
                   ...),
-    if (packageVersion('ggplot2') > '2.1.0') check.aes = FALSE
+    check.aes = FALSE
   )
   l2 <- layer(
     stat=StatBalance,
@@ -135,7 +135,7 @@ stat_balance <- function(mapping=NULL, data=NULL, geom="rect",
                   extendto=extendto,
                   direction=2,
                   ...),
-    if (packageVersion('ggplot2') > '2.1.0') check.aes = FALSE
+    check.aes = FALSE
   )
   return(c(l1,l2))
 }
@@ -149,7 +149,7 @@ stat_balance <- function(mapping=NULL, data=NULL, geom="rect",
 StatBalance <- ggproto("StatBalance", Stat,
                        compute_group = function(self, data, scales, params, node, extend, extendto, direction) {
                          df <- get_balance_position_(data, node, direction)
-                         
+
                          df$xmax <- df$xmax + extend
                          if (!is.null(extendto) && !is.na(extendto)) {
                            if (extendto < df$xmax) {
@@ -170,7 +170,7 @@ StatBalance <- ggproto("StatBalance", Stat,
 #' @title get_balance_position
 #' @param treeview tree view
 #' @param node selected node
-#' @param direction either (1 for 'up' or 2 for 'down') 
+#' @param direction either (1 for 'up' or 2 for 'down')
 #' @return data.frame
 #' @export
 #' @author Justin Silverman
@@ -180,20 +180,20 @@ get_balance_position <- function(treeview, node, direction) {
 
 get_balance_position_ <- function(data, node, direction) {
   ch <- tryCatch(getChild.df(data, node), error=function(e) NULL)
-  
+
   if (length(ch) < 2 || is.null(ch)){
     stop('balance cannot be a tip')
   } else if (length(ch) > 2){
     stop('balance has >2 direct child nodes, can use ape::multi2di to convert to binary tree')
   }
-  
+
   i <- match(node, data$node)
   sp <- tryCatch(get.offspring.df(data, ch[direction]), error=function(e) ch[direction])
   sp.all <- get.offspring.df(data, i)
   sp.df <- data[match(sp, data$node),]
   sp.all.df <- data[match(sp.all, data$node),]
   n.df <- data[i,]
-  
+
   # X direction is uniform for both children, but y is only based on range of
   # one of the two children (direction)
   x <- sp.all.df$x

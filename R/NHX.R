@@ -33,7 +33,7 @@ read.nhx <- function(file) {
     matches <- nhx.matches[[1]]
     match.pos <- as.numeric(matches)
     if (length(match.pos) == 1 && (match.pos == -1)) {
-        nhx_stats <- data.frame(node = treeinfo$node)
+        nhx_tags <- data.frame(node = as.numeric(treeinfo$node))
     } else {
         match.len <- attr(matches, 'match.length')
 
@@ -44,22 +44,25 @@ read.nhx <- function(file) {
             gsub("\\[&&NHX:", "", .) %>%
             gsub("\\]", "", .)
 
-        nhx_stats <- get_nhx_feature(nhx_features)
-        fields <- names(nhx_stats)
-        for (i in ncol(nhx_stats)) {
-            if(any(grepl("\\D+", nhx_stats[,i])) == FALSE) {
+        nhx_tags <- get_nhx_feature(nhx_features)
+        fields <- names(nhx_tags)
+        for (i in ncol(nhx_tags)) {
+            if(any(grepl("\\D+", nhx_tags[,i])) == FALSE) {
                 ## should be numerical varialbe
-                nhx_stats[,i] <- as.numeric(nhx_stats[,i])
+                nhx_tags[,i] <- as.numeric(nhx_tags[,i])
             }
         }
-        nhx_stats$node <- node
+        nhx_tags$node <- as.numeric(node)
     }
+
+    # Order rows by row number to facilitate downstream manipulations
+    nhx_tags=nhx_tags[order(nhx_tags$node),]
 
     new("nhx",
         file = filename(file),
         fields = fields,
         phylo = phylo,
-        nhx_tags = nhx_stats
+        nhx_tags = nhx_tags
         )
 }
 

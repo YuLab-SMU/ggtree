@@ -1,3 +1,16 @@
+Ntip <- function(tree) {
+    phylo <- get.tree(tree)
+    length(phylo$tip.label)
+}
+
+Nnode <- function(tree, internal.only=TRUE) {
+    phylo <- get.tree(tree)
+    if (internal.only)
+        return(phylo$Nnode)
+
+    Ntip(phylo) + phylo$Nnode
+}
+
 
 filename <- function(file) {
     ## textConnection(text_string) will work just like a file
@@ -12,7 +25,7 @@ filename <- function(file) {
 
 ##' @importFrom ggplot2 last_plot
 get_tree_view <- function(tree_view) {
-    if (is.null(tree_view)) 
+    if (is.null(tree_view))
         tree_view <- last_plot()
 
     return(tree_view)
@@ -33,7 +46,7 @@ has.field <- function(tree_object, field) {
     if ( ! field %in% get.fields(tree_object) ) {
         return(FALSE)
     }
-    
+
     if (is(tree_object, "codeml")) {
         is_codeml <- TRUE
         tree <- tree_object@rst
@@ -41,22 +54,22 @@ has.field <- function(tree_object, field) {
         is_codeml <- FALSE
         tree <- tree_object
     }
-    
+
     if (.hasSlot(tree, field)) {
         has_slot <- TRUE
     } else {
         has_slot <- FALSE
     }
-    
+
     if (has_slot == FALSE) {
         if (has.extraInfo(tree_object) == FALSE) {
             return(FALSE)
         }
-        
+
         if (nrow(tree_object@extraInfo) == 0) {
             return(FALSE)
         }
-        
+
         if (!field %in% colnames(tree_object@extraInfo)) {
             return(FALSE)
         }
@@ -82,7 +95,7 @@ has.extraInfo <- function(object) {
         return(TRUE)
     }
 
-    return(FALSE)        
+    return(FALSE)
 }
 
 append_extraInfo <- function(df, object) {
@@ -110,7 +123,7 @@ get.fields.tree <- function(object) {
     } else {
         fields <- object@fields
     }
-    
+
     if (has.slot(object, "extraInfo")) {
         extraInfo <- object@extraInfo
         if (nrow(extraInfo) > 0) {
@@ -124,7 +137,7 @@ get.fields.tree <- function(object) {
 }
 
 print_fields <- function(object, len=5) {
-    fields <- get.fields(object)    
+    fields <- get.fields(object)
     n <- length(fields)
     i <- floor(n/len)
     for (j in 0:i) {
@@ -158,7 +171,7 @@ plot.subs <- function(x, layout, show.tip.label,
                       position, annotation,
                       annotation.color = "black",
                       annotation.size=3, ...) {
-    
+
     p <- ggtree(x, layout=layout, ...)
     if (show.tip.label) {
         p <- p + geom_tiplab(hjust = tip.label.hjust,
@@ -174,7 +187,7 @@ plot.subs <- function(x, layout, show.tip.label,
 
 .add_new_line <- function(res) {
     ## res <- paste0(strwrap(res, 50), collapse="\n")
-    ## res %<>% gsub("\\s/\n", "\n", .) %>% gsub("\n/\\s", "\n", .) 
+    ## res %<>% gsub("\\s/\n", "\n", .) %>% gsub("\n/\\s", "\n", .)
     if (nchar(res) > 50) {
         idx <- gregexpr("/", res)[[1]]
         i <- idx[floor(length(idx)/2)]
@@ -198,7 +211,7 @@ get.subs_ <- function(tree, fasta, translate=TRUE, removeGap=TRUE) {
         }
         .add_new_line(res)
     })
-    
+
     dd <- data.frame(node=node, parent=parent, label=label, subs=subs)
     dd <- dd[dd$parent != 0,]
     dd <- dd[, -c(1,2)]
@@ -214,7 +227,7 @@ getSubsLabel <- function(seqs, A, B, translate, removeGap) {
     if (nchar(seqA) != nchar(seqB)) {
         stop("seqA should have equal length to seqB")
     }
-    
+
     if (translate == TRUE) {
         AA <- seqA %>% seq2codon %>% codon2AA
         BB <- seqB %>% seq2codon %>% codon2AA
@@ -227,7 +240,7 @@ getSubsLabel <- function(seqs, A, B, translate, removeGap) {
         AA <- strsplit(seqA, split="") %>% unlist
         BB <- strsplit(seqB, split="") %>% unlist
     }
-    
+
     ii <- which(AA != BB)
 
     if (removeGap == TRUE) {
@@ -239,11 +252,11 @@ getSubsLabel <- function(seqs, A, B, translate, removeGap) {
             ii <- ii[AA[ii] != "-" & BB[ii] != "-"]
         }
     }
-    
+
     if (length(ii) == 0) {
         return(NULL)
     }
-    
+
     res <- paste(AA[ii], ii, BB[ii], sep="", collapse=" / ")
     return(res)
 }
@@ -255,7 +268,7 @@ seq2codon <- function(x) {
 ## @importFrom Biostrings GENETIC_CODE
 codon2AA <- function(codon) {
     ## a genetic code name vector
-    GENETIC_CODE <- get_fun_from_pkg("Biostrings", "GENETIC_CODE") 
+    GENETIC_CODE <- get_fun_from_pkg("Biostrings", "GENETIC_CODE")
     aa <- GENETIC_CODE[codon]
     aa[is.na(aa)] <- "X"
     return(aa)
@@ -327,22 +340,22 @@ jplace_treetext_to_phylo <- function(tree.text) {
     ##                         edgeNum = as.numeric(gsub(".+\\{", "", edgeLN)))
 
     ## xx <- merge(edgeLN.df, edgeNum.df, by.x="node", by.y="node")
-    
+
     return(phylo)
 }
 
 extract.treeinfo.jplace <- function(object, layout="phylogram", ladderize=TRUE, right=FALSE, ...) {
 
     tree <- get.tree(object)
-    
+
     df <- fortify.phylo(tree, layout=layout, ladderize=ladderize, right=right, ...)
 
     edgeNum.df <- attr(tree, "edgeNum")
     if (!is.null(edgeNum.df)) {
-        df2 <- merge(df, edgeNum.df, by.x="node", by.y="node", all.x=TRUE) 
+        df2 <- merge(df, edgeNum.df, by.x="node", by.y="node", all.x=TRUE)
         df <- df2[match(df[, "node"], df2[, "node"]),]
     }
-    
+
     attr(df, "ladderize") <- ladderize
     attr(df, "right") <- right
     return(df)
@@ -356,7 +369,7 @@ edgeNum2nodeNum <- function(jp, edgeNum) {
     if (length(idx) == 0) {
         return(NA)
     }
-    
+
     edges[idx, "node"]
 }
 
@@ -427,7 +440,7 @@ is.tree_attribute <- function(df, var) {
        !is.null(var)    &&
        var %in% colnames(df)) {
         return(TRUE)
-    } 
+    }
     return(FALSE)
 }
 
@@ -483,14 +496,14 @@ roundDigit <- function(d) {
 ## from ChIPseeker
 ##' @importFrom grDevices colorRampPalette
 getCols <- function (n) {
-    col <- c("#8dd3c7", "#ffffb3", "#bebada", "#fb8072", "#80b1d3", 
-             "#fdb462", "#b3de69", "#fccde5", "#d9d9d9", "#bc80bd", 
+    col <- c("#8dd3c7", "#ffffb3", "#bebada", "#fb8072", "#80b1d3",
+             "#fdb462", "#b3de69", "#fccde5", "#d9d9d9", "#bc80bd",
              "#ccebc5", "#ffed6f")
-    col2 <- c("#1f78b4", "#ffff33", "#c2a5cf", "#ff7f00", "#810f7c", 
-              "#a6cee3", "#006d2c", "#4d4d4d", "#8c510a", "#d73027", 
+    col2 <- c("#1f78b4", "#ffff33", "#c2a5cf", "#ff7f00", "#810f7c",
+              "#a6cee3", "#006d2c", "#4d4d4d", "#8c510a", "#d73027",
               "#78c679", "#7f0000", "#41b6c4", "#e7298a", "#54278f")
-    col3 <- c("#a6cee3", "#1f78b4", "#b2df8a", "#33a02c", "#fb9a99", 
-              "#e31a1c", "#fdbf6f", "#ff7f00", "#cab2d6", "#6a3d9a", 
+    col3 <- c("#a6cee3", "#1f78b4", "#b2df8a", "#33a02c", "#fb9a99",
+              "#e31a1c", "#fdbf6f", "#ff7f00", "#cab2d6", "#6a3d9a",
               "#ffff99", "#b15928")
     colorRampPalette(col3)(n)
 }

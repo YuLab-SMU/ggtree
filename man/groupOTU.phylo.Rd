@@ -4,7 +4,7 @@
 \alias{groupOTU.phylo}
 \title{groupOTU.phylo}
 \usage{
-groupOTU.phylo(phy, focus, group_name = "group")
+groupOTU.phylo(phy, focus, group_name = "group", ...)
 }
 \arguments{
 \item{phy}{tree object}
@@ -12,6 +12,8 @@ groupOTU.phylo(phy, focus, group_name = "group")
 \item{focus}{tip list}
 
 \item{group_name}{name of the group}
+
+\item{...}{additional parameters}
 }
 \value{
 phylo object

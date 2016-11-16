@@ -26,31 +26,32 @@ groupOTU(object, focus, group_name = "group", ...)
 
 \S4method{groupOTU}{hyphy}(object, focus, group_name = "group")
 
-\S4method{groupOTU}{apeBootstrap}(object, focus, group_name = "group")
+\S4method{groupOTU}{apeBootstrap}(object, focus, group_name = "group", ...)
 
-\S4method{groupOTU}{beast}(object, focus, group_name = "group")
+\S4method{groupOTU}{beast}(object, focus, group_name = "group", ...)
 
-\S4method{groupOTU}{codeml}(object, focus, group_name = "group")
+\S4method{groupOTU}{codeml}(object, focus, group_name = "group", ...)
 
-\S4method{groupOTU}{codeml_mlc}(object, focus, group_name = "group")
+\S4method{groupOTU}{codeml_mlc}(object, focus, group_name = "group", ...)
 
-\S4method{groupOTU}{gg}(object, focus, group_name)
+\S4method{groupOTU}{gg}(object, focus, group_name = "group", ...)
 
-\S4method{groupOTU}{ggplot}(object, focus, group_name = "group")
+\S4method{groupOTU}{ggplot}(object, focus, group_name = "group", ...)
 
-\S4method{groupOTU}{jplace}(object, focus, group_name = "group")
+\S4method{groupOTU}{jplace}(object, focus, group_name = "group", ...)
 
-\S4method{groupOTU}{nhx}(object, focus, group_name = "group")
+\S4method{groupOTU}{nhx}(object, focus, group_name = "group", ...)
 
-\S4method{groupOTU}{phangorn}(object, focus, group_name = "group")
+\S4method{groupOTU}{phangorn}(object, focus, group_name = "group", ...)
 
-\S4method{groupOTU}{phylip}(object, focus, group_name = "group")
+\S4method{groupOTU}{phylip}(object, focus, group_name = "group", ...)
 
-\S4method{groupOTU}{paml_rst}(object, focus, group_name = "group")
+\S4method{groupOTU}{paml_rst}(object, focus, group_name = "group", ...)
 
-\S4method{groupOTU}{phylo}(object, focus, group_name = "group")
+\S4method{groupOTU}{phylo}(object, focus, group_name = "group", ...)
 
-\S4method{groupOTU}{r8s}(object, focus, group_name = "group", tree = "TREE")
+\S4method{groupOTU}{r8s}(object, focus, group_name = "group", tree = "TREE",
+  ...)
 }
 \arguments{
 \item{object}{supported objects, including phylo, paml_rst,

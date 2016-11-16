@@ -1,6 +1,6 @@
 ##' layer of hilight clade with rectangle
 ##'
-##' 
+##'
 ##' @title geom_hilight
 ##' @param node selected node to hilight
 ##' @param fill color fill
@@ -13,18 +13,18 @@
 ##' @importFrom ggplot2 GeomRect
 ##' @author Guangchuang Yu
 geom_hilight <- function(node, fill="steelblue", alpha=.5, extend=0, extendto=NULL) {
-                         
-    
+
+
     data = NULL
     stat = "hilight"
     position = "identity"
     show.legend = NA
     na.rm = TRUE
     inherit.aes = FALSE
-    
+
     default_aes <- aes_(x=~x, y=~y, node=~node, parent=~parent, branch.length=~branch.length)
     mapping <- default_aes
-    
+
 
     layer(
         stat=StatHilight,
@@ -40,7 +40,7 @@ geom_hilight <- function(node, fill="steelblue", alpha=.5, extend=0, extendto=NU
                       extend=extend,
                       extendto=extendto,
                       na.rm = na.rm),
-        if (packageVersion('ggplot2') > '2.1.0') check.aes = FALSE
+        check.aes = FALSE
     )
 }
 
@@ -64,7 +64,7 @@ geom_hilight <- function(node, fill="steelblue", alpha=.5, extend=0, extendto=NU
 ##' @importFrom ggplot2 layer
 ##' @export
 stat_hilight <- function(mapping=NULL, data=NULL, geom="rect",
-                         position="identity",  node, 
+                         position="identity",  node,
                          show.legend=NA, inherit.aes=FALSE,
                          fill, alpha, extend=0, extendto=NULL,
                          ...) {
@@ -74,7 +74,7 @@ stat_hilight <- function(mapping=NULL, data=NULL, geom="rect",
     } else {
         mapping <- modifyList(mapping, default_aes)
     }
-    
+
     layer(
         stat=StatHilight,
         data = data,
@@ -117,7 +117,7 @@ StatHilight <- ggproto("StatHilight", Stat,
 
 ##' get position of clade (xmin, xmax, ymin, ymax)
 ##'
-##' 
+##'
 ##' @title get_clade_position
 ##' @param treeview tree view
 ##' @param node selected node
@@ -142,7 +142,7 @@ get_clade_position_ <- function(data, node) {
 
     x <- sp.df$x
     y <- sp.df$y
-    
+
     if ("branch.length" %in% colnames(data)) {
         xmin <- min(x)-data[i, "branch.length"]/2
     } else {

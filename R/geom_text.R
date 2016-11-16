@@ -55,7 +55,7 @@ geom_text2 <- function(mapping = NULL, data = NULL,
           na.rm = na.rm,
           ...
         ),
-        if (packageVersion('ggplot2') > '2.1.0') check.aes = FALSE
+        check.aes = FALSE
     )
 }
 
