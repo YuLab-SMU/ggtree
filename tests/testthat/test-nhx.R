@@ -81,6 +81,10 @@ test_that("can drop tips", {
         to_drop = c("Physonect_sp_@2066767", "Lychnagalma_utricularia@2253871", "Kephyes_ovata@2606431")
 
 	nhx_reduced = drop.tip(nhx, to_drop)
+
+	# Make sure node numbers unique
+	expect_false( any(duplicated(nhx_reduced@nhx_tags$node)) )
+
 	expect_equal( length(nhx_reduced@phylo$tip.label), 13 )
         expect_true( all(nhx_reduced@nhx_tags$node %in% fortify(nhx_reduced)$node) )
 })
