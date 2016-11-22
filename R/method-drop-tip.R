@@ -35,9 +35,10 @@ setMethod("drop.tip", signature(object="nhx"),
 
               ## Update tip node numbers
               tip_nodes <- object@nhx_tags$node.label[ object@nhx_tags$is_tip ]
-              internal_nodes <- object@nhx_tags$node.label[ !object@nhx_tags$is_tip ]
               object@nhx_tags$node[ object@nhx_tags$is_tip ] = match(object@phylo$tip.label, tip_nodes)
-              object@nhx_tags$node[ !object@nhx_tags$is_tip ] = match(object@phylo$node.label, internal_nodes)
+
+              internal_nodes <- object@nhx_tags$node.label[ !object@nhx_tags$is_tip ]
+              object@nhx_tags$node[ !object@nhx_tags$is_tip ] = match(object@phylo$node.label, internal_nodes) + length(object@phylo$tip.label)
 
               ## Clean up
               object@nhx_tags$node.label = NULL
