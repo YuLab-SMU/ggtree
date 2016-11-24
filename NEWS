@@ -1,5 +1,7 @@
 CHANGES IN VERSION 1.7.4
 ------------------------
+ o allow yscale to use data stored in phylo4d object <2016-11-24, Thu>
+   + https://github.com/GuangchuangYu/ggtree/issues/98
  o groupOTU method now accept 'overlap = c("overwrite", "origin", "abandon")' parameter <2016-11-16, Wed>
    + https://groups.google.com/forum/#!topic/bioc-ggtree/Q4LnwoTf1DM
 

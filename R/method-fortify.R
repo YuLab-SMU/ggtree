@@ -18,7 +18,7 @@ as.binary.phylo <- function(tree, ...) {
         cat("The input tree is already binary...\n")
         invisible(tree)
     }
-    
+
     polyNode <- tree$edge[,1] %>% table %>% '>'(2) %>%
         which %>% names %>% as.numeric
 
@@ -35,7 +35,7 @@ as.binary.phylo <- function(tree, ...) {
             idx <- idx[-1]
         }
     }
-        
+
     tree$Nnode <- tree$Nnode+ii
     tree$edge.length <- c(tree$edge.length, rep(0, ii))
     return(tree)
@@ -44,23 +44,23 @@ as.binary.phylo <- function(tree, ...) {
 
 ##' remove singleton
 ##'
-##' 
+##'
 ##' @title rm.singleton.newick
 ##' @param nwk newick file
-##' @param outfile output newick file 
+##' @param outfile output newick file
 ##' @return tree text
 ##' @importFrom magrittr %<>%
 ##' @importFrom magrittr add
 ##' @importFrom ape write.tree
 ##' @author Guangchuang Yu \url{http://ygc.name}
-rm.singleton.newick <- function(nwk, outfile = NULL) {    
+rm.singleton.newick <- function(nwk, outfile = NULL) {
     tree <- readLines(nwk)
 
     ## remove singleton of tips
     nodePattern <- "\\w+:[\\.0-9Ee\\+\\-]+"
     singletonPattern.with.nodename <- paste0(".*(\\(", nodePattern, "\\)\\w+:[\\.0-9Ee\\+\\-]+).*")
     singletonPattern.wo.nodename <- paste0(".*(\\(", nodePattern, "\\):[\\.0-9Ee\\+\\-]+).*")
-    
+
     while(length(grep("\\([^,]+\\)", tree)) > 0) {
         singleton <- gsub(singletonPattern.with.nodename, "\\1", tree)
         if (singleton == tree) {
@@ -71,11 +71,11 @@ rm.singleton.newick <- function(nwk, outfile = NULL) {
         }
 
         tip <- gsub("\\((\\w+).*", "\\1", singleton)
-        
+
         len1 <- gsub(".*[^\\.0-9Ee\\+\\-]+([\\.0-9Ee\\+\\-]+)", "\\1", singleton)
         len2 <- gsub(".*:([\\.0-9Ee\\+\\-]+)\\).*", "\\1", singleton)
         len <- as.numeric(len1) + as.numeric(len2)
-        
+
         tree <- gsub(singleton, paste0(tip, ":", len), tree, fixed = TRUE)
     }
 
@@ -95,7 +95,7 @@ rm.singleton.newick <- function(nwk, outfile = NULL) {
         tree$edge.length[sidx] %<>% add(., tree$edge.length[idx])
         tree$edge.length <- tree$edge.length[-idx]
     }
-    
+
     if (!is.null(outfile)) {
         write.tree(tree, file=outfile)
     }
@@ -117,12 +117,12 @@ fortify.beast <- function(model, data,
 
     df    <- fortify(phylo, layout=layout, branch.length=branch.length,
                      ladderize=ladderize, right=right, mrsd = mrsd, ...)
-    
+
     stats <- model@stats
 
     scn <- colnames(stats)
     scn <- scn[scn != 'node']
-    
+
     for (cn in scn) {
         if (cn %in% colnames(df)) {
             colnames(stats)[colnames(stats) == cn] <- paste0(cn, "_")
@@ -151,7 +151,7 @@ fortify.beast <- function(model, data,
             }
             next
         }
-        
+
         len <- sapply(stats[,ii], length)
         if ( all(len == 1) ) {
             stats[, ii] %<>% unlist %>% as.character %>% as.numeric
@@ -181,31 +181,31 @@ fortify.beast <- function(model, data,
                 } else {
                     return(paste0('{', paste0(y, collapse = ','), '}'))
                 }
-            })  
+            })
         }
     }
-            
-      
+
+
     cn <- colnames(stats)
     lo <- cn[grep("_lower", cn)]
     hi <- gsub("lower$", "upper", lo)
     rid <- gsub("_lower$", "", lo)
-    
+
     for (i in seq_along(rid)) {
         stats[, rid[i]] <- paste0("[", stats[, lo[i]], ",", stats[, hi[i]], "]")
         stats[is.na(stats[, lo[i]]), rid[i]] <- NA
     }
-    
+
     idx   <- match(df$node, stats$node)
     stats <- stats[idx,]
     cn_stats <- colnames(stats)
     stats <- stats[, cn_stats != "node"]
-    
+
     df <- cbind(df, stats)
     if (is(stats, "data.frame") == FALSE) {
         colnames(df)[colnames(df) == "stats"] <- cn_stats[cn_stats != "node"]
     }
-    
+
     df <- scaleY(phylo, df, yscale, layout, ...)
 
     append_extraInfo(df, model)
@@ -235,7 +235,7 @@ fortify.codeml <- function(model, data,
                           "rst.branch.length",
                           colnames(dNdS)[-c(1,2)])
                         )
-    
+
     if (length == "rst.branch.length") {
         phylo <- get.tree(model@rst)
     } else {
@@ -244,14 +244,14 @@ fortify.codeml <- function(model, data,
         }
         phylo <- set_branch_length(model@mlc, length)
     }
-    
+
     df <- fortify(phylo, data, layout, ladderize, right,
                   branch.length=length, mrsd=mrsd, ...)
-    
+
     res <- merge_phylo_anno.codeml_mlc(df, dNdS, ndigits)
     df <- merge_phylo_anno.paml_rst(res, model@rst)
     df <- scaleY(phylo, df, yscale, layout, ...)
-    
+
     append_extraInfo(df, model)
 }
 
@@ -269,10 +269,10 @@ fortify.codeml_mlc <- function(model, data,
                                ...) {
 
     phylo <- set_branch_length(model, branch.length)
-        
+
     df <- fortify(phylo, data, layout, ladderize, right,
                   branch.length=branch.length, mrsd=mrsd, ...)
-    
+
     dNdS <- model@dNdS
 
     df <- merge_phylo_anno.codeml_mlc(df, dNdS, ndigits)
@@ -290,12 +290,12 @@ merge_phylo_anno.codeml_mlc <- function(df, dNdS, ndigits = NULL) {
             }
         }
     }
-    
+
     res <- merge(df, dNdS,
                  by.x  = c("node", "parent"),
                  by.y  = c("node", "parent"),
                  all.x = TRUE)
-    
+
     res[match(df$node, res$node),]
 }
 
@@ -309,7 +309,7 @@ fortify.codeml_mlc_ <- function(model, data,
 }
 
 
-    
+
 ##' @method fortify paml_rst
 ##' @export
 fortify.paml_rst <- function(model, data, layout = "rectangular", yscale="none",
@@ -354,13 +354,13 @@ fortify.jplace <- function(model, data,
 
     df <- scaleY(model@phylo, df, yscale, layout, ...)
 
-    append_extraInfo(df, model)    
+    append_extraInfo(df, model)
 }
 
 scaleY <- function(phylo, df, yscale, layout, ...) {
     if (yscale == "none") {
         return(df)
-    } 
+    }
     if (! yscale %in% colnames(df)) {
         warning("yscale is not available...\n")
         return(df)
@@ -375,7 +375,7 @@ scaleY <- function(phylo, df, yscale, layout, ...) {
     } else {
         y <- getYcoord_scale_category(phylo, df, yscale, ...)
     }
-    
+
     df[, "y"] <- y
 
     return(df)
@@ -396,9 +396,10 @@ fortify.phylo4 <- function(model, data, layout="rectangular", yscale="none",
 ##' @export
 fortify.phylo4d <- function(model, data, layout="rectangular", yscale="none",
                             ladderize=TRUE, right=FALSE, mrsd=NULL, ...) {
-    res <- fortify.phylo4(model, data, layout, yscale, ladderize, right, mrsd, ...)
+    res <- fortify.phylo4(model, data, layout, yscale="none", ladderize, right, mrsd, ...) # not apply yscale at this moment
     tdata <- model@data[match(res$node, rownames(model@data)), , drop=FALSE]
-    cbind(res, tdata)
+    df <- cbind(res, tdata)
+    scaleY(as.phylo.phylo4(model), df, yscale, layout, ...)
 }
 
 as.phylo.phylo4 <- function(phylo4) {
@@ -411,7 +412,7 @@ as.phylo.phylo4 <- function(phylo4) {
     phylo <- list(edge = edge,
                   edge.length = edge.length,
                   tip.label = tip.label)
-    
+
     node.id <- sort(unique(edge[,1]))
     node.id <- node.id[node.id != 0]
     node.label <- phylo4@label[node.id]
@@ -425,7 +426,7 @@ as.phylo.phylo4 <- function(phylo4) {
 
 ##' fortify a phylo to data.frame
 ##'
-##' 
+##'
 ##' @rdname fortify
 ##' @title fortify
 ##' @param model phylo object
@@ -442,7 +443,7 @@ as.phylo.phylo4 <- function(phylo4) {
 ##' @method fortify phylo
 ##' @export
 ##' @author Yu Guangchuang
-fortify.phylo <- function(model, data, layout="rectangular", 
+fortify.phylo <- function(model, data, layout="rectangular",
                           ladderize=TRUE, right=FALSE, mrsd=NULL, as.Date=FALSE, ...) {
     if (ladderize == TRUE) {
         tree <- ladderize(model, right=right)
@@ -456,7 +457,7 @@ fortify.phylo <- function(model, data, layout="rectangular",
             tree$edge.length <- NULL
         }
     }
-    
+
     df <- as.data.frame(tree, layout=layout, ...)
     idx <- is.na(df$parent)
     df$parent[idx] <- df$node[idx]
@@ -477,7 +478,7 @@ fortify.phylo <- function(model, data, layout="rectangular",
             }
         }
     }
-    
+
     if (!is.null(mrsd)) {
         df <- scaleX_by_time_from_mrsd(df, mrsd, as.Date)
     }
@@ -486,7 +487,7 @@ fortify.phylo <- function(model, data, layout="rectangular",
 
 ##' convert phylo to data.frame
 ##'
-##' 
+##'
 ##' @title as.data.frame
 ##' @param x phylo object
 ##' @param row.names omitted here
@@ -501,7 +502,7 @@ as.data.frame.phylo <- function(x, row.names, optional,
                                 layout="rectangular", ...) {
     if (layout == "unrooted") {
         return(layout.unrooted(x))
-    } 
+    }
     as.data.frame.phylo_(x, layout, ...)
 }
 
@@ -510,14 +511,14 @@ as.data.frame.phylo_ <- function(x, layout="rectangular",
     if (branch.length != 'none') {
         branch.length = "branch.length"
     }
-    
+
     tip.label <- x[["tip.label"]]
     Ntip <- length(tip.label)
     N <- getNodeNum(x)
-    
+
     edge <- as.data.frame(x[["edge"]])
     colnames(edge) <- c("parent", "node")
-    
+
     if (! is.null(x$edge.length)) {
         edge$length <- x$edge.length
         if (branch.length == "none") {
@@ -540,7 +541,7 @@ as.data.frame.phylo_ <- function(x, layout="rectangular",
         xpos <- getXcoord_no_length(x)
         ypos <- getYcoord(x)
     }
-    
+
     xypos <- data.frame(node=1:N, x=xpos, y=ypos)
 
     res <- merge(edge, xypos, by.x="node", by.y="node", all.y=TRUE)
@@ -588,7 +589,7 @@ fortify.apeBootstrap <- fortify.raxml
 
 ##' @method fortify multiPhylo
 ##' @export
-fortify.multiPhylo <-  function(model, data, layout="rectangular", 
+fortify.multiPhylo <-  function(model, data, layout="rectangular",
                                 ladderize=TRUE, right=FALSE, mrsd=NULL, ...) {
 
     df.list <- lapply(model, function(x) fortify(x, layout=layout, ladderize=ladderize, right=right, mrsd=mrsd, ...))
@@ -600,9 +601,9 @@ fortify.multiPhylo <-  function(model, data, layout="rectangular",
     df <- do.call("rbind", df.list)
     df$.id <- rep(names(df.list), times=sapply(df.list, nrow))
     df$.id <- factor(df$.id, levels=names(df.list))
-    
+
     ## nNode <- sapply(df.list, nrow)
-    ## nNode2 <- cumsum(c(0, nNode[-length(nNode)])) 
+    ## nNode2 <- cumsum(c(0, nNode[-length(nNode)]))
     ## df$parent <- df$parent + rep(nNode2, times=nNode)
     return(df)
 }
@@ -615,7 +616,7 @@ fortify.phylip <- function(model, data, layout="rectangular",
     trees <- get.tree(model)
     fortify(trees, layout=layout, ladderize = ladderize, right=right, mrsd=mrsd, ...)
 }
-    
+
 ##' @method fortify r8s
 ##' @export
 fortify.r8s <- function(model, data, layout="rectangular",
@@ -659,7 +660,7 @@ fortify.phyloseq <- function(model, data, layout="rectangular",
     if ('Abundance' %in% colnames(dd)) {
         dd <- dd[dd$Abundance > 0, ]
     }
-    
+
     data <- merge(df, dd, by.x="label", by.y="OTU", all.x=TRUE)
     spacing <- 0.02
     idx <- with(data, sapply(table(node)[unique(node)], function(i) 1:i)) %>% unlist
@@ -669,7 +670,7 @@ fortify.phyloseq <- function(model, data, layout="rectangular",
     data[order(data$node, decreasing = FALSE), ]
 }
 
-                         
+
 ## fortify.cophylo <- function(model, data, layout="rectangular",
 ##                             ladderize=TRUE, right=FALSE, mrsd = NULL, ...) {
 ##     trees <- model$trees
