@@ -439,16 +439,17 @@ as.phylo.phylo4 <- function(phylo4) {
 ##' @param ... additional parameter
 ##' @return data.frame
 ##' @importFrom ape ladderize
+##' @importFrom ape reorder.phylo
 ##' @importFrom ggplot2 fortify
 ##' @method fortify phylo
 ##' @export
 ##' @author Yu Guangchuang
 fortify.phylo <- function(model, data, layout="rectangular",
                           ladderize=TRUE, right=FALSE, mrsd=NULL, as.Date=FALSE, ...) {
+    tree <- reorder.phylo(model, 'postorder')
+
     if (ladderize == TRUE) {
-        tree <- ladderize(model, right=right)
-    } else {
-        tree <- model
+        tree <- ladderize(tree, right=right)
     }
 
     if (! is.null(tree$edge.length)) {
