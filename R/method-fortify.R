@@ -15,7 +15,7 @@
 ##' is.binary.tree(tr2)
 as.binary.phylo <- function(tree, ...) {
     if(is.binary.tree(tree)) {
-        cat("The input tree is already binary...\n")
+        message("The input tree is already binary...")
         invisible(tree)
     }
 
