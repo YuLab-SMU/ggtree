@@ -14,15 +14,13 @@
 ##' @author Yu Guangchuang
 geom_tree <- function(mapping=NULL, data=NULL, layout="rectangular", multiPhylo=FALSE, ...) {
     stat_tree(data=data, mapping=mapping, geom="segment",
-              layout=layout, multiPhylo=multiPhylo, lineend="round",
-              position='identity', show.legend=NA,
-              inherit.aes=TRUE, na.rm=TRUE, ...)
+              layout=layout, multiPhylo=multiPhylo, ...)
 }
 
 
 stat_tree <- function(mapping=NULL, data=NULL, geom="segment", position="identity",
                       layout="rectangular", multiPhylo=FALSE, lineend="round", ...,
-                      show.legend=NA, inherit.aes=TRUE, na.rm=FALSE) {
+                      show.legend=NA, inherit.aes=TRUE, na.rm=TRUE, check.param=TRUE) {
 
     default_aes <- aes_(x=~x, y=~y,node=~node, parent=~parent)
     if (multiPhylo) {
