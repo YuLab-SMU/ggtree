@@ -87,9 +87,8 @@ rm.singleton.newick <- function(nwk, outfile = NULL) {
         p.singleton %<>% names %>% as.numeric
         edge <- tree$edge
         idx <- which(edge[,1] == p.singleton)
-        singleton <- edge[idx, 2]
-        sidx <- which(edge[,1] == singleton)
-        edge[sidx,1] <- p.singleton
+        sidx <- which(edge[,2] == p.singleton)
+        edge[sidx,2] <- edge[idx, 2]
         edge <- edge[-idx,]
         tree$edge <- edge
         tree$edge.length[sidx] %<>% add(., tree$edge.length[idx])
