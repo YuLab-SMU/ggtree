@@ -26,11 +26,12 @@
 ##' @importFrom ggplot2 guide_legend
 ##' @importFrom ggplot2 scale_fill_gradient
 ##' @importFrom ggplot2 scale_fill_discrete
+##' @importFrom ggplot2 scale_fill_manual
 ##' @export
 ##' @author Guangchuang Yu
 gheatmap <- function(p, data, offset=0, width=1, low="green", high="red", color="white",
                      colnames=TRUE, colnames_position="bottom", colnames_angle=0, colnames_level=NULL,
-                     colnames_offset_x = 0, colnames_offset_y = 0, font.size=4, hjust=0.5) {
+                     colnames_offset_x = 0, colnames_offset_y = 0, font.size=4, hjust=0.5,col_vector=character()) {
     
     colnames_position %<>% match.arg(c("bottom", "top"))
     variable <- value <- lab <- y <- NULL
@@ -81,7 +82,11 @@ gheatmap <- function(p, data, offset=0, width=1, low="green", high="red", color=
     if (is(dd$value,"numeric")) {
         p2 <- p2 + scale_fill_gradient(low=low, high=high, na.value=NA) # "white")
     } else {
+      if (length(col_vector) > 0) {
+        p2 <- p2 + scale_fill_manual(values=c(col_vector))
+      }else{
         p2 <- p2 + scale_fill_discrete(na.value=NA) #"white")
+      }
     }
     
     if (colnames) {
