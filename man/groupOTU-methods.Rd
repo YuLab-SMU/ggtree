@@ -7,8 +7,7 @@
 \alias{groupOTU,beast-method}
 \alias{groupOTU,codeml-method}
 \alias{groupOTU,codeml_mlc-method}
-\alias{groupOTU,gg-method}
-\alias{groupOTU,ggplot-method}
+\alias{groupOTU,ggtree-method}
 \alias{groupOTU,hyphy-method}
 \alias{groupOTU,jplace-method}
 \alias{groupOTU,nhx-method}
@@ -34,9 +33,7 @@ groupOTU(object, focus, group_name = "group", ...)
 
 \S4method{groupOTU}{codeml_mlc}(object, focus, group_name = "group", ...)
 
-\S4method{groupOTU}{gg}(object, focus, group_name = "group", ...)
-
-\S4method{groupOTU}{ggplot}(object, focus, group_name = "group", ...)
+\S4method{groupOTU}{ggtree}(object, focus, group_name = "group", ...)
 
 \S4method{groupOTU}{jplace}(object, focus, group_name = "group", ...)
 

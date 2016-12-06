@@ -32,18 +32,12 @@ setMethod("groupOTU", signature(object="codeml_mlc"),
           }
           )
 
-##' @rdname groupOTU-methods
-##' @exportMethod groupOTU
-setMethod("groupOTU", signature(object="gg"),
-          function(object, focus, group_name, ...) {
-              groupOTU.ggplot(object, focus, group_name, ...)
-          })
 
 ##' @rdname groupOTU-methods
 ##' @exportMethod groupOTU
-setMethod("groupOTU", signature(object="ggplot"),
+setMethod("groupOTU", signature(object="ggtree"),
           function(object, focus, group_name="group", ...) {
-              groupOTU.ggplot(object, focus, group_name, ...)
+              groupOTU.ggtree(object, focus, group_name, ...)
           })
 
 
@@ -185,7 +179,7 @@ groupOTU_ <- function(object, focus, group_name, ...) {
 }
 
 
-groupOTU.ggplot <- function(object, focus, group_name, ...) {
+groupOTU.ggtree <- function(object, focus, group_name, ...) {
     df <- object$data
     df[, group_name] <- 0
     object$data <- groupOTU.df(df, focus, group_name, ...)
