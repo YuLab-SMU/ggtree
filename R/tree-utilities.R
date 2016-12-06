@@ -1,6 +1,6 @@
 ##' convert tip or node label(s) to internal node number
 ##'
-##' 
+##'
 ##' @title nodeid
 ##' @param x tree object or graphic object return by ggtree
 ##' @param label tip or node label(s)
@@ -8,9 +8,9 @@
 ##' @export
 ##' @author Guangchuang Yu
 nodeid <- function(x, label) {
-    if (is(x, "gg")) 
+    if (is(x, "gg"))
         return(nodeid.gg(x, label))
-    
+
     nodeid.tree(x, label)
 }
 
@@ -40,14 +40,14 @@ reroot_node_mapping <- function(tree, tree2) {
         ip <- getParent(tree, k)
         if (node_map[ip, "visited"])
             next
-        
+
         cc <- getChild(tree, ip)
         node2 <- node_map[cc,2]
         if (anyNA(node2)) {
             node <- c(node, k)
             next
         }
-        
+
         to <- unique(sapply(node2, getParent, tr=tree2))
         to <- to[! to %in% node_map[,2]]
         node_map[ip, 2] <- to
@@ -75,7 +75,7 @@ layout.unrooted <- function(tree) {
     df[root, "start"] <- 0
     df[root, "end"]   <- 2
     df[root, "angle"] <- 0
-    
+
     nb.sp <- sapply(1:N, function(i) length(get.offspring.tip(tree, i)))
 
     nodes <- getNodes_by_postorder(tree)
@@ -83,22 +83,22 @@ layout.unrooted <- function(tree) {
     for(curNode in nodes) {
         curNtip <- nb.sp[curNode]
         children <- getChild(tree, curNode)
-        
+
         start <- df[curNode, "start"]
         end <- df[curNode, "end"]
-        
+
         if (length(children) == 0) {
             ## is a tip
             next
         }
-        
+
         for (i in seq_along(children)) {
             child <- children[i]
             ntip.child <- nb.sp[child]
-            
+
             alpha <- (end - start) * ntip.child/curNtip
             beta <- start + alpha / 2
-            
+
             length.child <- df[child, "length"]
             df[child, "x"] <- df[curNode, "x"] + cospi(beta) * length.child
             df[child, "y"] <- df[curNode, "y"] + sinpi(beta) * length.child
@@ -107,9 +107,9 @@ layout.unrooted <- function(tree) {
             df[child, "end"] <- start + alpha
             start <- start + alpha
         }
-        
+
     }
-    
+
     return(df)
 }
 
@@ -118,7 +118,7 @@ getParent.df <- function(df, node) {
     res <- df$parent[i]
     if (res == node) {
         ## root node
-        return(0) 
+        return(0)
     }
     return(res)
 }
@@ -165,10 +165,10 @@ get.offspring.df <- function(df, node) {
     return(sp)
 }
 
-    
+
 ##' extract offspring tips
 ##'
-##' 
+##'
 ##' @title get.offspring.tip
 ##' @param tr tree
 ##' @param node node
@@ -188,17 +188,17 @@ get.offspring.tip <- function(tr, node) {
 
 ##' calculate total number of nodes
 ##'
-##' 
+##'
 ##' @title getNodeNum
 ##' @param tr phylo object
-##' @return number 
+##' @return number
 ##' @author Guangchuang Yu
 ##' @export
 getNodeNum <- function(tr) {
     Ntip <- length(tr[["tip.label"]])
     Nnode <- tr[["Nnode"]]
     ## total nodes
-    N <- Ntip + Nnode 
+    N <- Ntip + Nnode
     return(N)
 }
 
@@ -233,7 +233,7 @@ getSibling <- function(tr, node) {
     if (node == root) {
         return(NA)
     }
-    
+
     parent <- getParent(tr, node)
     child <- getChild(tr, parent)
     sib <- child[child != node]
@@ -272,9 +272,9 @@ getNodeName <- function(tr) {
     return(nodeName)
 }
 
-##' get the root number 
+##' get the root number
 ##'
-##' 
+##'
 ##' @title getRoot
 ##' @param tr phylo object
 ##' @return root number
@@ -286,7 +286,7 @@ getRoot <- function(tr) {
     ## 2nd col is child,
     if (!is.null(attr(tr, "order")) && attr(tr, "order") == "postorder")
         return(edge[nrow(edge), 1])
-    
+
     parent <- unique(edge[,1])
     child <- unique(edge[,2])
     ## the node that has no parent should be the root
@@ -306,7 +306,7 @@ get.trunk <- function(tr) {
 
 ##' path from start node to end node
 ##'
-##' 
+##'
 ##' @title get.path
 ##' @param phylo phylo object
 ##' @param from start node
@@ -333,7 +333,7 @@ get.path_length <- function(phylo, from, to, weight=NULL) {
     if (is.null(weight)) {
         return(length(path)-1)
     }
-    
+
     df <- fortify(phylo)
     if ( ! (weight %in% colnames(df))) {
         stop("weight should be one of numerical attributes of the tree...")
@@ -350,7 +350,7 @@ get.path_length <- function(phylo, from, to, weight=NULL) {
         ee <- get_edge_index(df, path[i], path[i+1])
         res <- res + df[ee, weight]
     }
-    
+
     return(res)
 }
 
@@ -362,7 +362,7 @@ getNodes_by_postorder <- function(tree) {
 getXcoord2 <- function(x, root, parent, child, len, start=0, rev=FALSE) {
     x[root] <- start
     x[-root] <- NA  ## only root is set to start, by default 0
-        
+
     currentNode <- root
     direction <- 1
     if (rev == TRUE) {
@@ -395,12 +395,12 @@ getXcoord_no_length <- function(tr) {
     cl <- split(child, parent)
     child_list <- list()
     child_list[as.numeric(names(cl))] <- cl
-    
+
     while(anyNA(x)) {
         idx <- match(currentNode, child)
         pNode <- parent[idx]
         ## child number table
-        p1 <- table(parent[parent %in% pNode]) 
+        p1 <- table(parent[parent %in% pNode])
         p2 <- table(pNode)
         np <- names(p2)
         i <- p1[np] == p2
@@ -419,8 +419,8 @@ getXcoord_no_length <- function(tr) {
         currentNode <- unique(c(currentNode, newNode))
 
     }
-    x <- x - min(x) 
-    return(x)    
+    x <- x - min(x)
+    return(x)
 }
 
 
@@ -439,7 +439,7 @@ getXcoord <- function(tr) {
 }
 
 getXYcoord_slanted <- function(tr) {
-    
+
     edge <- tr$edge
     parent <- edge[,1]
     child <- edge[,2]
@@ -470,7 +470,7 @@ getYcoord <- function(tr, step=1) {
     cl <- split(child, parent)
     child_list <- list()
     child_list[as.numeric(names(cl))] <- cl
-    
+
     y <- numeric(N)
     tip.idx <- child[child <= Ntip]
     y[tip.idx] <- 1:Ntip * step
@@ -486,19 +486,19 @@ getYcoord <- function(tr, step=1) {
         ## idx <- sapply(pNode, function(i) all(child[parent == i] %in% currentNode))
         idx <- sapply(pNode, function(i) all(child_list[[i]] %in% currentNode))
         newNode <- pNode[idx]
-        
+
         y[newNode] <- sapply(newNode, function(i) {
             mean(y[child_list[[i]]], na.rm=TRUE)
-            ##child[parent == i] %>% y[.] %>% mean(na.rm=TRUE)           
+            ##child[parent == i] %>% y[.] %>% mean(na.rm=TRUE)
         })
-        
+
         currentNode <- c(currentNode[!currentNode %in% unlist(child_list[newNode])], newNode)
         ## currentNode <- c(currentNode[!currentNode %in% child[parent %in% newNode]], newNode)
         ## parent %in% newNode %>% child[.] %>%
         ##     `%in%`(currentNode, .) %>% `!` %>%
         ##         currentNode[.] %>% c(., newNode)
     }
-    
+
     return(y)
 }
 
@@ -507,7 +507,7 @@ getYcoord_scale <- function(tr, df, yscale) {
 
     N <- getNodeNum(tr)
     y <- numeric(N)
-    
+
     root <- getRoot(tr)
     y[root] <- 0
     y[-root] <- NA
@@ -539,7 +539,7 @@ getYcoord_scale <- function(tr, df, yscale) {
 
 getYcoord_scale2 <- function(tr, df, yscale) {
     root <- getRoot(tr)
-    
+
     pathLength <- sapply(1:length(tr$tip.label), function(i) {
         get.path_length(tr, i, root, yscale)
     })
@@ -566,7 +566,7 @@ getYcoord_scale2 <- function(tr, df, yscale) {
         } else {
             ordered_tip <- c(ordered_tip[1:ii],sib)
         }
-        
+
         ii <- ii + nn + 1
     }
 
@@ -576,20 +576,20 @@ getYcoord_scale2 <- function(tr, df, yscale) {
 
     N <- getNodeNum(tr)
     y <- numeric(N)
-    
+
     y[root] <- 0
     y[-root] <- NA
 
     ## yy <- df[, yscale]
     ## yy[is.na(yy)] <- 0
-    
+
     for (i in 2:length(long_branch)) {
         y[long_branch[i]] <- y[long_branch[i-1]] + df[long_branch[i], yscale]
     }
-    
+
     parent <- df[, "parent"]
     child <- df[, "node"]
-    
+
     currentNodes <- root
     while(anyNA(y)) {
         newNodes <- c()
@@ -618,14 +618,14 @@ getYcoord_scale2 <- function(tr, df, yscale) {
 getYcoord_scale_numeric <- function(tr, df, yscale, ...) {
     df <- .assign_parent_status(tr, df, yscale)
     df <- .assign_child_status(tr, df, yscale)
-    
+
     y <- df[, yscale]
 
     if (anyNA(y)) {
         warning("NA found in y scale mapping, all were setting to 0")
         y[is.na(y)] <- 0
     }
-    
+
     return(y)
 }
 
@@ -655,7 +655,7 @@ getYcoord_scale_numeric <- function(tr, df, yscale, ...) {
     if (!is.null(yscale_mapping)) {
         yy <- yscale_mapping[yy]
     }
-    
+
     na.idx <- which(is.na(yy))
     if (length(na.idx) > 0) {
         tree <- get.tree(tr)
@@ -680,7 +680,7 @@ getYcoord_scale_numeric <- function(tr, df, yscale, ...) {
 getYcoord_scale_category <- function(tr, df, yscale, yscale_mapping=NULL, ...) {
     if (is.null(yscale_mapping)) {
         stop("yscale is category variable, user should provide yscale_mapping,
-             which is a named vector, to convert yscale to numberical values...") 
+             which is a named vector, to convert yscale to numberical values...")
     }
     if (! is(yscale_mapping, "numeric") ||
         is.null(names(yscale_mapping))) {
@@ -694,11 +694,11 @@ getYcoord_scale_category <- function(tr, df, yscale, yscale_mapping=NULL, ...) {
             df[ii, yscale] <- df[ii, "node"]
         }
     }
-    
+
     ## assign to parent status is more prefer...
     df <- .assign_parent_status(tr, df, yscale)
     df <- .assign_child_status(tr, df, yscale, yscale_mapping)
-    
+
     y <- df[, yscale]
 
     if (anyNA(y)) {
@@ -733,37 +733,43 @@ calculate_branch_mid <- function(res) {
 
 
 set_branch_length <- function(tree_object, branch.length) {
-    phylo <- get.tree(tree_object)
-    
+    if (is(tree_object, "phylo4d")) {
+        phylo <- as.phylo.phylo4(tree_object)
+        d <- tree_object@data
+        tree_anno <- data.frame(node=rownames(d), d)
+    } else {
+        phylo <- get.tree(tree_object)
+    }
+
     if (branch.length %in%  c("branch.length", "none")) {
         return(phylo)
     }
 
-
     ## if (is(tree_object, "codeml")) {
     ##     tree_anno <- tree_object@mlc@dNdS
     ## } else
-    
+
     if (is(tree_object, "codeml_mlc")) {
         tree_anno <- tree_object@dNdS
     } else if (is(tree_object, "beast")) {
         tree_anno <- tree_object@stats
     }
+
     if (has.extraInfo(tree_object)) {
         tree_anno <- merge(tree_anno, tree_object@extraInfo, by.x="node", by.y="node")
     }
     cn <- colnames(tree_anno)
     cn <- cn[!cn %in% c('node', 'parent')]
-    
+
     length <- match.arg(branch.length, cn)
 
     if (all(is.na(as.numeric(tree_anno[, length])))) {
         stop("branch.length should be numerical attributes...")
     }
-    
+
     edge <- as.data.frame(phylo$edge)
     colnames(edge) <- c("parent", "node")
-    
+
     dd <- merge(edge, tree_anno,
                 by.x  = "node",
                 by.y  = "node",
@@ -772,7 +778,7 @@ set_branch_length <- function(tree_object, branch.length) {
     len <- unlist(dd[, length])
     len <- as.numeric(len)
     len[is.na(len)] <- 0
-    
+
     phylo$edge.length <- len
 
     return(phylo)
@@ -785,7 +791,7 @@ re_assign_ycoord_df <- function(df, currentNode) {
         idx <- sapply(pNode, function(i) with(df, all(node[parent == i & parent != node] %in% currentNode)))
         newNode <- pNode[idx]
         ## newNode <- newNode[is.na(df[match(newNode, df$node), "y"])]
-        
+
         df[match(newNode, df$node), "y"] <- sapply(newNode, function(i) {
             with(df, mean(y[parent == i], na.rm = TRUE))
         })

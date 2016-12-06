@@ -65,3 +65,6 @@ setMethod("get.tree", signature(object="phylo"),
           function(object, ...) {
               return(object)
           })
+
+
+

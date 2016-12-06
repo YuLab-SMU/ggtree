@@ -394,8 +394,11 @@ fortify.phylo4 <- function(model, data, layout="rectangular", yscale="none",
 ##' @method fortify phylo4d
 ##' @export
 fortify.phylo4d <- function(model, data, layout="rectangular", yscale="none",
-                            ladderize=TRUE, right=FALSE, mrsd=NULL, ...) {
-    res <- fortify.phylo4(model, data, layout, yscale="none", ladderize, right, mrsd, ...) # not apply yscale at this moment
+                            ladderize=TRUE, right=FALSE, branch.length="branch.length",
+                            mrsd=NULL, ...) {
+    phylo <- set_branch_length(model, branch.length)
+    res <- fortify(phylo, data, layout, branch.length=branch.length,
+                   ladderize, right, mrsd, ...)
     tdata <- model@data[match(res$node, rownames(model@data)), , drop=FALSE]
     df <- cbind(res, tdata)
     scaleY(as.phylo.phylo4(model), df, yscale, layout, ...)
