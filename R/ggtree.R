@@ -1,6 +1,6 @@
 ##' drawing phylogenetic tree from phylo object
 ##'
-##' 
+##'
 ##' @title ggtree
 ##' @param tr phylo object
 ##' @param mapping aes mapping
@@ -43,13 +43,13 @@ ggtree <- function(tr,
                    branch.length  = "branch.length",
                    ndigits        = NULL,
                    ...) {
-    
+
     layout %<>% match.arg(c("rectangular", "slanted", "fan", "circular", "radial", "unrooted"))
 
     if (is(tr, "r8s") && branch.length == "branch.length") {
         branch.length = "TREE"
     }
-    
+
     if(yscale != "none") {
         ## for 2d tree
         layout <- "slanted"
@@ -76,20 +76,33 @@ ggtree <- function(tr,
     } else {
         multiPhylo <- FALSE
     }
-    
+
     p <- p + geom_tree(layout=layout, multiPhylo=multiPhylo, ...)
 
 
     p <- p + theme_tree()
-    
+
     if (layout == "circular" || layout == "radial") {
         p <- layout_circular(p)
         ## refer to: https://github.com/GuangchuangYu/ggtree/issues/6
         ## and also have some space for tree scale (legend)
-        p <- p + ylim(0, NA) 
+        p <- p + ylim(0, NA)
     } else if (layout == "fan") {
         p <- layout_fan(p, open.angle)
     }
 
+    class(p) <- c("ggtree", class(p))
+
     return(p)
 }
+
+##' test whether input object is produced by ggtree function
+##'
+##'
+##' @title is.ggtree
+##' @param x object
+##' @return TRUE or FALSE
+##' @export
+##' @author guangchuang yu
+is.ggtree <- function(x) inherits(x, 'ggtree')
+
