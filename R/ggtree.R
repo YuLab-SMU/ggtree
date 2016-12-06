@@ -95,14 +95,3 @@ ggtree <- function(tr,
 
     return(p)
 }
-
-##' test whether input object is produced by ggtree function
-##'
-##'
-##' @title is.ggtree
-##' @param x object
-##' @return TRUE or FALSE
-##' @export
-##' @author guangchuang yu
-is.ggtree <- function(x) inherits(x, 'ggtree')
-

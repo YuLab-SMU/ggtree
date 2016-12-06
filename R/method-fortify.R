@@ -688,9 +688,3 @@ fortify.phyloseq <- function(model, data, layout="rectangular",
 ##     ggplot(df) + geom_tree()
 
 ## }
-
-
-calculate_angle <- function(data) {
-    data$angle <- 360/(diff(range(data$y)) + 1) * data$y
-    return(data)
-}
