@@ -1,26 +1,6 @@
-Ntip <- function(tree) {
-    phylo <- get.tree(tree)
-    length(phylo$tip.label)
-}
-
-Nnode <- function(tree, internal.only=TRUE) {
-    phylo <- get.tree(tree)
-    if (internal.only)
-        return(phylo$Nnode)
-
-    Ntip(phylo) + phylo$Nnode
-}
 
 
-filename <- function(file) {
-    ## textConnection(text_string) will work just like a file
-    ## in this case, just set the filename as ""
-    file_name <- ""
-    if (is.character(file)) {
-        file_name <- file
-    }
-    return(file_name)
-}
+
 
 
 ##' @importFrom ggplot2 last_plot
@@ -32,15 +12,6 @@ get_tree_view <- function(tree_view) {
 }
 
 
-##' @importFrom methods .hasSlot is missingArg new slot slot<-
-has.slot <- function(object, slotName) {
-    if (!isS4(object)) {
-        return(FALSE)
-    }
-    .hasSlot(object, slotName)
-    ## slot <- tryCatch(slot(object, slotName), error=function(e) NULL)
-    ## ! is.null(slot)
-}
 
 has.field <- function(tree_object, field) {
     if ( ! field %in% get.fields(tree_object) ) {
@@ -78,24 +49,6 @@ has.field <- function(tree_object, field) {
     attr(res, "has_slot") <- has_slot
     attr(res, "is_codeml") <- is_codeml
     return(res)
-}
-
-has.extraInfo <- function(object) {
-    if (!is.tree(object)) {
-        return(FALSE)
-    }
-
-    if (! .hasSlot(object, "extraInfo")) {
-        return(FALSE)
-    }
-
-    extraInfo <- object@extraInfo
-
-    if (nrow(extraInfo) > 0) {
-        return(TRUE)
-    }
-
-    return(FALSE)
 }
 
 append_extraInfo <- function(df, object) {

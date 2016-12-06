@@ -1,3 +1,13 @@
+filename <- function(file) {
+    ## textConnection(text_string) will work just like a file
+    ## in this case, just set the filename as ""
+    file_name <- ""
+    if (is.character(file)) {
+        file_name <- file
+    }
+    return(file_name)
+}
+
 ##' read nhx tree file
 ##'
 ##'
@@ -103,3 +113,47 @@ setMethod("get.fields", signature(object="nhx"),
               get.fields.tree(object)
           }
           )
+
+
+Ntip <- function(tree) {
+    phylo <- get.tree(tree)
+    length(phylo$tip.label)
+}
+
+Nnode <- function(tree, internal.only=TRUE) {
+    phylo <- get.tree(tree)
+    if (internal.only)
+        return(phylo$Nnode)
+
+    Ntip(phylo) + phylo$Nnode
+}
+
+
+has.extraInfo <- function(object) {
+    if (!is.tree(object)) {
+        return(FALSE)
+    }
+
+    if (! .hasSlot(object, "extraInfo")) {
+        return(FALSE)
+    }
+
+    extraInfo <- object@extraInfo
+
+    if (nrow(extraInfo) > 0) {
+        return(TRUE)
+    }
+
+    return(FALSE)
+}
+
+##' @importFrom methods .hasSlot is missingArg new slot slot<-
+has.slot <- function(object, slotName) {
+    if (!isS4(object)) {
+        return(FALSE)
+    }
+    .hasSlot(object, slotName)
+    ## slot <- tryCatch(slot(object, slotName), error=function(e) NULL)
+    ## ! is.null(slot)
+}
+

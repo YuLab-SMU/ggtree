@@ -1,5 +1,7 @@
 CHANGES IN VERSION 1.7.4
 ------------------------
+ o is.ggtree function to test whether object is produced by ggtree <2016-12-06, Tue>
+ o now branch.length can set to feature available in phylo4d@data and yscale is supported for phylo4d object <2016-12-06, Tue>
  o bug fixed of rm.singleton.newick, remove singleton parent instead of singleton <2016-12-01, Thu>
  o reorder phylo to postorder before ladderrize <2016-11-28, Mon>
  o allow yscale to use data stored in phylo4d object <2016-11-24, Thu>

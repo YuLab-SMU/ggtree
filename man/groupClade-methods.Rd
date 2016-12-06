@@ -7,8 +7,7 @@
 \alias{groupClade,beast-method}
 \alias{groupClade,codeml-method}
 \alias{groupClade,codeml_mlc-method}
-\alias{groupClade,gg-method}
-\alias{groupClade,ggplot-method}
+\alias{groupClade,ggtree-method}
 \alias{groupClade,hyphy-method}
 \alias{groupClade,jplace-method}
 \alias{groupClade,nhx-method}
@@ -34,9 +33,7 @@ groupClade(object, node, group_name = "group", ...)
 
 \S4method{groupClade}{codeml}(object, node, group_name = "group")
 
-\S4method{groupClade}{gg}(object, node, group_name)
-
-\S4method{groupClade}{ggplot}(object, node, group_name)
+\S4method{groupClade}{ggtree}(object, node, group_name)
 
 \S4method{groupClade}{jplace}(object, node, group_name = "group")
 

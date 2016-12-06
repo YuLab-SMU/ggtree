@@ -15,18 +15,10 @@ setMethod("groupClade", signature(object="codeml"),
 
 ##' @rdname groupClade-methods
 ##' @exportMethod groupClade
-setMethod("groupClade", signature(object="gg"),
+setMethod("groupClade", signature(object="ggtree"),
           function(object, node, group_name) {
-              groupClade.ggplot(object, node, group_name)
+              groupClade.ggtree(object, node, group_name)
           })
-
-##' @rdname groupClade-methods
-##' @exportMethod groupClade
-setMethod("groupClade", signature(object="ggplot"),
-          function(object, node, group_name) {
-              groupClade.ggplot(object, node, group_name)
-          })
-
 
 ##' @rdname groupClade-methods
 ##' @exportMethod groupClade
@@ -38,7 +30,7 @@ setMethod("groupClade", signature(object="jplace"),
 
 ##' group selected clade
 ##'
-##' 
+##'
 ##' @rdname groupClade-methods
 ##' @exportMethod groupClade
 setMethod("groupClade", signature(object="nhx"),
@@ -73,7 +65,7 @@ groupClade.phylo <- function(object, node, group_name) {
             clade$tip.label
         })
     }
-    
+
     groupOTU.phylo(object, tips, group_name)
 }
 
@@ -88,7 +80,7 @@ groupClade_ <- function(object, node, group_name) {
 }
 
 
-groupClade.ggplot <- function(object, nodes, group_name) {
+groupClade.ggtree <- function(object, nodes, group_name) {
     df <- object$data
     df[, group_name] <- 0
     for (node in nodes) {

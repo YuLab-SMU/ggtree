@@ -65,7 +65,7 @@ setMethod("get.tree", signature(object="phylo"),
           function(object, ...) {
               return(object)
           })
-         
+        
 ##' @rdname get.tree-methods
 ##' @exportMethod get.tree
 setMethod("get.tree", signature(object="data.frame"),
@@ -86,3 +86,4 @@ setMethod("get.tree", signature(object="data.frame"),
               class(phylo) <- "phylo"
               return(phylo)
           })
+

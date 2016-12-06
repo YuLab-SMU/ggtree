@@ -38,7 +38,7 @@ gzoom.phylo <- function(phy, focus, subtree=FALSE, widths=c(.3, .7)) {
     invisible(list(p1=p1, p2=p2))
 }
 
-gzoom.ggplot <- function(tree_view, focus, widths=c(.3, .7), xmax_adjust=0) {
+gzoom.ggtree <- function(tree_view, focus, widths=c(.3, .7), xmax_adjust=0) {
     node <- MRCA(tree_view, focus)
     cpos <- get_clade_position(tree_view, node)
     p2 <- with(cpos, tree_view+
@@ -51,9 +51,9 @@ gzoom.ggplot <- function(tree_view, focus, widths=c(.3, .7), xmax_adjust=0) {
 ##' @rdname gzoom-methods
 ##' @exportMethod gzoom
 ##' @param xmax_adjust adjust xmax (xlim[2])
-setMethod("gzoom", signature(object="gg"),
+setMethod("gzoom", signature(object="ggtree"),
           function(object, focus, widths=c(.3, .7), xmax_adjust=0) {
-              gzoom.ggplot(object, focus, widths, xmax_adjust)
+              gzoom.ggtree(object, focus, widths, xmax_adjust)
           })
 
 
