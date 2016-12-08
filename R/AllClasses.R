@@ -1,7 +1,7 @@
 setOldClass("phylo")
 setOldClass("multiPhylo")
-setOldClass("gg")
-setOldClass("ggplot")
+setOldClass("ggtree")
+
 
 setClassUnion("phyloOrmultiPhylo", c("phylo", "multiPhylo"))
 
@@ -15,7 +15,7 @@ supported_tree_object <- function() {
       "jplace",
       "nhx",
       "paml_rst",
-      "phangorn",      
+      "phangorn",
       "phylip",
       "r8s",
       "raxml")
@@ -50,7 +50,7 @@ setClass("apeBootstrap",
 ##' @name beast-class
 ##' @aliases beast-class
 ##'      get.tree,beast-method
-##' 
+##'
 ##' @docType class
 ##' @slot fields beast statistic variables
 ##' @slot treetext tree text in beast file
@@ -114,7 +114,7 @@ setClass("codeml_mlc",
 ##' @aliases paml_rst-class
 ##'   set.subs,paml_rst-method
 ##'   set.subs<-,paml_rst-method
-##' 
+##'
 ##' @docType class
 ##' @slot fields availabel attributes
 ##' @slot treetext tree text
