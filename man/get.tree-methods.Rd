@@ -7,6 +7,7 @@
 \alias{get.tree,beast}
 \alias{get.tree,codeml-method}
 \alias{get.tree,codeml_mlc-method}
+\alias{get.tree,data.frame-method}
 \alias{get.tree,hyphy-method}
 \alias{get.tree,jplace-method}
 \alias{get.tree,nhx-method}
@@ -39,6 +40,8 @@ get.tree(object, ...)
 \S4method{get.tree}{phylip}(object, ...)
 
 \S4method{get.tree}{phylo}(object, ...)
+
+\S4method{get.tree}{data.frame}(object, ...)
 
 \S4method{get.tree}{paml_rst}(object)
 

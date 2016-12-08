@@ -114,4 +114,5 @@ This can be fixed by using parameter `inherit.aes=FALSE` which will disable inhe
 
 ## <i class="fa fa-angle-double-right"></i> colouring edges by user data
 
-see my answer on <https://github.com/GuangchuangYu/ggtree/issues/76>.
+see my answer on <https://github.com/GuangchuangYu/ggtree/issues/76>
+and <https://groups.google.com/forum/#!topic/bioc-ggtree/4GgivKqVjB8>.
