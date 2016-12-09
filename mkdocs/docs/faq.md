@@ -148,7 +148,7 @@ NEVER DO THIS.
 
 see the explaination in the [ggplot2 book 2ed](https://github.com/hadley/ggplot2-book/blob/master/layers.rmd#aesthetic-mappings-secaes):
 
->Never refer to a variable with `$` (e.g., `diamonds$carat`) in `aes()`. This breaks containment, so that the plot no longer contains everything it needs, and causes problems if ggplot2 changes the order of the rows, as it does when facetting. \indexc{\$}
+>Never refer to a variable with `$` (e.g., `diamonds$carat`) in `aes()`. This breaks containment, so that the plot no longer contains everything it needs, and causes problems if ggplot2 changes the order of the rows, as it does when facetting.
 
 see also
 [1](https://groups.google.com/forum/?utm_medium=email&utm_source=footer#!msg/bioc-ggtree/hViM6vRZF94/MsZT8qRgBwAJ)
