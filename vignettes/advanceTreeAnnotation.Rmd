@@ -8,9 +8,11 @@ author: "\\
 date: "`r Sys.Date()`"
 bibliography: ggtree.bib
 csl: nature.csl
-output: 
-  html_document:
+output:
+  prettydoc::html_pretty:
     toc: true
+    theme: cayman
+    highlight: github
   pdf_document:
     toc: true
 vignette: >
@@ -44,38 +46,43 @@ The `gheatmap` function is designed to visualize phylogenetic tree with heatmap 
 
 In the following example, we visualized a tree of H3 influenza viruses with their associated genotype.
 
-```{r fig.width=20, fig.height=16, fig.align="center"}
+```{r fig.width=8, fig.height=6, fig.align="center", warning=FALSE, message=FALSE}
 beast_file <- system.file("examples/MCC_FluA_H3.tree", package="ggtree")
 beast_tree <- read.beast(beast_file)
 
 genotype_file <- system.file("examples/Genotype.txt", package="ggtree")
 genotype <- read.table(genotype_file, sep="\t", stringsAsFactor=F)
-p <- ggtree(beast_tree, mrsd="2013-01-01") + geom_treescale(x=2008, y=1)
-p <- p + geom_tiplab(size=3)
-gheatmap(p, genotype, offset = 2, width=0.5)
+colnames(genotype) <- sub("\\.$", "", colnames(genotype))
+p <- ggtree(beast_tree, mrsd="2013-01-01") + geom_treescale(x=2008, y=1, offset=2)
+p <- p + geom_tiplab(size=2)
+gheatmap(p, genotype, offset = 5, width=0.5, font.size=3, colnames_angle=-45, hjust=0) +
+    scale_fill_manual(breaks=c("HuH3N2", "pdm", "trig"), values=c("steelblue", "firebrick", "darkgreen"))
 ```
 
 The _width_ parameter is to control the width of the heatmap. It supports another parameter _offset_ for controlling the distance between the tree and the heatmap, for instance to allocate space for tip labels.
 
 
-For time-scaled tree, as in this example, it's more often to use x axis by using `theme_tree2`. But with this solution, the heatmap is just another layer and will change the `x` axis. To overcome this issue, we implemented `scale_x_ggtree` to set the x axis more reasonable. 
+For time-scaled tree, as in this example, it's more often to use x axis by using `theme_tree2`. But with this solution, the heatmap is just another layer and will change the `x` axis. To overcome this issue, we implemented `scale_x_ggtree` to set the x axis more reasonable.
 
 <!-- User can also use `gplot` and tweak the positions of two plot to align properly. -->
 
-```{r fig.width=20, fig.height=16, fig.align="center", warning=FALSE}
-p <- ggtree(beast_tree, mrsd="2013-01-01") + geom_tiplab(size=3, align=TRUE) + theme_tree2()
+
+
+```{r fig.width=8, fig.height=6, fig.align="center", warning=FALSE}
+p <- ggtree(beast_tree, mrsd="2013-01-01") + geom_tiplab(size=2, align=TRUE, linesize=.5) + theme_tree2()
 pp <- (p + scale_y_continuous(expand=c(0, 0.3))) %>%
-    gheatmap(genotype, offset=4, width=0.5, colnames=FALSE) %>%
+    gheatmap(genotype, offset=8, width=0.6, colnames=FALSE) %>%
         scale_x_ggtree()
 pp + theme(legend.position="right")
 ```
+
 
 # Visualize tree with multiple sequence alignment
 
 With `msaplot` function, user can visualize multiple sequence alignment with phylogenetic tree, as demonstrated below:
 ```{r fig.width=8, fig.height=12, fig.align='center'}
 fasta <- system.file("examples/FluA_H3_AA.fas", package="ggtree")
-msaplot(ggtree(beast_tree), fasta) 
+msaplot(ggtree(beast_tree), fasta)
 ```
 
 A specific slice of the alignment can also be displayed by specific _window_ parameter.

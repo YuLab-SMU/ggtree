@@ -1,3 +1,90 @@
+##' @importFrom ggplot2 fortify
+##' @method fortify treedata
+##' @export
+fortify.treedata <- function(model, data, layout="rectangular", branch.length ="branch.length",
+                             ladderize=TRUE, right=FALSE, mrsd=NULL, ...) {
+    model <- set_branch_length(model, branch.length)
+    x <- reorder.phylo(get.tree(model), "postorder")
+    if (is.null(x$edge.length) || branch.length == "none") {
+        xpos <- getXcoord_no_length(x)
+    } else {
+        xpos <- getXcoord(x)
+    }
+    ypos <- getYcoord(x)
+    N <- Nnode(x, internal.only=FALSE)
+    xypos <- data.frame(node=1:N, x=xpos, y=ypos)
+
+    df <- as.data.frame(model, branch.length="branch.length") # already set by set_branch_length
+    idx <- is.na(df$parent)
+    df$parent[idx] <- df$node[idx]
+    rownames(df) <- df$node
+
+    res <- merge(df, xypos, by='node', all.y=TRUE)
+
+    ## add branch mid position
+    res <- calculate_branch_mid(res)
+
+    ## ## angle for all layout, if 'rectangular', user use coord_polar, can still use angle
+    res <- calculate_angle(res)
+    res
+}
+
+##' @method as.data.frame treedata
+##' @export
+## @importFrom treeio Nnode
+## @importFrom treeio Ntip
+as.data.frame.treedata <- function(x, row.names, optional, branch.length = "branch.length", ...) {
+    tree <- set_branch_length(x, branch.length)
+
+    ## res <- as.data.frame(tree@phylo)
+    res <- as.data.frame_(tree@phylo)
+    tree_anno <- get_tree_data(x)
+    if (nrow(tree_anno) > 0) {
+        res <- merge(res, tree_anno, by="node", all.x=TRUE)
+    }
+    return(res)
+}
+
+##@method as.data.frame phylo
+##@export
+as.data.frame_ <- function(x, row.names, optional, branch.length = "branch.length", ...) {
+    phylo <- x
+    ntip <- Ntip(phylo)
+    N <- Nnode(phylo, internal.only=FALSE)
+
+    tip.label <- phylo[["tip.label"]]
+    res <- as.data.frame(phylo[["edge"]])
+    colnames(res) <- c("parent", "node")
+    if (!is.null(phylo$edge.length))
+        res$branch.length <- phylo$edge.length
+
+    label <- rep(NA, N)
+    label[1:ntip] <- tip.label
+    if ( !is.null(phylo$node.label) ) {
+        label[(ntip+1):N] <- phylo$node.label
+    }
+    label.df <- data.frame(node=1:N, label=label)
+    res <- merge(res, label.df, by='node', all.y=TRUE)
+    isTip <- rep(FALSE, N)
+    isTip[1:ntip] <- TRUE
+    res$isTip <- isTip
+
+    return(res)
+}
+
+get_tree_data <- function(tree_object) {
+    tree_anno <- tree_object@data
+    if (has.extraInfo(tree_object)) {
+        if (nrow(tree_anno) > 0) {
+            tree_anno <- merge(tree_anno, tree_object@extraInfo, by="node")
+        } else {
+            return(tree_object@extraInfo)
+        }
+    }
+    return(tree_anno)
+}
+
+
 ##' convert tip or node label(s) to internal node number
 ##'
 ##'

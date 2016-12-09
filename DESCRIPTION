@@ -33,6 +33,7 @@ Suggests:
     EBImage,
     emojifont,
     knitr,
+    prettydoc,
     rmarkdown,
     scales,
     testthat
