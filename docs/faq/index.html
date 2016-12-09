@@ -187,6 +187,8 @@
         
             <li><a href="#tip-label-truncated"> Tip label truncated</a></li>
         
+            <li><a href="#modify-tip-labels"> Modify (tip) labels</a></li>
+        
             <li><a href="#formatting-tip-labels"> Formatting (tip) labels</a></li>
         
             <li><a href="#avoid-overlapping-text-labels"> Avoid overlapping text labels</a></li>
@@ -197,6 +199,8 @@
         <li class="main "><a href="#aesthetic-mapping"> aesthetic mapping</a></li>
         
             <li><a href="#inherit-aes"> inherit aes</a></li>
+        
+            <li><a href="#use-in-aes"> use $ in aes</a></li>
         
     
         <li class="main "><a href="#annotation"> Annotation</a></li>
@@ -247,6 +251,21 @@ ggtree(tree) + geom_tiplab()
 <pre><code class="r">ggtree(tree) + geom_tiplab() + xlim(0, 0.06)
 </code></pre>
 
+<h2 id="modify-tip-labels"><i class="fa fa-angle-double-right"></i> Modify (tip) labels</h2>
+<p>This could be easily done via the <code>%&lt;+%</code> operator to attach the
+modified version of the labels and than use <code>geom_tiplab</code> to display
+the modified version.</p>
+<pre><code>raxml_file &lt;- system.file(&quot;extdata/RAxML&quot;, &quot;RAxML_bipartitionsBranchLabels.H3&quot;, package=&quot;ggtree&quot;)
+raxml &lt;- read.raxml(raxml_file)
+
+lb = get.tree(raxml)$tip.label
+d = data.frame(label=lb, label2 = paste(&quot;AA&quot;, substring(lb, 1, 5)))
+ggtree(raxml) %&lt;+% d + geom_tiplab(aes(label=label2))
+</code></pre>
+
+<p>see also
+<a href="https://groups.google.com/forum/?utm_medium=email&amp;utm_source=footer#!msg/bioc-ggtree/tFdFgCJ7gQA/tZ6phSgUDQAJ">1</a>
+and <a href="https://github.com/GuangchuangYu/ggtree/issues/106">2</a>.</p>
 <h2 id="formatting-tip-labels"><i class="fa fa-angle-double-right"></i> Formatting (tip) labels</h2>
 <p>If you want to format labels, you need to set <code>parse=TRUE</code> in <code>geom_text</code>/<code>geom_tiplab</code> and the <code>label</code> should be string that can be parsed into expression and displayed as described in <code>?plotmath</code>.</p>
 <p>For example, the tiplabels contains two parts, species name and accession number and we want to display species name in <em>italic</em>, we can use command like this:</p>
@@ -296,6 +315,15 @@ As these variable is not available in your <code>dataset</code>, you will get th
 </code></pre>
 
 <p>This can be fixed by using parameter <code>inherit.aes=FALSE</code> which will disable inheriting mapping from <code>ggtree</code> function.</p>
+<h2 id="use-in-aes"><i class="fa fa-angle-double-right"></i> use <code>$</code> in aes</h2>
+<p>NEVER DO THIS.</p>
+<p>see the explaination in the <a href="https://github.com/hadley/ggplot2-book/blob/master/layers.rmd#aesthetic-mappings-secaes">ggplot2 book 2ed</a>:</p>
+<blockquote>
+<p>Never refer to a variable with <code>$</code> (e.g., <code>diamonds$carat</code>) in <code>aes()</code>. This breaks containment, so that the plot no longer contains everything it needs, and causes problems if ggplot2 changes the order of the rows, as it does when facetting. \indexc{\$}</p>
+</blockquote>
+<p>see also
+<a href="https://groups.google.com/forum/?utm_medium=email&amp;utm_source=footer#!msg/bioc-ggtree/hViM6vRZF94/MsZT8qRgBwAJ">1</a>
+and <a href="https://github.com/GuangchuangYu/ggtree/issues/106">2</a>.</p>
 <h1 id="annotation"><i class="fa fa-tree"></i> Annotation</h1>
 <h2 id="colouring-edges-by-user-data"><i class="fa fa-angle-double-right"></i> colouring edges by user data</h2>
 <p>see my answer on <a href="https://github.com/GuangchuangYu/ggtree/issues/76">https://github.com/GuangchuangYu/ggtree/issues/76</a>

@@ -16,7 +16,7 @@
 
 <link rel="stylesheet" href="https://guangchuangyu.github.io/css/font-awesome.min.css">
 
-[![releaseVersion](https://img.shields.io/badge/release%20version-1.6.4-blue.svg?style=flat)](https://bioconductor.org/packages/ggtree)
+[![releaseVersion](https://img.shields.io/badge/release%20version-1.6.5-blue.svg?style=flat)](https://bioconductor.org/packages/ggtree)
 [![develVersion](https://img.shields.io/badge/devel%20version-1.7.4-blue.svg?style=flat)](https://github.com/GuangchuangYu/ggtree)
 [![total](https://img.shields.io/badge/downloads-18149/total-blue.svg?style=flat)](https://bioconductor.org/packages/stats/bioc/ggtree)
 [![month](https://img.shields.io/badge/downloads-1852/month-blue.svg?style=flat)](https://bioconductor.org/packages/stats/bioc/ggtree)
