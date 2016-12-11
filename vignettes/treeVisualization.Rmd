@@ -1,16 +1,16 @@
 ---
 title: "Tree Visualization"
-author: "\\
-
-	Guangchuang Yu (<guangchuangyu@gmail.com>) and Tommy Tsan-Yuk Lam (<ttylam@hku.hk>)\\
+author: "Guangchuang Yu and Tommy Tsan-Yuk Lam\\
 
         School of Public Health, The University of Hong Kong"
 date: "`r Sys.Date()`"
 bibliography: ggtree.bib
 csl: nature.csl
 output: 
-  html_document:
+  prettydoc::html_pretty:
     toc: true
+    theme: cayman
+    highlight: github
   pdf_document:
     toc: true
 vignette: >

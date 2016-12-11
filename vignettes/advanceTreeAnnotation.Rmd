@@ -1,8 +1,6 @@
 ---
 title: "Advance Tree Annotation"
-author: "\\
-
-	Guangchuang Yu (<guangchuangyu@gmail.com>) and Tommy Tsan-Yuk Lam (<ttylam@hku.hk>)\\
+author: "Guangchuang Yu and Tommy Tsan-Yuk Lam\\
 
         School of Public Health, The University of Hong Kong"
 date: "`r Sys.Date()`"
@@ -80,14 +78,14 @@ pp + theme(legend.position="right")
 # Visualize tree with multiple sequence alignment
 
 With `msaplot` function, user can visualize multiple sequence alignment with phylogenetic tree, as demonstrated below:
-```{r fig.width=8, fig.height=12, fig.align='center'}
+```{r fig.width=8, fig.height=6, fig.align='center', warning=FALSE}
 fasta <- system.file("examples/FluA_H3_AA.fas", package="ggtree")
 msaplot(ggtree(beast_tree), fasta)
 ```
 
 A specific slice of the alignment can also be displayed by specific _window_ parameter.
 
-```{r fig.width=16, fig.height=16, fig.align='center'}
+```{r fig.width=7, fig.height=7, fig.align='center', warning=FALSE}
 msaplot(ggtree(beast_tree), fasta, window=c(150, 200)) + coord_polar(theta='y')
 ```
 
@@ -171,7 +169,7 @@ inset(p, bx, width=.06, height=.2, hjust=-.05)
 After annotating with insets, users can further annotate the tree with another layer of insets.
 
 ```{r fig.width=10, fig.height=7}
-p2 <- inset(p, bars2, x='branch', width=.03, vjust=-.4)
+p2 <- inset(p, bars2, x='branch', width=.06, vjust=-.4)
 p2 <- inset(p2, pies, x='branch', vjust=.4)
 bx2 <- lapply(bx, function(g) g+coord_flip())
 inset(p2, bx2, width=.4, height=.06, vjust=.04, hjust=p2$data$x[1:15]-4) + xlim(NA, 4.5)

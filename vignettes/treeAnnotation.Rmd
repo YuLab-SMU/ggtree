@@ -1,16 +1,16 @@
 ---
 title: "Tree Annotation"
-author: "\\
-
-	Guangchuang Yu (<guangchuangyu@gmail.com>) and Tommy Tsan-Yuk Lam (<ttylam@hku.hk>)\\
+author: "Guangchuang Yu and Tommy Tsan-Yuk Lam\\
 
         School of Public Health, The University of Hong Kong"
 date: "`r Sys.Date()`"
 bibliography: ggtree.bib
 csl: nature.csl
 output: 
-  html_document:
+  prettydoc::html_pretty:
     toc: true
+    theme: cayman
+    highlight: github
   pdf_document:
     toc: true
 vignette: >
@@ -69,7 +69,7 @@ ggtree(beast_tree2) + theme_tree2()
 
 `ggtree` provides _`gzoom`_ function that similar to _`zoom`_ function provided in `ape`. This function plots simultaneously a whole phylogenetic tree and a portion of it. It aims at exploring very large trees.
 
-```{r fig.width=18, fig.height=10, fig.align="center"}
+```{r fig.width=9, fig.height=5, fig.align="center"}
 library("ape")
 data(chiroptera)
 library("ggtree")
@@ -78,7 +78,7 @@ gzoom(chiroptera, grep("Plecotus", chiroptera$tip.label))
 
 Zoom in selected clade of a tree that was already annotated with `ggtree` is also supported.
 
-```{r fig.width=18, fig.height=10, warning=FALSE}
+```{r fig.width=9, fig.height=5, message=FALSE, warning=FALSE}
 groupInfo <- split(chiroptera$tip.label, gsub("_\\w+", "", chiroptera$tip.label))
 chiroptera <- groupOTU(chiroptera, groupInfo)
 p <- ggtree(chiroptera, aes(color=group)) + geom_tiplab() + xlim(NA, 23)
