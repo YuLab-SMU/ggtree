@@ -159,5 +159,8 @@ and [2](https://github.com/GuangchuangYu/ggtree/issues/106).
 
 ## <i class="fa fa-angle-double-right"></i> colouring edges by user data
 
-see my answer on <https://github.com/GuangchuangYu/ggtree/issues/76>
+see my blog post:
+[Edge coloring with user data](http://guangchuangyu.github.io/2016/12/edge-coloring-with-user-data/)
+and also my answer on <https://github.com/GuangchuangYu/ggtree/issues/76>
 and <https://groups.google.com/forum/#!topic/bioc-ggtree/4GgivKqVjB8>.
+

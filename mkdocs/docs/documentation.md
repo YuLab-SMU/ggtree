@@ -54,6 +54,7 @@
 ### <i class="fa fa-angle-double-right"></i> Tree annotation
 
 + [label edge number in ggtree](https://guangchuangyu.github.io/2016/01/label-edge-number-in-ggtree)
++ [Edge coloring with user data](http://guangchuangyu.github.io/2016/12/edge-coloring-with-user-data/)
 + [subview](https://guangchuangyu.github.io/2015/08/subview)
 + [Annotate a phylogenetic tree with insets](https://guangchuangyu.github.io/2016/01/annotate-a-phylogenetic-tree-with-insets)
 + [ggtree annotate phylogenetic tree with local images](https://guangchuangyu.github.io/2015/08/ggtree-annotate-phylogenetic-tree-with-local-images)

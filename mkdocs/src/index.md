@@ -9,8 +9,8 @@
 <!-- download:=ggtree:=month -->
 
 
-The `ggtree` package extending the `ggplot2` package. It based on grammar of graphics and takes all the good parts of `ggplot2`.  `ggtree` is designed for not only viewing phylogenetic tree but also displaying annotation data on the tree.
-`ggtree` is released within the [Bioconductor](https://bioconductor.org/packages/ggtree/) project and the source code is hosted on <a href="https://github.com/GuangchuangYu/ggtree"><i class="fa fa-github fa-lg"></i> GitHub</a>.
+The `ggtree` package extending the *ggplot2* package. It based on grammar of graphics and takes all the good parts of *ggplot2*.  *ggtree* is designed for not only viewing phylogenetic tree but also displaying annotation data on the tree.
+*ggtree* is released within the [Bioconductor](https://bioconductor.org/packages/ggtree/) project and the source code is hosted on <a href="https://github.com/GuangchuangYu/ggtree"><i class="fa fa-github fa-lg"></i> GitHub</a>.
 
 
 ## <i class="fa fa-user"></i> Authors
@@ -77,12 +77,14 @@ If you have problems when installing some of the dependent packages, please refe
 <!-- package_depend:=ggtree:=BioC -->
 
 #### <i class="fa fa-angle-double-right"></i> Other applications
+
 + [BreadCrumbs](https://bitbucket.org/biobakery/breadcrumbs): Collection of scripts for metagenomics analysis
 + [DegeneratePrimerTools](https://github.com/esnapd/DegeneratePrimerTools): Utilities for Creating and Validating Degenerate primers
 + [phyloscan](https://github.com/olli0601/phyloscan): scan phylogenies created along a genome for patterns
 
 
 ## <i class="fa fa-comments"></i> Feedback
+
 <ul class="fa-ul">
 	<li><i class="fa-li fa fa-hand-o-right"></i> Please make sure you [follow the guide](https://guangchuangyu.github.io/2016/07/how-to-bug-author/) before posting any issue/question</li>
 	<li><i class="fa-li fa fa-bug"></i> For bugs or feature requests, please post to <i class="fa fa-github-alt"></i> [github issue](https://github.com/GuangchuangYu/ggtree/issues)</li>
