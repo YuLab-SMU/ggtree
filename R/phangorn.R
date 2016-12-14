@@ -1,8 +1,8 @@
 ##' tree annotation of sequence substitution by comparing to parent node
 ##'
-##' 
+##'
 ##' @title treeAnno.pml
-##' @param pmlTree tree in pml object, output of phangorn::optim.pml 
+##' @param pmlTree tree in pml object, output of phangorn::optim.pml
 ##' @param type one of 'ml' and 'bayes' for inferring ancestral sequences
 ##' @return phangorn object
 ##' @importFrom ape read.tree
@@ -13,7 +13,7 @@ phyPML <- function(pmlTree, type = "ml") {
     sequences <- pmlToSeqString(pmlTree, type, includeAncestor=TRUE)
     tr <- pmlTree$tree
     tr <- reorder.phylo(tr)
-        
+
     if (is.null(tr$node.label)) {
         n <- length(tr$tip.label)
         nl <- (n+1):(2*n-2)
@@ -21,14 +21,14 @@ phyPML <- function(pmlTree, type = "ml") {
     } else {
         names(sequences) <- c(tr$tip.label, tr$node.label)
     }
-    
+
     seq_type <- get_seqtype(sequences)
     res <- new("phangorn",
                phylo = tr,
                fields = "subs",
                seq_type = seq_type,
                ancseq = sequences)
-    
+
 
     res@tip_seq <- sequences[names(sequences) %in% tr$tip.label]
 
@@ -37,27 +37,11 @@ phyPML <- function(pmlTree, type = "ml") {
         res@AA_subs <- get.subs_(res@phylo, sequences, translate=TRUE)
         res@fields %<>% c("AA_subs")
     }
-    
+
     return(res)
 }
 
 
-
-##' @rdname show-methods
-##' @importFrom ape print.phylo
-##' @exportMethod show
-setMethod("show", signature(object = "phangorn"),
-          function(object) {
-              cat("'phangorn' S4 object that stored ancestral sequences inferred by 'phangorn::ancestral.pml'", ".\n\n")
-              cat("...@ tree: ")
-              print.phylo(get.tree(object))
-              fields <- get.fields(object)
-              cat("\nwith the following features available:\n")
-              cat("\t", paste0("'",
-                               paste(fields, collapse="',\t'"),
-                               "'."),
-                  "\n")
-          })
 
 
 ##' @rdname get.subs-methods
@@ -114,17 +98,18 @@ setMethod("get.fields", signature(object="phangorn"),
 
 ##' convert pml object to XStringSet object
 ##'
-##' 
-##' @title pmlToSeq 
+##'
+##' @title pmlToSeq
 ##' @param pml pml object
-##' @param includeAncestor logical 
+##' @param includeAncestor logical
+##' @param type one of "marginal", "ml", "bayes"
 ##' @return XStringSet
 ## @importFrom Biostrings DNAStringSet
 ##' @export
 ##' @author ygc
-pmlToSeq <- function(pml, includeAncestor=TRUE) {
+pmlToSeq <- function(pml, type="ml", includeAncestor=TRUE) {
     DNAStringSet <- get_fun_from_pkg("Biostrings", "DNAStringSet")
-    pmlToSeqString(pml, includeAncestor) %>%
+    pmlToSeqString(pml, type, includeAncestor) %>%
         DNAStringSet
 }
 
@@ -136,15 +121,15 @@ pmlToSeqString <- function(pml, type, includeAncestor=TRUE) {
         ancestral.pml <- get_fun_from_pkg("phangorn", "ancestral.pml")
         phyDat <- ancestral.pml(pml, type)
     }
-    
+
     phyDat <- matrix2vector.phyDat(phyDat)
     ## defined by phangorn
-    labels <- c("a", "c", "g", "t", "u", "m", "r", "w", "s", 
+    labels <- c("a", "c", "g", "t", "u", "m", "r", "w", "s",
                 "y", "k", "v", "h", "d", "b", "n", "?", "-")
     labels <- toupper(labels)
 
     index <- attr(phyDat, "index")
-    
+
     result <- do.call(rbind, phyDat)
     result <- result[, index, drop=FALSE]
 
@@ -177,7 +162,7 @@ matrix2vector.phyDat.item <- function(y) {
                 ## cat("insertion found...\n")
             }
             ## 18 is the gap(-) index of base character defined in phangorn
-            ## c("a", "c", "g", "t", "u", "m", "r", "w", "s", 
+            ## c("a", "c", "g", "t", "u", "m", "r", "w", "s",
 	    ##   "y", "k", "v", "h", "d", "b", "n", "?", "-")
             18
         } else {

@@ -4,10 +4,12 @@
 \alias{pmlToSeq}
 \title{pmlToSeq}
 \usage{
-pmlToSeq(pml, includeAncestor = TRUE)
+pmlToSeq(pml, type = "ml", includeAncestor = TRUE)
 }
 \arguments{
 \item{pml}{pml object}
+
+\item{type}{one of "marginal", "ml", "bayes"}
 
 \item{includeAncestor}{logical}
 }

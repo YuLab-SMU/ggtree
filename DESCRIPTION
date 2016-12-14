@@ -5,11 +5,7 @@ Version: 1.7.4
 Authors@R: c(
 	   person("Guangchuang", "Yu", email = "guangchuangyu@gmail.com", role = c("aut", "cre", "cph")),
 	   person("Tommy Tsan-Yuk", "Lam", email = "tylam.tommy@gmail.com", rol = c("aut", "ths")),
-	   person("Justin", "Silverman", email = "jsilve24@gmail.com", rol = "ctb", comment = "geom_balance"),
-	   person("Casey", "Dunn", email = "casey_dunn@brown.edu", rol = "ctb",
-	          comment = "NHX"),
-           person("Bradley", "Jones", email="brj1@sfu.ca", rol = "ctb",
-                   comment="get.tree method for data.frame")
+	   person("Justin", "Silverman", email = "jsilve24@gmail.com", rol = "ctb")
 	   )
 Maintainer: Guangchuang Yu <guangchuangyu@gmail.com>
 Description: 'ggtree' extends the 'ggplot2' plotting system which implemented the grammar of graphics.
