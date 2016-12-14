@@ -6,7 +6,7 @@ author: "Guangchuang Yu and Tommy Tsan-Yuk Lam\\
 date: "`r Sys.Date()`"
 bibliography: ggtree.bib
 csl: nature.csl
-output: 
+output:
   prettydoc::html_pretty:
     toc: true
     theme: cayman
@@ -99,13 +99,13 @@ __`circular`__
 
 ```{r fig.height=5, fig.width=5, fig.align="center"}
 ggtree(tree, layout="circular") + ggtitle("(Phylogram) circular layout")
-```	
+```
 
 __`fan`__
 
 ```{r fig.height=5, fig.width=5, fig.align="center"}
-ggtree(tree, layout="fan", open.angle=180) + ggtitle("(Phylogram) circular layout")
-```	
+ggtree(tree, layout="fan", open.angle=180) + ggtitle("(Phylogram) fan layout")
+```
 
 
 ## Cladogram
@@ -132,7 +132,7 @@ __`fan`__
 
 ```{r fig.height=5, fig.width=5, fig.align="center"}
 ggtree(tree, layout="fan", open.angle=180, branch.length="none") + ggtitle("(Cladogram) circular layout")
-```	
+```
 
 
 ## Unrooted
@@ -164,7 +164,7 @@ ggtree(tree2d, mrsd = "2014-05-01",
                theme(panel.grid.major.x=element_line(color="grey20", linetype="dotted", size=.3),
                      panel.grid.major.y=element_blank()) +
                          scale_y_continuous(labels=paste0("N", 2:7))
-```	
+```
 
 In this example, the figure demonstrates the quantity of __*y*__ increase along the trunk. User can highlight the trunk with different line size or color using the functions described in [Tree Manipulation](treeManipulation.html) vignette.
 
@@ -212,7 +212,7 @@ Showing all the internal nodes and tips in the tree can be done by adding a laye
 ```{r fig.width=3, fig.height=3, fig.align="center"}
 ggtree(tree)+geom_point(aes(shape=isTip, color=isTip), size=3)
 ```
- 
+
 ```{r fig.width=3, fig.height=3, fig.align="center"}
 p <- ggtree(tree) + geom_nodepoint(color="#b5e521", alpha=1/4, size=10)
 p + geom_tippoint(color="#FDAC4F", shape=8, size=3)
