@@ -65,20 +65,21 @@ setMethod("get.tree", signature(object="phylo"),
           function(object, ...) {
               return(object)
           })
-        
+
 ##' @rdname get.tree-methods
 ##' @exportMethod get.tree
 setMethod("get.tree", signature(object="data.frame"),
           function(object, ...) {
+              edge <- object[, c("parent", "node")]
               i <- which(edge[,1] != 0 & edge[,1] != edge[,2])
               edge <- edge[i, ]
               edge.length <- object[i, "branch.length"]
-              tip.label <- object[object[, "isTip"], "label"] 
-              phylo <- list(edge = edge,
+              tip.label <- object[object[, "isTip"], "label"]
+              phylo <- list(edge = as.matrix(edge),
                   edge.length = edge.length,
                   tip.label = tip.label)
 
-              node.label <- object[!object[, "isTip"], "label"] 
+              node.label <- object[!object[, "isTip"], "label"]
               if (!all(is.na(node.label))) {
                   phylo$node.label <- node.label
               }
