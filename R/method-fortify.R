@@ -112,8 +112,8 @@ fortify.beast <- function(model, data,
                           ndigits       = NULL,
                           mrsd = NULL, ...) {
 
-    phylo <- set_branch_length(model, branch.length)
-
+    model <- set_branch_length(model, branch.length)
+    phylo <- model@phylo
     df    <- fortify(phylo, layout=layout, branch.length=branch.length,
                      ladderize=ladderize, right=right, mrsd = mrsd, ...)
 
@@ -241,7 +241,8 @@ fortify.codeml <- function(model, data,
         if (length == "mlc.branch.length") {
             length <- "branch.length"
         }
-        phylo <- set_branch_length(model@mlc, length)
+        mlc <- set_branch_length(model@mlc, length)
+        phylo <- get.tree(mlc)
     }
 
     df <- fortify(phylo, data, layout, ladderize, right,
@@ -267,8 +268,8 @@ fortify.codeml_mlc <- function(model, data,
                                mrsd          = NULL,
                                ...) {
 
-    phylo <- set_branch_length(model, branch.length)
-
+    model <- set_branch_length(model, branch.length)
+    phylo <- get.tree(model)
     df <- fortify(phylo, data, layout, ladderize, right,
                   branch.length=branch.length, mrsd=mrsd, ...)
 
@@ -396,7 +397,8 @@ fortify.phylo4 <- function(model, data, layout="rectangular", yscale="none",
 fortify.phylo4d <- function(model, data, layout="rectangular", yscale="none",
                             ladderize=TRUE, right=FALSE, branch.length="branch.length",
                             mrsd=NULL, ...) {
-    phylo <- set_branch_length(model, branch.length)
+    model <- set_branch_length(model, branch.length)
+    phylo <- as.phylo.phylo4(model)
     res <- fortify(phylo, data, layout, branch.length=branch.length,
                    ladderize, right, mrsd, ...)
     tdata <- model@data[match(res$node, rownames(model@data)), , drop=FALSE]
@@ -688,3 +690,7 @@ fortify.phyloseq <- function(model, data, layout="rectangular",
 ##     ggplot(df) + geom_tree()
 
 ## }
+
+
+
+has.extraInfo <- treeio:::has.extraInfo

@@ -48,6 +48,8 @@ gzoom.ggtree <- function(tree_view, focus, widths=c(.3, .7), xmax_adjust=0) {
     invisible(list(p1=tree_view, p2=p2))
 }
 
+##' @name gzoom
+##' @title gzoom method
 ##' @rdname gzoom-methods
 ##' @exportMethod gzoom
 ##' @param xmax_adjust adjust xmax (xlim[2])
@@ -85,7 +87,7 @@ setMethod("gzoom", signature(object="codeml"),
 
 ##' @rdname gzoom-methods
 ##' @exportMethod gzoom
-setMethod("gzoom", signature(object="nhx"),
+setMethod("gzoom", signature(object="treedata"),
           function(object, focus, subtree=FALSE, widths=c(.3, .7)) {
               gzoom.phylo(get.tree(object), focus, subtree, widths)
           })
@@ -105,3 +107,6 @@ setMethod("gzoom", signature(object="phylo"),
           function(object, focus, subtree=FALSE, widths=c(.3, .7)) {
               gzoom.phylo(object, focus, subtree, widths)
           })
+
+
+gfocus <- treeio:::gfocus

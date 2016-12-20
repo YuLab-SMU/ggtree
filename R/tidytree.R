@@ -4,6 +4,7 @@
 fortify.treedata <- function(model, data, layout="rectangular", branch.length ="branch.length",
                              ladderize=TRUE, right=FALSE, mrsd=NULL, ...) {
     model <- set_branch_length(model, branch.length)
+    
     x <- reorder.phylo(get.tree(model), "postorder")
     if (is.null(x$edge.length) || branch.length == "none") {
         xpos <- getXcoord_no_length(x)
@@ -273,21 +274,21 @@ get.offspring.tip <- function(tr, node) {
 }
 
 
-##' calculate total number of nodes
-##'
-##'
-##' @title getNodeNum
-##' @param tr phylo object
-##' @return number
-##' @author Guangchuang Yu
-##' @export
-getNodeNum <- function(tr) {
-    Ntip <- length(tr[["tip.label"]])
-    Nnode <- tr[["Nnode"]]
-    ## total nodes
-    N <- Ntip + Nnode
-    return(N)
-}
+## ##' calculate total number of nodes
+## ##'
+## ##'
+## ##' @title getNodeNum
+## ##' @param tr phylo object
+## ##' @return number
+## ##' @author Guangchuang Yu
+## ##' @export
+## getNodeNum <- function(tr) {
+##     Ntip <- length(tr[["tip.label"]])
+##     Nnode <- tr[["Nnode"]]
+##     ## total nodes
+##     N <- Ntip + Nnode
+##     return(N)
+## }
 
 getParent <- function(tr, node) {
     if ( node == getRoot(tr) )
@@ -359,30 +360,30 @@ getNodeName <- function(tr) {
     return(nodeName)
 }
 
-##' get the root number
-##'
-##'
-##' @title getRoot
-##' @param tr phylo object
-##' @return root number
-##' @export
-##' @author Guangchuang Yu
-getRoot <- function(tr) {
-    edge <- tr[["edge"]]
-    ## 1st col is parent,
-    ## 2nd col is child,
-    if (!is.null(attr(tr, "order")) && attr(tr, "order") == "postorder")
-        return(edge[nrow(edge), 1])
+## ##' get the root number
+## ##'
+## ##'
+## ##' @title getRoot
+## ##' @param tr phylo object
+## ##' @return root number
+## ##' @export
+## ##' @author Guangchuang Yu
+## getRoot <- function(tr) {
+##     edge <- tr[["edge"]]
+##     ## 1st col is parent,
+##     ## 2nd col is child,
+##     if (!is.null(attr(tr, "order")) && attr(tr, "order") == "postorder")
+##         return(edge[nrow(edge), 1])
 
-    parent <- unique(edge[,1])
-    child <- unique(edge[,2])
-    ## the node that has no parent should be the root
-    root <- parent[ ! parent %in% child ]
-    if (length(root) > 1) {
-        stop("multiple roots founded...")
-    }
-    return(root)
-}
+##     parent <- unique(edge[,1])
+##     child <- unique(edge[,2])
+##     ## the node that has no parent should be the root
+##     root <- parent[ ! parent %in% child ]
+##     if (length(root) > 1) {
+##         stop("multiple roots founded...")
+##     }
+##     return(root)
+## }
 
 get.trunk <- function(tr) {
     root <- getRoot(tr)
@@ -820,31 +821,39 @@ calculate_branch_mid <- function(res) {
 
 
 set_branch_length <- function(tree_object, branch.length) {
+    if (branch.length == "branch.length") {
+        return(tree_object)
+    } else if (branch.length == "none") {
+        if (is(tree_object, "phylo4d")) {
+            tree_object@edge.length <- NULL
+        } else { 
+            tree_object@phylo$edge.length <- NULL
+        }
+        return(tree_object)
+    }
+
+    if (is(tree_object, "phylo")) {
+        return(tree_object)
+    }
+
     if (is(tree_object, "phylo4d")) {
         phylo <- as.phylo.phylo4(tree_object)
         d <- tree_object@data
         tree_anno <- data.frame(node=rownames(d), d)
-    } else {
-        phylo <- get.tree(tree_object)
-    }
-
-    if (branch.length %in%  c("branch.length", "none")) {
-        return(phylo)
-    }
-
-    ## if (is(tree_object, "codeml")) {
-    ##     tree_anno <- tree_object@mlc@dNdS
-    ## } else
-
-    if (is(tree_object, "codeml_mlc")) {
+    } else if (is(tree_object, "codeml")) {
+        tree_anno <- tree_object@mlc@dNdS
+    } else if (is(tree_object, "codeml_mlc")) {
         tree_anno <- tree_object@dNdS
     } else if (is(tree_object, "beast")) {
         tree_anno <- tree_object@stats
+    } else {
+        tree_anno <- get_tree_data(tree_object)
     }
 
-    if (has.extraInfo(tree_object)) {
-        tree_anno <- merge(tree_anno, tree_object@extraInfo, by.x="node", by.y="node")
+    if (!is(tree_object, "phylo4d")) {
+        phylo <- get.tree(tree_object)
     }
+    
     cn <- colnames(tree_anno)
     cn <- cn[!cn %in% c('node', 'parent')]
 
@@ -858,8 +867,7 @@ set_branch_length <- function(tree_object, branch.length) {
     colnames(edge) <- c("parent", "node")
 
     dd <- merge(edge, tree_anno,
-                by.x  = "node",
-                by.y  = "node",
+                by  = "node",
                 all.x = TRUE)
     dd <- dd[match(edge$node, dd$node),]
     len <- unlist(dd[, length])
@@ -868,8 +876,65 @@ set_branch_length <- function(tree_object, branch.length) {
 
     phylo$edge.length <- len
 
-    return(phylo)
+    if (is(tree_object, "phylo4d")) {
+        tree_object@edge.length <- phylo$edge.length
+    } else {
+        tree_object@phylo <- phylo
+    }
+    return(tree_object)
 }
+
+## set_branch_length <- function(tree_object, branch.length) {
+##     if (is(tree_object, "phylo4d")) {
+##         phylo <- as.phylo.phylo4(tree_object)
+##         d <- tree_object@data
+##         tree_anno <- data.frame(node=rownames(d), d)
+##     } else {
+##         phylo <- get.tree(tree_object)
+##     }
+
+##     if (branch.length %in%  c("branch.length", "none")) {
+##         return(phylo)
+##     }
+
+##     ## if (is(tree_object, "codeml")) {
+##     ##     tree_anno <- tree_object@mlc@dNdS
+##     ## } else
+
+##     if (is(tree_object, "codeml_mlc")) {
+##         tree_anno <- tree_object@dNdS
+##     } else if (is(tree_object, "beast")) {
+##         tree_anno <- tree_object@stats
+##     }
+
+##     if (has.extraInfo(tree_object)) {
+##         tree_anno <- merge(tree_anno, tree_object@extraInfo, by.x="node", by.y="node")
+##     }
+##     cn <- colnames(tree_anno)
+##     cn <- cn[!cn %in% c('node', 'parent')]
+
+##     length <- match.arg(branch.length, cn)
+
+##     if (all(is.na(as.numeric(tree_anno[, length])))) {
+##         stop("branch.length should be numerical attributes...")
+##     }
+
+##     edge <- as.data.frame(phylo$edge)
+##     colnames(edge) <- c("parent", "node")
+
+##     dd <- merge(edge, tree_anno,
+##                 by.x  = "node",
+##                 by.y  = "node",
+##                 all.x = TRUE)
+##     dd <- dd[match(edge$node, dd$node),]
+##     len <- unlist(dd[, length])
+##     len <- as.numeric(len)
+##     len[is.na(len)] <- 0
+
+##     phylo$edge.length <- len
+
+##     return(phylo)
+## }
 
 
 re_assign_ycoord_df <- function(df, currentNode) {
@@ -889,15 +954,15 @@ re_assign_ycoord_df <- function(df, currentNode) {
 }
 
 
-##' test whether input object is produced by ggtree function
-##'
-##'
-##' @title is.ggtree
-##' @param x object
-##' @return TRUE or FALSE
-##' @export
-##' @author guangchuang yu
-is.ggtree <- function(x) inherits(x, 'ggtree')
+## ##' test whether input object is produced by ggtree function
+## ##'
+## ##'
+## ##' @title is.ggtree
+## ##' @param x object
+## ##' @return TRUE or FALSE
+## ##' @export
+## ##' @author guangchuang yu
+## is.ggtree <- function(x) inherits(x, 'ggtree')
 
 
 
