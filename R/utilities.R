@@ -13,237 +13,237 @@ get_tree_view <- function(tree_view) {
 
 
 
-has.field <- function(tree_object, field) {
-    if ( ! field %in% get.fields(tree_object) ) {
-        return(FALSE)
-    }
+## has.field <- function(tree_object, field) {
+##     if ( ! field %in% get.fields(tree_object) ) {
+##         return(FALSE)
+##     }
 
-    if (is(tree_object, "codeml")) {
-        is_codeml <- TRUE
-        tree <- tree_object@rst
-    } else {
-        is_codeml <- FALSE
-        tree <- tree_object
-    }
+##     if (is(tree_object, "codeml")) {
+##         is_codeml <- TRUE
+##         tree <- tree_object@rst
+##     } else {
+##         is_codeml <- FALSE
+##         tree <- tree_object
+##     }
 
-    if (.hasSlot(tree, field)) {
-        has_slot <- TRUE
-    } else {
-        has_slot <- FALSE
-    }
+##     if (.hasSlot(tree, field)) {
+##         has_slot <- TRUE
+##     } else {
+##         has_slot <- FALSE
+##     }
 
-    if (has_slot == FALSE) {
-        if (has.extraInfo(tree_object) == FALSE) {
-            return(FALSE)
-        }
+##     if (has_slot == FALSE) {
+##         if (has.extraInfo(tree_object) == FALSE) {
+##             return(FALSE)
+##         }
 
-        if (nrow(tree_object@extraInfo) == 0) {
-            return(FALSE)
-        }
+##         if (nrow(tree_object@extraInfo) == 0) {
+##             return(FALSE)
+##         }
 
-        if (!field %in% colnames(tree_object@extraInfo)) {
-            return(FALSE)
-        }
-    }
-    res <- TRUE
-    attr(res, "has_slot") <- has_slot
-    attr(res, "is_codeml") <- is_codeml
-    return(res)
-}
+##         if (!field %in% colnames(tree_object@extraInfo)) {
+##             return(FALSE)
+##         }
+##     }
+##     res <- TRUE
+##     attr(res, "has_slot") <- has_slot
+##     attr(res, "is_codeml") <- is_codeml
+##     return(res)
+## }
 
-append_extraInfo <- function(df, object) {
-    if (has.extraInfo(object)) {
-        info <- object@extraInfo
-        if ("parent" %in% colnames(info)) {
-            res <- merge(df, info, by.x=c("node", "parent"), by.y=c("node", "parent"))
-        } else {
-            res <- merge(df, info, by.x="node", by.y="node")
-        }
-    } else {
-        return(df)
-    }
+## append_extraInfo <- function(df, object) {
+##     if (has.extraInfo(object)) {
+##         info <- object@extraInfo
+##         if ("parent" %in% colnames(info)) {
+##             res <- merge(df, info, by.x=c("node", "parent"), by.y=c("node", "parent"))
+##         } else {
+##             res <- merge(df, info, by.x="node", by.y="node")
+##         }
+##     } else {
+##         return(df)
+##     }
 
-    i <- order(res$node, decreasing = FALSE)
-    res <- res[i,]
-    return(res)
-}
+##     i <- order(res$node, decreasing = FALSE)
+##     res <- res[i,]
+##     return(res)
+## }
 
-get.fields.tree <- function(object) {
-    if (is(object, "codeml")) {
-        fields <- c(get.fields(object@rst),
-                    get.fields(object@mlc))
-        fields <- unique(fields)
-    } else {
-        fields <- object@fields
-    }
+## get.fields.tree <- function(object) {
+##     if (is(object, "codeml")) {
+##         fields <- c(get.fields(object@rst),
+##                     get.fields(object@mlc))
+##         fields <- unique(fields)
+##     } else {
+##         fields <- object@fields
+##     }
 
-    if (has.slot(object, "extraInfo")) {
-        extraInfo <- object@extraInfo
-        if (nrow(extraInfo) > 0) {
-            cn <- colnames(extraInfo)
-            i <- match(c("x", "y", "isTip", "node", "parent", "label", "branch", "branch.length"), cn)
-            i <- i[!is.na(i)]
-            fields %<>% c(cn[-i])
-        }
-    }
-    return(fields)
-}
+##     if (has.slot(object, "extraInfo")) {
+##         extraInfo <- object@extraInfo
+##         if (nrow(extraInfo) > 0) {
+##             cn <- colnames(extraInfo)
+##             i <- match(c("x", "y", "isTip", "node", "parent", "label", "branch", "branch.length"), cn)
+##             i <- i[!is.na(i)]
+##             fields %<>% c(cn[-i])
+##         }
+##     }
+##     return(fields)
+## }
 
-print_fields <- function(object, len=5) {
-    fields <- get.fields(object)
-    n <- length(fields)
-    i <- floor(n/len)
-    for (j in 0:i) {
-        ii <- 1:len + len * j
-        if (j == i) {
-            x <- n %% len
-            if (x == 0) {
-                ii <- NULL
-            } else {
-                ii <- ii[1:x]
-            }
-        }
+## print_fields <- function(object, len=5) {
+##     fields <- get.fields(object)
+##     n <- length(fields)
+##     i <- floor(n/len)
+##     for (j in 0:i) {
+##         ii <- 1:len + len * j
+##         if (j == i) {
+##             x <- n %% len
+##             if (x == 0) {
+##                 ii <- NULL
+##             } else {
+##                 ii <- ii[1:x]
+##             }
+##         }
 
-        if (!is.null(ii)) {
-            cat("\t", paste0("'",
-                             paste(fields[ii], collapse="',\t'"),
-                             "'")
-                )
-        }
-        if ( j == i) {
-            cat(".\n")
-        } else {
-            cat(",\n")
-        }
-    }
-}
+##         if (!is.null(ii)) {
+##             cat("\t", paste0("'",
+##                              paste(fields[ii], collapse="',\t'"),
+##                              "'")
+##                 )
+##         }
+##         if ( j == i) {
+##             cat(".\n")
+##         } else {
+##             cat(",\n")
+##         }
+##     }
+## }
 
-plot.subs <- function(x, layout, show.tip.label,
-                      tip.label.size,
-                      tip.label.hjust,
-                      position, annotation,
-                      annotation.color = "black",
-                      annotation.size=3, ...) {
+## plot.subs <- function(x, layout, show.tip.label,
+##                       tip.label.size,
+##                       tip.label.hjust,
+##                       position, annotation,
+##                       annotation.color = "black",
+##                       annotation.size=3, ...) {
 
-    p <- ggtree(x, layout=layout, ...)
-    if (show.tip.label) {
-        p <- p + geom_tiplab(hjust = tip.label.hjust,
-                             size  = tip.label.size)
-    }
-    if (!is.null(annotation) && !is.na(annotation)) {
-        p <- p + geom_text(aes_string(x=position, label=annotation),
-                           size=annotation.size,
-                           color=annotation.color, vjust=-.5)
-    }
-    p + theme_tree2()
-}
+##     p <- ggtree(x, layout=layout, ...)
+##     if (show.tip.label) {
+##         p <- p + geom_tiplab(hjust = tip.label.hjust,
+##                              size  = tip.label.size)
+##     }
+##     if (!is.null(annotation) && !is.na(annotation)) {
+##         p <- p + geom_text(aes_string(x=position, label=annotation),
+##                            size=annotation.size,
+##                            color=annotation.color, vjust=-.5)
+##     }
+##     p + theme_tree2()
+## }
 
-.add_new_line <- function(res) {
-    ## res <- paste0(strwrap(res, 50), collapse="\n")
-    ## res %<>% gsub("\\s/\n", "\n", .) %>% gsub("\n/\\s", "\n", .)
-    if (nchar(res) > 50) {
-        idx <- gregexpr("/", res)[[1]]
-        i <- idx[floor(length(idx)/2)]
-        res <- paste0(substring(res, 1, i-1), "\n", substring(res, i+1))
-    }
-    return(res)
-}
+## .add_new_line <- function(res) {
+##     ## res <- paste0(strwrap(res, 50), collapse="\n")
+##     ## res %<>% gsub("\\s/\n", "\n", .) %>% gsub("\n/\\s", "\n", .)
+##     if (nchar(res) > 50) {
+##         idx <- gregexpr("/", res)[[1]]
+##         i <- idx[floor(length(idx)/2)]
+##         res <- paste0(substring(res, 1, i-1), "\n", substring(res, i+1))
+##     }
+##     return(res)
+## }
 
-get.subs_ <- function(tree, fasta, translate=TRUE, removeGap=TRUE) {
-    N <- getNodeNum(tree)
-    node <- 1:N
-    parent <- sapply(node, getParent, tr=tree)
-    label <- getNodeName(tree)
-    subs <- sapply(seq_along(node), function(i) {
-        if (i == getRoot(tree)) {
-            return(NA)
-        }
-        res <- getSubsLabel(fasta, label[parent[i]], label[i], translate, removeGap)
-        if (is.null(res)) {
-            return('')
-        }
-        .add_new_line(res)
-    })
+## get.subs_ <- function(tree, fasta, translate=TRUE, removeGap=TRUE) {
+##     N <- getNodeNum(tree)
+##     node <- 1:N
+##     parent <- sapply(node, getParent, tr=tree)
+##     label <- getNodeName(tree)
+##     subs <- sapply(seq_along(node), function(i) {
+##         if (i == getRoot(tree)) {
+##             return(NA)
+##         }
+##         res <- getSubsLabel(fasta, label[parent[i]], label[i], translate, removeGap)
+##         if (is.null(res)) {
+##             return('')
+##         }
+##         .add_new_line(res)
+##     })
 
-    dd <- data.frame(node=node, parent=parent, label=label, subs=subs)
-    dd <- dd[dd$parent != 0,]
-    dd <- dd[, -c(1,2)]
-    dd[,1] <- as.character(dd[,1])
-    dd[,2] <- as.character(dd[,2])
-    return(dd)
-}
+##     dd <- data.frame(node=node, parent=parent, label=label, subs=subs)
+##     dd <- dd[dd$parent != 0,]
+##     dd <- dd[, -c(1,2)]
+##     dd[,1] <- as.character(dd[,1])
+##     dd[,2] <- as.character(dd[,2])
+##     return(dd)
+## }
 
-getSubsLabel <- function(seqs, A, B, translate, removeGap) {
-    seqA <- seqs[A]
-    seqB <- seqs[B]
+## getSubsLabel <- function(seqs, A, B, translate, removeGap) {
+##     seqA <- seqs[A]
+##     seqB <- seqs[B]
 
-    if (nchar(seqA) != nchar(seqB)) {
-        stop("seqA should have equal length to seqB")
-    }
+##     if (nchar(seqA) != nchar(seqB)) {
+##         stop("seqA should have equal length to seqB")
+##     }
 
-    if (translate == TRUE) {
-        AA <- seqA %>% seq2codon %>% codon2AA
-        BB <- seqB %>% seq2codon %>% codon2AA
-    } else {
-        ## strsplit is faster than substring
-        ##
-        ## n <- nchar(seqA) ## should equals to nchar(seqB)
-        ## AA <- substring(seqA, 1:n, 1:n)
-        ## BB <- substring(seqB, 1:n, 1:n)
-        AA <- strsplit(seqA, split="") %>% unlist
-        BB <- strsplit(seqB, split="") %>% unlist
-    }
+##     if (translate == TRUE) {
+##         AA <- seqA %>% seq2codon %>% codon2AA
+##         BB <- seqB %>% seq2codon %>% codon2AA
+##     } else {
+##         ## strsplit is faster than substring
+##         ##
+##         ## n <- nchar(seqA) ## should equals to nchar(seqB)
+##         ## AA <- substring(seqA, 1:n, 1:n)
+##         ## BB <- substring(seqB, 1:n, 1:n)
+##         AA <- strsplit(seqA, split="") %>% unlist
+##         BB <- strsplit(seqB, split="") %>% unlist
+##     }
 
-    ii <- which(AA != BB)
+##     ii <- which(AA != BB)
 
-    if (removeGap == TRUE) {
-        if (length(ii) > 0 && translate == TRUE) {
-            ii <- ii[AA[ii] != "X" & BB[ii] != "X"]
-        }
+##     if (removeGap == TRUE) {
+##         if (length(ii) > 0 && translate == TRUE) {
+##             ii <- ii[AA[ii] != "X" & BB[ii] != "X"]
+##         }
 
-        if (length(ii) > 0 && translate == FALSE) {
-            ii <- ii[AA[ii] != "-" & BB[ii] != "-"]
-        }
-    }
+##         if (length(ii) > 0 && translate == FALSE) {
+##             ii <- ii[AA[ii] != "-" & BB[ii] != "-"]
+##         }
+##     }
 
-    if (length(ii) == 0) {
-        return(NULL)
-    }
+##     if (length(ii) == 0) {
+##         return(NULL)
+##     }
 
-    res <- paste(AA[ii], ii, BB[ii], sep="", collapse=" / ")
-    return(res)
-}
+##     res <- paste(AA[ii], ii, BB[ii], sep="", collapse=" / ")
+##     return(res)
+## }
 
-seq2codon <- function(x) {
-    substring(x, first=seq(1, nchar(x)-2, 3), last=seq(3, nchar(x), 3))
-}
+## seq2codon <- function(x) {
+##     substring(x, first=seq(1, nchar(x)-2, 3), last=seq(3, nchar(x), 3))
+## }
 
-## @importFrom Biostrings GENETIC_CODE
-codon2AA <- function(codon) {
-    ## a genetic code name vector
-    GENETIC_CODE <- get_fun_from_pkg("Biostrings", "GENETIC_CODE")
-    aa <- GENETIC_CODE[codon]
-    aa[is.na(aa)] <- "X"
-    return(aa)
-}
+## ## @importFrom Biostrings GENETIC_CODE
+## codon2AA <- function(codon) {
+##     ## a genetic code name vector
+##     GENETIC_CODE <- get_fun_from_pkg("Biostrings", "GENETIC_CODE")
+##     aa <- GENETIC_CODE[codon]
+##     aa[is.na(aa)] <- "X"
+##     return(aa)
+## }
 
 
-getPhyInfo <- function(phy) {
-    line1 <- readLines(phy, n=1)
-    res <- strsplit(line1, split="\\s")[[1]]
-    res <- res[res != ""]
+## getPhyInfo <- function(phy) {
+##     line1 <- readLines(phy, n=1)
+##     res <- strsplit(line1, split="\\s")[[1]]
+##     res <- res[res != ""]
 
-    return(list(num=as.numeric(res[1]), width=as.numeric(res[2])))
-}
+##     return(list(num=as.numeric(res[1]), width=as.numeric(res[2])))
+## }
 
-get_seqtype <- function(seq) {
-    if (length(grep("[^-ACGT]+", seq[1])) == 0) {
-        seq_type = "NT" ## NucleoTide
-    } else {
-        seq_type = "AA" ## Amino Acid
-    }
-    return(seq_type)
-}
+## get_seqtype <- function(seq) {
+##     if (length(grep("[^-ACGT]+", seq[1])) == 0) {
+##         seq_type = "NT" ## NucleoTide
+##     } else {
+##         seq_type = "AA" ## Amino Acid
+##     }
+##     return(seq_type)
+## }
 
 reverse.treeview <- function(tv) {
     tv$data <- reverse.treeview.data(tv$data)
@@ -258,87 +258,87 @@ reverse.treeview.data <- function(df) {
 }
 
 
-jplace_treetext_to_phylo <- function(tree.text) {
-    ## move edge label to node label separate by @
-    tr <- gsub('(:[0-9\\.eE\\+\\-]+)\\{(\\d+)\\}', '\\@\\2\\1', tree.text)
-    phylo <- read.tree(text=tr)
-    if (length(grep('@', phylo$tip.label)) > 0) {
-        phylo$node.label[1] %<>% gsub("(.*)\\{(\\d+)\\}", "\\1@\\2", .)
-        tip.edgeNum <- as.numeric(gsub("[^@]*@(\\d*)", "\\1",phylo$tip.label))
-        node.edgeNum <- as.numeric(gsub("[^@]*@(\\d*)", "\\1",phylo$node.label))
-        phylo$tip.label %<>% gsub("@\\d+", "", .)
-        phylo$node.label %<>% gsub("@\\d+", "", .)
-        if (all(phylo$node.label == "")) {
-            phylo$node.label <- NULL
-        }
+## jplace_treetext_to_phylo <- function(tree.text) {
+##     ## move edge label to node label separate by @
+##     tr <- gsub('(:[0-9\\.eE\\+\\-]+)\\{(\\d+)\\}', '\\@\\2\\1', tree.text)
+##     phylo <- read.tree(text=tr)
+##     if (length(grep('@', phylo$tip.label)) > 0) {
+##         phylo$node.label[1] %<>% gsub("(.*)\\{(\\d+)\\}", "\\1@\\2", .)
+##         tip.edgeNum <- as.numeric(gsub("[^@]*@(\\d*)", "\\1",phylo$tip.label))
+##         node.edgeNum <- as.numeric(gsub("[^@]*@(\\d*)", "\\1",phylo$node.label))
+##         phylo$tip.label %<>% gsub("@\\d+", "", .)
+##         phylo$node.label %<>% gsub("@\\d+", "", .)
+##         if (all(phylo$node.label == "")) {
+##             phylo$node.label <- NULL
+##         }
 
-        N <- getNodeNum(phylo)
-        edgeNum.df <- data.frame(node=1:N, edgeNum=c(tip.edgeNum, node.edgeNum))
-        ## root node is not encoded with edge number
-        edgeNum.df <- edgeNum.df[!is.na(edgeNum.df[,2]),]
-        attr(phylo, "edgeNum") <- edgeNum.df
-    }
+##         N <- getNodeNum(phylo)
+##         edgeNum.df <- data.frame(node=1:N, edgeNum=c(tip.edgeNum, node.edgeNum))
+##         ## root node is not encoded with edge number
+##         edgeNum.df <- edgeNum.df[!is.na(edgeNum.df[,2]),]
+##         attr(phylo, "edgeNum") <- edgeNum.df
+##     }
 
-    ## using :edge_length{edge_num} to match edge_num to node_num
-    ## this is not a good idea since there may exists identical edge_length.
-    ## but we can use it to verify our method.
-    ##
-    ## en.matches <- gregexpr(":[0-9\\.eE\\+\\-]+\\{\\d+\\}", tree.text)
-    ## matches <- en.matches[[1]]
-    ## match.pos <- as.numeric(matches)
-    ## match.len <- attr(matches, 'match.length')
+##     ## using :edge_length{edge_num} to match edge_num to node_num
+##     ## this is not a good idea since there may exists identical edge_length.
+##     ## but we can use it to verify our method.
+##     ##
+##     ## en.matches <- gregexpr(":[0-9\\.eE\\+\\-]+\\{\\d+\\}", tree.text)
+##     ## matches <- en.matches[[1]]
+##     ## match.pos <- as.numeric(matches)
+##     ## match.len <- attr(matches, 'match.length')
 
-    ## edgeLN <- substring(tree.text, match.pos+1, match.pos+match.len-2)
-    ## edgeLN.df <- data.frame(length=as.numeric(gsub("\\{.+", "", edgeLN)),
-    ##                         edgeNum = as.numeric(gsub(".+\\{", "", edgeLN)))
+##     ## edgeLN <- substring(tree.text, match.pos+1, match.pos+match.len-2)
+##     ## edgeLN.df <- data.frame(length=as.numeric(gsub("\\{.+", "", edgeLN)),
+##     ##                         edgeNum = as.numeric(gsub(".+\\{", "", edgeLN)))
 
-    ## xx <- merge(edgeLN.df, edgeNum.df, by.x="node", by.y="node")
+##     ## xx <- merge(edgeLN.df, edgeNum.df, by.x="node", by.y="node")
 
-    return(phylo)
-}
+##     return(phylo)
+## }
 
-extract.treeinfo.jplace <- function(object, layout="phylogram", ladderize=TRUE, right=FALSE, ...) {
+## extract.treeinfo.jplace <- function(object, layout="phylogram", ladderize=TRUE, right=FALSE, ...) {
 
-    tree <- get.tree(object)
+##     tree <- get.tree(object)
 
-    df <- fortify.phylo(tree, layout=layout, ladderize=ladderize, right=right, ...)
+##     df <- fortify.phylo(tree, layout=layout, ladderize=ladderize, right=right, ...)
 
-    edgeNum.df <- attr(tree, "edgeNum")
-    if (!is.null(edgeNum.df)) {
-        df2 <- merge(df, edgeNum.df, by.x="node", by.y="node", all.x=TRUE)
-        df <- df2[match(df[, "node"], df2[, "node"]),]
-    }
+##     edgeNum.df <- attr(tree, "edgeNum")
+##     if (!is.null(edgeNum.df)) {
+##         df2 <- merge(df, edgeNum.df, by.x="node", by.y="node", all.x=TRUE)
+##         df <- df2[match(df[, "node"], df2[, "node"]),]
+##     }
 
-    attr(df, "ladderize") <- ladderize
-    attr(df, "right") <- right
-    return(df)
-}
+##     attr(df, "ladderize") <- ladderize
+##     attr(df, "right") <- right
+##     return(df)
+## }
 
-## convert edge number to node number for EPA/pplacer output
-edgeNum2nodeNum <- function(jp, edgeNum) {
-    edges <- attr(jp@phylo, "edgeNum")
+## ## convert edge number to node number for EPA/pplacer output
+## edgeNum2nodeNum <- function(jp, edgeNum) {
+##     edges <- attr(jp@phylo, "edgeNum")
 
-    idx <- which(edges$edgeNum == edgeNum)
-    if (length(idx) == 0) {
-        return(NA)
-    }
+##     idx <- which(edges$edgeNum == edgeNum)
+##     if (length(idx) == 0) {
+##         return(NA)
+##     }
 
-    edges[idx, "node"]
-}
+##     edges[idx, "node"]
+## }
 
-is.character_beast <- function(stats3, cn) {
-    for (i in 1:nrow(stats3)) {
-        if ( is.na(stats3[i,cn]) ) {
-            next
-        } else {
-            ## res <- grepl("[a-df-zA-DF-Z]+", unlist(stats3[i, cn]))
-            ## return(all(res == TRUE))
-            res <- grepl("^[0-9\\.eE-]+$", unlist(stats3[i, cn]))
-            return(all(res == FALSE))
-        }
-    }
-    return(FALSE)
-}
+## is.character_beast <- function(stats3, cn) {
+##     for (i in 1:nrow(stats3)) {
+##         if ( is.na(stats3[i,cn]) ) {
+##             next
+##         } else {
+##             ## res <- grepl("[a-df-zA-DF-Z]+", unlist(stats3[i, cn]))
+##             ## return(all(res == TRUE))
+##             res <- grepl("^[0-9\\.eE-]+$", unlist(stats3[i, cn]))
+##             return(all(res == FALSE))
+##         }
+##     }
+##     return(FALSE)
+## }
 
 
 is.tree <- function(x) {

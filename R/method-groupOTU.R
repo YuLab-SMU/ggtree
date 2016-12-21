@@ -33,11 +33,19 @@
 ##           )
 
 
+##' groupOTU method for ggtree object
+##'
+##'
 ##' @name groupOTU
 ##' @title groupOTU method
 ##' @rdname groupOTU-methods
+##' @param object ggtree object
+##' @param focus OTU to focus
+##' @param group_name name of the group
+##' @param ... additional parameters
 ##' @importFrom treeio groupOTU
 ##' @exportMethod groupOTU
+##' @aliases groupOTU,ggtree-method
 setMethod("groupOTU", signature(object="ggtree"),
           function(object, focus, group_name="group", ...) {
               groupOTU.ggtree(object, focus, group_name, ...)
@@ -172,14 +180,14 @@ setMethod("groupOTU", signature(object="ggtree"),
 ##     return(phy)
 ## }
 
-groupOTU_ <- function(object, focus, group_name, ...) {
-    if (is(object, "phylo")) {
-        object <- groupOTU.phylo(object, focus, group_name, ...)
-    } else {
-        object@phylo <- groupOTU.phylo(get.tree(object), focus, group_name, ...)
-    }
-    return(object)
-}
+## groupOTU_ <- function(object, focus, group_name, ...) {
+##     if (is(object, "phylo")) {
+##         object <- groupOTU.phylo(object, focus, group_name, ...)
+##     } else {
+##         object@phylo <- groupOTU.phylo(get.tree(object), focus, group_name, ...)
+##     }
+##     return(object)
+## }
 
 
 groupOTU.ggtree <- function(object, focus, group_name, ...) {

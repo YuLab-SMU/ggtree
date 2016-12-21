@@ -18,10 +18,8 @@ Imports:
     ape,
     grDevices,
     grid,
-    jsonlite,
     magrittr,
     methods,
-    stats4,
     tidyr,
     utils
 Suggests:

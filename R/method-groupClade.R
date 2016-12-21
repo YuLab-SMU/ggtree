@@ -13,11 +13,18 @@
 ##           }
 ##           )
 
+##' groupClade method for ggtree object
+##'
+##'
 ##' @name groupClade
 ##' @title groupClade method
 ##' @rdname groupClade-methods
+##' @param object ggtree object
+##' @param node internal node number
+##' @param group_name name of the group
 ##' @importFrom treeio groupClade
 ##' @exportMethod groupClade
+##' @aliases groupClade,ggtree-method
 setMethod("groupClade", signature(object="ggtree"),
           function(object, node, group_name) {
               groupClade.ggtree(object, node, group_name)

@@ -3,8 +3,21 @@
 \docType{methods}
 \name{groupOTU}
 \alias{groupOTU}
+\alias{groupOTU,ggtree-method}
 \title{groupOTU method}
 \usage{
 \S4method{groupOTU}{ggtree}(object, focus, group_name = "group", ...)
+}
+\arguments{
+\item{object}{ggtree object}
+
+\item{focus}{OTU to focus}
+
+\item{group_name}{name of the group}
+
+\item{...}{additional parameters}
+}
+\description{
+groupOTU method for ggtree object
 }
 

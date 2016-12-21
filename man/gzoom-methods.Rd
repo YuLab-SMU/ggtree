@@ -6,6 +6,7 @@
 \alias{gzoom,apeBootstrap-method}
 \alias{gzoom,beast-method}
 \alias{gzoom,codeml-method}
+\alias{gzoom,ggtree-method}
 \alias{gzoom,paml_rst-method}
 \alias{gzoom,phylo-method}
 \alias{gzoom,treedata-method}

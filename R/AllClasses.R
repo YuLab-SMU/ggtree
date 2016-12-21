@@ -1,6 +1,6 @@
 ## setOldClass("phylo")
 ## setOldClass("multiPhylo")
-## setOldClass("ggtree")
+setOldClass("ggtree")
 
 
 ## setClassUnion("phyloOrmultiPhylo", c("phylo", "multiPhylo"))

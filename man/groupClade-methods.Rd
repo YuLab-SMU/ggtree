@@ -3,8 +3,19 @@
 \docType{methods}
 \name{groupClade}
 \alias{groupClade}
+\alias{groupClade,ggtree-method}
 \title{groupClade method}
 \usage{
 \S4method{groupClade}{ggtree}(object, node, group_name)
+}
+\arguments{
+\item{object}{ggtree object}
+
+\item{node}{internal node number}
+
+\item{group_name}{name of the group}
+}
+\description{
+groupClade method for ggtree object
 }
 

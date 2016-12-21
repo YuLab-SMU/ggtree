@@ -52,6 +52,7 @@ as.binary.phylo <- function(tree, ...) {
 ##' @importFrom magrittr %<>%
 ##' @importFrom magrittr add
 ##' @importFrom ape write.tree
+##' @importFrom ape read.tree
 ##' @author Guangchuang Yu \url{http://ygc.name}
 rm.singleton.newick <- function(nwk, outfile = NULL) {
     tree <- readLines(nwk)
@@ -341,21 +342,21 @@ fortify.phangorn <- fortify.paml_rst
 fortify.hyphy <- fortify.paml_rst
 
 
-##' @method fortify jplace
-##' @importFrom ape read.tree
-##' @export
-fortify.jplace <- function(model, data,
-                           layout="rectangular", yscale="none",
-                           ladderize=TRUE, right=FALSE, mrsd=NULL, ...) {
-    df <- get.treeinfo(model, layout, ladderize, right, mrsd=mrsd, ...)
-    place <- get.placements(model, by="best")
+## ##' @method fortify jplace
+## ##' @importFrom ape read.tree
+## ##' @export
+## fortify.jplace <- function(model, data,
+##                            layout="rectangular", yscale="none",
+##                            ladderize=TRUE, right=FALSE, mrsd=NULL, ...) {
+##     df <- get.treeinfo(model, layout, ladderize, right, mrsd=mrsd, ...)
+##     place <- get.placements(model, by="best")
 
-    df <- df %add2% place
+##     df <- df %add2% place
 
-    df <- scaleY(model@phylo, df, yscale, layout, ...)
+##     df <- scaleY(model@phylo, df, yscale, layout, ...)
 
-    append_extraInfo(df, model)
-}
+##     append_extraInfo(df, model)
+## }
 
 scaleY <- function(phylo, df, yscale, layout, ...) {
     if (yscale == "none") {
@@ -568,14 +569,14 @@ as.data.frame.phylo_ <- function(x, layout="rectangular",
     return(res)
 }
 
-##' @method fortify nhx
-##' @export
-fortify.nhx <- function(model, data, layout= "rectangular",
-                        ladderize=TRUE, right=FALSE, mrsd=NULL, ...) {
-    df <- fortify(get.tree(model), layout=layout, ladderize=ladderize, right=right, mrsd=mrsd, ...)
-    df <- merge(df, model@nhx_tags, by.x="node", by.y="node", all.x=TRUE)
-    append_extraInfo(df, model)
-}
+## ##' @method fortify nhx
+## ##' @export
+## fortify.nhx <- function(model, data, layout= "rectangular",
+##                         ladderize=TRUE, right=FALSE, mrsd=NULL, ...) {
+##     df <- fortify(get.tree(model), layout=layout, ladderize=ladderize, right=right, mrsd=mrsd, ...)
+##     df <- merge(df, model@nhx_tags, by.x="node", by.y="node", all.x=TRUE)
+##     append_extraInfo(df, model)
+## }
 
 
 ##' @method fortify raxml

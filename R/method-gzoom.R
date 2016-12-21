@@ -53,6 +53,7 @@ gzoom.ggtree <- function(tree_view, focus, widths=c(.3, .7), xmax_adjust=0) {
 ##' @rdname gzoom-methods
 ##' @exportMethod gzoom
 ##' @param xmax_adjust adjust xmax (xlim[2])
+##' @aliases gzoom,ggtree-method
 setMethod("gzoom", signature(object="ggtree"),
           function(object, focus, widths=c(.3, .7), xmax_adjust=0) {
               gzoom.ggtree(object, focus, widths, xmax_adjust)

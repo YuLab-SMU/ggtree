@@ -96,6 +96,7 @@
 ##' @param p tree view
 ##' @param data data.frame
 ##' @return updated data.frame
+##' @importFrom methods is
 ##' @export
 ##' @author Guangchuang Yu
 `%+>%` <- function(p, data) {
