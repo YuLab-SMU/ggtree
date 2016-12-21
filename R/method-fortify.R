@@ -342,21 +342,22 @@ fortify.phangorn <- fortify.paml_rst
 fortify.hyphy <- fortify.paml_rst
 
 
-## ##' @method fortify jplace
-## ##' @importFrom ape read.tree
-## ##' @export
-## fortify.jplace <- function(model, data,
-##                            layout="rectangular", yscale="none",
-##                            ladderize=TRUE, right=FALSE, mrsd=NULL, ...) {
-##     df <- get.treeinfo(model, layout, ladderize, right, mrsd=mrsd, ...)
-##     place <- get.placements(model, by="best")
+##' @method fortify jplace
+##' @importFrom ape read.tree
+##' @importFrom treeio get.placements
+##' @export
+fortify.jplace <- function(model, data,
+                           layout="rectangular", yscale="none",
+                           ladderize=TRUE, right=FALSE, mrsd=NULL, ...) {
+    df <- extract.treeinfo.jplace(model, layout, ladderize, right, mrsd=mrsd, ...)
+    place <- get.placements(model, by="best")
 
-##     df <- df %add2% place
+    df <- df %add2% place
 
-##     df <- scaleY(model@phylo, df, yscale, layout, ...)
+    df <- scaleY(model@phylo, df, yscale, layout, ...)
 
-##     append_extraInfo(df, model)
-## }
+    append_extraInfo(df, model)
+}
 
 scaleY <- function(phylo, df, yscale, layout, ...) {
     if (yscale == "none") {

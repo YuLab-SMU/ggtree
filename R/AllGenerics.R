@@ -140,17 +140,17 @@ setGeneric("reroot", function(object, node, ...) standardGeneric("reroot"))
 ## setGeneric("groupClade", function(object, node, group_name="group", ...) standardGeneric("groupClade"))
 
 
-## ##' @docType methods
-## ##' @name scale_color
-## ##' @rdname scale_color-methods
-## ##' @title scale_color method
-## ##' @param object supported objects, including phylo, paml_rst,
-## ##'               codeml_mlc, codeml, jplace, beast, hyphy
-## ##' @param by one of numerical attributes
-## ##' @param ... additional parameter
-## ##' @return color vector
-## ##' @export
-## setGeneric("scale_color", function(object, by, ...) standardGeneric("scale_color"))
+##' @docType methods
+##' @name scale_color
+##' @rdname scale_color-methods
+##' @title scale_color method
+##' @param object supported objects, including phylo, paml_rst,
+##'               codeml_mlc, codeml, jplace, beast, hyphy
+##' @param by one of numerical attributes
+##' @param ... additional parameter
+##' @return color vector
+##' @export
+setGeneric("scale_color", function(object, by, ...) standardGeneric("scale_color"))
 
 ##' @docType methods
 ##' @name gzoom

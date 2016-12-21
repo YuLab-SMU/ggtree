@@ -297,22 +297,22 @@ reverse.treeview.data <- function(df) {
 ##     return(phylo)
 ## }
 
-## extract.treeinfo.jplace <- function(object, layout="phylogram", ladderize=TRUE, right=FALSE, ...) {
+extract.treeinfo.jplace <- function(object, layout="rectangular", ladderize=TRUE, right=FALSE, ...) {
 
-##     tree <- get.tree(object)
+    tree <- get.tree(object)
 
-##     df <- fortify.phylo(tree, layout=layout, ladderize=ladderize, right=right, ...)
+    df <- fortify.phylo(tree, layout=layout, ladderize=ladderize, right=right, ...)
 
-##     edgeNum.df <- attr(tree, "edgeNum")
-##     if (!is.null(edgeNum.df)) {
-##         df2 <- merge(df, edgeNum.df, by.x="node", by.y="node", all.x=TRUE)
-##         df <- df2[match(df[, "node"], df2[, "node"]),]
-##     }
+    edgeNum.df <- attr(tree, "edgeNum")
+    if (!is.null(edgeNum.df)) {
+        df2 <- merge(df, edgeNum.df, by.x="node", by.y="node", all.x=TRUE)
+        df <- df2[match(df[, "node"], df2[, "node"]),]
+    }
 
-##     attr(df, "ladderize") <- ladderize
-##     attr(df, "right") <- right
-##     return(df)
-## }
+    attr(df, "ladderize") <- ladderize
+    attr(df, "right") <- right
+    return(df)
+}
 
 ## ## convert edge number to node number for EPA/pplacer output
 ## edgeNum2nodeNum <- function(jp, edgeNum) {

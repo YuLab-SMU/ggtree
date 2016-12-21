@@ -36,7 +36,7 @@ To view a phylogenetic tree, we first need to parse the tree file into `R`. The 
 
 ```{r}
 library("ggtree")
-nwk <- system.file("extdata", "sample.nwk", package="ggtree")
+nwk <- system.file("extdata", "sample.nwk", package="treeio")
 tree <- read.tree(nwk)
 ```
 
@@ -148,7 +148,7 @@ ggtree(tree, layout="unrooted") + ggtitle("unrooted layout")
 A phylogenetic tree can be scaled by time (time-scaled tree) by specifying the parameter, `mrsd` (most recent sampling date).
 
 ```{r fig.width=9, fig.height=9, fig.align="center"}
-tree2d <- read.beast(system.file("extdata", "twoD.tree", package="ggtree"))
+tree2d <- read.beast(system.file("extdata", "twoD.tree", package="treeio"))
 ggtree(tree2d, mrsd = "2014-05-01") + theme_tree2()
 ```
 
@@ -280,7 +280,7 @@ ggtree(trees) + facet_wrap(~.id, scale="free") + geom_tiplab()
 
 One hundred bootstrap trees can also be view simultaneously.
 ```{r fig.width=20, fig.height=20}
-btrees <- read.tree(system.file("extdata/RAxML", "RAxML_bootstrap.H3", package="ggtree"))
+btrees <- read.tree(system.file("extdata/RAxML", "RAxML_bootstrap.H3", package="treeio"))
 ggtree(btrees) + facet_wrap(~.id, ncol=10)
 ```
 
@@ -289,7 +289,7 @@ Another way to view the bootstrap trees is to merge them together to form a dens
 ```{r}
 p <- ggtree(btrees, layout="rectangular",   color="lightblue", alpha=.3)
 
-best_tree <- read.tree(system.file("extdata/RAxML", "RAxML_bipartitionsBranchLabels.H3", package="ggtree"))
+best_tree <- read.tree(system.file("extdata/RAxML", "RAxML_bipartitionsBranchLabels.H3", package="treeio"))
 df <- fortify(best_tree, branch.length = 'none')
 p+geom_tree(data=df, color='firebrick')
 ```
