@@ -94,6 +94,10 @@ rm.singleton.newick <- function(nwk, outfile = NULL) {
         tree$edge <- edge
         tree$edge.length[sidx] %<>% add(., tree$edge.length[idx])
         tree$edge.length <- tree$edge.length[-idx]
+        tree$Nnode <- tree$Nnode - 1
+        if (!is.null(tree$node.label)) {
+            tree$node.label <- tree$node.label[-(p.singleton - Ntip(tree))]
+        }
     }
 
     if (!is.null(outfile)) {
