@@ -389,10 +389,11 @@ scaleY <- function(phylo, df, yscale, layout, ...) {
 
 
 ##' @method fortify phylo4
+##' @importFrom treeio as.phylo
 ##' @export
 fortify.phylo4 <- function(model, data, layout="rectangular", yscale="none",
                            ladderize=TRUE, right=FALSE, mrsd=NULL, ...) {
-    phylo <- as.phylo.phylo4(model)
+    phylo <- as.phylo(model)
     df <- fortify.phylo(phylo, data,
                         layout, ladderize, right, mrsd=mrsd, ...)
     scaleY(phylo, df, yscale, layout, ...)
@@ -403,36 +404,17 @@ fortify.phylo4 <- function(model, data, layout="rectangular", yscale="none",
 fortify.phylo4d <- function(model, data, layout="rectangular", yscale="none",
                             ladderize=TRUE, right=FALSE, branch.length="branch.length",
                             mrsd=NULL, ...) {
-    model <- set_branch_length(model, branch.length)
-    phylo <- as.phylo.phylo4(model)
-    res <- fortify(phylo, data, layout, branch.length=branch.length,
-                   ladderize, right, mrsd, ...)
-    tdata <- model@data[match(res$node, rownames(model@data)), , drop=FALSE]
-    df <- cbind(res, tdata)
-    scaleY(as.phylo.phylo4(model), df, yscale, layout, ...)
+    ## model <- set_branch_length(model, branch.length)
+    ## phylo <- as.phylo.phylo4(model)
+    ## res <- fortify(phylo, data, layout, branch.length=branch.length,
+    ##                ladderize, right, mrsd, ...)
+    ## tdata <- model@data[match(res$node, rownames(model@data)), , drop=FALSE]
+    ## df <- cbind(res, tdata)
+    ## scaleY(as.phylo.phylo4(model), df, yscale, layout, ...)
+    fortify(as.treedata(model), data, layout, yscale, ladderize, right, branch.length, mrsd, ...)
 }
 
-as.phylo.phylo4 <- function(phylo4) {
-    edge <- phylo4@edge
-    edge <- edge[edge[,1] != 0, ]
-    edge.length <- phylo4@edge.length
-    edge.length <- edge.length[!is.na(edge.length)]
-    tip.id <- sort(setdiff(edge[,2], edge[,1]))
-    tip.label <- phylo4@label[tip.id]
-    phylo <- list(edge = edge,
-                  edge.length = edge.length,
-                  tip.label = tip.label)
 
-    node.id <- sort(unique(edge[,1]))
-    node.id <- node.id[node.id != 0]
-    node.label <- phylo4@label[node.id]
-    if (!all(is.na(node.label))) {
-        phylo$node.label <- node.label
-    }
-    phylo$Nnode <- length(node.id)
-    class(phylo) <- "phylo"
-    return(phylo)
-}
 
 ##' fortify a phylo to data.frame
 ##'
