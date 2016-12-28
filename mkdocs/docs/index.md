@@ -12,13 +12,17 @@
 </div>
 <script async src="//static.addtoany.com/menu/page.js"></script>
 <!-- AddToAny END -->
+
+
+
 <img src="https://raw.githubusercontent.com/GuangchuangYu/ggtree/master/logo.png" align="right" />
+
 
 <link rel="stylesheet" href="https://guangchuangyu.github.io/css/font-awesome.min.css">
 
 [![releaseVersion](https://img.shields.io/badge/release%20version-1.6.5-blue.svg?style=flat)](https://bioconductor.org/packages/ggtree)
-[![develVersion](https://img.shields.io/badge/devel%20version-1.7.4-blue.svg?style=flat)](https://github.com/GuangchuangYu/ggtree)
-[![total](https://img.shields.io/badge/downloads-18505/total-blue.svg?style=flat)](https://bioconductor.org/packages/stats/bioc/ggtree)
+[![develVersion](https://img.shields.io/badge/devel%20version-1.7.5-blue.svg?style=flat)](https://github.com/GuangchuangYu/ggtree)
+[![total](https://img.shields.io/badge/downloads-19096/total-blue.svg?style=flat)](https://bioconductor.org/packages/stats/bioc/ggtree)
 [![month](https://img.shields.io/badge/downloads-1852/month-blue.svg?style=flat)](https://bioconductor.org/packages/stats/bioc/ggtree)
 
 
@@ -36,7 +40,7 @@ Please cite the following article when using `ggtree`:
 
 [![doi](https://img.shields.io/badge/doi-10.1111/2041--210X.12628-blue.svg?style=flat)](http://dx.doi.org/10.1111/2041-210X.12628)
 [![citation](https://img.shields.io/badge/cited%20by-1-blue.svg?style=flat)](https://scholar.google.com.hk/scholar?oi=bibs&hl=en&cites=7268358477862164627)
-[![Altmetric](https://img.shields.io/badge/Altmetric-281-blue.svg?style=flat)](https://www.altmetric.com/details/10533079)
+[![Altmetric](https://img.shields.io/badge/Altmetric-282-blue.svg?style=flat)](https://www.altmetric.com/details/10533079)
 
 __G Yu__, DK Smith, H Zhu, Y Guan, TTY Lam<sup>\*</sup>. ggtree: an R package for visualization and annotation of phylogenetic trees with their covariates and other associated data. __*Methods in Ecology and Evolution*__. *accepted*.
 
@@ -100,9 +104,11 @@ If you have problems when installing some of the dependent packages, please refe
 ## <i class="fa fa-comments"></i> Feedback
 
 <ul class="fa-ul">
-	<li><i class="fa-li fa fa-hand-o-right"></i> Please make sure you [follow the guide](https://guangchuangyu.github.io/2016/07/how-to-bug-author/) before posting any issue/question</li>
-	<li><i class="fa-li fa fa-bug"></i> For bugs or feature requests, please post to <i class="fa fa-github-alt"></i> [github issue](https://github.com/GuangchuangYu/ggtree/issues)</li>
-	<li><i class="fa-li fa fa-question"></i>  For user questions, please post to <i class="fa fa-google"></i> [google group](https://groups.google.com/forum/#!forum/bioc-ggtree)</li>
-	<li><i class="fa-li fa fa-support"></i> We are also following every post tagged with **ggtree** on [Bioconductor support site](https://support.bioconductor.org/) and [Biostars](https://www.biostars.org/)</li>
+	<li><i class="fa-li fa fa-hand-o-right"></i> Please make sure you <a href="https://guangchuangyu.github.io/2016/07/how-to-bug-author/">follow the guide</a> before posting any issue/question</li>
+	<li><i class="fa-li fa fa-bug"></i> For bugs or feature requests, please post to <i class="fa fa-github-alt"></i> <a href="https://github.com/GuangchuangYu/ggtree/issues">github issue</a></li>
+	<li><i class="fa-li fa fa-question"></i>  For user questions, please post to <i class="fa fa-google"></i> <a href="https://groups.google.com/forum/#!forum/bioc-ggtree">google group</a></li>
+	<li><i class="fa-li fa fa-support"></i> We are also following every post tagged with <strong>ggtree</strong> on <a href="https://support.bioconductor.org">Bioconductor support site</a> and <a href="https://www.biostars.org">Biostars</a></li>
 	<li><i class="fa-li fa fa-commenting"></i> Join the group chat on <a href="https://twitter.com/hashtag/ggtree"><i class="fa fa-twitter fa-lg"></i></a> and <a href="http://huati.weibo.com/k/ggtree"><i class="fa fa-weibo fa-lg"></i></a></li>
 </ul>
+
+
