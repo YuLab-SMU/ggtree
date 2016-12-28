@@ -1,16 +1,16 @@
 ---
 title: "ggtree utilities"
-author: "\\
-
-	Guangchuang Yu (<guangchuangyu@gmail.com>) and Tommy Tsan-Yuk Lam (<ttylam@hku.hk>)\\
+author: "Guangchuang Yu and Tommy Tsan-Yuk Lam\\
 
         School of Public Health, The University of Hong Kong"
 date: "`r Sys.Date()`"
 bibliography: ggtree.bib
 csl: nature.csl
-output: 
-  html_document:
+output:
+  prettydoc::html_pretty:
     toc: true
+    theme: cayman
+    highlight: github
   pdf_document:
     toc: true
 vignette: >
@@ -33,7 +33,7 @@ library("ggtree")
 
 # Layers that allows subsetting
 
-`Subsetting` is not supported in layers defined in `ggplot2`, while it is quite useful in phylogenetic annotation since it allows us to annotate at specific node(s). 
+`Subsetting` is not supported in layers defined in `ggplot2`, while it is quite useful in phylogenetic annotation since it allows us to annotate at specific node(s).
 
 In `ggtree`, we provides modified version of layers defined in `ggplot2` to support `subsetting`, including:
 
@@ -43,7 +43,7 @@ In `ggtree`, we provides modified version of layers defined in `ggplot2` to supp
 + geom_label2
 
 ```{r fig.width=5, fig.height=5}
-file <- system.file("extdata/BEAST", "beast_mcc.tree", package="ggtree")
+file <- system.file("extdata/BEAST", "beast_mcc.tree", package="treeio")
 beast <- read.beast(file)
 ggtree(beast) + geom_point2(aes(subset=!is.na(posterior) & posterior > 0.75), color='firebrick')
 ```
@@ -59,7 +59,7 @@ multiplot(ggtree(rtree(30)), ggtree(rtree(40)), ncol=2, labels=c('A', 'B'))
 
 # subplots in ggplot object
 
-`ggtree` implemented a function, `subview`, that can add subplots on a ggplot2 object. 
+`ggtree` implemented a function, `subview`, that can add subplots on a ggplot2 object.
 
 ```{r fig.width=8, fig.height=8, warning=F}
 set.seed(2016-01-04)

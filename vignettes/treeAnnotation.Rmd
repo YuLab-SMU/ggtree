@@ -1,16 +1,16 @@
 ---
 title: "Tree Annotation"
-author: "\\
-
-	Guangchuang Yu (<guangchuangyu@gmail.com>) and Tommy Tsan-Yuk Lam (<ttylam@hku.hk>)\\
+author: "Guangchuang Yu and Tommy Tsan-Yuk Lam\\
 
         School of Public Health, The University of Hong Kong"
 date: "`r Sys.Date()`"
 bibliography: ggtree.bib
 csl: nature.csl
-output: 
-  html_document:
+output:
+  prettydoc::html_pretty:
     toc: true
+    theme: cayman
+    highlight: github
   pdf_document:
     toc: true
 vignette: >
@@ -49,7 +49,7 @@ multiplot(p1, p2, ncol=2)
 ```
 
 ```{r fig.width=10, fig.height=5}
-mlcfile <- system.file("extdata/PAML_Codeml", "mlc", package="ggtree")
+mlcfile <- system.file("extdata/PAML_Codeml", "mlc", package="treeio")
 mlc_tree <- read.codeml_mlc(mlcfile)
 p1 <- ggtree(mlc_tree) + theme_tree2() +
     ggtitle("nucleotide substitutions per codon")
@@ -69,7 +69,7 @@ ggtree(beast_tree2) + theme_tree2()
 
 `ggtree` provides _`gzoom`_ function that similar to _`zoom`_ function provided in `ape`. This function plots simultaneously a whole phylogenetic tree and a portion of it. It aims at exploring very large trees.
 
-```{r fig.width=18, fig.height=10, fig.align="center"}
+```{r fig.width=9, fig.height=5, fig.align="center"}
 library("ape")
 data(chiroptera)
 library("ggtree")
@@ -78,7 +78,7 @@ gzoom(chiroptera, grep("Plecotus", chiroptera$tip.label))
 
 Zoom in selected clade of a tree that was already annotated with `ggtree` is also supported.
 
-```{r fig.width=18, fig.height=10, warning=FALSE}
+```{r fig.width=9, fig.height=5, message=FALSE, warning=FALSE}
 groupInfo <- split(chiroptera$tip.label, gsub("_\\w+", "", chiroptera$tip.label))
 chiroptera <- groupOTU(chiroptera, groupInfo)
 p <- ggtree(chiroptera, aes(color=group)) + geom_tiplab() + xlim(NA, 23)
@@ -111,7 +111,7 @@ tree = rtree(30)
 p <- ggtree(tree) + xlim(NA, 6)
 
 p+geom_cladelabel(node=45, label="test label") +
-    geom_cladelabel(node=34, label="another clade") 
+    geom_cladelabel(node=34, label="another clade")
 ```
 
 Users can set the parameter, `align = TRUE`, to align the clade label, and use the parameter, `offset`, to adjust the position.
@@ -132,20 +132,20 @@ Users can change the `angle` of the clade label text and relative position from 
 
 ```{r}
 p+geom_cladelabel(node=45, label="test label", align=T, angle=270, hjust='center', offset.text=.5) +
-    geom_cladelabel(node=34, label="another clade", align=T, angle=45) 
+    geom_cladelabel(node=34, label="another clade", align=T, angle=45)
 ```
 
 The size of the bar and text can be changed via the parameters `barsize` and `fontsize` respectively.
 
 ```{r}
 p+geom_cladelabel(node=45, label="test label", align=T, angle=270, hjust='center', offset.text=.5, barsize=1.5) +
-    geom_cladelabel(node=34, label="another clade", align=T, angle=45, fontsize=8) 
+    geom_cladelabel(node=34, label="another clade", align=T, angle=45, fontsize=8)
 ```
 
 Users can also use `geom_label` to label the text.
 
 ```{r}
-p+ geom_cladelabel(node=34, label="another clade", align=T, geom='label', fill='lightblue') 
+p+ geom_cladelabel(node=34, label="another clade", align=T, geom='label', fill='lightblue')
 ```
 
 # Highlight clades
@@ -153,7 +153,7 @@ p+ geom_cladelabel(node=34, label="another clade", align=T, geom='label', fill='
 `ggtree` implements _`geom_hilight`_ layer, that accepts an internal node number and add a layer of rectangle to highlight the selected clade.
 
 ```{r fig.width=5, fig.height=5, fig.align="center", warning=FALSE}
-nwk <- system.file("extdata", "sample.nwk", package="ggtree")
+nwk <- system.file("extdata", "sample.nwk", package="treeio")
 tree <- read.tree(nwk)
 ggtree(tree) + geom_hilight(node=21, fill="steelblue", alpha=.6) +
     geom_hilight(node=17, fill="darkgreen", alpha=.6)
@@ -169,10 +169,10 @@ Another way to highlight selected clades is setting the clades with different co
 
 # Highlight balances
 In addition to _`geom_hilight`_, `ggtree` also implements _`geom_balance`_
-which is designed to highlight neighboring subclades of a given internal node. 
+which is designed to highlight neighboring subclades of a given internal node.
 
 ```{r fig.width=4, fig.height=5, fig.align='center', warning=FALSE}
-ggtree(tree) + 
+ggtree(tree) +
   geom_balance(node=16, fill='steelblue', color='white', alpha=0.6, extend=1) +
   geom_balance(node=19, fill='darkgreen', color='white', alpha=0.6, extend=1)
 ```
@@ -215,9 +215,9 @@ ggtree(tree) + geom_label(aes(label=bootstrap)) + geom_tiplab()
 
 ```{r results='hide', message=FALSE, fig.width=12, fig.height=10, width=60, warning=FALSE, fig.align="center", eval=FALSE}
 library(phangorn)
-treefile <- system.file("extdata", "pa.nwk", package="ggtree")
+treefile <- system.file("extdata", "pa.nwk", package="treeio")
 tre <- read.tree(treefile)
-tipseqfile <- system.file("extdata", "pa.fas", package="ggtree")
+tipseqfile <- system.file("extdata", "pa.fas", package="treeio")
 tipseq <- read.phyDat(tipseqfile,format="fasta")
 fit <- pml(tre, tipseq, k=4)
 fit <- optim.pml(fit, optNni=FALSE, optBf=T, optQ=T,
@@ -234,7 +234,7 @@ ggtree(phangorn) + geom_text(aes(x=branch, label=AA_subs, vjust=-.5))
 
 In `ggtree`, we implemented several parser functions to parse output from commonly used software package in evolutionary biology, including:
 
-+ [BEAST](http://beast2.org/)[@bouckaert_beast_2014] 
++ [BEAST](http://beast2.org/)[@bouckaert_beast_2014]
 + [EPA](http://sco.h-its.org/exelixis/web/software/epa/index.html)[@berger_EPA_2011]
 + [HYPHY](http://hyphy.org/w/index.php/Main_Page)[@pond_hyphy_2005]
 + [PAML](http://abacus.gene.ucl.ac.uk/software/paml.html)[@yang_paml_2007]
@@ -256,11 +256,11 @@ In addition to parse commonly used software output, `ggtree` also supports annot
 Suppose we have the following data that associate with the tree and would like to attach the data in the tree.
 
 ```{r}
-nwk <- system.file("extdata", "sample.nwk", package="ggtree")
+nwk <- system.file("extdata", "sample.nwk", package="treeio")
 tree <- read.tree(nwk)
 p <- ggtree(tree)
 
-dd <- data.frame(taxa  = LETTERS[1:13], 
+dd <- data.frame(taxa  = LETTERS[1:13],
                  place = c(rep("GZ", 5), rep("HK", 3), rep("CZ", 4), NA),
                  value = round(abs(rnorm(13, mean=70, sd=10)), digits=1))
 ## you don't need to order the data
@@ -283,27 +283,27 @@ We have demonstrated using the operator, _`%<%`_, to update a tree view with a n
 After attaching the annotation data to the tree by _`%<+%`_, all the columns in the data are visible to _`ggtree`_. As an example, here we attach the above annotation data to the tree view, _`p`_, and add a layer that showing the tip labels and colored them by the isolation site stored in _`place`_ column.
 
 ```{r fig.width=6, fig.height=5, warning=FALSE, fig.align="center"}
-p <- p %<+% dd + geom_tiplab(aes(color=place)) + 
+p <- p %<+% dd + geom_tiplab(aes(color=place)) +
        geom_tippoint(aes(size=value, shape=place, color=place), alpha=0.25)
 p+theme(legend.position="right")
 ```
 
-Once the data was attached, it is always attached. So that we can add other layers to display these information easily. 
+Once the data was attached, it is always attached. So that we can add other layers to display these information easily.
 ```{r fig.width=6, fig.height=5, warning=FALSE, fig.align="center"}
 p + geom_text(aes(color=place, label=place), hjust=1, vjust=-0.4, size=3) +
     geom_text(aes(color=place, label=value), hjust=1, vjust=1.4, size=3)
 ```
 
 ## phylo4d
- 
+
 `phylo4d` was defined in the `phylobase` package, which can be employed to integrate user's data with phylogenetic tree. `phylo4d` was supported in `ggtree` and the data stored in the object can be used directly to annotate the tree.
-	  
+
 ```{r fig.width=6, fig.height=5, warning=FALSE, fig.align="center", eval=FALSE}
 dd2 <- dd[, -1]
 rownames(dd2) <- dd[,1]
 require(phylobase)
 tr2 <- phylo4d(tree, dd2)
-ggtree(tr2) + geom_tiplab(aes(color=place)) + 
+ggtree(tr2) + geom_tiplab(aes(color=place)) +
     geom_tippoint(aes(size=value, shape=place, color=place), alpha=0.25)
 ```
 

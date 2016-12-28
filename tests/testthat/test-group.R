@@ -1,7 +1,7 @@
 context('groupOTU')
 
 test_that('groupOTU', {
-    nwk <- system.file("extdata", "sample.nwk", package="ggtree")
+    nwk <- system.file("extdata", "sample.nwk", package="treeio")
     tree <- read.tree(nwk)
     focus <- c("D", "E", "F", "G")
     df <- fortify(groupOTU(tree, focus=focus))
@@ -21,7 +21,7 @@ test_that('groupOTU', {
 context('groupClade')
 
 test_that('groupClade', {
-    nwk <- system.file("extdata", "sample.nwk", package="ggtree")
+    nwk <- system.file("extdata", "sample.nwk", package="treeio")
     tree <- read.tree(nwk)
     focus <- c("D", "E", "F", "G")
     nodes <- c(21, 17)

@@ -1,6 +1,6 @@
 ##' add insets in a tree
 ##'
-##' 
+##'
 ##' @title inset
 ##' @param tree_view tree view
 ##' @param insets a list of ggplot objects, named by node number
@@ -22,7 +22,7 @@ inset <- function(tree_view, insets, width=0.1, height=0.1, hjust=0, vjust=0, x=
         xx <- df$branch
     }
     yy <- df$y
-    
+
     xx <- xx - hjust
     yy <- yy - vjust
 
@@ -38,7 +38,7 @@ inset <- function(tree_view, insets, width=0.1, height=0.1, hjust=0, vjust=0, x=
 
 ##' generate a list of bar charts for results of ancestral state reconstruction
 ##'
-##' 
+##'
 ##' @title nodebar
 ##' @param position position of bar, one of 'stack' and 'dodge'
 ##' @inheritParams nodepie
@@ -52,7 +52,7 @@ nodebar <- function(data, cols, color, alpha=1, position="stack") {
         stop("data should have a column 'node'...")
     }
     type <- value <- NULL
-    
+
     ldf <- gather(data, type, value, cols) %>% split(., .$node)
     bars <- lapply(ldf, function(df) ggplot(df, aes_(x=1, y=~value, fill=~type)) +
                                      geom_bar(stat='identity', alpha=alpha, position=position) +
@@ -69,7 +69,7 @@ nodebar <- function(data, cols, color, alpha=1, position="stack") {
 
 ##' generate a list of pie charts for results of ancestral stat reconstruction
 ##'
-##' 
+##'
 ##' @title nodepie
 ##' @param data a data.frame of stats with an additional column of node number
 ##' @param cols column of stats
@@ -91,11 +91,12 @@ nodepie <- function(data, cols, color, alpha=1) {
 }
 
 
+##' @importFrom methods missingArg
 ggpie <- function(data, y, fill, color, alpha=1) {
     p <- ggplot(data, aes_(x=1, y=y, fill=fill)) +
         geom_bar(stat='identity', alpha=alpha) +
         coord_polar(theta='y') + theme_inset()
-    
+
     if (missingArg(color) || is.null(color) || is.na(color)) {
         ## do nothing
     } else {

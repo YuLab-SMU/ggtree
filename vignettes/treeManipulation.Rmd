@@ -1,16 +1,16 @@
 ---
 title: "Tree Manipulation"
-author: "\\
-
-	Guangchuang Yu (<guangchuangyu@gmail.com>) and Tommy Tsan-Yuk Lam (<ttylam@hku.hk>)\\
+author: "Guangchuang Yu and Tommy Tsan-Yuk Lam\\
 
         School of Public Health, The University of Hong Kong"
 date: "`r Sys.Date()`"
 bibliography: ggtree.bib
 csl: nature.csl
-output: 
-  html_document:
+output:
+  prettydoc::html_pretty:
     toc: true
+    theme: cayman
+    highlight: github
   pdf_document:
     toc: true
 vignette: >
@@ -41,7 +41,7 @@ MRCA <- ggtree::MRCA
 Some of the functions in `ggtree` work with clade and accept a parameter of internal node number. To get the internal node number, user can use `geom_text2` to display it:
 
 ```{r}
-nwk <- system.file("extdata", "sample.nwk", package="ggtree")
+nwk <- system.file("extdata", "sample.nwk", package="treeio")
 tree <- read.tree(nwk)
 ggtree(tree) + geom_text2(aes(subset=!isTip, label=node), hjust=-.3) + geom_tiplab()
 ```
@@ -128,7 +128,7 @@ groupOTU(p, LETTERS[1:5]) + aes(color=group) + geom_tiplab() + scale_color_manua
 
 The following example use `groupOTU` to display taxa classification.
 
-```{r fig.width=14, fig.height=14}
+```{r fig.width=6, fig.height=6}
 library("ape")
 data(chiroptera)
 groupInfo <- split(chiroptera$tip.label, gsub("_\\w+", "", chiroptera$tip.label))
@@ -157,9 +157,9 @@ ggtree(tree_iris, aes(color=group)) +
     scale_color_manual(values=cols, breaks=1:3,
                        labels=c("Setosa", "Versicolor", "Virginica")) +
     theme(legend.position="right")
-#```		
+#```
 -->
-	
+
 
 
 # collapse clade

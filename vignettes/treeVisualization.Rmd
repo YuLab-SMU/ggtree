@@ -1,16 +1,16 @@
 ---
 title: "Tree Visualization"
-author: "\\
-
-	Guangchuang Yu (<guangchuangyu@gmail.com>) and Tommy Tsan-Yuk Lam (<ttylam@hku.hk>)\\
+author: "Guangchuang Yu and Tommy Tsan-Yuk Lam\\
 
         School of Public Health, The University of Hong Kong"
 date: "`r Sys.Date()`"
 bibliography: ggtree.bib
 csl: nature.csl
-output: 
-  html_document:
+output:
+  prettydoc::html_pretty:
     toc: true
+    theme: cayman
+    highlight: github
   pdf_document:
     toc: true
 vignette: >
@@ -36,7 +36,7 @@ To view a phylogenetic tree, we first need to parse the tree file into `R`. The 
 
 ```{r}
 library("ggtree")
-nwk <- system.file("extdata", "sample.nwk", package="ggtree")
+nwk <- system.file("extdata", "sample.nwk", package="treeio")
 tree <- read.tree(nwk)
 ```
 
@@ -99,13 +99,13 @@ __`circular`__
 
 ```{r fig.height=5, fig.width=5, fig.align="center"}
 ggtree(tree, layout="circular") + ggtitle("(Phylogram) circular layout")
-```	
+```
 
 __`fan`__
 
 ```{r fig.height=5, fig.width=5, fig.align="center"}
-ggtree(tree, layout="fan", open.angle=180) + ggtitle("(Phylogram) circular layout")
-```	
+ggtree(tree, layout="fan", open.angle=180) + ggtitle("(Phylogram) fan layout")
+```
 
 
 ## Cladogram
@@ -132,7 +132,7 @@ __`fan`__
 
 ```{r fig.height=5, fig.width=5, fig.align="center"}
 ggtree(tree, layout="fan", open.angle=180, branch.length="none") + ggtitle("(Cladogram) circular layout")
-```	
+```
 
 
 ## Unrooted
@@ -148,7 +148,7 @@ ggtree(tree, layout="unrooted") + ggtitle("unrooted layout")
 A phylogenetic tree can be scaled by time (time-scaled tree) by specifying the parameter, `mrsd` (most recent sampling date).
 
 ```{r fig.width=9, fig.height=9, fig.align="center"}
-tree2d <- read.beast(system.file("extdata", "twoD.tree", package="ggtree"))
+tree2d <- read.beast(system.file("extdata", "twoD.tree", package="treeio"))
 ggtree(tree2d, mrsd = "2014-05-01") + theme_tree2()
 ```
 
@@ -164,7 +164,7 @@ ggtree(tree2d, mrsd = "2014-05-01",
                theme(panel.grid.major.x=element_line(color="grey20", linetype="dotted", size=.3),
                      panel.grid.major.y=element_blank()) +
                          scale_y_continuous(labels=paste0("N", 2:7))
-```	
+```
 
 In this example, the figure demonstrates the quantity of __*y*__ increase along the trunk. User can highlight the trunk with different line size or color using the functions described in [Tree Manipulation](treeManipulation.html) vignette.
 
@@ -212,7 +212,7 @@ Showing all the internal nodes and tips in the tree can be done by adding a laye
 ```{r fig.width=3, fig.height=3, fig.align="center"}
 ggtree(tree)+geom_point(aes(shape=isTip, color=isTip), size=3)
 ```
- 
+
 ```{r fig.width=3, fig.height=3, fig.align="center"}
 p <- ggtree(tree) + geom_nodepoint(color="#b5e521", alpha=1/4, size=10)
 p + geom_tippoint(color="#FDAC4F", shape=8, size=3)
@@ -280,7 +280,7 @@ ggtree(trees) + facet_wrap(~.id, scale="free") + geom_tiplab()
 
 One hundred bootstrap trees can also be view simultaneously.
 ```{r fig.width=20, fig.height=20}
-btrees <- read.tree(system.file("extdata/RAxML", "RAxML_bootstrap.H3", package="ggtree"))
+btrees <- read.tree(system.file("extdata/RAxML", "RAxML_bootstrap.H3", package="treeio"))
 ggtree(btrees) + facet_wrap(~.id, ncol=10)
 ```
 
@@ -289,7 +289,7 @@ Another way to view the bootstrap trees is to merge them together to form a dens
 ```{r}
 p <- ggtree(btrees, layout="rectangular",   color="lightblue", alpha=.3)
 
-best_tree <- read.tree(system.file("extdata/RAxML", "RAxML_bipartitionsBranchLabels.H3", package="ggtree"))
+best_tree <- read.tree(system.file("extdata/RAxML", "RAxML_bipartitionsBranchLabels.H3", package="treeio"))
 df <- fortify(best_tree, branch.length = 'none')
 p+geom_tree(data=df, color='firebrick')
 ```
