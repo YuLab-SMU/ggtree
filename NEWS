@@ -1,7 +1,8 @@
 CHANGES IN VERSION 1.7.5
 ------------------------
+ o improve viewClade function, use coord_cartesian instead of xlim <2016-12-28, Wed>
  o remove codes that move to treeio and now ggtree depends treeio <2016-12-20, Tue>
- 
+
 CHANGES IN VERSION 1.7.4
 ------------------------
  o is.ggtree function to test whether object is produced by ggtree <2016-12-06, Tue>
