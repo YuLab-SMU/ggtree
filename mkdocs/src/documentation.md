@@ -35,8 +35,6 @@
 
 + [ggtree - updating a tree view](https://guangchuangyu.github.io/2015/02/ggtree---updating-a-tree-view/)
 + [an example of drawing beast tree using ggtree](https://guangchuangyu.github.io/2015/04/an-example-of-drawing-beast-tree-using-ggtree)
-+ [xlim_tree: set x axis limits for only Tree panel](https://guangchuangyu.github.io/2016/10/xlim_tree-set-x-axis-limits-for-only-tree-panel/)
-
 
 ### <i class="fa fa-angle-double-right"></i> Tree annotation
 
@@ -49,6 +47,9 @@
 + [identify method for ggtree](https://guangchuangyu.github.io/2016/06/identify-method-for-ggtree)
 + [facet_plot: a general solution to associate data with phylogenetic tree](https://guangchuangyu.github.io/2016/10/facet_plot-a-general-solution-to-associate-data-with-phylogenetic-tree/)
 + [align genomic features with phylogenetic tree](https://guangchuangyu.github.io/2016/11/align-genomic-features-with-phylogenetic-tree/)
++ [xlim_tree: set x axis limits for only Tree panel](https://guangchuangyu.github.io/2016/10/xlim_tree-set-x-axis-limits-for-only-tree-panel/)
++ [add layer to specific panel of facet_plot output](https://guangchuangyu.github.io/2016/12/add-layer-to-specific-panel-of-facet_plot-output/)
+
 
 ### <i class="fa fa-angle-double-right"></i> Tree manipulation
 
