@@ -1,10 +1,12 @@
 ##' @importFrom ggplot2 fortify
 ##' @method fortify treedata
 ##' @export
-fortify.treedata <- function(model, data, layout="rectangular", branch.length ="branch.length",
-                             ladderize=TRUE, right=FALSE, mrsd=NULL, ...) {
+fortify.treedata <- function(model, data, layout="rectangular", yscale="none",
+                             ladderize=TRUE, right=FALSE, branch.length ="branch.length",
+                             mrsd=NULL, ...) {
+
     model <- set_branch_length(model, branch.length)
-    
+
     x <- reorder.phylo(get.tree(model), "postorder")
     if (is.null(x$edge.length) || branch.length == "none") {
         xpos <- getXcoord_no_length(x)
@@ -27,7 +29,7 @@ fortify.treedata <- function(model, data, layout="rectangular", branch.length ="
 
     ## ## angle for all layout, if 'rectangular', user use coord_polar, can still use angle
     res <- calculate_angle(res)
-    res
+    scaleY(as.phylo(model), res, yscale, layout, ...)
 }
 
 ##' @method as.data.frame treedata
@@ -824,11 +826,7 @@ set_branch_length <- function(tree_object, branch.length) {
     if (branch.length == "branch.length") {
         return(tree_object)
     } else if (branch.length == "none") {
-        if (is(tree_object, "phylo4d")) {
-            tree_object@edge.length <- NULL
-        } else { 
-            tree_object@phylo$edge.length <- NULL
-        }
+        tree_object@phylo$edge.length <- NULL
         return(tree_object)
     }
 
@@ -836,11 +834,7 @@ set_branch_length <- function(tree_object, branch.length) {
         return(tree_object)
     }
 
-    if (is(tree_object, "phylo4d")) {
-        phylo <- as.phylo.phylo4(tree_object)
-        d <- tree_object@data
-        tree_anno <- data.frame(node=rownames(d), d)
-    } else if (is(tree_object, "codeml")) {
+    if (is(tree_object, "codeml")) {
         tree_anno <- tree_object@mlc@dNdS
     } else if (is(tree_object, "codeml_mlc")) {
         tree_anno <- tree_object@dNdS
@@ -850,10 +844,8 @@ set_branch_length <- function(tree_object, branch.length) {
         tree_anno <- get_tree_data(tree_object)
     }
 
-    if (!is(tree_object, "phylo4d")) {
-        phylo <- get.tree(tree_object)
-    }
-    
+    phylo <- get.tree(tree_object)
+
     cn <- colnames(tree_anno)
     cn <- cn[!cn %in% c('node', 'parent')]
 
@@ -876,11 +868,7 @@ set_branch_length <- function(tree_object, branch.length) {
 
     phylo$edge.length <- len
 
-    if (is(tree_object, "phylo4d")) {
-        tree_object@edge.length <- phylo$edge.length
-    } else {
-        tree_object@phylo <- phylo
-    }
+    tree_object@phylo <- phylo
     return(tree_object)
 }
 
