@@ -33,12 +33,13 @@ get_taxa_name <- function(tree_view=NULL, node) {
 ##' @author Guangchuang Yu
 viewClade <- function(tree_view=NULL, node, xmax_adjust=0) {
     tree_view %<>% get_tree_view
+    xd <- tree_view$data$branch.length[node]/2
 
     cpos <- get_clade_position(tree_view, node=node)
     xmax <- ggplot_build(tree_view)$layout$panel_ranges[[1]]$x.range[2]
 
     ## tree_view+xlim(cpos$xmin, xmax + xmax_adjust) + ylim(cpos$ymin, cpos$ymax)
-    tree_view + coord_cartesian(xlim=c(cpos$xmin, xmax), ylim=c(cpos$ymin, cpos$ymax))
+    tree_view + coord_cartesian(xlim=c(cpos$xmin-xd, xmax), ylim=c(cpos$ymin, cpos$ymax), expand=FALSE)
 }
 
 
