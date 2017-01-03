@@ -83,6 +83,12 @@
      <changefreq>daily</changefreq>
     </url>
         
+    <url>
+     <loc>https://guangchuangyu.github.io/ggtree/treeio/</loc>
+     <lastmod>2017-01-03</lastmod>
+     <changefreq>daily</changefreq>
+    </url>
+        
     
 
 </urlset>
