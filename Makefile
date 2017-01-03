@@ -51,18 +51,18 @@ mkdocs: mdfiles
 	Rscript -e 'library(ypages); add_biobabble("index.html")'
 
 mysoftware:
-	git submodule add -f git@github.com:GuangchuangYu/mysoftware.git mkdocs/mysoftware
+	git submodule add -f git@github.com:GuangchuangYu/mysoftware.git mkdocs/mysoftware;\
+	rm -rf .gitmodules;\
+	rm -rf mkdocs/mysoftware/.git
 
 mdfiles:
 	cd mkdocs;\
-	rm -rf docs/*md;\
 	Rscript -e 'library(ypages); gendoc("src/index.md", "blue", "docs/index.md")';\
 	Rscript -e 'library(ypages); gendoc("src/documentation.md", "blue", "docs/documentation.md")';\
 	Rscript -e 'library(ypages); gendoc("src/featuredArticles.md", "blue", "docs/featuredArticles.md")';\
 	Rscript -e 'library(ypages); gendoc("src/faq.md", "blue", "docs/faq.md")';\
 	cd docs;\
-	cp ../mysoftware/*.md ./
-
+	ln -f -s ../mysoftware/* ./
 
 svnignore:
 	svn propset svn:ignore -F .svnignore .

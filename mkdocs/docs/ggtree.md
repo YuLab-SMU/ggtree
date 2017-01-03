@@ -1,1 +1,1 @@
-<meta http-equiv="refresh" content="0; url=https://guangchuangyu.github.io/ggtree" />
+../mysoftware/ggtree.md
