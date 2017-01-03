@@ -20,9 +20,9 @@
 
 <link rel="stylesheet" href="https://guangchuangyu.github.io/css/font-awesome.min.css">
 
-[![releaseVersion](https://img.shields.io/badge/release%20version-1.6.5-blue.svg?style=flat)](https://bioconductor.org/packages/ggtree)
+[![releaseVersion](https://img.shields.io/badge/release%20version-1.6.6-blue.svg?style=flat)](https://bioconductor.org/packages/ggtree)
 [![develVersion](https://img.shields.io/badge/devel%20version-1.7.5-blue.svg?style=flat)](https://github.com/GuangchuangYu/ggtree)
-[![total](https://img.shields.io/badge/downloads-19096/total-blue.svg?style=flat)](https://bioconductor.org/packages/stats/bioc/ggtree)
+[![total](https://img.shields.io/badge/downloads-19152/total-blue.svg?style=flat)](https://bioconductor.org/packages/stats/bioc/ggtree)
 [![month](https://img.shields.io/badge/downloads-1852/month-blue.svg?style=flat)](https://bioconductor.org/packages/stats/bioc/ggtree)
 
 
@@ -40,7 +40,7 @@ Please cite the following article when using `ggtree`:
 
 [![doi](https://img.shields.io/badge/doi-10.1111/2041--210X.12628-blue.svg?style=flat)](http://dx.doi.org/10.1111/2041-210X.12628)
 [![citation](https://img.shields.io/badge/cited%20by-1-blue.svg?style=flat)](https://scholar.google.com.hk/scholar?oi=bibs&hl=en&cites=7268358477862164627)
-[![Altmetric](https://img.shields.io/badge/Altmetric-283-blue.svg?style=flat)](https://www.altmetric.com/details/10533079)
+[![Altmetric](https://img.shields.io/badge/Altmetric-284-blue.svg?style=flat)](https://www.altmetric.com/details/10533079)
 
 __G Yu__, DK Smith, H Zhu, Y Guan, TTY Lam<sup>\*</sup>. ggtree: an R package for visualization and annotation of phylogenetic trees with their covariates and other associated data. __*Methods in Ecology and Evolution*__. *accepted*.
 

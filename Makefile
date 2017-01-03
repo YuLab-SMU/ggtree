@@ -50,6 +50,8 @@ mkdocs: mdfiles
 	rm -rf css/font-awesome*;\
 	Rscript -e 'library(ypages); add_biobabble("index.html")'
 
+mysoftware:
+	git submodule add -f git@github.com:GuangchuangYu/mysoftware.git mkdocs/mysoftware
 
 mdfiles:
 	cd mkdocs;\

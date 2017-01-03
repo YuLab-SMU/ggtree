@@ -1,0 +1,3 @@
+[submodule "mkdocs/mysoftware"]
+	path = mkdocs/mysoftware
+	url = git@github.com:GuangchuangYu/mysoftware.git

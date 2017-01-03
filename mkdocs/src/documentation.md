@@ -30,6 +30,7 @@
 
 + [subsetting data in ggtree](https://guangchuangyu.github.io/2015/09/subsetting-data-in-ggtree)
 + [ggtree supports phylip tree format](https://guangchuangyu.github.io/2016/01/ggtree-supports-phylip-tree-format)
++ [convert graphic object to tree object using treeio](http://guangchuangyu.github.io/2017/01/convert-graphic-object-to-tree-object-using-treeio/)
 
 ### <i class="fa fa-angle-double-right"></i> Tree visualization
 
