@@ -65,7 +65,7 @@ collapse <- function(tree_view=NULL, node) {
 
     sp <- get.offspring.df(df, node)
     sp.df <- df[sp,]
-    df[node, "isTip"] <- TRUE
+    ## df[node, "isTip"] <- TRUE
     sp_y <- range(sp.df$y, na.rm=TRUE)
     ii <- which(df$y > max(sp_y))
     if (length(ii)) {
@@ -109,7 +109,7 @@ expand <- function(tree_view=NULL, node) {
         return(tree_view)
     }
     df <- tree_view$data
-    df[node, "isTip"] <- FALSE
+    ## df[node, "isTip"] <- FALSE
     sp_y <- range(sp.df$y)
     ii <- which(df$y > df$y[node])
     df[ii, "y"] <- df[ii, "y"] + diff(sp_y)
