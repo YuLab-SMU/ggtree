@@ -1,3 +1,8 @@
+CHANGES IN VERSION 1.7.6
+------------------------
+ o inset support reverse scale <2017-01-05, Thu>
+   + https://groups.google.com/forum/?utm_medium=email&utm_source=footer#!msg/bioc-ggtree/_JPfm71Z8nM/6gL93oxHFQAJ
+
 CHANGES IN VERSION 1.7.5
 ------------------------
  o disable labeling collapsed node as tip <2017-01-03, Tue>
