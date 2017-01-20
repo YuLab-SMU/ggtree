@@ -45,7 +45,8 @@ The `ggtree` package extending the `ggplot2` package. It based on grammar of gra
 
 Please cite the following article when using `ggtree`:
 
-__G Yu__, DK Smith, H Zhu, Y Guan, TTY Lam^\*^. ggtree: an R package for visualization and annotation of phylogenetic trees with their covariates and other associated data. __*Methods in Ecology and Evolution*__. _accepted_
+__G Yu__, DK Smith, H Zhu, Y Guan, TTY Lam^\*^. ggtree: an R package for visualization and annotation of phylogenetic trees with their covariates and other associated data. __*Methods in Ecology and Evolution*__. 2017, 8(1):28-36.
+
 
 `r badge_doi("10.1111/2041-210X.12628", "green")`
 `r badge_citation("HtEfBTGE9r8C", "7268358477862164627", "green")`

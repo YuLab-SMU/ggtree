@@ -9,10 +9,14 @@
 ##' @param hjust horizontal adjustment
 ##' @param vjust vertical adjustment
 ##' @param x x position, one of 'node' and 'branch'
+##' @param reverse_x whether x axis was reversed by scale_x_reverse
+##' @param reverse_y whether y axis was reversed by scale_y_reverse
 ##' @return tree view with insets
 ##' @export
 ##' @author Guangchuang Yu
-inset <- function(tree_view, insets, width=0.1, height=0.1, hjust=0, vjust=0, x="node") {
+inset <- function(tree_view, insets, width=0.1, height=0.1, hjust=0, vjust=0,
+                  x="node", reverse_x=FALSE, reverse_y=FALSE) {
+
     df <- tree_view$data[as.numeric(names(insets)),]
     x <- match.arg(x, c("node", "branch", "edge"))
 
@@ -25,6 +29,10 @@ inset <- function(tree_view, insets, width=0.1, height=0.1, hjust=0, vjust=0, x=
 
     xx <- xx - hjust
     yy <- yy - vjust
+    if (reverse_x)
+        xx <- -xx
+    if (reverse_y)
+        yy <- -yy
 
     for (i in seq_along(insets)) {
         tree_view %<>% subview(insets[[i]],

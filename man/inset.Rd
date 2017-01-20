@@ -5,7 +5,7 @@
 \title{inset}
 \usage{
 inset(tree_view, insets, width = 0.1, height = 0.1, hjust = 0,
-  vjust = 0, x = "node")
+  vjust = 0, x = "node", reverse_x = FALSE, reverse_y = FALSE)
 }
 \arguments{
 \item{tree_view}{tree view}
@@ -21,6 +21,10 @@ inset(tree_view, insets, width = 0.1, height = 0.1, hjust = 0,
 \item{vjust}{vertical adjustment}
 
 \item{x}{x position, one of 'node' and 'branch'}
+
+\item{reverse_x}{whether x axis was reversed by scale_x_reverse}
+
+\item{reverse_y}{whether y axis was reversed by scale_y_reverse}
 }
 \value{
 tree view with insets

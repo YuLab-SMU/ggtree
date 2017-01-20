@@ -1,5 +1,16 @@
+CHANGES IN VERSION 1.7.7
+------------------------
+ o update citation info <2017-01-20, Fri>
+ 
+CHANGES IN VERSION 1.7.6
+------------------------
+ o inset support reverse scale <2017-01-05, Thu>
+   + https://groups.google.com/forum/?utm_medium=email&utm_source=footer#!msg/bioc-ggtree/_JPfm71Z8nM/6gL93oxHFQAJ
+
 CHANGES IN VERSION 1.7.5
 ------------------------
+ o disable labeling collapsed node as tip <2017-01-03, Tue>
+   + https://groups.google.com/forum/#!topic/bioc-ggtree/nReqJatMvJQ
  o fortify.phylo4d via converting phylo4d to treedata object <2016-12-28, Wed>
  o improve viewClade function, use coord_cartesian instead of xlim <2016-12-28, Wed>
  o remove codes that move to treeio and now ggtree depends treeio <2016-12-20, Tue>
