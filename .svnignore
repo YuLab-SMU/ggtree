@@ -6,3 +6,4 @@ appveyor.yml
 .travis.yml
 docs
 mkdocs
+.gitmodules

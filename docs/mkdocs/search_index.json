@@ -1,268 +1,268 @@
 {
     "docs": [
         {
-            "location": "/", 
-            "text": "The \nggtree\n package extending the \nggplot2\n package. It based on grammar of graphics and takes all the good parts of \nggplot2\n.  \nggtree\n is designed for not only viewing phylogenetic tree but also displaying annotation data on the tree.\n\nggtree\n is released within the \nBioconductor\n project and the source code is hosted on \n GitHub\n.\n\n\n Authors\n\n\nGuangchuang Yu and Tommy Tsan-Yuk Lam, School of Public Health, The University of Hong Kong.\n\n\n Citation\n\n\nPlease cite the following article when using \nggtree\n:\n\n\n\n\n\n\n\n\nG Yu\n, DK Smith, H Zhu, Y Guan, TTY Lam\n*\n. ggtree: an R package for visualization and annotation of phylogenetic trees with their covariates and other associated data. \nMethods in Ecology and Evolution\n. \naccepted\n.\n\n\n Featured Articles\n\n\n\n\n Find out more on \n \nFeatured Articles\n.\n\n\n Installation\n\n\nInstall \nggtree\n is easy, follow the guide on the \nBioconductor page\n:\n\n\n## try http:// if https:// URLs are not supported\nsource(\nhttps://bioconductor.org/biocLite.R\n)\n## biocLite(\nBiocUpgrade\n) ## you may need this\nbiocLite(\nggtree\n)\n\n\n\n\nIf you have problems when installing some of the dependent packages, please refer to the \nggtree-installation\n wiki page.\n\n\n Overview\n\n\n Getting tree into R\n\n\n\n\ntree parsers: bring evolution evidences to be used/analyzed in \nR\n\n\nmerge_tree\n: allows evolution evidences to be merged and compared\n\n\nfortify\n methods: convert tree objects into tidy data frame\n\n\n\n\n Tree visualization \n annotation\n\n\n\n\nparsing tree as a collection of nodes allows grammar of graphics to be supported\n\n\ngeom_tree\n: extends \nggplot2\n to support tree structure\n\n\nseveral layers and functions for tree annotation\n\n\nsupports annotating phylogenetic trees with user's own data\n\n\n\n\n Tree manipulation\n\n\n\n\nhelper functions for tree manipulation, make it possible to explore the tree visually\n\n\n\n\n Find out details and examples on \n \nDocumentation\n.\n\n\n Projects that depend on \nggtree\n\n\n Bioconductor packages\n\n\n\n\nLINC\n: co-expression of lincRNAs and protein-coding genes\n\n\nphilr\n: Phylogenetic partitioning based ILR transform for metagenomics data\n\n\n\n\n Other applications\n\n\n\n\nBreadCrumbs\n: Collection of scripts for metagenomics analysis\n\n\nDegeneratePrimerTools\n: Utilities for Creating and Validating Degenerate primers\n\n\nphyloscan\n: scan phylogenies created along a genome for patterns\n\n\n\n\n Feedback\n\n\n\n    \n Please make sure you \nfollow the guide\n before posting any issue/question\n\n    \n For bugs or feature requests, please post to \n \ngithub issue\n\n    \n  For user questions, please post to \n \ngoogle group\n\n    \n We are also following every post tagged with \nggtree\n on \nBioconductor support site\n and \nBiostars\n\n    \n Join the group chat on \n and", 
+            "location": "/",
+            "text": "The \nggtree\n package extending the \nggplot2\n package. It based on grammar of graphics and takes all the good parts of \nggplot2\n.  \nggtree\n is designed for not only viewing phylogenetic tree but also displaying annotation data on the tree.\n\nggtree\n is released within the \nBioconductor\n project and the source code is hosted on \n GitHub\n.\n\n\n Authors\n\n\nGuangchuang Yu and Tommy Tsan-Yuk Lam, School of Public Health, The University of Hong Kong.\n\n\n Citation\n\n\nPlease cite the following article when using \nggtree\n:\n\n\n\n\n\n\n\n\nG Yu\n, DK Smith, H Zhu, Y Guan, TTY Lam\n*\n. ggtree: an R package for visualization and annotation of phylogenetic trees with their covariates and other associated data. \nMethods in Ecology and Evolution\n. 2017, 8(1):28-36.\n\n\n Featured Articles\n\n\n\n\n Find out more on \n \nFeatured Articles\n.\n\n\n Installation\n\n\nInstall \nggtree\n is easy, follow the guide on the \nBioconductor page\n:\n\n\n## try http:// if https:// URLs are not supported\nsource(\"https://bioconductor.org/biocLite.R\")\n## biocLite(\"BiocUpgrade\") ## you may need this\nbiocLite(\"ggtree\")\n\n\n\n\nIf you have problems when installing some of the dependent packages, please refer to the \nggtree-installation\n wiki page.\n\n\n Overview\n\n\n Getting tree into R\n\n\n\n\ntree parsers: bring evolution evidences to be used/analyzed in \nR\n\n\nmerge_tree\n: allows evolution evidences to be merged and compared\n\n\nfortify\n methods: convert tree objects into tidy data frame\n\n\n\n\n Tree visualization & annotation\n\n\n\n\nparsing tree as a collection of nodes allows grammar of graphics to be supported\n\n\ngeom_tree\n: extends \nggplot2\n to support tree structure\n\n\nseveral layers and functions for tree annotation\n\n\nsupports annotating phylogenetic trees with user's own data\n\n\n\n\n Tree manipulation\n\n\n\n\nhelper functions for tree manipulation, make it possible to explore the tree visually\n\n\n\n\n Find out details and examples on \n \nDocumentation\n.\n\n\n Projects that depend on \nggtree\n\n\n Bioconductor packages\n\n\n\n\nLINC\n: co-expression of lincRNAs and protein-coding genes\n\n\nphilr\n: Phylogenetic partitioning based ILR transform for metagenomics data\n\n\n\n\n Other applications\n\n\n\n\nBreadCrumbs\n: Collection of scripts for metagenomics analysis\n\n\nDegeneratePrimerTools\n: Utilities for Creating and Validating Degenerate primers\n\n\nphyloscan\n: scan phylogenies created along a genome for patterns\n\n\n\n\n Feedback\n\n\n\n    \n Please make sure you \nfollow the guide\n before posting any issue/question\n\n    \n For bugs or feature requests, please post to \n \ngithub issue\n\n    \n  For user questions, please post to \n \ngoogle group\n\n    \n We are also following every post tagged with \nggtree\n on \nBioconductor support site\n and \nBiostars\n\n    \n Join the group chat on \n and",
             "title": "Home"
-        }, 
+        },
         {
-            "location": "/#authors", 
-            "text": "Guangchuang Yu and Tommy Tsan-Yuk Lam, School of Public Health, The University of Hong Kong.", 
+            "location": "/#authors",
+            "text": "Guangchuang Yu and Tommy Tsan-Yuk Lam, School of Public Health, The University of Hong Kong.",
             "title": " Authors"
-        }, 
+        },
         {
-            "location": "/#citation", 
-            "text": "Please cite the following article when using  ggtree :     G Yu , DK Smith, H Zhu, Y Guan, TTY Lam * . ggtree: an R package for visualization and annotation of phylogenetic trees with their covariates and other associated data.  Methods in Ecology and Evolution .  accepted .", 
+            "location": "/#citation",
+            "text": "Please cite the following article when using  ggtree :     G Yu , DK Smith, H Zhu, Y Guan, TTY Lam * . ggtree: an R package for visualization and annotation of phylogenetic trees with their covariates and other associated data.  Methods in Ecology and Evolution . 2017, 8(1):28-36.",
             "title": " Citation"
-        }, 
+        },
         {
-            "location": "/#featured-articles", 
-            "text": "Find out more on    Featured Articles .", 
+            "location": "/#featured-articles",
+            "text": "Find out more on    Featured Articles .",
             "title": " Featured Articles"
-        }, 
+        },
         {
-            "location": "/#installation", 
-            "text": "Install  ggtree  is easy, follow the guide on the  Bioconductor page :  ## try http:// if https:// URLs are not supported\nsource( https://bioconductor.org/biocLite.R )\n## biocLite( BiocUpgrade ) ## you may need this\nbiocLite( ggtree )  If you have problems when installing some of the dependent packages, please refer to the  ggtree-installation  wiki page.", 
+            "location": "/#installation",
+            "text": "Install  ggtree  is easy, follow the guide on the  Bioconductor page :  ## try http:// if https:// URLs are not supported\nsource(\"https://bioconductor.org/biocLite.R\")\n## biocLite(\"BiocUpgrade\") ## you may need this\nbiocLite(\"ggtree\")  If you have problems when installing some of the dependent packages, please refer to the  ggtree-installation  wiki page.",
             "title": " Installation"
-        }, 
+        },
         {
-            "location": "/#overview", 
-            "text": "", 
+            "location": "/#overview",
+            "text": "",
             "title": " Overview"
-        }, 
+        },
         {
-            "location": "/#getting-tree-into-r", 
-            "text": "tree parsers: bring evolution evidences to be used/analyzed in  R  merge_tree : allows evolution evidences to be merged and compared  fortify  methods: convert tree objects into tidy data frame", 
+            "location": "/#getting-tree-into-r",
+            "text": "tree parsers: bring evolution evidences to be used/analyzed in  R  merge_tree : allows evolution evidences to be merged and compared  fortify  methods: convert tree objects into tidy data frame",
             "title": " Getting tree into R"
-        }, 
+        },
         {
-            "location": "/#tree-visualization-annotation", 
-            "text": "parsing tree as a collection of nodes allows grammar of graphics to be supported  geom_tree : extends  ggplot2  to support tree structure  several layers and functions for tree annotation  supports annotating phylogenetic trees with user's own data", 
+            "location": "/#tree-visualization-annotation",
+            "text": "parsing tree as a collection of nodes allows grammar of graphics to be supported  geom_tree : extends  ggplot2  to support tree structure  several layers and functions for tree annotation  supports annotating phylogenetic trees with user's own data",
             "title": " Tree visualization &amp; annotation"
-        }, 
+        },
         {
-            "location": "/#tree-manipulation", 
-            "text": "helper functions for tree manipulation, make it possible to explore the tree visually    Find out details and examples on    Documentation .", 
+            "location": "/#tree-manipulation",
+            "text": "helper functions for tree manipulation, make it possible to explore the tree visually    Find out details and examples on    Documentation .",
             "title": " Tree manipulation"
-        }, 
+        },
         {
-            "location": "/#projects-that-depend-on-ggtree", 
-            "text": "", 
+            "location": "/#projects-that-depend-on-ggtree",
+            "text": "",
             "title": " Projects that depend on ggtree"
-        }, 
+        },
         {
-            "location": "/#bioconductor-packages", 
-            "text": "LINC : co-expression of lincRNAs and protein-coding genes  philr : Phylogenetic partitioning based ILR transform for metagenomics data", 
+            "location": "/#bioconductor-packages",
+            "text": "LINC : co-expression of lincRNAs and protein-coding genes  philr : Phylogenetic partitioning based ILR transform for metagenomics data",
             "title": " Bioconductor packages"
-        }, 
+        },
         {
-            "location": "/#other-applications", 
-            "text": "BreadCrumbs : Collection of scripts for metagenomics analysis  DegeneratePrimerTools : Utilities for Creating and Validating Degenerate primers  phyloscan : scan phylogenies created along a genome for patterns", 
+            "location": "/#other-applications",
+            "text": "BreadCrumbs : Collection of scripts for metagenomics analysis  DegeneratePrimerTools : Utilities for Creating and Validating Degenerate primers  phyloscan : scan phylogenies created along a genome for patterns",
             "title": " Other applications"
-        }, 
+        },
         {
-            "location": "/#feedback", 
-            "text": "Please make sure you  follow the guide  before posting any issue/question \n      For bugs or feature requests, please post to    github issue \n       For user questions, please post to    google group \n      We are also following every post tagged with  ggtree  on  Bioconductor support site  and  Biostars \n      Join the group chat on   and", 
+            "location": "/#feedback",
+            "text": "Please make sure you  follow the guide  before posting any issue/question \n      For bugs or feature requests, please post to    github issue \n       For user questions, please post to    google group \n      We are also following every post tagged with  ggtree  on  Bioconductor support site  and  Biostars \n      Join the group chat on   and",
             "title": " Feedback"
-        }, 
+        },
         {
-            "location": "/documentation/", 
-            "text": "Vignettes\n\n\n\n\nggtree\n\n\nTree Data Import\n\n\nTree Visualization\n\n\nTree Annotation\n\n\nTree Manipulation\n\n\nAdvance Tree Annotation\n\n\nggtree utilities\n\n\n\n\n Blog posts\n\n\n News and updates\n\n\n\n\nviewing and annotating phylogenetic tree with ggtree\n\n\nggtree in Bioconductor 3.1\n\n\nBioC 3.1: NEWS of my BioC packages\n\n\nBioC 3.2: NEWS of my BioC packages\n\n\nNews of ggtree\n\n\nBioC 3.3: NEWS of my BioC packages\n\n\nBioC 3.4: NEWS of my BioC packages\n\n\nggtree paper published\n\n\n\n\n Data manipulation\n\n\n\n\nsubsetting data in ggtree\n\n\nggtree supports phylip tree format\n\n\nconvert graphic object to tree object using treeio\n\n\n\n\n Tree visualization\n\n\n\n\nggtree - updating a tree view\n\n\nan example of drawing beast tree using ggtree\n\n\n\n\n Tree annotation\n\n\n\n\nlabel edge number in ggtree\n\n\nEdge coloring with user data\n\n\nsubview\n\n\nAnnotate a phylogenetic tree with insets\n\n\nggtree annotate phylogenetic tree with local images\n\n\nembed images in ggplot2 via subview and annotate a phylogenetic tree with images using inset function\n\n\nidentify method for ggtree\n\n\nfacet_plot: a general solution to associate data with phylogenetic tree\n\n\nalign genomic features with phylogenetic tree\n\n\nxlim_tree: set x axis limits for only Tree panel\n\n\nadd layer to specific panel of facet_plot output\n\n\n\n\n Tree manipulation\n\n\n\n\nflip and rotate branches in ggtree\n\n\n\n\n Application\n\n\n\n\nggtree for microbiome data\n\n\nggtree for outbreak data\n\n\nggtree version of plotTree\n\n\nreproducible logo generated by ggtree\n\n\n\n\n Funny stuff\n\n\n\n\nggtree with funny fonts\n\n\ncomic phylogenetic tree with ggtree and comicR\n\n\nuse emoji font in R\n\n\n\n\n User's feedback\n\n\n\n\ntweets of ggtree\n\n\nJoin the group chat on \n and \n\n\n\n\n Find out more on \nhttps://guangchuangyu.github.io/tags/ggtree/\n.\n\n\n Slides\n\n\n\n\nGenerating publication quality figures using R \n ggplot2\n\n\nggtree for visualization and annotation of phylogenetic trees\n\n\n\n\n Video\n\n\n\n\ninteractive clade highlighting\n\n\ninteractive rotating clades\n\n\ninteractive clade labeling\n\n\n\n\n Workflow\n\n\n\n\nrecreate a tree from a publication (\nBloom\n \net al\n, \nScience\n 2010)", 
+            "location": "/documentation/",
+            "text": "Vignettes\n\n\n\n\nggtree\n\n\nTree Data Import\n\n\nTree Visualization\n\n\nTree Annotation\n\n\nTree Manipulation\n\n\nAdvance Tree Annotation\n\n\nggtree utilities\n\n\n\n\n Blog posts\n\n\n News and updates\n\n\n\n\nviewing and annotating phylogenetic tree with ggtree\n\n\nggtree in Bioconductor 3.1\n\n\nBioC 3.1: NEWS of my BioC packages\n\n\nBioC 3.2: NEWS of my BioC packages\n\n\nNews of ggtree\n\n\nBioC 3.3: NEWS of my BioC packages\n\n\nBioC 3.4: NEWS of my BioC packages\n\n\nggtree paper published\n\n\n\n\n Data manipulation\n\n\n\n\nsubsetting data in ggtree\n\n\nggtree supports phylip tree format\n\n\nconvert graphic object to tree object using treeio\n\n\n\n\n Tree visualization\n\n\n\n\nggtree - updating a tree view\n\n\nan example of drawing beast tree using ggtree\n\n\n\n\n Tree annotation\n\n\n\n\nlabel edge number in ggtree\n\n\nEdge coloring with user data\n\n\nsubview\n\n\nAnnotate a phylogenetic tree with insets\n\n\nggtree annotate phylogenetic tree with local images\n\n\nembed images in ggplot2 via subview and annotate a phylogenetic tree with images using inset function\n\n\nidentify method for ggtree\n\n\nfacet_plot: a general solution to associate data with phylogenetic tree\n\n\nalign genomic features with phylogenetic tree\n\n\nxlim_tree: set x axis limits for only Tree panel\n\n\nadd layer to specific panel of facet_plot output\n\n\n\n\n Tree manipulation\n\n\n\n\nflip and rotate branches in ggtree\n\n\n\n\n Application\n\n\n\n\nggtree for microbiome data\n\n\nggtree for outbreak data\n\n\nggtree version of plotTree\n\n\nreproducible logo generated by ggtree\n\n\n\n\n Funny stuff\n\n\n\n\nggtree with funny fonts\n\n\ncomic phylogenetic tree with ggtree and comicR\n\n\nuse emoji font in R\n\n\n\n\n User's feedback\n\n\n\n\ntweets of ggtree\n\n\nJoin the group chat on \n and \n\n\n\n\n Find out more on \nhttps://guangchuangyu.github.io/tags/ggtree/\n.\n\n\n Slides\n\n\n\n\nGenerating publication quality figures using R & ggplot2\n\n\nggtree for visualization and annotation of phylogenetic trees\n\n\n\n\n Video\n\n\n\n\ninteractive clade highlighting\n\n\ninteractive rotating clades\n\n\ninteractive clade labeling\n\n\n\n\n Workflow\n\n\n\n\nrecreate a tree from a publication (\nBloom\n \net al\n, \nScience\n 2010)",
             "title": "Documentation"
-        }, 
+        },
         {
-            "location": "/documentation/#vignettes", 
-            "text": "ggtree  Tree Data Import  Tree Visualization  Tree Annotation  Tree Manipulation  Advance Tree Annotation  ggtree utilities", 
+            "location": "/documentation/#vignettes",
+            "text": "ggtree  Tree Data Import  Tree Visualization  Tree Annotation  Tree Manipulation  Advance Tree Annotation  ggtree utilities",
             "title": " Vignettes"
-        }, 
+        },
         {
-            "location": "/documentation/#blog-posts", 
-            "text": "", 
+            "location": "/documentation/#blog-posts",
+            "text": "",
             "title": " Blog posts"
-        }, 
+        },
         {
-            "location": "/documentation/#news-and-updates", 
-            "text": "viewing and annotating phylogenetic tree with ggtree  ggtree in Bioconductor 3.1  BioC 3.1: NEWS of my BioC packages  BioC 3.2: NEWS of my BioC packages  News of ggtree  BioC 3.3: NEWS of my BioC packages  BioC 3.4: NEWS of my BioC packages  ggtree paper published", 
+            "location": "/documentation/#news-and-updates",
+            "text": "viewing and annotating phylogenetic tree with ggtree  ggtree in Bioconductor 3.1  BioC 3.1: NEWS of my BioC packages  BioC 3.2: NEWS of my BioC packages  News of ggtree  BioC 3.3: NEWS of my BioC packages  BioC 3.4: NEWS of my BioC packages  ggtree paper published",
             "title": " News and updates"
-        }, 
+        },
         {
-            "location": "/documentation/#data-manipulation", 
-            "text": "subsetting data in ggtree  ggtree supports phylip tree format  convert graphic object to tree object using treeio", 
+            "location": "/documentation/#data-manipulation",
+            "text": "subsetting data in ggtree  ggtree supports phylip tree format  convert graphic object to tree object using treeio",
             "title": " Data manipulation"
-        }, 
+        },
         {
-            "location": "/documentation/#tree-visualization", 
-            "text": "ggtree - updating a tree view  an example of drawing beast tree using ggtree", 
+            "location": "/documentation/#tree-visualization",
+            "text": "ggtree - updating a tree view  an example of drawing beast tree using ggtree",
             "title": " Tree visualization"
-        }, 
+        },
         {
-            "location": "/documentation/#tree-annotation", 
-            "text": "label edge number in ggtree  Edge coloring with user data  subview  Annotate a phylogenetic tree with insets  ggtree annotate phylogenetic tree with local images  embed images in ggplot2 via subview and annotate a phylogenetic tree with images using inset function  identify method for ggtree  facet_plot: a general solution to associate data with phylogenetic tree  align genomic features with phylogenetic tree  xlim_tree: set x axis limits for only Tree panel  add layer to specific panel of facet_plot output", 
+            "location": "/documentation/#tree-annotation",
+            "text": "label edge number in ggtree  Edge coloring with user data  subview  Annotate a phylogenetic tree with insets  ggtree annotate phylogenetic tree with local images  embed images in ggplot2 via subview and annotate a phylogenetic tree with images using inset function  identify method for ggtree  facet_plot: a general solution to associate data with phylogenetic tree  align genomic features with phylogenetic tree  xlim_tree: set x axis limits for only Tree panel  add layer to specific panel of facet_plot output",
             "title": " Tree annotation"
-        }, 
+        },
         {
-            "location": "/documentation/#tree-manipulation", 
-            "text": "flip and rotate branches in ggtree", 
+            "location": "/documentation/#tree-manipulation",
+            "text": "flip and rotate branches in ggtree",
             "title": " Tree manipulation"
-        }, 
+        },
         {
-            "location": "/documentation/#application", 
-            "text": "ggtree for microbiome data  ggtree for outbreak data  ggtree version of plotTree  reproducible logo generated by ggtree", 
+            "location": "/documentation/#application",
+            "text": "ggtree for microbiome data  ggtree for outbreak data  ggtree version of plotTree  reproducible logo generated by ggtree",
             "title": " Application"
-        }, 
+        },
         {
-            "location": "/documentation/#funny-stuff", 
-            "text": "ggtree with funny fonts  comic phylogenetic tree with ggtree and comicR  use emoji font in R", 
+            "location": "/documentation/#funny-stuff",
+            "text": "ggtree with funny fonts  comic phylogenetic tree with ggtree and comicR  use emoji font in R",
             "title": " Funny stuff"
-        }, 
+        },
         {
-            "location": "/documentation/#users-feedback", 
-            "text": "tweets of ggtree  Join the group chat on   and     Find out more on  https://guangchuangyu.github.io/tags/ggtree/ .", 
+            "location": "/documentation/#users-feedback",
+            "text": "tweets of ggtree  Join the group chat on   and     Find out more on  https://guangchuangyu.github.io/tags/ggtree/ .",
             "title": " User's feedback"
-        }, 
+        },
         {
-            "location": "/documentation/#slides", 
-            "text": "Generating publication quality figures using R   ggplot2  ggtree for visualization and annotation of phylogenetic trees", 
+            "location": "/documentation/#slides",
+            "text": "Generating publication quality figures using R & ggplot2  ggtree for visualization and annotation of phylogenetic trees",
             "title": " Slides"
-        }, 
+        },
         {
-            "location": "/documentation/#video", 
-            "text": "interactive clade highlighting  interactive rotating clades  interactive clade labeling", 
+            "location": "/documentation/#video",
+            "text": "interactive clade highlighting  interactive rotating clades  interactive clade labeling",
             "title": " Video"
-        }, 
+        },
         {
-            "location": "/documentation/#workflow", 
-            "text": "recreate a tree from a publication ( Bloom   et al ,  Science  2010)", 
+            "location": "/documentation/#workflow",
+            "text": "recreate a tree from a publication ( Bloom   et al ,  Science  2010)",
             "title": " Workflow"
-        }, 
+        },
         {
-            "location": "/faq/", 
-            "text": "Installation\n\n\n Could not find function\n\n\nIf you got \nthis error\n, please make sure you are using the latest R and \nggtree\n.\n\n\nPackages in Bioconductor, like \nggtree\n, have different release policy compare to CRAN. There are two branches, release and devel, in parallel. Release branch is more stable and only document improvement and bug fixes will commit to it. New functions will only commit to \ndevel\n branch.\n\n\nSometimes I may write blog post to introduce new functions which is not available in \nrelease\n branch, you need to install the \ndevel\n version of \nggtree\n in order to use these new functions.\n\n\nYou can download the \ndevel\n version of \nggtree\n from \nhttp://bioconductor.org/packages/devel/bioc/html/ggtree.html\n and install it, or install the github version of \nggtree\n.\n\n\nThis also applied to other of my packages, including \nGOSemSim\n, \nDOSE\n, \nclusterProfiler\n, \nReactomePA\n and \nChIPseeker\n. If you got the \ncould not find function\n error, upgrade your installation to latest release. If the error still exists after upgrading to latest release, you need to install the devel version.\n\n\n Text \n Label\n\n\n Tip label truncated\n\n\nggplot2 can't auto adjust xlim based on added text.\n\n\nlibrary(ggtree)\n## example tree from https://support.bioconductor.org/p/72398/\ntree\n-read.tree(text=\n(Organism1.006G249400.1:0.03977,(Organism2.022118m:0.01337,(Organism3.J34265.1:0.00284,Organism4.G02633.1:0.00468)0.51:0.0104):0.02469);\n)\nggtree(tree) + geom_tiplab()\n\n\n\n\nThis is because the units are in two different spaces (data and pixel). Users can use xlim to allocate more space for tip label.\n\n\nggtree(tree) + geom_tiplab() + xlim(0, 0.06)\n\n\n\n\n Modify (tip) labels\n\n\nThis could be easily done via the \n%\n+%\n operator to attach the\nmodified version of the labels and than use \ngeom_tiplab\n to display\nthe modified version.\n\n\nraxml_file \n- system.file(\nextdata/RAxML\n, \nRAxML_bipartitionsBranchLabels.H3\n, package=\nggtree\n)\nraxml \n- read.raxml(raxml_file)\n\nlb = get.tree(raxml)$tip.label\nd = data.frame(label=lb, label2 = paste(\nAA\n, substring(lb, 1, 5)))\nggtree(raxml) %\n+% d + geom_tiplab(aes(label=label2))\n\n\n\n\nsee also\n\n1\n\nand \n2\n.\n\n\n Formatting (tip) labels\n\n\nIf you want to format labels, you need to set \nparse=TRUE\n in \ngeom_text\n/\ngeom_tiplab\n and the \nlabel\n should be string that can be parsed into expression and displayed as described in \n?plotmath\n.\n\n\nFor example, the tiplabels contains two parts, species name and accession number and we want to display species name in \nitalic\n, we can use command like this:\n\n\nggtree(rtree(30)) + geom_tiplab(aes(subset=node==35), label='paste(italic(\nspecies name\n), \naccession number\n)', parse=T)\n\n\n\n\n Avoid overlapping text labels\n\n\nUser can use \nggrepel\n package to repel overlapping text labels.\n\n\nFor example:\n\n\nlibrary(ggrepel)\nlibrary(ggtree)\nraxml_file \n- system.file(\nextdata/RAxML\n, \nRAxML_bipartitionsBranchLabels.H3\n, package=\nggtree\n)\nraxml \n- read.raxml(raxml_file)\nggtree(raxml) + geom_label_repel(aes(label=bootstrap, fill=bootstrap))\n\n\n\n\nFor details, please refer to \nggrepel usage examples\n.\n\n\n bootstrap values from newick format\n\n\nIt's quite command to store \nbootstrap\n value as node label in \nnewick\n format. Visualizing node label is easy using \ngeom_text2(aes(subset = !isTip, label=label))\n.\n\n\nIf you want to only display a subset of \nbootstrap\n (e.g. bootstrap \n 80), you can't simply using \ngeom_text2(subset= (label \n 80), label=label)\n since \nlabel\n is a character vector, which contains node label (bootstrap value) and tip label (taxa name). If we use \ngeom_text2(subset=(as.numeric(label) \n 80), label=label)\n, it will also fail since \nNAs\n were introduced by coercion. We need to convert \nNAs\n to logical \nFALSE\n, this can be done by the following code:\n\n\nnwk \n- system.file(\nextdata/RAxML\n,\nRAxML_bipartitions.H3\n, package='ggtree')\ntr \n- read.tree(nwk)\nggtree(tr) + geom_text2(aes(label=label, subset = !is.na(as.numeric(label)) \n as.numeric(label) \n 80))\n\n\n\n\nAnother solution is converting the bootstrap value outside \nggtree\n as I recommended in \ngoogle group\n.\n\n\nq \n- ggtree(tr)\nd \n- q$data\nd \n- d[!d$isTip,]\nd$label \n- as.numeric(d$label)\nd \n- d[d$label \n 80,]\n\nq + geom_text(data=d, aes(label=label))\n\n\n\n\n \naesthetic\n mapping\n\n\n inherit \naes\n\n\nggtree(rtree(30)) + geom_point()\n\n\n\n\nFor example, we can add symbolic points to nodes with \ngeom_point()\n directly.\nThe magic here is we don't need to map \nx\n and \ny\n position of the points by providing \naes(x, y)\n to \ngeom_point()\n since it was already mapped by \nggtree\n function and it serves as a global mapping for all layers.\n\n\nBut what if we provide a \ndataset\n in a layer and the \ndataset\n doesn't contain column of \nx\n and/or \ny\n,\nthe layer function also try to map \nx\n and \ny\n and also others if you map them in \nggtree\n function.\nAs these variable is not available in your \ndataset\n, you will get the following error:\n\n\nError in eval(expr, envir, enclos) : object 'x' not found\n\n\n\n\nThis can be fixed by using parameter \ninherit.aes=FALSE\n which will disable inheriting mapping from \nggtree\n function.\n\n\n use \n$\n in aes\n\n\nNEVER DO THIS.\n\n\nsee the explaination in the \nggplot2 book 2ed\n:\n\n\n\n\nNever refer to a variable with \n$\n (e.g., \ndiamonds$carat\n) in \naes()\n. This breaks containment, so that the plot no longer contains everything it needs, and causes problems if ggplot2 changes the order of the rows, as it does when facetting.\n\n\n\n\nsee also\n\n1\n\nand \n2\n.\n\n\n Annotation\n\n\n colouring edges by user data\n\n\nsee my blog post:\n\nEdge coloring with user data\n\nand also my answer on \nhttps://github.com/GuangchuangYu/ggtree/issues/76\n\nand \nhttps://groups.google.com/forum/#!topic/bioc-ggtree/4GgivKqVjB8\n.", 
+            "location": "/faq/",
+            "text": "Installation\n\n\n Could not find function\n\n\nIf you got \nthis error\n, please make sure you are using the latest R and \nggtree\n.\n\n\nPackages in Bioconductor, like \nggtree\n, have different release policy compare to CRAN. There are two branches, release and devel, in parallel. Release branch is more stable and only document improvement and bug fixes will commit to it. New functions will only commit to \ndevel\n branch.\n\n\nSometimes I may write blog post to introduce new functions which is not available in \nrelease\n branch, you need to install the \ndevel\n version of \nggtree\n in order to use these new functions.\n\n\nYou can download the \ndevel\n version of \nggtree\n from \nhttp://bioconductor.org/packages/devel/bioc/html/ggtree.html\n and install it, or install the github version of \nggtree\n.\n\n\nThis also applied to other of my packages, including \nGOSemSim\n, \nDOSE\n, \nclusterProfiler\n, \nReactomePA\n and \nChIPseeker\n. If you got the \ncould not find function\n error, upgrade your installation to latest release. If the error still exists after upgrading to latest release, you need to install the devel version.\n\n\n Text & Label\n\n\n Tip label truncated\n\n\nggplot2 can't auto adjust xlim based on added text.\n\n\nlibrary(ggtree)\n## example tree from https://support.bioconductor.org/p/72398/\ntree<-read.tree(text=\"(Organism1.006G249400.1:0.03977,(Organism2.022118m:0.01337,(Organism3.J34265.1:0.00284,Organism4.G02633.1:0.00468)0.51:0.0104):0.02469);\")\nggtree(tree) + geom_tiplab()\n\n\n\n\nThis is because the units are in two different spaces (data and pixel). Users can use xlim to allocate more space for tip label.\n\n\nggtree(tree) + geom_tiplab() + xlim(0, 0.06)\n\n\n\n\n Modify (tip) labels\n\n\nThis could be easily done via the \n%<+%\n operator to attach the\nmodified version of the labels and than use \ngeom_tiplab\n to display\nthe modified version.\n\n\nraxml_file <- system.file(\"extdata/RAxML\", \"RAxML_bipartitionsBranchLabels.H3\", package=\"ggtree\")\nraxml <- read.raxml(raxml_file)\n\nlb = get.tree(raxml)$tip.label\nd = data.frame(label=lb, label2 = paste(\"AA\", substring(lb, 1, 5)))\nggtree(raxml) %<+% d + geom_tiplab(aes(label=label2))\n\n\n\n\nsee also\n\n1\n\nand \n2\n.\n\n\n Formatting (tip) labels\n\n\nIf you want to format labels, you need to set \nparse=TRUE\n in \ngeom_text\n/\ngeom_tiplab\n and the \nlabel\n should be string that can be parsed into expression and displayed as described in \n?plotmath\n.\n\n\nFor example, the tiplabels contains two parts, species name and accession number and we want to display species name in \nitalic\n, we can use command like this:\n\n\nggtree(rtree(30)) + geom_tiplab(aes(subset=node==35), label='paste(italic(\"species name\"), \"accession number\")', parse=T)\n\n\n\n\n Avoid overlapping text labels\n\n\nUser can use \nggrepel\n package to repel overlapping text labels.\n\n\nFor example:\n\n\nlibrary(ggrepel)\nlibrary(ggtree)\nraxml_file <- system.file(\"extdata/RAxML\", \"RAxML_bipartitionsBranchLabels.H3\", package=\"ggtree\")\nraxml <- read.raxml(raxml_file)\nggtree(raxml) + geom_label_repel(aes(label=bootstrap, fill=bootstrap))\n\n\n\n\nFor details, please refer to \nggrepel usage examples\n.\n\n\n bootstrap values from newick format\n\n\nIt's quite command to store \nbootstrap\n value as node label in \nnewick\n format. Visualizing node label is easy using \ngeom_text2(aes(subset = !isTip, label=label))\n.\n\n\nIf you want to only display a subset of \nbootstrap\n (e.g. bootstrap > 80), you can't simply using \ngeom_text2(subset= (label > 80), label=label)\n since \nlabel\n is a character vector, which contains node label (bootstrap value) and tip label (taxa name). If we use \ngeom_text2(subset=(as.numeric(label) > 80), label=label)\n, it will also fail since \nNAs\n were introduced by coercion. We need to convert \nNAs\n to logical \nFALSE\n, this can be done by the following code:\n\n\nnwk <- system.file(\"extdata/RAxML\",\"RAxML_bipartitions.H3\", package='ggtree')\ntr <- read.tree(nwk)\nggtree(tr) + geom_text2(aes(label=label, subset = !is.na(as.numeric(label)) & as.numeric(label) > 80))\n\n\n\n\nAnother solution is converting the bootstrap value outside \nggtree\n as I recommended in \ngoogle group\n.\n\n\nq <- ggtree(tr)\nd <- q$data\nd <- d[!d$isTip,]\nd$label <- as.numeric(d$label)\nd <- d[d$label > 80,]\n\nq + geom_text(data=d, aes(label=label))\n\n\n\n\n \naesthetic\n mapping\n\n\n inherit \naes\n\n\nggtree(rtree(30)) + geom_point()\n\n\n\n\nFor example, we can add symbolic points to nodes with \ngeom_point()\n directly.\nThe magic here is we don't need to map \nx\n and \ny\n position of the points by providing \naes(x, y)\n to \ngeom_point()\n since it was already mapped by \nggtree\n function and it serves as a global mapping for all layers.\n\n\nBut what if we provide a \ndataset\n in a layer and the \ndataset\n doesn't contain column of \nx\n and/or \ny\n,\nthe layer function also try to map \nx\n and \ny\n and also others if you map them in \nggtree\n function.\nAs these variable is not available in your \ndataset\n, you will get the following error:\n\n\nError in eval(expr, envir, enclos) : object 'x' not found\n\n\n\n\nThis can be fixed by using parameter \ninherit.aes=FALSE\n which will disable inheriting mapping from \nggtree\n function.\n\n\n use \n$\n in aes\n\n\nNEVER DO THIS.\n\n\nsee the explaination in the \nggplot2 book 2ed\n:\n\n\n\n\nNever refer to a variable with \n$\n (e.g., \ndiamonds$carat\n) in \naes()\n. This breaks containment, so that the plot no longer contains everything it needs, and causes problems if ggplot2 changes the order of the rows, as it does when facetting.\n\n\n\n\nsee also\n\n1\n\nand \n2\n.\n\n\n Annotation\n\n\n colouring edges by user data\n\n\nsee my blog post:\n\nEdge coloring with user data\n\nand also my answer on \nhttps://github.com/GuangchuangYu/ggtree/issues/76\n\nand \nhttps://groups.google.com/forum/#!topic/bioc-ggtree/4GgivKqVjB8\n.",
             "title": "FAQ"
-        }, 
+        },
         {
-            "location": "/faq/#installation", 
-            "text": "", 
+            "location": "/faq/#installation",
+            "text": "",
             "title": " Installation"
-        }, 
+        },
         {
-            "location": "/faq/#could-not-find-function", 
-            "text": "If you got  this error , please make sure you are using the latest R and  ggtree .  Packages in Bioconductor, like  ggtree , have different release policy compare to CRAN. There are two branches, release and devel, in parallel. Release branch is more stable and only document improvement and bug fixes will commit to it. New functions will only commit to  devel  branch.  Sometimes I may write blog post to introduce new functions which is not available in  release  branch, you need to install the  devel  version of  ggtree  in order to use these new functions.  You can download the  devel  version of  ggtree  from  http://bioconductor.org/packages/devel/bioc/html/ggtree.html  and install it, or install the github version of  ggtree .  This also applied to other of my packages, including  GOSemSim ,  DOSE ,  clusterProfiler ,  ReactomePA  and  ChIPseeker . If you got the  could not find function  error, upgrade your installation to latest release. If the error still exists after upgrading to latest release, you need to install the devel version.", 
+            "location": "/faq/#could-not-find-function",
+            "text": "If you got  this error , please make sure you are using the latest R and  ggtree .  Packages in Bioconductor, like  ggtree , have different release policy compare to CRAN. There are two branches, release and devel, in parallel. Release branch is more stable and only document improvement and bug fixes will commit to it. New functions will only commit to  devel  branch.  Sometimes I may write blog post to introduce new functions which is not available in  release  branch, you need to install the  devel  version of  ggtree  in order to use these new functions.  You can download the  devel  version of  ggtree  from  http://bioconductor.org/packages/devel/bioc/html/ggtree.html  and install it, or install the github version of  ggtree .  This also applied to other of my packages, including  GOSemSim ,  DOSE ,  clusterProfiler ,  ReactomePA  and  ChIPseeker . If you got the  could not find function  error, upgrade your installation to latest release. If the error still exists after upgrading to latest release, you need to install the devel version.",
             "title": " Could not find function"
-        }, 
+        },
         {
-            "location": "/faq/#text-label", 
-            "text": "", 
+            "location": "/faq/#text-label",
+            "text": "",
             "title": " Text &amp; Label"
-        }, 
+        },
         {
-            "location": "/faq/#tip-label-truncated", 
-            "text": "ggplot2 can't auto adjust xlim based on added text.  library(ggtree)\n## example tree from https://support.bioconductor.org/p/72398/\ntree -read.tree(text= (Organism1.006G249400.1:0.03977,(Organism2.022118m:0.01337,(Organism3.J34265.1:0.00284,Organism4.G02633.1:0.00468)0.51:0.0104):0.02469); )\nggtree(tree) + geom_tiplab()  This is because the units are in two different spaces (data and pixel). Users can use xlim to allocate more space for tip label.  ggtree(tree) + geom_tiplab() + xlim(0, 0.06)", 
+            "location": "/faq/#tip-label-truncated",
+            "text": "ggplot2 can't auto adjust xlim based on added text.  library(ggtree)\n## example tree from https://support.bioconductor.org/p/72398/\ntree<-read.tree(text=\"(Organism1.006G249400.1:0.03977,(Organism2.022118m:0.01337,(Organism3.J34265.1:0.00284,Organism4.G02633.1:0.00468)0.51:0.0104):0.02469);\")\nggtree(tree) + geom_tiplab()  This is because the units are in two different spaces (data and pixel). Users can use xlim to allocate more space for tip label.  ggtree(tree) + geom_tiplab() + xlim(0, 0.06)",
             "title": " Tip label truncated"
-        }, 
+        },
         {
-            "location": "/faq/#modify-tip-labels", 
-            "text": "This could be easily done via the  % +%  operator to attach the\nmodified version of the labels and than use  geom_tiplab  to display\nthe modified version.  raxml_file  - system.file( extdata/RAxML ,  RAxML_bipartitionsBranchLabels.H3 , package= ggtree )\nraxml  - read.raxml(raxml_file)\n\nlb = get.tree(raxml)$tip.label\nd = data.frame(label=lb, label2 = paste( AA , substring(lb, 1, 5)))\nggtree(raxml) % +% d + geom_tiplab(aes(label=label2))  see also 1 \nand  2 .", 
+            "location": "/faq/#modify-tip-labels",
+            "text": "This could be easily done via the  %<+%  operator to attach the\nmodified version of the labels and than use  geom_tiplab  to display\nthe modified version.  raxml_file <- system.file(\"extdata/RAxML\", \"RAxML_bipartitionsBranchLabels.H3\", package=\"ggtree\")\nraxml <- read.raxml(raxml_file)\n\nlb = get.tree(raxml)$tip.label\nd = data.frame(label=lb, label2 = paste(\"AA\", substring(lb, 1, 5)))\nggtree(raxml) %<+% d + geom_tiplab(aes(label=label2))  see also 1 \nand  2 .",
             "title": " Modify (tip) labels"
-        }, 
+        },
         {
-            "location": "/faq/#formatting-tip-labels", 
-            "text": "If you want to format labels, you need to set  parse=TRUE  in  geom_text / geom_tiplab  and the  label  should be string that can be parsed into expression and displayed as described in  ?plotmath .  For example, the tiplabels contains two parts, species name and accession number and we want to display species name in  italic , we can use command like this:  ggtree(rtree(30)) + geom_tiplab(aes(subset=node==35), label='paste(italic( species name ),  accession number )', parse=T)", 
+            "location": "/faq/#formatting-tip-labels",
+            "text": "If you want to format labels, you need to set  parse=TRUE  in  geom_text / geom_tiplab  and the  label  should be string that can be parsed into expression and displayed as described in  ?plotmath .  For example, the tiplabels contains two parts, species name and accession number and we want to display species name in  italic , we can use command like this:  ggtree(rtree(30)) + geom_tiplab(aes(subset=node==35), label='paste(italic(\"species name\"), \"accession number\")', parse=T)",
             "title": " Formatting (tip) labels"
-        }, 
+        },
         {
-            "location": "/faq/#avoid-overlapping-text-labels", 
-            "text": "User can use  ggrepel  package to repel overlapping text labels.  For example:  library(ggrepel)\nlibrary(ggtree)\nraxml_file  - system.file( extdata/RAxML ,  RAxML_bipartitionsBranchLabels.H3 , package= ggtree )\nraxml  - read.raxml(raxml_file)\nggtree(raxml) + geom_label_repel(aes(label=bootstrap, fill=bootstrap))  For details, please refer to  ggrepel usage examples .", 
+            "location": "/faq/#avoid-overlapping-text-labels",
+            "text": "User can use  ggrepel  package to repel overlapping text labels.  For example:  library(ggrepel)\nlibrary(ggtree)\nraxml_file <- system.file(\"extdata/RAxML\", \"RAxML_bipartitionsBranchLabels.H3\", package=\"ggtree\")\nraxml <- read.raxml(raxml_file)\nggtree(raxml) + geom_label_repel(aes(label=bootstrap, fill=bootstrap))  For details, please refer to  ggrepel usage examples .",
             "title": " Avoid overlapping text labels"
-        }, 
+        },
         {
-            "location": "/faq/#bootstrap-values-from-newick-format", 
-            "text": "It's quite command to store  bootstrap  value as node label in  newick  format. Visualizing node label is easy using  geom_text2(aes(subset = !isTip, label=label)) .  If you want to only display a subset of  bootstrap  (e.g. bootstrap   80), you can't simply using  geom_text2(subset= (label   80), label=label)  since  label  is a character vector, which contains node label (bootstrap value) and tip label (taxa name). If we use  geom_text2(subset=(as.numeric(label)   80), label=label) , it will also fail since  NAs  were introduced by coercion. We need to convert  NAs  to logical  FALSE , this can be done by the following code:  nwk  - system.file( extdata/RAxML , RAxML_bipartitions.H3 , package='ggtree')\ntr  - read.tree(nwk)\nggtree(tr) + geom_text2(aes(label=label, subset = !is.na(as.numeric(label))   as.numeric(label)   80))  Another solution is converting the bootstrap value outside  ggtree  as I recommended in  google group .  q  - ggtree(tr)\nd  - q$data\nd  - d[!d$isTip,]\nd$label  - as.numeric(d$label)\nd  - d[d$label   80,]\n\nq + geom_text(data=d, aes(label=label))", 
+            "location": "/faq/#bootstrap-values-from-newick-format",
+            "text": "It's quite command to store  bootstrap  value as node label in  newick  format. Visualizing node label is easy using  geom_text2(aes(subset = !isTip, label=label)) .  If you want to only display a subset of  bootstrap  (e.g. bootstrap > 80), you can't simply using  geom_text2(subset= (label > 80), label=label)  since  label  is a character vector, which contains node label (bootstrap value) and tip label (taxa name). If we use  geom_text2(subset=(as.numeric(label) > 80), label=label) , it will also fail since  NAs  were introduced by coercion. We need to convert  NAs  to logical  FALSE , this can be done by the following code:  nwk <- system.file(\"extdata/RAxML\",\"RAxML_bipartitions.H3\", package='ggtree')\ntr <- read.tree(nwk)\nggtree(tr) + geom_text2(aes(label=label, subset = !is.na(as.numeric(label)) & as.numeric(label) > 80))  Another solution is converting the bootstrap value outside  ggtree  as I recommended in  google group .  q <- ggtree(tr)\nd <- q$data\nd <- d[!d$isTip,]\nd$label <- as.numeric(d$label)\nd <- d[d$label > 80,]\n\nq + geom_text(data=d, aes(label=label))",
             "title": " bootstrap values from newick format"
-        }, 
+        },
         {
-            "location": "/faq/#aesthetic-mapping", 
-            "text": "", 
+            "location": "/faq/#aesthetic-mapping",
+            "text": "",
             "title": " aesthetic mapping"
-        }, 
+        },
         {
-            "location": "/faq/#inherit-aes", 
-            "text": "ggtree(rtree(30)) + geom_point()  For example, we can add symbolic points to nodes with  geom_point()  directly.\nThe magic here is we don't need to map  x  and  y  position of the points by providing  aes(x, y)  to  geom_point()  since it was already mapped by  ggtree  function and it serves as a global mapping for all layers.  But what if we provide a  dataset  in a layer and the  dataset  doesn't contain column of  x  and/or  y ,\nthe layer function also try to map  x  and  y  and also others if you map them in  ggtree  function.\nAs these variable is not available in your  dataset , you will get the following error:  Error in eval(expr, envir, enclos) : object 'x' not found  This can be fixed by using parameter  inherit.aes=FALSE  which will disable inheriting mapping from  ggtree  function.", 
+            "location": "/faq/#inherit-aes",
+            "text": "ggtree(rtree(30)) + geom_point()  For example, we can add symbolic points to nodes with  geom_point()  directly.\nThe magic here is we don't need to map  x  and  y  position of the points by providing  aes(x, y)  to  geom_point()  since it was already mapped by  ggtree  function and it serves as a global mapping for all layers.  But what if we provide a  dataset  in a layer and the  dataset  doesn't contain column of  x  and/or  y ,\nthe layer function also try to map  x  and  y  and also others if you map them in  ggtree  function.\nAs these variable is not available in your  dataset , you will get the following error:  Error in eval(expr, envir, enclos) : object 'x' not found  This can be fixed by using parameter  inherit.aes=FALSE  which will disable inheriting mapping from  ggtree  function.",
             "title": " inherit aes"
-        }, 
+        },
         {
-            "location": "/faq/#use-in-aes", 
-            "text": "NEVER DO THIS.  see the explaination in the  ggplot2 book 2ed :   Never refer to a variable with  $  (e.g.,  diamonds$carat ) in  aes() . This breaks containment, so that the plot no longer contains everything it needs, and causes problems if ggplot2 changes the order of the rows, as it does when facetting.   see also 1 \nand  2 .", 
+            "location": "/faq/#use-in-aes",
+            "text": "NEVER DO THIS.  see the explaination in the  ggplot2 book 2ed :   Never refer to a variable with  $  (e.g.,  diamonds$carat ) in  aes() . This breaks containment, so that the plot no longer contains everything it needs, and causes problems if ggplot2 changes the order of the rows, as it does when facetting.   see also 1 \nand  2 .",
             "title": " use $ in aes"
-        }, 
+        },
         {
-            "location": "/faq/#annotation", 
-            "text": "", 
+            "location": "/faq/#annotation",
+            "text": "",
             "title": " Annotation"
-        }, 
+        },
         {
-            "location": "/faq/#colouring-edges-by-user-data", 
-            "text": "see my blog post: Edge coloring with user data \nand also my answer on  https://github.com/GuangchuangYu/ggtree/issues/76 \nand  https://groups.google.com/forum/#!topic/bioc-ggtree/4GgivKqVjB8 .", 
+            "location": "/faq/#colouring-edges-by-user-data",
+            "text": "see my blog post: Edge coloring with user data \nand also my answer on  https://github.com/GuangchuangYu/ggtree/issues/76 \nand  https://groups.google.com/forum/#!topic/bioc-ggtree/4GgivKqVjB8 .",
             "title": " colouring edges by user data"
-        }, 
+        },
         {
-            "location": "/featuredArticles/", 
-            "text": "Let us know\n if you have published using \nggtree\n and your publication will be featured here.\n\n\n\n\n\n\n\n\n\n\n\n\n\n  .rChart {\n    display: block;\n    margin-left: auto; \n    margin-right: auto;\n    width: 800px;\n    height: 300px;\n  }  \n  \n\n\n\n\n\n\n\n    var chartParams = {\n \"element\": \"chart6b52366c186\",\n\"width\":            800,\n\"height\":            400,\n\"xkey\": \"year\",\n\"ykeys\": [\n \"cites\" \n],\n\"data\": [\n {\n \"year\": 2016,\n\"cites\":              1,\n\"pubid\": \"HtEfBTGE9r8C\" \n} \n],\n\"id\": \"chart6b52366c186\",\n\"labels\": \"cites\" \n},\n      chartType = \"Bar\"\n    new Morris[chartType](chartParams)\n\n\n\n\n 2016\n\n\nLack of GLYCOLATE OXIDASE 1, but not GLYCOLATE OXIDASE 2, attenuates the photorespiratory phenotype of CATALASE2-deficient \nArabidopsis\n\n\nPlant Physiology\n May. 2016 \n\n\n\n\nRange overlap drives chromosome inversion fixation in passerine birds\n\n\nbioRxiv\n May. 2016 \nhttp://dx.doi.org/10.1101/053371\n\n\n\n\nPhenotypic and Genotypic Characteristics of Shiga Toxin-Producing Escherichia coli Isolated from Surface Waters and Sediments in a Canadian Urban-Agricultural Landscape\n\n\nFront. Cell. Infect. Microbiol.\n Apr. 2016 \nhttp://dx.doi.org/10.3389%2Ffcimb.2016.00036\n\n\n\n\nWs-2\n Introgression in a Proportion of \nArabidopsis thaliana Col-0\n Stock Seed Produces Specific Phenotypes and Highlights the Importance of Routine Genetic Verification\n\n\nPlant Cell\n Mar. 2016 \nhttp://dx.doi.org/10.1105/tpc.16.00053\n\n\n\n\n 2015\n\n\nThe population genetics of drug resistance evolution in natural populations of viral, bacterial and eukaryotic pathogens\n\n\nMolecuar Ecology\n Dec. 2015 \nhttp://dx.doi.org/10.1111/mec.13474\n\n\n\n\nGenetic characterization of highly pathogenic H5 influenza viruses from poultry in Taiwan, 2015\n\n\nInfection, Genetics and Evolution\n Dec. 2015 \nhttp://dx.doi.org/10.1016/j.meegid.2015.12.006\n\n\n\n\nTrans-species polymorphism at antimicrobial innate immunity cathelicidin genes of Atlantic cod and related species\n\n\nPeerJ\n May 2015 \nhttps://doi.org/10.7717/peerj.976", 
+            "location": "/featuredArticles/",
+            "text": "Let us know\n if you have published using \nggtree\n and your publication will be featured here.\n\n\n\n\n\n\n\n\n\n\n\n\n\n  .rChart {\n    display: block;\n    margin-left: auto; \n    margin-right: auto;\n    width: 800px;\n    height: 300px;\n  }  \n  \n\n\n\n\n\n\n\n    var chartParams = {\n \"element\": \"chart7044272d6fbc\",\n\"width\":            800,\n\"height\":            400,\n\"xkey\": \"year\",\n\"ykeys\": [\n \"cites\" \n],\n\"data\": [\n {\n \"year\": 2016,\n\"cites\":              1,\n\"pubid\": \"HtEfBTGE9r8C\" \n} \n],\n\"id\": \"chart7044272d6fbc\",\n\"labels\": \"cites\" \n},\n      chartType = \"Bar\"\n    new Morris[chartType](chartParams)\n\n\n\n\n 2016\n\n\nLack of GLYCOLATE OXIDASE 1, but not GLYCOLATE OXIDASE 2, attenuates the photorespiratory phenotype of CATALASE2-deficient \nArabidopsis\n\n\nPlant Physiology\n May. 2016 \n\n\n\n\nRange overlap drives chromosome inversion fixation in passerine birds\n\n\nbioRxiv\n May. 2016 \nhttp://dx.doi.org/10.1101/053371\n\n\n\n\nPhenotypic and Genotypic Characteristics of Shiga Toxin-Producing Escherichia coli Isolated from Surface Waters and Sediments in a Canadian Urban-Agricultural Landscape\n\n\nFront. Cell. Infect. Microbiol.\n Apr. 2016 \nhttp://dx.doi.org/10.3389%2Ffcimb.2016.00036\n\n\n\n\nWs-2\n Introgression in a Proportion of \nArabidopsis thaliana Col-0\n Stock Seed Produces Specific Phenotypes and Highlights the Importance of Routine Genetic Verification\n\n\nPlant Cell\n Mar. 2016 \nhttp://dx.doi.org/10.1105/tpc.16.00053\n\n\n\n\n 2015\n\n\nThe population genetics of drug resistance evolution in natural populations of viral, bacterial and eukaryotic pathogens\n\n\nMolecuar Ecology\n Dec. 2015 \nhttp://dx.doi.org/10.1111/mec.13474\n\n\n\n\nGenetic characterization of highly pathogenic H5 influenza viruses from poultry in Taiwan, 2015\n\n\nInfection, Genetics and Evolution\n Dec. 2015 \nhttp://dx.doi.org/10.1016/j.meegid.2015.12.006\n\n\n\n\nTrans-species polymorphism at antimicrobial innate immunity cathelicidin genes of Atlantic cod and related species\n\n\nPeerJ\n May 2015 \nhttps://doi.org/10.7717/peerj.976",
             "title": "Featured Articles"
-        }, 
+        },
         {
-            "location": "/featuredArticles/#2016", 
-            "text": "Lack of GLYCOLATE OXIDASE 1, but not GLYCOLATE OXIDASE 2, attenuates the photorespiratory phenotype of CATALASE2-deficient  Arabidopsis  Plant Physiology  May. 2016    Range overlap drives chromosome inversion fixation in passerine birds  bioRxiv  May. 2016  http://dx.doi.org/10.1101/053371   Phenotypic and Genotypic Characteristics of Shiga Toxin-Producing Escherichia coli Isolated from Surface Waters and Sediments in a Canadian Urban-Agricultural Landscape  Front. Cell. Infect. Microbiol.  Apr. 2016  http://dx.doi.org/10.3389%2Ffcimb.2016.00036   Ws-2  Introgression in a Proportion of  Arabidopsis thaliana Col-0  Stock Seed Produces Specific Phenotypes and Highlights the Importance of Routine Genetic Verification  Plant Cell  Mar. 2016  http://dx.doi.org/10.1105/tpc.16.00053", 
+            "location": "/featuredArticles/#2016",
+            "text": "Lack of GLYCOLATE OXIDASE 1, but not GLYCOLATE OXIDASE 2, attenuates the photorespiratory phenotype of CATALASE2-deficient  Arabidopsis  Plant Physiology  May. 2016    Range overlap drives chromosome inversion fixation in passerine birds  bioRxiv  May. 2016  http://dx.doi.org/10.1101/053371   Phenotypic and Genotypic Characteristics of Shiga Toxin-Producing Escherichia coli Isolated from Surface Waters and Sediments in a Canadian Urban-Agricultural Landscape  Front. Cell. Infect. Microbiol.  Apr. 2016  http://dx.doi.org/10.3389%2Ffcimb.2016.00036   Ws-2  Introgression in a Proportion of  Arabidopsis thaliana Col-0  Stock Seed Produces Specific Phenotypes and Highlights the Importance of Routine Genetic Verification  Plant Cell  Mar. 2016  http://dx.doi.org/10.1105/tpc.16.00053",
             "title": " 2016"
-        }, 
+        },
         {
-            "location": "/featuredArticles/#2015", 
-            "text": "The population genetics of drug resistance evolution in natural populations of viral, bacterial and eukaryotic pathogens  Molecuar Ecology  Dec. 2015  http://dx.doi.org/10.1111/mec.13474   Genetic characterization of highly pathogenic H5 influenza viruses from poultry in Taiwan, 2015  Infection, Genetics and Evolution  Dec. 2015  http://dx.doi.org/10.1016/j.meegid.2015.12.006   Trans-species polymorphism at antimicrobial innate immunity cathelicidin genes of Atlantic cod and related species  PeerJ  May 2015  https://doi.org/10.7717/peerj.976", 
+            "location": "/featuredArticles/#2015",
+            "text": "The population genetics of drug resistance evolution in natural populations of viral, bacterial and eukaryotic pathogens  Molecuar Ecology  Dec. 2015  http://dx.doi.org/10.1111/mec.13474   Genetic characterization of highly pathogenic H5 influenza viruses from poultry in Taiwan, 2015  Infection, Genetics and Evolution  Dec. 2015  http://dx.doi.org/10.1016/j.meegid.2015.12.006   Trans-species polymorphism at antimicrobial innate immunity cathelicidin genes of Atlantic cod and related species  PeerJ  May 2015  https://doi.org/10.7717/peerj.976",
             "title": " 2015"
-        }, 
+        },
         {
-            "location": "/ChIPseeker/", 
-            "text": "", 
+            "location": "/ChIPseeker/",
+            "text": "",
             "title": "ChIPseeker"
-        }, 
+        },
         {
-            "location": "/clusterProfiler/", 
-            "text": "", 
+            "location": "/clusterProfiler/",
+            "text": "",
             "title": "clusterProfiler"
-        }, 
+        },
         {
-            "location": "/DOSE/", 
-            "text": "", 
+            "location": "/DOSE/",
+            "text": "",
             "title": "DOSE"
-        }, 
+        },
         {
-            "location": "/emojifont/", 
-            "text": "", 
+            "location": "/emojifont/",
+            "text": "",
             "title": "emojifont"
-        }, 
+        },
         {
-            "location": "/ggtree/", 
-            "text": "", 
+            "location": "/ggtree/",
+            "text": "",
             "title": "ggtree"
-        }, 
+        },
         {
-            "location": "/GOSemSim/", 
-            "text": "", 
+            "location": "/GOSemSim/",
+            "text": "",
             "title": "GOSemSim"
-        }, 
+        },
         {
-            "location": "/meshes/", 
-            "text": "", 
+            "location": "/meshes/",
+            "text": "",
             "title": "meshes"
-        }, 
+        },
         {
-            "location": "/ReactomePA/", 
-            "text": "", 
+            "location": "/ReactomePA/",
+            "text": "",
             "title": "ReactomePA"
-        }, 
+        },
         {
-            "location": "/treeio/", 
-            "text": "", 
+            "location": "/treeio/",
+            "text": "",
             "title": "treeio"
         }
     ]
