@@ -39,8 +39,8 @@ Guangchuang Yu and Tommy Tsan-Yuk Lam, School of Public Health, The University o
 Please cite the following article when using `ggtree`:
 
 [![doi](https://img.shields.io/badge/doi-10.1111/2041--210X.12628-blue.svg?style=flat)](http://dx.doi.org/10.1111/2041-210X.12628)
-[![citation](https://img.shields.io/badge/cited%20by-1-blue.svg?style=flat)](https://scholar.google.com.hk/scholar?oi=bibs&hl=en&cites=7268358477862164627)
-[![Altmetric](https://img.shields.io/badge/Altmetric-299-blue.svg?style=flat)](https://www.altmetric.com/details/10533079)
+[![citation](https://img.shields.io/badge/cited%20by-2-blue.svg?style=flat)](https://scholar.google.com.hk/scholar?oi=bibs&hl=en&cites=7268358477862164627)
+[![Altmetric](https://img.shields.io/badge/Altmetric-309-blue.svg?style=flat)](https://www.altmetric.com/details/10533079)
 
 __G Yu__, DK Smith, H Zhu, Y Guan, TTY Lam<sup>\*</sup>. ggtree: an R package for visualization and annotation of phylogenetic trees with their covariates and other associated data. __*Methods in Ecology and Evolution*__. 2017, 8(1):28-36.
 

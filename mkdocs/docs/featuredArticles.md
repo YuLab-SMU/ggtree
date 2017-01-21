@@ -18,7 +18,7 @@
 
 [Let us know](https://github.com/GuangchuangYu/featured_img) if you have published using `ggtree` and your publication will be featured here.
 
-[![citation](https://img.shields.io/badge/cited%20by-1-blue.svg?style=flat)](https://scholar.google.com.hk/scholar?oi=bibs&hl=en&cites=7268358477862164627)
+[![citation](https://img.shields.io/badge/cited%20by-2-blue.svg?style=flat)](https://scholar.google.com.hk/scholar?oi=bibs&hl=en&cites=7268358477862164627)
 
 <link rel='stylesheet' href=https://guangchuangyu.github.io/resume/css/morris.css>
 <script src='https://guangchuangyu.github.io/resume/css/jquery.min.js' type='text/javascript'></script>
@@ -36,10 +36,10 @@
   }  
   </style>
 
-<div id = 'chart7044272d6fbc' class = 'rChart morris'></div>
+<div id = 'chart7ea0521d7be6' class = 'rChart morris'></div>
 <script type='text/javascript'>
     var chartParams = {
- "element": "chart7044272d6fbc",
+ "element": "chart7ea0521d7be6",
 "width":            800,
 "height":            400,
 "xkey": "year",
@@ -51,14 +51,24 @@
  "year": 2016,
 "cites":              1,
 "pubid": "HtEfBTGE9r8C" 
+},
+{
+ "year": 2017,
+"cites":              1,
+"pubid": "HtEfBTGE9r8C" 
 } 
 ],
-"id": "chart7044272d6fbc",
+"id": "chart7ea0521d7be6",
 "labels": "cites" 
 },
       chartType = "Bar"
     new Morris[chartType](chartParams)
 </script>
+
+
+## <i class="fa fa-calendar"></i> 2017
+
+[Phylogenetic analysis of the human antibody repertoire reveals quantitative signatures of immune senescence and aging](http://dx.doi.org/10.1073/pnas.1617959114). ***PNAS***, 2017
 
 
 ## <i class="fa fa-calendar"></i> 2016

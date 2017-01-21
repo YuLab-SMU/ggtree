@@ -10,6 +10,11 @@
 <!-- article_citation:=HtEfBTGE9r8C -->
 
 
+## <i class="fa fa-calendar"></i> 2017
+
+[Phylogenetic analysis of the human antibody repertoire reveals quantitative signatures of immune senescence and aging](http://dx.doi.org/10.1073/pnas.1617959114). ***PNAS***, 2017
+
+
 ## <i class="fa fa-calendar"></i> 2016
 
 Lack of GLYCOLATE OXIDASE 1, but not GLYCOLATE OXIDASE 2, attenuates the photorespiratory phenotype of CATALASE2-deficient *Arabidopsis*
