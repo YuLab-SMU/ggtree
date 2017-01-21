@@ -2,12 +2,7 @@
 
 <link rel="stylesheet" href="https://guangchuangyu.github.io/css/font-awesome.min.css">
 
-
-[Let us know](https://github.com/GuangchuangYu/featured_img) if you have published using `ggtree` and your publication will be featured here.
-
 <!-- citation:=HtEfBTGE9r8C:=7268358477862164627 -->
-
-<!-- article_citation:=HtEfBTGE9r8C -->
 
 
 + <http://dx.doi.org/10.1128/AEM.02307-16>
