@@ -56,6 +56,7 @@ mdfiles:
 	Rscript -e 'library(ypages); gendoc("src/index.md", "blue", "docs/index.md")';\
 	Rscript -e 'library(ypages); gendoc("src/documentation.md", "blue", "docs/documentation.md")';\
 	Rscript -e 'library(ypages); gendoc("src/featuredArticles.md", "blue", "docs/featuredArticles.md")';\
+	Rscript -e 'library(ypages); gendoc("src/gallery.md", "blue", "docs/gallery.md")';\
 	Rscript -e 'library(ypages); gendoc("src/faq.md", "blue", "docs/faq.md")';\
 	cd docs;\
 	ln -f -s ../mysoftware/* ./

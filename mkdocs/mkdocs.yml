@@ -10,6 +10,7 @@ pages:
 - Documentation: documentation.md
 - FAQ: faq.md
 - Featured Articles: featuredArticles.md
+- Gallery: gallery.md
 - My Software:
   - ChIPseeker: ChIPseeker.md
   - clusterProfiler: clusterProfiler.md

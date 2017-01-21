@@ -36,10 +36,10 @@
   }  
   </style>
 
-<div id = 'chart1bc474772a20' class = 'rChart morris'></div>
+<div id = 'chart1be632e92863' class = 'rChart morris'></div>
 <script type='text/javascript'>
     var chartParams = {
- "element": "chart1bc474772a20",
+ "element": "chart1be632e92863",
 "width":            800,
 "height":            400,
 "xkey": "year",
@@ -58,7 +58,7 @@
 "pubid": "HtEfBTGE9r8C" 
 } 
 ],
-"id": "chart1bc474772a20",
+"id": "chart1be632e92863",
 "labels": "cites" 
 },
       chartType = "Bar"
@@ -66,13 +66,15 @@
 </script>
 
 
-## <i class="fa fa-calendar"></i> 2017
++ <http://dx.doi.org/10.1128/AEM.02307-16>
 
-[Phylogenetic analysis of the human antibody repertoire reveals quantitative signatures of immune senescence and aging](http://dx.doi.org/10.1073/pnas.1617959114). ***PNAS***, 2017
+![](https://guangchuangyu.github.io/featured_img/ggtree/2017-01-21-115646_969x444_scrot.png)
 
++ <http://dx.doi.org/10.3389%2Ffcimb.2016.00036>
 
-## <i class="fa fa-calendar"></i> 2016
+![](https://guangchuangyu.github.io/featured_img/ggtree/2016_fcimb-06-00036-g003.jpg)
 
-[Function and Phylogeny of Bacterial Butyryl Coenzyme A:Acetate Transferases and Their Diversity in the Proximal Colon of Swine](http://aem.asm.org/content/82/22/6788.short). ***Applied and Environmental Microbiology***. 2016,82(22):6788-6798. 
++ <http://dx.doi.org/10.1016/j.meegid.2015.12.006>
 
+![](https://guangchuangyu.github.io/featured_img/ggtree/2015_peiyu_1-s2.0-S1567134815300721-gr1.jpg)
 
