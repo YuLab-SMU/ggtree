@@ -207,7 +207,7 @@
         },
         {
             "location": "/featuredArticles/",
-            "text": "Let us know\n if you have published using \nggtree\n and your publication will be featured here.\n\n\n\n\n\n\n\n\n\n\n\n\n\n  .rChart {\n    display: block;\n    margin-left: auto; \n    margin-right: auto;\n    width: 800px;\n    height: 300px;\n  }  \n  \n\n\n\n\n\n\n\n    var chartParams = {\n \"element\": \"chart21b36d6edb92\",\n\"width\":            800,\n\"height\":            400,\n\"xkey\": \"year\",\n\"ykeys\": [\n \"cites\" \n],\n\"data\": [\n {\n \"year\": 2016,\n\"cites\":              1,\n\"pubid\": \"HtEfBTGE9r8C\" \n},\n{\n \"year\": 2017,\n\"cites\":              1,\n\"pubid\": \"HtEfBTGE9r8C\" \n} \n],\n\"id\": \"chart21b36d6edb92\",\n\"labels\": \"cites\" \n},\n      chartType = \"Bar\"\n    new Morris[chartType](chartParams)\n\n\n\n\n 2017\n\n\nPhylogenetic analysis of the human antibody repertoire reveals quantitative signatures of immune senescence and aging\n. \nPNAS\n, 2017\n\n\n 2016\n\n\nFunction and Phylogeny of Bacterial Butyryl Coenzyme A:Acetate Transferases and Their Diversity in the Proximal Colon of Swine\n. \nApplied and Environmental Microbiology\n. 2016,82(22):6788-6798.",
+            "text": "Let us know\n if you have published using \nggtree\n and your publication will be featured here.\n\n\n\n\n\n\n\n\n\n\n\n\n\n  .rChart {\n    display: block;\n    margin-left: auto; \n    margin-right: auto;\n    width: 800px;\n    height: 300px;\n  }  \n  \n\n\n\n\n\n\n\n    var chartParams = {\n \"element\": \"chart3bd26687fb99\",\n\"width\":            800,\n\"height\":            400,\n\"xkey\": \"year\",\n\"ykeys\": [\n \"cites\" \n],\n\"data\": [\n {\n \"year\": 2016,\n\"cites\":              1,\n\"pubid\": \"HtEfBTGE9r8C\" \n},\n{\n \"year\": 2017,\n\"cites\":              1,\n\"pubid\": \"HtEfBTGE9r8C\" \n} \n],\n\"id\": \"chart3bd26687fb99\",\n\"labels\": \"cites\" \n},\n      chartType = \"Bar\"\n    new Morris[chartType](chartParams)\n\n\n\n\n 2017\n\n\nPhylogenetic analysis of the human antibody repertoire reveals quantitative signatures of immune senescence and aging\n. \nPNAS\n, 2017\n\n\n 2016\n\n\nFunction and Phylogeny of Bacterial Butyryl Coenzyme A:Acetate Transferases and Their Diversity in the Proximal Colon of Swine\n. \nApplied and Environmental Microbiology\n. 2016,82(22):6788-6798.",
             "title": "Featured Articles"
         },
         {
@@ -222,7 +222,7 @@
         },
         {
             "location": "/gallery/",
-            "text": "http://dx.doi.org/10.1128/AEM.02307-16\n\n\n\n\n\n\n\n\nhttp://dx.doi.org/10.3389%2Ffcimb.2016.00036\n\n\n\n\n\n\n\n\nhttp://dx.doi.org/10.1016/j.meegid.2015.12.006",
+            "text": "http://dx.doi.org/10.1111/2041-210X.12628\n\n\n\n\n\n\n\n\nhttp://dx.doi.org/10.1128/AEM.02307-16\n\n\n\n\n\n\n\n\nhttp://dx.doi.org/10.3389%2Ffcimb.2016.00036\n\n\n\n\n\n\n\n\nhttp://dx.doi.org/10.1016/j.meegid.2015.12.006",
             "title": "Gallery"
         },
         {
