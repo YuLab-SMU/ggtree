@@ -93,10 +93,10 @@ theme_transparent <- function(...) {
               colour = NA),
           plot.background = element_rect(
               fill = "transparent",
-              colour = NA), ...),
+              colour = NA),
           legend.key = element_rect(
               fill = "transparent", 
-              colour = NA), ...),
+              colour = NA),
           legend.background = element_rect(
               fill = "transparent", 
               colour = NA), ...)
