@@ -18,7 +18,7 @@
 
 [Let us know](https://github.com/GuangchuangYu/featured_img) if you have published using `ggtree` and your publication will be featured here.
 
-[![citation](https://img.shields.io/badge/cited%20by-2-blue.svg?style=flat)](https://scholar.google.com.hk/scholar?oi=bibs&hl=en&cites=7268358477862164627)
+[![citation](https://img.shields.io/badge/cited%20by-5-blue.svg?style=flat)](https://scholar.google.com.hk/scholar?oi=bibs&hl=en&cites=7268358477862164627)
 
 <link rel='stylesheet' href=https://guangchuangyu.github.io/resume/css/morris.css>
 <script src='https://guangchuangyu.github.io/resume/css/jquery.min.js' type='text/javascript'></script>
@@ -36,10 +36,10 @@
   }  
   </style>
 
-<div id = 'chart3bd26687fb99' class = 'rChart morris'></div>
+<div id = 'chart3a016a995a42' class = 'rChart morris'></div>
 <script type='text/javascript'>
     var chartParams = {
- "element": "chart3bd26687fb99",
+ "element": "chart3a016a995a42",
 "width":            800,
 "height":            400,
 "xkey": "year",
@@ -54,11 +54,11 @@
 },
 {
  "year": 2017,
-"cites":              1,
+"cites":              4,
 "pubid": "HtEfBTGE9r8C" 
 } 
 ],
-"id": "chart3bd26687fb99",
+"id": "chart3a016a995a42",
 "labels": "cites" 
 },
       chartType = "Bar"
@@ -69,6 +69,8 @@
 ## <i class="fa fa-calendar"></i> 2017
 
 [Phylogenetic analysis of the human antibody repertoire reveals quantitative signatures of immune senescence and aging](http://dx.doi.org/10.1073/pnas.1617959114). ***PNAS***, 2017
+
+[Gut metagenomes of type 2 diabetic patients have characteristic single-nucleotide polymorphism distribution in *Bacteroides coprocola*](https://microbiomejournal.biomedcentral.com/articles/10.1186/s40168-017-0232-3). ***Microbiome***, 2017, 5:15
 
 
 ## <i class="fa fa-calendar"></i> 2016

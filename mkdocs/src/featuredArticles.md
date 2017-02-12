@@ -14,6 +14,8 @@
 
 [Phylogenetic analysis of the human antibody repertoire reveals quantitative signatures of immune senescence and aging](http://dx.doi.org/10.1073/pnas.1617959114). ***PNAS***, 2017
 
+[Gut metagenomes of type 2 diabetic patients have characteristic single-nucleotide polymorphism distribution in *Bacteroides coprocola*](https://microbiomejournal.biomedcentral.com/articles/10.1186/s40168-017-0232-3). ***Microbiome***, 2017, 5:15
+
 
 ## <i class="fa fa-calendar"></i> 2016
 

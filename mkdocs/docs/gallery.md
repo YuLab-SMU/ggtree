@@ -15,7 +15,11 @@
 
 <link rel="stylesheet" href="https://guangchuangyu.github.io/css/font-awesome.min.css">
 
-[![citation](https://img.shields.io/badge/cited%20by-2-blue.svg?style=flat)](https://scholar.google.com.hk/scholar?oi=bibs&hl=en&cites=7268358477862164627)
+[![citation](https://img.shields.io/badge/cited%20by-5-blue.svg?style=flat)](https://scholar.google.com.hk/scholar?oi=bibs&hl=en&cites=7268358477862164627)
+
++ <http://dx.doi.org/10.1186/s40168-017-0232-3>
+
+![](https://guangchuangyu.github.io/featured_img/ggtree/40168_2017_232_Fig2_HTML.gif)
 
 + <http://dx.doi.org/10.1111/2041-210X.12628>
 
