@@ -1,5 +1,7 @@
 CHANGES IN VERSION 1.7.7
 ------------------------
+ o add legend transparency to theme_transparent <2017-02-13, Mon>
+   + <https://github.com/GuangchuangYu/ggtree/pull/112>
  o update citation info <2017-01-20, Fri>
  
 CHANGES IN VERSION 1.7.6
