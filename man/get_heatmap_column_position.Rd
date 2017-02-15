@@ -15,7 +15,7 @@ get_heatmap_column_position(treeview, by = "bottom")
 data.frame
 }
 \description{
-return a data.frame that contains position information 
+return a data.frame that contains position information
 for labeling column names of heatmap produced by `gheatmap` function
 }
 \author{
