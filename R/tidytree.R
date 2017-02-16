@@ -76,7 +76,16 @@ as.data.frame_ <- function(x, row.names, optional, branch.length = "branch.lengt
 }
 
 get_tree_data <- function(tree_object) {
-    tree_anno <- tree_object@data
+    if (is(tree_object, "codeml")) {
+        tree_anno <- tree_object@mlc@dNdS
+    } else if (is(tree_object, "codeml_mlc")) {
+        tree_anno <- tree_object@dNdS
+    } else if (is(tree_object, "beast")) {
+        tree_anno <- tree_object@stats
+    } else {
+        tree_anno <- tree_object@data
+    }
+
     if (has.extraInfo(tree_object)) {
         if (nrow(tree_anno) > 0) {
             tree_anno <- merge(tree_anno, tree_object@extraInfo, by="node")
@@ -834,15 +843,7 @@ set_branch_length <- function(tree_object, branch.length) {
         return(tree_object)
     }
 
-    if (is(tree_object, "codeml")) {
-        tree_anno <- tree_object@mlc@dNdS
-    } else if (is(tree_object, "codeml_mlc")) {
-        tree_anno <- tree_object@dNdS
-    } else if (is(tree_object, "beast")) {
-        tree_anno <- tree_object@stats
-    } else {
-        tree_anno <- get_tree_data(tree_object)
-    }
+    tree_anno <- get_tree_data(tree_object)
 
     phylo <- get.tree(tree_object)
 

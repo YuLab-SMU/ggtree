@@ -1,9 +1,9 @@
 
 
-##' return a data.frame that contains position information 
+##' return a data.frame that contains position information
 ##' for labeling column names of heatmap produced by `gheatmap` function
 ##'
-##' 
+##'
 ##' @title get_heatmap_column_position
 ##' @param treeview output of `gheatmap`
 ##' @param by one of 'bottom' or 'top'
@@ -29,7 +29,7 @@ get_heatmap_column_position <- function(treeview, by="bottom") {
 
 ##' scale x for tree with heatmap
 ##'
-##' 
+##'
 ##' @title scale_x_ggtree
 ##' @param tree_view tree view
 ##' @param breaks breaks for tree
@@ -59,16 +59,16 @@ scale_x_ggtree <- function(tree_view, breaks=NULL, labels=NULL) {
     } else {
         to <- m$to
     }
-    
+
     idx <- which(sapply(breaks, function(x) any(x > m$to)))
     if (length(idx)) {
         breaks <- breaks[-idx]
     }
-    
+
     if (is.null(labels)) {
         labels <- breaks
     }
-    
+
     breaks <- c(breaks, to)
     labels <- c(labels, gsub("\\.", "", as.character(m$from)))
 
@@ -77,7 +77,7 @@ scale_x_ggtree <- function(tree_view, breaks=NULL, labels=NULL) {
     } else {
         p <- p + scale_x_continuous(breaks=breaks, labels=labels)
     }
-    return(p)    
+    return(p)
 }
 
 
@@ -134,37 +134,37 @@ scale_x_ggtree <- function(tree_view, breaks=NULL, labels=NULL) {
 ##     ## p <- p+geom_segment(aes(x=x*1.02, xend=max(x)*1.08, yend=y), subset=.(isTip), linetype="dashed", size=0.4)
 ##     df=p$data
 ##     df=df[df$isTip,]
-    
+
 ##     dd$Var1 <- factor(dd$Var1, levels = df$label[order(df$y)])
 ##     if (any(dd$value == "")) {
 ##         dd$value[dd$value == ""] <- NA
 ##     }
-    
+
 ##     p2 <- ggplot(dd, aes(Var2, Var1, fill=value))+geom_tile(color=color)
 ##     if (is(dd$value,"numeric")) {
 ##         p2 <- p2 + scale_fill_gradient(low=low, high=high, na.value="white")
 ##     } else {
 ##         p2 <- p2 + scale_fill_discrete(na.value="white")
 ##     }
-    
+
 ##     p2 <- p2+xlab("")+ylab("")
 ##     p2 <- p2+theme_tree2() + theme(axis.ticks.x = element_blank(),
 ##                                    axis.line.x=element_blank())
 ##     ## p1 <- p1 + theme(axis.text.x = element_text(size = font.size))
-##     p2 <- p2 + theme(axis.ticks.margin = unit(0, "lines")) 
+##     p2 <- p2 + theme(axis.ticks.margin = unit(0, "lines"))
 ##     p2 <- p2 + theme(axis.text.x = element_text(size = font.size))
 ##     ## p2 <- p2 + theme(axis.text.y = element_text(size=font.size))
-    
-##     ## plot.margin   margin around entire plot (unit with the sizes of the top, right, bottom, and left margins) 
+
+##     ## plot.margin   margin around entire plot (unit with the sizes of the top, right, bottom, and left margins)
 ##     ## units can be given in "lines" or  something more specific like "cm"...
 
-    
+
 ##     p2 <- p2 + theme(panel.margin=unit(0, "null"))
 ##     p2 <- p2 + theme(plot.margin = unit(c(1, 1, .5, -0.5), "lines"))
 ##     p2 <- p2 + theme(legend.position = "right")
 ##     p2 <- p2 + guides(fill = guide_legend(override.aes = list(colour = NULL)))
 ##     ## p2 <- p2 + labs(fill="")
-    
+
 ##     return(p2)
 ## }
 
@@ -185,7 +185,7 @@ coplot <- function(tree1, tree2, hjust=0) {
         geom_tree(layout="phylogram", subset=.(tree=="A")) +
             geom_tree(layout="phylogram", subset=.(tree=="B")) +
                 theme_tree()
- 
+
     p <- p  + geom_text(aes(label=label),
                         subset=.(isTip & tree == "A"),
                         hjust=-offset/40) +
