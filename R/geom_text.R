@@ -66,7 +66,7 @@ GeomTextGGtree <- ggproto("GeomTextGGtree", GeomText,
                           setup_data = function(data, params) {
                               if (is.null(data$subset))
                                   return(data)
-                              data[data$subset,]
+                              data[which(data$subset),] ## use `which` makes it compatible with NA
                           },
                           ## compute_group = function(data, params) {
                           ##     data

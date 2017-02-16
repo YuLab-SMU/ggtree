@@ -78,7 +78,7 @@ GeomLabelGGtree <- ggproto("GeomLabelGGtree", GeomLabel,
                            setup_data = function(data, params) {
                                if (is.null(data$subset))
                                    return(data)
-                               data[data$subset,]
+                               data[which(data$subset),]
                            },
                            draw_panel = function(self, data, panel_scales, coord, parse = FALSE,
                                                  na.rm = FALSE,

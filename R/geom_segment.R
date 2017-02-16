@@ -78,7 +78,7 @@ GeomSegmentGGtree <- ggproto("GeomSegmentGGtree", GeomSegment,
                              setup_data = function(data, params) {
                                  if (is.null(data$subset))
                                      return(data)
-                                 data[data$subset,]
+                                 data[which(data$subset),]
                              },
 
                              draw_panel = function(data, panel_scales, coord, arrow = NULL,
