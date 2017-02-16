@@ -6,6 +6,7 @@
 ##' @param data A layer specific dataset -
 ##'             only needed if you want to override he plot defaults.
 ##' @param ... other arguments passed on to 'layer'
+##' @param family sans by default, can be any supported font
 ##' @param parse if TRUE, the labels will be passd into expressions
 ##' @param nudge_x horizontal adjustment
 ##' @param nudge_y vertical adjustment
@@ -24,6 +25,7 @@
 ##' @author Guangchuang Yu
 geom_label2 <- function(mapping = NULL, data = NULL,
                         ...,
+                        family = "sans",
                         parse = FALSE,
                         nudge_x = 0,
                         nudge_y = 0,
@@ -51,6 +53,15 @@ geom_label2 <- function(mapping = NULL, data = NULL,
         mapping <- modifyList(mapping, default_aes)
     }
 
+    if (parse == "emoji") {
+        label_aes <- aes_string(label=paste0("suppressMessages(emoji(", as.list(mapping)$label,"))"))
+        mapping <- modifyList(mapping, label_aes)
+        emoji <- get_fun_from_pkg("emojifont", "emoji")
+        parse <- FALSE
+        family <- "OpenSansEmoji"
+    }
+
+
     layer(
         data = data,
         mapping = mapping,
@@ -61,6 +72,7 @@ geom_label2 <- function(mapping = NULL, data = NULL,
         inherit.aes = inherit.aes,
         params = list(
             parse = parse,
+            family = family,
             label.padding = label.padding,
             label.r = label.r,
             label.size = label.size,

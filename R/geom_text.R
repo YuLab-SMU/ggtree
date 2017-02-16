@@ -6,6 +6,7 @@
 ##' @param data A layer specific dataset -
 ##'             only needed if you want to override he plot defaults.
 ##' @param position The position adjustment to use for overlapping points on this layer
+##' @param family sans by default, can be any supported font
 ##' @param parse if TRUE, the labels will be passd into expressions
 ##' @param na.rm logical
 ##' @param show.legend logical
@@ -17,13 +18,14 @@
 ##' @return text layer
 ##' @importFrom ggplot2 layer
 ##' @importFrom ggplot2 position_nudge
+##' @importFrom ggplot2 aes_string
 ##' @export
 ##' @seealso
 ##' \link[ggplot2]{geom_text}
 ##' @author Guangchuang Yu
 geom_text2 <- function(mapping = NULL, data = NULL,
-                       position = "identity", parse = FALSE, na.rm=TRUE, show.legend = NA,
-                       inherit.aes = TRUE,
+                       position = "identity", family="sans", parse = FALSE,
+                       na.rm=TRUE, show.legend = NA, inherit.aes = TRUE,
                        ..., nudge_x = 0, nudge_y = 0, check_overlap = FALSE) {
 
     if (!missing(nudge_x) || !missing(nudge_y)) {
@@ -41,6 +43,14 @@ geom_text2 <- function(mapping = NULL, data = NULL,
         mapping <- modifyList(mapping, default_aes)
     }
 
+    if (parse == "emoji") {
+        label_aes <- aes_string(label=paste0("suppressMessages(emoji(", as.list(mapping)$label,"))"))
+        mapping <- modifyList(mapping, label_aes)
+        emoji <- get_fun_from_pkg("emojifont", "emoji")
+        parse <- FALSE
+        family <- "OpenSansEmoji"
+    }
+
     layer(
         data = data,
         mapping = mapping,
@@ -50,10 +60,11 @@ geom_text2 <- function(mapping = NULL, data = NULL,
         show.legend = show.legend,
         inherit.aes = inherit.aes,
         params = list(
-          parse = parse,
-          check_overlap = check_overlap,
-          na.rm = na.rm,
-          ...
+            parse = parse,
+            family = family,
+            check_overlap = check_overlap,
+            na.rm = na.rm,
+            ...
         ),
         check.aes = FALSE
     )

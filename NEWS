@@ -1,6 +1,6 @@
 CHANGES IN VERSION 1.7.7
 ------------------------
- o geom_cladelabel support parse="emoji" <2017-02-16, Thu>
+ o supports parse="emoji" in geom_cladelabel, geom_text2, geom_label2, geom_tiplab, geom_tiplab2 <2017-02-16, Thu>
  o aes(subset) now support logical vector contains NA <2017-02-16, Thu>
  o add legend transparency to theme_transparent <2017-02-13, Mon>
    + <https://github.com/GuangchuangYu/ggtree/pull/112>
