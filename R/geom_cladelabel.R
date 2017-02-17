@@ -51,7 +51,7 @@ geom_cladelabel <- function(node, label, offset=0, offset.text=0,
         emoji <- get_fun_from_pkg("emojifont", "emoji")
         label <- emoji(label)
         parse <- FALSE
-        family <- "OpenSansEmoji"
+        family <- "EmojiOne"
     }
 
     if (is.null(color)) {
