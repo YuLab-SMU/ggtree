@@ -1,7 +1,7 @@
-##' geom_text2 support aes(subset) via setup_data
+##' geom_label2 support aes(subset) via setup_data
 ##'
 ##'
-##' @title geom_text2
+##' @title geom_label2
 ##' @param mapping the aesthetic mapping
 ##' @param data A layer specific dataset -
 ##'             only needed if you want to override he plot defaults.
