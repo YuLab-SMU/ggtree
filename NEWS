@@ -1,3 +1,7 @@
+CHANGES IN VERSION 1.7.8
+------------------------
+ o remove apeBootstrap and raxml object support as they were removed from treeio <2017-02-28, Tue>
+
 CHANGES IN VERSION 1.7.7
 ------------------------
  o supports parse="emoji" in geom_cladelabel, geom_text2, geom_label2, geom_tiplab, geom_tiplab2 <2017-02-16, Thu>
