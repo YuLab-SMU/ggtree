@@ -5,14 +5,11 @@
 \alias{reroot}
 \alias{reroot,beast-method}
 \alias{reroot,phylo-method}
-\alias{reroot,raxml-method}
 \title{reroot method}
 \usage{
 reroot(object, node, ...)
 
 \S4method{reroot}{beast}(object, node, ...)
-
-\S4method{reroot}{raxml}(object, node, ...)
 
 \S4method{reroot}{phylo}(object, node, ...)
 }

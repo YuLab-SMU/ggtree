@@ -48,7 +48,7 @@ geom_text2 <- function(mapping = NULL, data = NULL,
         mapping <- modifyList(mapping, label_aes)
         emoji <- get_fun_from_pkg("emojifont", "emoji")
         parse <- FALSE
-        family <- "OpenSansEmoji"
+        family <- "EmojiOne"
     }
 
     layer(

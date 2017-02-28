@@ -2,7 +2,7 @@
 % Please edit documentation in R/geom_label.R
 \name{geom_label2}
 \alias{geom_label2}
-\title{geom_text2}
+\title{geom_label2}
 \usage{
 geom_label2(mapping = NULL, data = NULL, ..., family = "sans",
   parse = FALSE, nudge_x = 0, nudge_y = 0, label.padding = unit(0.25,
@@ -41,7 +41,7 @@ only needed if you want to override he plot defaults.}
 label layer
 }
 \description{
-geom_text2 support aes(subset) via setup_data
+geom_label2 support aes(subset) via setup_data
 }
 \author{
 Guangchuang Yu
