@@ -1,5 +1,7 @@
 CHANGES IN VERSION 1.7.8
 ------------------------
+ o get_taxa_name now sorted by taxa position and also support whole tree <2017-03-01, Wed>
+ o unrooted layout support branch.length="none", fixed #114 <2017-03-01, Wed>
  o remove apeBootstrap and raxml object support as they were removed from treeio <2017-02-28, Tue>
 
 CHANGES IN VERSION 1.7.7

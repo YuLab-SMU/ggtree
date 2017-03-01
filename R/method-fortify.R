@@ -494,7 +494,7 @@ fortify.phylo <- function(model, data, layout="rectangular",
 as.data.frame.phylo <- function(x, row.names, optional,
                                 layout="rectangular", ...) {
     if (layout == "unrooted") {
-        return(layout.unrooted(x))
+        return(layout.unrooted(x, ...))
     }
     as.data.frame.phylo_(x, layout, ...)
 }

@@ -1,4 +1,4 @@
-##' get taxa name of a selected node
+##' get taxa name of a selected node (or tree if node=NULL) sorted by their position in plotting
 ##'
 ##'
 ##' @title get_taxa_name
@@ -7,16 +7,20 @@
 ##' @return taxa name vector
 ##' @export
 ##' @author Guangchuang Yu
-get_taxa_name <- function(tree_view=NULL, node) {
+get_taxa_name <- function(tree_view=NULL, node=NULL) {
     tree_view %<>% get_tree_view
 
     df <- tree_view$data
-    sp <- get.offspring.df(df, node)
-    res <- df[sp, "label"]
-    return(res[df[sp, "isTip"]])
+    if (!is.null(node)) {
+        sp <- get.offspring.df(df, node)
+        df <- df[sp, ]
+    }
+
+    with(df, {
+        i = order(y, decreasing=T)
+        label[i][isTip[i]]
+    })
 }
-
-
 
 
 ##' view a clade of tree

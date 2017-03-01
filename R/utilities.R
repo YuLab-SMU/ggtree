@@ -1,8 +1,6 @@
 
 
 
-
-
 ##' @importFrom ggplot2 last_plot
 get_tree_view <- function(tree_view) {
     if (is.null(tree_view))
