@@ -1,3 +1,8 @@
+CHANGES IN VERSION 1.7.9
+------------------------
+ o fixed geom_tiplab(geom='label') <2017-03-02, Thu>
+   + https://github.com/GuangchuangYu/ggtree/issues/115
+
 CHANGES IN VERSION 1.7.8
 ------------------------
  o get_taxa_name now sorted by taxa position and also support whole tree <2017-03-01, Wed>

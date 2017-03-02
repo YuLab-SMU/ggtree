@@ -6,6 +6,7 @@
 ##' @param data A layer specific dataset -
 ##'             only needed if you want to override he plot defaults.
 ##' @param ... other arguments passed on to 'layer'
+##' @param position The position adjustment to use for overlapping points on this layer
 ##' @param family sans by default, can be any supported font
 ##' @param parse if TRUE, the labels will be passd into expressions
 ##' @param nudge_x horizontal adjustment
@@ -25,6 +26,7 @@
 ##' @author Guangchuang Yu
 geom_label2 <- function(mapping = NULL, data = NULL,
                         ...,
+                        position = "identity",
                         family = "sans",
                         parse = FALSE,
                         nudge_x = 0,
@@ -35,8 +37,6 @@ geom_label2 <- function(mapping = NULL, data = NULL,
                         na.rm = TRUE,
                         show.legend = NA,
                         inherit.aes = TRUE) {
-
-    position = "identity"
 
     if (!missing(nudge_x) || !missing(nudge_y)) {
         if (!missing(position)) {

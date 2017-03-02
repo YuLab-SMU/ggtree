@@ -4,16 +4,17 @@
 \alias{geom_text2}
 \title{geom_text2}
 \usage{
-geom_text2(mapping = NULL, data = NULL, position = "identity",
+geom_text2(mapping = NULL, data = NULL, ..., position = "identity",
   family = "sans", parse = FALSE, na.rm = TRUE, show.legend = NA,
-  inherit.aes = TRUE, ..., nudge_x = 0, nudge_y = 0,
-  check_overlap = FALSE)
+  inherit.aes = TRUE, nudge_x = 0, nudge_y = 0, check_overlap = FALSE)
 }
 \arguments{
 \item{mapping}{the aesthetic mapping}
 
 \item{data}{A layer specific dataset -
 only needed if you want to override he plot defaults.}
+
+\item{...}{other arguments passed on to 'layer'}
 
 \item{position}{The position adjustment to use for overlapping points on this layer}
 
@@ -26,8 +27,6 @@ only needed if you want to override he plot defaults.}
 \item{show.legend}{logical}
 
 \item{inherit.aes}{logical}
-
-\item{...}{other arguments passed on to 'layer'}
 
 \item{nudge_x}{horizontal adjustment}
 
