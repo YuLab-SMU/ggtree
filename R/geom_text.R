@@ -5,13 +5,13 @@
 ##' @param mapping the aesthetic mapping
 ##' @param data A layer specific dataset -
 ##'             only needed if you want to override he plot defaults.
+##' @param ... other arguments passed on to 'layer'
 ##' @param position The position adjustment to use for overlapping points on this layer
 ##' @param family sans by default, can be any supported font
 ##' @param parse if TRUE, the labels will be passd into expressions
 ##' @param na.rm logical
 ##' @param show.legend logical
 ##' @param inherit.aes logical
-##' @param ... other arguments passed on to 'layer'
 ##' @param nudge_x horizontal adjustment
 ##' @param nudge_y vertical adjustment
 ##' @param check_overlap if TRUE, text that overlaps previous text in the same layer will not be plotted
@@ -24,9 +24,16 @@
 ##' \link[ggplot2]{geom_text}
 ##' @author Guangchuang Yu
 geom_text2 <- function(mapping = NULL, data = NULL,
-                       position = "identity", family="sans", parse = FALSE,
-                       na.rm=TRUE, show.legend = NA, inherit.aes = TRUE,
-                       ..., nudge_x = 0, nudge_y = 0, check_overlap = FALSE) {
+                       ...,
+                       position = "identity",
+                       family="sans",
+                       parse = FALSE,
+                       na.rm=TRUE,
+                       show.legend = NA,
+                       inherit.aes = TRUE,
+                       nudge_x = 0,
+                       nudge_y = 0,
+                       check_overlap = FALSE) {
 
     if (!missing(nudge_x) || !missing(nudge_y)) {
         if (!missing(position)) {

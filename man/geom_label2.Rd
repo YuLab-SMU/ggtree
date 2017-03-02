@@ -4,10 +4,10 @@
 \alias{geom_label2}
 \title{geom_label2}
 \usage{
-geom_label2(mapping = NULL, data = NULL, ..., family = "sans",
-  parse = FALSE, nudge_x = 0, nudge_y = 0, label.padding = unit(0.25,
-  "lines"), label.r = unit(0.15, "lines"), label.size = 0.25,
-  na.rm = TRUE, show.legend = NA, inherit.aes = TRUE)
+geom_label2(mapping = NULL, data = NULL, ..., position = "identity",
+  family = "sans", parse = FALSE, nudge_x = 0, nudge_y = 0,
+  label.padding = unit(0.25, "lines"), label.r = unit(0.15, "lines"),
+  label.size = 0.25, na.rm = TRUE, show.legend = NA, inherit.aes = TRUE)
 }
 \arguments{
 \item{mapping}{the aesthetic mapping}
@@ -16,6 +16,8 @@ geom_label2(mapping = NULL, data = NULL, ..., family = "sans",
 only needed if you want to override he plot defaults.}
 
 \item{...}{other arguments passed on to 'layer'}
+
+\item{position}{The position adjustment to use for overlapping points on this layer}
 
 \item{family}{sans by default, can be any supported font}
 

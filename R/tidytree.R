@@ -159,7 +159,7 @@ reroot_node_mapping <- function(tree, tree2) {
 
 
 ##' @importFrom ape reorder.phylo
-layout.unrooted <- function(tree) {
+layout.unrooted <- function(tree, branch.length="branch.length", ...) {
     N <- getNodeNum(tree)
     root <- getRoot(tree)
 
@@ -198,7 +198,12 @@ layout.unrooted <- function(tree) {
             alpha <- (end - start) * ntip.child/curNtip
             beta <- start + alpha / 2
 
-            length.child <- df[child, "length"]
+            if (branch.length == "none") {
+                length.child <- 1
+            } else {
+                length.child <- df[child, "length"]
+            }
+
             df[child, "x"] <- df[curNode, "x"] + cospi(beta) * length.child
             df[child, "y"] <- df[curNode, "y"] + sinpi(beta) * length.child
             df[child, "angle"] <- -90 -180 * beta * sign(beta - 1)

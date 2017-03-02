@@ -4,7 +4,7 @@
 \alias{get_taxa_name}
 \title{get_taxa_name}
 \usage{
-get_taxa_name(tree_view = NULL, node)
+get_taxa_name(tree_view = NULL, node = NULL)
 }
 \arguments{
 \item{tree_view}{tree view}
@@ -15,7 +15,7 @@ get_taxa_name(tree_view = NULL, node)
 taxa name vector
 }
 \description{
-get taxa name of a selected node
+get taxa name of a selected node (or tree if node=NULL) sorted by their position in plotting
 }
 \author{
 Guangchuang Yu
