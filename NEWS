@@ -1,5 +1,6 @@
 CHANGES IN VERSION 1.7.9
 ------------------------
+ o fixed geom_range to support height_0.95_HPD <2017-03-03, Fri>
  o fixed geom_tiplab(geom='label') <2017-03-02, Thu>
    + https://github.com/GuangchuangYu/ggtree/issues/115
 
