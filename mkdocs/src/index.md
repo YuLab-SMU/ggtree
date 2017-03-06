@@ -1,9 +1,7 @@
 <!-- addtoany:= -->
 
 
-
-<img src="https://raw.githubusercontent.com/GuangchuangYu/ggtree/master/logo.png" align="right" />
-
+<img src="https://raw.githubusercontent.com/jotsetung/BioC-stickers/master/ggtree/ggtree.png" height="128", align="right" />
 
 <link rel="stylesheet" href="https://guangchuangyu.github.io/css/font-awesome.min.css">
 
