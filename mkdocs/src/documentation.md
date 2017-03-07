@@ -36,6 +36,7 @@
 
 + [ggtree - updating a tree view](https://guangchuangyu.github.io/2015/02/ggtree---updating-a-tree-view/)
 + [an example of drawing beast tree using ggtree](https://guangchuangyu.github.io/2015/04/an-example-of-drawing-beast-tree-using-ggtree)
++ [Phylogenetic trees in R using ggtree](http://www.molecularecologist.com/2017/02/phylogenetic-trees-in-r-using-ggtree/) <i class="fa fa-arrow-left"></i> The Molecular Ecologist
 
 ### <i class="fa fa-angle-double-right"></i> Tree annotation
 

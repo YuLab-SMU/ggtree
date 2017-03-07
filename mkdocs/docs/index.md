@@ -104,7 +104,7 @@ If you have problems when installing some of the dependent packages, please refe
 ## <i class="fa fa-comments"></i> Feedback
 
 <ul class="fa-ul">
-	<li><i class="fa-li fa fa-hand-o-right"></i> Please make sure you <a href="https://guangchuangyu.github.io/2016/07/how-to-bug-author/">follow the guide</a> before posting any issue/question</li>
+	<li><i class="fa-li fa fa-hand-o-right"></i> Please make sure you have followed <a href="https://guangchuangyu.github.io/2016/07/how-to-bug-author/"><strong>the important guide</strong></a> before posting any issue/question</li>
 	<li><i class="fa-li fa fa-bug"></i> For bugs or feature requests, please post to <i class="fa fa-github-alt"></i> <a href="https://github.com/GuangchuangYu/ggtree/issues">github issue</a></li>
 	<li><i class="fa-li fa fa-question"></i>  For user questions, please post to <i class="fa fa-google"></i> <a href="https://groups.google.com/forum/#!forum/bioc-ggtree">google group</a></li>
 	<li><i class="fa-li fa fa-support"></i> We are also following every post tagged with <strong>ggtree</strong> on <a href="https://support.bioconductor.org">Bioconductor support site</a> and <a href="https://www.biostars.org">Biostars</a></li>
