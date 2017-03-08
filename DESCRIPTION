@@ -21,6 +21,7 @@ Imports:
     grid,
     magrittr,
     methods,
+    rvcheck,
     tidyr,
     utils
 Suggests:
