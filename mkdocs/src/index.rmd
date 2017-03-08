@@ -1,15 +1,29 @@
-<!-- addtoany:= -->
+---
+output:
+  md_document:
+    variant: markdown
+html_preview: false
+---
 
+
+#  ggtree: an R package for visualization and annotation of phylogenetic trees with their covariates and other associated data
+
+
+`r ypages:::addtoany()`
+
+
+```{r echo=FALSE, results="hide", message=FALSE}
+library("ypages")
+```
 
 <img src="https://raw.githubusercontent.com/jotsetung/BioC-stickers/master/ggtree/ggtree.png" height="128", align="right" />
 
 <link rel="stylesheet" href="https://guangchuangyu.github.io/css/font-awesome.min.css">
 
-<!-- release:=ggtree -->
-<!-- devel:=ggtree -->
-<!-- download:=ggtree:=total -->
-<!-- download:=ggtree:=month -->
-
+`r badge_bioc_release("ggtree", "blue")`
+`r badge_devel("guangchuangyu/ggtree", "blue")`
+`r badge_bioc_download("ggtree", "total", "blue")`
+`r badge_bioc_download("ggtree", "month", "blue")`
 
 The `ggtree` package extending the *ggplot2* package. It based on grammar of graphics and takes all the good parts of *ggplot2*.  *ggtree* is designed for not only viewing phylogenetic tree but also displaying annotation data on the tree.
 *ggtree* is released within the [Bioconductor](https://bioconductor.org/packages/ggtree/) project and the source code is hosted on <a href="https://github.com/GuangchuangYu/ggtree"><i class="fa fa-github fa-lg"></i> GitHub</a>.
@@ -23,9 +37,11 @@ Guangchuang Yu and Tommy Tsan-Yuk Lam, School of Public Health, The University o
 
 Please cite the following article when using `ggtree`:
 
-<!-- doi:=10.1111/2041-210X.12628 -->
-<!-- citation:=HtEfBTGE9r8C:=7268358477862164627 -->
-<!-- altmetric:=10533079 -->
+
+`r badge_doi("10.1111/2041-210X.12628", "blue")`
+`r badge_citation("HtEfBTGE9r8C", "7268358477862164627", "blue")`
+`r badge_altmetric("10533079", "blue")`
+
 
 __G Yu__, DK Smith, H Zhu, Y Guan, TTY Lam<sup>\*</sup>. ggtree: an R package for visualization and annotation of phylogenetic trees with their covariates and other associated data. __*Methods in Ecology and Evolution*__. 2017, 8(1):28-36.
 
@@ -74,9 +90,10 @@ If you have problems when installing some of the dependent packages, please refe
 
 ## <i class="fa fa-code-fork"></i> Projects that depend on _ggtree_
 
-<!-- package_depend:=ggtree:=CRAN -->
+`r pkg_depend_info("ggtree", "CRAN")`
 
-<!-- package_depend:=ggtree:=BioC -->
+`r pkg_depend_info("ggtree", "BioC")`
+
 
 #### <i class="fa fa-angle-double-right"></i> Other applications
 
