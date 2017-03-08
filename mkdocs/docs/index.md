@@ -25,6 +25,7 @@ ggtree: an R package for visualization and annotation of phylogenetic trees with
 <img src="https://raw.githubusercontent.com/jotsetung/BioC-stickers/master/ggtree/ggtree.png" height="128", align="right" />
 
 <link rel="stylesheet" href="https://guangchuangyu.github.io/css/font-awesome.min.css">
+<link rel="stylesheet" href="https://guangchuangyu.github.io/css/academicons.min.css">
 
 [![releaseVersion](https://img.shields.io/badge/release%20version-1.6.10-blue.svg?style=flat)](https://bioconductor.org/packages/ggtree)
 [![develVersion](https://img.shields.io/badge/devel%20version-1.7.9-blue.svg?style=flat)](https://github.com/guangchuangyu/ggtree)
@@ -45,6 +46,13 @@ GitHub</a>.
 
 Guangchuang Yu and Tommy Tsan-Yuk Lam, School of Public Health, The
 University of Hong Kong.
+
+<a href="https://twitter.com/guangchuangyu"><i class="fa fa-twitter fa-3x"></i></a>
+<a href="https://guangchuangyu.github.io/blog_images/biobabble.jpg"><i class="fa fa-wechat fa-3x"></i></a>
+<a href="https://www.ncbi.nlm.nih.gov/pubmed/?term=Guangchuang+Yu[Author+-+Full]"><i class="ai ai-pubmed ai-3x"></i></a>
+<a href="https://scholar.google.com.hk/citations?user=DO5oG40AAAAJ&hl=en"><i class="ai ai-google-scholar ai-3x"></i></a>
+<a href="https://orcid.org/0000-0002-6485-8781"><i class="ai ai-orcid ai-3x"></i></a>
+<a href="https://impactstory.org/u/0000-0002-6485-8781"><i class="ai ai-impactstory ai-3x"></i></a>
 
 <i class="fa fa-book"></i> Citation
 -----------------------------------
