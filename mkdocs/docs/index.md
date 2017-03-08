@@ -5,8 +5,8 @@ output:
     variant: markdown
 ---
 
-ggtree: an R package for visualization and annotation of phylogenetic trees with their covariates and other associated data
-===========================================================================================================================
+ggtree: visualization and annotation of phylogenetic trees
+==========================================================
 
 <!-- AddToAny BEGIN -->
 <div class="a2a_kit a2a_kit_size_32 a2a_default_style">

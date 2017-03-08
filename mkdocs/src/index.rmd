@@ -6,7 +6,7 @@ html_preview: false
 ---
 
 
-#  ggtree: an R package for visualization and annotation of phylogenetic trees with their covariates and other associated data
+#  ggtree: visualization and annotation of phylogenetic trees
 
 
 `r ypages:::addtoany()`
