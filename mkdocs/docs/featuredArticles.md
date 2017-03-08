@@ -38,13 +38,13 @@ published using `ggtree` and your publication will be featured here.
     height: 300px;
   }  
   </style>
-<div id="chart8a791c90b64b" class="rChart morris">
+<div id="chart8dfef1a8f3b" class="rChart morris">
 
 </div>
 
 <script type='text/javascript'>
     var chartParams = {
- "element": "chart8a791c90b64b",
+ "element": "chart8dfef1a8f3b",
 "width":            800,
 "height":            400,
 "xkey": "year",
@@ -63,7 +63,7 @@ published using `ggtree` and your publication will be featured here.
 "pubid": "HtEfBTGE9r8C" 
 } 
 ],
-"id": "chart8a791c90b64b",
+"id": "chart8dfef1a8f3b",
 "labels": "cites" 
 },
       chartType = "Bar"
