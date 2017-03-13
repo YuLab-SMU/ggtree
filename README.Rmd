@@ -19,7 +19,7 @@ library("ypages")
 
 
 `r badge_bioc_release("ggtree", "green")`
-`r badge_devel("ggtree", "green")`
+`r badge_devel("guangchuangyu/ggtree", "green")`
 [![Bioc](http://www.bioconductor.org/shields/years-in-bioc/ggtree.svg)](https://www.bioconductor.org/packages/devel/bioc/html/ggtree.html#since)
 `r badge_bioc_download("ggtree", "total", "blue")`
 `r badge_bioc_download("ggtree", "month", "blue")`

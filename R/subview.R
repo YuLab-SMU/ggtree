@@ -1,6 +1,6 @@
 ##' add subview to mainview for ggplot2 objects
 ##'
-##' 
+##'
 ##' @title subview
 ##' @param mainview main view
 ##' @param subview a ggplot or grob object
@@ -11,15 +11,22 @@
 ##' @return ggplot object
 ##' @importFrom ggplot2 annotation_custom
 ##' @importFrom ggplot2 ggplotGrob
+##' @importFrom ggplot2 ggplot_build
 ##' @export
 ##' @author Guangchuang Yu
 subview <- function(mainview, subview, x, y, width=.1, height=.1) {
     mapping <- mainview$mapping %>% as.character
     aes_x <- mapping["x"]
     aes_y <- mapping["y"]
-    
-    xrng <- mainview$data[, aes_x] %>% range 
-    yrng <- mainview$data[, aes_y] %>% range
+
+    if (is.na(aes_x) || is.na(aes_y)) {
+        obj <- ggplot_build(mainview)
+        xrng <- obj$layout$panel_ranges[[1]]$x.range
+        yrng <- obj$layout$panel_ranges[[1]]$y.range
+    } else {
+        xrng <- mainview$data[, aes_x] %>% range
+        yrng <- mainview$data[, aes_y] %>% range
+    }
 
     for (i in seq_along(mainview$layers)) {
         layer <- mainview$layers[[i]]
@@ -58,11 +65,11 @@ subview <- function(mainview, subview, x, y, width=.1, height=.1) {
 
     xrng <- diff(xrng)
     yrng <- diff(yrng)
-    
+
     if (!any(class(subview) %in% c("ggplot", "grob", "character"))) {
         stop("subview should be a ggplot or grob object, or an image file...")
     }
-    
+
     if (is(subview, "ggplot")) {
         sv <- ggplotGrob(subview)
     } else if (is(subview, "grob")) {
@@ -76,7 +83,7 @@ subview <- function(mainview, subview, x, y, width=.1, height=.1) {
 
     width <- width/2
     height <- height/2
-    
+
     mainview + annotation_custom(
         sv,
         xmin = x - width*xrng,

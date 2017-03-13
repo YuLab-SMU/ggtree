@@ -1,3 +1,7 @@
+CHANGES IN VERSION 1.7.10
+------------------------
+ o update subview to support mainview produced by `ggplot() + layers` <2017-03-13, Mon>
+
 CHANGES IN VERSION 1.7.9
 ------------------------
  o fixed geom_range to support height_0.95_HPD <2017-03-03, Fri>
