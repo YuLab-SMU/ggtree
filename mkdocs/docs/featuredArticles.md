@@ -24,7 +24,7 @@ output:
 [Let us know](https://github.com/GuangchuangYu/featured_img) if you have
 published using `ggtree` and your publication will be featured here.
 
-[![citation](https://img.shields.io/badge/cited%20by-8-blue.svg?style=flat)](https://scholar.google.com.hk/scholar?oi=bibs&hl=en&cites=7268358477862164627)
+[![citation](https://img.shields.io/badge/cited%20by-9-blue.svg?style=flat)](https://scholar.google.com.hk/scholar?oi=bibs&hl=en&cites=7268358477862164627)
 <link rel='stylesheet' href=https://guangchuangyu.github.io/resume/css/morris.css>
 <script src='https://guangchuangyu.github.io/resume/css/jquery.min.js' type='text/javascript'></script>
 <script src='https://guangchuangyu.github.io/resume/css/raphael-min.js' type='text/javascript'></script>
@@ -38,13 +38,13 @@ published using `ggtree` and your publication will be featured here.
     height: 300px;
   }  
   </style>
-<div id="chart8dfef1a8f3b" class="rChart morris">
+<div id="chart576124eca87f" class="rChart morris">
 
 </div>
 
 <script type='text/javascript'>
     var chartParams = {
- "element": "chart8dfef1a8f3b",
+ "element": "chart576124eca87f",
 "width":            800,
 "height":            400,
 "xkey": "year",
@@ -59,11 +59,11 @@ published using `ggtree` and your publication will be featured here.
 },
 {
  "year": 2017,
-"cites":              7,
+"cites":              8,
 "pubid": "HtEfBTGE9r8C" 
 } 
 ],
-"id": "chart8dfef1a8f3b",
+"id": "chart576124eca87f",
 "labels": "cites" 
 },
       chartType = "Bar"

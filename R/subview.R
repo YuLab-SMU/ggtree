@@ -66,12 +66,14 @@ subview <- function(mainview, subview, x, y, width=.1, height=.1) {
     xrng <- diff(xrng)
     yrng <- diff(yrng)
 
-    if (!any(class(subview) %in% c("ggplot", "grob", "character"))) {
+    if (!any(class(subview) %in% c("ggplot", "trellis", "grob", "character"))) {
         stop("subview should be a ggplot or grob object, or an image file...")
     }
 
     if (is(subview, "ggplot")) {
         sv <- ggplotGrob(subview)
+    } else if (is(subview, "trellis")) {
+        sv <- grid::grid.grabExpr(print(subview))
     } else if (is(subview, "grob")) {
         sv <- subview
     } else if (file.exists(subview)) {

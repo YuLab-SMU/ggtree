@@ -22,15 +22,15 @@ ggtree: visualization and annotation of phylogenetic trees
 
 <script async src="//static.addtoany.com/menu/page.js"></script>
 <!-- AddToAny END -->
-<img src="https://raw.githubusercontent.com/jotsetung/BioC-stickers/master/ggtree/ggtree.png" height="128", align="right" />
+<img src="https://guangchuangyu.github.io/ggtree/ggtree.png" height="128", align="right" />
 
 <link rel="stylesheet" href="https://guangchuangyu.github.io/css/font-awesome.min.css">
 <link rel="stylesheet" href="https://guangchuangyu.github.io/css/academicons.min.css">
 
-[![releaseVersion](https://img.shields.io/badge/release%20version-1.6.10-blue.svg?style=flat)](https://bioconductor.org/packages/ggtree)
-[![develVersion](https://img.shields.io/badge/devel%20version-1.7.9-blue.svg?style=flat)](https://github.com/guangchuangyu/ggtree)
-[![total](https://img.shields.io/badge/downloads-12364/total-blue.svg?style=flat)](https://bioconductor.org/packages/stats/bioc/ggtree)
-[![month](https://img.shields.io/badge/downloads-932/month-blue.svg?style=flat)](https://bioconductor.org/packages/stats/bioc/ggtree)
+[![](https://img.shields.io/badge/release%20version-1.6.10-blue.svg?style=flat)](https://bioconductor.org/packages/ggtree)
+[![](https://img.shields.io/badge/devel%20version-1.7.10-blue.svg?style=flat)](https://github.com/guangchuangyu/ggtree)
+[![](https://img.shields.io/badge/download-12746/total-blue.svg?style=flat)](https://bioconductor.org/packages/stats/bioc/ggtree)
+[![](https://img.shields.io/badge/download-967/month-blue.svg?style=flat)](https://bioconductor.org/packages/stats/bioc/ggtree)
 
 The `ggtree` package extending the *ggplot2* package. It based on
 grammar of graphics and takes all the good parts of *ggplot2*. *ggtree*
@@ -59,9 +59,9 @@ University of Hong Kong.
 
 Please cite the following article when using `ggtree`:
 
-[![doi](https://img.shields.io/badge/doi-10.1111/2041--210X.12628-blue.svg?style=flat)](http://dx.doi.org/10.1111/2041-210X.12628)
-[![citation](https://img.shields.io/badge/cited%20by-8-blue.svg?style=flat)](https://scholar.google.com.hk/scholar?oi=bibs&hl=en&cites=7268358477862164627)
-[![Altmetric](https://img.shields.io/badge/Altmetric-352-blue.svg?style=flat)](https://www.altmetric.com/details/10533079)
+[![](https://img.shields.io/badge/doi-10.1111/2041--210X.12628-blue.svg?style=flat)](http://dx.doi.org/10.1111/2041-210X.12628)
+[![citation](https://img.shields.io/badge/cited%20by-9-blue.svg?style=flat)](https://scholar.google.com.hk/scholar?oi=bibs&hl=en&cites=7268358477862164627)
+[![](https://img.shields.io/badge/Altmetric-351-blue.svg?style=flat)](https://www.altmetric.com/details/10533079)
 
 **G Yu**, DK Smith, H Zhu, Y Guan, TTY Lam<sup>\*</sup>. ggtree: an R
 package for visualization and annotation of phylogenetic trees with
