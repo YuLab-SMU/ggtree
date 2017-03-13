@@ -12,6 +12,10 @@ rd:
 readme:
 	Rscript -e 'rmarkdown::render("README.Rmd")'
 
+sticker:
+	Rscript -e 'source("ggtree_sticker.R")';
+	rm Rplots.pdf
+
 build:
 	cd ..;\
 	R CMD build $(PKGSRC)
