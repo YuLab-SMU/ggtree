@@ -15,7 +15,7 @@ library("txtplot")
 library("ypages")
 ```
 
-<img src="https://guangchuangyu.github.io/ggtree/ggtree.png" height="128", align="right" />
+<img src="docs/ggtree.png" height="128", align="right" />
 
 
 `r badge_bioc_release("ggtree", "green")`
