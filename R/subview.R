@@ -15,6 +15,8 @@
 ##' @export
 ##' @author Guangchuang Yu
 subview <- function(mainview, subview, x, y, width=.1, height=.1) {
+    message("The subview function will be defunct in next release, please use ggimage::geom_subview() instead.")
+
     mapping <- mainview$mapping %>% as.character
     aes_x <- mapping["x"]
     aes_y <- mapping["y"]
