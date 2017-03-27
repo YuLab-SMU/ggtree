@@ -15,12 +15,15 @@ library("txtplot")
 library("ypages")
 ```
 
-`r badge_release("ggtree", "green")`
-`r badge_devel("ggtree", "green")`
+<img src="https://raw.githubusercontent.com/Bioconductor/BiocStickers/master/ggtree/ggtree.png" height="200" align="right" />
+
+
+`r badge_bioc_release("ggtree", "green")`
+`r badge_devel("guangchuangyu/ggtree", "green")`
 [![Bioc](http://www.bioconductor.org/shields/years-in-bioc/ggtree.svg)](https://www.bioconductor.org/packages/devel/bioc/html/ggtree.html#since)
-`r badge_download("ggtree", "total", "blue")`
-`r badge_download("ggtree", "month", "blue")`
-<img src="logo.png" align="right" />
+`r badge_bioc_download("ggtree", "total", "blue")`
+`r badge_bioc_download("ggtree", "month", "blue")`
+
 
 [![Project Status: Active - The project has reached a stable, usable state and is being actively developed.](http://www.repostatus.org/badges/latest/active.svg)](http://www.repostatus.org/#active)
 [![codecov](https://codecov.io/gh/GuangchuangYu/ggtree/branch/master/graph/badge.svg)](https://codecov.io/gh/GuangchuangYu/ggtree)
@@ -74,8 +77,8 @@ txtplot(d$year, d$cites)
 ### Download stats
 
 `r badge_download_bioc("ggtree")`
-`r badge_download("ggtree", "total", "blue")`
-`r badge_download("ggtree", "month", "blue")`
+`r badge_bioc_download("ggtree", "total", "blue")`
+`r badge_bioc_download("ggtree", "month", "blue")`
 
 
 ```{r echo=F, comment=NA}

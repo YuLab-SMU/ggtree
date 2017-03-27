@@ -9,4 +9,6 @@ Makefile
 README.Rmd
 mkdocs
 docs
-logo.png
+logo.png.github
+.github
+ggtree_sticker.R

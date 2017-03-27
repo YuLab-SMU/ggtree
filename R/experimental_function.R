@@ -1,3 +1,30 @@
+plot_fantree <- function(fantree, upper=TRUE) {
+    if (upper) {
+        ymin <- -.25
+        ymax <- 1.3
+        ## y <- 0.55
+    } else {
+        ymin <- .2
+        ymax <- 1.75
+        ## y <- 0.45
+    }
+
+    ggplot() + xlim(0,1) + ylim(0.5, 1) + theme_tree() +
+        annotation_custom(ggplotGrob(fantree),
+                          xmin=-.15, xmax=1.15,
+                          ymin=ymin, ymax=ymax)
+    ## d <- data.frame(x=c(0,1), y=c(0.5, 1))
+    ## ggplot(d, aes_(x=~x, y=~y)) %>%
+    ##     subview(fantree, 0.5, y, width=2, height=2.2) ##  %>%
+    ## subview(p2+theme_transparent(), 0.5, 0.45, width=2, height=2.2) + theme_tree()
+}
+
+plot_fantrees <- function(uppertree, lowertree) {
+    ggplot() + xlim(0,1) + ylim(0.5, 1) + theme_tree() +
+        annotation_custom(ggplotGrob(uppertree), xmin=-.15, xmax=1.15, ymin=0.52, ymax=1.02) +
+        annotation_custom(ggplotGrob(lowertree + theme_transparent()), xmin=-.15, xmax=1.15, ymin=0.48, ymax=0.98)
+}
+
 
 
 ##' return a data.frame that contains position information

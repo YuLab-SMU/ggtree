@@ -1,6 +1,6 @@
 ##' download phylopic and convert to grob object
 ##'
-##' 
+##'
 ##' @title get.phylopic
 ##' @param id phylopic id
 ##' @param size size of the phylopic
@@ -34,9 +34,9 @@ download.phylopic <- function(id, size=512, color="black", alpha=1) {
 
     channel <- get_fun_from_pkg("EBImage", "channel")
     readImage <- get_fun_from_pkg("EBImage", "readImage")
-    
+
     img <- readImage(imgfile)
-       
+
     color <- col2rgb(color) / 255
 
     img <- channel(img, 'rgb')
@@ -44,7 +44,7 @@ download.phylopic <- function(id, size=512, color="black", alpha=1) {
     img[,,2] <- color[2]
     img[,,3] <- color[3]
     img[,,4] <- img[,,4]*alpha
-    
+
     return(img)
 }
 
@@ -59,13 +59,13 @@ download.phylopic_internal <- function(id, size=512, outfile=NULL) {
         outfile <- sub(".*/", "", imgurl)
     }
     ## mode = "wb" for Windows platform
-    download.file(imgurl, outfile, mode="wb", quiet = TRUE) 
+    download.file(imgurl, outfile, mode="wb", quiet = TRUE)
 }
 
 
 ##' add phylopic layer
 ##'
-##' 
+##'
 ##' @title phylopic
 ##' @param tree_view tree view
 ##' @param phylopic_id phylopic id
@@ -84,6 +84,9 @@ download.phylopic_internal <- function(id, size=512, outfile=NULL) {
 phylopic <- function(tree_view, phylopic_id,
                      size=512, color="black", alpha=0.5,
                      node=NULL, x=NULL, y=NULL, width=.1) {
+
+    message("The phylopic function will be defunct in next release, please use ggimage::geom_phylopic() instead.")
+
     width <- diff(range(tree_view$data$x)) * width
     img <- download.phylopic(phylopic_id, size, color, alpha)
     if ( is.null(node) ) {
@@ -104,7 +107,7 @@ phylopic <- function(tree_view, phylopic_id,
         ymin <- y - AR * width/2
         ymax <- y + AR * width/2
     }
-    
+
     tree_view + annotation_custom(xmin=xmin, ymin=ymin,
                                   xmax=xmax, ymax=ymax,
                                   rasterGrob(img))
@@ -118,7 +121,7 @@ getAR <- function(img) {
 
 ##' annotation taxa with images
 ##'
-##' 
+##'
 ##' @title annotation_image
 ##' @param tree_view tree view
 ##' @param img_info data.frame with first column of taxa name and second column of image names
@@ -149,7 +152,7 @@ annotation_image <- function(tree_view, img_info, width=0.1, align=TRUE, linetyp
         xmin <- x - width/2 + offset
     }
     xmax <- xmin + width
-    
+
     ymin <- y - ARs * width/2
     ymax <- y + ARs * width/2
     image_layers <- lapply(1:length(xmin), function(i) {

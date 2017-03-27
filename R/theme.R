@@ -20,7 +20,7 @@
 theme_tree <- function(bgcolor="white", fgcolor="black", ...) {
     list(xlab(NULL),
          ylab(NULL),
-	 theme_tree2_internal() + 
+	 theme_tree2_internal() +
          theme(panel.background=element_rect(fill=bgcolor, colour=bgcolor),
                axis.line.x = element_blank(),
                axis.text.x = element_blank(),
@@ -63,7 +63,7 @@ theme_tree2_internal <- function(bgcolor="white", fgcolor="black",
                                  axis.line.y=element_blank(),
                                  axis.ticks.y=element_blank(),
                                  axis.text.y=element_blank(),...) {
-    theme_bw() + 
+    theme_bw() +
         theme(legend.position=legend.position,
               panel.grid.minor=panel.grid.minor,
               panel.grid.major=panel.grid.major,
@@ -88,6 +88,8 @@ theme_tree2_internal <- function(bgcolor="white", fgcolor="black",
 ##' @export
 ##' @author Guangchuang Yu
 theme_transparent <- function(...) {
+    message("this theme was moved to ggimage::theme_transparent and will be removed in next release")
+
     theme(panel.background = element_rect(
               fill = "transparent",
               colour = NA),
@@ -95,10 +97,10 @@ theme_transparent <- function(...) {
               fill = "transparent",
               colour = NA),
           legend.key = element_rect(
-              fill = "transparent", 
+              fill = "transparent",
               colour = NA),
           legend.background = element_rect(
-              fill = "transparent", 
+              fill = "transparent",
               colour = NA), ...)
 }
 
@@ -111,6 +113,7 @@ theme_transparent <- function(...) {
 ##' @export
 ##' @author Guangchuang Yu
 theme_inset <- function(...) {
+    message("this theme will be removed in next release")
     list(xlab(NULL),
          ylab(NULL),
          theme_tree(...),
