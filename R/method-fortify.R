@@ -327,7 +327,9 @@ fortify.paml_rst <- function(model, data, layout = "rectangular", yscale="none",
 }
 
 merge_phylo_anno.paml_rst <- function(df, model) {
-    for (type in get.fields(model)) {
+    types <- get.fields(model)
+    types <- types[grepl('subs', types)]
+    for (type in types) {
         anno <- get.subs(model, type=type)
         colnames(anno)[2] <- type
         df <- df %add2% anno
