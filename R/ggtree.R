@@ -5,6 +5,7 @@
 ##' @param tr phylo object
 ##' @param mapping aes mapping
 ##' @param layout one of 'rectangular', 'slanted', 'fan', 'circular', 'radial' or 'unrooted'
+##' @param layout.method of 'equal_angle', 'daylight'.
 ##' @param open.angle open angle, only for 'fan' layout
 ##' @param mrsd most recent sampling date
 ##' @param as.Date logical whether using Date class in time tree
@@ -33,6 +34,7 @@
 ggtree <- function(tr,
                    mapping        = NULL,
                    layout         = "rectangular",
+                   layout.method  = "equal_angle",
                    open.angle     = 0,
                    mrsd           = NULL,
                    as.Date        = FALSE,
@@ -44,8 +46,10 @@ ggtree <- function(tr,
                    ndigits        = NULL,
                    ...) {
 
+    # Check if layout string is valid.
     layout %<>% match.arg(c("rectangular", "slanted", "fan", "circular", "radial", "unrooted"))
-
+    layout.method %<>% match.arg(c("equal_angle", "daylight"))
+  
     if (is(tr, "r8s") && branch.length == "branch.length") {
         branch.length = "TREE"
     }
@@ -60,8 +64,11 @@ ggtree <- function(tr,
     } else {
         mapping <- modifyList(aes_(~x, ~y), mapping)
     }
-    p <- ggplot(tr, mapping=mapping,
+  
+    p <- ggplot(tr, 
+                mapping       = mapping,
                 layout        = layout,
+                layout.method = layout.method,
                 mrsd          = mrsd,
                 as.Date       = as.Date,
                 yscale        = yscale,
