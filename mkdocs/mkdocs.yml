@@ -11,7 +11,7 @@ pages:
 - FAQ: faq.md
 - Featured Articles: featuredArticles.md
 - Gallery: gallery.md
-- My Software:
+- Software:
   - ChIPseeker: ChIPseeker.md
   - clusterProfiler: clusterProfiler.md
   - DOSE: DOSE.md

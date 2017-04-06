@@ -91,7 +91,7 @@
             
             
                 <li class="dropdown">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">My Software <b class="caret"></b></a>
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">Software <b class="caret"></b></a>
                     <ul class="dropdown-menu">
                     
                         
@@ -227,15 +227,14 @@
 <!-- AddToAny BEGIN -->
 
 <div class="a2a_kit a2a_kit_size_32 a2a_default_style">
+
 <a class="a2a_dd" href="//www.addtoany.com/share"></a>
-<a class="a2a_button_facebook"></a>
-<a class="a2a_button_twitter"></a>
+<a class="a2a_button_facebook"></a> <a class="a2a_button_twitter"></a>
 <a class="a2a_button_google_plus"></a>
-<a class="a2a_button_pinterest"></a>
-<a class="a2a_button_reddit"></a>
-<a class="a2a_button_sina_weibo"></a>
-<a class="a2a_button_wechat"></a>
+<a class="a2a_button_pinterest"></a> <a class="a2a_button_reddit"></a>
+<a class="a2a_button_sina_weibo"></a> <a class="a2a_button_wechat"></a>
 <a class="a2a_button_douban"></a>
+
 </div>
 
 <script async src="//static.addtoany.com/menu/page.js"></script>
@@ -245,11 +244,25 @@
 <p><link rel="stylesheet" href="https://guangchuangyu.github.io/css/font-awesome.min.css"></p>
 <h1 id="installation"><i class="fa fa-download"></i> Installation</h1>
 <h2 id="could-not-find-function"><i class="fa fa-angle-double-right"></i> Could not find function</h2>
-<p>If you got <a href="https://github.com/GuangchuangYu/ggtree/issues/12">this error</a>, please make sure you are using the latest R and <code>ggtree</code>.</p>
-<p>Packages in Bioconductor, like <code>ggtree</code>, have different release policy compare to CRAN. There are two branches, release and devel, in parallel. Release branch is more stable and only document improvement and bug fixes will commit to it. New functions will only commit to <code>devel</code> branch.</p>
-<p>Sometimes I may write blog post to introduce new functions which is not available in <code>release</code> branch, you need to install the <code>devel</code> version of <code>ggtree</code> in order to use these new functions.</p>
-<p>You can download the <code>devel</code> version of <code>ggtree</code> from <a href="http://bioconductor.org/packages/devel/bioc/html/ggtree.html">http://bioconductor.org/packages/devel/bioc/html/ggtree.html</a> and install it, or install the github version of <code>ggtree</code>.</p>
-<p>This also applied to other of my packages, including <code>GOSemSim</code>, <code>DOSE</code>, <code>clusterProfiler</code>, <code>ReactomePA</code> and <code>ChIPseeker</code>. If you got the <code>could not find function</code> error, upgrade your installation to latest release. If the error still exists after upgrading to latest release, you need to install the devel version.</p>
+<p>If you got <a href="https://github.com/GuangchuangYu/ggtree/issues/12">this
+error</a>, please make
+sure you are using the latest R and <code>ggtree</code>.</p>
+<p>Packages in Bioconductor, like <code>ggtree</code>, have different release policy
+compare to CRAN. There are two branches, release and devel, in parallel.
+Release branch is more stable and only document improvement and bug
+fixes will commit to it. New functions will only commit to <code>devel</code>
+branch.</p>
+<p>Sometimes I may write blog post to introduce new functions which is not
+available in <code>release</code> branch, you need to install the <code>devel</code> version
+of <code>ggtree</code> in order to use these new functions.</p>
+<p>You can download the <code>devel</code> version of <code>ggtree</code> from
+<a href="http://bioconductor.org/packages/devel/bioc/html/ggtree.html">http://bioconductor.org/packages/devel/bioc/html/ggtree.html</a> and
+install it, or install the github version of <code>ggtree</code>.</p>
+<p>This also applied to other of my packages, including <code>GOSemSim</code>, <code>DOSE</code>,
+<code>clusterProfiler</code>, <code>ReactomePA</code> and <code>ChIPseeker</code>. If you got the
+<code>could not find function</code> error, upgrade your installation to latest
+release. If the error still exists after upgrading to latest release,
+you need to install the devel version.</p>
 <h1 id="text-label"><i class="fa fa-text-height"></i> Text &amp; Label</h1>
 <h2 id="tip-label-truncated"><i class="fa fa-angle-double-right"></i> Tip label truncated</h2>
 <p>ggplot2 can't auto adjust xlim based on added text.</p>
@@ -259,33 +272,37 @@ tree&lt;-read.tree(text=&quot;(Organism1.006G249400.1:0.03977,(Organism2.022118m
 ggtree(tree) + geom_tiplab()
 </code></pre>
 
-<p>This is because the units are in two different spaces (data and pixel). Users can use xlim to allocate more space for tip label.</p>
+<p>This is because the units are in two different spaces (data and pixel).
+Users can use xlim to allocate more space for tip label.</p>
 <pre><code class="r">ggtree(tree) + geom_tiplab() + xlim(0, 0.06)
 </code></pre>
 
 <h2 id="modify-tip-labels"><i class="fa fa-angle-double-right"></i> Modify (tip) labels</h2>
-<p>This could be easily done via the <code>%&lt;+%</code> operator to attach the
-modified version of the labels and than use <code>geom_tiplab</code> to display
-the modified version.</p>
-<pre><code>raxml_file &lt;- system.file(&quot;extdata/RAxML&quot;, &quot;RAxML_bipartitionsBranchLabels.H3&quot;, package=&quot;ggtree&quot;)
+<p>This could be easily done via the <code>%&lt;+%</code> operator to attach the modified
+version of the labels and than use <code>geom_tiplab</code> to display the modified
+version.</p>
+<pre><code>raxml_file &lt;- system.file("extdata/RAxML", "RAxML_bipartitionsBranchLabels.H3", package="ggtree")
 raxml &lt;- read.raxml(raxml_file)
 
 lb = get.tree(raxml)$tip.label
-d = data.frame(label=lb, label2 = paste(&quot;AA&quot;, substring(lb, 1, 5)))
+d = data.frame(label=lb, label2 = paste("AA", substring(lb, 1, 5)))
 ggtree(raxml) %&lt;+% d + geom_tiplab(aes(label=label2))
 </code></pre>
-
 <p>see also
 <a href="https://groups.google.com/forum/?utm_medium=email&amp;utm_source=footer#!msg/bioc-ggtree/tFdFgCJ7gQA/tZ6phSgUDQAJ">1</a>
 and <a href="https://github.com/GuangchuangYu/ggtree/issues/106">2</a>.</p>
 <h2 id="formatting-tip-labels"><i class="fa fa-angle-double-right"></i> Formatting (tip) labels</h2>
-<p>If you want to format labels, you need to set <code>parse=TRUE</code> in <code>geom_text</code>/<code>geom_tiplab</code> and the <code>label</code> should be string that can be parsed into expression and displayed as described in <code>?plotmath</code>.</p>
-<p>For example, the tiplabels contains two parts, species name and accession number and we want to display species name in <em>italic</em>, we can use command like this:</p>
-<pre><code>ggtree(rtree(30)) + geom_tiplab(aes(subset=node==35), label='paste(italic(&quot;species name&quot;), &quot;accession number&quot;)', parse=T)
+<p>If you want to format labels, you need to set <code>parse=TRUE</code> in
+<code>geom_text</code>/<code>geom_tiplab</code> and the <code>label</code> should be string that can be
+parsed into expression and displayed as described in <code>?plotmath</code>.</p>
+<p>For example, the tiplabels contains two parts, species name and
+accession number and we want to display species name in <em>italic</em>, we can
+use command like this:</p>
+<pre><code>ggtree(rtree(30)) + geom_tiplab(aes(subset=node==35), label='paste(italic("species name"), "accession number")', parse=T)
 </code></pre>
-
 <h2 id="avoid-overlapping-text-labels"><i class="fa fa-angle-double-right"></i> Avoid overlapping text labels</h2>
-<p>User can use <a href="https://cran.r-project.org/web/packages/ggrepel/">ggrepel</a> package to repel overlapping text labels.</p>
+<p>User can use <a href="https://cran.r-project.org/web/packages/ggrepel/">ggrepel</a>
+package to repel overlapping text labels.</p>
 <p>For example:</p>
 <pre><code class="r">library(ggrepel)
 library(ggtree)
@@ -294,16 +311,28 @@ raxml &lt;- read.raxml(raxml_file)
 ggtree(raxml) + geom_label_repel(aes(label=bootstrap, fill=bootstrap))
 </code></pre>
 
-<p>For details, please refer to <a href="https://cran.r-project.org/web/packages/ggrepel/vignettes/ggrepel.html">ggrepel usage examples</a>.</p>
+<p>For details, please refer to <a href="https://cran.r-project.org/web/packages/ggrepel/vignettes/ggrepel.html">ggrepel usage
+examples</a>.</p>
 <h2 id="bootstrap-values-from-newick-format"><i class="fa fa-angle-double-right"></i> bootstrap values from newick format</h2>
-<p>It's quite command to store <code>bootstrap</code> value as node label in <code>newick</code> format. Visualizing node label is easy using <code>geom_text2(aes(subset = !isTip, label=label))</code>.</p>
-<p>If you want to only display a subset of <code>bootstrap</code> (e.g. bootstrap &gt; 80), you can't simply using <code>geom_text2(subset= (label &gt; 80), label=label)</code> since <code>label</code> is a character vector, which contains node label (bootstrap value) and tip label (taxa name). If we use <code>geom_text2(subset=(as.numeric(label) &gt; 80), label=label)</code>, it will also fail since <code>NAs</code> were introduced by coercion. We need to convert <code>NAs</code> to logical <code>FALSE</code>, this can be done by the following code:</p>
+<p>It's quite command to store <code>bootstrap</code> value as node label in <code>newick</code>
+format. Visualizing node label is easy using
+<code>geom_text2(aes(subset = !isTip, label=label))</code>.</p>
+<p>If you want to only display a subset of <code>bootstrap</code> (e.g. bootstrap &gt;
+80), you can't simply using
+<code>geom_text2(subset= (label &gt; 80), label=label)</code> since <code>label</code> is a
+character vector, which contains node label (bootstrap value) and tip
+label (taxa name). If we use
+<code>geom_text2(subset=(as.numeric(label) &gt; 80), label=label)</code>, it will also
+fail since <code>NAs</code> were introduced by coercion. We need to convert <code>NAs</code>
+to logical <code>FALSE</code>, this can be done by the following code:</p>
 <pre><code class="r">nwk &lt;- system.file(&quot;extdata/RAxML&quot;,&quot;RAxML_bipartitions.H3&quot;, package='ggtree')
 tr &lt;- read.tree(nwk)
 ggtree(tr) + geom_text2(aes(label=label, subset = !is.na(as.numeric(label)) &amp; as.numeric(label) &gt; 80))
 </code></pre>
 
-<p>Another solution is converting the bootstrap value outside <code>ggtree</code> as I recommended in <a href="https://groups.google.com/forum/?utm_medium=email&amp;utm_source=footer#!msg/bioc-ggtree/hiRBjGaAfI0/Y-2zDpvtAwAJ">google group</a>.</p>
+<p>Another solution is converting the bootstrap value outside <code>ggtree</code> as I
+recommended in <a href="https://groups.google.com/forum/?utm_medium=email&amp;utm_source=footer#!msg/bioc-ggtree/hiRBjGaAfI0/Y-2zDpvtAwAJ">google
+group</a>.</p>
 <pre><code class="r">q &lt;- ggtree(tr)
 d &lt;- q$data
 d &lt;- d[!d$isTip,]
@@ -318,30 +347,40 @@ q + geom_text(data=d, aes(label=label))
 <pre><code class="r">ggtree(rtree(30)) + geom_point()
 </code></pre>
 
-<p>For example, we can add symbolic points to nodes with <code>geom_point()</code> directly.
-The magic here is we don't need to map <code>x</code> and <code>y</code> position of the points by providing <code>aes(x, y)</code> to <code>geom_point()</code> since it was already mapped by <code>ggtree</code> function and it serves as a global mapping for all layers.</p>
-<p>But what if we provide a <code>dataset</code> in a layer and the <code>dataset</code> doesn't contain column of <code>x</code> and/or <code>y</code>,
-the layer function also try to map <code>x</code> and <code>y</code> and also others if you map them in <code>ggtree</code> function.
-As these variable is not available in your <code>dataset</code>, you will get the following error:</p>
+<p>For example, we can add symbolic points to nodes with <code>geom_point()</code>
+directly. The magic here is we don't need to map <code>x</code> and <code>y</code> position of
+the points by providing <code>aes(x, y)</code> to <code>geom_point()</code> since it was
+already mapped by <code>ggtree</code> function and it serves as a global mapping
+for all layers.</p>
+<p>But what if we provide a <code>dataset</code> in a layer and the <code>dataset</code> doesn't
+contain column of <code>x</code> and/or <code>y</code>, the layer function also try to map <code>x</code>
+and <code>y</code> and also others if you map them in <code>ggtree</code> function. As these
+variable is not available in your <code>dataset</code>, you will get the following
+error:</p>
 <pre><code>Error in eval(expr, envir, enclos) : object 'x' not found
 </code></pre>
-
-<p>This can be fixed by using parameter <code>inherit.aes=FALSE</code> which will disable inheriting mapping from <code>ggtree</code> function.</p>
+<p>This can be fixed by using parameter <code>inherit.aes=FALSE</code> which will
+disable inheriting mapping from <code>ggtree</code> function.</p>
 <h2 id="use-in-aes"><i class="fa fa-angle-double-right"></i> use <code>$</code> in aes</h2>
 <p>NEVER DO THIS.</p>
-<p>see the explaination in the <a href="https://github.com/hadley/ggplot2-book/blob/master/layers.rmd#aesthetic-mappings-secaes">ggplot2 book 2ed</a>:</p>
+<p>see the explaination in the <a href="https://github.com/hadley/ggplot2-book/blob/master/layers.rmd#aesthetic-mappings-secaes">ggplot2 book
+2ed</a>:</p>
 <blockquote>
-<p>Never refer to a variable with <code>$</code> (e.g., <code>diamonds$carat</code>) in <code>aes()</code>. This breaks containment, so that the plot no longer contains everything it needs, and causes problems if ggplot2 changes the order of the rows, as it does when facetting.</p>
+<p>Never refer to a variable with <code>$</code> (e.g., <code>diamonds$carat</code>) in
+<code>aes()</code>. This breaks containment, so that the plot no longer contains
+everything it needs, and causes problems if ggplot2 changes the order
+of the rows, as it does when facetting.</p>
 </blockquote>
 <p>see also
 <a href="https://groups.google.com/forum/?utm_medium=email&amp;utm_source=footer#!msg/bioc-ggtree/hViM6vRZF94/MsZT8qRgBwAJ">1</a>
 and <a href="https://github.com/GuangchuangYu/ggtree/issues/106">2</a>.</p>
 <h1 id="annotation"><i class="fa fa-tree"></i> Annotation</h1>
 <h2 id="colouring-edges-by-user-data"><i class="fa fa-angle-double-right"></i> colouring edges by user data</h2>
-<p>see my blog post:
-<a href="http://guangchuangyu.github.io/2016/12/edge-coloring-with-user-data/">Edge coloring with user data</a>
-and also my answer on <a href="https://github.com/GuangchuangYu/ggtree/issues/76">https://github.com/GuangchuangYu/ggtree/issues/76</a>
-and <a href="https://groups.google.com/forum/#!topic/bioc-ggtree/4GgivKqVjB8">https://groups.google.com/forum/#!topic/bioc-ggtree/4GgivKqVjB8</a>.</p></div>
+<p>see my blog post: <a href="http://guangchuangyu.github.io/2016/12/edge-coloring-with-user-data/">Edge coloring with user
+data</a>
+and also my answer on
+<a href="https://github.com/GuangchuangYu/ggtree/issues/76">https://github.com/GuangchuangYu/ggtree/issues/76</a> and
+<a href="https://groups.google.com/forum/#!topic/bioc-ggtree/4GgivKqVjB8">https://groups.google.com/forum/#!topic/bioc-ggtree/4GgivKqVjB8</a>.</p></div>
         </div>
 
         <footer class="col-md-12">

@@ -11,5 +11,9 @@ mkdocs
 docs
 logo.png.github
 .github
+<<<<<<< HEAD
 ^.*\.Rproj$
 ^\.Rproj\.user$
+=======
+ggtree_sticker.R
+>>>>>>> 6c3d0a213ebba123a58af768ef6d7b4ec93b85d1

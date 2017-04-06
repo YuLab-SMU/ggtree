@@ -1,15 +1,31 @@
-<!-- addtoany:= -->
+---
+output:
+  md_document:
+    variant: markdown
+html_preview: false
+---
 
 
-<img src="https://raw.githubusercontent.com/jotsetung/BioC-stickers/master/ggtree/ggtree.png" height="128", align="right" />
+# ggtree: visualization and annotation of phylogenetic trees
+
+
+`r ypages:::addtoany()`
+
+
+```{r echo=FALSE, results="hide", message=FALSE}
+library("ypages")
+```
+
+<img src="https://raw.githubusercontent.com/Bioconductor/BiocStickers/master/ggtree/ggtree.png" height="200" align="right" />
+
 
 <link rel="stylesheet" href="https://guangchuangyu.github.io/css/font-awesome.min.css">
+<link rel="stylesheet" href="https://guangchuangyu.github.io/css/academicons.min.css">
 
-<!-- release:=ggtree -->
-<!-- devel:=ggtree -->
-<!-- download:=ggtree:=total -->
-<!-- download:=ggtree:=month -->
-
+`r badge_bioc_release("ggtree", "blue")`
+`r badge_devel("guangchuangyu/ggtree", "blue")`
+`r badge_bioc_download("ggtree", "total", "blue")`
+`r badge_bioc_download("ggtree", "month", "blue")`
 
 The `ggtree` package extending the *ggplot2* package. It based on grammar of graphics and takes all the good parts of *ggplot2*.  *ggtree* is designed for not only viewing phylogenetic tree but also displaying annotation data on the tree.
 *ggtree* is released within the [Bioconductor](https://bioconductor.org/packages/ggtree/) project and the source code is hosted on <a href="https://github.com/GuangchuangYu/ggtree"><i class="fa fa-github fa-lg"></i> GitHub</a>.
@@ -19,13 +35,23 @@ The `ggtree` package extending the *ggplot2* package. It based on grammar of gra
 
 Guangchuang Yu and Tommy Tsan-Yuk Lam, School of Public Health, The University of Hong Kong.
 
+<a href="https://twitter.com/guangchuangyu"><i class="fa fa-twitter fa-3x"></i></a>
+<a href="https://guangchuangyu.github.io/blog_images/biobabble.jpg"><i class="fa fa-wechat fa-3x"></i></a>
+<a href="https://www.ncbi.nlm.nih.gov/pubmed/?term=Guangchuang+Yu[Author+-+Full]"><i class="ai ai-pubmed ai-3x"></i></a>
+<a href="https://scholar.google.com.hk/citations?user=DO5oG40AAAAJ&hl=en"><i class="ai ai-google-scholar ai-3x"></i></a>
+<a href="https://orcid.org/0000-0002-6485-8781"><i class="ai ai-orcid ai-3x"></i></a>
+<a href="https://impactstory.org/u/0000-0002-6485-8781"><i class="ai ai-impactstory ai-3x"></i></a>
+
+
 ## <i class="fa fa-book"></i> Citation
 
 Please cite the following article when using `ggtree`:
 
-<!-- doi:=10.1111/2041-210X.12628 -->
-<!-- citation:=HtEfBTGE9r8C:=7268358477862164627 -->
-<!-- altmetric:=10533079 -->
+
+`r badge_doi("10.1111/2041-210X.12628", "blue")`
+`r badge_citation("HtEfBTGE9r8C", "7268358477862164627", "blue")`
+`r badge_altmetric("10533079", "blue")`
+
 
 __G Yu__, DK Smith, H Zhu, Y Guan, TTY Lam<sup>\*</sup>. ggtree: an R package for visualization and annotation of phylogenetic trees with their covariates and other associated data. __*Methods in Ecology and Evolution*__. 2017, 8(1):28-36.
 
@@ -74,9 +100,10 @@ If you have problems when installing some of the dependent packages, please refe
 
 ## <i class="fa fa-code-fork"></i> Projects that depend on _ggtree_
 
-<!-- package_depend:=ggtree:=CRAN -->
+`r pkg_depend_info("ggtree", "CRAN")`
 
-<!-- package_depend:=ggtree:=BioC -->
+`r pkg_depend_info("ggtree", "BioC")`
+
 
 #### <i class="fa fa-angle-double-right"></i> Other applications
 
@@ -88,11 +115,9 @@ If you have problems when installing some of the dependent packages, please refe
 ## <i class="fa fa-comments"></i> Feedback
 
 <ul class="fa-ul">
-	<li><i class="fa-li fa fa-hand-o-right"></i> Please make sure you <a href="https://guangchuangyu.github.io/2016/07/how-to-bug-author/">follow the guide</a> before posting any issue/question</li>
+	<li><i class="fa-li fa fa-hand-o-right"></i> Please make sure you have followed <a href="https://guangchuangyu.github.io/2016/07/how-to-bug-author/"><strong>the important guide</strong></a> before posting any issue/question</li>
 	<li><i class="fa-li fa fa-bug"></i> For bugs or feature requests, please post to <i class="fa fa-github-alt"></i> <a href="https://github.com/GuangchuangYu/ggtree/issues">github issue</a></li>
 	<li><i class="fa-li fa fa-question"></i>  For user questions, please post to <i class="fa fa-google"></i> <a href="https://groups.google.com/forum/#!forum/bioc-ggtree">google group</a></li>
 	<li><i class="fa-li fa fa-support"></i> We are also following every post tagged with <strong>ggtree</strong> on <a href="https://support.bioconductor.org">Bioconductor support site</a> and <a href="https://www.biostars.org">Biostars</a></li>
 	<li><i class="fa-li fa fa-commenting"></i> Join the group chat on <a href="https://twitter.com/hashtag/ggtree"><i class="fa fa-twitter fa-lg"></i></a> and <a href="http://huati.weibo.com/k/ggtree"><i class="fa fa-weibo fa-lg"></i></a></li>
 </ul>
-
-

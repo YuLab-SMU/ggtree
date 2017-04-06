@@ -349,7 +349,8 @@ is.tree <- function(x) {
                         "codeml_mlc",
                         "codeml",
                         "hyphy",
-                        "beast")
+                        "beast",
+                        "phangorn")
         ) {
         return(TRUE)
     }
@@ -459,14 +460,7 @@ getCols <- function (n) {
     colorRampPalette(col3)(n)
 }
 
-
-get_fun_from_pkg <- function(pkg, fun) {
-    ## requireNamespace(pkg)
-    ## eval(parse(text=paste0(pkg, "::", fun)))
-    require(pkg, character.only = TRUE)
-    eval(parse(text = fun))
-}
-
+##' @importFrom rvcheck get_fun_from_pkg
 hist <- get_fun_from_pkg("graphics", "hist")
 
 
