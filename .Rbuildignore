@@ -11,3 +11,5 @@ mkdocs
 docs
 logo.png.github
 .github
+^.*\.Rproj$
+^\.Rproj\.user$
