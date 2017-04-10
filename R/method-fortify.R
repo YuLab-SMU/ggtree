@@ -110,6 +110,7 @@ rm.singleton.newick <- function(nwk, outfile = NULL) {
 ##' @export
 fortify.beast <- function(model, data,
                           layout        = "rectangular",
+                          layout.method = "equal_angle",
                           yscale        = "none",
                           ladderize     = TRUE,
                           right         = FALSE,
@@ -119,7 +120,8 @@ fortify.beast <- function(model, data,
 
     model <- set_branch_length(model, branch.length)
     phylo <- model@phylo
-    df    <- fortify(phylo, layout=layout, branch.length=branch.length,
+    df    <- fortify(phylo, layout=layout, layout.method=layout.method,
+                     branch.length=branch.length,
                      ladderize=ladderize, right=right, mrsd = mrsd, ...)
 
     stats <- model@stats
@@ -220,6 +222,7 @@ fortify.beast <- function(model, data,
 ##' @export
 fortify.codeml <- function(model, data,
                            layout        = "rectangular",
+                           layout.method = "equal_angle",
                            yscale        = "none",
                            ladderize     = TRUE,
                            right         = FALSE,
@@ -265,6 +268,7 @@ fortify.codeml <- function(model, data,
 ##' @export
 fortify.codeml_mlc <- function(model, data,
                                layout        = "rectangular",
+                               layout.method = "equal_angle",
                                yscale        = "none",
                                ladderize     = TRUE,
                                right         = FALSE,
@@ -306,6 +310,7 @@ merge_phylo_anno.codeml_mlc <- function(df, dNdS, ndigits = NULL) {
 
 fortify.codeml_mlc_ <- function(model, data,
                                 layout        = "rectangular",
+                                layout.method = "equal_angle",
                                 ladderize     = TRUE,
                                 right         = FALSE,
                                 branch.length = "branch.length",
@@ -317,8 +322,12 @@ fortify.codeml_mlc_ <- function(model, data,
 
 ##' @method fortify paml_rst
 ##' @export
-fortify.paml_rst <- function(model, data, layout = "rectangular", yscale="none",
-                             ladderize=TRUE, right=FALSE, mrsd=NULL, ...) {
+fortify.paml_rst <- function(model, data, 
+                             layout = "rectangular", 
+                             yscale="none",
+                             ladderize=TRUE, 
+                             right=FALSE, 
+                             mrsd=NULL, ...) {
     df <- fortify.phylo(model@phylo, data, layout, ladderize, right, mrsd=mrsd, ...)
     df <- merge_phylo_anno.paml_rst(df, model)
     df <- scaleY(model@phylo, df, yscale, layout, ...)
@@ -353,8 +362,11 @@ fortify.hyphy <- fortify.paml_rst
 ##' @importFrom treeio get.placements
 ##' @export
 fortify.jplace <- function(model, data,
-                           layout="rectangular", yscale="none",
-                           ladderize=TRUE, right=FALSE, mrsd=NULL, ...) {
+                           layout="rectangular",
+                           yscale="none",
+                           ladderize=TRUE, 
+                           right=FALSE, 
+                           mrsd=NULL, ...) {
     df <- extract.treeinfo.jplace(model, layout, ladderize, right, mrsd=mrsd, ...)
     place <- get.placements(model, by="best")
 
@@ -403,8 +415,13 @@ fortify.phylo4 <- function(model, data, layout="rectangular", yscale="none",
 
 ##' @method fortify phylo4d
 ##' @export
-fortify.phylo4d <- function(model, data, layout="rectangular", yscale="none",
-                            ladderize=TRUE, right=FALSE, branch.length="branch.length",
+fortify.phylo4d <- function(model, data, 
+                            layout="rectangular",
+                            layout.method = "equal_angle",
+                            yscale="none",
+                            ladderize=TRUE, 
+                            right=FALSE, 
+                            branch.length="branch.length",
                             mrsd=NULL, ...) {
     ## model <- set_branch_length(model, branch.length)
     ## phylo <- as.phylo.phylo4(model)
@@ -413,7 +430,7 @@ fortify.phylo4d <- function(model, data, layout="rectangular", yscale="none",
     ## tdata <- model@data[match(res$node, rownames(model@data)), , drop=FALSE]
     ## df <- cbind(res, tdata)
     ## scaleY(as.phylo.phylo4(model), df, yscale, layout, ...)
-    fortify(as.treedata(model), data, layout, yscale, ladderize, right, branch.length, mrsd, ...)
+    fortify(as.treedata(model), data, layout, layout.method, yscale, ladderize, right, branch.length, mrsd, ...)
 }
 
 
@@ -438,8 +455,12 @@ fortify.phylo4d <- function(model, data, layout="rectangular", yscale="none",
 ##' @method fortify phylo
 ##' @export
 ##' @author Yu Guangchuang
-fortify.phylo <- function(model, data, layout="rectangular",
-                          ladderize=TRUE, right=FALSE, mrsd=NULL, as.Date=FALSE, ...) {
+fortify.phylo <- function(model, data, 
+                          layout="rectangular",
+                          ladderize=TRUE, 
+                          right=FALSE, 
+                          mrsd=NULL, 
+                          as.Date=FALSE, ...) {
     tree <- reorder.phylo(model, 'postorder')
 
     if (ladderize == TRUE) {
@@ -605,18 +626,26 @@ fortify.multiPhylo <-  function(model, data, layout="rectangular",
 
 ##' @method fortify phylip
 ##' @export
-fortify.phylip <- function(model, data, layout="rectangular",
-                        ladderize=TRUE, right=FALSE,
-                        branch.length = "TREE", mrsd=NULL, ...) {
+fortify.phylip <- function(model, data, 
+                           layout="rectangular",
+                           layout.method = "equal_angle",
+                           ladderize=TRUE, 
+                           right=FALSE,
+                           branch.length = "TREE", 
+                           mrsd=NULL, ...) {
     trees <- get.tree(model)
     fortify(trees, layout=layout, ladderize = ladderize, right=right, mrsd=mrsd, ...)
 }
 
 ##' @method fortify r8s
 ##' @export
-fortify.r8s <- function(model, data, layout="rectangular",
-                        ladderize=TRUE, right=FALSE,
-                        branch.length = "TREE", mrsd=NULL, ...) {
+fortify.r8s <- function(model, data, 
+                        layout="rectangular",
+                        layout.method = "equal_angle",
+                        ladderize=TRUE, 
+                        right=FALSE,
+                        branch.length = "TREE", 
+                        mrsd=NULL, ...) {
     trees <- get.tree(model)
     branch.length %<>% match.arg(names(trees))
     phylo <- trees[[branch.length]]
@@ -625,8 +654,11 @@ fortify.r8s <- function(model, data, layout="rectangular",
 
 ##' @method fortify obkData
 ##' @export
-fortify.obkData <- function(model, data, layout="rectangular",
-                            ladderize=TRUE, right=FALSE, mrsd = NULL, ...) {
+fortify.obkData <- function(model, data, 
+                            layout="rectangular",
+                            ladderize=TRUE, 
+                            right=FALSE, 
+                            mrsd = NULL, ...) {
 
     df <- fortify(model@trees[[1]], layout=layout, ladderize=ladderize, right=right, mrsd=mrsd, ...)
 
@@ -644,8 +676,11 @@ fortify.obkData <- function(model, data, layout="rectangular",
 
 ##' @method fortify phyloseq
 ##' @export
-fortify.phyloseq <- function(model, data, layout="rectangular",
-                             ladderize=TRUE, right=FALSE, mrsd=NULL, ...) {
+fortify.phyloseq <- function(model, data, 
+                             layout="rectangular",
+                             ladderize=TRUE, 
+                             right=FALSE, 
+                             mrsd=NULL, ...) {
 
     df <- fortify(model@phy_tree, layout=layout, ladderize=ladderize, right=right, mrsd=mrsd, ...)
     phyloseq <- "phyloseq"
