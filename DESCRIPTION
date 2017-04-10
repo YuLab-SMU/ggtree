@@ -6,8 +6,7 @@ Version: 1.7.10
 Authors@R: c(
 	   person("Guangchuang", "Yu", email = "guangchuangyu@gmail.com", role = c("aut", "cre", "cph")),
 	   person("Tommy Tsan-Yuk", "Lam", email = "tylam.tommy@gmail.com", rol = c("aut", "ths")),
-	   person("Justin", "Silverman", email = "jsilve24@gmail.com", rol = "ctb"),
-	   person("Hugo", "Gruson", email = "hugo.gruson@normalesup.org", rol = "ctb")
+	   person("Justin", "Silverman", email = "jsilve24@gmail.com", rol = "ctb")
 	   )
 Maintainer: Guangchuang Yu <guangchuangyu@gmail.com>
 Description: 'ggtree' extends the 'ggplot2' plotting system which implemented
