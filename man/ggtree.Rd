@@ -8,8 +8,9 @@
 \title{visualizing phylogenetic tree and heterogenous associated data based on grammar of graphics
 \code{ggtree} provides functions for visualizing phylogenetic tree and its associated data in R.}
 \usage{
-ggtree(tr, mapping = NULL, layout = "rectangular", open.angle = 0,
-  mrsd = NULL, as.Date = FALSE, yscale = "none", yscale_mapping = NULL,
+ggtree(tr, mapping = NULL, layout = "rectangular",
+  layout.method = "equal_angle", open.angle = 0, mrsd = NULL,
+  as.Date = FALSE, yscale = "none", yscale_mapping = NULL,
   ladderize = TRUE, right = FALSE, branch.length = "branch.length",
   ndigits = NULL, ...)
 }
@@ -19,6 +20,8 @@ ggtree(tr, mapping = NULL, layout = "rectangular", open.angle = 0,
 \item{mapping}{aes mapping}
 
 \item{layout}{one of 'rectangular', 'slanted', 'fan', 'circular', 'radial' or 'unrooted'}
+
+\item{layout.method}{of 'equal_angle', 'daylight'.}
 
 \item{open.angle}{open angle, only for 'fan' layout}
 
