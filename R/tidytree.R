@@ -180,80 +180,80 @@ layout.unrooted <- function(tree, branch.length="branch.length", layout.method="
 ##' @param branch.length set to 'none' for edge length of 1. Otherwise the phylogenetic tree edge length is used.
 ##' @return tree as data.frame with equal angle layout.
 layoutEqualAngle <- function(tree, branch.length ){
-  root <- getRoot(tree)
-  # Convert Phylo tree to data.frame.
-  df <- as.data.frame.phylo_(tree)
+    root <- getRoot(tree)
+    ## Convert Phylo tree to data.frame.
+    df <- as.data.frame.phylo_(tree)
 
-  # NOTE: Angles (start, end, angle) are in half-rotation units (radians/pi or degrees/180)
+    ## NOTE: Angles (start, end, angle) are in half-rotation units (radians/pi or degrees/180)
 
-  # create and assign NA to the following fields.
-  df$x <- NA
-  df$y <- NA
-  df$start <- NA # Start angle of segment of subtree.
-  df$end   <- NA # End angle of segment of subtree
-  df$angle <- NA # Orthogonal angle to beta ... for labels??
-  # Initialize root node position and angles.
-  df[root, "x"] <- 0
-  df[root, "y"] <- 0
-  df[root, "start"] <- 0 # 0-degrees
-  df[root, "end"]   <- 2 # 360-degrees
-  df[root, "angle"] <- 0 # Angle label.
+    ## create and assign NA to the following fields.
+    df$x <- NA
+    df$y <- NA
+    df$start <- NA # Start angle of segment of subtree.
+    df$end   <- NA # End angle of segment of subtree
+    df$angle <- NA # Orthogonal angle to beta ... for labels??
+    ## Initialize root node position and angles.
+    df[root, "x"] <- 0
+    df[root, "y"] <- 0
+    df[root, "start"] <- 0 # 0-degrees
+    df[root, "end"]   <- 2 # 360-degrees
+    df[root, "angle"] <- 0 # Angle label.
 
-  N <- getNodeNum(tree)
+    N <- getNodeNum(tree)
 
-  # Get number of tips for each node in tree.
-  nb.sp <- sapply(1:N, function(i) length(get.offspring.tip(tree, i)))
-  # Get list of node id's.
-  nodes <- getNodes_by_postorder(tree)
+    ## Get number of tips for each node in tree.
+    nb.sp <- sapply(1:N, function(i) length(get.offspring.tip(tree, i)))
+    ## Get list of node id's.
+    nodes <- getNodes_by_postorder(tree)
 
-  for(curNode in nodes) {
-    # Get number of tips for current node.
-    curNtip <- nb.sp[curNode]
-    # Get array of child node indexes of current node.
-    children <- getChild(tree, curNode)
+    for(curNode in nodes) {
+        ## Get number of tips for current node.
+        curNtip <- nb.sp[curNode]
+        ## Get array of child node indexes of current node.
+        children <- getChild(tree, curNode)
 
-    # Get "start" and "end" angles of a segment for current node in the data.frame.
-    start <- df[curNode, "start"]
-    end <- df[curNode, "end"]
+        ## Get "start" and "end" angles of a segment for current node in the data.frame.
+        start <- df[curNode, "start"]
+        end <- df[curNode, "end"]
 
-    if (length(children) == 0) {
-      ## is a tip
-      next
+        if (length(children) == 0) {
+            ## is a tip
+            next
+        }
+
+        for (i in seq_along(children)) {
+            child <- children[i]
+            ## Get the number of tips for child node.
+            ntip.child <- nb.sp[child]
+
+            ## Calculated in half radians.
+            ## alpha: angle of segment for i-th child with ntips_ij tips.
+            ## alpha = (left_angle - right_angle) * (ntips_ij)/(ntips_current)
+            alpha <- (end - start) * ntip.child / curNtip
+            ## beta = angle of line from parent node to i-th child.
+            beta <- start + alpha / 2
+
+            if (branch.length == "none") {
+                length.child <- 1
+            } else {
+                length.child <- df[child, "length"]
+            }
+
+            ## update geometry of data.frame.
+            ## Calculate (x,y) position of the i-th child node from current node.
+            df[child, "x"] <- df[curNode, "x"] + cospi(beta) * length.child
+            df[child, "y"] <- df[curNode, "y"] + sinpi(beta) * length.child
+            ## Calculate orthogonal angle to beta.
+            df[child, "angle"] <- -90 - 180 * beta * sign(beta - 1)
+            ## Update the start and end angles of the childs segment.
+            df[child, "start"] <- start
+            df[child, "end"] <- start + alpha
+            start <- start + alpha
+        }
+
     }
 
-    for (i in seq_along(children)) {
-      child <- children[i]
-      # Get the number of tips for child node.
-      ntip.child <- nb.sp[child]
-
-      # Calculated in half radians.
-      # alpha: angle of segment for i-th child with ntips_ij tips.
-      # alpha = (left_angle - right_angle) * (ntips_ij)/(ntips_current)
-      alpha <- (end - start) * ntip.child / curNtip
-      # beta = angle of line from parent node to i-th child.
-      beta <- start + alpha / 2
-
-      if (branch.length == "none") {
-        length.child <- 1
-      } else {
-        length.child <- df[child, "length"]
-      }
-
-      # update geometry of data.frame.
-      # Calculate (x,y) position of the i-th child node from current node.
-      df[child, "x"] <- df[curNode, "x"] + cospi(beta) * length.child
-      df[child, "y"] <- df[curNode, "y"] + sinpi(beta) * length.child
-      # Calculate orthogonal angle to beta.
-      df[child, "angle"] <- -90 - 180 * beta * sign(beta - 1)
-      # Update the start and end angles of the childs segment.
-      df[child, "start"] <- start
-      df[child, "end"] <- start + alpha
-      start <- start + alpha
-    }
-
-  }
-
-  return(df)
+    return(df)
 
 }
 
@@ -303,7 +303,7 @@ layoutDaylight <- function( tree, branch.length ){
   i <- 1
   ave_change <- 1.0
   while( i <= MAX_COUNT & ave_change > MINIMUM_AVERAGE_ANGLE_CHANGE ){
-    cat('Iteration: ', i, '\n')
+      ## cat('Iteration: ', i, '\n')
 
     # Reset max_change after iterating over tree.
     total_max <- 0.0
@@ -320,7 +320,7 @@ layoutDaylight <- function( tree, branch.length ){
 
     ave_change <- total_max / length(nodes)
 
-    cat('Average angle change', ave_change,'\n')
+    ## cat('Average angle change', ave_change,'\n')
 
     i <- i + 1
   }

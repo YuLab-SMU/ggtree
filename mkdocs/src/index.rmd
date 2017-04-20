@@ -49,9 +49,9 @@ Please cite the following article when using `ggtree`:
 
 
 `r badge_doi("10.1111/2041-210X.12628", "blue")`
-`r badge_citation("HtEfBTGE9r8C", "7268358477862164627", "blue")`
 `r badge_altmetric("10533079", "blue")`
-
+`r badge_citation("HtEfBTGE9r8C", "7268358477862164627", "blue")`
+`r badge_sci_citation("http://apps.webofknowledge.com/InboundService.do?mode=FullRecord&customersID=RID&IsProductCode=Yes&product=WOS&Init=Yes&Func=Frame&DestFail=http%3A%2F%2Fwww.webofknowledge.com&action=retrieve&SrcApp=RID&SrcAuth=RID&SID=U2EMQLA1958R5PUSAKt&UT=WOS%3A000393305300004", "blue")`
 
 __G Yu__, DK Smith, H Zhu, Y Guan, TTY Lam<sup>\*</sup>. ggtree: an R package for visualization and annotation of phylogenetic trees with their covariates and other associated data. __*Methods in Ecology and Evolution*__. 2017, 8(1):28-36.
 
