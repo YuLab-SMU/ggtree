@@ -12,6 +12,7 @@ html_preview: false
 
 ```{r echo=FALSE, results="hide", message=FALSE}
 library("txtplot")
+library("badger")
 library("ypages")
 ```
 
@@ -36,13 +37,21 @@ library("ypages")
 [![Build Status](http://www.bioconductor.org/shields/build/devel/bioc/ggtree.svg)](https://bioconductor.org/checkResults/devel/bioc-LATEST/ggtree/)
 [![Linux/Mac Travis Build Status](https://img.shields.io/travis/GuangchuangYu/ggtree/master.svg?label=Mac%20OSX%20%26%20Linux)](https://travis-ci.org/GuangchuangYu/ggtree)
 [![AppVeyor Build Status](https://img.shields.io/appveyor/ci/Guangchuangyu/ggtree/master.svg?label=Windows)](https://ci.appveyor.com/project/GuangchuangYu/ggtree)
-[![install with bioconda](https://img.shields.io/badge/install%20with-bioconda-green.svg?style=flat)](http://bioconda.github.io/recipes/bioconductor-ggtree/README.html)
 
 
 
 The `ggtree` package extending the `ggplot2` package. It based on grammar of graphics and takes all the good parts of `ggplot2`. `ggtree` is designed for not only viewing phylogenetic tree but also displaying annotation data on the tree.
 
 [![Twitter](https://img.shields.io/twitter/url/https/github.com/GuangchuangYu/ggtree.svg?style=social)](https://twitter.com/intent/tweet?hashtags=ggtree&url=http://onlinelibrary.wiley.com/doi/10.1111/2041-210X.12628/abstract&screen_name=guangchuangyu)
+
+
+For details, please visit our project website, <https://guangchuangyu.github.io/ggtree>.
+
++ [Documentation](https://guangchuangyu.github.io/ggtree/documentation/)
++ [FAQ](https://guangchuangyu.github.io/ggtree/faq/)
++ [Featured Articles](https://guangchuangyu.github.io/ggtree/featuredArticles/)
++ [Feedback](https://guangchuangyu.github.io/ggtree/#feedback)
+
 
 -----------------------------------------------------
 
@@ -52,21 +61,15 @@ __G Yu__, DK Smith, H Zhu, Y Guan, TTY Lam^\*^. ggtree: an R package for visuali
 
 
 `r badge_doi("10.1111/2041-210X.12628", "green")`
-`r badge_citation("HtEfBTGE9r8C", "7268358477862164627", "green")`
 `r badge_altmetric("10533079", "green")`
 
 ----------------------------------------------------------------------------------------
 
-For details, please visit our project website, <https://guangchuangyu.github.io/ggtree>.
-
-+ [Documentation](https://guangchuangyu.github.io/ggtree/documentation/)
-+ [FAQ](https://guangchuangyu.github.io/ggtree/faq/)
-+ [Featured Articles](https://guangchuangyu.github.io/ggtree/featuredArticles/)
-+ [Feedback](https://guangchuangyu.github.io/ggtree/#feedback)
 
 ### Citation
 
 `r badge_citation("HtEfBTGE9r8C", "7268358477862164627", "green")`
+`r badge_sci_citation("http://apps.webofknowledge.com/InboundService.do?mode=FullRecord&customersID=RID&IsProductCode=Yes&product=WOS&Init=Yes&Func=Frame&DestFail=http%3A%2F%2Fwww.webofknowledge.com&action=retrieve&SrcApp=RID&SrcAuth=RID&SID=U2EMQLA1958R5PUSAKt&UT=WOS%3A000393305300004", "green")`
 
 
 ```{r echo=F, comment=NA}
