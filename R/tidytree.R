@@ -159,12 +159,12 @@ reroot_node_mapping <- function(tree, tree2) {
 
 
 ##' @importFrom ape reorder.phylo
-layout.unrooted <- function(tree, branch.length="branch.length", layout.method="equal.angle", ...) {
+layout.unrooted <- function(tree, branch.length="branch.length", layout.method="equal_angle", ...) {
 
-    switch(layout.method,
-           equal_angle = { df <- layoutEqualAngle(tree, branch.length) },
-           daylight = { df <- layoutDaylight(tree, branch.length) }
-    )
+    df <- switch(layout.method,
+                 equal_angle = layoutEqualAngle(tree, branch.length),
+                 daylight = layoutDaylight(tree, branch.length)
+                 )
 
     return(df)
 }
@@ -278,54 +278,54 @@ layoutEqualAngle <- function(tree, branch.length ){
 ##' ```
 layoutDaylight <- function( tree, branch.length ){
 
-  # How to set optimal
-  MAX_COUNT <- 100
-  MINIMUM_AVERAGE_ANGLE_CHANGE <- 0.01
+    ## How to set optimal
+    MAX_COUNT <- 100
+    MINIMUM_AVERAGE_ANGLE_CHANGE <- 0.01
 
 
-  # Initialize tree.
-  tree_df <- layoutEqualAngle(tree, branch.length)
+    ## Initialize tree.
+    tree_df <- layoutEqualAngle(tree, branch.length)
 
-  # nodes = get list of nodes in tree_df
-  # Get list of node id's.
-  #nodes <- getNodes_by_postorder(tree)
-  # nodes <- GetSubtree.df(tree_df, root)
+    ## nodes = get list of nodes in tree_df
+    ## Get list of node id's.
+    ## nodes <- getNodes_by_postorder(tree)
+    ## nodes <- GetSubtree.df(tree_df, root)
 
-  # Get list of internal nodes
-  #nodes <- tree_df[tree_df$IsTip != TRUE]$nodes
+    ## Get list of internal nodes
+    ## nodes <- tree_df[tree_df$IsTip != TRUE]$nodes
 
-  nodes <- getNodesBreadthFirst.df(tree_df)
-  # select only internal nodes
-  internal_nodes <- tree_df[!tree_df$isTip,]$node
-  # Remove tips from nodes list, but keeping order.
-  nodes <- intersect(nodes, internal_nodes)
+    nodes <- getNodesBreadthFirst.df(tree_df)
+    ## select only internal nodes
+    internal_nodes <- tree_df[!tree_df$isTip,]$node
+    ## Remove tips from nodes list, but keeping order.
+    nodes <- intersect(nodes, internal_nodes)
 
-  i <- 1
-  ave_change <- 1.0
-  while( i <= MAX_COUNT & ave_change > MINIMUM_AVERAGE_ANGLE_CHANGE ){
-      ## cat('Iteration: ', i, '\n')
+    i <- 1
+    ave_change <- 1.0
+    while( i <= MAX_COUNT & ave_change > MINIMUM_AVERAGE_ANGLE_CHANGE ){
+        cat('Iteration: ', i, '\n')
 
-    # Reset max_change after iterating over tree.
-    total_max <- 0.0
+        ## Reset max_change after iterating over tree.
+        total_max <- 0.0
 
-    # for node in nodes {
-    for( j in seq_along(nodes)){
-      currentNode_id <- nodes[j]
+        ## for node in nodes {
+        for( j in seq_along(nodes)){
+            currentNode_id <- nodes[j]
 
-      result <- applyLayoutDaylight(tree_df, currentNode_id)
-      tree_df <- result$tree
-      total_max <- total_max + result$max_change
+            result <- applyLayoutDaylight(tree_df, currentNode_id)
+            tree_df <- result$tree
+            total_max <- total_max + result$max_change
 
+        }
+
+        ave_change <- total_max / length(nodes)
+
+        cat('Average angle change', ave_change,'\n')
+
+        i <- i + 1
     }
 
-    ave_change <- total_max / length(nodes)
-
-    ## cat('Average angle change', ave_change,'\n')
-
-    i <- i + 1
-  }
-
-  return(tree_df)
+    return(tree_df)
 
 }
 
