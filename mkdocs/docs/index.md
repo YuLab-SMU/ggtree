@@ -29,8 +29,8 @@ ggtree: visualization and annotation of phylogenetic trees
 
 [![](https://img.shields.io/badge/release%20version-1.6.11-blue.svg?style=flat)](https://bioconductor.org/packages/ggtree)
 [![](https://img.shields.io/badge/devel%20version-1.7.10-blue.svg?style=flat)](https://github.com/guangchuangyu/ggtree)
-[![](https://img.shields.io/badge/download-13085/total-blue.svg?style=flat)](https://bioconductor.org/packages/stats/bioc/ggtree)
-[![](https://img.shields.io/badge/download-967/month-blue.svg?style=flat)](https://bioconductor.org/packages/stats/bioc/ggtree)
+[![](https://img.shields.io/badge/download-14336/total-blue.svg?style=flat)](https://bioconductor.org/packages/stats/bioc/ggtree)
+[![](https://img.shields.io/badge/download-1385/month-blue.svg?style=flat)](https://bioconductor.org/packages/stats/bioc/ggtree)
 
 The `ggtree` package extending the *ggplot2* package. It based on
 grammar of graphics and takes all the good parts of *ggplot2*. *ggtree*
@@ -60,8 +60,9 @@ University of Hong Kong.
 Please cite the following article when using `ggtree`:
 
 [![](https://img.shields.io/badge/doi-10.1111/2041--210X.12628-blue.svg?style=flat)](http://dx.doi.org/10.1111/2041-210X.12628)
-[![citation](https://img.shields.io/badge/cited%20by-11-blue.svg?style=flat)](https://scholar.google.com.hk/scholar?oi=bibs&hl=en&cites=7268358477862164627)
 [![](https://img.shields.io/badge/Altmetric-348-blue.svg?style=flat)](https://www.altmetric.com/details/10533079)
+[![citation](https://img.shields.io/badge/cited%20by-15-blue.svg?style=flat)](https://scholar.google.com.hk/scholar?oi=bibs&hl=en&cites=7268358477862164627)
+[![](https://img.shields.io/badge/cited%20in%20Web%20of%20Science%20Core%20Collection-6-blue.svg?style=flat)](http://apps.webofknowledge.com/InboundService.do?mode=FullRecord&customersID=RID&IsProductCode=Yes&product=WOS&Init=Yes&Func=Frame&DestFail=http%3A%2F%2Fwww.webofknowledge.com&action=retrieve&SrcApp=RID&SrcAuth=RID&SID=U2EMQLA1958R5PUSAKt&UT=WOS%3A000393305300004)
 
 **G Yu**, DK Smith, H Zhu, Y Guan, TTY Lam<sup>\*</sup>. ggtree: an R
 package for visualization and annotation of phylogenetic trees with
@@ -133,6 +134,8 @@ wiki page.
 
 -   [LINC](https://www.bioconductor.org/packages/LINC): co-expression of
     lincRNAs and protein-coding genes
+-   [LymphoSeq](https://www.bioconductor.org/packages/LymphoSeq):
+    Analyze high-throughput sequencing of T and B cell receptors
 -   [philr](https://www.bioconductor.org/packages/philr): Phylogenetic
     partitioning based ILR transform for metagenomics data
 

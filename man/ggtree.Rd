@@ -18,7 +18,7 @@ ggtree(tr, mapping = NULL, layout = "rectangular", open.angle = 0,
 
 \item{mapping}{aes mapping}
 
-\item{layout}{one of 'rectangular', 'slanted', 'fan', 'circular', 'radial' or 'unrooted'}
+\item{layout}{one of 'rectangular', 'slanted', 'fan', 'circular', 'radial', 'equal_angle' or 'daylight'}
 
 \item{open.angle}{open angle, only for 'fan' layout}
 

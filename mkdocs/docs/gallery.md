@@ -21,7 +21,7 @@ output:
 <!-- AddToAny END -->
 <link rel="stylesheet" href="https://guangchuangyu.github.io/css/font-awesome.min.css">
 
-[![citation](https://img.shields.io/badge/cited%20by-11-blue.svg?style=flat)](https://scholar.google.com.hk/scholar?oi=bibs&hl=en&cites=7268358477862164627)
+[![citation](https://img.shields.io/badge/cited%20by-15-blue.svg?style=flat)](https://scholar.google.com.hk/scholar?oi=bibs&hl=en&cites=7268358477862164627)
 
 <!-- citation:=HtEfBTGE9r8C:=7268358477862164627 -->
 <i class="fa fa-mortar-board"></i> Journal Articles

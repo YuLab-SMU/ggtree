@@ -12,7 +12,7 @@ geom_tree(mapping = NULL, data = NULL, layout = "rectangular",
 
 \item{data}{data}
 
-\item{layout}{one of 'rectangular', 'slanted', 'circular', 'radial' or 'unrooted'}
+\item{layout}{one of 'rectangular', 'slanted', 'circular', 'radial', 'equal_angle' or 'daylight'}
 
 \item{multiPhylo}{logical}
 
