@@ -21,11 +21,17 @@ output:
 <!-- AddToAny END -->
 <link rel="stylesheet" href="https://guangchuangyu.github.io/css/font-awesome.min.css">
 
-[![citation](https://img.shields.io/badge/cited%20by-15-blue.svg?style=flat)](https://scholar.google.com.hk/scholar?oi=bibs&hl=en&cites=7268358477862164627)
+[![citation](https://img.shields.io/badge/cited%20by-16-blue.svg?style=flat)](https://scholar.google.com.hk/scholar?oi=bibs&hl=en&cites=7268358477862164627)
 
 <!-- citation:=HtEfBTGE9r8C:=7268358477862164627 -->
 <i class="fa fa-mortar-board"></i> Journal Articles
 ---------------------------------------------------
+
+-   <http://dx.doi.org/10.3389/fmicb.2017.00543>
+
+![](https://guangchuangyu.github.io/featured_img/ggtree/fmicb-08-00543-g0002.jpg)
+
+------------------------------------------------------------------------
 
 -   <http://dx.doi.org/10.1186/s40168-017-0232-3>
 
