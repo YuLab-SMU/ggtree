@@ -320,7 +320,7 @@ layoutDaylight <- function( tree, branch.length ){
 
         ave_change <- total_max / length(nodes)
 
-        message('Average angle change', ave_change)
+        message('Average angle change ', ave_change)
 
         i <- i + 1
     }
