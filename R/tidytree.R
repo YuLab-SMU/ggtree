@@ -303,7 +303,7 @@ layoutDaylight <- function( tree, branch.length ){
     i <- 1
     ave_change <- 1.0
     while( i <= MAX_COUNT & ave_change > MINIMUM_AVERAGE_ANGLE_CHANGE ){
-        cat('Iteration: ', i, '\n')
+        message('Iteration: ', i)
 
         ## Reset max_change after iterating over tree.
         total_max <- 0.0
@@ -320,7 +320,7 @@ layoutDaylight <- function( tree, branch.length ){
 
         ave_change <- total_max / length(nodes)
 
-        cat('Average angle change', ave_change,'\n')
+        message('Average angle change', ave_change)
 
         i <- i + 1
     }
