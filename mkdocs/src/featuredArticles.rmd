@@ -29,11 +29,17 @@ html_preview: false
 
 [Phylogenetic analysis of the human antibody repertoire reveals quantitative signatures of immune senescence and aging](http://dx.doi.org/10.1073/pnas.1617959114). ***PNAS***, 2017
 
+
+[Horses in Denmark Are a Reservoir of Diverse Clones of Methicillin-Resistant and -Susceptible Staphylococcus aureus](https://www.ncbi.nlm.nih.gov/pmc/articles/PMC5376617/).
+***Frontiers in Microbiology***, 2017, 8:543
+
+
 [Gut metagenomes of type 2 diabetic patients have characteristic single-nucleotide polymorphism distribution in *Bacteroides coprocola*](https://microbiomejournal.biomedcentral.com/articles/10.1186/s40168-017-0232-3). ***Microbiome***, 2017, 5:15
 
 
 ## <i class="fa fa-calendar"></i> 2016
 
-[Function and Phylogeny of Bacterial Butyryl Coenzyme A:Acetate Transferases and Their Diversity in the Proximal Colon of Swine](http://aem.asm.org/content/82/22/6788.short). ***Applied and Environmental Microbiology***. 2016,82(22):6788-6798.
+[Function and Phylogeny of Bacterial Butyryl Coenzyme A:Acetate Transferases and Their Diversity in the Proximal Colon of Swine](http://aem.asm.org/content/82/22/6788.short).
+***Applied and Environmental Microbiology***. 2016, 82(22):6788-6798.
 
 
