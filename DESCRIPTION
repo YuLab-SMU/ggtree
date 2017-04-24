@@ -2,7 +2,7 @@ Package: ggtree
 Type: Package
 Title: an R package for visualization and annotation of phylogenetic trees with
     their covariates and other associated data
-Version: 1.7.11
+Version: 1.8.0
 Authors@R: c(
 	   person("Guangchuang", "Yu", email = "guangchuangyu@gmail.com", role = c("aut", "cre", "cph")),
 	   person("Tommy Tsan-Yuk", "Lam", email = "tylam.tommy@gmail.com", rol = c("aut", "ths")),
