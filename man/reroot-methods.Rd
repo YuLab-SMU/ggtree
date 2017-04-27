@@ -26,4 +26,3 @@ tree object
 \description{
 reroot a tree
 }
-

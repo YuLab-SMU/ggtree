@@ -22,4 +22,3 @@ get position of balance (xmin, xmax, ymin, ymax)
 \author{
 Justin Silverman
 }
-

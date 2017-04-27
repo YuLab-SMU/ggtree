@@ -21,4 +21,3 @@ capture name of variable
 x <- 1
 eval(.(x)[[1]])
 }
-

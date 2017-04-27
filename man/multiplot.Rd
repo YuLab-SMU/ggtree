@@ -29,4 +29,3 @@ plot multiple ggplot objects in one page
 \author{
 Guangchuang Yu
 }
-

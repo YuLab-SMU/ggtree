@@ -22,4 +22,3 @@ scale x for tree with heatmap
 \author{
 Guangchuang Yu
 }
-

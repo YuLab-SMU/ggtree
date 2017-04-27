@@ -18,4 +18,3 @@ named list of subtrees with the root id of subtree and list of node id's making 
 Get all subtrees of specified node. This includes all ancestors and relatives of node and
 return named list of subtrees.
 }
-

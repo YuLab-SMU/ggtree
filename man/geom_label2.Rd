@@ -45,10 +45,9 @@ label layer
 \description{
 geom_label2 support aes(subset) via setup_data
 }
-\author{
-Guangchuang Yu
-}
 \seealso{
 \link[ggplot2]{geom_label}
 }
-
+\author{
+Guangchuang Yu
+}
