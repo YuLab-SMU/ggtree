@@ -21,3 +21,4 @@ updated tree data.frame with points rotated by angle
 \description{
 Rotate the points in a tree data.frame around a pivot node by the angle specified.
 }
+

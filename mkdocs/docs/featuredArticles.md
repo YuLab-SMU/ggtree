@@ -25,7 +25,6 @@ output:
 published using `ggtree` and your publication will be featured here.
 
 [![citation](https://img.shields.io/badge/cited%20by-16-blue.svg?style=flat)](https://scholar.google.com.hk/scholar?oi=bibs&hl=en&cites=7268358477862164627)
-[![](https://img.shields.io/badge/cited%20in%20Web%20of%20Science%20Core%20Collection--blue.svg?style=flat)](http://apps.webofknowledge.com/InboundService.do?mode=FullRecord&customersID=RID&IsProductCode=Yes&product=WOS&Init=Yes&Func=Frame&DestFail=http%3A%2F%2Fwww.webofknowledge.com&action=retrieve&SrcApp=RID&SrcAuth=RID&SID=S1i9ewwKpMcqaWLpgjp&UT=WOS%3A000393305300004)
 
 <link rel='stylesheet' href=https://guangchuangyu.github.io/resume/css/morris.css>
 <script src='https://guangchuangyu.github.io/resume/css/jquery.min.js' type='text/javascript'></script>
@@ -40,13 +39,13 @@ published using `ggtree` and your publication will be featured here.
     height: 300px;
   }  
   </style>
-<div id="chartffa45753c39" class="rChart morris">
+<div id="chartba8442a5d90" class="rChart morris">
 
 </div>
 
 <script type='text/javascript'>
     var chartParams = {
- "element": "chartffa45753c39",
+ "element": "chartba8442a5d90",
 "width":            800,
 "height":            400,
 "xkey": "year",
@@ -65,7 +64,7 @@ published using `ggtree` and your publication will be featured here.
 "pubid": "HtEfBTGE9r8C" 
 } 
 ],
-"id": "chartffa45753c39",
+"id": "chartba8442a5d90",
 "labels": "cites" 
 },
       chartType = "Bar"
