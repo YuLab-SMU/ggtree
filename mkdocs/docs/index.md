@@ -29,7 +29,7 @@ ggtree: visualization and annotation of phylogenetic trees
 
 [![](https://img.shields.io/badge/release%20version-1.8.0-blue.svg?style=flat)](https://bioconductor.org/packages/ggtree)
 [![](https://img.shields.io/badge/devel%20version-1.9.0-blue.svg?style=flat)](https://github.com/guangchuangyu/ggtree)
-[![](https://img.shields.io/badge/download-14583/total-blue.svg?style=flat)](https://bioconductor.org/packages/stats/bioc/ggtree)
+[![](https://img.shields.io/badge/download-14716/total-blue.svg?style=flat)](https://bioconductor.org/packages/stats/bioc/ggtree)
 [![](https://img.shields.io/badge/download-1385/month-blue.svg?style=flat)](https://bioconductor.org/packages/stats/bioc/ggtree)
 
 The `ggtree` package extending the *ggplot2* package. It based on

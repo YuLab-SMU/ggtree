@@ -6,7 +6,7 @@ author: "Guangchuang Yu and Tommy Tsan-Yuk Lam\\
 date: "`r Sys.Date()`"
 bibliography: ggtree.bib
 csl: nature.csl
-output: 
+output:
   prettydoc::html_pretty:
     toc: true
     theme: cayman
@@ -52,7 +52,7 @@ This project arose from our needs to annotate nucleotide substitutions in the ph
 
 Previously, phylogenetic trees were much smaller. Annotation of phylogenetic trees was not as necessary as nowadays much more data is becomming available. We want to associate our experimental data, for instance antigenic change, with the evolution relationship. Visualizing these associations in a phylogenetic tree can help us to identify evolution patterns. We believe we need a next generation tree viewer that should be programmable and extensible. It can view a phylogenetic tree easily as we did with classical software and support adding annotation data in a layer above the tree. This is the objective of developing the `ggtree`. Common tasks of annotating a phylogenetic tree should be easy and complicated tasks can be possible to achieve by adding multiple layers of annotation.
 
-The `ggtree` is designed by extending the `ggplot2`[@wickham_ggplot2_2009] package. It is based on the grammar of graphics and takes all the good parts of `ggplot2`. There are other R packages that implement tree viewer using `ggplot2`, including `OutbreakTools`, `phyloseq`[@mcmurdie_phyloseq_2013] and [ggphylo](https://github.com/gjuggler/ggphylo); they mostly create complex tree view functions for their specific needs. Internally, these packages interpret a phylogenetic as a collection of `lines`, which makes it hard to annotate diverse user input that are related to node (taxa). The `ggtree` is different to them by interpreting a tree as a collection of `taxa` and allowing general flexibilities of annotating phylogenetic tree with diverse types of user inputs. 
+The `ggtree` is designed by extending the `ggplot2`[@wickham_ggplot2_2009] package. It is based on the grammar of graphics and takes all the good parts of `ggplot2`. There are other R packages that implement tree viewer using `ggplot2`, including `OutbreakTools`, `phyloseq`[@mcmurdie_phyloseq_2013] and [ggphylo](https://github.com/gjuggler/ggphylo); they mostly create complex tree view functions for their specific needs. Internally, these packages interpret a phylogenetic as a collection of `lines`, which makes it hard to annotate diverse user input that are related to node (taxa). The `ggtree` is different to them by interpreting a tree as a collection of `taxa` and allowing general flexibilities of annotating phylogenetic tree with diverse types of user inputs.
 
 
 # Getting data into `R`
@@ -84,7 +84,7 @@ Most of the phylogenetic trees are scaled by evolutionary distance (substitution
 The `ggtree` package provides several layers to annotate a phylogenetic tree, including:
 
 + `geom_cladelabel` for labelling selected clades
-+ `geom_hilight` for highlighting selected clades 
++ `geom_hilight` for highlighting selected clades
 + `geom_range` to indicate uncertainty of branch lengths
 + `geom_strip` for adding strip/bar to label associated taxa (with optional label)
 + `geom_taxalink` for connecting related taxa
@@ -107,7 +107,7 @@ Visualizing an annotated phylogenetic tree with numerical matrix (e.g. genotype 
 + [Tree Annotation](treeAnnotation.html)
 + [Advance Tree Annotation](advanceTreeAnnotation.html)
 + [ggtree utilities](ggtreeUtilities.html)
-
++ [Phylomoji](https://cran.r-project.org/web/packages/emojifont/vignettes/phylomoji.html)
 
 More documents can be found in <https://guangchuangyu.github.io/ggtree>.
 
@@ -115,7 +115,7 @@ More documents can be found in <https://guangchuangyu.github.io/ggtree>.
 
  - For bugs or feature request, please post to [github issue](https://github.com/GuangchuangYu/ggtree/issues).
  - For user questions, please post to [google group](https://groups.google.com/forum/#!forum/bioc-ggtree) or post to [Bioconductor support site](https://support.bioconductor.org/) or [Biostars](https://www.biostars.org/). We are following every post tagged with **ggtree**.
-  
+
 
 # Session info
 

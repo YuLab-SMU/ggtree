@@ -37,6 +37,7 @@ output:
     Annotation](https://bioconductor.org/packages/devel/bioc/vignettes/ggtree/inst/doc/advanceTreeAnnotation.html)
 -   [ggtree
     utilities](https://bioconductor.org/packages/devel/bioc/vignettes/ggtree/inst/doc/ggtreeUtilities.html)
+-   [Phylomoji](https://cran.r-project.org/web/packages/emojifont/vignettes/phylomoji.html)
 
 <i class="fa fa-wordpress"></i> Blog posts
 ------------------------------------------
