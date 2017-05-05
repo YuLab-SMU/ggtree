@@ -49,4 +49,3 @@ append a heatmap of a matrix to right side of phylogenetic tree
 \author{
 Guangchuang Yu
 }
-

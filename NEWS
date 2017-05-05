@@ -1,3 +1,7 @@
+CHANGES IN VERSION 1.9.1
+------------------------
+ o geom_cladelabel support `angle="auto"` for circular layout tree <2017-05-05, Fri>
+
 CHANGES IN VERSION 1.8.0
 ------------------------
  o BioC 3.5 release <2017-04-26, Wed>

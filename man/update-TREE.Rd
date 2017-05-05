@@ -27,4 +27,3 @@ p \%<\% rtree(30)
 \author{
 Yu Guangchuang
 }
-

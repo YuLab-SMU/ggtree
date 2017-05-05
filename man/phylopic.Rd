@@ -35,4 +35,3 @@ add phylopic layer
 \author{
 Guangchuang Yu
 }
-

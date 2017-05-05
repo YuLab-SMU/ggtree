@@ -28,4 +28,3 @@ add subview to mainview for ggplot2 objects
 \author{
 Guangchuang Yu
 }
-

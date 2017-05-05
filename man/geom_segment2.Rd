@@ -33,10 +33,9 @@ add segment layer
 \description{
 geom_segment2 support aes(subset) via setup_data
 }
-\author{
-Guangchuang Yu
-}
 \seealso{
 \link[ggplot2]{geom_segment}
 }
-
+\author{
+Guangchuang Yu
+}

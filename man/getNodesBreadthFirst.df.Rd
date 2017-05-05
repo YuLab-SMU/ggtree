@@ -15,4 +15,3 @@ list of node id's in breadth-first order.
 \description{
 Get the nodes of tree from root in breadth-first order.
 }
-
