@@ -1,5 +1,6 @@
 CHANGES IN VERSION 1.9.1
 ------------------------
+ o now mapping parameter will passed to segment layer in geom_tiplab(align=T) <2017-06-19, Mon>
  o geom_cladelabel support `angle="auto"` for circular layout tree <2017-05-05, Fri>
 
 CHANGES IN VERSION 1.8.0
