@@ -8,6 +8,9 @@ fortify.treedata <- function(model, data, layout="rectangular", yscale="none",
     model <- set_branch_length(model, branch.length)
 
     x <- reorder.phylo(get.tree(model), "postorder")
+    if (ladderize == TRUE) {
+        x <- ladderize(x, right=right)
+    }
     if (is.null(x$edge.length) || branch.length == "none") {
         xpos <- getXcoord_no_length(x)
     } else {
