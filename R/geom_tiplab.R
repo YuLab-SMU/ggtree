@@ -18,7 +18,7 @@
 ##' require(ape)
 ##' tr <- rtree(10)
 ##' ggtree(tr) + geom_tiplab()
-geom_tiplab <- function(mapping=NULL, hjust = 0,  align = FALSE, linetype = "dotted", linesize=1, geom="text", offset = 0, ...) {
+geom_tiplab <- function(mapping=NULL, hjust = 0,  align = FALSE, linetype = "dotted", linesize=1, geom="text",  offset=0, ...) {
     geom <- match.arg(geom, c("text", "label"))
     if (geom == "text") {
         text_geom <- geom_text2
@@ -43,6 +43,12 @@ geom_tiplab <- function(mapping=NULL, hjust = 0,  align = FALSE, linetype = "dot
     show_segment <- FALSE
     if (align && (!is.na(linetype) && !is.null(linetype))) {
         show_segment <- TRUE
+        segment_mapping <- aes(x = max(x, na.rm=TRUE),
+                               xend = x + diff(range(x, na.rm=TRUE))/200,
+                               y = y, yend = y,
+                               subset=isTip)
+        if (!is.null(mapping))
+            segment_mapping <- modifyList(segment_mapping, mapping)
     }
 
     list(
@@ -50,10 +56,14 @@ geom_tiplab <- function(mapping=NULL, hjust = 0,  align = FALSE, linetype = "dot
                   hjust = hjust, nudge_x = offset, ...)
         ,
         if (show_segment)
-            geom_tipsegment(mapping = aes(subset=isTip),
-                            offset = offset,
-                            linetype = linetype,
-                            size = linesize, ...)
+            geom_segment2(mapping = segment_mapping,
+                          linetype = linetype,
+                          size = linesize, ...)
+
+            ## geom_tipsegment(mapping = segment_mapping,
+            ##                 offset = offset,
+            ##                 linetype = linetype,
+            ##                 size = linesize, ...)
     )
 }
 
@@ -88,47 +98,47 @@ geom_tiplab2 <- function(mapping=NULL, hjust=0, ...) {
          )
 }
 
-geom_tipsegment <- function(mapping=NULL, data=NULL,
-                            geom=GeomSegmentGGtree, position = "identity",
-                            offset,  ...,
-                            show.legend=NA, inherit.aes=FALSE,
-                            na.rm=TRUE) {
+## geom_tipsegment <- function(mapping=NULL, data=NULL,
+##                             geom=GeomSegmentGGtree, position = "identity",
+##                             offset,  ...,
+##                             show.legend=NA, inherit.aes=FALSE,
+##                             na.rm=TRUE) {
 
-    default_aes <- aes_(x=~x, y=~y)
-    if (is.null(mapping)) {
-        mapping <- default_aes
-    } else {
-        mapping <- modifyList(default_aes, mapping)
-    }
+##     default_aes <- aes_(x=~x, y=~y)
+##     if (is.null(mapping)) {
+##         mapping <- default_aes
+##     } else {
+##         mapping <- modifyList(default_aes, mapping)
+##     }
 
-    layer(stat=StatTipSegment,
-          data = data,
-          mapping = mapping,
-          geom = geom,
-          position = position,
-          show.legend = show.legend,
-          inherit.aes = inherit.aes,
-          params = list(offset = offset,
-                        na.rm = na.rm,
-                        ...),
-          check.aes = FALSE
-          )
-}
+##     layer(stat=StatTipSegment,
+##           data = data,
+##           mapping = mapping,
+##           geom = geom,
+##           position = position,
+##           show.legend = show.legend,
+##           inherit.aes = inherit.aes,
+##           params = list(offset = offset,
+##                         na.rm = na.rm,
+##                         ...),
+##           check.aes = FALSE
+##           )
+## }
 
-StatTipSegment <- ggproto("StatTipSegment", Stat,
-                        compute_group = function(self, data, scales, params, offset) {
-                            get_tipsegment_position(data, offset)
-                        },
-                        required_aes = c("x", "y")
-                        )
+## StatTipSegment <- ggproto("StatTipSegment", Stat,
+##                         compute_group = function(self, data, scales, params, offset) {
+##                             get_tipsegment_position(data, offset)
+##                         },
+##                         required_aes = c("x", "y")
+##                         )
 
 
-get_tipsegment_position <- function(data, offset, adjustRatio=1/200) {
-    adjust <- diff(range(data$x, na.rm=TRUE)) * adjustRatio
-    xend <- data$x + adjust
-    x <- max(data$x, na.rm = TRUE)  + offset
-    y <- data$y
-    data.frame(x=x, xend=xend, y=y, yend=y)
-}
+## get_tipsegment_position <- function(data, offset, adjustRatio=1/200) {
+##     adjust <- diff(range(data$x, na.rm=TRUE)) * adjustRatio
+##     xend <- data$x + adjust
+##     x <- max(data$x, na.rm = TRUE)  + offset
+##     y <- data$y
+##     data.frame(x=x, xend=xend, y=y, yend=y)
+## }
 
 

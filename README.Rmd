@@ -69,7 +69,7 @@ __G Yu__, DK Smith, H Zhu, Y Guan, TTY Lam^\*^. ggtree: an R package for visuali
 ### Citation
 
 `r badge_citation("HtEfBTGE9r8C", "7268358477862164627", "green")`
-`r badge_sci_citation("http://apps.webofknowledge.com/InboundService.do?mode=FullRecord&customersID=RID&IsProductCode=Yes&product=WOS&Init=Yes&Func=Frame&DestFail=http%3A%2F%2Fwww.webofknowledge.com&action=retrieve&SrcApp=RID&SrcAuth=RID&SID=U2EMQLA1958R5PUSAKt&UT=WOS%3A000393305300004", "green")`
+
 
 
 ```{r echo=F, comment=NA}
