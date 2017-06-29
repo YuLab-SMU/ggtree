@@ -7,6 +7,8 @@ vignettes/.DS_Store
 __init__.py
 __pycache__
 __init__.pyc
-.Rproj.user
+*.Rproj.user
+*.RData
+*.ignore
+.web_cache
 ggtree.Rproj
-.RData

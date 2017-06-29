@@ -17,10 +17,9 @@ tree view
 \description{
 expand collased clade
 }
-\author{
-Guangchuang Yu
-}
 \seealso{
 collapse
 }
-
+\author{
+Guangchuang Yu
+}

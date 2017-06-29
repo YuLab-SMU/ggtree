@@ -13,7 +13,7 @@ geom_label2(mapping = NULL, data = NULL, ..., position = "identity",
 \item{mapping}{the aesthetic mapping}
 
 \item{data}{A layer specific dataset -
-only needed if you want to override he plot defaults.}
+only needed if you want to override the plot defaults.}
 
 \item{...}{other arguments passed on to 'layer'}
 
@@ -45,10 +45,9 @@ label layer
 \description{
 geom_label2 support aes(subset) via setup_data
 }
-\author{
-Guangchuang Yu
-}
 \seealso{
 \link[ggplot2]{geom_label}
 }
-
+\author{
+Guangchuang Yu
+}

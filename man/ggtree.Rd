@@ -3,8 +3,9 @@
 \docType{package}
 \name{ggtree}
 \alias{ggtree}
-\alias{ggtree-package}
 \alias{package-ggtree}
+\alias{ggtree-package}
+\alias{ggtree}
 \title{visualizing phylogenetic tree and heterogenous associated data based on grammar of graphics
 \code{ggtree} provides functions for visualizing phylogenetic tree and its associated data in R.}
 \usage{
@@ -57,4 +58,3 @@ ggtree(tr)
 \author{
 Yu Guangchuang
 }
-
