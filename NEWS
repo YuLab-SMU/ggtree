@@ -1,3 +1,8 @@
+CHANGES IN VERSION 1.9.2
+------------------------
+ o gheatmap support handling collapsed tree <2017-06-29, Thu>
+   + https://github.com/GuangchuangYu/ggtree/issues/137
+
 CHANGES IN VERSION 1.9.1
 ------------------------
  o now mapping parameter will passed to segment layer in geom_tiplab(align=T) <2017-06-19, Mon>

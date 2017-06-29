@@ -27,3 +27,4 @@ ggtree(tr) + theme_tree2()
 \author{
 Yu Guangchuang
 }
+

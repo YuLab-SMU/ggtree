@@ -17,3 +17,4 @@ pipe
 \seealso{
 \link[magrittr]{pipe}
 }
+
