@@ -30,4 +30,3 @@ p \%<+\% dd + geom_text(aes(color=place, label=label), hjust=-0.5)
 \author{
 Yu Guangchuang
 }
-

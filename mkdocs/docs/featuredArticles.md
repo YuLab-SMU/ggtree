@@ -24,8 +24,7 @@ output:
 [Let us know](https://github.com/GuangchuangYu/featured_img) if you have
 published using `ggtree` and your publication will be featured here.
 
-[![citation](https://img.shields.io/badge/cited%20by-15-blue.svg?style=flat)](https://scholar.google.com.hk/scholar?oi=bibs&hl=en&cites=7268358477862164627)
-[![](https://img.shields.io/badge/cited%20in%20Web%20of%20Science%20Core%20Collection-6-blue.svg?style=flat)](http://apps.webofknowledge.com/InboundService.do?mode=FullRecord&customersID=RID&IsProductCode=Yes&product=WOS&Init=Yes&Func=Frame&DestFail=http%3A%2F%2Fwww.webofknowledge.com&action=retrieve&SrcApp=RID&SrcAuth=RID&SID=U2EMQLA1958R5PUSAKt&UT=WOS%3A000393305300004)
+[![citation](https://img.shields.io/badge/cited%20by-22-blue.svg?style=flat)](https://scholar.google.com.hk/scholar?oi=bibs&hl=en&cites=7268358477862164627)
 
 <link rel='stylesheet' href=https://guangchuangyu.github.io/resume/css/morris.css>
 <script src='https://guangchuangyu.github.io/resume/css/jquery.min.js' type='text/javascript'></script>
@@ -40,13 +39,13 @@ published using `ggtree` and your publication will be featured here.
     height: 300px;
   }  
   </style>
-<div id="chart7719fd4cfa" class="rChart morris">
+<div id="chart11855a166b40" class="rChart morris">
 
 </div>
 
 <script type='text/javascript'>
     var chartParams = {
- "element": "chart7719fd4cfa",
+ "element": "chart11855a166b40",
 "width":            800,
 "height":            400,
 "xkey": "year",
@@ -61,11 +60,11 @@ published using `ggtree` and your publication will be featured here.
 },
 {
  "year": 2017,
-"cites":             14,
+"cites":             21,
 "pubid": "HtEfBTGE9r8C" 
 } 
 ],
-"id": "chart7719fd4cfa",
+"id": "chart11855a166b40",
 "labels": "cites" 
 },
       chartType = "Bar"
@@ -80,6 +79,11 @@ published using `ggtree` and your publication will be featured here.
 quantitative signatures of immune senescence and
 aging](http://dx.doi.org/10.1073/pnas.1617959114). ***PNAS***, 2017
 
+[Horses in Denmark Are a Reservoir of Diverse Clones of
+Methicillin-Resistant and -Susceptible Staphylococcus
+aureus](https://www.ncbi.nlm.nih.gov/pmc/articles/PMC5376617/).
+***Frontiers in Microbiology***, 2017, 8:543
+
 [Gut metagenomes of type 2 diabetic patients have characteristic
 single-nucleotide polymorphism distribution in *Bacteroides
 coprocola*](https://microbiomejournal.biomedcentral.com/articles/10.1186/s40168-017-0232-3).
@@ -91,4 +95,4 @@ coprocola*](https://microbiomejournal.biomedcentral.com/articles/10.1186/s40168-
 [Function and Phylogeny of Bacterial Butyryl Coenzyme A:Acetate
 Transferases and Their Diversity in the Proximal Colon of
 Swine](http://aem.asm.org/content/82/22/6788.short). ***Applied and
-Environmental Microbiology***. 2016,82(22):6788-6798.
+Environmental Microbiology***. 2016, 82(22):6788-6798.

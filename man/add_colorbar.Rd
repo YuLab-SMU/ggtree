@@ -29,4 +29,3 @@ add colorbar legend
 \author{
 Guangchuang Yu
 }
-

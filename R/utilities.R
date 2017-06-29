@@ -350,7 +350,8 @@ is.tree <- function(x) {
                         "codeml",
                         "hyphy",
                         "beast",
-                        "phangorn")
+                        "phangorn",
+                        "treedata")
         ) {
         return(TRUE)
     }
