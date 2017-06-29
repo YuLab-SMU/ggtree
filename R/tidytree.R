@@ -8,6 +8,9 @@ fortify.treedata <- function(model, data, layout="rectangular", yscale="none",
     model <- set_branch_length(model, branch.length)
 
     x <- reorder.phylo(get.tree(model), "postorder")
+    if (ladderize == TRUE) {
+        x <- ladderize(x, right=right)
+    }
     if (is.null(x$edge.length) || branch.length == "none") {
         xpos <- getXcoord_no_length(x)
     } else {
@@ -1078,6 +1081,7 @@ getXcoord2 <- function(x, root, parent, child, len, start=0, rev=FALSE) {
     if (rev == TRUE) {
         direction <- -1
     }
+
     while(anyNA(x)) {
         idx <- which(parent %in% currentNode)
         newNode <- child[idx]
@@ -1186,9 +1190,15 @@ getYcoord <- function(tr, step=1) {
     y[tip.idx] <- 1:Ntip * step
     y[-tip.idx] <- NA
 
+    ## use lookup table
+    pvec <- integer(max(tr$edge))
+    pvec[child] = parent
+
     currentNode <- 1:Ntip
     while(anyNA(y)) {
-        pNode <- unique(parent[child %in% currentNode])
+        ## pNode <- unique(parent[child %in% currentNode])
+        pNode <- unique(pvec[currentNode])
+
         ## piping of magrittr is slower than nested function call.
         ## pipeR is fastest, may consider to use pipeR
         ##
