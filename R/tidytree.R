@@ -194,7 +194,7 @@ layoutEqualAngle <- function(tree, branch.length ){
     df$y <- NA
     df$start <- NA # Start angle of segment of subtree.
     df$end   <- NA # End angle of segment of subtree
-    df$angle <- NA # Orthogonal angle to beta ... for labels??
+    df$angle <- NA # Orthogonal angle to beta for tip labels.
     ## Initialize root node position and angles.
     df[root, "x"] <- 0
     df[root, "y"] <- 0
@@ -246,7 +246,7 @@ layoutEqualAngle <- function(tree, branch.length ){
             ## Calculate (x,y) position of the i-th child node from current node.
             df[child, "x"] <- df[curNode, "x"] + cospi(beta) * length.child
             df[child, "y"] <- df[curNode, "y"] + sinpi(beta) * length.child
-            ## Calculate orthogonal angle to beta.
+            ## Calculate orthogonal angle to beta for tip label.
             df[child, "angle"] <- -90 - 180 * beta * sign(beta - 1)
             ## Update the start and end angles of the childs segment.
             df[child, "start"] <- start
@@ -641,6 +641,10 @@ rotateTreePoints.df <- function(df, pivot_node, nodes, angle){
     df[node, 'x'] <- cospitheta * delta_x - sinpitheta * delta_y + df[pivot_node, 'x']
     df[node, 'y'] <- sinpitheta * delta_x + cospitheta * delta_y + df[pivot_node, 'y']
 
+  }
+  
+  # Now update labels of rotated tree.
+  for(node in nodes){
     # Update label angle if not root node.
     # get parent
     parent_id <- getParent.df(df, node)
@@ -648,12 +652,14 @@ rotateTreePoints.df <- function(df, pivot_node, nodes, angle){
     if( parent_id != 0){
       theta_parent_child <- getNodeAngle.df(df, parent_id, node)
       if(!is.na(theta_parent_child)){
-        # Update label angle
-        df[node, 'angle'] <- -90 - 180 * theta_parent_child * sign(theta_parent_child - 1)
+        # Update tip label angle, that is parallel to edge.
+        #df[node, 'angle'] <- -90 - 180 * theta_parent_child * sign(theta_parent_child - 1)
+        df[node, 'angle'] <- 180 * theta_parent_child
       }
     }
-
   }
+  
+  
   return(df)
 }
 

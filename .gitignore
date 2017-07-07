@@ -12,3 +12,4 @@ __init__.pyc
 *.ignore
 .web_cache
 ggtree.Rproj
+.Rproj.user
