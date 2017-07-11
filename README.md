@@ -35,51 +35,13 @@ Please cite the following article when using `ggtree`:
 
 [![citation](https://img.shields.io/badge/cited%20by-25-green.svg?style=flat)](https://scholar.google.com.hk/scholar?oi=bibs&hl=en&cites=7268358477862164627)
 
-    25 +-+---------+---------+---------+---------+---------+---+
-       |                                                   *   |
-       |                                                       |
-    20 +                                                       +
-       |                                                       |
-    15 +                                                       +
-       |                                                       |
-       |                                                       |
-    10 +                                                       +
-       |                                                       |
-     5 +                                                       +
-       |                                                       |
-       | *                                                     |
-     0 +-+---------+---------+---------+---------+---------+---+
-       2016     2016.2    2016.4    2016.6    2016.8     2017   
+<img src="docs/citation.png" width="890"/>
 
 ### Download stats
 
 [![download](http://www.bioconductor.org/shields/downloads/ggtree.svg)](https://bioconductor.org/packages/stats/bioc/ggtree) [![](https://img.shields.io/badge/download-16964/total-blue.svg?style=flat)](https://bioconductor.org/packages/stats/bioc/ggtree) [![](https://img.shields.io/badge/download-885/month-blue.svg?style=flat)](https://bioconductor.org/packages/stats/bioc/ggtree)
 
-         ++-----------------+-----------------+----------------+-----------------+-----------------+---+
-    3000 +                                                                                *            +
-         |                                                                                             |
-         |                                                                                             |
-    2500 +                                                                                             +
-         |                                                                                             |
-         |                                                                                             |
-         |                                                                                             |
-    2000 +                                                                                   *  *      +
-         |                                                                    *     *  *               |
-         |                                                              *  *                           |
-    1500 +                                                                                             +
-         |                                                                                         *   |
-         |                                                     *                                       |
-         |                                            *           *  *           *                     |
-    1000 +                                               *  *                                          +
-         |                                 *     *                                                     |
-         |                              *     *    *                                                   |
-         |                           *                                                                 |
-     500 +                  *     *                                                                    +
-         |               *     *                                                                       |
-         |            *                                                                                |
-       0 +   *  *  *                                                                                   +
-         ++-----------------+-----------------+----------------+-----------------+-----------------+---+
-        2015             2015.5             2016            2016.5             2017             2017.5  
+<img src="docs/dlstats.png" width="890"/>
 
 Contributors
 ------------
