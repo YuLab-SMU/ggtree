@@ -109,7 +109,7 @@ ggsave(p, file="docs/dlstats.png", width=8, height=4)
 ## Contributors
 
 This project exists thanks to all the people who contribute. [[Contribute]](CONTRIBUTING.md).
-<a href="graphs/contributors"><img src="https://opencollective.com/ggtree/contributors.svg?width=890" /></a>
+<a href="https://github.com/GuangchuangYu/ggtree/graphs/contributors"><img src="https://opencollective.com/ggtree/contributors.svg?width=890" /></a>
 
 
 ## Backers
