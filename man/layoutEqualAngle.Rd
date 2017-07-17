@@ -20,4 +20,3 @@ tree as data.frame with equal angle layout.
 \references{
 "Inferring Phylogenies" by Joseph Felsenstein.
 }
-

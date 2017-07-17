@@ -104,6 +104,13 @@ use command like this:
 
     ggtree(rtree(30)) + geom_tiplab(aes(subset=node==35), label='paste(italic("species name"), "accession number")', parse=T)
 
+Another example for formating all tip labels:
+
+    ggtree(rtree(30)) + geom_tiplab(aes(label=paste0('bold(', label, ')~italic(', node, ')')), parse=TRUE)
+
+see also
+<https://groups.google.com/forum/?utm_medium=email&utm_source=footer#!msg/bioc-ggtree/BA7g-npY1BM>.
+
 <i class="fa fa-angle-double-right"></i> Avoid overlapping text labels
 ----------------------------------------------------------------------
 

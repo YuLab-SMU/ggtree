@@ -48,4 +48,3 @@ annotate a clade with bar and text label
 \author{
 Guangchuang Yu
 }
-

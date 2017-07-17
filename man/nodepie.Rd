@@ -24,4 +24,3 @@ generate a list of pie charts for results of ancestral stat reconstruction
 \author{
 Guangchuang Yu
 }
-

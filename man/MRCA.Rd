@@ -20,4 +20,3 @@ Find Most Recent Common Ancestor among a vector of tips
 \author{
 Guangchuang Yu
 }
-

@@ -31,4 +31,3 @@ nodes = remove tip nodes.
 
 ```
 }
-

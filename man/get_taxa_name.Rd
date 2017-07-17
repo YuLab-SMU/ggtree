@@ -20,4 +20,3 @@ get taxa name of a selected node (or tree if node=NULL) sorted by their position
 \author{
 Guangchuang Yu
 }
-

@@ -20,4 +20,3 @@ named list with right and left angles in range [0,2] i.e 1 = 180 degrees, 1.5 = 
 Find the right (clockwise rotation, angle from +ve x-axis to furthest subtree nodes) and
 left (anti-clockwise angle from +ve x-axis to subtree)
 }
-

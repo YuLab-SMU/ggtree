@@ -27,4 +27,3 @@ convert phylo to data.frame
 \author{
 Yu Guangchuang
 }
-
