@@ -4,9 +4,9 @@
 \name{scale_color}
 \alias{scale_color}
 \alias{scale_color,beast-method}
+\alias{scale_color,treedata-method}
 \alias{scale_color,paml_rst-method}
 \alias{scale_color,phylo-method}
-\alias{scale_color,treedata-method}
 \title{scale_color method}
 \usage{
 scale_color(object, by, ...)
@@ -33,4 +33,3 @@ color vector
 \description{
 scale color by a numerical tree attribute
 }
-

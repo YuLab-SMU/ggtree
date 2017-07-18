@@ -38,4 +38,3 @@ ggtree(tr) + geom_tiplab()
 \author{
 Yu Guangchuang
 }
-

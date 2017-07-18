@@ -70,3 +70,8 @@ svncommit:
 	git push -u origin devel;\
 	git checkout master;\
 	git merge devel
+
+gitmaintain:
+	git gc --auto;\
+	git prune -v;\
+	git fsck --full

@@ -20,4 +20,3 @@ merge phylo and output of boot.phylo to 'apeBootstrap' object
 \author{
 Guangchuang Yu
 }
-

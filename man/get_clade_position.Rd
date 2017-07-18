@@ -20,4 +20,3 @@ get position of clade (xmin, xmax, ymin, ymax)
 \author{
 Guangchuang Yu
 }
-

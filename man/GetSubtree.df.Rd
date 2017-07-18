@@ -17,4 +17,3 @@ list of all child node id's from starting node.
 \description{
 Get all children of node from df tree using breath-first.
 }
-
