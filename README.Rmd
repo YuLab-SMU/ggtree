@@ -14,7 +14,6 @@ html_preview: false
 library("txtplot")
 library("badger")
 library("ypages")
-library("ggalt")
 library("ggplot2")
 ```
 
@@ -41,6 +40,7 @@ library("ggplot2")
 [![AppVeyor Build Status](https://img.shields.io/appveyor/ci/Guangchuangyu/ggtree/master.svg?label=Windows)](https://ci.appveyor.com/project/GuangchuangYu/ggtree)
 [![Backers on Open Collective](https://opencollective.com/ggtree/backers/badge.svg)](#backers)
 [![Sponsors on Open Collective](https://opencollective.com/ggtree/sponsors/badge.svg)](#sponsors)
+
 
 
 The `ggtree` package extending the `ggplot2` package. It based on grammar of graphics and takes all the good parts of `ggplot2`. `ggtree` is designed for not only viewing phylogenetic tree but also displaying annotation data on the tree.
@@ -78,7 +78,9 @@ __G Yu__, DK Smith, H Zhu, Y Guan, TTY Lam^\*^. ggtree: an R package for visuali
 ```{r echo=F, comment=NA}
 d <- get_article_cite_history('DO5oG40AAAAJ', 'HtEfBTGE9r8C')
 ## txtplot(d$year, d$cites)
-p <- ggplot(d, aes(year, cites)) + geom_lollipop(point.size=3, point.colour='firebrick') +
+## library("ggalt")
+## p <- ggplot(d, aes(year, cites)) + geom_lollipop(point.size=3, point.colour='firebrick') +
+p <- ggplot(d, aes(year, cites)) + geom_segment(aes(xend=year, yend=0)) + geom_point(size=3, color='firebrick') +
     theme_minimal() + xlab(NULL) + ylab(NULL) + labs(title="Citation", caption="data from Google Scholar")
 ggsave(p, file="docs/citation.png", width=8, height=4)
 ```
@@ -92,6 +94,7 @@ ggsave(p, file="docs/citation.png", width=8, height=4)
 `r badge_download_bioc("ggtree")`
 `r badge_bioc_download("ggtree", "total", "blue")`
 `r badge_bioc_download("ggtree", "month", "blue")`
+
 
 
 ```{r echo=F, message=F, comment=NA}
@@ -133,6 +136,7 @@ Support this project by becoming a sponsor. Your logo will show up here with a l
 <a href="https://opencollective.com/ggtree/sponsor/7/website" target="_blank"><img src="https://opencollective.com/ggtree/sponsor/7/avatar.svg"></a>
 <a href="https://opencollective.com/ggtree/sponsor/8/website" target="_blank"><img src="https://opencollective.com/ggtree/sponsor/8/avatar.svg"></a>
 <a href="https://opencollective.com/ggtree/sponsor/9/website" target="_blank"><img src="https://opencollective.com/ggtree/sponsor/9/avatar.svg"></a>
+
 
 
 

@@ -17,9 +17,10 @@ tree view
 \description{
 collapse a clade
 }
-\seealso{
-expand
-}
 \author{
 Guangchuang Yu
 }
+\seealso{
+expand
+}
+

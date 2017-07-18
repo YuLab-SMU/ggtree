@@ -28,9 +28,10 @@ point layer
 \description{
 geom_point2 support aes(subset) via setup_data
 }
-\seealso{
-\link[ggplot2]{geom_point}
-}
 \author{
 Guangchuang Yu
 }
+\seealso{
+\link[ggplot2]{geom_point}
+}
+

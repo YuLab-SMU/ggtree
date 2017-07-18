@@ -30,3 +30,4 @@ is.binary.tree(tr2)
 \author{
 Guangchuang Yu \url{http://ygc.name}
 }
+

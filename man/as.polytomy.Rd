@@ -22,3 +22,4 @@ collapse binary tree to polytomy by applying 'fun' to 'feature'
 \author{
 Guangchuang
 }
+
