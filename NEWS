@@ -1,5 +1,7 @@
 CHANGES IN VERSION 1.9.2
 ------------------------
+ o scaleClade works after calling viewClade <2017-07-20, Thu>
+   + https://groups.google.com/forum/?utm_medium=email&utm_source=footer#!topic/bioc-ggtree/QVSryszPaFY
  o gheatmap support handling collapsed tree <2017-06-29, Thu>
    + https://github.com/GuangchuangYu/ggtree/issues/137
 

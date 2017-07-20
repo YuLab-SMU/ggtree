@@ -42,8 +42,16 @@ viewClade <- function(tree_view=NULL, node, xmax_adjust=0) {
     cpos <- get_clade_position(tree_view, node=node)
     xmax <- ggplot_build(tree_view)$layout$panel_ranges[[1]]$x.range[2]
 
+    attr(tree_view, 'viewClade') <- TRUE
+    attr(tree_view, 'viewClade_node') <- node
+
     ## tree_view+xlim(cpos$xmin, xmax + xmax_adjust) + ylim(cpos$ymin, cpos$ymax)
     tree_view + coord_cartesian(xlim=c(cpos$xmin, xmax), ylim=c(cpos$ymin, cpos$ymax), expand=FALSE)
+}
+
+is.viewClade <- function(tree_view) {
+    x <- attr(tree_view, 'viewClade')
+    !is.null(x) && x
 }
 
 
@@ -298,8 +306,16 @@ scaleClade <- function(tree_view=NULL, node, scale=1, vertical_only=TRUE) {
     df <- calculate_branch_mid(df)
 
     tree_view$data <- calculate_angle(df)
+
+
+    if (is.viewClade(tree_view)) {
+        vc_node <- attr(tree_view, 'viewClade_node')
+        tree_view <- viewClade(tree_view, vc_node)
+    }
+
     tree_view
 }
+
 
 
 reassign_y_from_node_to_root <- function(df, node) {

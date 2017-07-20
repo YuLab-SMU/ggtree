@@ -11,7 +11,7 @@ html_preview: false
 #  ggtree: an R package for visualization and annotation of phylogenetic trees with their covariates and other associated data
 
 ```{r echo=FALSE, results="hide", message=FALSE}
-library("txtplot")
+#library("txtplot")
 library("badger")
 library("ypages")
 library("ggplot2")
