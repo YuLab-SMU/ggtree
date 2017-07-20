@@ -33,6 +33,12 @@ output:
 
 ------------------------------------------------------------------------
 
+-   <https://doi.org/10.3389/fmicb.2017.00456>
+
+![](http://www.frontiersin.org/files/Articles/220056/fmicb-08-00456-HTML-r1/image_m/fmicb-08-00456-g002.jpg)
+
+------------------------------------------------------------------------
+
 -   <http://dx.doi.org/10.1186/s40168-017-0232-3>
 
 ![](https://guangchuangyu.github.io/featured_img/ggtree/40168_2017_232_Fig2_HTML.gif)
