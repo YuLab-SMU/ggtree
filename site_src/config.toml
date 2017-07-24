@@ -65,7 +65,7 @@ relativeurls = true
 
 [[menu.main]]
 	name   = "Featured Articles"
-	url    = "featuredArticles/"
+	url    = "featured-articles/"
 	weight = 30
 
 [[menu.main]]
