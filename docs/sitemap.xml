@@ -3,6 +3,11 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   
   <url>
+    <loc>https://guangchuangyu.github.io/ggtree/</loc>
+    <lastmod>2017-07-08T21:07:13+01:00</lastmod>
+  </url>
+  
+  <url>
     <loc>https://guangchuangyu.github.io/ggtree/documentation/</loc>
     <lastmod>2017-07-24T00:11:02+01:00</lastmod>
   </url>
@@ -20,11 +25,6 @@
   <url>
     <loc>https://guangchuangyu.github.io/ggtree/gallery/</loc>
     <lastmod>2017-07-24T00:11:02+01:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://guangchuangyu.github.io/ggtree/</loc>
-    <lastmod>2017-07-08T21:07:13+01:00</lastmod>
   </url>
   
   <url>
@@ -63,7 +63,7 @@
   
   <url>
     <loc>https://guangchuangyu.github.io/ggtree/</loc>
-    <lastmod>2017-07-24T00:11:02+01:00</lastmod>
+    <lastmod>2017-07-08T21:07:13+01:00</lastmod>
     <priority>0</priority>
   </url>
   

@@ -51,7 +51,7 @@ relativeurls = true
 [[menu.main]]
 	name   = "ggtree"
 	url    = "/"
-	weight = 0
+	weight = 1
 
 [[menu.main]]
 	name   = "Documentation"

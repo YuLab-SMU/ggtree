@@ -20,7 +20,7 @@
       <guid>https://guangchuangyu.github.io/ggtree/featuredarticles/</guid>
       <description>Let us know if you have published using ggtree and your publication will be featured here.
 
-    .rChart { display: block; margin-left: auto; margin-right: auto; width: 800px; height: 300px; }   var chartParams = { &#34;element&#34;: &#34;chart7d9e7b2133f2&#34;, &#34;width&#34;: 800, &#34;height&#34;: 400, &#34;xkey&#34;: &#34;year&#34;, &#34;ykeys&#34;: [ &#34;cites&#34; ], &#34;data&#34;: [ { &#34;year&#34;: 2016, &#34;cites&#34;: 1, &#34;</description>
+    .rChart { display: block; margin-left: auto; margin-right: auto; width: 800px; height: 300px; }   var chartParams = { &#34;element&#34;: &#34;chart144017eefeff&#34;, &#34;width&#34;: 800, &#34;height&#34;: 400, &#34;xkey&#34;: &#34;year&#34;, &#34;ykeys&#34;: [ &#34;cites&#34; ], &#34;data&#34;: [ { &#34;year&#34;: 2016, &#34;cites&#34;: 1, &#34;</description>
     </item>
     
   </channel>
