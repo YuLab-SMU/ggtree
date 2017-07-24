@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Documentations on ggtree</title>
+    <link>https://guangchuangyu.github.io/ggtree/documentation/</link>
+    <description>Recent content in Documentations on ggtree</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <copyright>Released under the Artistic-2.0 license</copyright>
+    <lastBuildDate>Mon, 24 Jul 2017 00:11:02 +0100</lastBuildDate>
+    
+	<atom:link href="https://guangchuangyu.github.io/ggtree/documentation/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Documentation</title>
+      <link>https://guangchuangyu.github.io/ggtree/documentation/</link>
+      <pubDate>Mon, 24 Jul 2017 00:11:02 +0100</pubDate>
+      
+      <guid>https://guangchuangyu.github.io/ggtree/documentation/</guid>
+      <description>Vignettes  ggtree Tree Data Import Tree Visualization Tree Annotation Tree Manipulation Advance Tree Annotation ggtree utilities Phylomoji    Blog posts  News and updates  viewing and annotating phylogenetic tree with ggtree ggtree in Bioconductor 3.1 BioC 3.1: NEWS of my BioC packages BioC 3.2: NEWS of my BioC packages News of ggtree BioC 3.3: NEWS of my BioC packages BioC 3.</description>
+    </item>
+    
+  </channel>
+</rss>

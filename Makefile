@@ -44,7 +44,10 @@ clean:
 	cd ..;\
 	$(RM) -r $(PKGNAME).Rcheck/
 
-site: mkdocs
+site: 
+	cd site_src;\
+	Rscript -e 'blogdown::build_site()';\
+	cd ..
 
 mkdocs: mdfiles
 	cd mkdocs;\
