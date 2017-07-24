@@ -21,7 +21,7 @@ relativeurls = true
 	repo_url = "https://github.com/GuangchuangYu/ggtree"
 
 	# version = "1.0.0"
-	logo = "https://raw.githubusercontent.com/Bioconductor/BiocStickers/master/ggtree/ggtree.png"
+	logo = "ggtree.png"
 	favicon = ""
 
 	permalink = "#"
@@ -48,6 +48,10 @@ relativeurls = true
 	email   = "guangchuangyu@gmail.com"
   	wechat  = "biobabble"
 
+[[menu.main]]
+	name   = "ggtree"
+	url    = "/"
+	weight = 0
 
 [[menu.main]]
 	name   = "Documentation"

@@ -4,7 +4,6 @@ title: Documentation
 weight: 10
 ---
 
-`r ypages:::addtoany()`
 
 
 <link rel="stylesheet" href="https://guangchuangyu.github.io/css/font-awesome.min.css">
