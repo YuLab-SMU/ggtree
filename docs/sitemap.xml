@@ -3,66 +3,66 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   
   <url>
-    <loc>/</loc>
+    <loc>https://guangchuangyu.github.io/ggtree/</loc>
     <lastmod>2017-07-08T21:07:13+01:00</lastmod>
   </url>
   
   <url>
-    <loc>/documentation/</loc>
+    <loc>https://guangchuangyu.github.io/ggtree/documentation/</loc>
     <lastmod>2017-07-24T00:11:02+01:00</lastmod>
   </url>
   
   <url>
-    <loc>/faq/</loc>
+    <loc>https://guangchuangyu.github.io/ggtree/faq/</loc>
     <lastmod>2017-07-24T00:11:02+01:00</lastmod>
   </url>
   
   <url>
-    <loc>/featured-articles/</loc>
+    <loc>https://guangchuangyu.github.io/ggtree/featured-articles/</loc>
     <lastmod>2017-07-24T00:11:02+01:00</lastmod>
   </url>
   
   <url>
-    <loc>/gallery/</loc>
+    <loc>https://guangchuangyu.github.io/ggtree/gallery/</loc>
     <lastmod>2017-07-24T00:11:02+01:00</lastmod>
   </url>
   
   <url>
-    <loc>/categories/</loc>
+    <loc>https://guangchuangyu.github.io/ggtree/categories/</loc>
     <priority>0</priority>
   </url>
   
   <url>
-    <loc>/documentation/</loc>
-    <lastmod>2017-07-24T00:11:02+01:00</lastmod>
-    <priority>0</priority>
-  </url>
-  
-  <url>
-    <loc>/faq/</loc>
+    <loc>https://guangchuangyu.github.io/ggtree/documentation/</loc>
     <lastmod>2017-07-24T00:11:02+01:00</lastmod>
     <priority>0</priority>
   </url>
   
   <url>
-    <loc>/featured-articles/</loc>
+    <loc>https://guangchuangyu.github.io/ggtree/faq/</loc>
     <lastmod>2017-07-24T00:11:02+01:00</lastmod>
     <priority>0</priority>
   </url>
   
   <url>
-    <loc>/gallery/</loc>
+    <loc>https://guangchuangyu.github.io/ggtree/featured-articles/</loc>
     <lastmod>2017-07-24T00:11:02+01:00</lastmod>
     <priority>0</priority>
   </url>
   
   <url>
-    <loc>/tags/</loc>
+    <loc>https://guangchuangyu.github.io/ggtree/gallery/</loc>
+    <lastmod>2017-07-24T00:11:02+01:00</lastmod>
     <priority>0</priority>
   </url>
   
   <url>
-    <loc>/</loc>
+    <loc>https://guangchuangyu.github.io/ggtree/tags/</loc>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://guangchuangyu.github.io/ggtree/</loc>
     <lastmod>2017-07-08T21:07:13+01:00</lastmod>
     <priority>0</priority>
   </url>
