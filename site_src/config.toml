@@ -1,6 +1,6 @@
 baseurl = "https://guangchuangyu.github.io/ggtree/"
 languageCode = "en-us"
-title = "ggtree"
+title = "ggtree - Guangchuang Yu"
 theme = "hugo-material-docs"
 metadataformat = "yaml"
 canonifyurls = true
@@ -21,10 +21,10 @@ relativeurls = true
 	repo_url = "https://github.com/GuangchuangYu/ggtree"
 
 	# version = "1.0.0"
-	logo = "ggtree.png"
+	logo = "images/gc.png"
 	favicon = ""
 
-	permalink = "#"
+	permalink = " "
 
 	# Custom assets
 	custom_css = []
@@ -34,7 +34,7 @@ relativeurls = true
 	highlight_css  = ""
 
 	[params.palette]
-    	primary = "red"
+    	primary = "teal"
     	accent  = "teal"
 
     [params.font]
