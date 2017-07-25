@@ -28,6 +28,11 @@
   </url>
   
   <url>
+    <loc>https://guangchuangyu.github.io/ggtree/tweets/</loc>
+    <lastmod>2017-07-25T00:11:02+01:00</lastmod>
+  </url>
+  
+  <url>
     <loc>https://guangchuangyu.github.io/ggtree/categories/</loc>
     <priority>0</priority>
   </url>
@@ -58,6 +63,12 @@
   
   <url>
     <loc>https://guangchuangyu.github.io/ggtree/tags/</loc>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://guangchuangyu.github.io/ggtree/tweets/</loc>
+    <lastmod>2017-07-25T00:11:02+01:00</lastmod>
     <priority>0</priority>
   </url>
   

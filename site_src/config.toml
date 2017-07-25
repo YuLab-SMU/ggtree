@@ -73,6 +73,11 @@ relativeurls = true
 	url    = "gallery/"
 	weight = 40
 
+[[menu.main]]
+	name   = "Tweets"
+	url    = "tweets/"
+	weight = 50
+
 [blackfriday]
 	smartypants	= true
 	fractions = true

@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Tweets on ggtree - Guangchuang Yu</title>
+    <link>https://guangchuangyu.github.io/ggtree/tweets/</link>
+    <description>Recent content in Tweets on ggtree - Guangchuang Yu</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <copyright>Released under the Artistic-2.0 license</copyright>
+    <lastBuildDate>Tue, 25 Jul 2017 00:11:02 +0100</lastBuildDate>
+    
+	<atom:link href="https://guangchuangyu.github.io/ggtree/tweets/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Tweets</title>
+      <link>https://guangchuangyu.github.io/ggtree/tweets/</link>
+      <pubDate>Tue, 25 Jul 2017 00:11:02 +0100</pubDate>
+      
+      <guid>https://guangchuangyu.github.io/ggtree/tweets/</guid>
+      <description>Leave me a message on 
+Second post with an update on how to add tip shapes and colours to ggtree https://t.co/ezWF4TVQst
+&amp;mdash; Anthony Underwood (@bioinformAnt) July 7, 2017 Yes and no. No manual assignment =&amp;gt; randomly assigned colours. Even with manual spec ggtree is still much quicker than making fig by hand 😀
+&amp;mdash; Anthony Underwood (@bioinformAnt) July 7, 2017 I&amp;#39;d use ggtree from Bioconductor as you can really tailor all the fonts etc.</description>
+    </item>
+    
+  </channel>
+</rss>
