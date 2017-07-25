@@ -1,5 +1,5 @@
 ---
-date: 2017-07-08T21:07:13+01:00
+date: 2017-07-06T12:08:13+01:00
 title: 'ggtree: visualization and annotation of phylogenetic trees'
 type: index
 weight: 1
@@ -7,15 +7,15 @@ weight: 1
 
 
 
-```{r echo=FALSE, results="hide", message=FALSE}
-library("ypages")
-```
+<link rel="stylesheet" href="https://guangchuangyu.github.io/css/font-awesome.min.css">
+<link rel="stylesheet" href="https://guangchuangyu.github.io/css/academicons.min.css">
+
 
 <img src="https://raw.githubusercontent.com/Bioconductor/BiocStickers/master/ggtree/ggtree.png" height="200" align="right" />
 
-
-<link rel="stylesheet" href="https://guangchuangyu.github.io/css/font-awesome.min.css">
-<link rel="stylesheet" href="https://guangchuangyu.github.io/css/academicons.min.css">
+```{r echo=FALSE, results="hide", message=FALSE}
+library("ypages")
+```
 
 `r badge_bioc_release("ggtree", "blue")`
 `r badge_devel("guangchuangyu/ggtree", "blue")`

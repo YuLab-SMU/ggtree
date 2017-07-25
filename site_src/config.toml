@@ -1,6 +1,6 @@
 baseurl = "https://guangchuangyu.github.io/ggtree/"
 languageCode = "en-us"
-title = "ggtree - Guangchuang Yu"
+title = "ggtree"
 theme = "hugo-material-docs"
 metadataformat = "yaml"
 canonifyurls = true

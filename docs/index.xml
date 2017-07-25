@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>ggtree - Guangchuang Yu</title>
+    <title>ggtree</title>
     <link>https://guangchuangyu.github.io/ggtree/</link>
-    <description>Recent content on ggtree - Guangchuang Yu</description>
+    <description>Recent content on ggtree</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <copyright>Released under the Artistic-2.0 license</copyright>
-    <lastBuildDate>Sat, 08 Jul 2017 21:07:13 +0100</lastBuildDate>
+    <lastBuildDate>Thu, 06 Jul 2017 12:08:13 +0100</lastBuildDate>
     
 	<atom:link href="https://guangchuangyu.github.io/ggtree/index.xml" rel="self" type="application/rss+xml" />
     
@@ -15,7 +15,7 @@
     <item>
       <title>ggtree: visualization and annotation of phylogenetic trees</title>
       <link>https://guangchuangyu.github.io/ggtree/</link>
-      <pubDate>Sat, 08 Jul 2017 21:07:13 +0100</pubDate>
+      <pubDate>Thu, 06 Jul 2017 12:08:13 +0100</pubDate>
       
       <guid>https://guangchuangyu.github.io/ggtree/</guid>
       <description>The ggtree package extending the ggplot2 package. It based on grammar of graphics and takes all the good parts of ggplot2. ggtree is designed for not only viewing phylogenetic tree but also displaying annotation data on the tree. ggtree is released within the Bioconductor project and the source code is hosted on  GitHub.
