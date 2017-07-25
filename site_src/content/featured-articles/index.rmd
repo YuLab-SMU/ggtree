@@ -4,13 +4,6 @@ title: Featured Articles
 weight: 30
 ---
 
-```{r echo=FALSE, results="hide", message=FALSE}
-library("ypages")
-```
-
-
-`r ypages:::addtoany()`
-
 
 <link rel="stylesheet" href="https://guangchuangyu.github.io/css/font-awesome.min.css">
 
@@ -18,10 +11,23 @@ library("ypages")
 [Let us know](https://github.com/GuangchuangYu/featured_img) if you have published using `ggtree` and your publication will be featured here.
 
 
-`r badge_citation("HtEfBTGE9r8C", "7268358477862164627", "blue")`
 
 
-`r article_citation_trend("HtEfBTGE9r8C")`
+```{r echo=F, message=F, fig.width=8.8, fig.height=4.5}
+library(scholar)
+library(ggplot2)
+
+id <- "DO5oG40AAAAJ"
+pubid <- "HtEfBTGE9r8C"
+df <- get_article_cite_history(id, pubid)
+df$year <- as.factor(df$year)
+p <- ggplot(df, aes(year, cites)) + geom_col(fill='steelblue', width=.6) + theme_minimal()
+title <- paste('Cited by', sum(df$cites))
+p <- p + xlab(NULL) + ylab(NULL) + ggtitle(title)
+print(p)
+#ggplotly(p, height=440, width=880)
+```
+
 
 <!-- citation:=HtEfBTGE9r8C:=7268358477862164627 -->
 
