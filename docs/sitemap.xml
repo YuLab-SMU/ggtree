@@ -1,102 +1,70 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-
-    
-    <url>
-     <loc>https://guangchuangyu.github.io/ggtree/</loc>
-     <lastmod>2017-07-20</lastmod>
-     <changefreq>daily</changefreq>
-    </url>
-    
-
-    
-    <url>
-     <loc>https://guangchuangyu.github.io/ggtree/documentation/</loc>
-     <lastmod>2017-07-20</lastmod>
-     <changefreq>daily</changefreq>
-    </url>
-    
-
-    
-    <url>
-     <loc>https://guangchuangyu.github.io/ggtree/faq/</loc>
-     <lastmod>2017-07-20</lastmod>
-     <changefreq>daily</changefreq>
-    </url>
-    
-
-    
-    <url>
-     <loc>https://guangchuangyu.github.io/ggtree/featuredArticles/</loc>
-     <lastmod>2017-07-20</lastmod>
-     <changefreq>daily</changefreq>
-    </url>
-    
-
-    
-    <url>
-     <loc>https://guangchuangyu.github.io/ggtree/gallery/</loc>
-     <lastmod>2017-07-20</lastmod>
-     <changefreq>daily</changefreq>
-    </url>
-    
-
-    
-        
-    <url>
-     <loc>https://guangchuangyu.github.io/ggtree/ChIPseeker/</loc>
-     <lastmod>2017-07-20</lastmod>
-     <changefreq>daily</changefreq>
-    </url>
-        
-    <url>
-     <loc>https://guangchuangyu.github.io/ggtree/clusterProfiler/</loc>
-     <lastmod>2017-07-20</lastmod>
-     <changefreq>daily</changefreq>
-    </url>
-        
-    <url>
-     <loc>https://guangchuangyu.github.io/ggtree/DOSE/</loc>
-     <lastmod>2017-07-20</lastmod>
-     <changefreq>daily</changefreq>
-    </url>
-        
-    <url>
-     <loc>https://guangchuangyu.github.io/ggtree/emojifont/</loc>
-     <lastmod>2017-07-20</lastmod>
-     <changefreq>daily</changefreq>
-    </url>
-        
-    <url>
-     <loc>https://guangchuangyu.github.io/ggtree/ggtree/</loc>
-     <lastmod>2017-07-20</lastmod>
-     <changefreq>daily</changefreq>
-    </url>
-        
-    <url>
-     <loc>https://guangchuangyu.github.io/ggtree/GOSemSim/</loc>
-     <lastmod>2017-07-20</lastmod>
-     <changefreq>daily</changefreq>
-    </url>
-        
-    <url>
-     <loc>https://guangchuangyu.github.io/ggtree/meshes/</loc>
-     <lastmod>2017-07-20</lastmod>
-     <changefreq>daily</changefreq>
-    </url>
-        
-    <url>
-     <loc>https://guangchuangyu.github.io/ggtree/ReactomePA/</loc>
-     <lastmod>2017-07-20</lastmod>
-     <changefreq>daily</changefreq>
-    </url>
-        
-    <url>
-     <loc>https://guangchuangyu.github.io/ggtree/treeio/</loc>
-     <lastmod>2017-07-20</lastmod>
-     <changefreq>daily</changefreq>
-    </url>
-        
-    
-
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+  xmlns:xhtml="http://www.w3.org/1999/xhtml">
+  
+  <url>
+    <loc>https://guangchuangyu.github.io/ggtree/</loc>
+    <lastmod>2017-07-08T21:07:13+01:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://guangchuangyu.github.io/ggtree/documentation/</loc>
+    <lastmod>2017-07-24T00:11:02+01:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://guangchuangyu.github.io/ggtree/faq/</loc>
+    <lastmod>2017-07-24T00:11:02+01:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://guangchuangyu.github.io/ggtree/featured-articles/</loc>
+    <lastmod>2017-07-24T00:11:02+01:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://guangchuangyu.github.io/ggtree/gallery/</loc>
+    <lastmod>2017-07-24T00:11:02+01:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://guangchuangyu.github.io/ggtree/categories/</loc>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://guangchuangyu.github.io/ggtree/documentation/</loc>
+    <lastmod>2017-07-24T00:11:02+01:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://guangchuangyu.github.io/ggtree/faq/</loc>
+    <lastmod>2017-07-24T00:11:02+01:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://guangchuangyu.github.io/ggtree/featured-articles/</loc>
+    <lastmod>2017-07-24T00:11:02+01:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://guangchuangyu.github.io/ggtree/gallery/</loc>
+    <lastmod>2017-07-24T00:11:02+01:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://guangchuangyu.github.io/ggtree/tags/</loc>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://guangchuangyu.github.io/ggtree/</loc>
+    <lastmod>2017-07-08T21:07:13+01:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
 </urlset>

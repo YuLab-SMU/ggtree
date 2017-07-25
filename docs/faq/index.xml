@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Faqs on ggtree</title>
+    <link>https://guangchuangyu.github.io/ggtree/faq/</link>
+    <description>Recent content in Faqs on ggtree</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <copyright>Released under the Artistic-2.0 license</copyright>
+    <lastBuildDate>Mon, 24 Jul 2017 00:11:02 +0100</lastBuildDate>
+    
+	<atom:link href="https://guangchuangyu.github.io/ggtree/faq/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>FAQ</title>
+      <link>https://guangchuangyu.github.io/ggtree/faq/</link>
+      <pubDate>Mon, 24 Jul 2017 00:11:02 +0100</pubDate>
+      
+      <guid>https://guangchuangyu.github.io/ggtree/faq/</guid>
+      <description>Installation  Could not find function If you got this error, please make sure you are using the latest R and ggtree.
+Packages in Bioconductor, like ggtree, have different release policy compare to CRAN. There are two branches, release and devel, in parallel. Release branch is more stable and only document improvement and bug fixes will commit to it. New functions will only commit to devel branch.
+Sometimes I may write blog post to introduce new functions which is not available in release branch, you need to install the devel version of ggtree in order to use these new functions.</description>
+    </item>
+    
+  </channel>
+</rss>

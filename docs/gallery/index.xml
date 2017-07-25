@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Galleries on ggtree</title>
+    <link>https://guangchuangyu.github.io/ggtree/gallery/</link>
+    <description>Recent content in Galleries on ggtree</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <copyright>Released under the Artistic-2.0 license</copyright>
+    <lastBuildDate>Mon, 24 Jul 2017 00:11:02 +0100</lastBuildDate>
+    
+	<atom:link href="https://guangchuangyu.github.io/ggtree/gallery/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Gallery</title>
+      <link>https://guangchuangyu.github.io/ggtree/gallery/</link>
+      <pubDate>Mon, 24 Jul 2017 00:11:02 +0100</pubDate>
+      
+      <guid>https://guangchuangyu.github.io/ggtree/gallery/</guid>
+      <description>Journal Articles  http://dx.doi.org/10.3389/fmicb.2017.00543    https://doi.org/10.3389/fmicb.2017.00456    http://dx.doi.org/10.1186/s40168-017-0232-3    http://dx.doi.org/10.1111/2041-210X.12628    http://dx.doi.org/10.1128/AEM.02307-16    http://dx.doi.org/10.3389%2Ffcimb.2016.00036    http://dx.doi.org/10.1016/j.meegid.2015.12.006     Tweets Adaptive radiation of #Darwin&#39;s finches showing #genotypic and #morphometric evolution. Good excuse to practice with #ggtree @guangchuangyu pic.twitter.com/JJZ3Yje58s — Will Harvey (@_wharvey) February 15, 2017  am quite liking #ggtree #rstats #ggplot pic.</description>
+    </item>
+    
+  </channel>
+</rss>
