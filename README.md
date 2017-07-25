@@ -27,21 +27,19 @@ Please cite the following article when using `ggtree`:
 
 **G Yu**, DK Smith, H Zhu, Y Guan, TTY Lam<sup>\*</sup>. ggtree: an R package for visualization and annotation of phylogenetic trees with their covariates and other associated data. ***Methods in Ecology and Evolution***. 2017, 8(1):28-36.
 
-[![](https://img.shields.io/badge/doi-10.1111/2041--210X.12628-green.svg?style=flat)](http://dx.doi.org/10.1111/2041-210X.12628) [![](https://img.shields.io/badge/Altmetric-351-green.svg?style=flat)](https://www.altmetric.com/details/10533079)
+[![](https://img.shields.io/badge/doi-10.1111/2041--210X.12628-green.svg?style=flat)](http://dx.doi.org/10.1111/2041-210X.12628) [![](https://img.shields.io/badge/Altmetric-351-green.svg?style=flat)](https://www.altmetric.com/details/10533079) [![citation](https://img.shields.io/badge/cited%20by-28-green.svg?style=flat)](https://scholar.google.com.hk/scholar?oi=bibs&hl=en&cites=7268358477862164627)
 
 ------------------------------------------------------------------------
 
 ### Citation
 
-[![citation](https://img.shields.io/badge/cited%20by-28-green.svg?style=flat)](https://scholar.google.com.hk/scholar?oi=bibs&hl=en&cites=7268358477862164627)
-
-<img src="docs/citation.png" width="890"/>
+<img src="docs/images/citation.png" width="890"/>
 
 ### Download stats
 
 [![download](http://www.bioconductor.org/shields/downloads/ggtree.svg)](https://bioconductor.org/packages/stats/bioc/ggtree) [![](https://img.shields.io/badge/download-17269/total-blue.svg?style=flat)](https://bioconductor.org/packages/stats/bioc/ggtree) [![](https://img.shields.io/badge/download-885/month-blue.svg?style=flat)](https://bioconductor.org/packages/stats/bioc/ggtree)
 
-<img src="docs/dlstats.png" width="890"/>
+<img src="docs/images/dlstats.png" width="890"/>
 
 Contributors
 ------------

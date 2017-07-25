@@ -3,66 +3,66 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   
   <url>
-    <loc>https://guangchuangyu.github.io/ggtree/</loc>
+    <loc>/</loc>
     <lastmod>2017-07-08T21:07:13+01:00</lastmod>
   </url>
   
   <url>
-    <loc>https://guangchuangyu.github.io/ggtree/documentation/</loc>
+    <loc>/documentation/</loc>
     <lastmod>2017-07-24T00:11:02+01:00</lastmod>
   </url>
   
   <url>
-    <loc>https://guangchuangyu.github.io/ggtree/faq/</loc>
+    <loc>/faq/</loc>
     <lastmod>2017-07-24T00:11:02+01:00</lastmod>
   </url>
   
   <url>
-    <loc>https://guangchuangyu.github.io/ggtree/featured-articles/</loc>
+    <loc>/featured-articles/</loc>
     <lastmod>2017-07-24T00:11:02+01:00</lastmod>
   </url>
   
   <url>
-    <loc>https://guangchuangyu.github.io/ggtree/gallery/</loc>
+    <loc>/gallery/</loc>
     <lastmod>2017-07-24T00:11:02+01:00</lastmod>
   </url>
   
   <url>
-    <loc>https://guangchuangyu.github.io/ggtree/categories/</loc>
+    <loc>/categories/</loc>
     <priority>0</priority>
   </url>
   
   <url>
-    <loc>https://guangchuangyu.github.io/ggtree/documentation/</loc>
-    <lastmod>2017-07-24T00:11:02+01:00</lastmod>
-    <priority>0</priority>
-  </url>
-  
-  <url>
-    <loc>https://guangchuangyu.github.io/ggtree/faq/</loc>
+    <loc>/documentation/</loc>
     <lastmod>2017-07-24T00:11:02+01:00</lastmod>
     <priority>0</priority>
   </url>
   
   <url>
-    <loc>https://guangchuangyu.github.io/ggtree/featured-articles/</loc>
+    <loc>/faq/</loc>
     <lastmod>2017-07-24T00:11:02+01:00</lastmod>
     <priority>0</priority>
   </url>
   
   <url>
-    <loc>https://guangchuangyu.github.io/ggtree/gallery/</loc>
+    <loc>/featured-articles/</loc>
     <lastmod>2017-07-24T00:11:02+01:00</lastmod>
     <priority>0</priority>
   </url>
   
   <url>
-    <loc>https://guangchuangyu.github.io/ggtree/tags/</loc>
+    <loc>/gallery/</loc>
+    <lastmod>2017-07-24T00:11:02+01:00</lastmod>
     <priority>0</priority>
   </url>
   
   <url>
-    <loc>https://guangchuangyu.github.io/ggtree/</loc>
+    <loc>/tags/</loc>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>/</loc>
     <lastmod>2017-07-08T21:07:13+01:00</lastmod>
     <priority>0</priority>
   </url>

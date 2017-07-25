@@ -2,22 +2,22 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Featured-articles on ggtree - Guangchuang Yu</title>
-    <link>https://guangchuangyu.github.io/ggtree/featured-articles/</link>
+    <link>/featured-articles/</link>
     <description>Recent content in Featured-articles on ggtree - Guangchuang Yu</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <copyright>Released under the Artistic-2.0 license</copyright>
     <lastBuildDate>Mon, 24 Jul 2017 00:11:02 +0100</lastBuildDate>
     
-	<atom:link href="https://guangchuangyu.github.io/ggtree/featured-articles/index.xml" rel="self" type="application/rss+xml" />
+	<atom:link href="/featured-articles/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
       <title>Featured Articles</title>
-      <link>https://guangchuangyu.github.io/ggtree/featured-articles/</link>
+      <link>/featured-articles/</link>
       <pubDate>Mon, 24 Jul 2017 00:11:02 +0100</pubDate>
       
-      <guid>https://guangchuangyu.github.io/ggtree/featured-articles/</guid>
+      <guid>/featured-articles/</guid>
       <description>Let us know if you have published using ggtree and your publication will be featured here.
  2017 Phylogenetic analysis of the human antibody repertoire reveals quantitative signatures of immune senescence and aging. PNAS, 2017
 Horses in Denmark Are a Reservoir of Diverse Clones of Methicillin-Resistant and -Susceptible Staphylococcus aureus. Frontiers in Microbiology, 2017, 8:543
