@@ -4,7 +4,8 @@
 \alias{msaplot}
 \title{msaplot}
 \usage{
-msaplot(p, fasta, offset = 0, width = 1, color = NULL, window = NULL)
+msaplot(p, fasta, offset = 0, width = 1, color = NULL, window = NULL,
+  bg_line = TRUE, height = 0.8)
 }
 \arguments{
 \item{p}{tree view}
@@ -18,6 +19,10 @@ msaplot(p, fasta, offset = 0, width = 1, color = NULL, window = NULL)
 \item{color}{color}
 
 \item{window}{specific a slice to display}
+
+\item{bg_line}{whether add background line in alignment}
+
+\item{height}{height ratio of sequence}
 }
 \value{
 tree view

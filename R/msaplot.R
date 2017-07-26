@@ -1,13 +1,15 @@
 ##' multiple sequence alignment with phylogenetic tree
 ##'
-##' 
+##'
 ##' @title msaplot
 ##' @param p tree view
 ##' @param fasta fasta file, multiple sequence alignment
 ##' @param offset offset of MSA to tree
 ##' @param width total width of alignment, compare to width of tree
-##' @param color color 
+##' @param color color
 ##' @param window specific a slice to display
+##' @param bg_line whether add background line in alignment
+##' @param height height ratio of sequence
 ##' @return tree view
 ##' @export
 ## @importFrom Biostrings readBStringSet
@@ -17,7 +19,7 @@
 ##' @importFrom ggplot2 geom_rect
 ##' @importFrom ggplot2 scale_fill_manual
 ##' @author Guangchuang Yu
-msaplot <- function(p, fasta, offset=0, width=1, color=NULL, window=NULL){
+msaplot <- function(p, fasta, offset=0, width=1, color=NULL, window=NULL, bg_line = TRUE, height = 0.8){
     if (missingArg(fasta)) {
         aln <- NULL
     } else if (is(fasta, "BStringSet")) {
@@ -28,7 +30,7 @@ msaplot <- function(p, fasta, offset=0, width=1, color=NULL, window=NULL){
     } else {
         aln <- NULL
     }
-        
+
     if (is(p, "phylip")) {
         BStringSet <- get_fun_from_pkg("Biostrings", "BStringSet")
         aln <- BStringSet(p@sequence)
@@ -40,12 +42,12 @@ msaplot <- function(p, fasta, offset=0, width=1, color=NULL, window=NULL){
     }
 
     width_fun <- get_fun_from_pkg("Biostrings", "width")
-    
+
     if (is.null(window)) {
         window <- c(1, width_fun(aln)[1])
     }
     slice <- seq(window[1], window[2], by=1)
-    
+
     seqs <- lapply(1:length(aln), function(i) {
         x <- toString(aln[i])
         seq <- substring(x, slice, slice)
@@ -56,7 +58,7 @@ msaplot <- function(p, fasta, offset=0, width=1, color=NULL, window=NULL){
         return(seq)
     })
     names(seqs) <- names(aln)
-    
+
     if(is.null(color)) {
         alphabet <- unlist(seqs) %>% unique
         alphabet <- alphabet[alphabet != '-']
@@ -73,7 +75,7 @@ msaplot <- function(p, fasta, offset=0, width=1, color=NULL, window=NULL){
 
     ## convert width to width of each cell
     width <- width * (df$x %>% range %>% diff) / diff(window)
-    
+
     df=df[df$isTip,]
     start <- max(df$x) * 1.02 + offset
 
@@ -84,14 +86,17 @@ msaplot <- function(p, fasta, offset=0, width=1, color=NULL, window=NULL){
     xmax <- start + seq_along(slice) * width
     xmin <- xmax - width
     y <- sort(df$y)
-    ymin <- y - 0.4 *h
-    ymax <- y + 0.4 *h
+    ymin <- y - height/2 *h
+    ymax <- y + height/2 *h
 
     from <- to <- NULL
-    
+
     lines.df <- data.frame(from=min(xmin), to=max(xmax), y = y)
 
-    p <- p + geom_segment(data=lines.df, aes(x=from, xend=to, y=y, yend=y))
+    if (bg_line) {
+        p <- p + geom_segment(data=lines.df, aes(x=from, xend=to, y=y, yend=y), size=h*.2)
+    }
+
     msa <- lapply(1:length(y), function(i) {
         data.frame(name=names(seqs)[i],
                    xmin=xmin,
@@ -103,7 +108,7 @@ msaplot <- function(p, fasta, offset=0, width=1, color=NULL, window=NULL){
 
     msa.df <- do.call("rbind", msa)
 
-    p <- p + geom_rect(data=msa.df, aes(x=xmin, y=ymin, 
+    p <- p + geom_rect(data=msa.df, aes(x=xmin, y=ymin,
                            xmin=xmin, xmax=xmax,
                            ymin=ymin, ymax=ymax, fill=seq)) +
                                scale_fill_manual(values=color)
@@ -112,7 +117,7 @@ msaplot <- function(p, fasta, offset=0, width=1, color=NULL, window=NULL){
     pos <- start + breaks * width
     mapping <- data.frame(from=breaks+1, to=pos)
     attr(p, "mapping") <- mapping
-    
+
     return(p)
 }
 

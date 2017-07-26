@@ -1,5 +1,7 @@
 CHANGES IN VERSION 1.9.2
 ------------------------
+ o add bg_line and height parameter in msaplot <2017-07-26, Wed>
+   + use can set bg_line = FALSE and height = 1 to plot more beautiful alignment
  o extend parameter in geom_cladebar <2017-07-26, Wed>
    + https://github.com/GuangchuangYu/ggtree/issues/142#issuecomment-317817995
  o scaleClade works after calling viewClade <2017-07-20, Thu>
