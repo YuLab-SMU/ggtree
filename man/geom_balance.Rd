@@ -30,11 +30,10 @@ highlights the two direct descendant clades of an internal node
 Particularly useful when studying neighboring clades. Note that balances that
 correspond to multichotomies will not be displayed.
 }
-\author{
-Justin Silverman
-}
 \references{
 J. Silverman, et al. \emph{A phylogenetic transform enhances
   analysis of compositional microbiota data}. (in preparation)
 }
-
+\author{
+Justin Silverman
+}

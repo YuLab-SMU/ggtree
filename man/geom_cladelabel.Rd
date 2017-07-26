@@ -4,9 +4,10 @@
 \alias{geom_cladelabel}
 \title{geom_cladelabel}
 \usage{
-geom_cladelabel(node, label, offset = 0, offset.text = 0, align = FALSE,
-  barsize = 0.5, fontsize = 3.88, angle = 0, geom = "text", hjust = 0,
-  color = NULL, fill = NA, family = "sans", parse = FALSE, ...)
+geom_cladelabel(node, label, offset = 0, offset.text = 0, extend = 0,
+  align = FALSE, barsize = 0.5, fontsize = 3.88, angle = 0,
+  geom = "text", hjust = 0, color = NULL, fill = NA, family = "sans",
+  parse = FALSE, ...)
 }
 \arguments{
 \item{node}{selected node}
@@ -16,6 +17,8 @@ geom_cladelabel(node, label, offset = 0, offset.text = 0, align = FALSE,
 \item{offset}{offset of bar and text from the clade}
 
 \item{offset.text}{offset of text from bar}
+
+\item{extend}{extend bar height}
 
 \item{align}{logical}
 
@@ -48,4 +51,3 @@ annotate a clade with bar and text label
 \author{
 Guangchuang Yu
 }
-

@@ -3,12 +3,13 @@
 \docType{methods}
 \name{gzoom}
 \alias{gzoom}
+\alias{gzoom}
+\alias{gzoom,ggtree-method}
 \alias{gzoom,beast-method}
 \alias{gzoom,codeml-method}
-\alias{gzoom,ggtree-method}
+\alias{gzoom,treedata-method}
 \alias{gzoom,paml_rst-method}
 \alias{gzoom,phylo-method}
-\alias{gzoom,treedata-method}
 \title{gzoom method}
 \usage{
 gzoom(object, focus, subtree = FALSE, widths = c(0.3, 0.7), ...)
@@ -50,4 +51,3 @@ figure
 \description{
 zoom selected subtree
 }
-

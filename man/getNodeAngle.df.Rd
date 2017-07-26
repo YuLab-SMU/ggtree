@@ -19,4 +19,3 @@ angle in range [-1, 1], i.e. degrees/180, radians/pi
 \description{
 Get the angle between the two nodes specified.
 }
-

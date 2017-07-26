@@ -28,4 +28,3 @@ multiple sequence alignment with phylogenetic tree
 \author{
 Guangchuang Yu
 }
-
