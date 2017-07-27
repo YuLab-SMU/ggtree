@@ -1,3 +1,7 @@
+CHANGES IN VERSION 1.9.3
+------------------------
+ o update fortify.jplace to support number of placement (nplace) <2017-07-27, Thu>
+
 CHANGES IN VERSION 1.9.2
 ------------------------
  o add bg_line and height parameter in msaplot <2017-07-26, Wed>
