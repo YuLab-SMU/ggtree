@@ -44,6 +44,8 @@ weight: 10
 + [ggtree - updating a tree view](https://guangchuangyu.github.io/2015/02/ggtree---updating-a-tree-view/)
 + [an example of drawing beast tree using ggtree](https://guangchuangyu.github.io/2015/04/an-example-of-drawing-beast-tree-using-ggtree)
 + [Phylogenetic trees in R using ggtree](http://www.molecularecologist.com/2017/02/phylogenetic-trees-in-r-using-ggtree/) <i class="fa fa-arrow-left"></i> The Molecular Ecologist
++ [Growing a ggtree](https://phe-bioinformatics.github.io/blog/2017/06/14/ggtree_exploration)
++ [Growing a ggtree - part 2, adding tip shapes](https://phe-bioinformatics.github.io/blog/2017/07/07/ggtree_part2)
 
 ### <i class="fa fa-angle-double-right"></i> Tree annotation
 
@@ -56,6 +58,7 @@ weight: 10
 + [identify method for ggtree](https://guangchuangyu.github.io/2016/06/identify-method-for-ggtree)
 + [facet_plot: a general solution to associate data with phylogenetic tree](https://guangchuangyu.github.io/2016/10/facet_plot-a-general-solution-to-associate-data-with-phylogenetic-tree/)
 + [align genomic features with phylogenetic tree](https://guangchuangyu.github.io/2016/11/align-genomic-features-with-phylogenetic-tree/)
++ [ggjoy facet with ggtree](https://stackoverflow.com/questions/45384281/ggjoy-facet-with-ggtree)
 + [xlim_tree: set x axis limits for only Tree panel](https://guangchuangyu.github.io/2016/10/xlim_tree-set-x-axis-limits-for-only-tree-panel/)
 + [add layer to specific panel of facet_plot output](https://guangchuangyu.github.io/2016/12/add-layer-to-specific-panel-of-facet_plot-output/)
 
