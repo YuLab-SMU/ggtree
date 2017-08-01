@@ -25,12 +25,12 @@ geom_tiplab <- function(mapping=NULL, hjust = 0,  align = FALSE, linetype = "dot
     } else {
         text_geom <- geom_label2
     }
-    x <- y <- label <- isTip <- NULL
+    x <- y <- label <- isTip <- node <- NULL
     if (align == TRUE) {
-        self_mapping <- aes(x = max(x, na.rm=TRUE) + diff(range(x, na.rm=TRUE))/200, y = y, label = label, subset= isTip)
+        self_mapping <- aes(x = max(x, na.rm=TRUE) + diff(range(x, na.rm=TRUE))/200, y = y, label = label, node = node, subset = isTip)
     }
     else {
-        self_mapping <- aes(x = x + diff(range(x, na.rm=TRUE))/200, y= y, label = label, subset= isTip)
+        self_mapping <- aes(x = x + diff(range(x, na.rm=TRUE))/200, y= y, label = label, node = node, subset = isTip)
     }
 
     if (is.null(mapping)) {
@@ -46,19 +46,20 @@ geom_tiplab <- function(mapping=NULL, hjust = 0,  align = FALSE, linetype = "dot
         segment_mapping <- aes(x = max(x, na.rm=TRUE),
                                xend = x + diff(range(x, na.rm=TRUE))/200,
                                y = y, yend = y,
-                               subset=isTip)
+                               node = node,
+                               subset = isTip)
         if (!is.null(mapping))
             segment_mapping <- modifyList(segment_mapping, mapping)
     }
 
     list(
         text_geom(mapping=text_mapping,
-                  hjust = hjust, nudge_x = offset, ...)
+                  hjust = hjust, nudge_x = offset, stat = StatTreeData, ...)
         ,
         if (show_segment)
             geom_segment2(mapping = segment_mapping,
                           linetype = linetype,
-                          size = linesize, ...)
+                          size = linesize, stat = StatTreeData, ...)
 
             ## geom_tipsegment(mapping = segment_mapping,
             ##                 offset = offset,
@@ -81,12 +82,12 @@ geom_tiplab <- function(mapping=NULL, hjust = 0,  align = FALSE, linetype = "dot
 ##' @references \url{https://groups.google.com/forum/#!topic/bioc-ggtree/o35PV3iHO-0}
 geom_tiplab2 <- function(mapping=NULL, hjust=0, ...) {
 
-    angle <- NULL
-    isTip <- NULL
+    angle <- isTip <- node <- NULL
+
     ## m1 <- aes(subset=(abs(angle) < 90), angle=angle)
     ## m2 <- aes(subset=(abs(angle) >= 90), angle=angle+180)
-    m1 <- aes(subset=(isTip & (angle < 90 | angle > 270)), angle=angle)
-    m2 <- aes(subset=(isTip & (angle >= 90 & angle <=270)), angle=angle+180)
+    m1 <- aes(subset=(isTip & (angle < 90 | angle > 270)), angle=angle, node = node)
+    m2 <- aes(subset=(isTip & (angle >= 90 & angle <=270)), angle=angle+180, node = node)
 
     if (!is.null(mapping)) {
         m1 <- modifyList(mapping, m1)

@@ -6,6 +6,7 @@
 ##' @param data A layer specific dataset -
 ##'             only needed if you want to override he plot defaults.
 ##' @param ... other arguments passed on to 'layer'
+##' @param stat Name of stat to modify data
 ##' @param position The position adjustment to use for overlapping points on this layer
 ##' @param family sans by default, can be any supported font
 ##' @param parse if TRUE, the labels will be passd into expressions
@@ -25,6 +26,7 @@
 ##' @author Guangchuang Yu
 geom_text2 <- function(mapping = NULL, data = NULL,
                        ...,
+                       stat = "identity",
                        position = "identity",
                        family="sans",
                        parse = FALSE,
@@ -43,7 +45,7 @@ geom_text2 <- function(mapping = NULL, data = NULL,
         position <- position_nudge(nudge_x, nudge_y)
     }
 
-    default_aes <- aes_(node=~node)
+    default_aes <- aes_() #node=~node)
     if (is.null(mapping)) {
         mapping <- default_aes
     } else {
@@ -61,7 +63,7 @@ geom_text2 <- function(mapping = NULL, data = NULL,
     layer(
         data = data,
         mapping = mapping,
-        stat = StatTreeData,
+        stat = stat, #StatTreeData,
         geom = GeomTextGGtree,
         position = position,
         show.legend = show.legend,
@@ -94,7 +96,7 @@ GeomTextGGtree <- ggproto("GeomTextGGtree", GeomText,
                               GeomText$draw_panel(data, panel_scales, coord, parse,
                                                   na.rm, check_overlap)
                           },
-                          required_aes = c("node", "x", "y", "label"),
+                          required_aes = c("x", "y", "label"),
 
                           default_aes = aes(colour = "black", size = 3.88, angle = 0, hjust = 0.5,
                               vjust = 0.5, alpha = NA, family = "", fontface = 1, lineheight = 1.2),

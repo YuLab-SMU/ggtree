@@ -18,7 +18,7 @@ geom_aline <- function(mapping=NULL, linetype="dotted", size=1, ...) {
 
     geom_segment2(dot_mapping,
                   linetype=linetype,
-                  size=size, ...)
+                  size=size, stat = StatTreeData, ...)
 }
 
 
@@ -29,6 +29,7 @@ geom_aline <- function(mapping=NULL, linetype="dotted", size=1, ...) {
 ##' @title geom_segment2
 ##' @param mapping aes mapping
 ##' @param data data
+##' @param stat Name of stat to modify data
 ##' @param position position
 ##' @param arrow arrow
 ##' @param lineend lineend
@@ -42,7 +43,7 @@ geom_aline <- function(mapping=NULL, linetype="dotted", size=1, ...) {
 ##' \link[ggplot2]{geom_segment}
 ##' @return add segment layer
 ##' @author Guangchuang Yu
-geom_segment2 <- function(mapping = NULL, data = NULL,
+geom_segment2 <- function(mapping = NULL, data = NULL, stat = "identity",
                          position = "identity", arrow = NULL, lineend = "butt",
                          na.rm = FALSE, show.legend = NA, inherit.aes = TRUE,
                          ...) {
@@ -57,7 +58,7 @@ geom_segment2 <- function(mapping = NULL, data = NULL,
     layer(
         data = data,
         mapping = mapping,
-        stat = StatTreeData,
+        stat = stat,
         geom = GeomSegmentGGtree,
         position = position,
         show.legend = show.legend,
@@ -79,19 +80,21 @@ GeomSegmentGGtree <- ggproto("GeomSegmentGGtree", GeomSegment,
                                  if (is.null(data$subset))
                                      return(data)
                                  data[which(data$subset),]
-                             },
+                             }
 
-                             draw_panel = function(data, panel_scales, coord, arrow = NULL,
-                                                   lineend = "butt", na.rm = FALSE) {
+                            ## ,
 
-                                 GeomSegment$draw_panel(data, panel_scales, coord, arrow,
-                                                        lineend, na.rm)
-                             },
+                            ##  draw_panel = function(data, panel_scales, coord, arrow = NULL,
+                            ##                        lineend = "butt", na.rm = FALSE) {
 
-                             required_aes = c("x", "y", "xend", "yend"),
-                             default_aes = aes(colour = "black", size = 0.5, linetype = 1, alpha = NA),
+                            ##      GeomSegment$draw_panel(data, panel_scales, coord, arrow,
+                            ##                             lineend, na.rm)
+                            ##  },
 
-                             draw_key = draw_key_path
+                            ##  required_aes = c("x", "y", "xend", "yend"),
+                            ##  default_aes = aes(colour = "black", size = 0.5, linetype = 1, alpha = NA),
+
+                            ##  draw_key = draw_key_path
                              )
 
 

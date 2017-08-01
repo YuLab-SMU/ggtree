@@ -6,6 +6,7 @@
 ##' @param data A layer specific dataset -
 ##'             only needed if you want to override he plot defaults.
 ##' @param ... other arguments passed on to 'layer'
+##' @param stat Name of stat to modify data
 ##' @param position The position adjustment to use for overlapping points on this layer
 ##' @param family sans by default, can be any supported font
 ##' @param parse if TRUE, the labels will be passd into expressions
@@ -26,6 +27,7 @@
 ##' @author Guangchuang Yu
 geom_label2 <- function(mapping = NULL, data = NULL,
                         ...,
+                        stat = "identity",
                         position = "identity",
                         family = "sans",
                         parse = FALSE,
@@ -46,7 +48,7 @@ geom_label2 <- function(mapping = NULL, data = NULL,
         position <- position_nudge(nudge_x, nudge_y)
     }
 
-    default_aes <- aes_(node=~node)
+    default_aes <- aes_() #node=~node)
     if (is.null(mapping)) {
         mapping <- default_aes
     } else {
@@ -65,7 +67,7 @@ geom_label2 <- function(mapping = NULL, data = NULL,
     layer(
         data = data,
         mapping = mapping,
-        stat = StatTreeData,
+        stat = stat,
         geom = GeomLabelGGtree,
         position = position,
         show.legend = show.legend,
@@ -91,24 +93,24 @@ GeomLabelGGtree <- ggproto("GeomLabelGGtree", GeomLabel,
                                if (is.null(data$subset))
                                    return(data)
                                data[which(data$subset),]
-                           },
-                           draw_panel = function(self, data, panel_scales, coord, parse = FALSE,
-                                                 na.rm = FALSE,
-                                                 label.padding = unit(0.25, "lines"),
-                                                 label.r = unit(0.15, "lines"),
-                                                 label.size = 0.25) {
-                               GeomLabel$draw_panel(data, panel_scales, coord, parse,
-                                                   na.rm, label.padding, label.r, label.size)
-                           },
-                           required_aes = c("node", "x", "y", "label"),
+                           }## ,
+                           ## draw_panel = function(self, data, panel_scales, coord, parse = FALSE,
+                           ##                       na.rm = FALSE,
+                           ##                       label.padding = unit(0.25, "lines"),
+                           ##                       label.r = unit(0.15, "lines"),
+                           ##                       label.size = 0.25) {
+                           ##     GeomLabel$draw_panel(data, panel_scales, coord, parse,
+                           ##                         na.rm, label.padding, label.r, label.size)
+                           ## },
+                           ## required_aes = c("x", "y", "label"),
 
-                           default_aes = aes(
-                               colour = "black", fill = "white", size = 3.88, angle = 0,
-                               hjust = 0.5, vjust = 0.5, alpha = NA, family = "", fontface = 1,
-                               lineheight = 1.2
-                           ),
+                           ## default_aes = aes(
+                           ##     colour = "black", fill = "white", size = 3.88, angle = 0,
+                           ##     hjust = 0.5, vjust = 0.5, alpha = NA, family = "", fontface = 1,
+                           ##     lineheight = 1.2
+                           ## ),
 
-                           draw_key = draw_key_label
+                           ## draw_key = draw_key_label
                            )
 
 
