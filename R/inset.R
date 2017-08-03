@@ -63,7 +63,7 @@ nodebar <- function(data, cols, color, alpha=1, position="stack") {
     }
     type <- value <- NULL
 
-    ldf <- gather(data, type, value, cols) %>% split(., .$node)
+    ldf <- gather(data, type, value, !! cols) %>% split(., .$node)
     bars <- lapply(ldf, function(df) ggplot(df, aes_(x=1, y=~value, fill=~type)) +
                                      geom_bar(stat='identity', alpha=alpha, position=position) +
                                      theme_inset()
@@ -96,7 +96,7 @@ nodepie <- function(data, cols, color, alpha=1) {
     if (missingArg(color)) {
         color <- NA
     }
-    ldf <- gather(data, type, value, cols) %>% split(., .$node)
+    ldf <- gather(data, type, value, !! cols) %>% split(., .$node)
     lapply(ldf, function(df) ggpie(df, y=~value, fill=~type, color, alpha))
 }
 

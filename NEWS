@@ -1,5 +1,6 @@
 CHANGES IN VERSION 1.9.3
 ------------------------
+ o update to using !! in tidyr::gather for compatible with tidyr 0.7.0 <2017-08-03, Thu>
  o now geom_text2, geom_label2, geom_point2 and geom_segment2 work with ggplot2 <2017-08-01, Tue>
  o update fortify.jplace to support number of placement (nplace) <2017-07-27, Thu>
 
