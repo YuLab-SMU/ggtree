@@ -43,9 +43,10 @@ text layer
 \description{
 geom_text2 support aes(subset) via setup_data
 }
-\seealso{
-\link[ggplot2]{geom_text}
-}
 \author{
 Guangchuang Yu
 }
+\seealso{
+\link[ggplot2]{geom_text}
+}
+
