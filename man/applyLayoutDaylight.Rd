@@ -18,4 +18,3 @@ list with tree data.frame with updated layout using daylight algorithm and max_c
 Apply the daylight alorithm to adjust the spacing between the subtrees and tips of the
 specified node.
 }
-

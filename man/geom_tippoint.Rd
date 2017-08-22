@@ -31,4 +31,3 @@ add tip point
 \author{
 Guangchuang Yu
 }
-

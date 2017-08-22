@@ -21,4 +21,3 @@ for labeling column names of heatmap produced by `gheatmap` function
 \author{
 Guangchuang Yu
 }
-

@@ -18,4 +18,3 @@ convert Date to decimal format, eg "2014-05-05" to "2014.34"
 \author{
 Guangchuang Yu
 }
-
