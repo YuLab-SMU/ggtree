@@ -10,6 +10,8 @@ publishDir = "../docs"
 relativeurls = true
 
 
+ignoreFiles = ["\\.Rmd$", "\\.rmd$", "\\.Rmarkdown$", "_files$", "_cache$"]
+
 [params]
 	# General information
 	author = "Guangchuang Yu"

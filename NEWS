@@ -1,3 +1,7 @@
+CHANGES IN VERSION 1.9.4
+------------------------
+ o fixed `R CMD build` error: cannot stat 'ggtree/site_src/themes': No such file or directory <2017-08-22, Tue>
+
 CHANGES IN VERSION 1.9.3
 ------------------------
  o update to using !! in tidyr::gather for compatible with tidyr 0.7.0 <2017-08-03, Thu>

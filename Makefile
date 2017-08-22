@@ -46,7 +46,9 @@ clean:
 
 site:
 	cd site_src;\
+	ln -s ../../software/themes themes;\
 	Rscript -e 'blogdown::build_site()';\
+	rm themes;\
 	cd ..
 
 preview:
