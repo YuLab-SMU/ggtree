@@ -272,6 +272,6 @@ coplot <- function(tree1, tree2, hjust=0) {
 ##' @author guangchuang yu
 set_hilight_legend <- function(p, color, label) {
 	d <- data.frame(color=color, clade=label, x=0, y=1)
-	p <- p + geom_rect(aes_(fill=~clade, xmin=~x, xmax=~x, ymin=~y, ymax=~y), data=d, inherit.aes=F) +
+	p + geom_rect(aes_(fill=~clade, xmin=~x, xmax=~x, ymin=~y, ymax=~y), data=d, inherit.aes=F) +
 		guides(fill=guide_legend(override.aes=list(fill=d$color)))
 }
