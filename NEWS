@@ -1,5 +1,6 @@
 CHANGES IN VERSION 1.9.4
 ------------------------
+ o set_hilight_legend <2017-08-30, Wed>
  o geom_motif for aligned motif <2017-08-22, Tue>
    + https://github.com/GuangchuangYu/ggtree/issues/148
  o fixed `R CMD build` error: cannot stat 'ggtree/site_src/themes': No such file or directory <2017-08-22, Tue>
