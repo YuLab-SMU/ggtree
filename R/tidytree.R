@@ -643,18 +643,26 @@ rotateTreePoints.df <- function(df, pivot_node, nodes, angle){
 
   }
   
-  # Now update labels of rotated tree.
+  # Now update tip labels of rotated tree.
+  # angle is in range [0, 360]
   for(node in nodes){
-    # Update label angle if not root node.
-    # get parent
-    parent_id <- getParent.df(df, node)
-    # if 'node' is not root, then update label angle.
-    if( parent_id != 0){
-      theta_parent_child <- getNodeAngle.df(df, parent_id, node)
-      if(!is.na(theta_parent_child)){
-        # Update tip label angle, that is parallel to edge.
-        #df[node, 'angle'] <- -90 - 180 * theta_parent_child * sign(theta_parent_child - 1)
-        df[node, 'angle'] <- 180 * theta_parent_child
+    # Update label angle of tipnode if not root node.
+    if( isTip.df(df, node) ){
+      # get parent
+      parent_id <- getParent.df(df, node)
+      # if 'node' is not root, then update label angle.
+      if( parent_id != 0 ){
+        theta_parent_child <- getNodeAngle.df(df, parent_id, node)
+        if(!is.na(theta_parent_child)){
+          # Update tip label angle, that is parallel to edge.
+          #df[node, 'angle'] <- -90 - 180 * theta_parent_child * sign(theta_parent_child - 1)
+          if(theta_parent_child > 0 ){
+            df[node, 'angle'] <- 180 * theta_parent_child   
+          }else if(theta_parent_child < 0 ){
+            df[node, 'angle'] <- 180 * ( theta_parent_child + 2 )
+          }
+          
+        }
       }
     }
   }

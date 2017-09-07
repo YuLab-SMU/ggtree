@@ -1,0 +1,104 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: gheatmap</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for gheatmap {ggtree}"><tr><td>gheatmap {ggtree}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>gheatmap</h2>
+
+<h3>Description</h3>
+
+<p>append a heatmap of a matrix to right side of phylogenetic tree
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+gheatmap(p, data, offset = 0, width = 1, low = "green", high = "red",
+  color = "white", colnames = TRUE, colnames_position = "bottom",
+  colnames_angle = 0, colnames_level = NULL, colnames_offset_x = 0,
+  colnames_offset_y = 0, font.size = 4, hjust = 0.5)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>p</code></td>
+<td>
+<p>tree view</p>
+</td></tr>
+<tr valign="top"><td><code>data</code></td>
+<td>
+<p>matrix or data.frame</p>
+</td></tr>
+<tr valign="top"><td><code>offset</code></td>
+<td>
+<p>offset of heatmap to tree</p>
+</td></tr>
+<tr valign="top"><td><code>width</code></td>
+<td>
+<p>total width of heatmap, compare to width of tree</p>
+</td></tr>
+<tr valign="top"><td><code>low</code></td>
+<td>
+<p>color of lowest value</p>
+</td></tr>
+<tr valign="top"><td><code>high</code></td>
+<td>
+<p>color of highest value</p>
+</td></tr>
+<tr valign="top"><td><code>color</code></td>
+<td>
+<p>color of heatmap cell border</p>
+</td></tr>
+<tr valign="top"><td><code>colnames</code></td>
+<td>
+<p>logical, add matrix colnames or not</p>
+</td></tr>
+<tr valign="top"><td><code>colnames_position</code></td>
+<td>
+<p>one of 'bottom' or 'top'</p>
+</td></tr>
+<tr valign="top"><td><code>colnames_angle</code></td>
+<td>
+<p>angle of column names</p>
+</td></tr>
+<tr valign="top"><td><code>colnames_level</code></td>
+<td>
+<p>levels of colnames</p>
+</td></tr>
+<tr valign="top"><td><code>colnames_offset_x</code></td>
+<td>
+<p>x offset for column names</p>
+</td></tr>
+<tr valign="top"><td><code>colnames_offset_y</code></td>
+<td>
+<p>y offset for column names</p>
+</td></tr>
+<tr valign="top"><td><code>font.size</code></td>
+<td>
+<p>font size of matrix colnames</p>
+</td></tr>
+<tr valign="top"><td><code>hjust</code></td>
+<td>
+<p>hjust for column names (0: align left, 0.5: align center, 1: align righ)</p>
+</td></tr>
+</table>
+
+
+<h3>Value</h3>
+
+<p>tree view
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Guangchuang Yu
+</p>
+
+<hr /><div style="text-align: center;">[Package <em>ggtree</em> version 1.9.1 <a href="00Index.html">Index</a>]</div>
+</body></html>

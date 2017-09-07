@@ -1,0 +1,80 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: geom_balance</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for geom_balance {ggtree}"><tr><td>geom_balance {ggtree}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>geom_balance</h2>
+
+<h3>Description</h3>
+
+<p>highlights the two direct descendant clades of an internal node
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+geom_balance(node, fill = "steelblue", color = "white", alpha = 0.5,
+  extend = 0, extendto = NULL)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>node</code></td>
+<td>
+<p>selected node (balance) to highlight</p>
+</td></tr>
+<tr valign="top"><td><code>fill</code></td>
+<td>
+<p>color fill</p>
+</td></tr>
+<tr valign="top"><td><code>color</code></td>
+<td>
+<p>color to outline highlights and divide balance</p>
+</td></tr>
+<tr valign="top"><td><code>alpha</code></td>
+<td>
+<p>alpha (transparency)</p>
+</td></tr>
+<tr valign="top"><td><code>extend</code></td>
+<td>
+<p>extend xmax of the rectangle</p>
+</td></tr>
+<tr valign="top"><td><code>extendto</code></td>
+<td>
+<p>extend xmax to extendto</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>Particularly useful when studying neighboring clades. Note that balances that
+correspond to multichotomies will not be displayed.
+</p>
+
+
+<h3>Value</h3>
+
+<p>ggplot2
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Justin Silverman
+</p>
+
+
+<h3>References</h3>
+
+<p>J. Silverman, et al. <em>A phylogenetic transform enhances
+analysis of compositional microbiota data</em>. (in preparation)
+</p>
+
+<hr /><div style="text-align: center;">[Package <em>ggtree</em> version 1.9.1 <a href="00Index.html">Index</a>]</div>
+</body></html>

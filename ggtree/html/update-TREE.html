@@ -1,0 +1,60 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: %&lt;%</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for %&amp;lt;% {ggtree}"><tr><td>%&lt;% {ggtree}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>%&lt;%</h2>
+
+<h3>Description</h3>
+
+<p>update tree
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+pg %&lt;% x
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>pg</code></td>
+<td>
+<p>ggplot2 object</p>
+</td></tr>
+<tr valign="top"><td><code>x</code></td>
+<td>
+<p>update by x</p>
+</td></tr>
+</table>
+
+
+<h3>Value</h3>
+
+<p>updated ggplot object
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Yu Guangchuang
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+library("ggplot2")
+nwk &lt;- system.file("extdata", "sample.nwk", package="ggtree")
+tree &lt;- read.tree(nwk)
+p &lt;- ggtree(tree) + geom_tippoint(color="#b5e521", alpha=1/4, size=10)
+p %&lt;% rtree(30)
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>ggtree</em> version 1.9.1 <a href="00Index.html">Index</a>]</div>
+</body></html>

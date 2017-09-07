@@ -1,0 +1,107 @@
+%+>%                    %+>%
+%<%                     %<%
+%<+%                    %<+%
+%>%                     pipe
+.                       .
+Date2decimal            Date2decimal
+MRCA                    MRCA
+NJ                      NJ
+StatBalance             StatBalance
+add_colorbar            add_colorbar
+annotation_image        annotation_image
+apeBoot                 apeBoot
+applyLayoutDaylight     applyLayoutDaylight
+as.binary               as.binary
+as.data.frame.phylo     as.data.frame
+as.polytomy             as.polytomy
+collapse                collapse
+decimal2Date            decimal2Date
+download.phylopic       download.phylopic
+expand                  expand
+facet_plot              facet_plot
+flip                    flip
+fortify.phylo           fortify
+geom_aline              geom_aline
+geom_balance            geom_balance
+geom_cladelabel         geom_cladelabel
+geom_cladelabel2        geom_cladelabel2
+geom_hilight            geom_hilight
+geom_hilight_encircle   geom_hilight_encircle
+geom_label2             geom_label2
+geom_nodepoint          geom_nodepoint
+geom_point2             geom_point2
+geom_range              geom_range
+geom_rootpoint          geom_rootpoint
+geom_segment2           geom_segment2
+geom_strip              geom_strip
+geom_taxalink           geom_taxalink
+geom_text2              geom_text2
+geom_tiplab             geom_tiplab
+geom_tiplab2            geom_tiplab2
+geom_tippoint           geom_tippoint
+geom_tree               geom_tree
+geom_tree2              geom_tree2
+geom_treescale          geom_treescale
+get.offspring.tip       get.offspring.tip
+get.path                get.path
+get.phylopic            get.phylopic
+getChild.df             getChild.df
+getNodeAngle.df         getNodeAngle.df
+getNodeEuclDistances    Get the distances from the node to all other
+                        nodes in data.frame (including itself if in df)
+getNodesBreadthFirst.df
+                        getNodesBreadthFirst.df
+getParent.df            getParent.df
+getSubtree              getSubtree
+getSubtree.df           getSubtree.df
+getSubtreeUnrooted      getSubtreeUnrooted
+getSubtreeUnrooted.df   getSubtreeUnrooted
+getTreeArcAngles        getTreeArcAngles
+get_balance_position    get_balance_position
+get_clade_position      get_clade_position
+get_heatmap_column_position
+                        get_heatmap_column_position
+get_taxa_name           get_taxa_name
+ggtree                  visualizing phylogenetic tree and heterogenous
+                        associated data based on grammar of graphics
+                        'ggtree' provides functions for visualizing
+                        phylogenetic tree and its associated data in R.
+gheatmap                gheatmap
+groupClade              groupClade method
+groupOTU                groupOTU method
+gzoom                   gzoom method
+gzoom.phylo             gzoom
+identify.gg             identify
+inset                   inset
+layoutDaylight          Equal daylight layout method for unrooted
+                        trees.
+layoutEqualAngle        layoutEqualAngle
+msaplot                 msaplot
+multiplot               multiplot
+nodebar                 nodebar
+nodeid                  nodeid
+nodepie                 nodepie
+open_tree               open_tree
+phylopic                phylopic
+print.beastList         print
+reroot                  reroot method
+rescale_tree            rescale_tree
+revts                   revts
+rm.singleton.newick     rm.singleton.newick
+rotate                  rotate
+rotateTreePoints.df     rotateTreePoints.data.fram
+rotate_tree             rotate_tree
+scaleClade              scaleClade
+scale_color             scale_color method
+scale_x_ggtree          scale_x_ggtree
+stat_balance            stat_balance
+stat_chull              stat_chull
+stat_hilight            stat_hilight
+subview                 subview
+theme_inset             theme_inset
+theme_transparent       theme_transparent
+theme_tree              theme_tree
+theme_tree2             theme_tree2
+viewClade               viewClade
+xlim_expand             xlim_expand
+xlim_tree               xlim_tree

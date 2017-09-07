@@ -1,0 +1,109 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: visualizing phylogenetic tree and heterogenous associated...</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for ggtree {ggtree}"><tr><td>ggtree {ggtree}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>visualizing phylogenetic tree and heterogenous associated data based on grammar of graphics
+<code>ggtree</code> provides functions for visualizing phylogenetic tree and its associated data in R.</h2>
+
+<h3>Description</h3>
+
+<p>visualizing phylogenetic tree and heterogenous associated data based on grammar of graphics
+<code>ggtree</code> provides functions for visualizing phylogenetic tree and its associated data in R.
+</p>
+<p>drawing phylogenetic tree from phylo object
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+ggtree(tr, mapping = NULL, layout = "rectangular", open.angle = 0,
+  mrsd = NULL, as.Date = FALSE, yscale = "none", yscale_mapping = NULL,
+  ladderize = TRUE, right = FALSE, branch.length = "branch.length",
+  ndigits = NULL, ...)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>tr</code></td>
+<td>
+<p>phylo object</p>
+</td></tr>
+<tr valign="top"><td><code>mapping</code></td>
+<td>
+<p>aes mapping</p>
+</td></tr>
+<tr valign="top"><td><code>layout</code></td>
+<td>
+<p>one of 'rectangular', 'slanted', 'fan', 'circular', 'radial', 'equal_angle' or 'daylight'</p>
+</td></tr>
+<tr valign="top"><td><code>open.angle</code></td>
+<td>
+<p>open angle, only for 'fan' layout</p>
+</td></tr>
+<tr valign="top"><td><code>mrsd</code></td>
+<td>
+<p>most recent sampling date</p>
+</td></tr>
+<tr valign="top"><td><code>as.Date</code></td>
+<td>
+<p>logical whether using Date class in time tree</p>
+</td></tr>
+<tr valign="top"><td><code>yscale</code></td>
+<td>
+<p>y scale</p>
+</td></tr>
+<tr valign="top"><td><code>yscale_mapping</code></td>
+<td>
+<p>yscale mapping for category variable</p>
+</td></tr>
+<tr valign="top"><td><code>ladderize</code></td>
+<td>
+<p>logical</p>
+</td></tr>
+<tr valign="top"><td><code>right</code></td>
+<td>
+<p>logical</p>
+</td></tr>
+<tr valign="top"><td><code>branch.length</code></td>
+<td>
+<p>variable for scaling branch, if 'none' draw cladogram</p>
+</td></tr>
+<tr valign="top"><td><code>ndigits</code></td>
+<td>
+<p>number of digits to round numerical annotation variable</p>
+</td></tr>
+<tr valign="top"><td><code>...</code></td>
+<td>
+<p>additional parameter</p>
+</td></tr>
+</table>
+
+
+<h3>Value</h3>
+
+<p>tree
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Yu Guangchuang
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+require(ape)
+tr &lt;- rtree(10)
+ggtree(tr)
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>ggtree</em> version 1.9.1 <a href="00Index.html">Index</a>]</div>
+</body></html>

@@ -1,0 +1,32 @@
+Package: ggtree
+Type: Package
+Title: an R package for visualization and annotation of phylogenetic
+        trees with their covariates and other associated data
+Version: 1.9.1
+Authors@R: c(
+	   person("Guangchuang", "Yu", email = "guangchuangyu@gmail.com", role = c("aut", "cre", "cph")),
+	   person("Tommy Tsan-Yuk", "Lam", email = "tylam.tommy@gmail.com", rol = c("aut", "ths")),
+	   person("Justin", "Silverman", email = "jsilve24@gmail.com", rol = "ctb")
+	   )
+Maintainer: Guangchuang Yu <guangchuangyu@gmail.com>
+Description: 'ggtree' extends the 'ggplot2' plotting system which implemented
+    the grammar of graphics. 'ggtree' is designed for visualization and annotation
+    of phylogenetic trees with their covariates and other associated data.
+Depends: R (>= 3.3.2), ggplot2 (>= 2.2.0), treeio
+Imports: ape, grDevices, grid, magrittr, methods, rvcheck, tidyr, utils
+Suggests: Biostrings, colorspace, EBImage, emojifont, knitr, prettydoc,
+        rmarkdown, scales, testthat
+VignetteBuilder: knitr
+ByteCompile: true
+License: Artistic-2.0
+URL: https://guangchuangyu.github.io/ggtree
+BugReports: https://github.com/GuangchuangYu/ggtree/issues
+Packaged: 2014-12-03 08:16:14 UTC; root
+biocViews: Alignment, Annotation, Clustering, DataImport,
+        MultipleSequenceAlignment, ReproducibleResearch, Software,
+        Visualization
+RoxygenNote: 6.0.1
+Author: Guangchuang Yu [aut, cre, cph],
+  Tommy Tsan-Yuk Lam [aut, ths],
+  Justin Silverman [ctb]
+Built: R 3.3.2; ; 2017-07-07 06:08:46 UTC; windows
