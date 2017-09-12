@@ -4,14 +4,16 @@
 \alias{geom_segment2}
 \title{geom_segment2}
 \usage{
-geom_segment2(mapping = NULL, data = NULL, position = "identity",
-  arrow = NULL, lineend = "butt", na.rm = FALSE, show.legend = NA,
-  inherit.aes = TRUE, ...)
+geom_segment2(mapping = NULL, data = NULL, stat = "identity",
+  position = "identity", arrow = NULL, lineend = "butt", na.rm = FALSE,
+  show.legend = NA, inherit.aes = TRUE, ...)
 }
 \arguments{
 \item{mapping}{aes mapping}
 
 \item{data}{data}
+
+\item{stat}{Name of stat to modify data}
 
 \item{position}{position}
 

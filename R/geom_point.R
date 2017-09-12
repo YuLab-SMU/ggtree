@@ -10,14 +10,13 @@
 geom_tippoint <- function(mapping = NULL, data = NULL,
                        position = "identity", na.rm = FALSE,
                           show.legend = NA, inherit.aes = TRUE, ...) {
-    isTip <- NULL
-    self_mapping <- aes(subset = isTip)
+    self_mapping <- aes_(node = ~node, subset = ~isTip)
     if (is.null(mapping)) {
         mapping <- self_mapping
     } else {
         mapping <- modifyList(self_mapping, mapping)
     }
-    geom_point2(mapping, data, position, na.rm, show.legend, inherit.aes, ...)
+    geom_point2(mapping, data, position, na.rm, show.legend, inherit.aes, stat = StatTreeData, ...)
 }
 
 ## angle is not supported,
@@ -52,14 +51,14 @@ geom_tippoint <- function(mapping = NULL, data = NULL,
 geom_nodepoint <- function(mapping = NULL, data = NULL,
                        position = "identity", na.rm = FALSE,
                        show.legend = NA, inherit.aes = TRUE, ...) {
-    isTip <- NULL
-    self_mapping <- aes(subset = !isTip)
+    node <- isTip <- NULL
+    self_mapping <- aes(node = node, subset = !isTip)
     if (is.null(mapping)) {
         mapping <- self_mapping
     } else {
         mapping %<>% modifyList(self_mapping)
     }
-    geom_point2(mapping, data, position, na.rm, show.legend, inherit.aes, ...)
+    geom_point2(mapping, data, position, na.rm, show.legend, inherit.aes, stat = StatTreeData, ...)
 }
 
 
@@ -75,13 +74,13 @@ geom_rootpoint <- function(mapping = NULL, data = NULL,
                            position = "identity", na.rm = FALSE,
                            show.legend = NA, inherit.aes = TRUE, ...) {
     isTip <- node <- parent <- NULL
-    self_mapping <- aes(subset = (node == parent))
+    self_mapping <- aes(node = node, subset = (node == parent))
     if (is.null(mapping)) {
         mapping <- self_mapping
     } else {
         mapping %<>% modifyList(self_mapping)
     }
-    geom_point2(mapping, data, position, na.rm, show.legend, inherit.aes, ...)
+    geom_point2(mapping, data, position, na.rm, show.legend, inherit.aes, stat = StatTreeData, ...)
 }
 
 
@@ -91,6 +90,7 @@ geom_rootpoint <- function(mapping = NULL, data = NULL,
 ##' @title geom_point2
 ##' @param mapping aes mapping
 ##' @param data data
+##' @param stat Name of stat to modify data
 ##' @param position position
 ##' @param na.rm logical
 ##' @param show.legend logical
@@ -102,12 +102,12 @@ geom_rootpoint <- function(mapping = NULL, data = NULL,
 ##' \link[ggplot2]{geom_point}
 ##' @return point layer
 ##' @author Guangchuang Yu
-geom_point2 <- function(mapping = NULL, data = NULL,
+geom_point2 <- function(mapping = NULL, data = NULL, stat = "identity",
                        position = "identity", na.rm = FALSE,
                        show.legend = NA, inherit.aes = TRUE, ...) {
 
 
-    default_aes <- aes_(node=~node)
+    default_aes <- aes_() # node=~node)
     if (is.null(mapping)) {
         mapping <- default_aes
     } else {
@@ -117,7 +117,7 @@ geom_point2 <- function(mapping = NULL, data = NULL,
     layer(
         data = data,
         mapping = mapping,
-        stat = StatTreeData,
+        stat = stat,
         geom = GeomPointGGtree,
         position = position,
         show.legend = show.legend,

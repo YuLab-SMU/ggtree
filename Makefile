@@ -4,7 +4,7 @@ PKGSRC  := $(shell basename `pwd`)
 
 all: rd readme check clean
 
-alldocs: rd readme mkdocs
+alldocs: site rd readme
 
 rd:
 	Rscript -e 'roxygen2::roxygenise(".")'
@@ -44,7 +44,15 @@ clean:
 	cd ..;\
 	$(RM) -r $(PKGNAME).Rcheck/
 
-site: mkdocs
+site:
+	cd site_src;\
+	ln -s ../../software/themes themes;\
+	Rscript -e 'blogdown::build_site()';\
+	rm themes;\
+	cd ..
+
+preview:
+	Rscript -e 'setwd("site_src"); blogdown::serve_site()'
 
 mkdocs: mdfiles
 	cd mkdocs;\
@@ -70,3 +78,28 @@ svncommit:
 	git push -u origin devel;\
 	git checkout master;\
 	git merge devel
+
+
+gitmaintain:
+	git gc --auto;\
+	git prune -v;\
+	git fsck --full
+
+
+pushX:
+	git push -u origin master;\
+	git checkout bioc;\
+	git pull;\
+	git merge master;\
+	git push upstream master;\
+	git checkout master
+
+update:
+	git fetch --all;\
+	git checkout master;\
+	git merge upstream/master;\
+	git merge origin/master
+
+push: update
+	git push upstream master;\
+	git push origin master

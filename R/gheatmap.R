@@ -40,17 +40,23 @@ gheatmap <- function(p, data, offset=0, width=1, low="green", high="red", color=
     ## }
 
     ## convert width to width of each cell
-    width <- width * (p$data$x %>% range %>% diff) / ncol(data)
+    width <- width * (p$data$x %>% range(na.rm=TRUE) %>% diff) / ncol(data)
 
     isTip <- x <- y <- variable <- value <- from <- to <- NULL
 
     df <- p$data
     df <- df[df$isTip,]
-    start <- max(df$x) + offset
+    start <- max(df$x, na.rm=TRUE) + offset
 
     dd <- as.data.frame(data)
     ## dd$lab <- rownames(dd)
-    lab <- df$label[order(df$y)]
+    i <- order(df$y)
+
+    ## handle collapsed tree
+    ## https://github.com/GuangchuangYu/ggtree/issues/137
+    i <- i[!is.na(df$y[i])]
+
+    lab <- df$label[i]
     dd <- dd[lab, , drop=FALSE]
     dd$y <- sort(df$y)
     dd$lab <- lab

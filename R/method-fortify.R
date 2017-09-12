@@ -371,7 +371,13 @@ fortify.jplace <- function(model, data,
     df <- extract.treeinfo.jplace(model, layout, ladderize, right, mrsd=mrsd, ...)
     place <- get.placements(model, by="best")
 
-    df <- df %add2% place
+    nplace <- split(place, place$edge_num) %>% lapply(nrow)
+    nplace.df <- data.frame(edgeNum = names(nplace), nplace=unlist(nplace))
+
+    ## df <- merge(df, place, by.x="edgeNum", by.y="edge_num", all.x=TRUE)
+    df <- merge(df, nplace.df, by.x="edgeNum", by.y="edgeNum", all.x=TRUE)
+
+    df$nplace[is.na(df$nplace)] <- 0
 
     df <- scaleY(model@phylo, df, yscale, layout, ...)
 

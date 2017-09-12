@@ -1,0 +1,87 @@
+baseurl = "https://guangchuangyu.github.io/ggtree/"
+languageCode = "en-us"
+title = "ggtree"
+theme = "hugo-material-docs"
+metadataformat = "yaml"
+canonifyurls = true
+# Enable Google Analytics by entering your tracking id
+googleAnalytics = "UA-77901140-1"
+publishDir = "../docs"
+relativeurls = true
+
+
+ignoreFiles = ["\\.Rmd$", "\\.rmd$", "\\.Rmarkdown$", "_files$", "_cache$"]
+
+[params]
+	# General information
+	author = "Guangchuang Yu"
+	description = "Visualization and annotation of phylogenetic trees."
+	copyright = "Released under the Artistic-2.0 license"
+
+	# Repository
+	provider = "GitHub"
+	repo_url = "https://github.com/GuangchuangYu/ggtree"
+
+	# version = "1.0.0"
+	logo = "images/gc.png"
+	favicon = ""
+
+	permalink = " "
+
+	# Custom assets
+	custom_css = []
+	custom_js  = []
+
+	# Syntax highlighting theme
+	highlight_css  = ""
+
+	[params.palette]
+    	primary = "teal"
+    	accent  = "teal"
+
+    [params.font]
+    	text = "Ubuntu"
+    	code = "Ubuntu Mono"
+
+
+[social]
+	twitter = "guangchuangyu"
+	github  = "GuangchuangYu"
+	email   = "guangchuangyu@gmail.com"
+  	wechat  = "biobabble"
+
+[[menu.main]]
+	name   = "ggtree"
+	url    = "/"
+	weight = 1
+
+[[menu.main]]
+	name   = "Documentation"
+	url    = "documentation/"
+	weight = 10
+
+[[menu.main]]
+	name   = "FAQ"
+	url    = "faq/"
+	weight = 20
+
+[[menu.main]]
+	name   = "Featured Articles"
+	url    = "featured-articles/"
+	weight = 30
+
+[[menu.main]]
+	name   = "Gallery"
+	url    = "gallery/"
+	weight = 40
+
+[[menu.main]]
+	name   = "Tweets"
+	url    = "tweets/"
+	weight = 50
+
+[blackfriday]
+	smartypants	= true
+	fractions = true
+	smartDashes = true
+	plainIDAnchors = true

@@ -1,3 +1,27 @@
+CHANGES IN VERSION 1.9.4
+------------------------
+ o set_hilight_legend <2017-08-30, Wed>
+ o geom_motif for aligned motif <2017-08-22, Tue>
+   + https://github.com/GuangchuangYu/ggtree/issues/148
+ o fixed `R CMD build` error: cannot stat 'ggtree/site_src/themes': No such file or directory <2017-08-22, Tue>
+
+CHANGES IN VERSION 1.9.3
+------------------------
+ o update to using !! in tidyr::gather for compatible with tidyr 0.7.0 <2017-08-03, Thu>
+ o now geom_text2, geom_label2, geom_point2 and geom_segment2 work with ggplot2 <2017-08-01, Tue>
+ o update fortify.jplace to support number of placement (nplace) <2017-07-27, Thu>
+
+CHANGES IN VERSION 1.9.2
+------------------------
+ o add bg_line and height parameter in msaplot <2017-07-26, Wed>
+   + use can set bg_line = FALSE and height = 1 to plot more beautiful alignment
+ o extend parameter in geom_cladebar <2017-07-26, Wed>
+   + https://github.com/GuangchuangYu/ggtree/issues/142#issuecomment-317817995
+ o scaleClade works after calling viewClade <2017-07-20, Thu>
+   + https://groups.google.com/forum/?utm_medium=email&utm_source=footer#!topic/bioc-ggtree/QVSryszPaFY
+ o gheatmap support handling collapsed tree <2017-06-29, Thu>
+   + https://github.com/GuangchuangYu/ggtree/issues/137
+
 CHANGES IN VERSION 1.9.1
 ------------------------
  o now mapping parameter will passed to segment layer in geom_tiplab(align=T) <2017-06-19, Mon>

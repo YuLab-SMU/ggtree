@@ -6,6 +6,7 @@
 ##' @param label clade label
 ##' @param offset offset of bar and text from the clade
 ##' @param offset.text offset of text from bar
+##' @param extend extend bar height
 ##' @param align logical
 ##' @param barsize size of bar
 ##' @param fontsize size of text
@@ -20,11 +21,21 @@
 ##' @return ggplot layers
 ##' @export
 ##' @author Guangchuang Yu
-geom_cladelabel <- function(node, label, offset=0, offset.text=0,
-                            align=FALSE, barsize=0.5, fontsize=3.88,
-                            angle=0, geom="text", hjust = 0,
-                            color = NULL, fill=NA,
-                            family="sans", parse=FALSE, ...) {
+geom_cladelabel <- function(node, label,
+                            offset      = 0,
+                            offset.text = 0,
+                            extend      = 0,
+                            align       = FALSE,
+                            barsize     = 0.5,
+                            fontsize    = 3.88,
+                            angle       = 0,
+                            geom        = "text",
+                            hjust       = 0,
+                            color       = NULL,
+                            fill        = NA,
+                            family      = "sans",
+                            parse       = FALSE,
+                            ...) {
     mapping <- NULL
     data <- NULL
     position <- "identity"
@@ -73,7 +84,7 @@ geom_cladelabel <- function(node, label, offset=0, offset.text=0,
         }
 
         layer_bar <- stat_cladeBar(node=node, offset=offset, align=align,
-                                   size=barsize,
+                                   size=barsize, extend = extend,
                                    mapping=mapping, data=data,
                                    position=position, show.legend = show.legend,
                                    inherit.aes = inherit.aes, na.rm=na.rm, ...)
@@ -94,13 +105,21 @@ geom_cladelabel <- function(node, label, offset=0, offset.text=0,
                                         inherit.aes = inherit.aes, na.rm=na.rm,
                                         parse = parse,  ...)
         }
-      
-      layer_bar <- stat_cladeBar(node=node, offset=offset, align=align,
-                                 size=barsize, color = barcolor,
-                                 mapping=mapping, data=data,
-                                 position=position, show.legend = show.legend,
-                                 inherit.aes = inherit.aes, na.rm=na.rm, ...)
-      
+
+        layer_bar <- stat_cladeBar(node        = node,
+                                   offset      = offset,
+                                   align       = align,
+                                   size        = barsize,
+                                   color       = barcolor,
+                                   extend      = extend,
+                                   mapping     = mapping,
+                                   data        = data,
+                                   position    = position,
+                                   show.legend = show.legend,
+                                   inherit.aes = inherit.aes,
+                                   na.rm       = na.rm, ...)
+
+
     }
     
     list(
@@ -110,11 +129,11 @@ geom_cladelabel <- function(node, label, offset=0, offset.text=0,
 }
 
 
-stat_cladeText <- function(mapping=NULL, data=NULL,
-                           geom="text", position="identity",
+stat_cladeText <- function(mapping = NULL, data = NULL,
+                           geom = "text", position = "identity",
                            node, label, offset, align, ..., angle,
-                           show.legend=NA, inherit.aes=FALSE,
-                           na.rm=FALSE, parse=FALSE) {
+                           show.legend = NA, inherit.aes = FALSE,
+                           na.rm = FALSE, parse = FALSE) {
 
     default_aes <- aes_(x=~x, y=~y, node=~node, parent=~parent, angle=~angle)
     if (is.null(mapping)) {
@@ -123,14 +142,14 @@ stat_cladeText <- function(mapping=NULL, data=NULL,
         mapping <- modifyList(mapping, default_aes)
     }
 
-    layer(stat=StatCladeText,
-          data=data,
-          mapping=mapping,
-          geom=geom,
-          position=position,
+    layer(stat = StatCladeText,
+          data = data,
+          mapping = mapping,
+          geom = geom,
+          position = position,
           show.legend = show.legend,
           inherit.aes = inherit.aes,
-          params=list(node=node,
+          params=list(node   = node,
                       label  = label,
                       offset = offset,
                       align  = align,
@@ -146,29 +165,32 @@ stat_cladeText <- function(mapping=NULL, data=NULL,
 
 stat_cladeBar <- function(mapping=NULL, data=NULL,
                           geom="segment", position="identity",
-                          node, offset, align,  ...,
+                          node, offset, align, extend,  ...,
                           show.legend=NA, inherit.aes=FALSE, na.rm=FALSE) {
-  default_aes <- aes_(x=~x, y=~y, node=~node, parent=~parent, xend=~x, yend=~y)
-  if (is.null(mapping)) {
-    mapping <- default_aes
-  } else {
-    mapping <- modifyList(mapping, default_aes)
-  }
+
   
-  layer(stat=StatCladeBar,
-        data=data,
-        mapping=mapping,
-        geom=geom,
-        position=position,
-        show.legend = show.legend,
-        inherit.aes = inherit.aes,
-        params=list(node=node,
-                    offset=offset,
-                    align=align,
-                    na.rm=na.rm,
-                    ...),
-        check.aes = FALSE
-  )
+    default_aes <- aes_(x=~x, y=~y, node=~node, parent=~parent, xend=~x, yend=~y)
+    if (is.null(mapping)) {
+        mapping <- default_aes
+    } else {
+        mapping <- modifyList(mapping, default_aes)
+    }
+
+    layer(stat = StatCladeBar,
+          data = data,
+          mapping = mapping,
+          geom = geom,
+          position = position,
+          show.legend = show.legend,
+          inherit.aes = inherit.aes,
+          params = list(node = node,
+                      offset = offset,
+                      extend = extend,
+                      align  = align,
+                      na.rm  = na.rm,
+                      ...),
+          check.aes = FALSE
+          )
 }
 
 StatCladeText <- ggproto("StatCladeText", Stat,
@@ -182,15 +204,15 @@ StatCladeText <- ggproto("StatCladeText", Stat,
                          )
 
 StatCladeBar <- ggproto("StatCladBar", Stat,
-                        compute_group = function(self, data, scales, params, node, offset, align) {
-                          get_cladelabel_position(data, node, offset, align, adjustRatio=1.02, angle=0)
+                        compute_group = function(self, data, scales, params, node, offset, align, extend) {
+                            get_cladelabel_position(data, node, offset, align, adjustRatio=1.02, angle=0, extend=extend)
                         },
                         required_aes = c("x", "y", "xend", "yend")
 )
 
 
-get_cladelabel_position <- function(data, node, offset, align, adjustRatio, angle="auto") {
-    df <- get_cladelabel_position_(data, node, angle)
+get_cladelabel_position <- function(data, node, offset, align, adjustRatio, angle="auto", extend=0) {
+    df <- get_cladelabel_position_(data, node, angle, extend)
     if (align) {
         # Find max x value for all tree nodes so all clade labels align to same position.
         mx <- max(data$x, na.rm=TRUE)
@@ -204,12 +226,13 @@ get_cladelabel_position <- function(data, node, offset, align, adjustRatio, angl
     ## }
 
     mx <- mx * adjustRatio + offset
-    
+
     data.frame(x=mx, xend=mx, y=df$y, yend=df$yend, angle=angle)
 }
 
-  # get x, y and yend of clade region.
-get_cladelabel_position_ <- function(data, node, angle="auto") {
+# get x, y and yend of clade region.
+get_cladelabel_position_ <- function(data, node, angle = "auto", extend = 0) {
+
     sp <- get.offspring.df(data, node)
     sp2 <- c(sp, node)
     sp.df <- data[match(sp2, data$node),]
@@ -218,7 +241,7 @@ get_cladelabel_position_ <- function(data, node, angle="auto") {
     y <- y[!is.na(y)]
     mx <- max(sp.df$x, na.rm=TRUE)
 
-    d <- data.frame(x=mx, y=min(y), yend=max(y))
+    d <- data.frame(x=mx, y=min(y) - extend, yend=max(y) + extend)
     if (missing(angle))
         return(d)
 
@@ -227,6 +250,7 @@ get_cladelabel_position_ <- function(data, node, angle="auto") {
     } else {
         d$angle <- angle
     }
+
     return(d)
 
 }

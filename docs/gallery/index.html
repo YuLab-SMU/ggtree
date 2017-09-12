@@ -1,407 +1,556 @@
 <!DOCTYPE html>
-<html lang="en">
-    <head>
-        <meta charset="utf-8">
-        <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        
-        <meta name="author" content="Guangchuang Yu">
-        <link rel="canonical" href="https://guangchuangyu.github.io/ggtree/gallery/">
-        <link rel="shortcut icon" href="../img/favicon.ico">
+  
+  
+  
+  
+   <html class="no-js"> 
 
-	<title>Gallery - ggtree</title>
+  <head lang="en-us">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,user-scalable=no,initial-scale=1,maximum-scale=1">
+    <meta http-equiv="X-UA-Compatible" content="IE=10" />
+    <title>Gallery - ggtree</title>
+    <meta name="generator" content="Hugo 0.24.1" />
 
-        <link href="../css/bootstrap-custom.min.css" rel="stylesheet">
-        <link href="../css/font-awesome-4.0.3.css" rel="stylesheet">
-        <link rel="stylesheet" href="../css/highlight.css">
-        <link href="../css/base.css" rel="stylesheet">
+    
+    <meta name="description" content="Visualization and annotation of phylogenetic trees.">
+    
+    <link rel="canonical" href="https://guangchuangyu.github.io/ggtree/gallery/">
+    
+    <meta name="author" content="Guangchuang Yu">
+    
 
-        <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
-        <!--[if lt IE 9]>
-            <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
-            <script src="https://oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js"></script>
-        <![endif]-->
+    <meta property="og:url" content="https://guangchuangyu.github.io/ggtree/gallery/">
+    <meta property="og:title" content="ggtree">
+    <meta property="og:image" content="https://guangchuangyu.github.io/ggtree/images/gc.png">
+    <meta name="apple-mobile-web-app-title" content="ggtree">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 
-        
-        <script>
-            (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-            (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-            m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-            })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+    <link rel="shortcut icon" type="image/x-icon" href="https://guangchuangyu.github.io/ggtree/images/favicon.ico">
+    <link rel="icon" type="image/x-icon" href="https://guangchuangyu.github.io/ggtree/images/favicon.ico">
 
-            ga('create', 'UA-77901140-1', 'guangchuangyu.github.io');
-            ga('send', 'pageview');
-        </script>
-        
-    </head>
+    <style>
+      @font-face {
+        font-family: 'Icon';
+        src: url('https://guangchuangyu.github.io/ggtree/fonts/icon.eot');
+        src: url('https://guangchuangyu.github.io/ggtree/fonts/icon.eot')
+               format('embedded-opentype'),
+             url('https://guangchuangyu.github.io/ggtree/fonts/icon.woff')
+               format('woff'),
+             url('https://guangchuangyu.github.io/ggtree/fonts/icon.ttf')
+               format('truetype'),
+             url('https://guangchuangyu.github.io/ggtree/fonts/icon.svg')
+               format('svg');
+        font-weight: normal;
+        font-style: normal;
+      }
+    </style>
 
-    <body>
+    <link rel="stylesheet" href="https://guangchuangyu.github.io/ggtree/stylesheets/application.css">
+    <link rel="stylesheet" href="https://guangchuangyu.github.io/ggtree/stylesheets/temporary.css">
+    <link rel="stylesheet" href="https://guangchuangyu.github.io/ggtree/stylesheets/palettes.css">
+    <link rel="stylesheet" href="https://guangchuangyu.github.io/ggtree/stylesheets/highlight/highlight.css">
 
-        <div class="navbar navbar-default navbar-fixed-top" role="navigation">
-    <div class="container">
+    
+    
+    
+    <link rel="stylesheet" href="//fonts.googleapis.com/css?family=Ubuntu:400,700|Ubuntu&#43;Mono">
+    <style>
+      body, input {
+        font-family: 'Ubuntu', Helvetica, Arial, sans-serif;
+      }
+      pre, code {
+        font-family: 'Ubuntu Mono', 'Courier New', 'Courier', monospace;
+      }
+    </style>
 
-        <!-- Collapsed navigation -->
-        <div class="navbar-header">
-            <!-- Expander button -->
-            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-                <span class="sr-only">Toggle navigation</span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-            </button>
+    
+    <script src="https://guangchuangyu.github.io/ggtree/javascripts/modernizr.js"></script>
 
-            <!-- Main title -->
-            <a class="navbar-brand" href="..">ggtree</a>
-        </div>
+    
 
-        <!-- Expanded navigation -->
-        <div class="navbar-collapse collapse">
-            <!-- Main navigation -->
-            <ul class="nav navbar-nav">
-            
-            
-                <li >
-                    <a href="..">Home</a>
-                </li>
-            
-            
-            
-                <li >
-                    <a href="../documentation/">Documentation</a>
-                </li>
-            
-            
-            
-                <li >
-                    <a href="../faq/">FAQ</a>
-                </li>
-            
-            
-            
-                <li >
-                    <a href="../featuredArticles/">Featured Articles</a>
-                </li>
-            
-            
-            
-                <li class="active">
-                    <a href="./">Gallery</a>
-                </li>
-            
-            
-            
-                <li class="dropdown">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">Software <b class="caret"></b></a>
-                    <ul class="dropdown-menu">
-                    
-                        
-<li >
-    <a href="../ChIPseeker/">ChIPseeker</a>
-</li>
+  </head>
+  <body class="palette-primary-teal palette-accent-teal">
 
-                    
-                        
-<li >
-    <a href="../clusterProfiler/">clusterProfiler</a>
-</li>
 
-                    
-                        
-<li >
-    <a href="../DOSE/">DOSE</a>
-</li>
 
-                    
-                        
-<li >
-    <a href="../emojifont/">emojifont</a>
-</li>
+	
+	
 
-                    
-                        
-<li >
-    <a href="../ggtree/">ggtree</a>
-</li>
 
-                    
-                        
-<li >
-    <a href="../GOSemSim/">GOSemSim</a>
-</li>
+<div class="backdrop">
+	<div class="backdrop-paper"></div>
+</div>
 
-                    
-                        
-<li >
-    <a href="../meshes/">meshes</a>
-</li>
+<input class="toggle" type="checkbox" id="toggle-drawer">
+<input class="toggle" type="checkbox" id="toggle-search">
+<label class="toggle-button overlay" for="toggle-drawer"></label>
 
-                    
-                        
-<li >
-    <a href="../ReactomePA/">ReactomePA</a>
-</li>
-
-                    
-                        
-<li >
-    <a href="../treeio/">treeio</a>
-</li>
-
-                    
-                    </ul>
-                </li>
-            
-            
-            </ul>
-
-            <!-- Search, Navigation and Repo links -->
-            <ul class="nav navbar-nav navbar-right">
-                <li>
-                    <a href="#" data-toggle="modal" data-target="#mkdocs_search_modal">
-                        <i class="fa fa-search"></i> Search
-                    </a>
-                </li>
-                <li >
-                    <a rel="next" href="../featuredArticles/">
-                        <i class="fa fa-arrow-left"></i> Previous
-                    </a>
-                </li>
-                <li >
-                    <a rel="prev" href="../ChIPseeker/">
-                        Next <i class="fa fa-arrow-right"></i>
-                    </a>
-                </li>
-                
-                <li>
-                    <a href="https://github.com/GuangchuangYu/ggtree">
-                        
-                            <i class="fa fa-github"></i>
-                        
-                        GitHub
-                    </a>
-                </li>
-                
-            </ul>
-        </div>
+<header class="header">
+	<nav aria-label="Header">
+  <div class="bar default">
+    <div class="button button-menu" role="button" aria-label="Menu">
+      <label class="toggle-button icon icon-menu" for="toggle-drawer">
+        <span></span>
+      </label>
     </div>
-</div>
+    <div class="stretch">
+      <div class="title">
+        Gallery
+      </div>
+    </div>
 
-        <div class="container">
-            <div class="col-md-3"><div class="bs-sidebar hidden-print affix well" role="complementary">
-    <ul class="nav bs-sidenav">
     
-        <li class="main active"><a href="#journal-articles"> Journal Articles</a></li>
+    <div class="button button-twitter" role="button" aria-label="Twitter">
+       <a href="https://twitter.com/guangchuangyu" title="@guangchuangyu on Twitter" target="_blank" class="toggle-button icon icon-twitter"></a>
+    </div>
+    
+
+    
+    <div class="button button-github" role="button" aria-label="GitHub">
+      <a href="https://github.com/GuangchuangYu" title="@GuangchuangYu on GitHub" target="_blank" class="toggle-button icon icon-github"></a>
+    </div>
+    
+    
         
-    
-        <li class="main "><a href="#tweets"> Tweets</a></li>
-        
-    
-    </ul>
-</div></div>
-            <div class="col-md-9" role="main">
+  </div>
+  <div class="bar search">
+    <div class="button button-close" role="button" aria-label="Close">
+      <label class="toggle-button icon icon-back" for="toggle-search"></label>
+    </div>
+    <div class="stretch">
+      <div class="field">
+        <input class="query" type="text" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck>
+      </div>
+    </div>
+    <div class="button button-reset" role="button" aria-label="Search">
+      <button class="toggle-button icon icon-close" id="reset-search"></button>
+    </div>
+  </div>
+</nav>
+</header>
 
-<!-- AddToAny BEGIN -->
-
-<div class="a2a_kit a2a_kit_size_32 a2a_default_style">
-
-<a class="a2a_dd" href="//www.addtoany.com/share"></a>
-<a class="a2a_button_facebook"></a> <a class="a2a_button_twitter"></a>
-<a class="a2a_button_google_plus"></a>
-<a class="a2a_button_pinterest"></a> <a class="a2a_button_reddit"></a>
-<a class="a2a_button_sina_weibo"></a> <a class="a2a_button_wechat"></a>
-<a class="a2a_button_douban"></a>
-
-</div>
-
-<script async src="//static.addtoany.com/menu/page.js"></script>
-
-<!-- AddToAny END -->
-
-<p><link rel="stylesheet" href="https://guangchuangyu.github.io/css/font-awesome.min.css"></p>
-<p><a href="https://scholar.google.com.hk/scholar?oi=bibs&amp;hl=en&amp;cites=7268358477862164627"><img alt="citation" src="https://img.shields.io/badge/cited%20by-22-blue.svg?style=flat" /></a></p>
-<!-- citation:=HtEfBTGE9r8C:=7268358477862164627 -->
-
-<h2 id="journal-articles"><i class="fa fa-mortar-board"></i> Journal Articles</h2>
-<ul>
-<li><a href="http://dx.doi.org/10.3389/fmicb.2017.00543">http://dx.doi.org/10.3389/fmicb.2017.00543</a></li>
-</ul>
-<p><img alt="" src="https://guangchuangyu.github.io/featured_img/ggtree/fmicb-08-00543-g0002.jpg" /></p>
-<hr />
-<ul>
-<li><a href="http://dx.doi.org/10.1186/s40168-017-0232-3">http://dx.doi.org/10.1186/s40168-017-0232-3</a></li>
-</ul>
-<p><img alt="" src="https://guangchuangyu.github.io/featured_img/ggtree/40168_2017_232_Fig2_HTML.gif" /></p>
-<hr />
-<ul>
-<li><a href="http://dx.doi.org/10.1111/2041-210X.12628">http://dx.doi.org/10.1111/2041-210X.12628</a></li>
-</ul>
-<p><img alt="" src="https://guangchuangyu.github.io/featured_img/ggtree/C2mxyBuUcAEt391.jpg" /></p>
-<hr />
-<ul>
-<li><a href="http://dx.doi.org/10.1128/AEM.02307-16">http://dx.doi.org/10.1128/AEM.02307-16</a></li>
-</ul>
-<p><img alt="" src="https://guangchuangyu.github.io/featured_img/ggtree/2017-01-21-115646_969x444_scrot.png" /></p>
-<hr />
-<ul>
-<li><a href="http://dx.doi.org/10.3389%2Ffcimb.2016.00036">http://dx.doi.org/10.3389%2Ffcimb.2016.00036</a></li>
-</ul>
-<p><img alt="" src="https://guangchuangyu.github.io/featured_img/ggtree/2016_fcimb-06-00036-g003.jpg" /></p>
-<hr />
-<ul>
-<li><a href="http://dx.doi.org/10.1016/j.meegid.2015.12.006">http://dx.doi.org/10.1016/j.meegid.2015.12.006</a></li>
-</ul>
-<p><img alt="" src="https://guangchuangyu.github.io/featured_img/ggtree/2015_peiyu_1-s2.0-S1567134815300721-gr1.jpg" /></p>
-<h2 id="tweets"><i class="fa fa-twitter"></i> Tweets</h2>
-<blockquote class="twitter-tweet" data-lang="en">
-<p lang="en" dir="ltr">
-Adaptive radiation of
-<a href="https://twitter.com/hashtag/Darwin?src=hash">\#Darwin</a>'s
-finches showing
-<a href="https://twitter.com/hashtag/genotypic?src=hash">\#genotypic</a>
-and
-<a href="https://twitter.com/hashtag/morphometric?src=hash">\#morphometric</a>
-evolution. Good excuse to practice with
-<a href="https://twitter.com/hashtag/ggtree?src=hash">\#ggtree</a>
-<a href="https://twitter.com/guangchuangyu">@guangchuangyu</a>
-<a href="https://t.co/JJZ3Yje58s">pic.twitter.com/JJZ3Yje58s</a>
-</p>
-— Will Harvey (@_wharvey)
-<a href="https://twitter.com/_wharvey/status/831952966701678592">February
-15, 2017</a>
-</blockquote>
-
-<blockquote class="twitter-tweet" data-lang="en">
-<p lang="en" dir="ltr">
-am quite liking
-<a href="https://twitter.com/hashtag/ggtree?src=hash">\#ggtree</a>
-<a href="https://twitter.com/hashtag/rstats?src=hash">\#rstats</a>
-<a href="https://twitter.com/hashtag/ggplot?src=hash">\#ggplot</a>
-<a href="https://t.co/hvywS2z4ps">pic.twitter.com/hvywS2z4ps</a>
-</p>
-— Nicholas E Ilott (@IlottNick)
-<a href="https://twitter.com/IlottNick/status/788751417746059264">October
-19, 2016</a>
-</blockquote>
-
-<blockquote class="twitter-tweet" data-lang="en">
-<p lang="es" dir="ltr">
-Capital G, a reproducible logo produced by
-<a href="https://twitter.com/hashtag/ggtree?src=hash">\#ggtree</a>
-<a href="https://twitter.com/hashtag/dataviz?src=hash">\#dataviz</a>
-<a href="https://twitter.com/hashtag/rstats?src=hash">\#rstats</a>
-<a href="https://twitter.com/hashtag/ggplot2?src=hash">\#ggplot2</a>
-<a href="https://t.co/lJDcgfxAEh">pic.twitter.com/lJDcgfxAEh</a>
-</p>
-— Guangchuang Yu (@guangchuangyu)
-<a href="https://twitter.com/guangchuangyu/status/786429360823644160">October
-13, 2016</a>
-</blockquote>
-
-<blockquote class="twitter-tweet" data-lang="en">
-<p lang="en" dir="ltr">
-associate tree with different type of data by
-<a href="https://twitter.com/hashtag/ggtree?src=hash">\#ggtree</a>
-<a href="https://t.co/6w755VWytZ">https://t.co/6w755VWytZ</a>
-<a href="https://t.co/K8WViEi13E">pic.twitter.com/K8WViEi13E</a>
-</p>
-— Guangchuang Yu (@guangchuangyu)
-<a href="https://twitter.com/guangchuangyu/status/773359054924095488">September
-7, 2016</a>
-</blockquote>
-
-<blockquote class="twitter-tweet" data-lang="en">
-<p lang="en" dir="ltr">
-how about using emoji to label host species in phylogenetic tree?
-<a href="https://twitter.com/hashtag/rstats?src=hash">\#rstats</a>
-<a href="https://twitter.com/hashtag/visualization?src=hash">\#visualization</a>
-<a href="https://twitter.com/hashtag/ggtree?src=hash">\#ggtree</a>
-<a href="https://twitter.com/hashtag/emojifont?src=hash">\#emojifont</a>
-<a href="https://t.co/MRKQvNNAUh">pic.twitter.com/MRKQvNNAUh</a>
-</p>
-— Guangchuang Yu (@guangchuangyu)
-<a href="https://twitter.com/guangchuangyu/status/708160510441566211">March
-11, 2016</a>
-</blockquote>
-
-<blockquote class="twitter-tweet" data-lang="en">
-<p lang="en" dir="ltr">
-<a href="https://twitter.com/hashtag/phylomoji?src=hash">\#phylomoji</a>
-with <a href="https://twitter.com/hashtag/ggtree?src=hash">\#ggtree</a>
-<a href="https://t.co/yMUtm1jYF9">pic.twitter.com/yMUtm1jYF9</a>
-</p>
-— Guangchuang Yu (@guangchuangyu)
-<a href="https://twitter.com/guangchuangyu/status/667337429704011777">November
-19, 2015</a>
-</blockquote>
-
-<blockquote class="twitter-tweet" data-lang="en">
-<p lang="en" dir="ltr">
-multiple sequence alignment with
-<a href="https://twitter.com/hashtag/phylogenetic?src=hash">\#phylogenetic</a>
-tree via
-<a href="https://twitter.com/hashtag/rstats?src=hash">\#rstats</a> pkg
-<a href="https://twitter.com/hashtag/ggtree?src=hash">\#ggtree</a>.
-<a href="http://t.co/6CY57dLdeb">pic.twitter.com/6CY57dLdeb</a>
-</p>
-— Guangchuang Yu (@guangchuangyu)
-<a href="https://twitter.com/guangchuangyu/status/601676060254605312">May
-22, 2015</a>
-</blockquote>
-
-<blockquote class="twitter-tweet" data-lang="en">
-<p lang="en" dir="ltr">
-<a href="https://twitter.com/hashtag/comictree?src=hash">\#comictree</a>
-via <a href="https://twitter.com/hashtag/ggtree?src=hash">\#ggtree</a>
-and <a href="https://twitter.com/hashtag/comicR?src=hash">\#comicR</a>
-in <a href="https://twitter.com/hashtag/rstats?src=hash">\#rstats</a>
-<a href="http://t.co/zwCuOQ49bq">pic.twitter.com/zwCuOQ49bq</a>
-</p>
-— Guangchuang Yu (@guangchuangyu)
-<a href="https://twitter.com/guangchuangyu/status/599078224576942080">May
-15, 2015</a>
-</blockquote>
-
-<script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script></div>
+<main class="main">
+	<div class="drawer">
+		<nav aria-label="Navigation">
+  <a href="https://github.com/GuangchuangYu/ggtree" class="project">
+    <div class="banner">
+      
+        <div class="logo">
+          <img src="https://guangchuangyu.github.io/ggtree/images/gc.png">
         </div>
+      
+      <div class="name">
+        <strong>ggtree </strong>
+        
+          <br>
+          GuangchuangYu/ggtree
+        
+      </div>
+    </div>
+  </a>
 
-        <footer class="col-md-12">
-            <hr>
-            
-                <center>Copyright &copy; 2016 <a href="https://guangchuangyu.github.io">Guangchuang Yu</a>.<div style="width:250px;margin:auto;"><script type="text/javascript" src="//rf.revolvermaps.com/0/0/7.js?i=5qpvv5zz7fp&amp;m=0&amp;c=ff0000&amp;cr1=ffffff&amp;sx=0" async="async"></script></div></center>
-            
-            <center>Documentation built with <a href="http://www.mkdocs.org/">MkDocs</a>.</center>
-        </footer>
+  <div class="scrollable">
+    <div class="wrapper">
+      
+        <ul class="repo">
+          <li class="repo-download">
+            <a href="https://github.com/GuangchuangYu/ggtree/archive/master.zip" target="_blank" title="Download" data-action="download">
+              <i class="icon icon-download"></i> Download
+            </a>
+          </li>
+          <li class="repo-stars">
+            <a href="https://github.com/GuangchuangYu/ggtree/stargazers" target="_blank" title="Stargazers" data-action="star">
+              <i class="icon icon-star"></i> Stars
+              <span class="count">&ndash;</span>
+            </a>
+          </li>
+        </ul>
+        <hr>
+      
 
-        <script src="../js/jquery-1.10.2.min.js"></script>
-        <script src="../js/bootstrap-3.0.3.min.js"></script>
-        <script src="../js/highlight.pack.js"></script>
-        <script>var base_url = '..';</script>
-        <script data-main="../mkdocs/js/search.js" src="../mkdocs/js/require.js"></script>
-        <script src="../js/base.js"></script>
+      <div class="toc">
+        
+        <ul>
+          
 
-        <div class="modal" id="mkdocs_search_modal" tabindex="-1" role="dialog" aria-labelledby="Search Modal" aria-hidden="true">
-            <div class="modal-dialog">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
-                        <h4 class="modal-title" id="exampleModalLabel">Search</h4>
-                    </div>
-                    <div class="modal-body">
-                        <p>
-                            From here you can search these documents. Enter
-                            your search terms below.
-                        </p>
-                        <form role="form">
-                            <div class="form-group">
-                                <input type="text" class="form-control" placeholder="Search..." id="mkdocs-search-query">
-                            </div>
-                        </form>
-                        <div id="mkdocs-search-results"></div>
-                    </div>
-                    <div class="modal-footer">
-                    </div>
-                </div>
+
+
+
+<li>
+  
+    
+
+
+
+<a  title="ggtree" href="../">
+	
+	ggtree
+</a>
+
+
+
+  
+</li>
+
+
+
+<li>
+  
+    
+
+
+
+<a  title="Documentation" href="../documentation/">
+	
+	Documentation
+</a>
+
+
+
+  
+</li>
+
+
+
+<li>
+  
+    
+
+
+
+<a  title="FAQ" href="../faq/">
+	
+	FAQ
+</a>
+
+
+
+  
+</li>
+
+
+
+<li>
+  
+    
+
+
+
+<a  title="Featured Articles" href="../featured-articles/">
+	
+	Featured Articles
+</a>
+
+
+
+  
+</li>
+
+
+
+<li>
+  
+    
+
+
+
+<a class="current" title="Gallery" href="../gallery/">
+	
+	Gallery
+</a>
+
+
+<ul id="scrollspy">
+</ul>
+
+
+  
+</li>
+
+
+
+<li>
+  
+    
+
+
+
+<a  title="Tweets" href="../tweets/">
+	
+	Tweets
+</a>
+
+
+
+  
+</li>
+
+
+        </ul>
+        
+
+        
+        <hr>
+        <span class="section">The author</span>
+
+        <ul>
+          
+          <li>
+            <a href="https://twitter.com/guangchuangyu" target="_blank" title="@guangchuangyu on Twitter">
+              @guangchuangyu on Twitter
+            </a>
+          </li>
+          
+
+          
+          <li>
+            <a href="https://github.com/GuangchuangYu" target="_blank" title="@GuangchuangYu on GitHub">
+              @GuangchuangYu on GitHub
+            </a>
+          </li>
+          
+
+          
+          <li>
+            <a href="https://guangchuangyu.github.io/blog_images/biobabble.jpg" title="关注公众号: biobabble">
+              @biobabble on WeChat
+            </a>
+          </li>
+          
+
+          
+          <li>
+            <a href="mailto:guangchuangyu@gmail.com" title="Email of guangchuangyu@gmail.com">
+              Contact via email
+            </a>
+          </li>
+          
+        </ul>
+        
+        <center><span class="zaln"><a href="https://mp.weixin.qq.com/s?__biz=MzI5NjUyNzkxMg==&mid=2247484170&idx=1&sn=ce5f7eb6df66d79661276a64bf25b4bc&chksm=ec43b24ddb343b5b2877574153aeccd049a6824716063883edb35c2338bd32c067caf3885f53#rd" class="zb">赞赏</a></span></center>
+<div style="width:250px;margin:auto;"><script type="text/javascript" src="//rf.revolvermaps.com/0/0/7.js?i=5qpvv5zz7fp&amp;m=0&amp;c=ff0000&amp;cr1=ffffff&amp;sx=0" async="async"></script></div>
+      </div>
+    </div>
+  </div>
+</nav>
+
+	</div>
+
+	<article class="article">
+		<div class="wrapper">
+			<h1>Gallery </h1>
+
+			<p><link rel="stylesheet" href="https://guangchuangyu.github.io/css/font-awesome.min.css"></p>
+<div class="figure">
+<img src="https://guangchuangyu.github.io/featured_img/ggtree/syen12249-fig-0002.png" />
+
+</div>
+<p><a href="https://doi.org/10.1111/syen.12249" class="uri">https://doi.org/10.1111/syen.12249</a></p>
+<hr />
+<div class="figure">
+<img src="http://media.springernature.com/full/springer-static/image/art%3A10.1186%2Fs12915-017-0402-6/MediaObjects/12915_2017_402_Fig2_HTML.gif" />
+
+</div>
+<p><a href="https://doi.org/10.1186/s12915-017-0402-6" class="uri">https://doi.org/10.1186/s12915-017-0402-6</a></p>
+<hr />
+<div class="figure">
+<img src="https://guangchuangyu.github.io/featured_img/ggtree/fmicb-08-00543-g0002.jpg" />
+
+</div>
+<p><a href="http://dx.doi.org/10.3389/fmicb.2017.00543" class="uri">http://dx.doi.org/10.3389/fmicb.2017.00543</a></p>
+<hr />
+<div class="figure">
+<img src="http://www.frontiersin.org/files/Articles/220056/fmicb-08-00456-HTML-r1/image_m/fmicb-08-00456-g002.jpg" />
+
+</div>
+<p><a href="https://doi.org/10.3389/fmicb.2017.00456" class="uri">https://doi.org/10.3389/fmicb.2017.00456</a></p>
+<hr />
+<div class="figure">
+<img src="https://guangchuangyu.github.io/featured_img/ggtree/40168_2017_232_Fig2_HTML.gif" />
+
+</div>
+<p><a href="http://dx.doi.org/10.1186/s40168-017-0232-3" class="uri">http://dx.doi.org/10.1186/s40168-017-0232-3</a></p>
+<hr />
+<p><img src="https://guangchuangyu.github.io/featured_img/ggtree/C2mxyBuUcAEt391.jpg" /> <a href="http://dx.doi.org/10.1111/2041-210X.12628" class="uri">http://dx.doi.org/10.1111/2041-210X.12628</a></p>
+<hr />
+<div class="figure">
+<img src="https://guangchuangyu.github.io/featured_img/ggtree/2017-01-21-115646_969x444_scrot.png" />
+
+</div>
+<p><a href="http://dx.doi.org/10.1128/AEM.02307-16" class="uri">http://dx.doi.org/10.1128/AEM.02307-16</a></p>
+<hr />
+<div class="figure">
+<img src="https://guangchuangyu.github.io/featured_img/ggtree/2016_fcimb-06-00036-g003.jpg" />
+
+</div>
+<p><a href="http://dx.doi.org/10.3389%2Ffcimb.2016.00036">http://dx.doi.org/10.3389%2Ffcimb.2016.00036</a></p>
+<hr />
+<div class="figure">
+<img src="https://guangchuangyu.github.io/featured_img/ggtree/2015_peiyu_1-s2.0-S1567134815300721-gr1.jpg" />
+
+</div>
+<p><a href="http://dx.doi.org/10.1016/j.meegid.2015.12.006" class="uri">http://dx.doi.org/10.1016/j.meegid.2015.12.006</a></p>
+
+
+			<aside class="copyright" role="note">
+				
+				&copy; 2017 Released under the Artistic-2.0 license &ndash;
+				
+				Documentation built with
+				<a href="https://www.gohugo.io" target="_blank">Hugo</a>
+				using the
+				<a href="http://github.com/digitalcraftsman/hugo-material-docs" target="_blank">Material</a> theme.
+			</aside>
+
+			<footer class="footer">
+				
+
+<nav class="pagination" aria-label="Footer">
+  <div class="previous">
+  
+      <a href="https://guangchuangyu.github.io/ggtree/featured-articles/" title="Featured Articles">
+        <span class="direction">
+          Previous
+        </span>
+        <div class="page">
+          <div class="button button-previous" role="button" aria-label="Previous">
+            <i class="icon icon-back"></i>
+          </div>
+          <div class="stretch">
+            <div class="title">
+              Featured Articles
             </div>
+          </div>
         </div>
-    </body>
+      </a>
+  
+  </div>
+
+  <div class="next">
+  
+      <a href="https://guangchuangyu.github.io/ggtree/tweets/" title="Tweets">
+        <span class="direction">
+          Next
+        </span>
+        <div class="page">
+          <div class="stretch">
+            <div class="title">
+              Tweets
+            </div>
+          </div>
+          <div class="button button-next" role="button" aria-label="Next">
+            <i class="icon icon-forward"></i>
+          </div>
+        </div>
+      </a>
+  
+  </div>
+</nav>
+
+
+
+
+
+			</footer>
+		</div>
+	</article>
+
+	<div class="results" role="status" aria-live="polite">
+		<div class="scrollable">
+			<div class="wrapper">
+				<div class="meta"></div>
+				<div class="list"></div>
+			</div>
+		</div>
+	</div>
+</main>
+
+    <script>
+    
+      var base_url = 'https:\/\/guangchuangyu.github.io\/ggtree\/';
+      var repo_id  = 'GuangchuangYu\/ggtree';
+    
+    </script>
+
+    <script src="https://guangchuangyu.github.io/ggtree/javascripts/application.js"></script>
+    
+
+    <script>
+      /* Add headers to scrollspy */
+      var headers   = document.getElementsByTagName("h2");
+      var scrollspy = document.getElementById('scrollspy');
+
+      if(scrollspy) {
+        if(headers.length > 0) {
+          for(var i = 0; i < headers.length; i++) {
+            var li = document.createElement("li");
+            li.setAttribute("class", "anchor");
+
+            var a  = document.createElement("a");
+            a.setAttribute("href", "#" + headers[i].id);
+            a.setAttribute("title", headers[i].innerHTML);
+            a.innerHTML = headers[i].innerHTML;
+
+            li.appendChild(a)
+            scrollspy.appendChild(li);
+          }
+        } else {
+          scrollspy.parentElement.removeChild(scrollspy)
+        }
+
+
+        /* Add permanent link next to the headers */
+        var headers = document.querySelectorAll("h1, h2, h3, h4, h5, h6");
+
+        for(var i = 0; i < headers.length; i++) {
+            var a = document.createElement("a");
+            a.setAttribute("class", "headerlink");
+            a.setAttribute("href", "#" + headers[i].id);
+            a.setAttribute("title", "Permanent link")
+            a.innerHTML = " ";
+            headers[i].appendChild(a);
+        }
+      }
+    </script>
+
+    
+      <script>
+        (function(i,s,o,g,r,a,m){
+          i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){(i[r].q=i[r].q||
+          []).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+          m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;
+          m.parentNode.insertBefore(a,m)
+        })(window, document,
+          'script', '//www.google-analytics.com/analytics.js', 'ga');
+         
+        ga('create', 'UA-77901140-1', 'auto');
+        ga('set', 'anonymizeIp', true);
+        ga('send', 'pageview');
+         
+        var buttons = document.querySelectorAll('a');
+        Array.prototype.map.call(buttons, function(item) {
+          if (item.host != document.location.host) {
+            item.addEventListener('click', function() {
+              var action = item.getAttribute('data-action') || 'follow';
+              ga('send', 'event', 'outbound', action, item.href);
+            });
+          }
+        });
+         
+        var query = document.querySelector('.query');
+        query.addEventListener('blur', function() {
+          if (this.value) {
+            var path = document.location.pathname;
+            ga('send', 'pageview', path + '?q=' + this.value);
+          }
+        });
+      </script>
+    
+
+    <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.8.0/highlight.min.js"></script>
+    <script>hljs.initHighlightingOnLoad();</script>
+  </body>
 </html>
+

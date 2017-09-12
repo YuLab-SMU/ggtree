@@ -1,0 +1,544 @@
+<!DOCTYPE html>
+  
+  
+  
+  
+   <html class="no-js"> 
+
+  <head lang="en-us">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,user-scalable=no,initial-scale=1,maximum-scale=1">
+    <meta http-equiv="X-UA-Compatible" content="IE=10" />
+    <title>Tweets - ggtree</title>
+    <meta name="generator" content="Hugo 0.24.1" />
+
+    
+    <meta name="description" content="Visualization and annotation of phylogenetic trees.">
+    
+    <link rel="canonical" href="https://guangchuangyu.github.io/ggtree/tweets/">
+    
+    <meta name="author" content="Guangchuang Yu">
+    
+
+    <meta property="og:url" content="https://guangchuangyu.github.io/ggtree/tweets/">
+    <meta property="og:title" content="ggtree">
+    <meta property="og:image" content="https://guangchuangyu.github.io/ggtree/images/gc.png">
+    <meta name="apple-mobile-web-app-title" content="ggtree">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+
+    <link rel="shortcut icon" type="image/x-icon" href="https://guangchuangyu.github.io/ggtree/images/favicon.ico">
+    <link rel="icon" type="image/x-icon" href="https://guangchuangyu.github.io/ggtree/images/favicon.ico">
+
+    <style>
+      @font-face {
+        font-family: 'Icon';
+        src: url('https://guangchuangyu.github.io/ggtree/fonts/icon.eot');
+        src: url('https://guangchuangyu.github.io/ggtree/fonts/icon.eot')
+               format('embedded-opentype'),
+             url('https://guangchuangyu.github.io/ggtree/fonts/icon.woff')
+               format('woff'),
+             url('https://guangchuangyu.github.io/ggtree/fonts/icon.ttf')
+               format('truetype'),
+             url('https://guangchuangyu.github.io/ggtree/fonts/icon.svg')
+               format('svg');
+        font-weight: normal;
+        font-style: normal;
+      }
+    </style>
+
+    <link rel="stylesheet" href="https://guangchuangyu.github.io/ggtree/stylesheets/application.css">
+    <link rel="stylesheet" href="https://guangchuangyu.github.io/ggtree/stylesheets/temporary.css">
+    <link rel="stylesheet" href="https://guangchuangyu.github.io/ggtree/stylesheets/palettes.css">
+    <link rel="stylesheet" href="https://guangchuangyu.github.io/ggtree/stylesheets/highlight/highlight.css">
+
+    
+    
+    
+    <link rel="stylesheet" href="//fonts.googleapis.com/css?family=Ubuntu:400,700|Ubuntu&#43;Mono">
+    <style>
+      body, input {
+        font-family: 'Ubuntu', Helvetica, Arial, sans-serif;
+      }
+      pre, code {
+        font-family: 'Ubuntu Mono', 'Courier New', 'Courier', monospace;
+      }
+    </style>
+
+    
+    <script src="https://guangchuangyu.github.io/ggtree/javascripts/modernizr.js"></script>
+
+    
+
+  </head>
+  <body class="palette-primary-teal palette-accent-teal">
+
+
+
+	
+	
+
+
+<div class="backdrop">
+	<div class="backdrop-paper"></div>
+</div>
+
+<input class="toggle" type="checkbox" id="toggle-drawer">
+<input class="toggle" type="checkbox" id="toggle-search">
+<label class="toggle-button overlay" for="toggle-drawer"></label>
+
+<header class="header">
+	<nav aria-label="Header">
+  <div class="bar default">
+    <div class="button button-menu" role="button" aria-label="Menu">
+      <label class="toggle-button icon icon-menu" for="toggle-drawer">
+        <span></span>
+      </label>
+    </div>
+    <div class="stretch">
+      <div class="title">
+        Tweets
+      </div>
+    </div>
+
+    
+    <div class="button button-twitter" role="button" aria-label="Twitter">
+       <a href="https://twitter.com/guangchuangyu" title="@guangchuangyu on Twitter" target="_blank" class="toggle-button icon icon-twitter"></a>
+    </div>
+    
+
+    
+    <div class="button button-github" role="button" aria-label="GitHub">
+      <a href="https://github.com/GuangchuangYu" title="@GuangchuangYu on GitHub" target="_blank" class="toggle-button icon icon-github"></a>
+    </div>
+    
+    
+        
+  </div>
+  <div class="bar search">
+    <div class="button button-close" role="button" aria-label="Close">
+      <label class="toggle-button icon icon-back" for="toggle-search"></label>
+    </div>
+    <div class="stretch">
+      <div class="field">
+        <input class="query" type="text" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck>
+      </div>
+    </div>
+    <div class="button button-reset" role="button" aria-label="Search">
+      <button class="toggle-button icon icon-close" id="reset-search"></button>
+    </div>
+  </div>
+</nav>
+</header>
+
+<main class="main">
+	<div class="drawer">
+		<nav aria-label="Navigation">
+  <a href="https://github.com/GuangchuangYu/ggtree" class="project">
+    <div class="banner">
+      
+        <div class="logo">
+          <img src="https://guangchuangyu.github.io/ggtree/images/gc.png">
+        </div>
+      
+      <div class="name">
+        <strong>ggtree </strong>
+        
+          <br>
+          GuangchuangYu/ggtree
+        
+      </div>
+    </div>
+  </a>
+
+  <div class="scrollable">
+    <div class="wrapper">
+      
+        <ul class="repo">
+          <li class="repo-download">
+            <a href="https://github.com/GuangchuangYu/ggtree/archive/master.zip" target="_blank" title="Download" data-action="download">
+              <i class="icon icon-download"></i> Download
+            </a>
+          </li>
+          <li class="repo-stars">
+            <a href="https://github.com/GuangchuangYu/ggtree/stargazers" target="_blank" title="Stargazers" data-action="star">
+              <i class="icon icon-star"></i> Stars
+              <span class="count">&ndash;</span>
+            </a>
+          </li>
+        </ul>
+        <hr>
+      
+
+      <div class="toc">
+        
+        <ul>
+          
+
+
+
+
+<li>
+  
+    
+
+
+
+<a  title="ggtree" href="../">
+	
+	ggtree
+</a>
+
+
+
+  
+</li>
+
+
+
+<li>
+  
+    
+
+
+
+<a  title="Documentation" href="../documentation/">
+	
+	Documentation
+</a>
+
+
+
+  
+</li>
+
+
+
+<li>
+  
+    
+
+
+
+<a  title="FAQ" href="../faq/">
+	
+	FAQ
+</a>
+
+
+
+  
+</li>
+
+
+
+<li>
+  
+    
+
+
+
+<a  title="Featured Articles" href="../featured-articles/">
+	
+	Featured Articles
+</a>
+
+
+
+  
+</li>
+
+
+
+<li>
+  
+    
+
+
+
+<a  title="Gallery" href="../gallery/">
+	
+	Gallery
+</a>
+
+
+
+  
+</li>
+
+
+
+<li>
+  
+    
+
+
+
+<a class="current" title="Tweets" href="../tweets/">
+	
+	Tweets
+</a>
+
+
+<ul id="scrollspy">
+</ul>
+
+
+  
+</li>
+
+
+        </ul>
+        
+
+        
+        <hr>
+        <span class="section">The author</span>
+
+        <ul>
+          
+          <li>
+            <a href="https://twitter.com/guangchuangyu" target="_blank" title="@guangchuangyu on Twitter">
+              @guangchuangyu on Twitter
+            </a>
+          </li>
+          
+
+          
+          <li>
+            <a href="https://github.com/GuangchuangYu" target="_blank" title="@GuangchuangYu on GitHub">
+              @GuangchuangYu on GitHub
+            </a>
+          </li>
+          
+
+          
+          <li>
+            <a href="https://guangchuangyu.github.io/blog_images/biobabble.jpg" title="关注公众号: biobabble">
+              @biobabble on WeChat
+            </a>
+          </li>
+          
+
+          
+          <li>
+            <a href="mailto:guangchuangyu@gmail.com" title="Email of guangchuangyu@gmail.com">
+              Contact via email
+            </a>
+          </li>
+          
+        </ul>
+        
+        <center><span class="zaln"><a href="https://mp.weixin.qq.com/s?__biz=MzI5NjUyNzkxMg==&mid=2247484170&idx=1&sn=ce5f7eb6df66d79661276a64bf25b4bc&chksm=ec43b24ddb343b5b2877574153aeccd049a6824716063883edb35c2338bd32c067caf3885f53#rd" class="zb">赞赏</a></span></center>
+<div style="width:250px;margin:auto;"><script type="text/javascript" src="//rf.revolvermaps.com/0/0/7.js?i=5qpvv5zz7fp&amp;m=0&amp;c=ff0000&amp;cr1=ffffff&amp;sx=0" async="async"></script></div>
+      </div>
+    </div>
+  </div>
+</nav>
+
+	</div>
+
+	<article class="article">
+		<div class="wrapper">
+			<h1>Tweets </h1>
+
+			<p><link rel="stylesheet" href="https://guangchuangyu.github.io/css/font-awesome.min.css"></p>
+<p><font size="4"><strong>Leave me a message on <a href="https://twitter.com/hashtag/ggtree"><i class="fa fa-twitter fa-lg"></i></a></strong></font></p>
+<p><blockquote class="twitter-tweet"><p lang="sv" dir="ltr">blog: Introduction to ggplot2 and to ggtree 📝📈👨‍🔬👩‍🔬 <a href="https://twitter.com/hashtag/rstats?src=hash">#rstats</a> <a href="https://twitter.com/hashtag/phdchat?src=hash">#phdchat</a> <a href="https://t.co/ndmRitxpeH">https://t.co/ndmRitxpeH</a></p>&mdash; Jean (@JeanManguy) <a href="https://twitter.com/JeanManguy/status/903786057182957568">September 2, 2017</a></blockquote>
+<script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script><blockquote class="twitter-tweet"><p lang="en" dir="ltr">The ggtree package looks like a cool way to visualize hierarchical data<a href="https://t.co/spsqLkqeVG">https://t.co/spsqLkqeVG</a> <a href="https://t.co/GRODlrBahW">pic.twitter.com/GRODlrBahW</a></p>&mdash; lobrowR (@lobrowR) <a href="https://twitter.com/lobrowR/status/899635001247059969">August 21, 2017</a></blockquote>
+<script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script><blockquote class="twitter-tweet"><p lang="en" dir="ltr">New ggtree-based visualization in R package phylofactor! Below are the top three factors (= 4 bins) of mammalian body mass. <a href="https://t.co/ruT4OZF7gW">pic.twitter.com/ruT4OZF7gW</a></p>&mdash; Alex Washburne (@alex_washburne) <a href="https://twitter.com/alex_washburne/status/898729425168080897">August 19, 2017</a></blockquote>
+<script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script><blockquote class="twitter-tweet"><p lang="en" dir="ltr">Possible to combine <a href="https://twitter.com/hashtag/ggjoy?src=hash">#ggjoy</a> with <a href="https://twitter.com/hashtag/ggtree?src=hash">#ggtree</a> ? My gg-fu is weak. <a href="https://twitter.com/hashtag/rstats?src=hash">#rstats</a> <a href="https://twitter.com/hashtag/DataViz?src=hash">#DataViz</a> <a href="https://twitter.com/hashtag/JoyPlot?src=hash">#JoyPlot</a> <a href="https://t.co/4FICfER6Oa">https://t.co/4FICfER6Oa</a></p>&mdash; Libby Megna (@LibbyMegna) <a href="https://twitter.com/LibbyMegna/status/891144389715783680">July 29, 2017</a></blockquote>
+<script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script><blockquote class="twitter-tweet"><p lang="en" dir="ltr">Second post with an update on how to add tip shapes and colours to ggtree <a href="https://t.co/ezWF4TVQst">https://t.co/ezWF4TVQst</a></p>&mdash; Anthony Underwood (@bioinformAnt) <a href="https://twitter.com/bioinformAnt/status/883301626022375424">July 7, 2017</a></blockquote>
+<script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script><blockquote class="twitter-tweet"><p lang="en" dir="ltr">Yes and no. No manual assignment =&gt; randomly assigned colours. Even with manual spec ggtree is still much quicker than making fig by hand 😀</p>&mdash; Anthony Underwood (@bioinformAnt) <a href="https://twitter.com/bioinformAnt/status/883246854695256064">July 7, 2017</a></blockquote>
+<script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script><blockquote class="twitter-tweet"><p lang="en" dir="ltr">I&#39;d use ggtree from Bioconductor as you can really tailor all the fonts etc..<a href="https://t.co/NAcbFswGYB">https://t.co/NAcbFswGYB</a></p>&mdash; Susan Holmes (@SherlockpHolmes) <a href="https://twitter.com/SherlockpHolmes/status/877576023109390336">June 21, 2017</a></blockquote>
+<script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script><blockquote class="twitter-tweet"><p lang="en" dir="ltr">How phylogenies and associated heatmaps can be drawn using the <a href="https://twitter.com/hashtag/ggtree?src=hash">#ggtree</a> package in <a href="https://twitter.com/hashtag/R?src=hash">#R</a> <a href="https://t.co/rlBvGxUEBO">https://t.co/rlBvGxUEBO</a></p>&mdash; L. Rosaleny (@lorelai66) <a href="https://twitter.com/lorelai66/status/875594411584782337">June 16, 2017</a></blockquote>
+<script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script><blockquote class="twitter-tweet"><p lang="en" dir="ltr">I think most use a combination of icandy/itol/phandango. I prefer ggtree, which you can code and customise in R.</p>&mdash; Mat Beale (@typeMAT12) <a href="https://twitter.com/typeMAT12/status/871775262152810496">June 5, 2017</a></blockquote>
+<script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script><blockquote class="twitter-tweet"><p lang="en" dir="ltr">You like emijo &amp; <a href="https://twitter.com/hashtag/RStats?src=hash">#RStats</a> ? Then check this out! phylomoji with ggtree and emojifont : <a href="https://t.co/9BcZhjfkXm">https://t.co/9BcZhjfkXm</a> <a href="https://t.co/pP1aMPRozS">pic.twitter.com/pP1aMPRozS</a></p>&mdash; thinkR (@thinkR_fr) <a href="https://twitter.com/thinkR_fr/status/867408666852511744">May 24, 2017</a></blockquote>
+<script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script><blockquote class="twitter-tweet"><p lang="en" dir="ltr">as someone who doesn&#39;t build a lot of trees, but does a lot of <a href="https://twitter.com/hashtag/Rstats?src=hash">#Rstats</a> —<a href="https://twitter.com/hashtag/ggtree?src=hash">#ggtree</a> is SO GREAT <a href="https://t.co/ABe3TsIVPR">https://t.co/ABe3TsIVPR</a></p>&mdash; Sean Leonard (@spleonard1) <a href="https://twitter.com/spleonard1/status/857665638600507393">April 27, 2017</a></blockquote>
+<script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script><blockquote class="twitter-tweet"><p lang="en" dir="ltr"><a href="https://twitter.com/guangchuangyu">@guangchuangyu</a> by the way our new paper used ggtree! Thanks for your hard work! <a href="https://t.co/mXD6E0Ddt0">https://t.co/mXD6E0Ddt0</a></p>&mdash; Justin Silverman (@inschool4life) <a href="https://twitter.com/inschool4life/status/840181267542994944">March 10, 2017</a></blockquote>
+<script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script><blockquote class="twitter-tweet"><p lang="en" dir="ltr">I cannot get over how beautiful the graphics produced by GGTREE are. Cannot wait to use it! <a href="https://t.co/8qFO9yKLlp">https://t.co/8qFO9yKLlp</a></p>&mdash; Mark D. Scherz (@MarkScherz) <a href="https://twitter.com/MarkScherz/status/839831849736232962">March 9, 2017</a></blockquote>
+<script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script><blockquote class="twitter-tweet"><p lang="en" dir="ltr">Plot beautiful phylogenies and illustrate them with <a href="https://twitter.com/PhyloPic">@PhyloPic</a> images, with ggtree <a href="https://t.co/i9lsp5W6mL">https://t.co/i9lsp5W6mL</a> <a href="https://t.co/mA8hygAgSG">pic.twitter.com/mA8hygAgSG</a></p>&mdash; Molecular Ecologist (@molecologist) <a href="https://twitter.com/molecologist/status/830023569887391744">February 10, 2017</a></blockquote>
+<script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script><blockquote class="twitter-tweet"><p lang="en" dir="ltr">OMG SO USEFUL! &quot;Phylogenetic trees in R using ggtree&quot; <a href="https://t.co/Yr8HNdWXV0">https://t.co/Yr8HNdWXV0</a></p>&mdash; Stephen Taerum (@BrahStevovo) <a href="https://twitter.com/BrahStevovo/status/829398997735313408">February 8, 2017</a></blockquote>
+<script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script><blockquote class="twitter-tweet"><p lang="en" dir="ltr">I like ggtree to plot phylogenetic trees and annotate them. And I haven&#39;t found any other tools as customizable as ggtree</p>&mdash; Le Nématode (@LeNematode) <a href="https://twitter.com/LeNematode/status/824264788456984576">January 25, 2017</a></blockquote>
+<script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script><blockquote class="twitter-tweet"><p lang="en" dir="ltr">The R <a href="https://twitter.com/Bioconductor">@Bioconductor</a> package <a href="https://twitter.com/hashtag/ggtree?src=hash">#ggtree</a> is now published in <a href="https://twitter.com/MethodsEcolEvol">@MethodsEcolEvol</a> <a href="https://t.co/6fvSRQo2CC">https://t.co/6fvSRQo2CC</a> <a href="https://twitter.com/hashtag/evomics2017?src=hash">#evomics2017</a> <a href="https://t.co/Dwq1DD84A2">pic.twitter.com/Dwq1DD84A2</a></p>&mdash; Elin Videvall (@ElinVidevall) <a href="https://twitter.com/ElinVidevall/status/822383911258890242">January 20, 2017</a></blockquote>
+<script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script><blockquote class="twitter-tweet"><p lang="en" dir="ltr">Assortative tip coloring by text string using <a href="https://twitter.com/hashtag/ggtree?src=hash">#ggtree</a> by <a href="https://twitter.com/guangchuangyu">@guangchuangyu</a> <a href="https://t.co/rocvFK3OOS">https://t.co/rocvFK3OOS</a> <a href="https://twitter.com/hashtag/phylogenetics?src=hash">#phylogenetics</a> <a href="https://t.co/mEMkhZ2fVk">pic.twitter.com/mEMkhZ2fVk</a></p>&mdash; Guanyang Zhang (@GYZhang2) <a href="https://twitter.com/GYZhang2/status/811666431452450816">December 21, 2016</a></blockquote>
+<script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script><blockquote class="twitter-tweet"><p lang="en" dir="ltr">Featured this week: ggtree, an R package for visualization &amp; annotation of phylogenetic trees. Like it? Vote it up! <a href="https://t.co/laxtuRQDGB">https://t.co/laxtuRQDGB</a> <a href="https://t.co/zDvEBysWSQ">pic.twitter.com/zDvEBysWSQ</a></p>&mdash; LabWorm (@TheLabWorm) <a href="https://twitter.com/TheLabWorm/status/811661275889549312">December 21, 2016</a></blockquote>
+<script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script><blockquote class="twitter-tweet"><p lang="en" dir="ltr">+1 for ggtree, can make some very pretty figures.</p>&mdash; Will Allen (@wl_allen) <a href="https://twitter.com/wl_allen/status/797041236867686400">November 11, 2016</a></blockquote>
+<script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script><blockquote class="twitter-tweet"><p lang="en" dir="ltr">I&#39;m worried by how excited I am about having a whole 8 hour flight to work on some <a href="https://twitter.com/hashtag/rstats?src=hash">#rstats</a>. Going to teach myself ggtree first...</p>&mdash; Natalie Cooper (@nhcooper123) <a href="https://twitter.com/nhcooper123/status/797037016403820546">November 11, 2016</a></blockquote>
+<script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script><blockquote class="twitter-tweet"><p lang="en" dir="ltr">I use ggtree in R, which uses ggplot2 language. Easy to edit and produces nice figures</p>&mdash; James Doonan (@clydeandforth1) <a href="https://twitter.com/clydeandforth1/status/794278716859879424">November 3, 2016</a></blockquote>
+<script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script><blockquote class="twitter-tweet"><p lang="en" dir="ltr">Adaptive radiation of <a href="https://twitter.com/hashtag/Darwin?src=hash">#Darwin</a>&#39;s finches showing <a href="https://twitter.com/hashtag/genotypic?src=hash">#genotypic</a> and <a href="https://twitter.com/hashtag/morphometric?src=hash">#morphometric</a> evolution. Good excuse to practice with <a href="https://twitter.com/hashtag/ggtree?src=hash">#ggtree</a> <a href="https://twitter.com/guangchuangyu">@guangchuangyu</a> <a href="https://t.co/JJZ3Yje58s">pic.twitter.com/JJZ3Yje58s</a></p>&mdash; Will Harvey (@_wharvey) <a href="https://twitter.com/_wharvey/status/831952966701678592">February 15, 2017</a></blockquote>
+<script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script><blockquote class="twitter-tweet"><p lang="en" dir="ltr">am quite liking <a href="https://twitter.com/hashtag/ggtree?src=hash">#ggtree</a> <a href="https://twitter.com/hashtag/rstats?src=hash">#rstats</a> <a href="https://twitter.com/hashtag/ggplot?src=hash">#ggplot</a> <a href="https://t.co/hvywS2z4ps">pic.twitter.com/hvywS2z4ps</a></p>&mdash; Nicholas E Ilott (@IlottNick) <a href="https://twitter.com/IlottNick/status/788751417746059264">October 19, 2016</a></blockquote>
+<script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script><blockquote class="twitter-tweet"><p lang="en" dir="ltr">Treespace visualization of a heuristic best tree search in <a href="https://twitter.com/hashtag/R?src=hash">#R</a> package <a href="https://twitter.com/hashtag/ggtree?src=hash">#ggtree</a> <a href="https://twitter.com/hashtag/phylogenetics?src=hash">#phylogenetics</a> <a href="https://t.co/hnSJpIABql">pic.twitter.com/hnSJpIABql</a></p>&mdash; Alex DamiánSerrano ⑂ (@antropoteuthis) <a href="https://twitter.com/antropoteuthis/status/693123105707986944">January 29, 2016</a></blockquote>
+<script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script><blockquote class="twitter-tweet"><p lang="en" dir="ltr"><a href="https://twitter.com/guangchuangyu">@guangchuangyu</a> Updated to latest <a href="https://twitter.com/hashtag/ggtree?src=hash">#ggtree</a> and <a href="https://twitter.com/hashtag/ggplot2?src=hash">#ggplot2</a> and very impressed! Any ideas on using geom_label with tip labels to add box/fill?</p>&mdash; Jo Williams-Newkirk (@ajwnewkirk) <a href="https://twitter.com/ajwnewkirk/status/691762302492790788">January 25, 2016</a></blockquote>
+<script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script><blockquote class="twitter-tweet"><p lang="en" dir="ltr">ggtree looks really good! <a href="https://twitter.com/hashtag/rstats?src=hash">#rstats</a><a href="https://t.co/7rtexYV3I5">https://t.co/7rtexYV3I5</a></p>&mdash; Paul Staab (@paulstaab) <a href="https://twitter.com/paulstaab/status/687933344219312128">January 15, 2016</a></blockquote>
+<script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script><blockquote class="twitter-tweet"><p lang="en" dir="ltr">If you’re not using ggtree by <a href="https://twitter.com/guangchuangyu">@guangchuangyu</a> for your trees in R then you should be! <a href="https://twitter.com/hashtag/rstats?src=hash">#rstats</a> <a href="https://twitter.com/hashtag/bioinformatics?src=hash">#bioinformatics</a><a href="https://t.co/Z8HdLeyiIg">https://t.co/Z8HdLeyiIg</a></p>&mdash; Matt Workentine (@mworkentine) <a href="https://twitter.com/mworkentine/status/684411780412526592">January 5, 2016</a></blockquote>
+<script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script><blockquote class="twitter-tweet"><p lang="en" dir="ltr"><a href="https://twitter.com/guangchuangyu">@guangchuangyu</a> <a href="https://twitter.com/hashtag/ggtree?src=hash">#ggtree</a> has actually changed my life! it is <a href="https://twitter.com/hashtag/awesome?src=hash">#awesome</a>! <a href="https://twitter.com/hashtag/RePlottingEveryTreeFigureEver?src=hash">#RePlottingEveryTreeFigureEver</a> <a href="https://twitter.com/hashtag/ggplot2?src=hash">#ggplot2</a></p>&mdash; Peter Cowman (@pete_cowman) <a href="https://twitter.com/pete_cowman/status/665188011047563268">November 13, 2015</a></blockquote>
+<script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script><blockquote class="twitter-tweet"><p lang="en" dir="ltr">I continue to be amazed by the speed and quality of support <a href="https://twitter.com/guangchuangyu">@guangchuangyu</a> provides for <a href="https://twitter.com/hashtag/ggtree?src=hash">#ggtree</a> <a href="https://twitter.com/hashtag/rstats?src=hash">#rstats</a></p>&mdash; Jo Williams-Newkirk (@ajwnewkirk) <a href="https://twitter.com/ajwnewkirk/status/664040586001915904">November 10, 2015</a></blockquote>
+<script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script><blockquote class="twitter-tweet"><p lang="en" dir="ltr"><a href="https://twitter.com/tylerrinker">@tylerrinker</a> really appreciate all of <a href="https://twitter.com/guangchuangyu">@guangchuangyu</a> efforts with <a href="https://twitter.com/hashtag/ggtree?src=hash">#ggtree</a>; extends well beyond its original intent; love it</p>&mdash; timelyportfolio (@timelyportfolio) <a href="https://twitter.com/timelyportfolio/status/639507420054749184">September 3, 2015</a></blockquote>
+<script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script><blockquote class="twitter-tweet"><p lang="en" dir="ltr"><a href="https://twitter.com/guangchuangyu">@guangchuangyu</a> I even used <a href="https://twitter.com/hashtag/ggtree?src=hash">#ggtree</a>!</p>&mdash; Simon Frost (@sdwfrost) <a href="https://twitter.com/sdwfrost/status/671673570259509248">December 1, 2015</a></blockquote>
+<script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script><blockquote class="twitter-tweet"><p lang="en" dir="ltr"><a href="https://twitter.com/minisciencegirl">@minisciencegirl</a> Yep we use it mainly for that... there&#39;s a more featured version in <a href="https://t.co/5oOeLwx2Hg">https://t.co/5oOeLwx2Hg</a> but I need to switch to ggtree!</p>&mdash; Kat Holt (@DrKatHolt) <a href="https://twitter.com/DrKatHolt/status/667490462693912576">November 19, 2015</a></blockquote>
+<script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script><blockquote class="twitter-tweet"><p lang="en" dir="ltr">Sent my first <a href="https://twitter.com/hashtag/rstats?src=hash">#rstats</a> <a href="https://twitter.com/hashtag/shiny?src=hash">#shiny</a> app off to be alpha tested by a colleague today. Wouldn&#39;t be possible without <a href="https://twitter.com/hashtag/ggtree?src=hash">#ggtree</a>.</p>&mdash; Jo Williams-Newkirk (@ajwnewkirk) <a href="https://twitter.com/ajwnewkirk/status/660278158663401473">October 31, 2015</a></blockquote>
+<script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script><blockquote class="twitter-tweet"><p lang="en" dir="ltr"><a href="https://twitter.com/genetics_blog">@genetics_blog</a> Thanks. We have turned this into a shiny app too, but need to iron out some bugs... Also, try the new ggtree library!</p>&mdash; Kat Holt (@DrKatHolt) <a href="https://twitter.com/DrKatHolt/status/641251456595685376">September 8, 2015</a></blockquote>
+<script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script><blockquote class="twitter-tweet"><p lang="en" dir="ltr"><a href="https://twitter.com/guangchuangyu">@guangchuangyu</a> My bad :( It&#39;s working perfectly fine. Thanks so much for an awesome <a href="https://twitter.com/hashtag/rstats?src=hash">#rstats</a> <a href="https://twitter.com/hashtag/ggplot2?src=hash">#ggplot2</a> package ggtree! <a href="http://t.co/ofmzyOWe9C">pic.twitter.com/ofmzyOWe9C</a></p>&mdash; Ahmed Moustafa (@AhmedMoustafa) <a href="https://twitter.com/AhmedMoustafa/status/559734740488818688">January 26, 2015</a></blockquote>
+<script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script><blockquote class="twitter-tweet"><p lang="en" dir="ltr"><a href="https://twitter.com/guangchuangyu">@guangchuangyu</a> A bit improved version :) <a href="http://t.co/TZTSBK5aSm">pic.twitter.com/TZTSBK5aSm</a></p>&mdash; Ahmed Moustafa (@AhmedMoustafa) <a href="https://twitter.com/AhmedMoustafa/status/559762891478667264">January 26, 2015</a></blockquote>
+<script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script><blockquote class="twitter-tweet"><p lang="en" dir="ltr">I wish this guy was my student! <a href="https://twitter.com/guangchuangyu">@guangchuangyu</a> Sure, it won&#39;t get a Nature or Science paper, but who cares? <a href="http://t.co/XnA7uaFVms">http://t.co/XnA7uaFVms</a></p>&mdash; Simon Frost (@sdwfrost) <a href="https://twitter.com/sdwfrost/status/561514846291001344">January 31, 2015</a></blockquote>
+<script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script><blockquote class="twitter-tweet"><p lang="en" dir="ltr"><a href="https://twitter.com/CieraReports">@CieraReports</a> ggtree is a cool package that is based on the drawing of ggplot2 <a href="https://t.co/gFPHSdGAj1">https://t.co/gFPHSdGAj1</a></p>&mdash; Uryu Shinya (@u_ribo) <a href="https://twitter.com/u_ribo/status/559542705663905793">January 26, 2015</a></blockquote>
+<script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script><blockquote class="twitter-tweet"><p lang="en" dir="ltr"><a href="https://twitter.com/hashtag/ggtree?src=hash">#ggtree</a> <a href="https://t.co/VFrKCcz0DI">https://t.co/VFrKCcz0DI</a> is a pretty powerful <a href="https://twitter.com/hashtag/rstats?src=hash">#rstats</a> <a href="https://twitter.com/hashtag/ggplot2?src=hash">#ggplot2</a> <a href="https://twitter.com/Bioconductor">@Bioconductor</a> pkg for neat <a href="https://twitter.com/hashtag/phylogenetic?src=hash">#phylogenetic</a> <a href="https://twitter.com/hashtag/dataviz?src=hash">#dataviz</a> by <a href="https://twitter.com/guangchuangyu">@guangchuangyu</a></p>&mdash; Ahmed Moustafa (@AhmedMoustafa) <a href="https://twitter.com/AhmedMoustafa/status/561056244782227456">January 30, 2015</a></blockquote>
+<script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script><blockquote class="twitter-tweet"><p lang="en" dir="ltr">ggtree extends ggplot2 for phylogenetic trees. tons of documentation+examples: <a href="https://t.co/y9V52s2yWd">https://t.co/y9V52s2yWd</a> <a href="https://twitter.com/hashtag/Rstats?src=hash">#Rstats</a> <a href="https://t.co/Z9SDcueR2c">pic.twitter.com/Z9SDcueR2c</a></p>&mdash; Stephen Turner (@genetics_blog) <a href="https://twitter.com/genetics_blog/status/664085841766195200">November 10, 2015</a></blockquote>
+<script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script><blockquote class="twitter-tweet"><p lang="en" dir="ltr">Need to visualize some trees? Recent  <a href="https://twitter.com/hashtag/R?src=hash">#R</a> package <a href="https://twitter.com/hashtag/ggtree?src=hash">#ggtree</a> looks quite interesting. <a href="https://t.co/EPaXIqmvDZ">https://t.co/EPaXIqmvDZ</a></p>&mdash; Sebastian Schmidt (@TSBSchm) <a href="https://twitter.com/TSBSchm/status/664431087683260416">November 11, 2015</a></blockquote>
+<script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script><blockquote class="twitter-tweet"><p lang="en" dir="ltr"><a href="https://twitter.com/flashton2003">@flashton2003</a> world of possibilities now! Also looking at ggtree (ggplot2 expansion) for future stuff - that looks really cool too</p>&mdash; David W. Cleary (@Bacterioskeptic) <a href="https://twitter.com/Bacterioskeptic/status/667706456045694976">November 20, 2015</a></blockquote>
+<script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script><blockquote class="twitter-tweet"><p lang="en" dir="ltr">time for you to learn <a href="https://twitter.com/hashtag/rstats?src=hash">#rstats</a> <a href="https://twitter.com/LAevolving">@LAevolving</a> &lt;- <a href="https://twitter.com/stephspiel">@StephSpiel</a> new <a href="https://twitter.com/hashtag/Rstats?src=hash">#Rstats</a> package ggtree <a href="https://twitter.com/ggplot2">@ggplot2</a> <a href="https://t.co/DFmKGyTVwE">https://t.co/DFmKGyTVwE</a> <a href="https://t.co/WRBZHlRsIa">pic.twitter.com/WRBZHlRsIa</a></p>&mdash; Salamanda (@ajzellmer) <a href="https://twitter.com/ajzellmer/status/663937183791759360">November 10, 2015</a></blockquote>
+<script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script><blockquote class="twitter-tweet"><p lang="en" dir="ltr">V. cool new <a href="https://twitter.com/hashtag/Rstats?src=hash">#Rstats</a> package ggtree, addon 2 <a href="https://twitter.com/ggplot2">@ggplot2</a>, for automating tree drawing/annotating <a href="https://t.co/k3eSdVKp9C">https://t.co/k3eSdVKp9C</a> <a href="https://t.co/nH8SKSaXaN">pic.twitter.com/nH8SKSaXaN</a></p>&mdash; Stephanie Spielman (@stephspiel) <a href="https://twitter.com/stephspiel/status/663771499589861376">November 9, 2015</a></blockquote>
+<script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script><blockquote class="twitter-tweet"><p lang="en" dir="ltr">Can’t wait to try. MT <a href="https://twitter.com/genetics_blog">@genetics_blog</a>: ggtree extends ggplot2 for phylogenetic trees: <a href="https://t.co/JuThXlHUjz">https://t.co/JuThXlHUjz</a> <a href="https://twitter.com/hashtag/Rstats?src=hash">#Rstats</a> <a href="https://t.co/OmAzGghvqB">pic.twitter.com/OmAzGghvqB</a></p>&mdash; Kent Holsinger (@keholsinger) <a href="https://twitter.com/keholsinger/status/667433534756397057">November 19, 2015</a></blockquote>
+<script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script><blockquote class="twitter-tweet"><p lang="en" dir="ltr"><a href="https://twitter.com/guangchuangyu">@guangchuangyu</a> Excited to discover <a href="https://twitter.com/hashtag/ggtree?src=hash">#ggtree</a>; fills a lot of holes in my workflow but not seeing how to add bootstrap from ape?</p>&mdash; Jo Williams-Newkirk (@ajwnewkirk) <a href="https://twitter.com/ajwnewkirk/status/640573716733169664">September 6, 2015</a></blockquote>
+<script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script><blockquote class="twitter-tweet"><p lang="en" dir="ltr">ggtree added cool features, My favorite is the one from BEAST output <a href="https://t.co/3WOLxfTzRp">https://t.co/3WOLxfTzRp</a></p>&mdash; Manvendra Singh (@manvendr7) <a href="https://twitter.com/manvendr7/status/664407764001779712">November 11, 2015</a></blockquote>
+<script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script><blockquote class="twitter-tweet"><p lang="en" dir="ltr">ggtree looks useful: nice viz and annotations of phylogenetic trees with ggplot  <a href="https://twitter.com/hashtag/rstats?src=hash">#rstats</a> <a href="http://t.co/lbNKw3qIDI">http://t.co/lbNKw3qIDI</a>  thanks <a href="https://twitter.com/guangchuangyu">@guangchuangyu</a></p>&mdash; Julia Gustavsen (@JuliaGustavsen) <a href="https://twitter.com/JuliaGustavsen/status/630500659960254464">August 9, 2015</a></blockquote>
+<script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script><blockquote class="twitter-tweet"><p lang="en" dir="ltr">ggtree - looks like a very useful phylogenetic tree plotting package for R based on ggplot2 (<a href="https://t.co/UCXVVmG5W7">https://t.co/UCXVVmG5W7</a>)</p>&mdash; Simon J Greenhill (@SimonJGreenhill) <a href="https://twitter.com/SimonJGreenhill/status/547497335412899840">December 23, 2014</a></blockquote>
+<script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script><blockquote class="twitter-tweet"><p lang="en" dir="ltr">Plot trees &amp; annotation (incl BEAST, time axis) with ggtree for R!<a href="http://t.co/9ahqKQLTaI">http://t.co/9ahqKQLTaI</a><br>Well spotted <a href="https://twitter.com/mackas21">@mackas21</a> <a href="http://t.co/2ldvAiH2fj">pic.twitter.com/2ldvAiH2fj</a></p>&mdash; Kat Holt (@DrKatHolt) <a href="https://twitter.com/DrKatHolt/status/610364467939913728">June 15, 2015</a></blockquote>
+<script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script></p>
+
+
+			<aside class="copyright" role="note">
+				
+				&copy; 2017 Released under the Artistic-2.0 license &ndash;
+				
+				Documentation built with
+				<a href="https://www.gohugo.io" target="_blank">Hugo</a>
+				using the
+				<a href="http://github.com/digitalcraftsman/hugo-material-docs" target="_blank">Material</a> theme.
+			</aside>
+
+			<footer class="footer">
+				
+
+<nav class="pagination" aria-label="Footer">
+  <div class="previous">
+  
+      <a href="https://guangchuangyu.github.io/ggtree/gallery/" title="Gallery">
+        <span class="direction">
+          Previous
+        </span>
+        <div class="page">
+          <div class="button button-previous" role="button" aria-label="Previous">
+            <i class="icon icon-back"></i>
+          </div>
+          <div class="stretch">
+            <div class="title">
+              Gallery
+            </div>
+          </div>
+        </div>
+      </a>
+  
+  </div>
+
+  <div class="next">
+  
+  </div>
+</nav>
+
+
+
+
+
+			</footer>
+		</div>
+	</article>
+
+	<div class="results" role="status" aria-live="polite">
+		<div class="scrollable">
+			<div class="wrapper">
+				<div class="meta"></div>
+				<div class="list"></div>
+			</div>
+		</div>
+	</div>
+</main>
+
+    <script>
+    
+      var base_url = 'https:\/\/guangchuangyu.github.io\/ggtree\/';
+      var repo_id  = 'GuangchuangYu\/ggtree';
+    
+    </script>
+
+    <script src="https://guangchuangyu.github.io/ggtree/javascripts/application.js"></script>
+    
+
+    <script>
+      /* Add headers to scrollspy */
+      var headers   = document.getElementsByTagName("h2");
+      var scrollspy = document.getElementById('scrollspy');
+
+      if(scrollspy) {
+        if(headers.length > 0) {
+          for(var i = 0; i < headers.length; i++) {
+            var li = document.createElement("li");
+            li.setAttribute("class", "anchor");
+
+            var a  = document.createElement("a");
+            a.setAttribute("href", "#" + headers[i].id);
+            a.setAttribute("title", headers[i].innerHTML);
+            a.innerHTML = headers[i].innerHTML;
+
+            li.appendChild(a)
+            scrollspy.appendChild(li);
+          }
+        } else {
+          scrollspy.parentElement.removeChild(scrollspy)
+        }
+
+
+        /* Add permanent link next to the headers */
+        var headers = document.querySelectorAll("h1, h2, h3, h4, h5, h6");
+
+        for(var i = 0; i < headers.length; i++) {
+            var a = document.createElement("a");
+            a.setAttribute("class", "headerlink");
+            a.setAttribute("href", "#" + headers[i].id);
+            a.setAttribute("title", "Permanent link")
+            a.innerHTML = " ";
+            headers[i].appendChild(a);
+        }
+      }
+    </script>
+
+    
+      <script>
+        (function(i,s,o,g,r,a,m){
+          i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){(i[r].q=i[r].q||
+          []).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+          m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;
+          m.parentNode.insertBefore(a,m)
+        })(window, document,
+          'script', '//www.google-analytics.com/analytics.js', 'ga');
+         
+        ga('create', 'UA-77901140-1', 'auto');
+        ga('set', 'anonymizeIp', true);
+        ga('send', 'pageview');
+         
+        var buttons = document.querySelectorAll('a');
+        Array.prototype.map.call(buttons, function(item) {
+          if (item.host != document.location.host) {
+            item.addEventListener('click', function() {
+              var action = item.getAttribute('data-action') || 'follow';
+              ga('send', 'event', 'outbound', action, item.href);
+            });
+          }
+        });
+         
+        var query = document.querySelector('.query');
+        query.addEventListener('blur', function() {
+          if (this.value) {
+            var path = document.location.pathname;
+            ga('send', 'pageview', path + '?q=' + this.value);
+          }
+        });
+      </script>
+    
+
+    <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.8.0/highlight.min.js"></script>
+    <script>hljs.initHighlightingOnLoad();</script>
+  </body>
+</html>
+
