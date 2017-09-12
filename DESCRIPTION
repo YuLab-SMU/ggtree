@@ -23,6 +23,7 @@ Imports:
     magrittr,
     methods,
     rvcheck,
+    scales,
     tidyr,
     utils
 Suggests:
@@ -33,7 +34,6 @@ Suggests:
     knitr,
     prettydoc,
     rmarkdown,
-    scales,
     testthat
 VignetteBuilder: knitr
 ByteCompile: true

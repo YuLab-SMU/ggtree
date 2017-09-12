@@ -1,5 +1,7 @@
 CHANGES IN VERSION 1.9.4
 ------------------------
+ o geom_hilight_encircle and geom_cladelabel2 <2017-09-12, Tue>
+   + https://github.com/GuangchuangYu/ggtree/pull/152
  o set_hilight_legend <2017-08-30, Wed>
  o geom_motif for aligned motif <2017-08-22, Tue>
    + https://github.com/GuangchuangYu/ggtree/issues/148

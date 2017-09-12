@@ -8,7 +8,11 @@ geom_hilight_encircle(data = NULL, node, mapping = NULL,
   fill = "steelblue", alpha = 0.5, expand = 0, ...)
 }
 \arguments{
+\item{data}{data frame to calculate xspline (default = NULL)}
+
 \item{node}{selected node to hilight (required)}
+
+\item{mapping}{aesthetic mapping (default = NULL)}
 
 \item{fill}{colour fill (default = steelblue)}
 
@@ -16,15 +20,12 @@ geom_hilight_encircle(data = NULL, node, mapping = NULL,
 
 \item{expand}{expands the xspline clade region only (default = 0)}
 
-\item{spread}{spread of shape? (default = 0.1)}
-
-\item{linetype}{Line type of xspline (default = 1)}
-
-\item{size}{Size of xspline line (default = 1)}
-
-\item{s_shape}{Corresponds to shape of xspline (default = 0.5)}
-
-\item{s_open}{Boolean switch determines if xspline shape is open or closed. (default = FALSE)}
+\item{...}{addtional parameters, including:
+'spread' spread of shape? (default = 0.1),
+'linetype' Line type of xspline (default = 1),
+'size' Size of xspline line (default = 1),
+'s_shape' Corresponds to shape of xspline (default = 0.5),
+'s_open' Boolean switch determines if xspline shape is open or closed. (default = FALSE)}
 }
 \value{
 ggplot2

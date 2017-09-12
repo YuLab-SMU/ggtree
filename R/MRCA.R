@@ -1,6 +1,6 @@
 ##' Find Most Recent Common Ancestor among a vector of tips
 ##'
-##' 
+##'
 ##' @title MRCA
 ##' @param obj supported tree object or ggplot object
 ##' @param tip a vector of mode numeric or character specifying the tips
@@ -41,16 +41,16 @@ getMRCA.df <- function(data, tip) {
 getMRCA.df_internal <- function(data, tip, anc) {
     node1 <- which(tip == data$label | tip == data[, "node"])
     node2 <- which(anc == data$label | anc == data[, "node"])
-    
+
     anc1 <- get.ancestor.df(data, node1)
     anc2 <- get.ancestor.df(data, node2)
-    
+
     if(is.null(anc1)){
       print("Warning getMRCA.df_internal(): tip is root")
-    }else if(is.null(anc1)){
+    } else if(is.null(anc2)){
       print("Warning getMRCA.df_internal(): anc is root")
     }
-    
+
     # Return common ancestors.
     intersect(c(node1, anc1), c(node2, anc2))[1]
 }

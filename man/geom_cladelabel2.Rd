@@ -36,10 +36,6 @@ geom_cladelabel2(node, label, offset = 0, offset.text = 0, offset.bar = 0,
 \item{parse}{logical, whether parse label}
 
 \item{...}{additional parameter}
-
-\item{angle}{angle of text}
-
-\item{fill}{fill label background, only work with geom='label'}
 }
 \value{
 ggplot layers
