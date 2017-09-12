@@ -4,7 +4,7 @@
 ##' @title geom_label2
 ##' @param mapping the aesthetic mapping
 ##' @param data A layer specific dataset -
-##'             only needed if you want to override he plot defaults.
+##'             only needed if you want to override the plot defaults.
 ##' @param ... other arguments passed on to 'layer'
 ##' @param stat Name of stat to modify data
 ##' @param position The position adjustment to use for overlapping points on this layer
@@ -79,8 +79,7 @@ geom_label2 <- function(mapping = NULL, data = NULL,
             label.r = label.r,
             label.size = label.size,
             na.rm = na.rm,
-            ...
-        ),
+            ...),
         check.aes = FALSE
     )
 }

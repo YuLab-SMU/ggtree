@@ -2,7 +2,7 @@
 % Please edit documentation in R/tidytree.R
 \name{getSubtreeUnrooted.df}
 \alias{getSubtreeUnrooted.df}
-\title{GetSubtreeUnrooted}
+\title{getSubtreeUnrooted}
 \usage{
 getSubtreeUnrooted.df(df, node)
 }

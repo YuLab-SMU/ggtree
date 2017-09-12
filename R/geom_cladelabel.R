@@ -119,11 +119,12 @@ geom_cladelabel <- function(node, label,
                                    inherit.aes = inherit.aes,
                                    na.rm       = na.rm, ...)
 
-    }
 
+    }
+    
     list(
-       layer_bar,
-       layer_text
+      layer_bar,
+      layer_text
     )
 }
 
@@ -133,6 +134,7 @@ stat_cladeText <- function(mapping = NULL, data = NULL,
                            node, label, offset, align, ..., angle,
                            show.legend = NA, inherit.aes = FALSE,
                            na.rm = FALSE, parse = FALSE) {
+
     default_aes <- aes_(x=~x, y=~y, node=~node, parent=~parent, angle=~angle)
     if (is.null(mapping)) {
         mapping <- default_aes
@@ -158,12 +160,15 @@ stat_cladeText <- function(mapping = NULL, data = NULL,
           check.aes = FALSE
           )
 
+
 }
 
 stat_cladeBar <- function(mapping=NULL, data=NULL,
                           geom="segment", position="identity",
                           node, offset, align, extend,  ...,
                           show.legend=NA, inherit.aes=FALSE, na.rm=FALSE) {
+
+  
     default_aes <- aes_(x=~x, y=~y, node=~node, parent=~parent, xend=~x, yend=~y)
     if (is.null(mapping)) {
         mapping <- default_aes
@@ -198,19 +203,18 @@ StatCladeText <- ggproto("StatCladeText", Stat,
                          required_aes = c("x", "y", "label", "angle")
                          )
 
-
-
 StatCladeBar <- ggproto("StatCladBar", Stat,
                         compute_group = function(self, data, scales, params, node, offset, align, extend) {
                             get_cladelabel_position(data, node, offset, align, adjustRatio=1.02, angle=0, extend=extend)
                         },
                         required_aes = c("x", "y", "xend", "yend")
-                        )
+)
 
 
 get_cladelabel_position <- function(data, node, offset, align, adjustRatio, angle="auto", extend=0) {
     df <- get_cladelabel_position_(data, node, angle, extend)
     if (align) {
+        # Find max x value for all tree nodes so all clade labels align to same position.
         mx <- max(data$x, na.rm=TRUE)
     } else {
         mx <- df$x
@@ -226,8 +230,9 @@ get_cladelabel_position <- function(data, node, offset, align, adjustRatio, angl
     data.frame(x=mx, xend=mx, y=df$y, yend=df$yend, angle=angle)
 }
 
-
+# get x, y and yend of clade region.
 get_cladelabel_position_ <- function(data, node, angle = "auto", extend = 0) {
+
     sp <- get.offspring.df(data, node)
     sp2 <- c(sp, node)
     sp.df <- data[match(sp2, data$node),]
@@ -247,5 +252,6 @@ get_cladelabel_position_ <- function(data, node, angle = "auto", extend = 0) {
     }
 
     return(d)
+
 }
 

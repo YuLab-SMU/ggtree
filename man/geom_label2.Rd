@@ -14,7 +14,7 @@ geom_label2(mapping = NULL, data = NULL, ..., stat = "identity",
 \item{mapping}{the aesthetic mapping}
 
 \item{data}{A layer specific dataset -
-only needed if you want to override he plot defaults.}
+only needed if you want to override the plot defaults.}
 
 \item{...}{other arguments passed on to 'layer'}
 

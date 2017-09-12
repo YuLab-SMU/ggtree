@@ -8,15 +8,15 @@ geom_hilight(node, fill = "steelblue", alpha = 0.5, extend = 0,
   extendto = NULL)
 }
 \arguments{
-\item{node}{selected node to hilight}
+\item{node}{selected node to hilight (required)}
 
-\item{fill}{color fill}
+\item{fill}{color fill (default = steelblue)}
 
-\item{alpha}{alpha (transparency)}
+\item{alpha}{alpha transparency, (default = 0.5)}
 
-\item{extend}{extend xmax of the rectangle}
+\item{extend}{extend xmax of the rectangle (default = 0)}
 
-\item{extendto}{extend xmax to extendto}
+\item{extendto}{extend xmax to extendto (default = NULL)}
 }
 \value{
 ggplot2

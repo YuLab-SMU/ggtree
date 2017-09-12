@@ -38,13 +38,20 @@ getMRCA.df <- function(data, tip) {
 }
 
 
-getMRCA.df_internal <- function(data, tip1, tip2) {
-    node1 <- which(tip1 == data$label | tip1 == data[, "node"])
-    node2 <- which(tip2 == data$label | tip2 == data[, "node"])
+getMRCA.df_internal <- function(data, tip, anc) {
+    node1 <- which(tip == data$label | tip == data[, "node"])
+    node2 <- which(anc == data$label | anc == data[, "node"])
     
     anc1 <- get.ancestor.df(data, node1)
     anc2 <- get.ancestor.df(data, node2)
     
+    if(is.null(anc1)){
+      print("Warning getMRCA.df_internal(): tip is root")
+    }else if(is.null(anc1)){
+      print("Warning getMRCA.df_internal(): anc is root")
+    }
+    
+    # Return common ancestors.
     intersect(c(node1, anc1), c(node2, anc2))[1]
 }
 
@@ -53,7 +60,9 @@ get.ancestor.df <- function(df, node) {
     pp <- getParent.df(df, node)
     pp <- pp[pp != 0]
     if (length(pp) == 0) {
-        stop("input node is root...")
+      #stop("input node is root...")
+      cat("WARNING: input node ",node," is root.")
+      return(NULL) # root has no ancestor
     }
     i <- 1
     while(i <= length(pp)) {
