@@ -52,7 +52,11 @@ site:
 	cd ..
 
 preview:
-	Rscript -e 'setwd("site_src"); blogdown::serve_site()'
+	cd site_src;\
+	ln -s ../../software/themes themes;\
+	Rscript -e 'blogdown::serve_site()';\
+	rm themes;\
+	cd ..
 
 mkdocs: mdfiles
 	cd mkdocs;\
