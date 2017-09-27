@@ -38,17 +38,17 @@ getMRCA.df <- function(data, tip) {
 }
 
 
-getMRCA.df_internal <- function(data, tip, anc) {
-    node1 <- which(tip == data$label | tip == data[, "node"])
-    node2 <- which(anc == data$label | anc == data[, "node"])
+getMRCA.df_internal <- function(data, node1, node2) {
+    node1 <- which(node1 == data$label | node1 == data[, "node"])
+    node2 <- which(node2 == data$label | node2 == data[, "node"])
 
     anc1 <- get.ancestor.df(data, node1)
     anc2 <- get.ancestor.df(data, node2)
 
     if(is.null(anc1)){
-      print("Warning getMRCA.df_internal(): tip is root")
+      print("Warning getMRCA.df_internal(): node1 is root")
     } else if(is.null(anc2)){
-      print("Warning getMRCA.df_internal(): anc is root")
+      print("Warning getMRCA.df_internal(): node2 is root")
     }
 
     # Return common ancestors.
