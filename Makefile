@@ -58,45 +58,11 @@ preview:
 	rm themes;\
 	cd ..
 
-mkdocs: mdfiles
-	cd mkdocs;\
-	mkdocs build;\
-	cd ../docs;\
-	rm -rf fonts;\
-	rm -rf css/font-awesome*
-
-mdfiles:
-	cd mkdocs;\
-	Rscript -e 'source("render.R")';\
-	cd docs;\
-	ln -f -s ../mysoftware/* ./
-
-svnignore:
-	svn propset svn:ignore -F .svnignore .
-
-svncommit:
-	git checkout devel;\
-	git svn rebase;\
-	git merge master --log;\
-	git svn dcommit;\
-	git push -u origin devel;\
-	git checkout master;\
-	git merge devel
-
 
 gitmaintain:
 	git gc --auto;\
 	git prune -v;\
 	git fsck --full
-
-
-pushX:
-	git push -u origin master;\
-	git checkout bioc;\
-	git pull;\
-	git merge master;\
-	git push upstream master;\
-	git checkout master
 
 update:
 	git fetch --all;\
@@ -107,3 +73,29 @@ update:
 push: update
 	git push upstream master;\
 	git push origin master
+
+
+# mkdocs: mdfiles
+# 	cd mkdocs;\
+# 	mkdocs build;\
+# 	cd ../docs;\
+# 	rm -rf fonts;\
+# 	rm -rf css/font-awesome*
+
+# mdfiles:
+# 	cd mkdocs;\
+# 	Rscript -e 'source("render.R")';\
+# 	cd docs;\
+# 	ln -f -s ../mysoftware/* ./
+
+# svnignore:
+# 	svn propset svn:ignore -F .svnignore .
+
+# svncommit:
+# 	git checkout devel;\
+# 	git svn rebase;\
+# 	git merge master --log;\
+# 	git svn dcommit;\
+# 	git push -u origin devel;\
+# 	git checkout master;\
+# 	git merge devel
