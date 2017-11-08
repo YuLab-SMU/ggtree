@@ -79,10 +79,10 @@ GeomHilight <- ggproto("GeomHilight", Geom,
 
                          # # Get layout
                          #
-                         # layout <- data[1,]$layout
-                         #
-                         # If layout is {"rectangular”, “slanted”, “fan”, “circular”, “radial”} then find set of points that define
-                         # the retangular region around the clade.
+                           ## layout <- data[1,]$layout
+                           ##
+                           ## If layout is ("rectangular”, "slanted", "fan", "circular", "radial") then find set of points that define
+                           ## the retangular region around the clade.
                          # if( layout %in% c('rectangular', 'slanted', 'fan', 'circular', 'radial') ){
                          #
                          #   # get number of clade nodes.

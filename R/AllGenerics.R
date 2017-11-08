@@ -30,6 +30,7 @@ as.binary <- function(tree, ...) {
 ##' @param node internal nnode number
 ##' @param ... additional parameter
 ##' @return tree object
+##' @importFrom methods setGeneric
 ##' @export
 setGeneric("reroot", function(object, node, ...) standardGeneric("reroot"))
 

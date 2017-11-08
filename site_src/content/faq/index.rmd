@@ -75,13 +75,26 @@ ggtree(rtree(30)) + geom_tiplab(aes(subset=node==35), label='paste(italic("speci
 
 Another example for formating all tip labels:
 
-```
+```r
 ggtree(rtree(30)) + geom_tiplab(aes(label=paste0('bold(', label, ')~italic(', node, ')')), parse=TRUE)
 ```
 
-see
-also
-<https://groups.google.com/forum/?utm_medium=email&utm_source=footer#!msg/bioc-ggtree/BA7g-npY1BM>.
+The `label` can be provided by a `data.frame` that contains related information
+of the taxa.
+
+```r
+tr <- read.tree(text = "((a,(b,c)),d);")
+genus <- c("Gorilla", "Pan", "Homo", "Pongo")
+species <- c("gorilla", "spp.", "sapiens", "pygmaeus")
+geo <- c("Africa", "Africa", "World", "Asia")
+d <- data.frame(label = tr$tip.label, genus = genus,
+                species = species, geo = geo)
+ggtree(tr) %<+% d + xlim(NA, 5) +
+    geom_tiplab(aes(label=paste0('italic(', genus, ')~bolditalic(', species, ')~', geo)), parse=T)
+```
+
+see also <https://groups.google.com/forum/?utm_medium=email&utm_source=footer#!msg/bioc-ggtree/BA7g-npY1BM>.
+
 
 
 ## <i class="fa fa-angle-double-right"></i> Avoid overlapping text labels

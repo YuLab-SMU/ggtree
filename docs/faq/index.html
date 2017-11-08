@@ -383,7 +383,16 @@ ggtree(raxml) %&lt;+% d + geom_tiplab(aes(label=label2))</code></pre>
 <p>For example, the tiplabels contains two parts, species name and accession number and we want to display species name in <em>italic</em>, we can use command like this:</p>
 <pre><code>ggtree(rtree(30)) + geom_tiplab(aes(subset=node==35), label=&#39;paste(italic(&quot;species name&quot;), &quot;accession number&quot;)&#39;, parse=T)</code></pre>
 <p>Another example for formating all tip labels:</p>
-<pre><code>ggtree(rtree(30)) + geom_tiplab(aes(label=paste0(&#39;bold(&#39;, label, &#39;)~italic(&#39;, node, &#39;)&#39;)), parse=TRUE)</code></pre>
+<pre class="r"><code>ggtree(rtree(30)) + geom_tiplab(aes(label=paste0(&#39;bold(&#39;, label, &#39;)~italic(&#39;, node, &#39;)&#39;)), parse=TRUE)</code></pre>
+<p>The <code>label</code> can be provided by a <code>data.frame</code> that contains related information of the taxa.</p>
+<pre class="r"><code>tr &lt;- read.tree(text = &quot;((a,(b,c)),d);&quot;)
+genus &lt;- c(&quot;Gorilla&quot;, &quot;Pan&quot;, &quot;Homo&quot;, &quot;Pongo&quot;)
+species &lt;- c(&quot;gorilla&quot;, &quot;spp.&quot;, &quot;sapiens&quot;, &quot;pygmaeus&quot;)
+geo &lt;- c(&quot;Africa&quot;, &quot;Africa&quot;, &quot;World&quot;, &quot;Asia&quot;)
+d &lt;- data.frame(label = tr$tip.label, genus = genus,
+                species = species, geo = geo)
+ggtree(tr) %&lt;+% d + xlim(NA, 5) +
+    geom_tiplab(aes(label=paste0(&#39;italic(&#39;, genus, &#39;)~bolditalic(&#39;, species, &#39;)~&#39;, geo)), parse=T)</code></pre>
 <p>see also <a href="https://groups.google.com/forum/?utm_medium=email&amp;utm_source=footer#!msg/bioc-ggtree/BA7g-npY1BM" class="uri">https://groups.google.com/forum/?utm_medium=email&amp;utm_source=footer#!msg/bioc-ggtree/BA7g-npY1BM</a>.</p>
 </div>
 <div id="avoid-overlapping-text-labels" class="section level2">
