@@ -17,7 +17,12 @@ weight: 30
 
 ## <i class="fa fa-calendar"></i> 2017
 
-[Phylogenetic analysis of the human antibody repertoire reveals quantitative signatures of immune senescence and aging](http://dx.doi.org/10.1073/pnas.1617959114). ***PNAS***, 2017
+[Integrated view of *Vibrio cholerae* in the Americas](http://science.sciencemag.org/content/358/6364/789.full).
+***Science**, 2017, 358(6364):789-793.
+
+
+[Phylogenetic analysis of the human antibody repertoire reveals quantitative signatures of immune senescence and aging](http://dx.doi.org/10.1073/pnas.1617959114).
+***PNAS***, 2017, 114(5):1105-111-.
 
 
 [Horses in Denmark Are a Reservoir of Diverse Clones of Methicillin-Resistant and -Susceptible Staphylococcus aureus](https://www.ncbi.nlm.nih.gov/pmc/articles/PMC5376617/).
