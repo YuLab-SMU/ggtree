@@ -7,6 +7,15 @@ weight: 1
 
 
 
+## Plea to against BMC
+
+```{r echo=FALSE}
+blogdown::shortcode('tweet', '928836702998638592')
+```
+
+----
+
+
 <link rel="stylesheet" href="https://guangchuangyu.github.io/css/font-awesome.min.css">
 <link rel="stylesheet" href="https://guangchuangyu.github.io/css/academicons.min.css">
 
