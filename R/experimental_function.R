@@ -267,11 +267,13 @@ coplot <- function(tree1, tree2, hjust=0) {
 ##' @param p ggtree object
 ##' @param color color vector
 ##' @param label label vector
+##' @param alpha transparency of color
 ##' @return updated ggtree object
 ##' @export
+##' @importFrom scales alpha
 ##' @author guangchuang yu
-set_hilight_legend <- function(p, color, label) {
-	d <- data.frame(color=color, clade=label, x=0, y=1)
+set_hilight_legend <- function(p, color, label, alpha=1) {
+	d <- data.frame(color=color, clade=label, x=0, y=1, alpha=alpha)
 	p + geom_rect(aes_(fill=~clade, xmin=~x, xmax=~x, ymin=~y, ymax=~y), data=d, inherit.aes=F) +
-		guides(fill=guide_legend(override.aes=list(fill=d$color)))
+		guides(fill=guide_legend(override.aes=list(fill=alpha(d$color, d$alpha))))
 }

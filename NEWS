@@ -1,3 +1,9 @@
+CHANGES IN VERSION 1.11.1
+------------------------
+ o enable mrsd parameter for treedata object <2017-11-15, Wed>
+ o set_hilight_legend supports alpha parameter <2017-11-15, Wed>
+   + https://github.com/GuangchuangYu/ggtree/issues/149
+
 CHANGES IN VERSION 1.9.4
 ------------------------
  o geom_hilight_encircle and geom_cladelabel2 <2017-09-12, Tue>

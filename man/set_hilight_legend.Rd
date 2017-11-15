@@ -4,7 +4,7 @@
 \alias{set_hilight_legend}
 \title{set_hilight_legend}
 \usage{
-set_hilight_legend(p, color, label)
+set_hilight_legend(p, color, label, alpha = 1)
 }
 \arguments{
 \item{p}{ggtree object}
@@ -12,6 +12,8 @@ set_hilight_legend(p, color, label)
 \item{color}{color vector}
 
 \item{label}{label vector}
+
+\item{alpha}{transparency of color}
 }
 \value{
 updated ggtree object

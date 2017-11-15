@@ -3,7 +3,7 @@
 ##' @export
 fortify.treedata <- function(model, data, layout="rectangular", yscale="none",
                              ladderize=TRUE, right=FALSE, branch.length ="branch.length",
-                             mrsd=NULL, ...) {
+                             mrsd=NULL, as.Date = FALSE, ...) {
 
     model <- set_branch_length(model, branch.length)
 
@@ -29,6 +29,10 @@ fortify.treedata <- function(model, data, layout="rectangular", yscale="none",
 
     ## add branch mid position
     res <- calculate_branch_mid(res)
+
+    if (!is.null(mrsd)) {
+        res <- scaleX_by_time_from_mrsd(res, mrsd, as.Date)
+    }
 
     ## ## angle for all layout, if 'rectangular', user use coord_polar, can still use angle
     res <- calculate_angle(res)
