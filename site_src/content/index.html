@@ -7,34 +7,26 @@ weight: 1
 
 
 
-<div id="plea-to-against-bmc" class="section level2">
-<h2>Plea to against BMC</h2>
-{{% tweet "928836702998638592" %}}
-<hr />
 <p><link rel="stylesheet" href="https://guangchuangyu.github.io/css/font-awesome.min.css"> <link rel="stylesheet" href="https://guangchuangyu.github.io/css/academicons.min.css"></p>
 <p><img src="https://raw.githubusercontent.com/Bioconductor/BiocStickers/master/ggtree/ggtree.png" height="200" align="right" /></p>
-<p><a href="https://bioconductor.org/packages/ggtree"><img src="https://img.shields.io/badge/release%20version-1.10.0-blue.svg?style=flat" alt="releaseVersion" /></a> <a href="https://github.com/guangchuangyu/ggtree"><img src="https://img.shields.io/badge/devel%20version-1.11.0-blue.svg?style=flat" alt="develVersion" /></a> <a href="https://bioconductor.org/packages/stats/bioc/ggtree"><img src="https://img.shields.io/badge/downloads-21118/total-blue.svg?style=flat" alt="total" /></a> <a href="https://bioconductor.org/packages/stats/bioc/ggtree"><img src="https://img.shields.io/badge/downloads-1156/month-blue.svg?style=flat" alt="month" /></a></p>
+<p><a href="https://bioconductor.org/packages/ggtree"><img src="https://img.shields.io/badge/release%20version-1.10.0-blue.svg?style=flat" alt="releaseVersion" /></a> <a href="https://github.com/guangchuangyu/ggtree"><img src="https://img.shields.io/badge/devel%20version-1.11.1-blue.svg?style=flat" alt="develVersion" /></a> <a href="https://bioconductor.org/packages/stats/bioc/ggtree"><img src="https://img.shields.io/badge/downloads-21262/total-blue.svg?style=flat" alt="total" /></a> <a href="https://bioconductor.org/packages/stats/bioc/ggtree"><img src="https://img.shields.io/badge/downloads-1156/month-blue.svg?style=flat" alt="month" /></a></p>
 <p>The <code>ggtree</code> package extending the <em>ggplot2</em> package. It based on grammar of graphics and takes all the good parts of <em>ggplot2</em>. <em>ggtree</em> is designed for not only viewing phylogenetic tree but also displaying annotation data on the tree. <em>ggtree</em> is released within the <a href="https://bioconductor.org/packages/ggtree/">Bioconductor</a> project and the source code is hosted on <a href="https://github.com/GuangchuangYu/ggtree"><i class="fa fa-github fa-lg"></i> GitHub</a>.</p>
-</div>
-<div id="authors" class="section level2">
+<section id="authors" class="level2">
 <h2><i class="fa fa-user"></i> Authors</h2>
 <p>Guangchuang Yu and Tommy Tsan-Yuk Lam, School of Public Health, The University of Hong Kong.</p>
-</div>
-<div id="citation" class="section level2">
+</section>
+<section id="citation" class="level2">
 <h2><i class="fa fa-book"></i> Citation</h2>
 <p>Please cite the following article when using <code>ggtree</code>:</p>
 <p><a href="http://dx.doi.org/10.1111/2041-210X.12628"><img src="https://img.shields.io/badge/doi-10.1111/2041--210X.12628-blue.svg?style=flat" alt="doi" /></a> <a href="https://www.altmetric.com/details/10533079"><img src="https://img.shields.io/badge/Altmetric-336-blue.svg?style=flat" alt="Altmetric" /></a> <a href="https://scholar.google.com.hk/scholar?oi=bibs&amp;hl=en&amp;cites=7268358477862164627"><img src="https://img.shields.io/badge/cited%20by-47-blue.svg?style=flat" alt="citation" /></a></p>
 <p><strong>G Yu</strong>, DK Smith, H Zhu, Y Guan, TTY Lam<sup>*</sup>. ggtree: an R package for visualization and annotation of phylogenetic trees with their covariates and other associated data. <strong><em>Methods in Ecology and Evolution</em></strong>. 2017, 8(1):28-36.</p>
-</div>
-<div id="featured-articles" class="section level2">
+</section>
+<section id="featured-articles" class="level2">
 <h2><i class="fa fa-pencil"></i> Featured Articles</h2>
-<div class="figure">
-<img src="https://guangchuangyu.github.io/featured_img/ggtree/2015_peiyu_1-s2.0-S1567134815300721-gr1.jpg" />
-
-</div>
+<p><img src="https://guangchuangyu.github.io/featured_img/ggtree/2015_peiyu_1-s2.0-S1567134815300721-gr1.jpg" /></p>
 <p><i class="fa fa-hand-o-right"></i> Find out more on <i class="fa fa-pencil"></i> <a href="https://guangchuangyu.github.io/ggtree/featuredArticles/">Featured Articles</a>.</p>
-</div>
-<div id="installation" class="section level2">
+</section>
+<section id="installation" class="level2">
 <h2><i class="fa fa-download"></i> Installation</h2>
 <p>Install <code>ggtree</code> is easy, follow the guide on the <a href="https://bioconductor.org/packages/ggtree/">Bioconductor page</a>:</p>
 <pre class="r"><code>## try http:// if https:// URLs are not supported
@@ -42,18 +34,18 @@ source(&quot;https://bioconductor.org/biocLite.R&quot;)
 ## biocLite(&quot;BiocUpgrade&quot;) ## you may need this
 biocLite(&quot;ggtree&quot;)</code></pre>
 <p>If you have problems when installing some of the dependent packages, please refer to the <a href="https://github.com/GuangchuangYu/ggtree/wiki/ggtree-installation">ggtree-installation</a> wiki page.</p>
-</div>
-<div id="overview" class="section level2">
+</section>
+<section id="overview" class="level2">
 <h2><i class="fa fa-cogs"></i> Overview</h2>
-<div id="getting-tree-into-r" class="section level4">
+<section id="getting-tree-into-r" class="level4">
 <h4><i class="fa fa-angle-double-right"></i> Getting tree into R</h4>
 <ul>
 <li>tree parsers: bring evolution evidences to be used/analyzed in <code>R</code></li>
 <li><code>merge_tree</code>: allows evolution evidences to be merged and compared</li>
 <li><code>fortify</code> methods: convert tree objects into tidy data frame</li>
 </ul>
-</div>
-<div id="tree-visualization-annotation" class="section level4">
+</section>
+<section id="tree-visualization-annotation" class="level4">
 <h4><i class="fa fa-angle-double-right"></i> Tree visualization &amp; annotation</h4>
 <ul>
 <li>parsing tree as a collection of nodes allows grammar of graphics to be supported</li>
@@ -61,41 +53,41 @@ biocLite(&quot;ggtree&quot;)</code></pre>
 <li>several layers and functions for tree annotation</li>
 <li>supports annotating phylogenetic trees with user’s own data</li>
 </ul>
-</div>
-<div id="tree-manipulation" class="section level4">
+</section>
+<section id="tree-manipulation" class="level4">
 <h4><i class="fa fa-angle-double-right"></i> Tree manipulation</h4>
 <ul>
 <li>helper functions for tree manipulation, make it possible to explore the tree visually</li>
 </ul>
 <p><i class="fa fa-hand-o-right"></i> Find out details and examples on <i class="fa fa-book"></i> <a href="https://guangchuangyu.github.io/ggtree/documentation/">Documentation</a>.</p>
-</div>
-</div>
-<div id="projects-that-depend-on-ggtree" class="section level2">
+</section>
+</section>
+<section id="projects-that-depend-on-ggtree" class="level2">
 <h2><i class="fa fa-code-fork"></i> Projects that depend on <em>ggtree</em></h2>
-<div id="cran-packages" class="section level4">
+<section id="cran-packages" class="level4">
 <h4><i class="fa fa-angle-double-right"></i> CRAN packages</h4>
 <ul>
 <li><a href="https://cran.r-project.org/package=harrietr">harrietr</a>: Wrangle Phylogenetic Distance Matrices and Other Utilities</li>
 </ul>
-</div>
-<div id="bioconductor-packages" class="section level4">
+</section>
+<section id="bioconductor-packages" class="level4">
 <h4><i class="fa fa-angle-double-right"></i> Bioconductor packages</h4>
 <ul>
 <li><a href="https://www.bioconductor.org/packages/LINC">LINC</a>: co-expression of lincRNAs and protein-coding genes</li>
 <li><a href="https://www.bioconductor.org/packages/LymphoSeq">LymphoSeq</a>: Analyze high-throughput sequencing of T and B cell receptors</li>
 <li><a href="https://www.bioconductor.org/packages/philr">philr</a>: Phylogenetic partitioning based ILR transform for metagenomics data</li>
 </ul>
-</div>
-<div id="other-applications" class="section level4">
+</section>
+<section id="other-applications" class="level4">
 <h4><i class="fa fa-angle-double-right"></i> Other applications</h4>
 <ul>
 <li><a href="https://bitbucket.org/biobakery/breadcrumbs">BreadCrumbs</a>: Collection of scripts for metagenomics analysis</li>
 <li><a href="https://github.com/esnapd/DegeneratePrimerTools">DegeneratePrimerTools</a>: Utilities for Creating and Validating Degenerate primers</li>
 <li><a href="https://github.com/olli0601/phyloscan">phyloscan</a>: scan phylogenies created along a genome for patterns</li>
 </ul>
-</div>
-</div>
-<div id="feedback" class="section level2">
+</section>
+</section>
+<section id="feedback" class="level2">
 <h2><i class="fa fa-comments"></i> Feedback</h2>
 <ul class="fa-ul">
 <li>
@@ -114,4 +106,4 @@ biocLite(&quot;ggtree&quot;)</code></pre>
 <i class="fa-li fa fa-commenting"></i> Join the group chat on <a href="https://twitter.com/hashtag/ggtree"><i class="fa fa-twitter fa-lg"></i></a> and <a href="http://huati.weibo.com/k/ggtree"><i class="fa fa-weibo fa-lg"></i></a>
 </li>
 </ul>
-</div>
+</section>
