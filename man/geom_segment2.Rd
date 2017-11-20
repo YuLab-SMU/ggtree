@@ -6,7 +6,7 @@
 \usage{
 geom_segment2(mapping = NULL, data = NULL, stat = "identity",
   position = "identity", arrow = NULL, lineend = "butt", na.rm = FALSE,
-  show.legend = NA, inherit.aes = TRUE, ...)
+  show.legend = NA, inherit.aes = TRUE, nudge_x = 0, ...)
 }
 \arguments{
 \item{mapping}{aes mapping}
@@ -26,6 +26,8 @@ geom_segment2(mapping = NULL, data = NULL, stat = "identity",
 \item{show.legend}{logical}
 
 \item{inherit.aes}{logical}
+
+\item{nudge_x}{horizontal adjustment of x}
 
 \item{...}{additional parameter}
 }

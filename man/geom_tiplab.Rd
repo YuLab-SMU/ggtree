@@ -5,7 +5,7 @@
 \title{geom_tiplab}
 \usage{
 geom_tiplab(mapping = NULL, hjust = 0, align = FALSE,
-  linetype = "dotted", linesize = 1, geom = "text", offset = 0, ...)
+  linetype = "dotted", linesize = 0.5, geom = "text", offset = 0, ...)
 }
 \arguments{
 \item{mapping}{aes mapping}

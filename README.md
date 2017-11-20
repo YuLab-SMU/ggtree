@@ -7,14 +7,14 @@ ggtree: an R package for visualization and annotation of phylogenetic trees with
 [![releaseVersion](https://img.shields.io/badge/release%20version-1.10.0-green.svg?style=flat)](https://bioconductor.org/packages/ggtree)
 [![develVersion](https://img.shields.io/badge/devel%20version-1.11.1-green.svg?style=flat)](https://github.com/guangchuangyu/ggtree)
 [![Bioc](http://www.bioconductor.org/shields/years-in-bioc/ggtree.svg)](https://www.bioconductor.org/packages/devel/bioc/html/ggtree.html#since)
-[![total](https://img.shields.io/badge/downloads-21262/total-blue.svg?style=flat)](https://bioconductor.org/packages/stats/bioc/ggtree)
+[![total](https://img.shields.io/badge/downloads-21387/total-blue.svg?style=flat)](https://bioconductor.org/packages/stats/bioc/ggtree)
 [![month](https://img.shields.io/badge/downloads-1156/month-blue.svg?style=flat)](https://bioconductor.org/packages/stats/bioc/ggtree)
 
 [![Project Status: Active - The project has reached a stable, usable
 state and is being actively
 developed.](http://www.repostatus.org/badges/latest/active.svg)](http://www.repostatus.org/#active)
 [![codecov](https://codecov.io/gh/GuangchuangYu/ggtree/branch/master/graph/badge.svg)](https://codecov.io/gh/GuangchuangYu/ggtree)
-[![Last-changedate](https://img.shields.io/badge/last%20change-2017--11--15-green.svg)](https://github.com/GuangchuangYu/ggtree/commits/master)
+[![Last-changedate](https://img.shields.io/badge/last%20change-2017--11--20-green.svg)](https://github.com/GuangchuangYu/ggtree/commits/master)
 [![GitHub
 forks](https://img.shields.io/github/forks/GuangchuangYu/ggtree.svg)](https://github.com/GuangchuangYu/ggtree/network)
 [![GitHub
@@ -60,7 +60,7 @@ Evolution***. 2017, 8(1):28-36.
 
 [![doi](https://img.shields.io/badge/doi-10.1111/2041--210X.12628-green.svg?style=flat)](http://dx.doi.org/10.1111/2041-210X.12628)
 [![Altmetric](https://img.shields.io/badge/Altmetric-336-green.svg?style=flat)](https://www.altmetric.com/details/10533079)
-[![citation](https://img.shields.io/badge/cited%20by-47-green.svg?style=flat)](https://scholar.google.com.hk/scholar?oi=bibs&hl=en&cites=7268358477862164627)
+[![citation](https://img.shields.io/badge/cited%20by-46-green.svg?style=flat)](https://scholar.google.com.hk/scholar?oi=bibs&hl=en&cites=7268358477862164627)
 
 ------------------------------------------------------------------------
 
@@ -71,7 +71,7 @@ Evolution***. 2017, 8(1):28-36.
 ### Download stats
 
 [![download](http://www.bioconductor.org/shields/downloads/ggtree.svg)](https://bioconductor.org/packages/stats/bioc/ggtree)
-[![total](https://img.shields.io/badge/downloads-21262/total-blue.svg?style=flat)](https://bioconductor.org/packages/stats/bioc/ggtree)
+[![total](https://img.shields.io/badge/downloads-21387/total-blue.svg?style=flat)](https://bioconductor.org/packages/stats/bioc/ggtree)
 [![month](https://img.shields.io/badge/downloads-1156/month-blue.svg?style=flat)](https://bioconductor.org/packages/stats/bioc/ggtree)
 
 <img src="docs/images/dlstats.png" width="890"/>

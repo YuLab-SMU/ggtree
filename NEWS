@@ -1,5 +1,6 @@
 CHANGES IN VERSION 1.11.1
 ------------------------
+ o bug fixed in geom_tiplab, now `offset` parameter works with `align=TRUE`. <2017-11-20, Mon>
  o enable mrsd parameter for treedata object <2017-11-15, Wed>
  o set_hilight_legend supports alpha parameter <2017-11-15, Wed>
    + https://github.com/GuangchuangYu/ggtree/issues/149

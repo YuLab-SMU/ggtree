@@ -36,6 +36,7 @@ geom_aline <- function(mapping=NULL, linetype="dotted", size=1, ...) {
 ##' @param na.rm logical
 ##' @param show.legend logical
 ##' @param inherit.aes logical
+##' @param nudge_x horizontal adjustment of x
 ##' @param ... additional parameter
 ##' @importFrom ggplot2 layer
 ##' @export
@@ -46,6 +47,7 @@ geom_aline <- function(mapping=NULL, linetype="dotted", size=1, ...) {
 geom_segment2 <- function(mapping = NULL, data = NULL, stat = "identity",
                          position = "identity", arrow = NULL, lineend = "butt",
                          na.rm = FALSE, show.legend = NA, inherit.aes = TRUE,
+                         nudge_x = 0,
                          ...) {
 
     default_aes <- aes_(node=~node)
@@ -67,6 +69,7 @@ geom_segment2 <- function(mapping = NULL, data = NULL, stat = "identity",
             arrow = arrow,
             lineend = lineend,
             na.rm = na.rm,
+            nudge_x = nudge_x,
             ...
         ),
         check.aes = FALSE
@@ -80,21 +83,15 @@ GeomSegmentGGtree <- ggproto("GeomSegmentGGtree", GeomSegment,
                                  if (is.null(data$subset))
                                      return(data)
                                  data[which(data$subset),]
+                             },
+
+                             draw_panel = function(data, panel_scales, coord, arrow = NULL,
+                                                   lineend = "butt", na.rm = FALSE, nudge_x = 0) {
+
+                                 data$x <- data$x + nudge_x
+                                 GeomSegment$draw_panel(data, panel_scales, coord, arrow,
+                                                        lineend, na.rm)
                              }
-
-                            ## ,
-
-                            ##  draw_panel = function(data, panel_scales, coord, arrow = NULL,
-                            ##                        lineend = "butt", na.rm = FALSE) {
-
-                            ##      GeomSegment$draw_panel(data, panel_scales, coord, arrow,
-                            ##                             lineend, na.rm)
-                            ##  },
-
-                            ##  required_aes = c("x", "y", "xend", "yend"),
-                            ##  default_aes = aes(colour = "black", size = 0.5, linetype = 1, alpha = NA),
-
-                            ##  draw_key = draw_key_path
                              )
 
 
