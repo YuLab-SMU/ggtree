@@ -47,6 +47,7 @@ geom_tiplab <- function(mapping=NULL, hjust = 0,  align = FALSE, linetype = "dot
                                xend = x + diff(range(x, na.rm=TRUE))/200,
                                y = y, yend = y,
                                node = node,
+                               label = label,
                                subset = isTip)
         if (!is.null(mapping))
             segment_mapping <- modifyList(segment_mapping, mapping)

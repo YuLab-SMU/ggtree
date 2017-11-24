@@ -89,6 +89,7 @@ GeomSegmentGGtree <- ggproto("GeomSegmentGGtree", GeomSegment,
                                                    lineend = "butt", na.rm = FALSE, nudge_x = 0) {
 
                                  data$x <- data$x + nudge_x
+                                 ## data$x <- data$x - sapply(data$label, function(x) convertWidth(grobWidth(textGrob(x, gp=gpar(fontsize=.04* .pt))), "native", TRUE))
                                  GeomSegment$draw_panel(data, panel_scales, coord, arrow,
                                                         lineend, na.rm)
                              }
