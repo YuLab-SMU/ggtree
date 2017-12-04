@@ -53,15 +53,16 @@ ggtree(beast) + geom_point2(aes(subset=!is.na(posterior) & posterior > 0.75), co
 To support viewing multiple plots, ggtree provides `multiplot` function that similar to `gridExtra::grid.arrange` with extra feature of labeling the plots.
 
 
-```{r fig.width=8, fig.height=4, warning=FALSE}
+``` {r fig.width=8, fig.height=4, warning=FALSE}
 multiplot(ggtree(rtree(30)), ggtree(rtree(40)), ncol=2, labels=c('A', 'B'))
 ```
 
+<!--
 # subplots in ggplot object
 
 `ggtree` implemented a function, `subview`, that can add subplots on a ggplot2 object.
 
-```{r fig.width=8, fig.height=8, warning=F}
+#``` {r fig.width=8, fig.height=8, warning=F}
 set.seed(2016-01-04)
 tr <- rtree(30)
 tr <- groupClade(tr, node=45)
@@ -69,13 +70,13 @@ p <- ggtree(tr, aes(color=group)) + geom_tippoint()
 p1 <- p + geom_hilight(node=45)
 p2 <- viewClade(p, node=45) + geom_tiplab()
 subview(p2, p1+theme_transparent(), x=2.3, y=28.5)
-```
+#```
 
 This is the backend of the [inset](advanceTreeAnnotation.html) function.
 
 This `subview` function works with any `ggplot` objects and it had successful applied to [plot pie graphs on map](http://stackoverflow.com/questions/10368180/plotting-pie-graphs-on-map-in-ggplot/32380396#32380396).
 
-```{r eval=FALSE}
+#``` {r eval=FALSE}
 library(ggtree)
 dd <- data.frame(x=LETTERS[1:3], y=1:3)
 pie <- ggplot(dd, aes(x=1, y, fill=x)) + geom_bar(stat="identity", width=1) + coord_polar(theta="y") + theme_inset()
@@ -88,7 +89,8 @@ for (i in seq_along(x)) {
     p <- subview(p, pie, x[i], y[i], width[i], height[i])
     print(p)
 }
-```
+#```
 ![](figures/subview_animation.gif)
 
 
+-->

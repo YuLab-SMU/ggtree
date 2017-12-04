@@ -8,10 +8,11 @@
 ##' @param align align tip lab or not, logical
 ##' @param linetype linetype for adding line if align = TRUE
 ##' @param linesize line size of line if align = TRUE
-##' @param geom one of 'text' and 'label'
+##' @param geom one of 'text', 'label', 'image' and 'phylopic'
 ##' @param ... additional parameter
 ##' @return tip label layer
 ##' @importFrom ggplot2 geom_text
+##' @importFrom utils modifyList
 ##' @export
 ##' @author Yu Guangchuang
 ##' @examples
@@ -19,12 +20,18 @@
 ##' tr <- rtree(10)
 ##' ggtree(tr) + geom_tiplab()
 geom_tiplab <- function(mapping=NULL, hjust = 0,  align = FALSE, linetype = "dotted", linesize=0.5, geom="text",  offset=0, ...) {
-    geom <- match.arg(geom, c("text", "label"))
+    geom <- match.arg(geom, c("text", "label", "image", "phylopic"))
     if (geom == "text") {
-        text_geom <- geom_text2
-    } else {
-        text_geom <- geom_label2
+        label_geom <- geom_text2
+    } else if (geom == "label") {
+        label_geom <- geom_label2
+    } else if (geom == "image") {
+        label_geom <- get_fun_from_pkg("ggimage", "geom_image")
+    } else if (geom == "phylopic") {
+        label_geom <- get_fun_from_pkg("ggimage", "geom_phylopic")
     }
+
+
     x <- y <- label <- isTip <- node <- NULL
     if (align == TRUE) {
         self_mapping <- aes(x = max(x, na.rm=TRUE) + diff(range(x, na.rm=TRUE))/200, y = y, label = label, node = node, subset = isTip)
@@ -54,13 +61,14 @@ geom_tiplab <- function(mapping=NULL, hjust = 0,  align = FALSE, linetype = "dot
     }
 
     list(
-        text_geom(mapping=text_mapping,
-                  hjust = hjust, nudge_x = offset, stat = StatTreeData, ...)
-        ,
         if (show_segment)
             geom_segment2(mapping = segment_mapping,
                           linetype = linetype, nudge_x = offset,
                           size = linesize, stat = StatTreeData, ...)
+       ,
+        label_geom(mapping=text_mapping,
+                   hjust = hjust, nudge_x = offset, stat = StatTreeData, ...)
+
     )
 }
 

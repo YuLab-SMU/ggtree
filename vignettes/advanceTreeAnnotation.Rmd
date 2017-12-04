@@ -175,18 +175,6 @@ bx2 <- lapply(bx, function(g) g+coord_flip())
 inset(p2, bx2, width=.4, height=.06, vjust=.04, hjust=p2$data$x[1:15]-4) + xlim(NA, 4.5)
 ```
 
-## Annotate with image files
-
-```{r eval=FALSE}
-imgfile <- tempfile(, fileext=".png")
-download.file("https://avatars1.githubusercontent.com/u/626539?v=3&u=e731426406dd3f45a73d96dd604bc45ae2e7c36f&s=140", destfile=imgfile, mode='wb')
-img <- list(imgfile, imgfile)
-names(img) <- c("18", "22")
-inset(p, img)
-```
-
-![](figures/inset_img.png)
-
 # Plot tree with associated data
 
 For associating phylogenetic tree with different type of plot produced by user's data, `ggtree` provides `facet_plot` function which accepts an input `data.frame` and a `geom` function to draw the input data. The data will be displayed in an additional panel of the plot.
@@ -203,22 +191,6 @@ d2 <- data.frame(id=tr$tip.label, value = abs(rnorm(30, mean=100, sd=50)))
 facet_plot(p2, panel='bar', data=d2, geom=geom_segment, aes(x=0, xend=value, y=y, yend=y), size=3, color='steelblue') + theme_tree2()
 ```
 
-# Tree annotation with Phylopic
-
-
-[PhyloPic](http://phylopic.org/) is a database that stores reusable silhouette images of organisms. `ggtree` supports downloading images from [PhyloPic](http://phylopic.org/) and annotating phylogenetic tree with the downloaded images.
-
-```{r fig.width=5, fig.height=5, fig.align="center", warning=FALSE, eval=FALSE}
-pp <- ggtree(tree) %>% phylopic("79ad5f09-cf21-4c89-8e7d-0c82a00ce728", color="steelblue", alpha = .3)
-print(pp)
-```
-![](figures/phylopic1.png)
-
-```{r fig.width=5, fig.height=5, fig.align="center", warning=FALSE, eval=FALSE}
-pp %>% phylopic("67382184-5135-4faa-8e98-eadff02c3e8a", color="#86B875", alpha=.8, node=4) %>%
-     phylopic("d3563b54-780f-4711-a49a-7ea051e9dacc", color="darkcyan", alpha=.8, node=17, width=.2)
-```
-![](figures/phylopic2.png)
 
 
 

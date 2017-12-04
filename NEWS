@@ -1,3 +1,9 @@
+CHANGES IN VERSION 1.11.2
+------------------------
+ o deprecate subview, annotation_image and phylopic <2017-12-04, Mon>
+ o geom_tiplab now supports geom = "image" or geom = "phylopic" <2017-12-04, Mon>
+ o A new layer geom_nodelab that equivalent to geom_tiplab but works for internal node <2017-12-04, Mon>
+
 CHANGES IN VERSION 1.11.1
 ------------------------
  o bug fixed in geom_tiplab, now `offset` parameter works with `align=TRUE`. <2017-11-20, Mon>

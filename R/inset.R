@@ -36,14 +36,13 @@ inset <- function(tree_view, insets, width=0.1, height=0.1, hjust=0, vjust=0,
     if (reverse_y)
         yy <- -yy
 
-    for (i in seq_along(insets)) {
-        tree_view %<>% subview(insets[[i]],
-                               x = xx[i],
-                               y = yy[i],
-                               width = width,
-                               height = height)
-    }
-    return(tree_view)
+    geom_subview <- get_fun_from_pkg("ggimage", "geom_subview")
+
+    tree_view + geom_subview(subview = insets,
+                            width = width,
+                            height = height,
+                            x = xx,
+                            y = yy)
 }
 
 ##' generate a list of bar charts for results of ancestral state reconstruction

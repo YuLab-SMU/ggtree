@@ -1,6 +1,6 @@
 <!-- README.md is generated from README.Rmd. Please edit that file -->
-ggtree: an R package for visualization and annotation of phylogenetic trees with their covariates and other associated data
-===========================================================================================================================
+
+# ggtree: an R package for visualization and annotation of phylogenetic trees with their covariates and other associated data
 
 <img src="https://raw.githubusercontent.com/Bioconductor/BiocStickers/master/ggtree/ggtree.png" height="200" align="right" />
 
@@ -36,33 +36,35 @@ Collective](https://opencollective.com/ggtree/sponsors/badge.svg)](#sponsors)
 The `ggtree` package extending the `ggplot2` package. It based on
 grammar of graphics and takes all the good parts of `ggplot2`. `ggtree`
 is designed for not only viewing phylogenetic tree but also displaying
-annotation data on the tree.
+annotation data on the
+tree.
 
 [![Twitter](https://img.shields.io/twitter/url/https/github.com/GuangchuangYu/ggtree.svg?style=social)](https://twitter.com/intent/tweet?hashtags=ggtree&url=http://onlinelibrary.wiley.com/doi/10.1111/2041-210X.12628/abstract&screen_name=guangchuangyu)
 
 For details, please visit our project website,
 <https://guangchuangyu.github.io/ggtree>.
 
--   [Documentation](https://guangchuangyu.github.io/ggtree/documentation/)
--   [FAQ](https://guangchuangyu.github.io/ggtree/faq/)
--   [Featured
+  - [Documentation](https://guangchuangyu.github.io/ggtree/documentation/)
+  - [FAQ](https://guangchuangyu.github.io/ggtree/faq/)
+  - [Featured
     Articles](https://guangchuangyu.github.io/ggtree/featuredArticles/)
--   [Feedback](https://guangchuangyu.github.io/ggtree/#feedback)
+  - [Feedback](https://guangchuangyu.github.io/ggtree/#feedback)
 
-------------------------------------------------------------------------
+-----
 
 Please cite the following article when using `ggtree`:
 
 **G Yu**, DK Smith, H Zhu, Y Guan, TTY Lam<sup>\*</sup>. ggtree: an R
 package for visualization and annotation of phylogenetic trees with
 their covariates and other associated data. ***Methods in Ecology and
-Evolution***. 2017, 8(1):28-36.
+Evolution***. 2017,
+8(1):28-36.
 
 [![doi](https://img.shields.io/badge/doi-10.1111/2041--210X.12628-green.svg?style=flat)](http://dx.doi.org/10.1111/2041-210X.12628)
 [![Altmetric](https://img.shields.io/badge/Altmetric-333-green.svg?style=flat)](https://www.altmetric.com/details/10533079)
 [![citation](https://img.shields.io/badge/cited%20by-51-green.svg?style=flat)](https://scholar.google.com.hk/scholar?oi=bibs&hl=en&cites=7268358477862164627)
 
-------------------------------------------------------------------------
+-----
 
 ### Citation
 
@@ -76,23 +78,20 @@ Evolution***. 2017, 8(1):28-36.
 
 <img src="docs/images/dlstats.png" width="890"/>
 
-Contributors
-------------
+## Contributors
 
 This project exists thanks to all the people who contribute.
 [\[Contribute\]](CONTRIBUTING.md).
 <a href="https://github.com/GuangchuangYu/ggtree/graphs/contributors"><img src="https://opencollective.com/ggtree/contributors.svg?width=890" /></a>
 
-Backers
--------
+## Backers
 
-Thank you to all our backers! 🙏 \[[Become a
+Thank you to all our backers\! 🙏 \[[Become a
 backer](https://opencollective.com/ggtree#backer)\]
 
 <a href="https://opencollective.com/ggtree#backers" target="_blank"><img src="https://opencollective.com/ggtree/backers.svg?width=890"></a>
 
-Sponsors
---------
+## Sponsors
 
 Support this project by becoming a sponsor. Your logo will show up here
 with a link to your website. \[[Become a

@@ -2,9 +2,9 @@ Package: ggtree
 Type: Package
 Title: an R package for visualization and annotation of phylogenetic trees with
     their covariates and other associated data
-Version: 1.11.1
+Version: 1.11.2
 Authors@R: c(
-	   person("Guangchuang", "Yu",     email = "guangchuangyu@gmail.com", role = c("aut", "cre", "cph")),
+	   person("Guangchuang", "Yu",     email = "guangchuangyu@gmail.com", role = c("aut", "cre", "cph"), comment = c(ORCID = "0000-0002-6485-8781")),
 	   person("Tommy Tsan-Yuk", "Lam", email = "tylam.tommy@gmail.com",   role = c("aut", "ths")),
 	   person("Justin", "Silverman",   email = "jsilve24@gmail.com",      role = "ctb")
 	   )
@@ -29,8 +29,8 @@ Imports:
 Suggests:
     Biostrings,
     colorspace,
-    EBImage,
     emojifont,
+    ggimage,
     knitr,
     prettydoc,
     rmarkdown,
