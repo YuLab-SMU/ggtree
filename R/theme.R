@@ -77,32 +77,6 @@ theme_tree2_internal <- function(bgcolor="white", fgcolor="black",
               ...)
 }
 
-##' transparent background theme
-##'
-##'
-##' @title theme_transparent
-##' @param ... additional parameter to tweak the theme
-##' @return ggplot object
-##' @importFrom ggplot2 theme
-##' @importFrom ggplot2 element_rect
-##' @export
-##' @author Guangchuang Yu
-theme_transparent <- function(...) {
-    message("this theme was moved to ggimage::theme_transparent and will be removed in next release")
-
-    theme(panel.background = element_rect(
-              fill = "transparent",
-              colour = NA),
-          plot.background = element_rect(
-              fill = "transparent",
-              colour = NA),
-          legend.key = element_rect(
-              fill = "transparent",
-              colour = NA),
-          legend.background = element_rect(
-              fill = "transparent",
-              colour = NA), ...)
-}
 
 ##' inset theme
 ##'
@@ -113,10 +87,9 @@ theme_transparent <- function(...) {
 ##' @export
 ##' @author Guangchuang Yu
 theme_inset <- function(...) {
-    message("this theme will be removed in next release")
     list(xlab(NULL),
          ylab(NULL),
          theme_tree(...),
-         theme_transparent()
+         ggimage::theme_transparent()
          )
 }
