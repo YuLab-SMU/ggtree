@@ -8,9 +8,10 @@ weight: 20
 <link rel="stylesheet" href="https://guangchuangyu.github.io/css/font-awesome.min.css">
 
 
-# <i class="fa fa-download"></i> Installation
 
-## <i class="fa fa-angle-double-right"></i> Could not find function
+## <i class="fa fa-download"></i> Installation
+
+### <i class="fa fa-angle-double-right"></i> Could not find function
 
 If you got [this error](https://github.com/GuangchuangYu/ggtree/issues/12), please make sure you are using the latest R and `ggtree`.
 
@@ -22,10 +23,44 @@ You can download the `devel` version of `ggtree` from [http://bioconductor.org/p
 
 This also applied to other of my packages, including `GOSemSim`, `DOSE`, `clusterProfiler`, `ReactomePA` and `ChIPseeker`. If you got the `could not find function` error, upgrade your installation to latest release. If the error still exists after upgrading to latest release, you need to install the devel version.
 
+## <i class="fa fa-check-square-o"></i> Basic R related
 
-# <i class="fa fa-text-height"></i> Text & Label
+### <i class="fa fa-angle-double-right"></i> `system.file()`
 
-## <i class="fa fa-angle-double-right"></i> Tip label truncated
+If you are new to `R` and want to use `ggtree` for tree visualization, please do
+learn some basic `R` and `ggplot2`.
+
+A very common issue is that users always copy-paste command without looking at
+the function's behavior. `system.file()` was used in the `treeio` and `ggtree` vignettes to find files in
+the packages.
+
+
+
+```
+system.file                package:base                R Documentation
+
+Find Names of R System Files
+
+Description:
+
+     Finds the full file names of files in packages etc.
+
+Usage:
+
+     system.file(..., package = "base", lib.loc = NULL,
+                 mustWork = FALSE)
+```
+
+For users who want to
+use
+[their own files](https://groups.google.com/forum/?utm_medium=email&utm_source=footer#!msg/bioc-ggtree/VsE22NnScdc/LHtJSEntDAAJ),
+please just use relative or absolute file path (*e.g.* `f = "your/folder/filename"`).
+
+
+
+## <i class="fa fa-text-height"></i> Text & Label
+
+### <i class="fa fa-angle-double-right"></i> Tip label truncated
 
 ggplot2 can't auto adjust xlim based on added text.
 
@@ -42,7 +77,7 @@ This is because the units are in two different spaces (data and pixel). Users ca
 ggtree(tree) + geom_tiplab() + xlim(0, 0.06)
 ```
 
-## <i class="fa fa-angle-double-right"></i> Modify (tip) labels
+### <i class="fa fa-angle-double-right"></i> Modify (tip) labels
 
 This could be easily done via the `%<+%` operator to attach the
 modified version of the labels and than use `geom_tiplab` to display
@@ -62,7 +97,7 @@ see also
 [1](https://groups.google.com/forum/?utm_medium=email&utm_source=footer#!msg/bioc-ggtree/tFdFgCJ7gQA/tZ6phSgUDQAJ)
 and [2](https://github.com/GuangchuangYu/ggtree/issues/106).
 
-## <i class="fa fa-angle-double-right"></i> Formatting (tip) labels
+### <i class="fa fa-angle-double-right"></i> Formatting (tip) labels
 
 If you want to format labels, you need to set `parse=TRUE` in `geom_text`/`geom_tiplab` and the `label` should be string that can be parsed into expression and displayed as described in `?plotmath`.
 
@@ -97,7 +132,7 @@ see also <https://groups.google.com/forum/?utm_medium=email&utm_source=footer#!m
 
 
 
-## <i class="fa fa-angle-double-right"></i> Avoid overlapping text labels
+### <i class="fa fa-angle-double-right"></i> Avoid overlapping text labels
 
 User can use [ggrepel](https://cran.r-project.org/web/packages/ggrepel/) package to repel overlapping text labels.
 
@@ -113,7 +148,7 @@ ggtree(raxml) + geom_label_repel(aes(label=bootstrap, fill=bootstrap))
 
 For details, please refer to [ggrepel usage examples](https://cran.r-project.org/web/packages/ggrepel/vignettes/ggrepel.html).
 
-## <i class="fa fa-angle-double-right"></i> bootstrap values from newick format
+### <i class="fa fa-angle-double-right"></i> bootstrap values from newick format
 
 It's quite command to store `bootstrap` value as node label in `newick` format. Visualizing node label is easy using `geom_text2(aes(subset = !isTip, label=label))`.
 
@@ -138,9 +173,9 @@ q + geom_text(data=d, aes(label=label))
 ```
 
 
-# <i class="fa fa-map-marker"></i> _aesthetic_ mapping
+## <i class="fa fa-map-marker"></i> _aesthetic_ mapping
 
-## <i class="fa fa-angle-double-right"></i> inherit _aes_
+### <i class="fa fa-angle-double-right"></i> inherit _aes_
 
 ```r
 ggtree(rtree(30)) + geom_point()
@@ -159,7 +194,7 @@ Error in eval(expr, envir, enclos) : object 'x' not found
 
 This can be fixed by using parameter `inherit.aes=FALSE` which will disable inheriting mapping from `ggtree` function.
 
-## <i class="fa fa-angle-double-right"></i> use `$` in aes
+### <i class="fa fa-angle-double-right"></i> use `$` in aes
 
 NEVER DO THIS.
 
@@ -172,9 +207,9 @@ see also
 and [2](https://github.com/GuangchuangYu/ggtree/issues/106).
 
 
-# <i class="fa fa-tree"></i> Annotation
+## <i class="fa fa-tree"></i> Annotation
 
-## <i class="fa fa-angle-double-right"></i> colouring edges by user data
+### <i class="fa fa-angle-double-right"></i> colouring edges by user data
 
 see my blog post:
 [Edge coloring with user data](http://guangchuangyu.github.io/2016/12/edge-coloring-with-user-data/)
