@@ -2,6 +2,7 @@
 
 S3method(as.binary,phylo)
 S3method(as.data.frame,phylo)
+S3method(as_data_frame,phylo)
 S3method(as_data_frame,treedata)
 S3method(fortify,codeml)
 S3method(fortify,codeml_mlc)

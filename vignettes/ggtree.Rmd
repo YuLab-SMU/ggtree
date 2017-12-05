@@ -101,7 +101,7 @@ Visualizing an annotated phylogenetic tree with numerical matrix (e.g. genotype 
 
 # Vignette Entry
 
-+ [Tree Data Import](treeImport.html)
++ [Tree Data Import](https://bioconductor.org/packages/release/bioc/vignettes/treeio/inst/doc/treeio.html)
 + [Tree Visualization](treeVisualization.html)
 + [Tree Manipulation](treeManipulation.html)
 + [Tree Annotation](treeAnnotation.html)

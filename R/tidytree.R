@@ -32,8 +32,12 @@ fortify.treedata <- function(model, data, layout="rectangular", yscale="none",
         res <- scaleX_by_time_from_mrsd(res, mrsd, as.Date)
     }
 
-    ## ## angle for all layout, if 'rectangular', user use coord_polar, can still use angle
-    res <- calculate_angle(res)
+    if (layout == "slanted") {
+        res <- add_angle_slanted(res)
+    } else {
+        ## angle for all layout, if 'rectangular', user use coord_polar, can still use angle
+        res <- calculate_angle(res)
+    }
     scaleY(as.phylo(model), res, yscale, layout, ...)
 }
 
@@ -42,11 +46,10 @@ fortify.treedata <- function(model, data, layout="rectangular", yscale="none",
 ##' @export
 ## @importFrom treeio Nnode
 ## @importFrom treeio Ntip
-as_data_frame.treedata <- function(x, row.names, optional, branch.length = "branch.length", ...) {
+as_data_frame.treedata <- function(x, branch.length = "branch.length", ...) {
     tree <- set_branch_length(x, branch.length)
 
-    ## res <- as.data.frame(tree@phylo)
-    res <- as_data_frame_(tree@phylo)
+    res <- as_data_frame(tree@phylo)
     tree_anno <- as_data_frame(get_tree_data(x))
     if (nrow(tree_anno) > 0) {
         by <- "node"
@@ -61,11 +64,11 @@ as_data_frame.treedata <- function(x, row.names, optional, branch.length = "bran
     return(res)
 }
 
-##@method as.data.frame phylo
-##@export
+##' @method as_data_frame phylo
+##' @export
 ##' @importFrom tibble data_frame
 ##' @importFrom dplyr full_join
-as_data_frame_ <- function(x, row.names, optional, branch.length = "branch.length", ...) {
+as_data_frame.phylo <- function(x, ...) {
     phylo <- x
     ntip <- Ntip(phylo)
     N <- Nnode(phylo, internal.only=FALSE)
@@ -90,6 +93,18 @@ as_data_frame_ <- function(x, row.names, optional, branch.length = "branch.lengt
     idx <- is.na(res$parent)
     res$parent[idx] <- res$node[idx]
 
+    res <- res[order(res$node),]
+    aa <- names(attributes(phylo))
+    group <- aa[ ! aa %in% c("names", "class", "order", "reroot", "node_map")]
+    if (length(group) > 0) {
+        for (group_ in group) {
+            ## groupOTU & groupClade
+            group_info <- attr(phylo, group_)
+            if (length(group_info) == nrow(res)) {
+                res[[group_]] <- group_info
+            }
+        }
+    }
     return(res)
 }
 
@@ -1540,24 +1555,25 @@ getYcoord_scale_category <- function(tr, df, yscale, yscale_mapping=NULL, ...) {
 
 
 add_angle_slanted <- function(res) {
-    dy <- (res[, "y"] - res[res$parent, "y"]) / diff(range(res[, "y"]))
-    dx <- (res[, "x"] - res[res$parent, "x"]) / diff(range(res[, "x"]))
+    x <- res[["x"]]
+    y <- res[["y"]]
+    dy <- (y - y[match(res$parent, res$node)]) / diff(range(y))
+    dx <- (x - x[match(res$parent, res$node)]) / diff(range(x))
     theta <- atan(dy/dx)
     theta[is.na(theta)] <- 0 ## root node
     res$angle <- theta/pi * 180
 
-    branch.y <- (res[res$parent, "y"] + res[, "y"])/2
+    branch.y <- (y[match(res$parent, res$node)] + y)/2
     idx <- is.na(branch.y)
-    branch.y[idx] <- res[idx, "y"]
+    branch.y[idx] <- y[idx]
     res[, "branch.y"] <- branch.y
     return(res)
 }
 
 calculate_branch_mid <- function(res) {
     res$branch <- with(res, (x[match(parent, node)] + x)/2)
-    ## res$branch <- (res[match(res$parent, res$node), "x"] + res[, "x"])/2
-    if (!is.null(res$length)) {
-        res$length[is.na(res$length)] <- 0
+    if (!is.null(res$branch.length)) {
+        res$branch.length[is.na(res$branch.length)] <- 0
     }
     res$branch[is.na(res$branch)] <- 0
     return(res)
