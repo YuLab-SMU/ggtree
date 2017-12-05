@@ -1,5 +1,6 @@
 CHANGES IN VERSION 1.11.2
 ------------------------
+ o remove beast object support as read.beast output treedata object in treeio <2017-12-05, Tue>
  o deprecate subview, annotation_image and phylopic; remove theme_transparent <2017-12-04, Mon>
  o geom_tiplab now supports geom = "image" or geom = "phylopic" <2017-12-04, Mon>
  o A new layer geom_nodelab that equivalent to geom_tiplab but works for internal node <2017-12-04, Mon>

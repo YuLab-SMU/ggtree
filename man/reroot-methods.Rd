@@ -3,13 +3,10 @@
 \docType{methods}
 \name{reroot}
 \alias{reroot}
-\alias{reroot,beast-method}
 \alias{reroot,phylo-method}
 \title{reroot method}
 \usage{
 reroot(object, node, ...)
-
-\S4method{reroot}{beast}(object, node, ...)
 
 \S4method{reroot}{phylo}(object, node, ...)
 }

@@ -106,118 +106,118 @@ rm.singleton.newick <- function(nwk, outfile = NULL) {
     invisible(tree)
 }
 
-##' @method fortify beast
-##' @export
-fortify.beast <- function(model, data,
-                          layout        = "rectangular",
-                          yscale        = "none",
-                          ladderize     = TRUE,
-                          right         = FALSE,
-                          branch.length = "branch.length",
-                          ndigits       = NULL,
-                          mrsd = NULL, ...) {
+## ##' @method fortify beast
+## ##' @export
+## fortify.beast <- function(model, data,
+##                           layout        = "rectangular",
+##                           yscale        = "none",
+##                           ladderize     = TRUE,
+##                           right         = FALSE,
+##                           branch.length = "branch.length",
+##                           ndigits       = NULL,
+##                           mrsd = NULL, ...) {
 
-    model <- set_branch_length(model, branch.length)
-    phylo <- model@phylo
-    df    <- fortify(phylo,
-                     layout = layout,
-                     branch.length = branch.length,
-                     ladderize = ladderize,
-                     right = right,
-                     mrsd = mrsd, ...)
+##     model <- set_branch_length(model, branch.length)
+##     phylo <- model@phylo
+##     df    <- fortify(phylo,
+##                      layout = layout,
+##                      branch.length = branch.length,
+##                      ladderize = ladderize,
+##                      right = right,
+##                      mrsd = mrsd, ...)
 
-    stats <- model@stats
+##     stats <- model@stats
 
-    scn <- colnames(stats)
-    scn <- scn[scn != 'node']
+##     scn <- colnames(stats)
+##     scn <- scn[scn != 'node']
 
-    for (cn in scn) {
-        if (cn %in% colnames(df)) {
-            colnames(stats)[colnames(stats) == cn] <- paste0(cn, "_")
-            msg <- paste("feature", cn, "was renamed to", paste0(cn, "_"), "due to name conflict...")
-            warning(msg)
-        }
-    }
+##     for (cn in scn) {
+##         if (cn %in% colnames(df)) {
+##             colnames(stats)[colnames(stats) == cn] <- paste0(cn, "_")
+##             msg <- paste("feature", cn, "was renamed to", paste0(cn, "_"), "due to name conflict...")
+##             warning(msg)
+##         }
+##     }
 
-    idx <- which(colnames(stats) != "node")
-    for (ii in idx) {
-        if (is.character_beast(stats, ii)) {
-            len <- sapply(stats[,ii], length)
-            if (any(len > 1)) {
-                stats[,ii] %<>% sapply(., function(x) {
-                    y <- unlist(x) %>% as.character %>%
-                        gsub("\"", "", .) %>% gsub("'", "", .)
-                    if (length(y) == 1) {
-                        return(y)
-                    } else {
-                        return(paste0('{', paste0(y, collapse = ','), '}'))
-                    }
-                })
-            } else {
-                stats[,ii] %<>% unlist %>% as.character %>%
-                    gsub("\"", "", .) %>% gsub("'", "", .)
-            }
-            next
-        }
+##     idx <- which(colnames(stats) != "node")
+##     for (ii in idx) {
+##         if (is.character_beast(stats, ii)) {
+##             len <- sapply(stats[,ii], length)
+##             if (any(len > 1)) {
+##                 stats[,ii] %<>% sapply(., function(x) {
+##                     y <- unlist(x) %>% as.character %>%
+##                         gsub("\"", "", .) %>% gsub("'", "", .)
+##                     if (length(y) == 1) {
+##                         return(y)
+##                     } else {
+##                         return(paste0('{', paste0(y, collapse = ','), '}'))
+##                     }
+##                 })
+##             } else {
+##                 stats[,ii] %<>% unlist %>% as.character %>%
+##                     gsub("\"", "", .) %>% gsub("'", "", .)
+##             }
+##             next
+##         }
 
-        len <- sapply(stats[,ii], length)
-        if ( all(len == 1) ) {
-            stats[, ii] %<>% unlist %>% as.character %>% as.numeric
-            if (!is.null(ndigits)) {
-                stats[, ii] %<>% round(., ndigits)
-            }
-        } else if (all(len <= 2)) {
-            stats[, ii] %<>% sapply(., function(x) {
-                y <- unlist(x) %>% as.character %>% as.numeric
-                if (!is.null(ndigits)) {
-                    y %<>% round(., ndigits)
-                }
-                if (length(y) == 1) {
-                    return(y)
-                } else {
-                    return(paste0('[', paste0(y, collapse = ','), ']'))
-                }
-            })
-        } else {
-            stats[,ii] %<>% sapply(., function(x) {
-                y <- unlist(x) %>% as.character %>% as.numeric
-                if (!is.null(ndigits)) {
-                    y %<>% round(., ndigits)
-                }
-                if (length(y) == 1) {
-                    return(y)
-                } else {
-                    return(paste0('{', paste0(y, collapse = ','), '}'))
-                }
-            })
-        }
-    }
+##         len <- sapply(stats[,ii], length)
+##         if ( all(len == 1) ) {
+##             stats[, ii] %<>% unlist %>% as.character %>% as.numeric
+##             if (!is.null(ndigits)) {
+##                 stats[, ii] %<>% round(., ndigits)
+##             }
+##         } else if (all(len <= 2)) {
+##             stats[, ii] %<>% sapply(., function(x) {
+##                 y <- unlist(x) %>% as.character %>% as.numeric
+##                 if (!is.null(ndigits)) {
+##                     y %<>% round(., ndigits)
+##                 }
+##                 if (length(y) == 1) {
+##                     return(y)
+##                 } else {
+##                     return(paste0('[', paste0(y, collapse = ','), ']'))
+##                 }
+##             })
+##         } else {
+##             stats[,ii] %<>% sapply(., function(x) {
+##                 y <- unlist(x) %>% as.character %>% as.numeric
+##                 if (!is.null(ndigits)) {
+##                     y %<>% round(., ndigits)
+##                 }
+##                 if (length(y) == 1) {
+##                     return(y)
+##                 } else {
+##                     return(paste0('{', paste0(y, collapse = ','), '}'))
+##                 }
+##             })
+##         }
+##     }
 
 
-    cn <- colnames(stats)
-    lo <- cn[grep("_lower", cn)]
-    hi <- gsub("lower$", "upper", lo)
-    rid <- gsub("_lower$", "", lo)
+##     cn <- colnames(stats)
+##     lo <- cn[grep("_lower", cn)]
+##     hi <- gsub("lower$", "upper", lo)
+##     rid <- gsub("_lower$", "", lo)
 
-    for (i in seq_along(rid)) {
-        stats[, rid[i]] <- paste0("[", stats[, lo[i]], ",", stats[, hi[i]], "]")
-        stats[is.na(stats[, lo[i]]), rid[i]] <- NA
-    }
+##     for (i in seq_along(rid)) {
+##         stats[, rid[i]] <- paste0("[", stats[, lo[i]], ",", stats[, hi[i]], "]")
+##         stats[is.na(stats[, lo[i]]), rid[i]] <- NA
+##     }
 
-    idx   <- match(df$node, stats$node)
-    stats <- stats[idx,]
-    cn_stats <- colnames(stats)
-    stats <- stats[, cn_stats != "node"]
+##     idx   <- match(df$node, stats$node)
+##     stats <- stats[idx,]
+##     cn_stats <- colnames(stats)
+##     stats <- stats[, cn_stats != "node"]
 
-    df <- cbind(df, stats)
-    if (is(stats, "data.frame") == FALSE) {
-        colnames(df)[colnames(df) == "stats"] <- cn_stats[cn_stats != "node"]
-    }
+##     df <- cbind(df, stats)
+##     if (is(stats, "data.frame") == FALSE) {
+##         colnames(df)[colnames(df) == "stats"] <- cn_stats[cn_stats != "node"]
+##     }
 
-    df <- scaleY(phylo, df, yscale, layout, ...)
+##     df <- scaleY(phylo, df, yscale, layout, ...)
 
-    append_extraInfo(df, model)
-}
+##     append_extraInfo(df, model)
+## }
 
 
 ##' @method fortify codeml
@@ -392,7 +392,7 @@ scaleY <- function(phylo, df, yscale, layout, ...) {
         warning("yscale is not available...\n")
         return(df)
     }
-    if (is.numeric(df[, yscale])) {
+    if (is.numeric(df[[yscale]])) {
         y <- getYcoord_scale_numeric(phylo, df, yscale, ...)
         ## if (order.y) {
         ##     y <- getYcoord_scale2(phylo, df, yscale)

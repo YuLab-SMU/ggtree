@@ -135,7 +135,7 @@ get.fields(beast)
 Users can use `ggtree(beast)` to visualize the tree and add layer to annotate it.
 
 ```{r warning=FALSE, fig.width=10, fig.height=10}
-ggtree(beast, ndigits=2, branch.length = 'none') + geom_text(aes(x=branch, label=length_0.95_HPD), vjust=-.5, color='firebrick')
+ggtree(beast, branch.length = 'none') + geom_text(aes(x=branch, label=range_format(length_0.95_HPD)), vjust=-.5, color='firebrick')
 ```
 
 `ggtree` provides `geom_range` layer to display uncertainty of branch length.

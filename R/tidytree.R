@@ -18,14 +18,12 @@ fortify.treedata <- function(model, data, layout="rectangular", yscale="none",
     }
     ypos <- getYcoord(x)
     N <- Nnode(x, internal.only=FALSE)
-    xypos <- data.frame(node=1:N, x=xpos, y=ypos)
+    xypos <- data_frame(node=1:N, x=xpos, y=ypos)
 
-    df <- as.data.frame(model, branch.length="branch.length") # already set by set_branch_length
-    idx <- is.na(df$parent)
-    df$parent[idx] <- df$node[idx]
-    rownames(df) <- df$node
+    df <- as_data_frame(model, branch.length="branch.length") # already set by set_branch_length
+    ##rownames(df) <- as.character(df$node)
 
-    res <- merge(df, xypos, by='node', all.y=TRUE)
+    res <- full_join(df, xypos, by = "node")
 
     ## add branch mid position
     res <- calculate_branch_mid(res)
@@ -39,31 +37,41 @@ fortify.treedata <- function(model, data, layout="rectangular", yscale="none",
     scaleY(as.phylo(model), res, yscale, layout, ...)
 }
 
-##' @method as.data.frame treedata
+##' @method as_data_frame treedata
+##' @importFrom tibble as_data_frame
 ##' @export
 ## @importFrom treeio Nnode
 ## @importFrom treeio Ntip
-as.data.frame.treedata <- function(x, row.names, optional, branch.length = "branch.length", ...) {
+as_data_frame.treedata <- function(x, row.names, optional, branch.length = "branch.length", ...) {
     tree <- set_branch_length(x, branch.length)
 
     ## res <- as.data.frame(tree@phylo)
-    res <- as.data.frame_(tree@phylo)
-    tree_anno <- get_tree_data(x)
+    res <- as_data_frame_(tree@phylo)
+    tree_anno <- as_data_frame(get_tree_data(x))
     if (nrow(tree_anno) > 0) {
-        res <- merge(res, tree_anno, by="node", all.x=TRUE)
+        by <- "node"
+        tree_anno$node <- as.integer(tree_anno$node)
+        if ("parent" %in% colnames(tree_anno)) {
+            by <- c(by, "parent")
+            tree_anno$parent <- as.integer(tree_anno$parent)
+        }
+
+        res <- full_join(res, tree_anno, by=by)
     }
     return(res)
 }
 
 ##@method as.data.frame phylo
 ##@export
-as.data.frame_ <- function(x, row.names, optional, branch.length = "branch.length", ...) {
+##' @importFrom tibble data_frame
+##' @importFrom dplyr full_join
+as_data_frame_ <- function(x, row.names, optional, branch.length = "branch.length", ...) {
     phylo <- x
     ntip <- Ntip(phylo)
     N <- Nnode(phylo, internal.only=FALSE)
 
     tip.label <- phylo[["tip.label"]]
-    res <- as.data.frame(phylo[["edge"]])
+    res <- as_data_frame(phylo[["edge"]])
     colnames(res) <- c("parent", "node")
     if (!is.null(phylo$edge.length))
         res$branch.length <- phylo$edge.length
@@ -73,11 +81,14 @@ as.data.frame_ <- function(x, row.names, optional, branch.length = "branch.lengt
     if ( !is.null(phylo$node.label) ) {
         label[(ntip+1):N] <- phylo$node.label
     }
-    label.df <- data.frame(node=1:N, label=label)
-    res <- merge(res, label.df, by='node', all.y=TRUE)
     isTip <- rep(FALSE, N)
     isTip[1:ntip] <- TRUE
-    res$isTip <- isTip
+
+    label.df <- data_frame(node=1:N, label=label, isTip = isTip)
+    res <- full_join(res, label.df, by='node')
+
+    idx <- is.na(res$parent)
+    res$parent[idx] <- res$node[idx]
 
     return(res)
 }
@@ -1449,7 +1460,7 @@ getYcoord_scale_numeric <- function(tr, df, yscale, ...) {
 }
 
 .assign_parent_status <- function(tr, df, variable) {
-    yy <- df[, variable]
+    yy <- df[[variable]]
     na.idx <- which(is.na(yy))
     if (length(na.idx) > 0) {
         tree <- get.tree(tr)
@@ -1470,7 +1481,7 @@ getYcoord_scale_numeric <- function(tr, df, yscale, ...) {
 }
 
 .assign_child_status <- function(tr, df, variable, yscale_mapping=NULL) {
-    yy <- df[, variable]
+    yy <- df[[variable]]
     if (!is.null(yscale_mapping)) {
         yy <- yscale_mapping[yy]
     }
@@ -1507,7 +1518,7 @@ getYcoord_scale_category <- function(tr, df, yscale, yscale_mapping=NULL, ...) {
     }
 
     if (yscale == "label") {
-        yy <- df[, yscale]
+        yy <- df[[yscale]]
         ii <- which(is.na(yy))
         if (length(ii)) {
             df[ii, yscale] <- df[ii, "node"]
@@ -1518,7 +1529,7 @@ getYcoord_scale_category <- function(tr, df, yscale, yscale_mapping=NULL, ...) {
     df <- .assign_parent_status(tr, df, yscale)
     df <- .assign_child_status(tr, df, yscale, yscale_mapping)
 
-    y <- df[, yscale]
+    y <- df[[yscale]]
 
     if (anyNA(y)) {
         warning("NA found in y scale mapping, all were setting to 0")
@@ -1543,7 +1554,8 @@ add_angle_slanted <- function(res) {
 }
 
 calculate_branch_mid <- function(res) {
-    res$branch <- (res[res$parent, "x"] + res[, "x"])/2
+    res$branch <- with(res, (x[match(parent, node)] + x)/2)
+    ## res$branch <- (res[match(res$parent, res$node), "x"] + res[, "x"])/2
     if (!is.null(res$length)) {
         res$length[is.na(res$length)] <- 0
     }
@@ -1566,6 +1578,9 @@ set_branch_length <- function(tree_object, branch.length) {
 
     tree_anno <- get_tree_data(tree_object)
 
+    if (is(tree_anno, "matrix"))
+        tree_anno <- as.data.frame(tree_anno)
+
     phylo <- get.tree(tree_object)
 
     cn <- colnames(tree_anno)
@@ -1573,7 +1588,7 @@ set_branch_length <- function(tree_object, branch.length) {
 
     length <- match.arg(branch.length, cn)
 
-    if (all(is.na(as.numeric(tree_anno[, length])))) {
+    if (all(is.na(as.numeric(tree_anno[[length]])))) {
         stop("branch.length should be numerical attributes...")
     }
 
@@ -1584,7 +1599,7 @@ set_branch_length <- function(tree_object, branch.length) {
                 by  = "node",
                 all.x = TRUE)
     dd <- dd[match(edge$node, dd$node),]
-    len <- unlist(dd[, length])
+    len <- unlist(dd[[length]])
     len <- as.numeric(len)
     len[is.na(len)] <- 0
 

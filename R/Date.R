@@ -14,13 +14,14 @@ scaleX_by_time_from_mrsd <- function(df, mrsd, as.Date) {
     date <- Date2decimal(mrsd)
 
     df$x <- df$x + date - max(df$x)
-    df$branch <- (df[df$parent, "x"] + df[, "x"])/2
+    df$branch <- with(df, (x[match(parent, node)] + x)/2)
+    ## df$branch <- (df[df$parent, "x"] + df[, "x"])/2
 
     if (as.Date) {
         df$x <- decimal2Date(df$x)
         df$branch <- decimal2Date(df$branch)
     }
-    
+
     return(df)
 }
 
@@ -28,7 +29,7 @@ scaleX_by_time_from_mrsd <- function(df, mrsd, as.Date) {
 
 ##' convert Date to decimal format, eg "2014-05-05" to "2014.34"
 ##'
-##' 
+##'
 ##' @title Date2decimal
 ##' @param x Date
 ##' @return numeric
@@ -38,7 +39,7 @@ Date2decimal <- function(x) {
     if (is(x, "numeric")) {
         return(x)
     }
-    
+
     if (is(x, "character")) {
         x <- as.Date(x)
     }
@@ -49,7 +50,7 @@ Date2decimal <- function(x) {
 
 ##' convert decimal format to Date, eg "2014.34" to "2014-05-05"
 ##'
-##' 
+##'
 ##' @title decimal2Date
 ##' @param x numerical number, eg 2014.34
 ##' @return Date

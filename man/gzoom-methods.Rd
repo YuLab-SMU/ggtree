@@ -5,7 +5,6 @@
 \alias{gzoom}
 \alias{gzoom}
 \alias{gzoom,ggtree-method}
-\alias{gzoom,beast-method}
 \alias{gzoom,codeml-method}
 \alias{gzoom,treedata-method}
 \alias{gzoom,paml_rst-method}
@@ -16,9 +15,6 @@ gzoom(object, focus, subtree = FALSE, widths = c(0.3, 0.7), ...)
 
 \S4method{gzoom}{ggtree}(object, focus, widths = c(0.3, 0.7),
   xmax_adjust = 0)
-
-\S4method{gzoom}{beast}(object, focus, subtree = FALSE, widths = c(0.3,
-  0.7))
 
 \S4method{gzoom}{codeml}(object, focus, subtree = FALSE, widths = c(0.3,
   0.7))
