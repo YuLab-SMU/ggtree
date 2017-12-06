@@ -473,7 +473,8 @@ fortify.phylo <- function(model, data,
                           right     = FALSE,
                           mrsd      = NULL,
                           as.Date   = FALSE, ...) {
-    tree <- reorder.phylo(model, 'postorder')
+    ## tree <- reorder.phylo(model, 'postorder')
+    tree <- model
 
     if (ladderize == TRUE) {
         tree <- ladderize(tree, right=right)
