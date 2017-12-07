@@ -36,6 +36,10 @@ check2: build
 	cd ..;\
 	R CMD check $(PKGNAME)_$(PKGVERS).tar.gz
 
+check3: rd build2
+	cd ..;\
+	R CMD check --ignore-vignettes $(PKGNAME)_$(PKGVERS).tar.gz
+
 bioccheck:
 	cd ..;\
 	Rscript -e 'BiocCheck::BiocCheck("$(PKGNAME)_$(PKGVERS).tar.gz")'

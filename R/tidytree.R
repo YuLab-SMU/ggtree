@@ -1,27 +1,63 @@
 ##' @importFrom ggplot2 fortify
 ##' @method fortify treedata
 ##' @export
-fortify.treedata <- function(model, data, layout="rectangular", yscale="none",
-                             ladderize=TRUE, right=FALSE, branch.length ="branch.length",
-                             mrsd=NULL, as.Date = FALSE, ...) {
+fortify.treedata <- function(model, data,
+                             layout        = "rectangular",
+                             yscale        = "none",
+                             ladderize     = TRUE,
+                             right         = FALSE,
+                             branch.length = "branch.length",
+                             mrsd          = NULL,
+                             as.Date       = FALSE, ...) {
 
     model <- set_branch_length(model, branch.length)
 
-    x <- reorder.phylo(get.tree(model), "postorder")
+    fortify.phylo(model, data,
+                  layout        = layout,
+                  yscale        = yscale,
+                  ladderize     = ladderize,
+                  right         = right,
+                  branch.length = branch.length,
+                  mrsd          = mrsd,
+                  as.Date       = as.Date, ...)
+}
+
+##' @importFrom ape ladderize
+##' @method fortify phylo
+##' @export
+fortify.phylo <- function(model, data,
+                          layout        = "rectangular",
+                          ladderize     = TRUE,
+                          right         = FALSE,
+                          branch.length = "branch.length",
+                          mrsd          = NULL,
+                          as.Date       = FALSE,
+                          yscale        = "none",
+                          ...) {
+
+    x <- as.phylo(model) ## reorder.phylo(get.tree(model), "postorder")
     if (ladderize == TRUE) {
         x <- ladderize(x, right=right)
     }
+
+    if (! is.null(x$edge.length)) {
+        if (anyNA(x$edge.length)) {
+            warning("'edge.length' contains NA values...\n## setting 'edge.length' to NULL automatically when plotting the tree...")
+            x$edge.length <- NULL
+        }
+    }
+
     if (is.null(x$edge.length) || branch.length == "none") {
         xpos <- getXcoord_no_length(x)
     } else {
         xpos <- getXcoord(x)
     }
+
     ypos <- getYcoord(x)
     N <- Nnode(x, internal.only=FALSE)
     xypos <- data_frame(node=1:N, x=xpos, y=ypos)
 
-    df <- as_data_frame(model, branch.length="branch.length") # already set by set_branch_length
-    ##rownames(df) <- as.character(df$node)
+    df <- as_data_frame(model)
 
     res <- full_join(df, xypos, by = "node")
 
@@ -41,15 +77,14 @@ fortify.treedata <- function(model, data, layout="rectangular", yscale="none",
     scaleY(as.phylo(model), res, yscale, layout, ...)
 }
 
+
 ##' @method as_data_frame treedata
 ##' @importFrom tibble as_data_frame
 ##' @export
-## @importFrom treeio Nnode
-## @importFrom treeio Ntip
-as_data_frame.treedata <- function(x, branch.length = "branch.length", ...) {
-    tree <- set_branch_length(x, branch.length)
-
-    res <- as_data_frame(tree@phylo)
+##' @importFrom treeio Nnode
+##' @importFrom treeio Ntip
+as_data_frame.treedata <- function(x, ...) {
+    res <- as_data_frame(x@phylo)
     tree_anno <- as_data_frame(get_tree_data(x))
     if (nrow(tree_anno) > 0) {
         by <- "node"
@@ -109,24 +144,17 @@ as_data_frame.phylo <- function(x, ...) {
 }
 
 get_tree_data <- function(tree_object) {
-    if (is(tree_object, "codeml")) {
-        tree_anno <- tree_object@mlc@dNdS
-    } else if (is(tree_object, "codeml_mlc")) {
-        tree_anno <- tree_object@dNdS
-    } else if (is(tree_object, "beast")) {
-        tree_anno <- tree_object@stats
-    } else {
-        tree_anno <- tree_object@data
+    tree_anno <- tree_object@data
+    extraInfo <- tree_object@extraInfo
+
+    if (nrow(tree_anno) == 0) {
+        return(extraInfo)
+    }
+    if (nrow(extraInfo) == 0) {
+        return(tree_anno)
     }
 
-    if (has.extraInfo(tree_object)) {
-        if (nrow(tree_anno) > 0) {
-            tree_anno <- merge(tree_anno, tree_object@extraInfo, by="node")
-        } else {
-            return(tree_object@extraInfo)
-        }
-    }
-    return(tree_anno)
+    full_join(tree_anno, extraInfo, by = "node")
 }
 
 
@@ -915,7 +943,7 @@ getChild.df <- function(df, node) {
     if (length(i) == 0) {
         return(0) # it has no children, hence tip node.
     }
-    res <- df[i, "node"]
+    res <- df$node[i]
     res <- res[res != node] ## node may root
     return(res)
 }
@@ -1676,6 +1704,8 @@ set_branch_length <- function(tree_object, branch.length) {
 
 ##     return(phylo)
 ## }
+
+
 re_assign_ycoord_df <- function(df, currentNode) {
     while(anyNA(df$y)) {
         pNode <- with(df, parent[match(currentNode, node)]) %>% unique

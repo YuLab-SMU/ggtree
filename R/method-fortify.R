@@ -220,169 +220,132 @@ rm.singleton.newick <- function(nwk, outfile = NULL) {
 ## }
 
 
-##' @method fortify codeml
-##' @export
-fortify.codeml <- function(model, data,
-                           layout        = "rectangular",
-                           yscale        = "none",
-                           ladderize     = TRUE,
-                           right         = FALSE,
-                           branch.length = "mlc.branch.length",
-                           ndigits       = NULL,
-                           mrsd          = NULL,
-                           ...) {
+## ##' @method fortify codeml
+## ##' @export
+## fortify.codeml <- function(model, data,
+##                            layout        = "rectangular",
+##                            yscale        = "none",
+##                            ladderize     = TRUE,
+##                            right         = FALSE,
+##                            branch.length = "mlc.branch.length",
+##                            ndigits       = NULL,
+##                            mrsd          = NULL,
+##                            ...) {
 
-    dNdS <- model@mlc@dNdS
-    if (branch.length == "branch.length") {
-        message("branch.length setting to mlc.branch.length by default...")
-        branch.length <- "mlc.branch.length"
-    }
-    length <- match.arg(branch.length,
-                        c("none",
-                          "mlc.branch.length",
-                          "rst.branch.length",
-                          colnames(dNdS)[-c(1,2)])
-                        )
+##     dNdS <- model@mlc@dNdS
+##     if (branch.length == "branch.length") {
+##         message("branch.length setting to mlc.branch.length by default...")
+##         branch.length <- "mlc.branch.length"
+##     }
+##     length <- match.arg(branch.length,
+##                         c("none",
+##                           "mlc.branch.length",
+##                           "rst.branch.length",
+##                           colnames(dNdS)[-c(1,2)])
+##                         )
 
-    if (length == "rst.branch.length") {
-        phylo <- get.tree(model@rst)
-    } else {
-        if (length == "mlc.branch.length") {
-            length <- "branch.length"
-        }
-        mlc <- set_branch_length(model@mlc, length)
-        phylo <- get.tree(mlc)
-    }
+##     if (length == "rst.branch.length") {
+##         phylo <- get.tree(model@rst)
+##     } else {
+##         if (length == "mlc.branch.length") {
+##             length <- "branch.length"
+##         }
+##         mlc <- set_branch_length(model@mlc, length)
+##         phylo <- get.tree(mlc)
+##     }
 
-    df <- fortify(phylo, data, layout, ladderize, right,
-                  branch.length=length, mrsd=mrsd, ...)
+##     df <- fortify(phylo, data, layout, ladderize, right,
+##                   branch.length=length, mrsd=mrsd, ...)
 
-    res <- merge_phylo_anno.codeml_mlc(df, dNdS, ndigits)
-    df <- merge_phylo_anno.paml_rst(res, model@rst)
-    df <- scaleY(phylo, df, yscale, layout, ...)
+##     res <- merge_phylo_anno.codeml_mlc(df, dNdS, ndigits)
+##     df <- merge_phylo_anno.paml_rst(res, model@rst)
+##     df <- scaleY(phylo, df, yscale, layout, ...)
 
-    append_extraInfo(df, model)
-}
-
-
-##' @method fortify codeml_mlc
-##' @export
-fortify.codeml_mlc <- function(model, data,
-                               layout        = "rectangular",
-                               yscale        = "none",
-                               ladderize     = TRUE,
-                               right         = FALSE,
-                               branch.length = "branch.length",
-                               ndigits       = NULL,
-                               mrsd          = NULL,
-                               ...) {
-
-    model <- set_branch_length(model, branch.length)
-    phylo <- get.tree(model)
-    df <- fortify(phylo, data, layout, ladderize, right,
-                  branch.length=branch.length, mrsd=mrsd, ...)
-
-    dNdS <- model@dNdS
-
-    df <- merge_phylo_anno.codeml_mlc(df, dNdS, ndigits)
-    df <- scaleY(phylo, df, yscale, layout, ...)
-
-    append_extraInfo(df, model)
-}
-
-merge_phylo_anno.codeml_mlc <- function(df, dNdS, ndigits = NULL) {
-    if (!is.null(ndigits)) {
-        idx <- which(! colnames(dNdS) %in% c("node", "parent"))
-        for (ii in idx) {
-            if (is.numeric(dNdS[, ii])) {
-                dNdS[, ii] <- round(dNdS[,ii], ndigits)
-            }
-        }
-    }
-
-    res <- merge(df, dNdS,
-                 by.x  = c("node", "parent"),
-                 by.y  = c("node", "parent"),
-                 all.x = TRUE)
-
-    res[match(df$node, res$node),]
-}
-
-fortify.codeml_mlc_ <- function(model, data,
-                                layout        = "rectangular",
-                                ladderize     = TRUE,
-                                right         = FALSE,
-                                branch.length = "branch.length",
-                                ...) {
-
-}
+##     append_extraInfo(df, model)
+## }
 
 
+## ##' @method fortify codeml_mlc
+## ##' @export
+## fortify.codeml_mlc <- function(model, data,
+##                                layout        = "rectangular",
+##                                yscale        = "none",
+##                                ladderize     = TRUE,
+##                                right         = FALSE,
+##                                branch.length = "branch.length",
+##                                ndigits       = NULL,
+##                                mrsd          = NULL,
+##                                ...) {
 
-##' @method fortify paml_rst
-##' @export
-fortify.paml_rst <- function(model, data,
-                             layout    = "rectangular",
-                             yscale    = "none",
-                             ladderize = TRUE,
-                             right     = FALSE,
-                             mrsd      = NULL,
-                             ...) {
-    df <- fortify.phylo(model@phylo, data, layout, ladderize, right, mrsd=mrsd, ...)
-    df <- merge_phylo_anno.paml_rst(df, model)
-    df <- scaleY(model@phylo, df, yscale, layout, ...)
+##     model <- set_branch_length(model, branch.length)
+##     phylo <- get.tree(model)
+##     df <- fortify(phylo, data, layout, ladderize, right,
+##                   branch.length=branch.length, mrsd=mrsd, ...)
 
-    append_extraInfo(df, model)
-}
+##     dNdS <- model@dNdS
 
-merge_phylo_anno.paml_rst <- function(df, model) {
-    types <- get.fields(model)
-    types <- types[grepl('subs', types)]
-    for (type in types) {
-        anno <- get.subs(model, type=type)
-        colnames(anno)[2] <- type
-        df <- df %add2% anno
-    }
-    return(df)
-}
+##     df <- merge_phylo_anno.codeml_mlc(df, dNdS, ndigits)
+##     df <- scaleY(phylo, df, yscale, layout, ...)
 
+##     append_extraInfo(df, model)
+## }
 
-##' @method fortify phangorn
-##' @export
-fortify.phangorn <- fortify.paml_rst
+## merge_phylo_anno.codeml_mlc <- function(df, dNdS, ndigits = NULL) {
+##     if (!is.null(ndigits)) {
+##         idx <- which(! colnames(dNdS) %in% c("node", "parent"))
+##         for (ii in idx) {
+##             if (is.numeric(dNdS[, ii])) {
+##                 dNdS[, ii] <- round(dNdS[,ii], ndigits)
+##             }
+##         }
+##     }
 
+##     res <- merge(df, dNdS,
+##                  by.x  = c("node", "parent"),
+##                  by.y  = c("node", "parent"),
+##                  all.x = TRUE)
 
-##' @method fortify hyphy
-##' @export
-fortify.hyphy <- fortify.paml_rst
+##     res[match(df$node, res$node),]
+## }
 
 
-##' @method fortify jplace
-##' @importFrom ape read.tree
-##' @importFrom treeio get.placements
-##' @export
-fortify.jplace <- function(model, data,
-                           layout    = "rectangular",
-                           yscale    = "none",
-                           ladderize = TRUE,
-                           right     = FALSE,
-                           mrsd      = NULL,
-                           ...) {
-    df <- extract.treeinfo.jplace(model, layout, ladderize, right, mrsd=mrsd, ...)
-    place <- get.placements(model, by="best")
+## ##' @method fortify paml_rst
+## ##' @export
+## fortify.paml_rst <- function(model, data,
+##                              layout    = "rectangular",
+##                              yscale    = "none",
+##                              ladderize = TRUE,
+##                              right     = FALSE,
+##                              mrsd      = NULL,
+##                              ...) {
+##     df <- fortify.phylo(model@phylo, data, layout, ladderize, right, mrsd=mrsd, ...)
+##     df <- merge_phylo_anno.paml_rst(df, model)
+##     df <- scaleY(model@phylo, df, yscale, layout, ...)
 
-    nplace <- split(place, place$edge_num) %>% lapply(nrow)
-    nplace.df <- data.frame(edgeNum = names(nplace), nplace=unlist(nplace))
+##     append_extraInfo(df, model)
+## }
 
-    ## df <- merge(df, place, by.x="edgeNum", by.y="edge_num", all.x=TRUE)
-    df <- merge(df, nplace.df, by.x="edgeNum", by.y="edgeNum", all.x=TRUE)
+## merge_phylo_anno.paml_rst <- function(df, model) {
+##     types <- get.fields(model)
+##     types <- types[grepl('subs', types)]
+##     for (type in types) {
+##         anno <- get.subs(model, type=type)
+##         colnames(anno)[2] <- type
+##         df <- df %add2% anno
+##     }
+##     return(df)
+## }
 
-    df$nplace[is.na(df$nplace)] <- 0
 
-    df <- scaleY(model@phylo, df, yscale, layout, ...)
+## ##' @method fortify phangorn
+## ##' @export
+## fortify.phangorn <- fortify.paml_rst
 
-    append_extraInfo(df, model)
-}
+
+## ##' @method fortify hyphy
+## ##' @export
+## fortify.hyphy <- fortify.paml_rst
+
 
 scaleY <- function(phylo, df, yscale, layout, ...) {
     if (yscale == "none") {
@@ -447,72 +410,72 @@ fortify.phylo4d <- function(model, data,
 
 
 
-##' fortify a phylo to data.frame
-##'
-##'
-##' @rdname fortify
-##' @title fortify
-##' @param model phylo object
-##' @param data not use here
-##' @param layout layout
-##' @param ladderize ladderize, logical
-##' @param right logical
-##' @param mrsd most recent sampling date
-##' @param as.Date logical whether using Date class in time tree
-##' @param ... additional parameter
-##' @return data.frame
-##' @importFrom ape ladderize
-##' @importFrom ape reorder.phylo
-##' @importFrom ggplot2 fortify
-##' @method fortify phylo
-##' @export
-##' @author Yu Guangchuang
-fortify.phylo <- function(model, data,
-                          layout    = "rectangular",
-                          ladderize = TRUE,
-                          right     = FALSE,
-                          mrsd      = NULL,
-                          as.Date   = FALSE, ...) {
-    ## tree <- reorder.phylo(model, 'postorder')
-    tree <- model
+## ##' fortify a phylo to data.frame
+## ##'
+## ##'
+## ##' @rdname fortify
+## ##' @title fortify
+## ##' @param model phylo object
+## ##' @param data not use here
+## ##' @param layout layout
+## ##' @param ladderize ladderize, logical
+## ##' @param right logical
+## ##' @param mrsd most recent sampling date
+## ##' @param as.Date logical whether using Date class in time tree
+## ##' @param ... additional parameter
+## ##' @return data.frame
+## ##' @importFrom ape ladderize
+## ##' @importFrom ape reorder.phylo
+## ##' @importFrom ggplot2 fortify
+## ##' @method fortify phylo
+## ##' @export
+## ##' @author Yu Guangchuang
+## fortify.phylo <- function(model, data,
+##                           layout    = "rectangular",
+##                           ladderize = TRUE,
+##                           right     = FALSE,
+##                           mrsd      = NULL,
+##                           as.Date   = FALSE, ...) {
+##     ## tree <- reorder.phylo(model, 'postorder')
+##     tree <- model
 
-    if (ladderize == TRUE) {
-        tree <- ladderize(tree, right=right)
-    }
+##     if (ladderize == TRUE) {
+##         tree <- ladderize(tree, right=right)
+##     }
 
-    if (! is.null(tree$edge.length)) {
-        if (anyNA(tree$edge.length)) {
-            warning("'edge.length' contains NA values...\n## setting 'edge.length' to NULL automatically when plotting the tree...")
-            tree$edge.length <- NULL
-        }
-    }
+##     if (! is.null(tree$edge.length)) {
+##         if (anyNA(tree$edge.length)) {
+##             warning("'edge.length' contains NA values...\n## setting 'edge.length' to NULL automatically when plotting the tree...")
+##             tree$edge.length <- NULL
+##         }
+##     }
 
-    df <- as.data.frame(tree, layout=layout, ...)
-    idx <- is.na(df$parent)
-    df$parent[idx] <- df$node[idx]
-    rownames(df) <- df$node
-    cn <- colnames(df)
-    colnames(df)[grep("length", cn)] <- "branch.length"
-    if(layout == "slanted") {
-        df <- add_angle_slanted(df)
-    }
-    aa <- names(attributes(tree))
-    group <- aa[ ! aa %in% c("names", "class", "order", "reroot", "node_map")]
-    if (length(group) > 0) {
-        for (group_ in group) {
-            ## groupOTU & groupClade
-            group_info <- attr(tree, group_)
-            if (length(group_info) == nrow(df)) {
-                df[, group_] <- group_info
-            }
-        }
-    }
+##     df <- as.data.frame(tree, layout=layout, ...)
+##     idx <- is.na(df$parent)
+##     df$parent[idx] <- df$node[idx]
+##     rownames(df) <- df$node
+##     cn <- colnames(df)
+##     colnames(df)[grep("length", cn)] <- "branch.length"
+##     if(layout == "slanted") {
+##         df <- add_angle_slanted(df)
+##     }
+##     aa <- names(attributes(tree))
+##     group <- aa[ ! aa %in% c("names", "class", "order", "reroot", "node_map")]
+##     if (length(group) > 0) {
+##         for (group_ in group) {
+##             ## groupOTU & groupClade
+##             group_info <- attr(tree, group_)
+##             if (length(group_info) == nrow(df)) {
+##                 df[, group_] <- group_info
+##             }
+##         }
+##     }
 
-    if (!is.null(mrsd)) {
-        df <- scaleX_by_time_from_mrsd(df, mrsd, as.Date)
-    }
-    return(df)
-}
+##     if (!is.null(mrsd)) {
+##         df <- scaleX_by_time_from_mrsd(df, mrsd, as.Date)
+##     }
+##     return(df)
+## }
 
 ##' convert phylo to data.frame
 ##'
@@ -592,29 +555,6 @@ as.data.frame.phylo_ <- function(x, layout="rectangular",
     return(res)
 }
 
-## ##' @method fortify nhx
-## ##' @export
-## fortify.nhx <- function(model, data, layout= "rectangular",
-##                         ladderize=TRUE, right=FALSE, mrsd=NULL, ...) {
-##     df <- fortify(get.tree(model), layout=layout, ladderize=ladderize, right=right, mrsd=mrsd, ...)
-##     df <- merge(df, model@nhx_tags, by.x="node", by.y="node", all.x=TRUE)
-##     append_extraInfo(df, model)
-## }
-
-
-## ##' @method fortify raxml
-## ##' @export
-## fortify.raxml <- function(model, data, layout= "rectangular",
-##                           ladderize=TRUE, right=FALSE, mrsd=NULL, ...) {
-##     df <- fortify(get.tree(model), layout=layout, ladderize=ladderize, right=right, mrsd=mrsd, ...)
-##     df <- merge(df, model@bootstrap, by.x="node", by.y="node", all.x=TRUE)
-##     append_extraInfo(df, model)
-## }
-
-## ##' @method fortify apeBootstrap
-## ##' @export
-## fortify.apeBootstrap <- fortify.raxml
-
 
 ##' @method fortify multiPhylo
 ##' @export
@@ -633,38 +573,9 @@ fortify.multiPhylo <-  function(model, data,
     df <- do.call("rbind", df.list)
     df$.id <- rep(names(df.list), times=sapply(df.list, nrow))
     df$.id <- factor(df$.id, levels=names(df.list))
-
-    ## nNode <- sapply(df.list, nrow)
-    ## nNode2 <- cumsum(c(0, nNode[-length(nNode)]))
-    ## df$parent <- df$parent + rep(nNode2, times=nNode)
     return(df)
 }
 
-##' @method fortify phylip
-##' @export
-fortify.phylip <- function(model, data,
-                           layout        = "rectangular",
-                           ladderize     = TRUE,
-                           right         = FALSE,
-                           branch.length = "TREE",
-                           mrsd          = NULL, ...) {
-    trees <- get.tree(model)
-    fortify(trees, layout=layout, ladderize = ladderize, right=right, mrsd=mrsd, ...)
-}
-
-##' @method fortify r8s
-##' @export
-fortify.r8s <- function(model, data,
-                        layout        = "rectangular",
-                        ladderize     = TRUE,
-                        right         = FALSE,
-                        branch.length = "TREE",
-                        mrsd          = NULL, ...) {
-    trees <- get.tree(model)
-    branch.length %<>% match.arg(names(trees))
-    phylo <- trees[[branch.length]]
-    fortify(phylo, layout=layout, ladderize = ladderize, right=right, mrsd=mrsd, ...)
-}
 
 ##' @method fortify obkData
 ##' @export

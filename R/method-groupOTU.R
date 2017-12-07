@@ -191,30 +191,30 @@ setMethod("groupOTU", signature(object="ggtree"),
 
 groupOTU.ggtree <- function(object, focus, group_name, ...) {
     df <- object$data
-    df[, group_name] <- 0
-    object$data <- groupOTU.df(df, focus, group_name, ...)
+    df[[group_name]] <- 0
+    object$data <- groupOTU.tbl(df, focus, group_name, ...)
     return(object)
 }
 
 
-groupOTU.df <- function(df, focus, group_name, ...) {
+groupOTU.tbl <- function(df, focus, group_name, ...) {
     if (is(focus, "list")) {
         for (i in 1:length(focus)) {
-            df <- gfocus.df(df, focus[[i]], group_name, names(focus)[i], ...)
+            df <- gfocus.tbl(df, focus[[i]], group_name, names(focus)[i], ...)
         }
     } else {
-        df <- gfocus.df(df, focus, group_name, ...)
+        df <- gfocus.tbl(df, focus, group_name, ...)
     }
-    df[, group_name] <- factor(df[, group_name])
+    df[[group_name]] <- factor(df[[group_name]])
     return(df)
 }
 
-gfocus.df <- function(df, focus, group_name, focus_label=NULL, overlap="overwrite") {
+gfocus.tbl <- function(df, focus, group_name, focus_label=NULL, overlap="overwrite") {
     overlap <- match.arg(overlap, c("origin", "overwrite", "abandon"))
 
     focus <- df$node[which(df$label %in% focus)]
     if (is.null(focus_label))
-        focus_label <- max(suppressWarnings(as.numeric(df[, group_name])), na.rm=TRUE) + 1
+        focus_label <- max(suppressWarnings(as.numeric(df[[group_name]])), na.rm=TRUE) + 1
 
     if (length(focus) == 1) {
         hit <- match(focus, df$node)
@@ -231,7 +231,7 @@ gfocus.df <- function(df, focus, group_name, focus_label=NULL, overlap="overwrit
         hit <- match(foc, df$node)
     }
 
-    foc <- df[, group_name]
+    foc <- df[[group_name]]
     if (overlap == "origin") {
         sn <- hit[is.na(foc[hit]) | foc[hit] == 0]
     } else if (overlap == "abandon") {

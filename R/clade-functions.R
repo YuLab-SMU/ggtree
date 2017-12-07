@@ -133,12 +133,12 @@ expand <- function(tree_view=NULL, node) {
     root <- which(df$node == df$parent)
     pp <- node
     while(any(pp != root)) {
-        df[pp, "y"] <- mean(df[getChild.df(df, pp), "y"])
-        pp <- df[pp, "parent"]
+        df[pp, "y"] <- mean(df$y[getChild.df(df, pp)])
+        pp <- df$parent[pp]
     }
     j <- getChild.df(df, pp)
     j <- j[j!=pp]
-    df[pp, "y"] <- mean(df[j, "y"])
+    df[pp, "y"] <- mean(df$y[j])
 
     ## re-calculate branch mid position
     df <- calculate_branch_mid(df)
@@ -166,17 +166,17 @@ rotate <- function(tree_view=NULL, node) {
     tip <- sp[df$isTip[sp_idx]]
     sp.df <- df[sp_idx,]
     ii <- with(sp.df, match(tip, node))
-    jj <- ii[order(sp.df[ii, "y"])]
-    sp.df[jj,"y"] <- rev(sp.df[jj, "y"])
+    jj <- ii[order(sp.df$y[ii])]
+    sp.df[jj,"y"] <- rev(sp.df$y[jj])
     sp.df[-jj, "y"] <- NA
     sp.df <- re_assign_ycoord_df(sp.df, tip)
 
     df[sp_idx, "y"] <- sp.df$y
     ## df$node == node is TRUE when node was root
-    df[df$node == node, "y"] <- mean(df[df$parent == node & df$node != node, "y"])
+    df[df$node == node, "y"] <- mean(df$y[df$parent == node & df$node != node])
     pnode <- df$parent[df$node == node]
     if (pnode != node && !is.na(pnode)) {
-        df[df$node == pnode, "y"] <- mean(df[df$parent == pnode, "y"])
+        df[df$node == pnode, "y"] <- mean(df$y[df$parent == pnode])
     }
 
     tree_view$data <- calculate_angle(df)
@@ -275,9 +275,9 @@ scaleClade <- function(tree_view=NULL, node, scale=1, vertical_only=TRUE) {
 
     ## new_span <- span * scale
     old.sp.df <- sp.df
-    sp.df$y <- df[node, "y"] + (sp.df$y - df[node, "y"]) * scale
+    sp.df$y <- df$y[node] + (sp.df$y - df$y[node]) * scale
     if (! vertical_only) {
-        sp.df$x <- df[node, "x"] + (sp.df$x - df[node, "x"]) * scale
+        sp.df$x <- df$x[node] + (sp.df$x - df$x[node]) * scale
     }
 
     scale_diff.up <- max(sp.df$y) - max(old.sp.df$y)
@@ -285,12 +285,12 @@ scaleClade <- function(tree_view=NULL, node, scale=1, vertical_only=TRUE) {
 
     ii <- df$y > max(old.sp.df$y)
     if (sum(ii) > 0) {
-        df[ii, "y"] <- df[ii, "y"] + scale_diff.up
+        df[ii, "y"] <- df$y[ii] + scale_diff.up
     }
 
     jj <- df$y < min(old.sp.df$y)
     if (sum(jj) > 0) {
-        df[jj, "y"] <- df[jj, "y"] + scale_diff.lw
+        df[jj, "y"] <- df$y[jj] + scale_diff.lw
     }
 
     df[sp,] <- sp.df
@@ -320,13 +320,13 @@ scaleClade <- function(tree_view=NULL, node, scale=1, vertical_only=TRUE) {
 
 reassign_y_from_node_to_root <- function(df, node) {
     root <- which(df$node == df$parent)
-    pp <- df[node, "parent"]
+    pp <- df$parent[node]
     while(any(pp != root)) {
-        df[pp, "y"] <- mean(df[getChild.df(df, pp), "y"])
-        pp <- df[pp, "parent"]
+        df[pp, "y"] <- mean(df$y[getChild.df(df, pp)])
+        pp <- df$parent[pp]
     }
     j <- getChild.df(df, pp)
     j <- j[j!=pp]
-    df[pp, "y"] <- mean(df[j, "y"])
+    df[pp, "y"] <- mean(df$y[j])
     return(df)
 }

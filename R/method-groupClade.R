@@ -94,16 +94,16 @@ groupClade.ggtree <- function(object, nodes, group_name) {
     df <- object$data
     df[, group_name] <- 0
     for (node in nodes) {
-        df <- groupClade.df(df, node, group_name)
+        df <- groupClade.tbl(df, node, group_name)
     }
-    df[, group_name] <- factor(df[, group_name])
+    df[, group_name] <- factor(df[[group_name]])
     object$data <- df
     return(object)
 }
 
-groupClade.df <- function(df, node, group_name) {
+groupClade.tbl <- function(df, node, group_name) {
     foc <- c(node, get.offspring.df(df, node))
     idx <- match(foc, df$node)
-    df[idx, group_name] <- max(df[, group_name]) + 1
+    df[idx, group_name] <- max(df[[group_name]]) + 1
     return(df)
 }

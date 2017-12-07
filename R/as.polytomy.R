@@ -1,4 +1,3 @@
-
 ##' collapse binary tree to polytomy by applying 'fun' to 'feature'
 ##'
 ##'
@@ -19,11 +18,11 @@ as.polytomy <- function(tree, feature, fun) {
     phylo <- get.tree(tree)
 
     if (feature == 'node.label') {
-        feat <- df[!df$isTip, 'label']
+        feat <- df$label[!df$isTip]
     } else if (feature == 'tip.label') {
-        feat <- df[df$isTip, 'label']
+        feat <- df$label[df$isTip]
     } else {
-        feat <- df[, feature]
+        feat <- df[[feature]]
     }
 
     idx <- which(fun(feat))

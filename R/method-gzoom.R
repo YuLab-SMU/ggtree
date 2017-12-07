@@ -78,12 +78,12 @@ setMethod("gzoom", signature(object="ggtree"),
 ##               gzoom.phylo(get.tree(object), focus, subtree, widths)
 ##           })
 
-##' @rdname gzoom-methods
-##' @exportMethod gzoom
-setMethod("gzoom", signature(object="codeml"),
-          function(object, focus, subtree=FALSE, widths=c(.3, .7)) {
-              gzoom.phylo(get.tree(object), focus, subtree, widths)
-          })
+## ##' @rdname gzoom-methods
+## ##' @exportMethod gzoom
+## setMethod("gzoom", signature(object="codeml"),
+##           function(object, focus, subtree=FALSE, widths=c(.3, .7)) {
+##               gzoom.phylo(get.tree(object), focus, subtree, widths)
+##           })
 
 ##' zoom selected subtree
 ##'
@@ -96,12 +96,12 @@ setMethod("gzoom", signature(object="treedata"),
           })
 
 
-##' @rdname gzoom-methods
-##' @exportMethod gzoom
-setMethod("gzoom", signature(object="paml_rst"),
-          function(object, focus, subtree=FALSE, widths=c(.3, .7)) {
-              gzoom.phylo(get.tree(object), focus, subtree, widths)
-          })
+## ##' @rdname gzoom-methods
+## ##' @exportMethod gzoom
+## setMethod("gzoom", signature(object="paml_rst"),
+##           function(object, focus, subtree=FALSE, widths=c(.3, .7)) {
+##               gzoom.phylo(get.tree(object), focus, subtree, widths)
+##           })
 
 
 ##' @rdname gzoom-methods

@@ -4,15 +4,12 @@
 \name{scale_color}
 \alias{scale_color}
 \alias{scale_color,treedata-method}
-\alias{scale_color,paml_rst-method}
 \alias{scale_color,phylo-method}
 \title{scale_color method}
 \usage{
 scale_color(object, by, ...)
 
 \S4method{scale_color}{treedata}(object, by, ...)
-
-\S4method{scale_color}{paml_rst}(object, by, ...)
 
 \S4method{scale_color}{phylo}(object, by, ...)
 }

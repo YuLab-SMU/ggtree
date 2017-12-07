@@ -18,12 +18,12 @@ setMethod("scale_color", signature(object="treedata"),
               scale_color_(object, by, ...)
           })
 
-##' @rdname scale_color-methods
-##' @exportMethod scale_color
-setMethod("scale_color", signature(object="paml_rst"),
-          function(object, by, ...) {
-              scale_color_(object, by, ...)
-          })
+## ##' @rdname scale_color-methods
+## ##' @exportMethod scale_color
+## setMethod("scale_color", signature(object="paml_rst"),
+##           function(object, by, ...) {
+##               scale_color_(object, by, ...)
+##           })
 
 
 ##' @rdname scale_color-methods
