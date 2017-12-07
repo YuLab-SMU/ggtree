@@ -7,7 +7,8 @@ all: rd readme check clean
 alldocs: site rd readme
 
 rd:
-	Rscript -e 'roxygen2::roxygenise(".")'
+	Rscript -e 'library(methods); devtools::document()'
+# Rscript -e 'roxygen2::roxygenise(".")'
 
 readme:
 	Rscript -e 'rmarkdown::render("README.Rmd")'
@@ -28,11 +29,11 @@ install:
 	cd ..;\
 	R CMD INSTALL $(PKGNAME)_$(PKGVERS).tar.gz
 
-check: build
+check: rd build
 	cd ..;\
 	Rscript -e 'rcmdcheck::rcmdcheck("$(PKGNAME)_$(PKGVERS).tar.gz")'
 
-check2: build
+check2: rd build
 	cd ..;\
 	R CMD check $(PKGNAME)_$(PKGVERS).tar.gz
 

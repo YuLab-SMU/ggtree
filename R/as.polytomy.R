@@ -8,6 +8,7 @@
 ##' @return polytomy tree
 ##' @author Guangchuang
 ##' @importFrom ape di2multi
+##' @importFrom treeio Ntip
 ##' @export
 as.polytomy <- function(tree, feature, fun) {
     if (!is(tree, 'phylo')) {

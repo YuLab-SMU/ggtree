@@ -27,6 +27,7 @@ Imports:
     scales,
     tibble,
     tidyr,
+    tidytree,
     utils
 Suggests:
     Biostrings,

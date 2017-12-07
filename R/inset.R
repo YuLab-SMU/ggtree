@@ -17,8 +17,6 @@
 inset <- function(tree_view, insets, width=0.1, height=0.1, hjust=0, vjust=0,
                   x="node", reverse_x=FALSE, reverse_y=FALSE) {
 
-    message("The inset function will be defunct in next release, please use ggimage::geom_subview() instead.")
-
     df <- tree_view$data[as.numeric(names(insets)),]
     x <- match.arg(x, c("node", "branch", "edge"))
 

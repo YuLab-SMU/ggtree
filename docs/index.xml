@@ -62,16 +62,16 @@ Gut metagenomes of type 2 diabetic patients have characteristic single-nucleotid
       
       <guid>https://guangchuangyu.github.io/ggtree/gallery/</guid>
       <description>http://dx.doi.org/10.1126/science.aao2136
-https://doi.org/10.1186/s40168-017-0331-1
-https://doi.org/10.1111/syen.12249
-https://doi.org/10.1186/s12915-017-0402-6
-http://dx.doi.org/10.3389/fmicb.2017.00543
-https://doi.org/10.3389/fmicb.2017.00456
-http://dx.doi.org/10.1186/s40168-017-0232-3
+ https://doi.org/10.1186/s40168-017-0331-1
+ https://doi.org/10.1111/syen.12249
+ https://doi.org/10.1186/s12915-017-0402-6
+ http://dx.doi.org/10.3389/fmicb.2017.00543
+ https://doi.org/10.3389/fmicb.2017.00456
+ http://dx.doi.org/10.1186/s40168-017-0232-3
 http://dx.doi.org/10.1111/2041-210X.12628
-http://dx.doi.org/10.1128/AEM.02307-16
-http://dx.doi.org/10.3389%2Ffcimb.2016.00036
-http://dx.doi.org/10.1016/j.meegid.2015.12.006</description>
+ http://dx.doi.org/10.1128/AEM.02307-16
+ http://dx.doi.org/10.3389%2Ffcimb.2016.00036
+ http://dx.doi.org/10.1016/j.meegid.2015.12.006</description>
     </item>
     
     <item>
@@ -81,11 +81,9 @@ http://dx.doi.org/10.1016/j.meegid.2015.12.006</description>
       
       <guid>https://guangchuangyu.github.io/ggtree/tweets/</guid>
       <description>Leave me a message on 
-Thank you so much @guangchuangyu! #ggtree is the easy way for my phd data analysis &amp;lt;3 love it!
-&amp;mdash; Francisco Romero (@pinchehippie) October 17, 2017  Now on https://t.co/50tYJLLZqc - a spotlight on the Top Tools for R Programming:
-ggtree made the list!https://t.co/YQv7FeegpM pic.twitter.com/hGn7nBfbEJ
-&amp;mdash; LabWorm (@TheLabWorm) September 27, 2017  geom_hilight_encircle for unrooted layout #ggtree #rstats pic.twitter.com/1wIwgwUduf
-&amp;mdash; Guangchuang Yu (@guangchuangyu) September 12, 2017  New Post: Plotting a Sequential Binary Partition on a Tree in R @alex_washburne @guangchuangyu https://t.</description>
+Also, thanks to @guangchuangyu for the R package ggtree - these visualizations are made possible by the reliability that sweet #rstats package!
+&amp;mdash; Alex Washburne (@alex_washburne) November 30, 2017  Thank you so much @guangchuangyu! #ggtree is the easy way for my phd data analysis &amp;lt;3 love it!
+&amp;mdash; Francisco Romero (@pinchehippie) October 17, 2017  Now on https://t.co/50tYJLLZqc - a spotlight on the Top Tools for R Programming:</description>
     </item>
     
   </channel>
