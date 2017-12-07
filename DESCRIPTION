@@ -15,7 +15,7 @@ Description: 'ggtree' extends the 'ggplot2' plotting system which implemented
 Depends:
     R (>= 3.4.0),
     ggplot2 (>= 2.2.0),
-    treeio (>= 1.3.2)
+    treeio (>= 1.3.3)
 Imports:
     ape,
     dplyr,

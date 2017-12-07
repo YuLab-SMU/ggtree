@@ -347,29 +347,6 @@ rm.singleton.newick <- function(nwk, outfile = NULL) {
 ## fortify.hyphy <- fortify.paml_rst
 
 
-scaleY <- function(phylo, df, yscale, layout, ...) {
-    if (yscale == "none") {
-        return(df)
-    }
-    if (! yscale %in% colnames(df)) {
-        warning("yscale is not available...\n")
-        return(df)
-    }
-    if (is.numeric(df[[yscale]])) {
-        y <- getYcoord_scale_numeric(phylo, df, yscale, ...)
-        ## if (order.y) {
-        ##     y <- getYcoord_scale2(phylo, df, yscale)
-        ## } else {
-        ##     y <- getYcoord_scale(phylo, df, yscale)
-        ## }
-    } else {
-        y <- getYcoord_scale_category(phylo, df, yscale, ...)
-    }
-
-    df[, "y"] <- y
-
-    return(df)
-}
 
 
 ##' @method fortify phylo4
