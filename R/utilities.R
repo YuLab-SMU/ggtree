@@ -339,25 +339,6 @@ extract.treeinfo.jplace <- function(object, layout="rectangular", ladderize=TRUE
 ## }
 
 
-is.tree <- function(x) {
-    if (class(x) %in% c("phylo",
-                        "phylo4",
-                        "jplace",
-                        "baseml",
-                        "paml_rst",
-                        "baseml_mlc",
-                        "codeml_mlc",
-                        "codeml",
-                        "hyphy",
-                        "beast",
-                        "phangorn",
-                        "treedata")
-        ) {
-        return(TRUE)
-    }
-    return(FALSE)
-}
-
 
 
 color_scale <- function(c1="grey", c2="red", n=100) {

@@ -2,8 +2,8 @@ has.slot <- treeio:::has.slot
 getNodeNum <- treeio:::getNodeNum
 getRoot <- treeio:::getRoot
 has.field <- treeio:::has.field
-append_extraInfo <- treeio:::append_extraInfo
+#append_extraInfo <- treeio:::append_extraInfo
 get.tree <- treeio::get.tree
 drop.tip <- treeio::drop.tip
 get.fields <- treeio::get.fields
-
+is.tree <- treeio:::is.tree
