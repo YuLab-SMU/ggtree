@@ -82,7 +82,7 @@ fortify.phylo <- function(model, data,
     scaleY(as.phylo(model), res, yscale, layout, ...)
 }
 
-##' @importFrom treeio get_tree_data
+##' @importFrom tidytree get_tree_data
 set_branch_length <- function(tree_object, branch.length) {
     if (branch.length == "branch.length") {
         return(tree_object)

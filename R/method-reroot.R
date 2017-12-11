@@ -1,30 +1,4 @@
 
-## ##' @rdname reroot-methods
-## ##' @exportMethod reroot
-## setMethod("reroot", signature(object="beast"),
-##           function(object, node, ...) {
-##               object@phylo <- reroot(object@phylo, node, ...)
-
-##               node_map <- attr(object@phylo, "node_map")
-##               idx <- match(object@stats$node, node_map[,1])
-##               object@stats$node <- node_map[idx, 2]
-
-##               return(object)
-##           })
-
-## ##' @rdname reroot-methods
-## ##' @exportMethod reroot
-## setMethod("reroot", signature(object="raxml"),
-##           function(object, node, ...) {
-##               object@phylo <- reroot(object@phylo, node, ...)
-
-##               node_map <- attr(object@phylo, "node_map")
-##               idx <- match(object@bootstrap$node, node_map[,1])
-##               object@bootstrap$node <- node_map[idx, 2]
-
-##               return(object)
-##           })
-
 
 ##' reroot a tree
 ##'

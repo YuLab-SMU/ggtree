@@ -618,6 +618,3 @@ fortify.phyloseq <- function(model, data,
 
 ## }
 
-
-
-has.extraInfo <- treeio:::has.extraInfo
