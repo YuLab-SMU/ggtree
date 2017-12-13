@@ -49,57 +49,14 @@ as.binary.phylo <- function(tree, ...) {
 ##' @param nwk newick file
 ##' @param outfile output newick file
 ##' @return tree text
-##' @importFrom magrittr %<>%
-##' @importFrom magrittr add
+##' @importFrom ape collapse.singles
 ##' @importFrom ape write.tree
 ##' @importFrom ape read.tree
+##' @export
 ##' @author Guangchuang Yu \url{http://ygc.name}
 rm.singleton.newick <- function(nwk, outfile = NULL) {
     tree <- readLines(nwk)
-
-    ## remove singleton of tips
-    nodePattern <- "\\w+:[\\.0-9Ee\\+\\-]+"
-    singletonPattern.with.nodename <- paste0(".*(\\(", nodePattern, "\\)\\w+:[\\.0-9Ee\\+\\-]+).*")
-    singletonPattern.wo.nodename <- paste0(".*(\\(", nodePattern, "\\):[\\.0-9Ee\\+\\-]+).*")
-
-    while(length(grep("\\([^,]+\\)", tree)) > 0) {
-        singleton <- gsub(singletonPattern.with.nodename, "\\1", tree)
-        if (singleton == tree) {
-            singleton <- gsub(singletonPattern.wo.nodename, "\\1", tree)
-        }
-        if (singleton == tree) {
-            stop("can't parse singleton node...")
-        }
-
-        tip <- gsub("\\((\\w+).*", "\\1", singleton)
-
-        len1 <- gsub(".*[^\\.0-9Ee\\+\\-]+([\\.0-9Ee\\+\\-]+)", "\\1", singleton)
-        len2 <- gsub(".*:([\\.0-9Ee\\+\\-]+)\\).*", "\\1", singleton)
-        len <- as.numeric(len1) + as.numeric(len2)
-
-        tree <- gsub(singleton, paste0(tip, ":", len), tree, fixed = TRUE)
-    }
-
-    tree <- read.tree(text=tree)
-
-    ### remove singleton of internal nodes
-    p.singleton <- which(table(tree$edge[,1]) == 1)
-    if (length(p.singleton) > 0) {
-        p.singleton %<>% names %>% as.numeric
-        edge <- tree$edge
-        idx <- which(edge[,1] == p.singleton)
-        sidx <- which(edge[,2] == p.singleton)
-        edge[sidx,2] <- edge[idx, 2]
-        edge <- edge[-idx,]
-        tree$edge <- edge
-        tree$edge.length[sidx] %<>% add(., tree$edge.length[idx])
-        tree$edge.length <- tree$edge.length[-idx]
-        tree$Nnode <- tree$Nnode - 1
-        if (!is.null(tree$node.label)) {
-            tree$node.label <- tree$node.label[-(p.singleton - Ntip(tree))]
-        }
-    }
-
+    tree <- read.tree(text=tree) %>% collapse.singles
     if (!is.null(outfile)) {
         write.tree(tree, file=outfile)
     }
