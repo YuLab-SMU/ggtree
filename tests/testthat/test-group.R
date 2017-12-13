@@ -4,7 +4,7 @@ test_that('groupOTU', {
     nwk <- system.file("extdata", "sample.nwk", package="treeio")
     tree <- read.tree(nwk)
     focus <- c("D", "E", "F", "G")
-    df <- fortify(groupOTU(tree, focus=focus))
+    df <- fortify(groupOTU(tree, focus))
     expect_true(all(df$group[df$label %in% focus] == 1))
 
     cls <- list(c1=c("A", "B", "C", "D", "E"),
@@ -25,7 +25,7 @@ test_that('groupClade', {
     tree <- read.tree(nwk)
     focus <- c("D", "E", "F", "G")
     nodes <- c(21, 17)
-    df <- fortify(groupClade(tree, node=nodes))
+    df <- fortify(groupClade(tree, nodes))
 
     for (i in seq_along(nodes)) {
         expect_true(all(df$group[df$node %in% ggtree:::get.offspring.df(df, nodes[i])] == i))

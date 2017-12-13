@@ -13,13 +13,7 @@ MRCA <- function(obj, tip) {
         return(getMRCA.df(obj$data, tip))
     }
 
-    if(class(obj) %in% supported_tree_object()) {
-        obj <- get.tree(obj)
-    }
-    if (class(obj) == "phylo") {
-        return(getMRCA(obj, tip))
-    }
-    stop("obj is not supported...")
+    getMRCA(as.phylo(obj), tip)
 }
 
 

@@ -12,7 +12,7 @@ as.binary <- function(tree, ...) {
 ##' @name reroot
 ##' @rdname reroot-methods
 ##' @title reroot method
-##' @param object one of \code{phylo}, \code{nhx}, \code{phangorn}, \code{jplace}, \code{beast}, \code{hyphy}, \code{codeml}, \code{codeml_mlc}, \code{paml_rst} object
+##' @param object \code{treedata} object
 ##' @param node internal nnode number
 ##' @param ... additional parameter
 ##' @return tree object
@@ -20,6 +20,7 @@ as.binary <- function(tree, ...) {
 ##' @export
 setGeneric("reroot", function(object, node, ...) standardGeneric("reroot"))
 
+## may change to implement ape::root method
 
 ##' @docType methods
 ##' @name scale_color
