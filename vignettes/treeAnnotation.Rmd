@@ -28,6 +28,7 @@ knitr::opts_chunk$set(tidy = FALSE,
 ```{r echo=FALSE, results="hide", message=FALSE}
 library("ape")
 library("ggplot2")
+library("cowplot")
 library("ggtree")
 ```
 
@@ -45,7 +46,9 @@ p1 <- ggtree(beast_tree, mrsd='2013-01-01') + theme_tree2() +
     ggtitle("Divergence time")
 p2 <- ggtree(beast_tree, branch.length = 'rate') + theme_tree2() +
     ggtitle("Substitution rate")
-multiplot(p1, p2, ncol=2)
+
+library(cowplot)
+plot_grid(p1, p2, ncol=2)
 ```
 
 ```{r fig.width=10, fig.height=5}
@@ -55,7 +58,7 @@ p1 <- ggtree(mlc_tree) + theme_tree2() +
     ggtitle("nucleotide substitutions per codon")
 p2 <- ggtree(mlc_tree, branch.length='dN_vs_dS') + theme_tree2() +
     ggtitle("dN/dS tree")
-multiplot(p1, p2, ncol=2)
+plot_grid(p1, p2, ncol=2)
 ```
 
 In addition to specify `branch.length` in tree visualization, users can change branch length stored in tree object by using `rescale_tree` function.
@@ -206,8 +209,10 @@ tr <- nj(d)
 bp <- boot.phylo(tr, woodmouse, function(xx) nj(dist.dna(xx)))
 ```
 
+
 ```{r fig.width=6, fig.height=6, warning=FALSE, fig.align="center"}
-tree <- apeBoot(tr, bp)
+library(treeio)
+tree <- as.treedata(tr, boot = bp)
 ggtree(tree) + geom_label(aes(label=bootstrap)) + geom_tiplab()
 ```
 

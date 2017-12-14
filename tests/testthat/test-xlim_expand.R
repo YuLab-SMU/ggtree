@@ -10,7 +10,7 @@ test_that("dummy layer to set x axis limits of Tree panel", {
 
     p2 <- facet_plot(p + xlim_tree(c(NA, 6)), geom=geom_point, data=d, mapping=aes(x=v), panel='dot')
 
-    expect_true(is.ggplot(p2)) # should plot appropriately
+    expect_true(ggplot2::is.ggplot(p2)) # should plot appropriately
 })
 
 
@@ -25,6 +25,6 @@ test_that("dummy layer to set x axis limits of data panel", {
 
     p2 <- facet_plot(p, geom=geom_point, data=d, mapping=aes(x=v), panel='dot') + xlim_expand(c(-4, 4), 'dot')
 
-    expect_true(is.ggplot(p2)) # should plot appropriately
+    expect_true(ggplot2::is.ggplot(p2)) # should plot appropriately
 })
 

@@ -13,7 +13,6 @@
 ##' @param ladderize logical
 ##' @param right logical
 ##' @param branch.length variable for scaling branch, if 'none' draw cladogram
-##' @param ndigits number of digits to round numerical annotation variable
 ##' @param ... additional parameter
 ##' @return tree
 ##' @importFrom ggplot2 ggplot
@@ -41,7 +40,6 @@ ggtree <- function(tr,
                    ladderize      = TRUE,
                    right          = FALSE,
                    branch.length  = "branch.length",
-                   ndigits        = NULL,
                    ...) {
 
     # Check if layout string is valid.
@@ -76,7 +74,7 @@ ggtree <- function(tr,
                 ladderize     = ladderize,
                 right         = right,
                 branch.length = branch.length,
-                ndigits       = ndigits, ...)
+                ...)
 
     if (is(tr, "multiPhylo")) {
         multiPhylo <- TRUE

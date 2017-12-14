@@ -48,14 +48,13 @@
 }
 
 `%place%` <- function(pg, tree) {
+
     mrsd      <- get("mrsd", envir=pg$plot_env)
     layout    <- get("layout", envir = pg$plot_env)
     yscale    <- get("yscale", envir = pg$plot_env)
     ladderize <- get("ladderize", envir = pg$plot_env)
     right     <- get("right", envir = pg$plot_env)
     branch.length <- get("branch.length", envir = pg$plot_env)
-    ndigits <- get("ndigits", envir = pg$plot_env)
-
 
     pg$data <- fortify(tree,
                        layout        = layout,
@@ -63,7 +62,6 @@
                        ladderize     = ladderize,
                        right         = right,
                        branch.length = branch.length,
-                       ndigits       = ndigits,
                        mrsd          = mrsd)
     return(pg)
 }

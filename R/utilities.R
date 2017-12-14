@@ -111,6 +111,50 @@ getCols <- function (n) {
 hist <- get_fun_from_pkg("graphics", "hist")
 
 
+##
+##
+## use ape::multi2di
+##
+##
+## ##' convert polytomy to binary tree
+## ##'
+## ##' as.binary method for \code{phylo} object
+## ##' @rdname as.binary
+## ##' @return binary tree
+## ##' @method as.binary phylo
+## ##' @importFrom ape is.binary.tree
+## ##' @export
+## ##' @author Guangchuang Yu \url{http://ygc.name}
+## ##' @examples
+## ##' require(ape)
+## ##' tr <- read.tree(text="((A, B, C), D);")
+## ##' is.binary.tree(tr)
+## ##' tr2 <- as.binary(tr)
+## ##' is.binary.tree(tr2)
+## as.binary.phylo <- function(tree, ...) {
+##     if(is.binary.tree(tree)) {
+##         message("The input tree is already binary...")
+##         invisible(tree)
+##     }
+##     polyNode <- tree$edge[,1] %>% table %>% '>'(2) %>%
+##         which %>% names %>% as.numeric
+##     N <- getNodeNum(tree)
+##     ii <- 0
+##     for (pn in polyNode) {
+##         idx <- which(tree$edge[,1] == pn)
+##         while(length(idx) >2) {
+##             ii <- ii + 1
+##             newNode <- N+ii
+##             tree$edge[idx[-1],1] <- newNode
+##             newEdge <- matrix(c(tree$edge[idx[1],1], newNode), ncol=2)
+##             tree$edge <- rbind(tree$edge, newEdge)
+##             idx <- idx[-1]
+##         }
+##     }
+##     tree$Nnode <- tree$Nnode+ii
+##     tree$edge.length <- c(tree$edge.length, rep(0, ii))
+##     return(tree)
+## }
 
 
 

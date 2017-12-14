@@ -11,7 +11,7 @@ reroot(object, node, ...)
 \S4method{reroot}{phylo}(object, node, ...)
 }
 \arguments{
-\item{object}{one of \code{phylo}, \code{nhx}, \code{phangorn}, \code{jplace}, \code{beast}, \code{hyphy}, \code{codeml}, \code{codeml_mlc}, \code{paml_rst} object}
+\item{object}{\code{treedata} object}
 
 \item{node}{internal nnode number}
 

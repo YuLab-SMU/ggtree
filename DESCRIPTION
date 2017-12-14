@@ -13,12 +13,11 @@ Description: 'ggtree' extends the 'ggplot2' plotting system which implemented
     the grammar of graphics. 'ggtree' is designed for visualization and annotation
     of phylogenetic trees with their covariates and other associated data.
 Depends:
-    R (>= 3.4.0),
-    ggplot2 (>= 2.2.0),
-    treeio (>= 1.3.3)
+    R (>= 3.4.0)
 Imports:
     ape,
     dplyr,
+    ggplot2 (>= 2.2.0),
     grDevices,
     grid,
     magrittr,
@@ -28,10 +27,12 @@ Imports:
     tibble,
     tidyr,
     tidytree,
+    treeio (>= 1.3.3),
     utils
 Suggests:
     Biostrings,
     colorspace,
+    cowplot,
     emojifont,
     ggimage,
     knitr,

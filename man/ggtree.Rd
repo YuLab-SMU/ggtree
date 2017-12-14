@@ -11,8 +11,7 @@
 \usage{
 ggtree(tr, mapping = NULL, layout = "rectangular", open.angle = 0,
   mrsd = NULL, as.Date = FALSE, yscale = "none", yscale_mapping = NULL,
-  ladderize = TRUE, right = FALSE, branch.length = "branch.length",
-  ndigits = NULL, ...)
+  ladderize = TRUE, right = FALSE, branch.length = "branch.length", ...)
 }
 \arguments{
 \item{tr}{phylo object}
@@ -37,16 +36,16 @@ ggtree(tr, mapping = NULL, layout = "rectangular", open.angle = 0,
 
 \item{branch.length}{variable for scaling branch, if 'none' draw cladogram}
 
-\item{ndigits}{number of digits to round numerical annotation variable}
-
 \item{...}{additional parameter}
 }
 \value{
 tree
 }
 \description{
-visualizing phylogenetic tree and heterogenous associated data based on grammar of graphics
-\code{ggtree} provides functions for visualizing phylogenetic tree and its associated data in R.
+If you use ggtree in published research, please cite:
+Guangchuang Yu, David Smith, Huachen Zhu, Yi Guan, Tommy Tsan-Yuk Lam.
+ggtree: an R package for visualization and annotation of phylogenetic trees with their covariates and other associated data.
+Methods in Ecology and Evolution 2017, 8(1):28-36, doi:10.1111/2041-210X.12628
 
 drawing phylogenetic tree from phylo object
 }

@@ -1,6 +1,6 @@
 ##' add tree scale
 ##'
-##' 
+##'
 ##' @title geom_treescale
 ##' @param x x position
 ##' @param y y position
@@ -15,7 +15,7 @@
 ##' @author Guangchuang Yu
 geom_treescale <- function(x=NULL, y=NULL, width=NULL, offset=NULL, color="black",
                            linesize=0.5, fontsize=3.88, family="sans") {
-    
+
     data=NULL
     position="identity"
     show.legend=NA
@@ -24,14 +24,14 @@ geom_treescale <- function(x=NULL, y=NULL, width=NULL, offset=NULL, color="black
 
     default_aes <- aes_(x=~x, y=~y)
     mapping <- default_aes
-    
+
     list(
         stat_treeScaleLine(xx=x, yy=y, width=width, color=color, offset=offset, size=linesize,
                            mapping=mapping, data=data,
                            position=position, show.legend = show.legend,
                            inherit.aes = inherit.aes, na.rm=na.rm),
         stat_treeScaleText(xx=x, yy=y, width=width, color=color, offset=offset,
-                           size=fontsize, family = family, 
+                           size=fontsize, family = family,
                            mapping=mapping, data=data,
                            position=position, show.legend = show.legend,
                            inherit.aes = inherit.aes, na.rm=na.rm)
@@ -42,9 +42,9 @@ geom_treescale <- function(x=NULL, y=NULL, width=NULL, offset=NULL, color="black
 
 stat_treeScaleLine <- function(mapping=NULL, data=NULL,
                            geom="segment", position="identity",
-                           xx, yy, width, offset, color, ..., 
+                           xx, yy, width, offset, color, ...,
                            show.legend=NA, inherit.aes=FALSE, na.rm=FALSE){
-    
+
     default_aes <- aes_(x=~x, y=~y, xend=~x, yend=~y)
     if (is.null(mapping)) {
         mapping <- default_aes
@@ -120,17 +120,17 @@ get_treescale_position <- function(data, xx, yy, width, offset=NULL) {
     x <- xx
     y <- yy
     dx <- data$x %>% range %>% diff
-    
+
     if (is.null(x)) {
         x <- dx/2
     }
-    
+
     if (is.null(y)) {
         y <- 0
     }
 
     if (is.null(width) || is.na(width)) {
-        d <- dx/10 
+        d <- dx/10
         n <- 0
         while (d < 1) {
             d <- d*10
@@ -140,42 +140,11 @@ get_treescale_position <- function(data, xx, yy, width, offset=NULL) {
     } else {
         d <- width
     }
-    
+
     if (is.null(offset)) {
         offset <- 0.4
     }
-    
+
     list(LinePosition=data.frame(x=x, xend=x+d, y=y, yend=y),
          TextPosition=data.frame(x=x+d/2, y=y+offset, label=d))
 }
-
-## ##' add evolution distance legend
-## ##'
-## ##' 
-## ##' @title add_legend
-## ##' @param p tree view
-## ##' @param width width of legend
-## ##' @param x x position
-## ##' @param y y position
-## ##' @param offset offset of text and line
-## ##' @param font.size font size
-## ##' @param ... additional parameter
-## ##' @return tree view
-## ##' @importFrom grid linesGrob
-## ##' @importFrom grid textGrob
-## ##' @importFrom grid gpar
-## ##' @importFrom ggplot2 ylim
-## ##' @export
-## ##' @author Guangchuang Yu
-## add_legend <- function(p, width=NULL, x=NULL, y=NULL, offset=NULL, font.size=4, ...) {
-##     dd <- get_treescale_position(p$data, x, y, width, offset)
-##     x <- dd[[1]]$x
-##     y <- dd[[1]]$y
-##     d <- dd[[1]]$xend -x
-##     p <- p + annotation_custom(linesGrob(), xmin=x, xmax=x+d, ymin=y, ymax=y) +
-##         annotation_custom(textGrob(label=d, gp = gpar(fontsize = font.size)),
-##                           xmin=x+d/2, xmax=x+d/2, ymin=y+offset, ymax=y+offset)
-##     return(p)
-## }
-
-

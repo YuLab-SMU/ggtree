@@ -1,4 +1,3 @@
-
 ##' annotation taxa with images
 ##'
 ##'
@@ -63,3 +62,4 @@ phylopic <- function(tree_view, phylopic_id,
 subview <- function(mainview, subview, x, y, width=.1, height=.1) {
     stop("The subview function was deprecated, please use ggimage::geom_subview() instead.")
 }
+

@@ -14,8 +14,7 @@ scale_color(object, by, ...)
 \S4method{scale_color}{phylo}(object, by, ...)
 }
 \arguments{
-\item{object}{supported objects, including phylo, paml_rst,
-codeml_mlc, codeml, jplace, beast, hyphy}
+\item{object}{\code{treedata} object}
 
 \item{by}{one of numerical attributes}
 

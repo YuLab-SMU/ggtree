@@ -262,7 +262,7 @@ Another example can be found in the [Tree Data Import](treeImport.html#rst-file)
 `theme_tree()` defined a totally blank canvas, while _`theme_tree2()`_ adds phylogenetic distance (via x-axis). These two themes all accept a parameter of _`bgcolor`_ that defined the background color.
 
 ```{r fig.width=6, fig.height=3, fig.align="center"}
-multiplot(
+cowplot::plot_grid(
     ggtree(rtree(30), color="red") + theme_tree("steelblue"),
     ggtree(rtree(20), color="white") + theme_tree("black"),
     ncol=2)

@@ -48,16 +48,17 @@ beast <- read.beast(file)
 ggtree(beast) + geom_point2(aes(subset=!is.na(posterior) & posterior > 0.75), color='firebrick')
 ```
 
+<!--
+
 # Multiple graphs on one page
 
 To support viewing multiple plots, ggtree provides `multiplot` function that similar to `gridExtra::grid.arrange` with extra feature of labeling the plots.
 
 
-``` {r fig.width=8, fig.height=4, warning=FALSE}
+#``` {r fig.width=8, fig.height=4, warning=FALSE}
 multiplot(ggtree(rtree(30)), ggtree(rtree(40)), ncol=2, labels=c('A', 'B'))
-```
+#```
 
-<!--
 # subplots in ggplot object
 
 `ggtree` implemented a function, `subview`, that can add subplots on a ggplot2 object.

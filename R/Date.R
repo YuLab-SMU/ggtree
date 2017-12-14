@@ -8,7 +8,7 @@ scaleX_by_time <- function(df, as.Date=FALSE) {
     scaleX_by_time_from_mrsd(df, decimal2Date(time[latest]), as.Date)
 }
 
-
+##' @importFrom magrittr %<>%
 scaleX_by_time_from_mrsd <- function(df, mrsd, as.Date) {
     mrsd %<>% as.Date
     date <- Date2decimal(mrsd)
