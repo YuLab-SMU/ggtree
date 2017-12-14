@@ -21,7 +21,7 @@
 msaplot <- function(p, fasta, offset=0, width=1, color=NULL, window=NULL, bg_line = TRUE, height = 0.8){
     if (missingArg(fasta)) {
         x <- NULL
-    } else if (is(fasta, "DNAbin")) {
+    } else if (is(fasta, "DNAbin") || is(fasta, "AAbin") ) {
         x <- fasta
     } else if (is(fasta, "character")) {
         x <- read.fasta(fasta)
