@@ -12,52 +12,51 @@
 ##' @param height height ratio of sequence
 ##' @return tree view
 ##' @export
-## @importFrom Biostrings readBStringSet
-## @importMethodsFrom Biostrings width
 ## @importFrom colorspace rainbow_hcl
+##' @importFrom treeio read.fasta
 ##' @importFrom ggplot2 geom_segment
 ##' @importFrom ggplot2 geom_rect
 ##' @importFrom ggplot2 scale_fill_manual
 ##' @author Guangchuang Yu
 msaplot <- function(p, fasta, offset=0, width=1, color=NULL, window=NULL, bg_line = TRUE, height = 0.8){
     if (missingArg(fasta)) {
-        aln <- NULL
-    } else if (is(fasta, "BStringSet")) {
-        aln <- fasta
+        x <- NULL
+    } else if (is(fasta, "DNAbin")) {
+        x <- fasta
     } else if (is(fasta, "character")) {
-        readBStringSet <- get_fun_from_pkg("Biostrings", "readBStringSet")
-        aln <- readBStringSet(fasta)
+        x <- read.fasta(fasta)
     } else {
-        aln <- NULL
+        x <- NULL
     }
 
-    if (is(p, "phylip")) {
-        BStringSet <- get_fun_from_pkg("Biostrings", "BStringSet")
-        aln <- BStringSet(p@sequence)
+
+    if (is.null(x) && is(p, "treedata") && length(p@tip_seq)) {
+        x <- p@tip_seq
         p <- ggtree(p) + geom_tiplab()
     }
 
-    if (is.null(aln)) {
+    if (is.null(x)) {
         stop("multiple sequence alignment is not available...\n-> check the parameter 'fasta'...")
     }
 
-    width_fun <- get_fun_from_pkg("Biostrings", "width")
+    x <- as.matrix(x)
 
     if (is.null(window)) {
-        window <- c(1, width_fun(aln)[1])
+        window <- c(1, ncol(x))
     }
+
     slice <- seq(window[1], window[2], by=1)
+    x <- x[, slice]
 
-    seqs <- lapply(1:length(aln), function(i) {
-        x <- toString(aln[i])
-        seq <- substring(x, slice, slice)
-
+    seqs <- lapply(1:nrow(x), function(i) {
+        seq <- as.vector(as.character(x[i,]))
         seq[seq == '?'] <- '-'
         seq[seq == '*'] <- '-'
         seq[seq == ' '] <- '-'
         return(seq)
     })
-    names(seqs) <- names(aln)
+
+    names(seqs) <- labels(x)
 
     if(is.null(color)) {
         alphabet <- unlist(seqs) %>% unique
@@ -108,9 +107,10 @@ msaplot <- function(p, fasta, offset=0, width=1, color=NULL, window=NULL, bg_lin
 
     msa.df <- do.call("rbind", msa)
 
-    p <- p + geom_rect(data=msa.df, aes(x=xmin, y=ymin,
-                           xmin=xmin, xmax=xmax,
-                           ymin=ymin, ymax=ymax, fill=seq)) +
+    p <- p + geom_rect(aes(xmin=xmin, xmax=xmax,
+                           ymin=ymin, ymax=ymax,
+                           fill=seq),
+                       data=msa.df, inherit.aes = FALSE) +
                                scale_fill_manual(values=color)
 
     breaks <- hist(seq_along(slice), breaks=10, plot=FALSE)$breaks
@@ -120,4 +120,3 @@ msaplot <- function(p, fasta, offset=0, width=1, color=NULL, window=NULL, bg_lin
 
     return(p)
 }
-

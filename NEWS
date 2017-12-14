@@ -1,5 +1,6 @@
 CHANGES IN VERSION 1.11.3
 ------------------------
+ o update msaplot to use DNAbin/AAbin internally and also compatible with treedata object <2017-12-14, Thu>
  o clean up code <2017-12-13, Thu>
  o remove paml_rst, codeml_mlc, codeml and jplace fortify methods according to the change of treeio (v = 1.3.3) <2017-12-07, Thu>
 

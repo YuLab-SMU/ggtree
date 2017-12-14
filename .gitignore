@@ -13,4 +13,6 @@ __init__.pyc
 .web_cache
 ggtree.Rproj
 .Rproj.user
-ggtree*.html
+ggtree
+*.html
+

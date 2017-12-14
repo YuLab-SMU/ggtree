@@ -27,7 +27,6 @@ knitr::opts_chunk$set(tidy = FALSE,
 
 ```{r echo=FALSE, results="hide", message=FALSE}
 library("colorspace")
-library("Biostrings")
 library("ape")
 library("ggplot2")
 library("ggtree")
