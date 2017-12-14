@@ -26,8 +26,8 @@ Imports:
     scales,
     tibble,
     tidyr,
-    tidytree,
-    treeio (>= 1.3.3),
+    tidytree (>= 0.1.5),
+    treeio (>= 1.3.9),
     utils
 Suggests:
     colorspace,
