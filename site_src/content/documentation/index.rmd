@@ -43,9 +43,10 @@ weight: 10
 
 + [ggtree - updating a tree view](https://guangchuangyu.github.io/2015/02/ggtree---updating-a-tree-view/)
 + [an example of drawing beast tree using ggtree](https://guangchuangyu.github.io/2015/04/an-example-of-drawing-beast-tree-using-ggtree)
-+ [Phylogenetic trees in R using ggtree](http://www.molecularecologist.com/2017/02/phylogenetic-trees-in-r-using-ggtree/) <i class="fa fa-arrow-left"></i> The Molecular Ecologist
++ [Phylogenetic trees in R using ggtree](http://www.molecularecologist.com/2017/02/phylogenetic-trees-in-r-using-ggtree/)
 + [Growing a ggtree](https://phe-bioinformatics.github.io/blog/2017/06/14/ggtree_exploration)
 + [Growing a ggtree - part 2, adding tip shapes](https://phe-bioinformatics.github.io/blog/2017/07/07/ggtree_part2)
++ [Drawing a tree with colored tips in R (ggtree)](https://aschuerch.github.io/posts/2017-04-24-blog-post-1)
 
 ### <i class="fa fa-angle-double-right"></i> Tree annotation
 
@@ -66,6 +67,8 @@ weight: 10
 ### <i class="fa fa-angle-double-right"></i> Tree manipulation
 
 + [flip and rotate branches in ggtree](https://guangchuangyu.github.io/2015/07/flip-and-rotate-branches-in-ggtree)
++ [Subtrees as triangles with ggtree](https://jean.manguy.eu/post/subtrees-as-triangles-with-ggtree/)
+
 
 ### <i class="fa fa-angle-double-right"></i> Application
 
@@ -92,7 +95,13 @@ weight: 10
 + [interactive clade highlighting](https://www.youtube.com/watch?v=KcF8Ec38mzI)
 + [interactive rotating clades](https://www.youtube.com/watch?v=lKNn4QlPO0E)
 + [interactive clade labeling](https://www.youtube.com/watch?v=SmcceRD_jxg)
++ [R语言包ggtree 进化树绘图](https://youtu.be/tqspAXM0UQE)
 
 ## <i class="fa fa-gift"></i> Workflow
 
 + [recreate a tree from a publication (__Bloom__ *et al*, __*Science*__ 2010)](https://rpubs.com/gutijosh9430/124817)
+
+
+## <i class="fa fa-users"></i> Workflow
+
++ [Visualizing and Annotating Phylogenetic Trees with R+ggtree](https://4va.github.io/biodatasci/r-ggtree.html)
