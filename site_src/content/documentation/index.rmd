@@ -102,6 +102,7 @@ weight: 10
 + [recreate a tree from a publication (__Bloom__ *et al*, __*Science*__ 2010)](https://rpubs.com/gutijosh9430/124817)
 
 
-## <i class="fa fa-users"></i> Workflow
+## <i class="fa fa-users"></i> Workshop
+
 
 + [Visualizing and Annotating Phylogenetic Trees with R+ggtree](https://4va.github.io/biodatasci/r-ggtree.html)
