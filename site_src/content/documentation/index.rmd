@@ -62,7 +62,7 @@ weight: 10
 + [ggjoy facet with ggtree](https://stackoverflow.com/questions/45384281/ggjoy-facet-with-ggtree)
 + [xlim_tree: set x axis limits for only Tree panel](https://guangchuangyu.github.io/2016/10/xlim_tree-set-x-axis-limits-for-only-tree-panel/)
 + [add layer to specific panel of facet_plot output](https://guangchuangyu.github.io/2016/12/add-layer-to-specific-panel-of-facet_plot-output/)
-
++ [Enhanced annotation of a primate phylogeny with ggtree](https://rgriff23.github.io/2017/05/11/primate-phylogeny-ggtree.html)
 
 ### <i class="fa fa-angle-double-right"></i> Tree manipulation
 
