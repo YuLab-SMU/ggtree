@@ -14,7 +14,7 @@ output:
   pdf_document:
     toc: true
 vignette: >
-  %\VignetteIndexEntry{00 ggtree introduction}
+  %\VignetteIndexEntry{01 ggtree Introduction}
   %\VignetteEngine{knitr::rmarkdown}
   %\usepackage[utf8]{inputenc}
 ---
@@ -124,14 +124,29 @@ and *daylight* for *unrooted* layout, time-scaled and two dimentional
 phylogenies. [Tree Visualization](treeVisualization.html) vignette describes
 these feature in details.
 
-We implement several functions to manipulate a phylogenetic tree.
+We implement several functions to manipulate a phylogenetic tree visually,
+including viewing selected clade to explore large tree, taxa clustering,
+rotating clade or tree, zoom out or collapsing clades *etc.*.
 
-+ taxa can be clustered together using `groupClade` or `groupOTU` functions
-+ clades can be collapsed via `collapse` function
-+ collapsed clade can be expanded by using `expand` function
-+ clade can be re-scale to zoom in or zoom out by `scaleClade` function
-+ selected clade can be rotated by 180 degree using `rotate` function
-+ position of two selected clades (should share a same parent) can be exchanged by `flip` function
+
+
+```{r treeman, echo=FALSE, out.extra='', message=FALSE}
+treeman <- matrix(c(
+  "collapse", "collapse a selecting clade",
+  "expand", "expand collapsed clade",
+  "flip", "exchange position of 2 clades that share a parent node",
+  "groupClade", "grouping clades",
+  "groupOTU", "grouping OTUs by tracing back to most recent common ancestor",
+  "identify", "interactive tree manipulation",
+  "rotate", "rotating a selected clade by 180 degree",
+  "rotate_tree", "rotating circular layout tree by specific angle",
+  "scaleClade", "zoom in or zoom out selecting clade",
+  "open_tree", "convert a tree to fan layout by specific open angle"
+), ncol=2, byrow=TRUE)
+treeman <- as.data.frame(treeman)
+colnames(treeman) <- c("Function", "Descriptiotn")
+knitr::kable(treeman, caption = "Tree manipulation functions.", booktabs = T)
+```
 
 
 Details and examples can be found in [Tree Manipulation](treeManipulation.html) vignette.

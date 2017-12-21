@@ -165,54 +165,54 @@ scaleY <- function(phylo, df, yscale, layout, ...) {
 ## }
 
 
-## used by layoutEqualAngle
-## will change to tidytree::as_data_frame in future
-as.data.frame.phylo_ <- function(x, layout="rectangular",
-                                 branch.length="branch.length", ...) {
-    if (branch.length != 'none') {
-        branch.length = "branch.length"
-    }
-    tip.label <- x[["tip.label"]]
-    Ntip <- length(tip.label)
-    N <- getNodeNum(x)
-    edge <- as.data.frame(x[["edge"]])
-    colnames(edge) <- c("parent", "node")
-    if (! is.null(x$edge.length)) {
-        edge$length <- x$edge.length
-        if (branch.length == "none") {
-            xpos <- getXcoord_no_length(x)
-            ypos <- getYcoord(x)
-        } else {
-            xpos <- getXcoord(x)
-            ypos <- getYcoord(x)
-        }
-        ## } else  if (layout != "cladogram") {
-        ##     xpos <- getXcoord(x)
-        ##     ypos <- getYcoord(x)
-        ## } else {
-        ##     ## layout == "cladogram" && branch.length != "none"
-        ##     xy <- getXYcoord_cladogram(x)
-        ##     xpos <- xy$x
-        ##     ypos <- xy$y
-        ## }
-    } else {
-        xpos <- getXcoord_no_length(x)
-        ypos <- getYcoord(x)
-    }
-    xypos <- data.frame(node=1:N, x=xpos, y=ypos)
-    res <- merge(edge, xypos, by.x="node", by.y="node", all.y=TRUE)
-    label <- rep(NA, N)
-    label[1:Ntip] <- tip.label
-    if ( !is.null(x$node.label) ) {
-        label[(Ntip+1):N] <- x$node.label
-    }
-    res$label <- label
-    isTip <- rep(FALSE, N)
-    isTip[1:Ntip] <- TRUE
-    res$isTip <- isTip
-    ## add branch mid position
-    res <- calculate_branch_mid(res)
-    ## ## angle for all layout, if 'rectangular', user use coord_polar, can still use angle
-    res <- calculate_angle(res)
-    return(res)
-}
+## ## used by layoutEqualAngle
+## ## will change to tidytree::as_data_frame in future
+## as.data.frame.phylo_ <- function(x, layout="rectangular",
+##                                  branch.length="branch.length", ...) {
+##     if (branch.length != 'none') {
+##         branch.length = "branch.length"
+##     }
+##     tip.label <- x[["tip.label"]]
+##     Ntip <- length(tip.label)
+##     N <- getNodeNum(x)
+##     edge <- as.data.frame(x[["edge"]])
+##     colnames(edge) <- c("parent", "node")
+##     if (! is.null(x$edge.length)) {
+##         edge$length <- x$edge.length
+##         if (branch.length == "none") {
+##             xpos <- getXcoord_no_length(x)
+##             ypos <- getYcoord(x)
+##         } else {
+##             xpos <- getXcoord(x)
+##             ypos <- getYcoord(x)
+##         }
+##         ## } else  if (layout != "cladogram") {
+##         ##     xpos <- getXcoord(x)
+##         ##     ypos <- getYcoord(x)
+##         ## } else {
+##         ##     ## layout == "cladogram" && branch.length != "none"
+##         ##     xy <- getXYcoord_cladogram(x)
+##         ##     xpos <- xy$x
+##         ##     ypos <- xy$y
+##         ## }
+##     } else {
+##         xpos <- getXcoord_no_length(x)
+##         ypos <- getYcoord(x)
+##     }
+##     xypos <- data.frame(node=1:N, x=xpos, y=ypos)
+##     res <- merge(edge, xypos, by.x="node", by.y="node", all.y=TRUE)
+##     label <- rep(NA, N)
+##     label[1:Ntip] <- tip.label
+##     if ( !is.null(x$node.label) ) {
+##         label[(Ntip+1):N] <- x$node.label
+##     }
+##     res$label <- label
+##     isTip <- rep(FALSE, N)
+##     isTip[1:Ntip] <- TRUE
+##     res$isTip <- isTip
+##     ## add branch mid position
+##     res <- calculate_branch_mid(res)
+##     ## ## angle for all layout, if 'rectangular', user use coord_polar, can still use angle
+##     res <- calculate_angle(res)
+##     return(res)
+## }

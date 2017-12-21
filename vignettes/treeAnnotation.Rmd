@@ -5,7 +5,7 @@ author: "Guangchuang Yu and Tommy Tsan-Yuk Lam\\
         School of Public Health, The University of Hong Kong"
 date: "`r Sys.Date()`"
 bibliography: ggtree.bib
-csl: nature.csl
+biblio-style: apalike
 output:
   prettydoc::html_pretty:
     toc: true

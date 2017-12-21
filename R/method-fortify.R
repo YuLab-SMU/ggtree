@@ -29,20 +29,24 @@ fortify.phylo <- function(model, data,
         }
     }
 
-    if (is.null(x$edge.length) || branch.length == "none") {
-        xpos <- getXcoord_no_length(x)
+    if (layout %in% c("equal_angle", "daylight")) {
+        res <- layout.unrooted(x, layout.method = layout, branch.length = branch.length, ...)
     } else {
-        xpos <- getXcoord(x)
+        if (is.null(x$edge.length) || branch.length == "none") {
+            xpos <- getXcoord_no_length(x)
+        } else {
+            xpos <- getXcoord(x)
+        }
+
+        ypos <- getYcoord(x)
+        N <- Nnode(x, internal.only=FALSE)
+        xypos <- data_frame(node=1:N, x=xpos, y=ypos)
+
+        df <- as_data_frame(model) %>%
+            mutate_(isTip = ~(! node %in% parent))
+
+        res <- full_join(df, xypos, by = "node")
     }
-
-    ypos <- getYcoord(x)
-    N <- Nnode(x, internal.only=FALSE)
-    xypos <- data_frame(node=1:N, x=xpos, y=ypos)
-
-    df <- as_data_frame(model) %>%
-        mutate_(isTip = ~(! node %in% parent))
-
-    res <- full_join(df, xypos, by = "node")
 
     ## add branch mid position
     res <- calculate_branch_mid(res)

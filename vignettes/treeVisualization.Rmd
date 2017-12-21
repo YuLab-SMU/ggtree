@@ -5,7 +5,7 @@ author: "Guangchuang Yu and Tommy Tsan-Yuk Lam\\
         School of Public Health, The University of Hong Kong"
 date: "`r Sys.Date()`"
 bibliography: ggtree.bib
-csl: nature.csl
+biblio-style: apalike
 output:
   prettydoc::html_pretty:
     toc: true
@@ -28,41 +28,62 @@ knitr::opts_chunk$set(tidy = FALSE,
 ```{r echo=FALSE, results="hide", message=FALSE}
 library("ape")
 library("ggplot2")
+library("cowplot")
+library("treeio")
 library("ggtree")
+
+
+CRANpkg <- function (pkg) {
+    cran <- "https://CRAN.R-project.org/package"
+    fmt <- "[%s](%s=%s)"
+    sprintf(fmt, pkg, cran, pkg)
+}
+
+Biocpkg <- function (pkg) {
+    sprintf("[%s](http://bioconductor.org/packages/%s)", pkg, pkg)
+}
 ```
 
 
-To view a phylogenetic tree, we first need to parse the tree file into `R`. The `ggtree` package supports many file formats including output files of commonly used software packages in evolutionary biology. For more details, plase refer to the [Tree Data Import](treeImport.html) vignette.
+To view a phylogenetic tree, we first need to parse the tree file into *R*. The
+`r Biocpkg('ggtree')` package supports many file formats via the `r
+Biocpkg('treeio')` package, including output files of commonly used software
+packages in evolutionary biology. For more details, plase refer to
+the [treeio vignette](https://bioconductor.org/packages/devel/bioc/vignettes/treeio/inst/doc/Importer.html).
 
 ```{r}
+library("treeio")
 library("ggtree")
+
 nwk <- system.file("extdata", "sample.nwk", package="treeio")
 tree <- read.tree(nwk)
 ```
 
-# Viewing a phylogenetic tree with `ggtree`
+# Viewing a phylogenetic tree with *ggtree*
 
-The `ggtree` package extends _`ggplot2`_ package to support viewing phylogenetic tree.
-It implements _`geom_tree`_ layer for displaying phylogenetic tree, as shown below:
+The `r Biocpkg('ggtree')` package extends `r CRANpkg('ggplot2')` package to support viewing phylogenetic tree.
+It implements `geom_tree` layer for displaying phylogenetic tree, as shown below:
 
 
 ```{r fig.width=3, fig.height=3, fig.align="center"}
 ggplot(tree, aes(x, y)) + geom_tree() + theme_tree()
 ```
 
-The function, _`ggtree`_, was implemented as a short cut to visualize a tree, and it works exactly the same as shown above.
+The function, `ggtree`, was implemented as a short cut to visualize a tree, and it works exactly the same as shown above.
 
-_`ggtree`_ takes all the advantages of _`ggplot2`_. For example, we can change the color, size and type of the lines as we do with _`ggplot2`_.
+`r Biocpkg('ggtree')` takes all the advantages of `r CRANpkg('ggplot2')`. For example, we can change the color, size and type of the lines as we do with `r CRANpkg('ggplot2')`.
+
 ```{r fig.width=3, fig.height=3, fig.align="center"}
 ggtree(tree, color="firebrick", size=1, linetype="dotted")
 ```
 
-By default, the tree is viewed in ladderize form, user can set the parameter _`ladderize = FALSE`_ to disable it.
+By default, the tree is viewed in ladderize form, user can set the parameter *ladderize = FALSE* to disable it.
+
 ```{r fig.width=3, fig.height=3, fig.align="center"}
 ggtree(tree, ladderize=FALSE)
 ```
 
-The _`branch.length`_ is used to scale the edge, user can set the parameter _`branch.length = "none"`_ to only view the tree topology (cladogram) or other numerical variable to scale the tree (e.g. _dN/dS_, see also in [Tree Annotation](treeAnnotation.html) vignette).
+The *branch.length* is used to scale the edge, user can set the parameter *branch.length = "none"* to only view the tree topology (cladogram) or other numerical variable to scale the tree (*e.g.* _d~N~/d~S~_, see also in [Tree Annotation](treeAnnotation.html) vignette).
 
 ```{r fig.width=3, fig.height=3, fig.align="center"}
 ggtree(tree, branch.length="none")
@@ -70,78 +91,53 @@ ggtree(tree, branch.length="none")
 
 # Layout
 
-Currently, _`ggtree`_ supports several layouts, including:
+Currently, `r Biocpkg('ggtree')` supports several layouts, including:
 
-+ `rectangular` (by default)
-+ `slanted`
-+ `circular`
-+ `fan`
++ rectangular (by default)
++ slanted
++ circular
++ fan
 
-for `Phylogram` (by default) and `Cladogram` if user explicitly setting `branch.length='none'`.
-`ggtree` also supports `unrooted` layout.
+for *phylogram* (by default) and *cladogram* if user explicitly setting
+*branch.length='none'*. Unrooted (equal angle and daylight methods), time-scaled
+and 2-dimensional layouts are also supported.
 
-
-## Phylogram
-
-__`rectangular`__
-
-```{r fig.height=4, fig.width=4, fig.align="center"}
-ggtree(tree) + ggtitle("(Phylogram) rectangular layout")
+```{r eval=F}
+library(ggtree)
+set.seed(2017-02-16)
+tr <- rtree(50)
+ggtree(tr)
+ggtree(tr, layout="slanted")
+ggtree(tr, layout="circular")
+ggtree(tr, layout="fan", open.angle=120)
+ggtree(tr, layout="equal_angle")
+ggtree(tr, layout="daylight")
+ggtree(tr, branch.length='none')
+ggtree(tr, branch.length='none', layout='circular')
+ggtree(tr, layout="daylight", branch.length = 'none')
 ```
 
-__`slanted`__
-
-```{r fig.height=4, fig.width=4, fig.align="center"}
-ggtree(tree, layout="slanted") + ggtitle("(Phylogram) slanted layout")
-```
-
-__`circular`__
-
-```{r fig.height=5, fig.width=5, fig.align="center"}
-ggtree(tree, layout="circular") + ggtitle("(Phylogram) circular layout")
-```
-
-__`fan`__
-
-```{r fig.height=5, fig.width=5, fig.align="center"}
-ggtree(tree, layout="fan", open.angle=180) + ggtitle("(Phylogram) fan layout")
-```
-
-
-## Cladogram
-
-__`rectangular`__
-
-```{r fig.height=4, fig.width=4, fig.align="center"}
-ggtree(tree, branch.length='none') + ggtitle("(Cladogram) rectangular layout")
-```
-
-__`slanted`__
-
-```{r fig.height=4, fig.width=4, fig.align="center"}
-ggtree(tree, layout="slanted", branch.length='none') + ggtitle("(Cladogram) slanted layout")
-```
-
-__`circular`__
-
-```{r fig.height=5, fig.width=5, fig.align="center"}
-ggtree(tree, layout="circular", branch.length="none") + ggtitle("(Cladogram) circular layout")
-```
-
-__`fan`__
-
-```{r fig.height=5, fig.width=5, fig.align="center"}
-ggtree(tree, layout="fan", open.angle=180, branch.length="none") + ggtitle("(Cladogram) circular layout")
+```{r echo=F,  fig.width=8, fig.height=8, message=FALSE}
+library(ggtree)
+set.seed(2017-02-16)
+x <- rtree(50)
+library(cowplot)
+theme_layout <- theme(plot.title = element_text(hjust = 0.5))
+plot_grid(
+    ggtree(x) + ggtitle("rectangular (phylogram)")+ theme_layout,
+    ggtree(x, layout="slanted") + ggtitle("slanted (phylogram)")+theme_layout,
+    ggtree(x, layout="circular") + ggtitle("circular (phylogram)")+theme_layout,
+    ggtree(x, layout="fan", open.angle=120) + ggtitle("fan (phylogram)")+theme_layout,
+    ggtree(x, layout="equal_angle")+ ggtitle("equal angle (unrooted)")+theme_layout,
+    ggtree(x, layout="daylight")+ ggtitle("daylight (unrooted)")+theme_layout,
+    ggtree(x, branch.length='none')+ ggtitle("rectangular (cladogram)")+theme_layout,
+    ggtree(x, branch.length='none', layout='circular')+ ggtitle("circular (cladogram)")+theme_layout,
+    ggtree(x, layout="daylight", branch.length = 'none')+ ggtitle("daylight (cladogram)")+theme_layout,
+    ncol=3)
 ```
 
 
-## Unrooted
 
-Unrooted layout was implemented by the _`equal-angle algorithm`_ that described in _Inferring Phylogenies_[@felsenstein_inferring_2003 pp.578-580].
-
-```{r fig.height=4, fig.width=4, fig.align="center"}
-ggtree(tree, layout="unrooted") + ggtitle("unrooted layout")
-```
 
 ## Time-scaled tree
 

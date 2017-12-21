@@ -1,12 +1,5 @@
 
 
-
-
-
-
-
-
-
 ##' @importFrom ape reorder.phylo
 layout.unrooted <- function(tree, branch.length="branch.length", layout.method="equal_angle", ...) {
 
@@ -18,6 +11,21 @@ layout.unrooted <- function(tree, branch.length="branch.length", layout.method="
     return(df)
 }
 
+set_branch_length_cladogram <- function(tree) {
+    phylo <- as.phylo(tree)
+    edge <- phylo$edge
+    xpos <- getXcoord_no_length(phylo)
+    phylo$edge.length <- xpos[edge[,2]] - xpos[edge[,1]]
+
+    if (is(tree, "phylo")) {
+        return(phylo)
+    } else if (is(tree, "treedata")) {
+        tree@phylo <- phylo
+        return(tree)
+    }
+    message("unknown tree object, fail to set branch length for cladogram...")
+    return(tree)
+}
 
 ##' 'Equal-angle layout algorithm for unrooted trees'
 ##'
@@ -29,9 +37,15 @@ layout.unrooted <- function(tree, branch.length="branch.length", layout.method="
 ##' @param branch.length set to 'none' for edge length of 1. Otherwise the phylogenetic tree edge length is used.
 ##' @return tree as data.frame with equal angle layout.
 layoutEqualAngle <- function(tree, branch.length ){
+    if (branch.length == "none") {
+        tree <- set_branch_length_cladogram(tree)
+    }
+
     root <- getRoot(tree)
     ## Convert Phylo tree to data.frame.
-    df <- as.data.frame.phylo_(tree)
+    ## df <- as.data.frame.phylo_(tree)
+    df <- as_data_frame(tree) %>%
+        mutate_(isTip = ~(! node %in% parent))
 
     ## NOTE: Angles (start, end, angle) are in half-rotation units (radians/pi or degrees/180)
 
@@ -82,11 +96,11 @@ layoutEqualAngle <- function(tree, branch.length ){
             ## beta = angle of line from parent node to i-th child.
             beta <- start + alpha / 2
 
-            if (branch.length == "none") {
-                length.child <- 1
-            } else {
-                length.child <- df[child, "length"]
-            }
+            ## if (branch.length == "none") {
+            ##     length.child <- 1
+            ## } else {
+            length.child <- df[child, "branch.length"]
+            ##}
 
             ## update geometry of data.frame.
             ## Calculate (x,y) position of the i-th child node from current node.
@@ -169,7 +183,7 @@ layoutDaylight <- function( tree, branch.length ){
         # Calculate the running average of angle changes.
         ave_change <- total_max / length(nodes) * length(i)
 
-        cat('Average angle change [',i,']', ave_change,'\n')
+        message('Average angle change [',i,'] ', ave_change)
 
         i <- i + 1
     }
@@ -237,19 +251,19 @@ applyLayoutDaylight <- function(df, node_id){
   # Find start and end angles for each subtree.
   #   subtrees = get subtrees of node
   #   for i-th subtree in subtrees {
-  for (i in seq_along(subtrees) ) {
-    subtree <- subtrees[[i]]
-    # [end, start] = get start and end angles of tree.
+    for (i in seq_along(subtrees) ) {
+        subtree <- subtrees[[i]]
+                                        # [end, start] = get start and end angles of tree.
 
-    angles <- getTreeArcAngles(df, node_id, subtree)
-    angle_list[ i, 'subtree_id'] <- i
-    angle_list[ i, 'left'] <- angles['left']
-    angle_list[ i, 'beta'] <- angles['left'] - angles['right'] # subtree arc angle
-    # If subtree arc angle is -ve, then + 2 (360).
-    if(angle_list[ i, 'beta'] < 0 ){
-      angle_list[ i, 'beta'] <- angle_list[ i, 'beta'] + 2
+        angles <- getTreeArcAngles(df, node_id, subtree)
+        angle_list[ i, 'subtree_id'] <- i
+        angle_list[ i, 'left'] <- angles['left']
+        angle_list[ i, 'beta'] <- angles['left'] - angles['right'] # subtree arc angle
+                                        # If subtree arc angle is -ve, then + 2 (360).
+        if(angle_list[ i, 'beta'] < 0 ){
+            angle_list[ i, 'beta'] <- angle_list[ i, 'beta'] + 2
+        }
     }
-  }
   #   sort angle_list by 'left angle' column in ascending order.
   angle_list <- angle_list[with(angle_list, order(left)), ]
   #   D = 360 - sum( angle_list['beta'] ) # total day
@@ -293,59 +307,59 @@ applyLayoutDaylight <- function(df, node_id){
 ##' @param subtree named list of root id of subtree (node) and list of node ids for given subtree (subtree).
 ##' @return named list with right and left angles in range [0,2] i.e 1 = 180 degrees, 1.5 = 270 degrees.
 getTreeArcAngles <- function(df, origin_id, subtree) {
-  # Initialise variables
-  theta_child <- 0.0
-  subtree_root_id <- subtree$node
-  subtree_node_ids <- subtree$subtree
+    ## Initialise variables
+    theta_child <- 0.0
+    subtree_root_id <- subtree$node
+    subtree_node_ids <- subtree$subtree
 
-  # Initialise angle from origin node to parent node.
-  # If subtree_root_id is child of origin_id
-  if( any(subtree_root_id == getChild.df(df, origin_id)) ){
-    # get angle from original node to parent of subtree.
-    theta_left <- getNodeAngle.df(df, origin_id, subtree_root_id)
-    theta_right <- theta_left
-  }else if( subtree_root_id == origin_id){
-    # Special case.
-    # get angle from parent of subtree to children
-    children_ids <- getChild.df(df, subtree_root_id)
+    ## Initialise angle from origin node to parent node.
+    ## If subtree_root_id is child of origin_id
+    if( any(subtree_root_id == getChild.df(df, origin_id)) ){
+        ## get angle from original node to parent of subtree.
+        theta_left <- getNodeAngle.df(df, origin_id, subtree_root_id)
+        theta_right <- theta_left
+    } else if( subtree_root_id == origin_id ){
+        ## Special case.
+        ## get angle from parent of subtree to children
+        children_ids <- getChild.df(df, subtree_root_id)
 
-    if(length(children_ids) == 2){
-      # get angles from parent to it's two children.
-      theta1 <- getNodeAngle.df(df, origin_id, children_ids[1])
-      theta2 <- getNodeAngle.df(df, origin_id, children_ids[2])
+        if(length(children_ids) == 2){
+            ## get angles from parent to it's two children.
+            theta1 <- getNodeAngle.df(df, origin_id, children_ids[1])
+            theta2 <- getNodeAngle.df(df, origin_id, children_ids[2])
 
-      delta <- theta1 - theta2
+            delta <- theta1 - theta2
 
 
-      # correct delta for points crossing 180/-180 quadrant.
-      if(delta > 1){
-        delta_adj = delta - 2
-      }else if(delta < -1){
-        delta_adj = delta + 2
-      }else{
-        delta_adj <- delta
-      }
+            ## correct delta for points crossing 180/-180 quadrant.
+            if(delta > 1){
+                delta_adj = delta - 2
+            } else if(delta < -1){
+                delta_adj = delta + 2
+            } else{
+                delta_adj <- delta
+            }
 
-      if(delta_adj >= 0){
-        theta_left = theta1
-        theta_right = theta2
-      }else if(delta_adj < 0){
-        theta_left = theta2
-        theta_right = theta1
-      }
-    }else{
-      # subtree only has one child node.
-      theta_left <- getNodeAngle.df(df, origin_id, children_ids[1])
-      theta_right <- theta_left
-    }
+            if(delta_adj >= 0){
+                theta_left = theta1
+                theta_right = theta2
+            } else if(delta_adj < 0){
+                theta_left = theta2
+                theta_right = theta1
+            }
+        }else{
+            ## subtree only has one child node.
+            theta_left <- getNodeAngle.df(df, origin_id, children_ids[1])
+            theta_right <- theta_left
+        }
 
-  }else{
-    # get the real root of df tree to initialise left and right angles.
-    tree_root <- getRoot.df(df)
-    if( !is.na(tree_root) & is.numeric(tree_root) ){
-      theta_left <- getNodeAngle.df(df, origin_id, tree_root)
-      theta_right <- theta_left
-    }else{
+    } else {
+        ## get the real root of df tree to initialise left and right angles.
+        tree_root <- getRoot.df(df)
+        if( !is.na(tree_root) & is.numeric(tree_root) ){
+            theta_left <- getNodeAngle.df(df, origin_id, tree_root)
+            theta_right <- theta_left
+        } else{
       print('ERROR: no root found!')
       theta_left <- NA
     }
@@ -526,8 +540,8 @@ rotateTreePoints.df <- function(df, pivot_node, nodes, angle){
 ##' @return angle in range [-1, 1], i.e. degrees/180, radians/pi
 getNodeAngle.df <- function(df, origin_node_id, node_id){
   if( (origin_node_id != node_id) & any(origin_node_id %in% df$node) & any(node_id %in% df$node) ){
-    delta_x <- df[node_id, 'x'] - df[origin_node_id, 'x']
-    delta_y <- df[node_id, 'y'] - df[origin_node_id, 'y']
+    delta_x <- df$x[node_id] - df$x[origin_node_id]
+    delta_y <- df$y[node_id] - df$y[origin_node_id]
     angle <- atan2(delta_y, delta_x) / pi
     return( angle )
   }else{
@@ -681,8 +695,9 @@ getRoot.df <- function(df, node){
   root <- which(is.na(df$parent))
   # Check if root was found.
   if(length(root) == 0){
-    # Alternatively, root can self reference, eg node = 10, parent = 10
-    root <- unlist(apply(df, 1, function(x){ if(x['node'] == x['parent']){ x['node'] } }))
+      ## Alternatively, root can self reference, eg node = 10, parent = 10
+      root <- df$node[df$parent == df$node]
+      ## root <- unlist(apply(df, 1, function(x){ if(x['node'] == x['parent']){ x['node'] } }))
   }
   return(root)
 }

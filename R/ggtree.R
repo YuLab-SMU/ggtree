@@ -49,10 +49,6 @@ ggtree <- function(tr,
         message('"daylight" method was used as default layout for unrooted tree.')
     }
 
-    if (is(tr, "r8s") && branch.length == "branch.length") {
-        branch.length = "TREE"
-    }
-
     if(yscale != "none") {
         ## for 2d tree
         layout <- "slanted"
