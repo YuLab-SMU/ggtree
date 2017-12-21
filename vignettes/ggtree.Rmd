@@ -38,7 +38,10 @@ Biocpkg <- function (pkg) {
 
 ```
 
-> You can't even begin to understand biology, you can't understand life, unless you understand what it's all there for, how it arose - and that means evolution.
+> You can't even begin to understand biology, you can't understand life, unless
+> you understand what it's all there for, how it arose - and that means
+> evolution.
+>
 > --- Richard Dawkins
 
 
@@ -114,7 +117,12 @@ visualize or annotate phylogenetic tree in `r Biocpkg('ggtree')` [@yu_ggtree:_20
 
 # Tree Visualization and Annotation
 
-Tree Visualization in `ggtree` is easy, with one line of command `ggtree(tree_object)`. It supports several layouts, including `rectangular`, `slanted` and `circular` for `Phylogram` and `Cladogram`, `unrooted` layout, time-scaled and two dimentional phylogenies. [Tree Visualization](treeVisualization.html) vignette describes these feature in details.
+Tree Visualization in `r Biocpkg('ggtree')` is easy, with one line of command
+`ggtree(tree_object)`. It supports several layouts, including *rectangular*,
+*slanted*, *circular* and *fan* for *phylogram* and *cladogram*, *equal_angle*
+and *daylight* for *unrooted* layout, time-scaled and two dimentional
+phylogenies. [Tree Visualization](treeVisualization.html) vignette describes
+these feature in details.
 
 We implement several functions to manipulate a phylogenetic tree.
 
@@ -125,27 +133,73 @@ We implement several functions to manipulate a phylogenetic tree.
 + selected clade can be rotated by 180 degree using `rotate` function
 + position of two selected clades (should share a same parent) can be exchanged by `flip` function
 
+
 Details and examples can be found in [Tree Manipulation](treeManipulation.html) vignette.
 
 
-Most of the phylogenetic trees are scaled by evolutionary distance (substitution/site), in `ggtree` a phylogenetic tree can be re-scaled by any numerical variable inferred by evolutionary analysis (e.g. species divergence time, *dN/dS*, _etc_). Numerical and category variable can be used to color a phylogenetic tree.
+Most of the phylogenetic trees are scaled by evolutionary distance
+(substitution/site), in `r Biocpkg('ggtree')` a phylogenetic tree can be
+re-scaled by any numerical variable inferred by evolutionary analysis (e.g.
+species divergence time, *d~N~/d~S~*, _etc_). Numerical and category variable can be
+used to color a phylogenetic tree.
 
-The `ggtree` package provides several layers to annotate a phylogenetic tree, including:
+The `r Biocpkg('ggtree')` package provides several layers to annotate a
+phylogenetic tree. These layers are building blocks that can be freely combined
+together to create complex tree visualization.
 
-+ `geom_cladelabel` for labelling selected clades
-+ `geom_hilight` for highlighting selected clades
-+ `geom_range` to indicate uncertainty of branch lengths
-+ `geom_strip` for adding strip/bar to label associated taxa (with optional label)
-+ `geom_taxalink` for connecting related taxa
-+ `geom_tiplab` for adding tip labels
-+ `geom_treescale` for adding a legend of tree scale
+```{r geoms, echo=FALSE, message=FALSE}
+geoms <- matrix(c(
+  "geom_balance", "highlights the two direct descendant clades of an internal node",
+  "geom_cladelabel", "annotate a clade with bar and text label",
+  "geom_cladelabel2", "annotate a clade with bar and text label for unrooted layout",
+  "geom_hilight", "highlight a clade with rectangle",
+  "geom_hilight_encircle", "highlight a clade with xspline for unrooted layout",
+  "geom_label2", "modified version of geom_label, with subsetting supported",
+  "geom_nodelab", "layer for node labels, which can be text or image",
+  "geom_nodepoint", "annotate internal nodes with symbolic points",
+  "geom_point2", "modified version of geom_point, with subsetting supported",
+  "geom_range", "bar layer to present uncertainty of evolutionary inference",
+  "geom_rootpoint", "annotate root node with symbolic point",
+  "geom_segment2", "modified version of geom_segment, with subsetting supported",
+  "geom_strip", "annotate associated taxa with bar and (optional) text label",
+  "geom_taxalink", "associate two related taxa by linking them with a curve",
+  "geom_text2", "modified version of geom_text, with subsetting supported",
+  "geom_tiplab", "layer of tip labels, which can be text or image",
+  "geom_tiplab2", "layer of tip labels for circular layout",
+  "geom_tippoint", "annotate external nodes with symbolic points",
+  "geom_tree", "tree structure layer, with multiple layout supported",
+  "geom_treescale", "tree branch scale legend"
+), ncol=2, byrow=TRUE)
+geoms <- as.data.frame(geoms)
+colnames(geoms) <- c("Layer", "Description")
+knitr::kable(geoms, caption = "Geom layers defined in ggtree.", booktabs = T)
+```
+
+`r Biocpkg('ggtree')` supports creating phylomoji using Emoji fonts, please
+refer to `r CRANpkg("emojifont")` package vignette for details. The vignette can
+be opened via the following command:
+
+```r
+vignette("phylomoji", package="emojifont")
+```
 
 
-It supports annotating phylogenetic trees with analyses obtained from R packages and other commonly used evolutionary software. User's specific annotation (e.g. experimental data) can be integrated to annotate phylogenetic trees. `ggtree` provides `write.jplace` function to combine Newick tree file and user's own data to a single `jplace` file that can be parsed and the data can be used to annotate the tree directly in `ggtree`.
+`r Biocpkg('ggtree')` integrates [phylopic](http://phylopic.org/) database and silhouette images of organisms can
+be downloaded and used to annotate phylogenetic directly. `r Biocpkg('ggtree')` also supports
+using local or remote images to annotate a phylogenetic tree. For details,
+please refer to the `r CRANpkg('ggimage')` package vignette, which can be opened
+via the following command:
 
-`ggtree` integrates `phylopic` database and silhouette images of organisms can be downloaded and used to annotate phylogenetic directly. `ggtree` also supports using local images to annotate a phylogenetic tree.
 
-Visualizing an annotated phylogenetic tree with numerical matrix (e.g. genotype table), multiple sequence alignment and subplots are also supported in `ggtree`. Examples of annotating phylogenetic trees can be found in the [Tree Annotation](treeAnnotation.html) and [Advance Tree Annotation](advanceTreeAnnotation.html) vignettes.
+```r
+vignette("ggtree", package="ggimage")
+```
+
+
+Visualizing an annotated phylogenetic tree with numerical matrix (e.g. genotype
+table), multiple sequence alignment and subplots are also supported in `ggtree`.
+Examples of annotating phylogenetic trees can be found in
+the [Tree Annotation](treeAnnotation.html) vignette.
 
 
 # Vignette Entry
@@ -154,14 +208,13 @@ Visualizing an annotated phylogenetic tree with numerical matrix (e.g. genotype 
 + [Tree Visualization](treeVisualization.html)
 + [Tree Manipulation](treeManipulation.html)
 + [Tree Annotation](treeAnnotation.html)
-+ [Advance Tree Annotation](advanceTreeAnnotation.html)
 + [Phylomoji](https://cran.r-project.org/web/packages/emojifont/vignettes/phylomoji.html)
-+ [Annotating phylogenetic tree with images using ggtree and ggimage](https://cran.r-project.org/web/packages/ggimage/vignettes/ggtree.html)
++ [Annotating phylogenetic tree with images](https://cran.r-project.org/web/packages/ggimage/vignettes/ggtree.html)
 
 
 More documents can be found in <https://guangchuangyu.github.io/ggtree>.
 
-## Feedback ##
+# Feedback #
 
  - For bugs or feature request, please post to [github issue](https://github.com/GuangchuangYu/ggtree/issues).
  - For user questions, please post to [google group](https://groups.google.com/forum/#!forum/bioc-ggtree).
