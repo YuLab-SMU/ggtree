@@ -5,7 +5,7 @@ author: "Guangchuang Yu and Tommy Tsan-Yuk Lam\\
         School of Public Health, The University of Hong Kong"
 date: "`r Sys.Date()`"
 bibliography: ggtree.bib
-csl: nature.csl
+biblio-style: apalike
 output:
   prettydoc::html_pretty:
     toc: true
@@ -25,14 +25,18 @@ knitr::opts_chunk$set(tidy = FALSE,
 ```
 
 
-```{r echo=FALSE, results="hide", message=FALSE}
-library("colorspace")
-library("ape")
-library("ggplot2")
-library("ggtree")
+```{r echo=FALSE}
+CRANpkg <- function (pkg) {
+    cran <- "https://CRAN.R-project.org/package"
+    fmt <- "[%s](%s=%s)"
+    sprintf(fmt, pkg, cran, pkg)
+}
+
+Biocpkg <- function (pkg) {
+    sprintf("[%s](http://bioconductor.org/packages/%s)", pkg, pkg)
+}
+
 ```
-
-
 
 > You can't even begin to understand biology, you can't understand life, unless you understand what it's all there for, how it arose - and that means evolution.
 > --- Richard Dawkins
@@ -40,27 +44,73 @@ library("ggtree")
 
 # Citation
 
-If you use `ggtree` in published research, please cite:
+If you use `r Biocpkg('ggtree')` in published research, please cite:
 
-__G Yu__, DK Smith, H Zhu, Y Guan, TTY Lam^\*^. ggtree: an R package for visualization and annotation of phylogenetic trees with their covariates and other associated data. __*Methods in Ecology and Evolution*__. 2017, 8(1):28-36. doi:[10.1111/2041-210X.12628](http://dx.doi.org/10.1111/2041-210X.12628).
+__G Yu__, DK Smith, H Zhu, Y Guan, TTY Lam^\*^. ggtree: an R package for
+visualization and annotation of phylogenetic trees with their covariates and
+other associated data. __*Methods in Ecology and Evolution*__. 2017, 8(1):28-36.
+doi: [10.1111/2041-210X.12628](https://doi.org/10.1111/2041-210X.12628).
 
 
 # Introduction
 
-This project arose from our needs to annotate nucleotide substitutions in the phylogenetic tree, and we found that there is no tree visualization software can do this easily. Existing tree viewers are designed for displaying phylogenetic tree, but not annotating it. Although some tree viewers can displaying bootstrap values in the tree, it is hard/impossible to display other information in the tree. Our first solution for displaying nucleotide substituitions in the tree is to add this information in the node/tip names and use traditional tree viewer to show it. We displayed the information in the tree successfully, but we believe this indirect approach is inefficient.
+This project arose from our needs to annotate nucleotide substitutions in the
+phylogenetic tree, and we found that there is no tree visualization software can
+do this easily. Existing tree viewers are designed for displaying phylogenetic
+tree, but not annotating it. Although some tree viewers can displaying bootstrap
+values in the tree, it is hard/impossible to display other information in the
+tree. Our first solution for displaying nucleotide substituitions in the tree is
+to add this information in the node/tip names and use traditional tree viewer to
+show it. We displayed the information in the tree successfully, but we believe
+this indirect approach is inefficient.
 
-Previously, phylogenetic trees were much smaller. Annotation of phylogenetic trees was not as necessary as nowadays much more data is becomming available. We want to associate our experimental data, for instance antigenic change, with the evolution relationship. Visualizing these associations in a phylogenetic tree can help us to identify evolution patterns. We believe we need a next generation tree viewer that should be programmable and extensible. It can view a phylogenetic tree easily as we did with classical software and support adding annotation data in a layer above the tree. This is the objective of developing the `ggtree`. Common tasks of annotating a phylogenetic tree should be easy and complicated tasks can be possible to achieve by adding multiple layers of annotation.
+Previously, phylogenetic trees were much smaller. Annotation of phylogenetic
+trees was not as necessary as nowadays much more data is becomming available. We
+want to associate our experimental data, for instance antigenic change, with the
+evolution relationship. Visualizing these associations in a phylogenetic tree
+can help us to identify evolution patterns. We believe we need a next generation
+tree viewer that should be programmable and extensible. It can view a
+phylogenetic tree easily as we did with classical software and support adding
+annotation data in a layer above the tree. This is the objective of developing
+the `r Biocpkg('ggtree')` [@yu_ggtree:_2017]. Common tasks of annotating a phylogenetic tree should
+be easy and complicated tasks can be possible to achieve by adding multiple
+layers of annotation.
 
-The `ggtree` is designed by extending the `ggplot2`[@wickham_ggplot2_2009] package. It is based on the grammar of graphics and takes all the good parts of `ggplot2`. There are other R packages that implement tree viewer using `ggplot2`, including `OutbreakTools`, `phyloseq`[@mcmurdie_phyloseq_2013] and [ggphylo](https://github.com/gjuggler/ggphylo); they mostly create complex tree view functions for their specific needs. Internally, these packages interpret a phylogenetic as a collection of `lines`, which makes it hard to annotate diverse user input that are related to node (taxa). The `ggtree` is different to them by interpreting a tree as a collection of `taxa` and allowing general flexibilities of annotating phylogenetic tree with diverse types of user inputs.
+The `r Biocpkg('ggtree')` is designed by extending the `r CRANpkg('ggplot2')`
+[@wickham_ggplot2_2009] package. It is based on the grammar of graphics and
+takes all the good parts of `r CRANpkg('ggplot2')`. There are other R packages that implement
+tree viewer using `r CRANpkg('ggplot2')`, including `r CRANpkg('OutbreakTools')`,
+`r Biocpkg('phyloseq')` [@mcmurdie_phyloseq_2013]
+and [ggphylo](https://github.com/gjuggler/ggphylo); they mostly create complex
+tree view functions for their specific needs. Internally, these packages
+interpret a phylogenetic as a collection of lines, which makes it hard to
+annotate diverse user input that are related to node (taxa). The `r Biocpkg('ggtree')` is
+different to them by interpreting a tree as a collection of taxa and allowing
+general flexibilities of annotating phylogenetic tree with diverse types of user
+inputs.
 
 
-# Getting data into `R`
+# Getting data into *R*
 
-Most of the tree viewer software (including `R` packages) focus on `Newick` and `Nexus` file format, while there are file formats from different evolution analysis software that contain supporting evidences within the file that are ready for annotating a phylogenetic tree. In addition to `Newick` and `Nexus`, ggtree supports `NHX`, `jplace` and `Phylip` file formats. `ggtree` also supports software outputs from [BEAST](http://beast2.org/)[@bouckaert_beast_2014], [EPA](http://sco.h-its.org/exelixis/web/software/epa/index.html)[@berger_EPA_2011], [HYPHY](http://hyphy.org/w/index.php/Main_Page)[@pond_hyphy_2005], [PAML](http://abacus.gene.ucl.ac.uk/software/paml.html)[@yang_paml_2007], [PHYLDOG](http://pbil.univ-lyon1.fr/software/phyldog/)[@boussau_genome-scale_2013], [pplacer](http://matsen.fhcrc.org/pplacer/)[@matsen_pplacer_2010], [r8s](http://loco.biosci.arizona.edu/r8s/)[@marazzi_locating_2012], [RAxML](http://sco.h-its.org/exelixis/web/software/raxml/)[@stamatakis_raxml_2014] and [RevBayes](http://revbayes.github.io/intro.html)[@hohna_probabilistic_2014].
+Most of the tree viewer software (including *R* packages) focus on *Newick* and
+*Nexus* file format, while there are file formats from different evolution
+analysis software that contain supporting evidences within the file that are
+ready for annotating a phylogenetic tree. The `r Biocpkg('treeio')` package
+supports several file formats and software outputs. It brings analysis findings
+to *R* users for further analysis (*e.g.* summarization, visualization,
+comparison and test, *etc.*). It also allows external data to be mapped on the
+phylogeny. Please refer to the `r Biocpkg('treeio')` vignette
+for more details.
 
-Parsing data from a number of molecular evolution software is not only for visualization in `ggtree`, but also bring these data to `R` users for further analysis (e.g. summarization, visualization, comparision, test, _etc_).
+Users can use the following command to open the vignette:
 
-For more details, please refer to [Tree Data Import](treeImport.html) vignette.
+```r
+vignette("Importer", package="treeio")
+```
+
+All the data parsed/integrated by `r Biocpkg('treeio')` package can be used to
+visualize or annotate phylogenetic tree in `r Biocpkg('ggtree')` [@yu_ggtree:_2017].
+
 
 # Tree Visualization and Annotation
 
@@ -100,25 +150,27 @@ Visualizing an annotated phylogenetic tree with numerical matrix (e.g. genotype 
 
 # Vignette Entry
 
-+ [Tree Data Import](https://bioconductor.org/packages/release/bioc/vignettes/treeio/inst/doc/treeio.html)
++ [Tree Data Import](https://bioconductor.org/packages/devel/bioc/vignettes/treeio/inst/doc/Importer.html)
 + [Tree Visualization](treeVisualization.html)
 + [Tree Manipulation](treeManipulation.html)
 + [Tree Annotation](treeAnnotation.html)
 + [Advance Tree Annotation](advanceTreeAnnotation.html)
-+ [ggtree utilities](ggtreeUtilities.html)
 + [Phylomoji](https://cran.r-project.org/web/packages/emojifont/vignettes/phylomoji.html)
++ [Annotating phylogenetic tree with images using ggtree and ggimage](https://cran.r-project.org/web/packages/ggimage/vignettes/ggtree.html)
+
 
 More documents can be found in <https://guangchuangyu.github.io/ggtree>.
 
 ## Feedback ##
 
  - For bugs or feature request, please post to [github issue](https://github.com/GuangchuangYu/ggtree/issues).
- - For user questions, please post to [google group](https://groups.google.com/forum/#!forum/bioc-ggtree) or post to [Bioconductor support site](https://support.bioconductor.org/) or [Biostars](https://www.biostars.org/). We are following every post tagged with **ggtree**.
+ - For user questions, please post to [google group](https://groups.google.com/forum/#!forum/bioc-ggtree).
 
 
 # Session info
 
 Here is the output of `sessionInfo()` on the system on which this document was compiled:
+
 ```{r echo=FALSE}
 sessionInfo()
 ```
