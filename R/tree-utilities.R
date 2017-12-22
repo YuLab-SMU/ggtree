@@ -1469,7 +1469,7 @@ add_angle_slanted <- function(res) {
 
 calculate_branch_mid <- function(res) {
     res$branch <- with(res, (x[match(parent, node)] + x)/2)
-    if (!is.null(res$branch.length)) {
+    if (!is.null(res[['branch.length']])) {
         res$branch.length[is.na(res$branch.length)] <- 0
     }
     res$branch[is.na(res$branch)] <- 0

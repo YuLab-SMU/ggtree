@@ -46,8 +46,7 @@ Biocpkg <- function (pkg) {
 
 
 To view a phylogenetic tree, we first need to parse the tree file into *R*. The
-`r Biocpkg('ggtree')` package supports many file formats via the `r
-Biocpkg('treeio')` package, including output files of commonly used software
+`r Biocpkg('ggtree')` [@yu_ggtree:_2017] package supports many file formats via the `r Biocpkg('treeio')` package, including output files of commonly used software
 packages in evolutionary biology. For more details, plase refer to
 the [treeio vignette](https://bioconductor.org/packages/devel/bioc/vignettes/treeio/inst/doc/Importer.html).
 
@@ -61,7 +60,7 @@ tree <- read.tree(nwk)
 
 # Viewing a phylogenetic tree with *ggtree*
 
-The `r Biocpkg('ggtree')` package extends `r CRANpkg('ggplot2')` package to support viewing phylogenetic tree.
+The `r Biocpkg('ggtree')` package extends `r CRANpkg('ggplot2')` [@wickham_ggplot2_2009] package to support viewing phylogenetic tree.
 It implements `geom_tree` layer for displaying phylogenetic tree, as shown below:
 
 
@@ -102,6 +101,10 @@ for *phylogram* (by default) and *cladogram* if user explicitly setting
 *branch.length='none'*. Unrooted (equal angle and daylight methods), time-scaled
 and 2-dimensional layouts are also supported.
 
+
+## Phylogram and Cladogram
+
+
 ```{r eval=F}
 library(ggtree)
 set.seed(2017-02-16)
@@ -120,37 +123,68 @@ ggtree(tr, layout="daylight", branch.length = 'none')
 ```{r echo=F,  fig.width=8, fig.height=8, message=FALSE}
 library(ggtree)
 set.seed(2017-02-16)
-x <- rtree(50)
+tr <- rtree(50)
 library(cowplot)
 theme_layout <- theme(plot.title = element_text(hjust = 0.5))
 plot_grid(
-    ggtree(x) + ggtitle("rectangular (phylogram)")+ theme_layout,
-    ggtree(x, layout="slanted") + ggtitle("slanted (phylogram)")+theme_layout,
-    ggtree(x, layout="circular") + ggtitle("circular (phylogram)")+theme_layout,
-    ggtree(x, layout="fan", open.angle=120) + ggtitle("fan (phylogram)")+theme_layout,
-    ggtree(x, layout="equal_angle")+ ggtitle("equal angle (unrooted)")+theme_layout,
-    ggtree(x, layout="daylight")+ ggtitle("daylight (unrooted)")+theme_layout,
-    ggtree(x, branch.length='none')+ ggtitle("rectangular (cladogram)")+theme_layout,
-    ggtree(x, branch.length='none', layout='circular')+ ggtitle("circular (cladogram)")+theme_layout,
-    ggtree(x, layout="daylight", branch.length = 'none')+ ggtitle("daylight (cladogram)")+theme_layout,
+    ggtree(tr) + ggtitle("rectangular (phylogram)")+ theme_layout,
+    ggtree(tr, layout="slanted") + ggtitle("slanted (phylogram)")+theme_layout,
+    ggtree(tr, layout="circular") + ggtitle("circular (phylogram)")+theme_layout,
+    ggtree(tr, layout="fan", open.angle=120) + ggtitle("fan (phylogram)")+theme_layout,
+    ggtree(tr, layout="equal_angle")+ ggtitle("equal angle (unrooted)")+theme_layout,
+    ggtree(tr, layout="daylight")+ ggtitle("daylight (unrooted)")+theme_layout,
+    ggtree(tr, branch.length='none')+ ggtitle("rectangular (cladogram)")+theme_layout,
+    ggtree(tr, branch.length='none', layout='circular')+ ggtitle("circular (cladogram)")+theme_layout,
+    ggtree(tr, layout="daylight", branch.length = 'none')+ ggtitle("daylight (cladogram)")+theme_layout,
     ncol=3)
 ```
 
+
+There are also other possible layouts that can be drawed by modifying
+scales/coordination, for examples, reverse label of time
+scale^[https://github.com/GuangchuangYu/ggtree/issues/87], repropotion
+circular/fan tree
+^[https://groups.google.com/d/msgid/bioc-ggtree/6db25ec7-ffb1-4776-bfe4-4a1ba239c8e8%40googlegroups.com], *etc.*.
+
+```{r eval=FALSE}
+ggtree(tr) + scale_x_reverse()
+ggtree(tr) + coord_flip()
+ggtree(tr) + scale_x_reverse() + coord_flip()
+ggtree(tr, layout='slanted') + coord_flip()
+ggtree(tr, layout='slanted', branch.length='none') +
+    coord_flip() + scale_y_reverse() +scale_x_reverse()
+ggtree(tr, layout='circular') + xlim(-10, NA)
+ggtree(tr) + scale_x_reverse() + coord_polar(theta='y')
+ggtree(tr) + scale_x_reverse(limits=c(10, 0)) + coord_polar(theta='y')
+```
+
+```{r fig.width=8, fig.height = 4, echo=FALSE}
+plot_grid(
+    ggtree(tr) + scale_x_reverse(),
+    ggtree(tr) + coord_flip(),
+    ggtree(tr) + scale_x_reverse() + coord_flip(),
+    ggtree(tr, layout='slanted') + coord_flip(),
+    ggtree(tr, layout='slanted', branch.length='none') + coord_flip() + scale_y_reverse() +scale_x_reverse(),
+    ggtree(tr, layout='circular') + xlim(-10, NA),
+    ggtree(tr) + scale_x_reverse() + coord_polar(theta='y'),
+    ggtree(tr) + scale_x_reverse(limits=c(15, 0)) + coord_polar(theta='y'),
+    ncol = 4, labels = LETTERS[1:6])
+```
 
 
 
 ## Time-scaled tree
 
-A phylogenetic tree can be scaled by time (time-scaled tree) by specifying the parameter, `mrsd` (most recent sampling date).
+A phylogenetic tree can be scaled by time (time-scaled tree) by specifying the parameter, *mrsd* (most recent sampling date).
 
-```{r fig.width=9, fig.height=9, fig.align="center"}
+```{r fig.width=8, fig.height=4, fig.align="center"}
 tree2d <- read.beast(system.file("extdata", "twoD.tree", package="treeio"))
 ggtree(tree2d, mrsd = "2014-05-01") + theme_tree2()
 ```
 
 ## Two dimensional tree
 
-`ggtree` implemented two dimensional tree. It accepts parameter _`yscale`_ to scale the y-axis based on the selected tree attribute. The attribute should be numerical variable. If it is *character*/*category* variable, user should provides a name vector of mapping the variable to numeric by passing it to parameter _`yscale_mapping`_.
+`r Biocpkg('ggtree')` implemented two dimensional tree. It accepts parameter *yscale* to scale the y-axis based on the selected tree attribute. The attribute should be numerical variable. If it is *character*/*category* variable, user should provides a name vector of mapping the variable to numeric by passing it to parameter *yscale_mapping*.
 
 
 ```{r fig.width=9, fig.height=4, fig.align="center"}
@@ -175,35 +209,42 @@ ggtree(tree) + geom_treescale()
 
 `geom_treescale()` supports the following parameters:
 
-+ `x` and `y` for tree scale position
-+ `width` for the length of the tree scale
-+ `fontsize` for the size of the text
-+ `linesize` for the size of the line
-+ `offset` for relative position of the line and the text
-+ `color` for color of the tree scale
++ *x* and *y* for tree scale position
++ *width* for the length of the tree scale
++ *fontsize* for the size of the text
++ *linesize* for the size of the line
++ *offset* for relative position of the line and the text
++ *color* for color of the tree scale
 
 
-```{r fig.width=4, fig.height=4, fig.align="center"}
-ggtree(tree)+geom_treescale(x=0, y=12, width=6, color='red')
+```{r eval=F}
+ggtree(tree) + geom_treescale(x=0, y=12, width=6, color='red')
+ggtree(tree) + geom_treescale(fontsize=8, linesize=2, offset=-1)
 ```
 
-```{r fig.width=4, fig.height=4, fig.align="center"}
-ggtree(tree)+geom_treescale(fontsize=8, linesize=2, offset=-1)
+```{r fig.width=8, fig.height=4, fig.align="center", echo=F}
+plot_grid(
+    ggtree(tree)+geom_treescale(x=0, y=12, width=6, color='red'),
+    ggtree(tree)+geom_treescale(fontsize=8, linesize=2, offset=-1),
+    ncol = 2, labels = LETTERS[1:2])
 ```
 
 
-We can also use `theme_tree2()` to display the tree scale by adding `x axis`.
+We can also use `theme_tree2()` to display the tree scale by adding *x axis*.
+
 
 ```{r fig.width=3, fig.height=3, fig.align="center"}
 ggtree(tree) + theme_tree2()
 ```
 
-Tree scale is not restricted to evolution distance, `ggtree` can re-scale the tree with other numerical variable. More details can be found in the [Tree Annotation](treeAnnotation.html) vignette.
+
+Tree scale is not restricted to evolution distance, `r Biocpkg('ggtree')` can re-scale the tree with other numerical variable. More details can be found in the [Tree Annotation](treeAnnotation.html) vignette.
 
 
 # Displaying nodes/tips
 
-Showing all the internal nodes and tips in the tree can be done by adding a layer of points using _`geom_nodepoint`_,  _`geom_tippoint`_ or _`geom_point`_.
+Showing all the internal nodes and tips in the tree can be done by adding a layer of points using `geom_nodepoint`,  `geom_tippoint` or `geom_point`.
+
 
 ```{r fig.width=3, fig.height=3, fig.align="center"}
 ggtree(tree)+geom_point(aes(shape=isTip, color=isTip), size=3)
@@ -216,19 +257,32 @@ p + geom_tippoint(color="#FDAC4F", shape=8, size=3)
 
 ## Displaying labels
 
-Users can use _`geom_text`_ to display the node (if available) and tip labels simultaneously or `geom_tiplab` to only display tip labels:
+Users can use `geom_text` or `geom_label` to display the node (if available) and tip labels simultaneously or `geom_tiplab` to only display tip labels:
+
 
 ```{r fig.width=3, fig.height=3, warning=FALSE, fig.align="center"}
 p + geom_tiplab(size=3, color="purple")
 ```
 
-For _`circular`_ and _`unrooted`_ layout, `ggtree` supports rotating node labels according to the angles of the branches.
+`geom_tiplab` not only supports using *text* or *label* geom to display labels,
+it also supports *image* geom to label tip with image files. A corresponding
+geom, `geom_nodelab` is also provided for displaying node labels. For details of
+label nodes with images, please refer to
+the vignette,
+[Annotating phylogenetic tree with images](https://cran.r-project.org/web/packages/ggimage/vignettes/ggtree.html).
+
+
+
+For *circular* and *unrooted* layout, `r Biocpkg('ggtree')` supports rotating node labels according to the angles of the branches.
+
 
 ```{r fig.width=6, fig.height=6, warning=FALSE, fig.align="center"}
 ggtree(tree, layout="circular") + geom_tiplab(aes(angle=angle), color='blue')
 ```
 
-To make it more readable for human eye, `ggtree` provides a `geom_tiplab2` for `circular` layout (see post [1](https://groups.google.com/forum/?utm_medium=email&utm_source=footer#!topic/bioc-ggtree/o35PV3iHO-0) and [2](https://groups.google.com/forum/#!topic/bioc-ggtree/p42R5l8J-14)).
+
+To make it more readable for human eye, `r Biocpkg('ggtree')` provides a `geom_tiplab2` for `circular` layout (see post [1](https://groups.google.com/forum/?utm_medium=email&utm_source=footer#!topic/bioc-ggtree/o35PV3iHO-0) and [2](https://groups.google.com/forum/#!topic/bioc-ggtree/p42R5l8J-14)).
+
 
 ```{r fig.width=6, fig.height=6, warning=FALSE, fig.align="center"}
 ggtree(tree, layout="circular") + geom_tiplab2(color='blue')
@@ -236,11 +290,14 @@ ggtree(tree, layout="circular") + geom_tiplab2(color='blue')
 
 By default, the positions are based on the node positions, we can change them to based on the middle of the branch/edge.
 
+
 ```{r fig.width=4, fig.height=3, warning=FALSE, fig.align="center"}
 p + geom_tiplab(aes(x=branch), size=3, color="purple", vjust=-0.3)
 ```
 
+
 Based on the middle of branch is very useful when annotating transition from parent node to child node.
+
 
 # update tree view with a new tree
 
@@ -251,18 +308,27 @@ For example, the pattern in the _`p`_ object will be applied to a new tree with 
 p %<% rtree(50)
 ```
 
-Another example can be found in the [Tree Data Import](treeImport.html#rst-file) vignette.
-
 # theme
 
-`theme_tree()` defined a totally blank canvas, while _`theme_tree2()`_ adds phylogenetic distance (via x-axis). These two themes all accept a parameter of _`bgcolor`_ that defined the background color.
+`theme_tree()` defined a totally blank canvas, while _`theme_tree2()`_ adds
+phylogenetic distance (via x-axis). These two themes all accept a parameter of
+_`bgcolor`_ that defined the background color. Users can pass
+any [theme components](http://ggplot2.tidyverse.org/reference/theme.html) to the
+`theme_tree()` function to modify them.
 
-```{r fig.width=6, fig.height=3, fig.align="center"}
+
+```{r eval=F}
+ggtree(rtree(30), color="red") + theme_tree("steelblue")
+ggtree(rtree(20), color="white") + theme_tree("black")
+```
+
+```{r fig.width=8, fig.height=3, fig.align="center", echo=F}
 cowplot::plot_grid(
     ggtree(rtree(30), color="red") + theme_tree("steelblue"),
-    ggtree(rtree(20), color="white") + theme_tree("black"),
+    ggtree(rtree(20), color="purple") + theme_tree("black"),
     ncol=2)
 ```
+
 
 # Visualize a list of trees
 
