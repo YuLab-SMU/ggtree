@@ -224,12 +224,14 @@ the [Tree Annotation](treeAnnotation.html) vignette.
 + [Tree Manipulation](treeManipulation.html)
 + [Tree Annotation](treeAnnotation.html)
 + [Phylomoji](https://cran.r-project.org/web/packages/emojifont/vignettes/phylomoji.html)
-+ [Annotating phylogenetic tree with images](https://cran.r-project.org/web/packages/ggimage/vignettes/ggtree.html)
++ [Annotating phylogenetic tree with images](https://guangchuangyu.github.io/ggtree/vignettes/ggtree-ggimage.html)
 
 
-More documents can be found in <https://guangchuangyu.github.io/ggtree>.
+**ggtree homepage**: <https://guangchuangyu.github.io/ggtree> (contains more
+information about the package, more documentation, a gallery of beautiful
+published images and links to related resources).
 
-# Feedback #
+# Feedback
 
  - For bugs or feature request, please post to [github issue](https://github.com/GuangchuangYu/ggtree/issues).
  - For user questions, please post to [google group](https://groups.google.com/forum/#!forum/bioc-ggtree).

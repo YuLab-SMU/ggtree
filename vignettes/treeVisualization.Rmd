@@ -141,15 +141,16 @@ plot_grid(
 
 
 There are also other possible layouts that can be drawed by modifying
-scales/coordination, for examples, reverse label of time
-scale^[https://github.com/GuangchuangYu/ggtree/issues/87], repropotion
-circular/fan tree
-^[https://groups.google.com/d/msgid/bioc-ggtree/6db25ec7-ffb1-4776-bfe4-4a1ba239c8e8%40googlegroups.com], *etc.*.
+scales/coordination, for examples, [reverse label of time
+scale](https://github.com/GuangchuangYu/ggtree/issues/87), [repropotion
+circular/fan tree](
+https://groups.google.com/d/msgid/bioc-ggtree/6db25ec7-ffb1-4776-bfe4-4a1ba239c8e8%40googlegroups.com), *etc.*.
 
 ```{r eval=FALSE}
 ggtree(tr) + scale_x_reverse()
 ggtree(tr) + coord_flip()
 ggtree(tr) + scale_x_reverse() + coord_flip()
+print(ggtree(tr), newpage=TRUE, vp = grid::viewport(angle=-30, width=.9, height=.9))
 ggtree(tr, layout='slanted') + coord_flip()
 ggtree(tr, layout='slanted', branch.length='none') +
     coord_flip() + scale_y_reverse() +scale_x_reverse()
@@ -158,17 +159,22 @@ ggtree(tr) + scale_x_reverse() + coord_polar(theta='y')
 ggtree(tr) + scale_x_reverse(limits=c(10, 0)) + coord_polar(theta='y')
 ```
 
-```{r fig.width=8, fig.height = 4, echo=FALSE}
+```{r fig.keep='none', echo=FALSE, warning=FALSE}
+sv <- grid::grid.grabExpr(print(ggtree(tr), newpage=TRUE, vp = grid::viewport(angle=-30, width=.9, height=.9)))
+```
+
+```{r fig.width=8, fig.height = 8, echo=FALSE, warning=FALSE}
 plot_grid(
     ggtree(tr) + scale_x_reverse(),
     ggtree(tr) + coord_flip(),
     ggtree(tr) + scale_x_reverse() + coord_flip(),
+    sv,
     ggtree(tr, layout='slanted') + coord_flip(),
     ggtree(tr, layout='slanted', branch.length='none') + coord_flip() + scale_y_reverse() +scale_x_reverse(),
     ggtree(tr, layout='circular') + xlim(-10, NA),
     ggtree(tr) + scale_x_reverse() + coord_polar(theta='y'),
     ggtree(tr) + scale_x_reverse(limits=c(15, 0)) + coord_polar(theta='y'),
-    ncol = 4, labels = LETTERS[1:6])
+    ncol = 3, labels = LETTERS[1:9])
 ```
 
 
@@ -269,7 +275,7 @@ it also supports *image* geom to label tip with image files. A corresponding
 geom, `geom_nodelab` is also provided for displaying node labels. For details of
 label nodes with images, please refer to
 the vignette,
-[Annotating phylogenetic tree with images](https://cran.r-project.org/web/packages/ggimage/vignettes/ggtree.html).
+[Annotating phylogenetic tree with images](https://guangchuangyu.github.io/ggtree/vignettes/ggtree-ggimage.html).
 
 
 
