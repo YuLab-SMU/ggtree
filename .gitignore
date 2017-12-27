@@ -14,5 +14,5 @@ __init__.pyc
 ggtree.Rproj
 .Rproj.user
 ggtree
-*.html
+vignettes/*.html
 

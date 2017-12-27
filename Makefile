@@ -56,6 +56,11 @@ site:
 	rm themes;\
 	cd ..
 
+vignette:
+	cd site_src/vignettes;\
+	Rscript -e 'ff = list.files(pattern=".R|rmd"); sapply(ff, function(f) rmarkdown::render(f))';\
+	mv *html ../../docs/vignettes/
+
 preview:
 	cd site_src;\
 	ln -s ../../software/themes themes;\
