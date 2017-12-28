@@ -27,6 +27,7 @@ knitr::opts_chunk$set(tidy = FALSE,
 
 ```{r echo=FALSE, results="hide", message=FALSE}
 library("ape")
+library("grid")
 library("ggplot2")
 library("cowplot")
 library("treeio")
@@ -160,7 +161,7 @@ ggtree(tr) + scale_x_reverse(limits=c(10, 0)) + coord_polar(theta='y')
 ```
 
 ```{r fig.keep='none', echo=FALSE, warning=FALSE}
-sv <- grid::grid.grabExpr(print(ggtree(tr), newpage=TRUE, vp = grid::viewport(angle=-30, width=.9, height=.9)))
+tree_angle <- grid::grid.grabExpr(print(ggtree(tr), newpage=TRUE, vp = grid::viewport(angle=-30, width=.9, height=.9)))
 ```
 
 ```{r fig.width=8, fig.height = 8, echo=FALSE, warning=FALSE}
@@ -168,7 +169,7 @@ plot_grid(
     ggtree(tr) + scale_x_reverse(),
     ggtree(tr) + coord_flip(),
     ggtree(tr) + scale_x_reverse() + coord_flip(),
-    sv,
+    tree_angle,
     ggtree(tr, layout='slanted') + coord_flip(),
     ggtree(tr, layout='slanted', branch.length='none') + coord_flip() + scale_y_reverse() +scale_x_reverse(),
     ggtree(tr, layout='circular') + xlim(-10, NA),
