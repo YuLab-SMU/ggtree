@@ -74,13 +74,18 @@ gitmaintain:
 	git prune -v;\
 	git fsck --full
 
+release:
+	git checkout RELEASE_3_6;\
+	make update
+
+
 update:
 	git fetch --all;\
 	git checkout master;\
 	git merge upstream/master;\
 	git merge origin/master
 
-push: update
+push:
 	git push upstream master;\
 	git push origin master
 
