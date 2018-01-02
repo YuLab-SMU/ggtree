@@ -76,8 +76,7 @@ gitmaintain:
 
 release:
 	git checkout RELEASE_3_6;\
-	make update
-
+	git fetch --all
 
 update:
 	git fetch --all;\
