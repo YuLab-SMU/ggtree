@@ -363,5 +363,74 @@ df <- fortify(best_tree, branch.length = 'none')
 p+geom_tree(data=df, color='firebrick')
 ```
 
+# Rescale tree
+
+Most of the phylogenetic trees are scaled by evolutionary distance (substitution/site). In `ggtree`, users can re-scale a phylogenetic tree by any numerical variable inferred by evolutionary analysis (e.g. *dN/dS*).
+
+
+```{r fig.width=10, fig.height=5}
+library("treeio")
+beast_file <- system.file("examples/MCC_FluA_H3.tree", package="ggtree")
+beast_tree <- read.beast(beast_file)
+beast_tree
+p1 <- ggtree(beast_tree, mrsd='2013-01-01') + theme_tree2() +
+    ggtitle("Divergence time")
+p2 <- ggtree(beast_tree, branch.length = 'rate') + theme_tree2() +
+    ggtitle("Substitution rate")
+
+library(cowplot)
+plot_grid(p1, p2, ncol=2)
+```
+
+```{r fig.width=10, fig.height=5}
+mlcfile <- system.file("extdata/PAML_Codeml", "mlc", package="treeio")
+mlc_tree <- read.codeml_mlc(mlcfile)
+p1 <- ggtree(mlc_tree) + theme_tree2() +
+    ggtitle("nucleotide substitutions per codon")
+p2 <- ggtree(mlc_tree, branch.length='dN_vs_dS') + theme_tree2() +
+    ggtitle("dN/dS tree")
+plot_grid(p1, p2, ncol=2)
+```
+
+In addition to specify `branch.length` in tree visualization, users can change branch length stored in tree object by using `rescale_tree` function.
+
+```{r}
+beast_tree2 <- rescale_tree(beast_tree, branch.length = 'rate')
+ggtree(beast_tree2) + theme_tree2()
+```
+
+# Zoom on a portion of tree
+
+`ggtree` provides _`gzoom`_ function that similar to _`zoom`_ function provided in `ape`. This function plots simultaneously a whole phylogenetic tree and a portion of it. It aims at exploring very large trees.
+
+```{r fig.width=9, fig.height=5, fig.align="center"}
+library("ape")
+data(chiroptera)
+library("ggtree")
+gzoom(chiroptera, grep("Plecotus", chiroptera$tip.label))
+```
+
+Zoom in selected clade of a tree that was already annotated with `ggtree` is also supported.
+
+```{r fig.width=9, fig.height=5, message=FALSE, warning=FALSE}
+groupInfo <- split(chiroptera$tip.label, gsub("_\\w+", "", chiroptera$tip.label))
+chiroptera <- groupOTU(chiroptera, groupInfo)
+p <- ggtree(chiroptera, aes(color=group)) + geom_tiplab() + xlim(NA, 23)
+gzoom(p, grep("Plecotus", chiroptera$tip.label), xmax_adjust=2)
+```
+
+
+# Color tree
+
+In `ggtree`, coloring phylogenetic tree is easy, by using `aes(color=VAR)` to map the color of tree based on a specific variable (numeric and category are both supported).
+
+```{r fig.width=5, fig.height=5}
+ggtree(beast_tree, aes(color=rate)) +
+    scale_color_continuous(low='darkgreen', high='red') +
+    theme(legend.position="right")
+```
+
+User can use any feature (if available), including clade posterior and *dN/dS* _etc._, to scale the color of the tree.
+
 
 # References

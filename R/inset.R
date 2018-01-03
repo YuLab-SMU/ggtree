@@ -14,7 +14,7 @@
 ##' @return tree view with insets
 ##' @export
 ##' @author Guangchuang Yu
-inset <- function(tree_view, insets, width=0.1, height=0.1, hjust=0, vjust=0,
+inset <- function(tree_view, insets, width, height, hjust=0, vjust=0,
                   x="node", reverse_x=FALSE, reverse_y=FALSE) {
 
     df <- tree_view$data[as.numeric(names(insets)),]

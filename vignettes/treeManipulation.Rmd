@@ -30,11 +30,10 @@ library("ape")
 library("ggplot2")
 library("cowplot")
 library("ggtree")
-collapse <- ggtree::collapse
 expand <- ggtree::expand
 rotate <- ggtree::rotate
 flip <- ggtree::flip
-MRCA <- ggtree::MRCA
+collapse <- ggtree:::collapse.ggtree
 ```
 
 # Internal node number
@@ -168,7 +167,7 @@ ggtree(tree_iris, aes(color=group)) +
 With _`collapse`_ function, user can collapse a selected clade.
 
 ```{r fig.width=5, fig.height=5, fig.align="center", warning=FALSE}
-cp <- ggtree(tree) %>% collapse(node=21)
+cp <- collapse(p, node=21)
 cp + geom_point2(aes(subset=(node == 21)), size=5, shape=23, fill="steelblue")
 ```
 

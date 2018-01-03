@@ -59,15 +59,18 @@ is.viewClade <- function(tree_view) {
 ##' collapse a clade
 ##'
 ##'
-##' @title collapse
-##' @param tree_view tree view
+##' @title collapse-ggtree
+##' @rdname collapse
+##' @param x tree view
 ##' @param node clade node
+##' @param ... additional parameters
 ##' @return tree view
+##' @method collapse ggtree
 ##' @export
 ##' @seealso expand
 ##' @author Guangchuang Yu
-collapse <- function(tree_view=NULL, node) {
-    tree_view %<>% get_tree_view
+collapse.ggtree <- function(x=NULL, node, ...) {
+    tree_view <- get_tree_view(x)
 
     df <- tree_view$data
 

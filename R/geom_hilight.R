@@ -12,7 +12,7 @@
 ##' @importFrom ggplot2 GeomRect
 ##' @author Guangchuang Yu
 geom_hilight <- function(node, fill="steelblue", alpha=.5, extend=0, extendto=NULL) {
-  
+
   data = NULL
   stat = "hilight"
   position = "identity"
@@ -20,10 +20,10 @@ geom_hilight <- function(node, fill="steelblue", alpha=.5, extend=0, extendto=NU
   na.rm = TRUE
   inherit.aes = FALSE
   check.aes = FALSE
-  
+
   default_aes <- aes_(x=~x, y=~y, node=~node, parent=~parent, branch.length=~branch.length)
   mapping <- default_aes
-  
+
   l <- layer(
     stat=StatHilight,
     data = data,
@@ -40,7 +40,7 @@ geom_hilight <- function(node, fill="steelblue", alpha=.5, extend=0, extendto=NU
                   extendto=extendto,
                   na.rm = na.rm)
   )
-  
+
   return(l)
 }
 
@@ -67,15 +67,15 @@ stat_hilight <- function(mapping=NULL, data=NULL, geom="rect",
                          show.legend=NA, inherit.aes=FALSE,
                          fill, alpha, extend=0, extendto=NULL,
                          ...) {
-  
+
   default_aes <- aes_(x=~x, y=~y, node=~node, parent=~parent, branch.length=~branch.length)
-  
+
   if (is.null(mapping)) {
     mapping <- default_aes
   } else {
     mapping <- modifyList(mapping, default_aes)
   }
-  
+
   layer(
     stat=StatHilight,
     data = data,
@@ -101,7 +101,7 @@ stat_hilight <- function(mapping=NULL, data=NULL, geom="rect",
 ##' @export
 StatHilight <- ggproto("StatHilight", Stat,
                        compute_group = function(self, data, scales, params, node, extend, extendto) {
-                         
+
                          df <- get_clade_position_(data, node)
                          df$xmax <- df$xmax + extend
                          if (!is.null(extendto) && !is.na(extendto)) {
@@ -146,7 +146,7 @@ get_clade_position_ <- function(data, node) {
     y <- sp.df$y
 
     if ("branch.length" %in% colnames(data)) {
-        xmin <- min(x, na.rm=TRUE)-data[i, "branch.length"]/2
+        xmin <- min(x, na.rm=TRUE)-data[["branch.length"]][i]/2
     } else {
         xmin <- min(sp.df$branch, na.rm=TRUE)
     }

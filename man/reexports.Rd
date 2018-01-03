@@ -7,9 +7,17 @@
 \alias{reexports}
 \alias{read.tree}
 \alias{reexports}
+\alias{read.nexus}
+\alias{reexports}
 \alias{groupOTU}
 \alias{reexports}
 \alias{groupClade}
+\alias{reexports}
+\alias{collapse}
+\alias{reexports}
+\alias{fortify}
+\alias{reexports}
+\alias{ggplot}
 \alias{reexports}
 \alias{xlim}
 \alias{reexports}
@@ -24,6 +32,34 @@
 \alias{geom_label}
 \alias{reexports}
 \alias{geom_point}
+\alias{reexports}
+\alias{read.beast}
+\alias{reexports}
+\alias{read.codeml}
+\alias{reexports}
+\alias{read.codeml_mlc}
+\alias{reexports}
+\alias{read.hyphy}
+\alias{reexports}
+\alias{read.jplace}
+\alias{reexports}
+\alias{read.jtree}
+\alias{reexports}
+\alias{read.mrbayes}
+\alias{reexports}
+\alias{read.newick}
+\alias{reexports}
+\alias{read.nhx}
+\alias{reexports}
+\alias{read.paml_rst}
+\alias{reexports}
+\alias{read.phylip}
+\alias{reexports}
+\alias{read.phyloT}
+\alias{reexports}
+\alias{read.r8s}
+\alias{reexports}
+\alias{read.raxml}
 \title{Objects exported from other packages}
 \keyword{internal}
 \description{
@@ -31,10 +67,14 @@ These objects are imported from other packages. Follow the links
 below to see their documentation.
 
 \describe{
-  \item{ape}{\code{\link[ape]{rtree}}, \code{\link[ape]{read.tree}}}
+  \item{ape}{\code{\link[ape]{rtree}}, \code{\link[ape]{read.tree}}, \code{\link[ape]{read.nexus}}}
 
-  \item{ggplot2}{\code{\link[ggplot2]{xlim}}, \code{\link[ggplot2]{theme}}, \code{\link[ggplot2]{ggsave}}, \code{\link[ggplot2]{aes}}, \code{\link[ggplot2]{geom_text}}, \code{\link[ggplot2]{geom_label}}, \code{\link[ggplot2]{geom_point}}}
+  \item{dplyr}{\code{\link[dplyr]{collapse}}}
+
+  \item{ggplot2}{\code{\link[ggplot2]{fortify}}, \code{\link[ggplot2]{ggplot}}, \code{\link[ggplot2]{xlim}}, \code{\link[ggplot2]{theme}}, \code{\link[ggplot2]{ggsave}}, \code{\link[ggplot2]{aes}}, \code{\link[ggplot2]{geom_text}}, \code{\link[ggplot2]{geom_label}}, \code{\link[ggplot2]{geom_point}}}
 
   \item{tidytree}{\code{\link[tidytree]{groupOTU}}, \code{\link[tidytree]{groupClade}}}
+
+  \item{treeio}{\code{\link[treeio]{read.beast}}, \code{\link[treeio]{read.codeml}}, \code{\link[treeio]{read.codeml_mlc}}, \code{\link[treeio]{read.hyphy}}, \code{\link[treeio]{read.jplace}}, \code{\link[treeio]{read.jtree}}, \code{\link[treeio]{read.mrbayes}}, \code{\link[treeio]{read.newick}}, \code{\link[treeio]{read.nhx}}, \code{\link[treeio]{read.paml_rst}}, \code{\link[treeio]{read.phylip}}, \code{\link[treeio]{read.phyloT}}, \code{\link[treeio]{read.r8s}}, \code{\link[treeio]{read.raxml}}}
 }}
 

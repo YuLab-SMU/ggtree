@@ -29,81 +29,27 @@ knitr::opts_chunk$set(tidy = FALSE,
 library("ape")
 library("ggplot2")
 library("cowplot")
+library("treeio")
 library("ggtree")
+
+CRANpkg <- function (pkg) {
+    cran <- "https://CRAN.R-project.org/package"
+    fmt <- "[%s](%s=%s)"
+    sprintf(fmt, pkg, cran, pkg)
+}
+
+Biocpkg <- function (pkg) {
+    sprintf("[%s](http://bioconductor.org/packages/%s)", pkg, pkg)
+}
+
+inset <- ggtree::inset
 ```
 
 
-# Rescale tree
-
-Most of the phylogenetic trees are scaled by evolutionary distance (substitution/site). In `ggtree`, users can re-scale a phylogenetic tree by any numerical variable inferred by evolutionary analysis (e.g. *dN/dS*).
-
-
-```{r fig.width=10, fig.height=5}
-beast_file <- system.file("examples/MCC_FluA_H3.tree", package="ggtree")
-beast_tree <- read.beast(beast_file)
-beast_tree
-p1 <- ggtree(beast_tree, mrsd='2013-01-01') + theme_tree2() +
-    ggtitle("Divergence time")
-p2 <- ggtree(beast_tree, branch.length = 'rate') + theme_tree2() +
-    ggtitle("Substitution rate")
-
-library(cowplot)
-plot_grid(p1, p2, ncol=2)
-```
-
-```{r fig.width=10, fig.height=5}
-mlcfile <- system.file("extdata/PAML_Codeml", "mlc", package="treeio")
-mlc_tree <- read.codeml_mlc(mlcfile)
-p1 <- ggtree(mlc_tree) + theme_tree2() +
-    ggtitle("nucleotide substitutions per codon")
-p2 <- ggtree(mlc_tree, branch.length='dN_vs_dS') + theme_tree2() +
-    ggtitle("dN/dS tree")
-plot_grid(p1, p2, ncol=2)
-```
-
-In addition to specify `branch.length` in tree visualization, users can change branch length stored in tree object by using `rescale_tree` function.
-
-```{r}
-beast_tree2 <- rescale_tree(beast_tree, branch.length = 'rate')
-ggtree(beast_tree2) + theme_tree2()
-```
-
-# Zoom on a portion of tree
-
-`ggtree` provides _`gzoom`_ function that similar to _`zoom`_ function provided in `ape`. This function plots simultaneously a whole phylogenetic tree and a portion of it. It aims at exploring very large trees.
-
-```{r fig.width=9, fig.height=5, fig.align="center"}
-library("ape")
-data(chiroptera)
-library("ggtree")
-gzoom(chiroptera, grep("Plecotus", chiroptera$tip.label))
-```
-
-Zoom in selected clade of a tree that was already annotated with `ggtree` is also supported.
-
-```{r fig.width=9, fig.height=5, message=FALSE, warning=FALSE}
-groupInfo <- split(chiroptera$tip.label, gsub("_\\w+", "", chiroptera$tip.label))
-chiroptera <- groupOTU(chiroptera, groupInfo)
-p <- ggtree(chiroptera, aes(color=group)) + geom_tiplab() + xlim(NA, 23)
-gzoom(p, grep("Plecotus", chiroptera$tip.label), xmax_adjust=2)
-```
-
-
-# Color tree
-
-In `ggtree`, coloring phylogenetic tree is easy, by using `aes(color=VAR)` to map the color of tree based on a specific variable (numeric and category are both supported).
-
-```{r fig.width=5, fig.height=5}
-ggtree(beast_tree, aes(color=rate)) +
-    scale_color_continuous(low='darkgreen', high='red') +
-    theme(legend.position="right")
-```
-
-User can use any feature (if available), including clade posterior and *dN/dS* _etc._, to scale the color of the tree.
 
 # Annotate clades
 
-`ggtree` implements _`geom_cladelabel`_ layer to annotate a selected clade with a bar indicating the clade with a corresponding label.
+`r Biocpkg("ggtree")` [@yu_ggtree:_2017] implements _`geom_cladelabel`_ layer to annotate a selected clade with a bar indicating the clade with a corresponding label.
 
 The _`geom_cladelabel`_ layer accepts a selected internal node number. To get the internal node number, please refer to [Tree Manipulation](treeManipulation.html#internal-node-number) vignette.
 
@@ -151,13 +97,34 @@ Users can also use `geom_label` to label the text.
 p+ geom_cladelabel(node=34, label="another clade", align=T, geom='label', fill='lightblue')
 ```
 
+## Annotate clades for unrooted tree
+
+`r Biocpkg("ggtree")` provides `geom_clade2` for labeling clades of unrooted
+layout trees.
+
+
+```{r fig.wdith=7, fig.height=7, fig.align='center', warning=FALSE, message=FALSE}
+pg <- ggtree(tree, layout = "daylight")
+pg + geom_cladelabel2(node=45, label="test label", angle = 10) +
+    geom_cladelabel2(node = 34, label="another clade", angle=305)
+```
+
+# Labelling associated taxa (Monophyletic, Polyphyletic or Paraphyletic)
+
+`geom_cladelabel` is designed for labelling Monophyletic (Clade) while there are related taxa that are not form a clade. `ggtree` provides `geom_strip` to add a strip/bar to indicate the association with optional label (see [the issue](https://github.com/GuangchuangYu/ggtree/issues/52)).
+
+```{r fig.width=5, fig.height=5, fig.align="center", warning=FALSE}
+nwk <- system.file("extdata", "sample.nwk", package="treeio")
+tree <- read.tree(nwk)
+ggtree(tree) + geom_tiplab() + geom_strip(5, 7, barsize=2, color='red') + geom_strip(6, 12, barsize=2, color='blue')
+```
+
+
 # Highlight clades
 
 `ggtree` implements _`geom_hilight`_ layer, that accepts an internal node number and add a layer of rectangle to highlight the selected clade.
 
 ```{r fig.width=5, fig.height=5, fig.align="center", warning=FALSE}
-nwk <- system.file("extdata", "sample.nwk", package="treeio")
-tree <- read.tree(nwk)
 ggtree(tree) + geom_hilight(node=21, fill="steelblue", alpha=.6) +
     geom_hilight(node=17, fill="darkgreen", alpha=.6)
 ```
@@ -170,7 +137,8 @@ ggtree(tree, layout="circular") + geom_hilight(node=21, fill="steelblue", alpha=
 
 Another way to highlight selected clades is setting the clades with different colors and/or line types as demonstrated in [Tree Manipulation](treeManipulation.html#groupclade) vignette.
 
-# Highlight balances
+## Highlight balances
+
 In addition to _`geom_hilight`_, `ggtree` also implements _`geom_balance`_
 which is designed to highlight neighboring subclades of a given internal node.
 
@@ -180,13 +148,16 @@ ggtree(tree) +
   geom_balance(node=19, fill='darkgreen', color='white', alpha=0.6, extend=1)
 ```
 
-# labelling associated taxa (Monophyletic, Polyphyletic or Paraphyletic)
+## Highlight clades for unrooted tree
 
-`geom_cladelabel` is designed for labelling Monophyletic (Clade) while there are related taxa that are not form a clade. `ggtree` provides `geom_strip` to add a strip/bar to indicate the association with optional label (see [the issue](https://github.com/GuangchuangYu/ggtree/issues/52)).
+`r Biocpkg("ggtree")` provides `geom_hilight_encircle` to support highlight
+clades for unrooted layout trees.
 
-```{r fig.width=5, fig.height=5, fig.align="center", warning=FALSE}
-ggtree(tree) + geom_tiplab() + geom_strip(5, 7, barsize=2, color='red') + geom_strip(6, 12, barsize=2, color='blue')
+
+```{r fig.width=5, fig.height=5, fig.align='center', warning=FALSE, message=FALSE}
+pg + geom_hilight_encircle(node=45) + geom_hilight_encircle(node=34, fill='darkgreen')
 ```
+
 
 # taxa connection
 
@@ -197,66 +168,39 @@ ggtree(tree) + geom_tiplab() + geom_taxalink('A', 'E') + geom_taxalink('F', 'K',
 ```
 
 
-# Tree annotation with analysis of R packages
-
-## annotating tree with ape bootstraping analysis
-
-```{r results='hide', message=FALSE}
-library(ape)
-data(woodmouse)
-d <- dist.dna(woodmouse)
-tr <- nj(d)
-bp <- boot.phylo(tr, woodmouse, function(xx) nj(dist.dna(xx)))
-```
-
-
-```{r fig.width=6, fig.height=6, warning=FALSE, fig.align="center"}
-library(treeio)
-tree <- as.treedata(tr, boot = bp)
-ggtree(tree) + geom_label(aes(label=bootstrap)) + geom_tiplab()
-```
-
-## annotating tree with phangorn output
-
-```{r results='hide', message=FALSE, fig.width=12, fig.height=10, width=60, warning=FALSE, fig.align="center", eval=FALSE}
-library(phangorn)
-treefile <- system.file("extdata", "pa.nwk", package="treeio")
-tre <- read.tree(treefile)
-tipseqfile <- system.file("extdata", "pa.fas", package="treeio")
-tipseq <- read.phyDat(tipseqfile,format="fasta")
-fit <- pml(tre, tipseq, k=4)
-fit <- optim.pml(fit, optNni=FALSE, optBf=T, optQ=T,
-                 optInv=T, optGamma=T, optEdge=TRUE,
-                 optRooted=FALSE, model = "GTR")
-
-phangorn <- phyPML(fit, type="ml")
-ggtree(phangorn) + geom_text(aes(x=branch, label=AA_subs, vjust=-.5))
-```
-
-![](figures/phangorn_example.png)
-
 # Tree annotation with output from evolution software
 
-In `ggtree`, we implemented several parser functions to parse output from commonly used software package in evolutionary biology, including:
+The `r Biocpkg("treeio")` package implemented several parser functiions to parse
+output from commonly used software in evolutionary biology.
 
-+ [BEAST](http://beast2.org/)[@bouckaert_beast_2014]
-+ [EPA](http://sco.h-its.org/exelixis/web/software/epa/index.html)[@berger_EPA_2011]
-+ [HYPHY](http://hyphy.org/w/index.php/Main_Page)[@pond_hyphy_2005]
-+ [PAML](http://abacus.gene.ucl.ac.uk/software/paml.html)[@yang_paml_2007]
-+ [PHYLDOG](http://pbil.univ-lyon1.fr/software/phyldog/)[@boussau_genome-scale_2013]
-+ [pplacer](http://matsen.fhcrc.org/pplacer/)[@matsen_pplacer_2010]
-+ [r8s](http://loco.biosci.arizona.edu/r8s/)[@marazzi_locating_2012]
-+ [RAxML](http://sco.h-its.org/exelixis/web/software/raxml/)[@stamatakis_raxml_2014]
-+ [RevBayes](http://revbayes.github.io/intro.html)[@hohna_probabilistic_2014]
+Here, we used [BEAST](http://beast2.org/)[@bouckaert_beast_2014] output as an
+example. For details, please refer to the
+[Importer](https://bioconductor.org/packages/devel/bioc/vignettes/treeio/inst/doc/Importer.html) vignette.
 
-Evolutionary evidences inferred by these software packages can be used for further analysis in `R` and annotating phylogenetic tree directly in `ggtree`. For more details, please refer to the [Tree Data Import](treeImport.html) vignette.
+
+```{r warning=FALSE, fig.width=5, fig.height=5, fig.align='center'}
+file <- system.file("extdata/BEAST", "beast_mcc.tree", package="treeio")
+beast <- read.beast(file)
+ggtree(beast, aes(color = rate))  +
+    geom_range(range='length_0.95_HPD', color='red', alpha=.6, size=2) +
+    geom_nodelab(aes(x=branch, label=round(posterior, 2)), vjust=-.5, size=3) +
+    scale_color_continuous(low="darkgreen", high="red") +
+    theme(legend.position=c(.1, .8))
+```
 
 
 # Tree annotation with user specified annotation
 
-## the `%<+%` operator
+Integrating user data to annotate phylogenetic tree can be done at different
+levels. The `r Biocpkg("treeio")` package implements `full_join` methods to
+[combine tree data to phylogenetic tree object](https://bioconductor.org/packages/devel/bioc/vignettes/treeio/inst/doc/Importer.html).
+The `r CRANpkg("tidytree")` package supports [linking tree data to phylogeny
+using tidyverse verbs](https://cran.r-project.org/web/packages/tidytree/vignette/tiytree.html).
+`r Biocpkg("ggtree")` supports mapping external data to phylogeny for
+visualization  and annotation on the fly.
 
-In addition to parse commonly used software output, `ggtree` also supports annotating a phylogenetic tree using user's own data.
+
+## the `%<+%` operator
 
 Suppose we have the following data that associate with the tree and would like to attach the data in the tree.
 
@@ -273,6 +217,7 @@ dd <- data.frame(taxa  = LETTERS[1:13],
 dd <- dd[sample(1:13, 13), ]
 row.names(dd) <- NULL
 ```
+
 ```{r eval=FALSE}
 print(dd)
 ```
@@ -281,52 +226,114 @@ print(dd)
 knitr::kable(dd)
 ```
 
-We can imaging that the _`place`_ column stores the location that we isolated the species and _`value`_ column stores numerical values (e.g. bootstrap values).
+We can imaging that the _place_ column stores the location that we isolated the
+species and _value_ column stores numerical values (*e.g.* bootstrap values).
 
-We have demonstrated using the operator, _`%<%`_, to update a tree view with a new tree. Here, we will introduce another operator, _`%<+%`_, that attaches annotation data to a tree view. The only requirement of the input data is that its first column should be matched with the node/tip labels of the tree.
+We have demonstrated using the operator, `%<%`, to update a tree view with a new
+tree. Here, we will introduce another operator, `%<+%`, that attaches annotation
+data to a tree view. The only requirement of the input data is that its first
+column should be matched with the node/tip labels of the tree.
 
-After attaching the annotation data to the tree by _`%<+%`_, all the columns in the data are visible to _`ggtree`_. As an example, here we attach the above annotation data to the tree view, _`p`_, and add a layer that showing the tip labels and colored them by the isolation site stored in _`place`_ column.
+After attaching the annotation data to the tree by `%<+%`, all the columns in
+the data are visible to `r Biocpkg("ggtree")`. As an example, here we attach the
+above annotation data to the tree view, _p_, and add a layer that showing the
+tip labels and colored them by the isolation site stored in _place_ column.
 
 ```{r fig.width=6, fig.height=5, warning=FALSE, fig.align="center"}
 p <- p %<+% dd + geom_tiplab(aes(color=place)) +
        geom_tippoint(aes(size=value, shape=place, color=place), alpha=0.25)
-p+theme(legend.position="right")
+p + theme(legend.position="right")
 ```
 
 Once the data was attached, it is always attached. So that we can add other layers to display these information easily.
+
 ```{r fig.width=6, fig.height=5, warning=FALSE, fig.align="center"}
 p + geom_text(aes(color=place, label=place), hjust=1, vjust=-0.4, size=3) +
     geom_text(aes(color=place, label=value), hjust=1, vjust=1.4, size=3)
 ```
 
-## phylo4d
 
-`phylo4d` was defined in the `phylobase` package, which can be employed to integrate user's data with phylogenetic tree. `phylo4d` was supported in `ggtree` and the data stored in the object can be used directly to annotate the tree.
+# Visualize tree with associated matrix
 
-```{r fig.width=6, fig.height=5, warning=FALSE, fig.align="center", eval=FALSE}
-dd2 <- dd[, -1]
-rownames(dd2) <- dd[,1]
-require(phylobase)
-tr2 <- phylo4d(tree, dd2)
-ggtree(tr2) + geom_tiplab(aes(color=place)) +
-    geom_tippoint(aes(size=value, shape=place, color=place), alpha=0.25)
+<!--
+At first we implemented `gplot` function to visualize tree with heatmap but it has [an issue](https://github.com/GuangchuangYu/ggtree/issues/3) that it can't always guarantee the heatmap aligning to the tree properly, since the line up is between two figures and it's currently not supported internally by ggplot2. I have implemented another function `gheatmap` that can do the line up properly by creating a new layer above the tree.
+-->
+
+The `gheatmap` function is designed to visualize phylogenetic tree with heatmap of associated matrix.
+
+In the following example, we visualized a tree of H3 influenza viruses with their associated genotype.
+
+```{r fig.width=8, fig.height=6, fig.align="center", warning=FALSE, message=FALSE}
+beast_file <- system.file("examples/MCC_FluA_H3.tree", package="ggtree")
+beast_tree <- read.beast(beast_file)
+
+genotype_file <- system.file("examples/Genotype.txt", package="ggtree")
+genotype <- read.table(genotype_file, sep="\t", stringsAsFactor=F)
+colnames(genotype) <- sub("\\.$", "", colnames(genotype))
+p <- ggtree(beast_tree, mrsd="2013-01-01") + geom_treescale(x=2008, y=1, offset=2)
+p <- p + geom_tiplab(size=2)
+gheatmap(p, genotype, offset = 5, width=0.5, font.size=3, colnames_angle=-45, hjust=0) +
+    scale_fill_manual(breaks=c("HuH3N2", "pdm", "trig"), values=c("steelblue", "firebrick", "darkgreen"))
+```
+
+The _width_ parameter is to control the width of the heatmap. It supports another parameter _offset_ for controlling the distance between the tree and the heatmap, for instance to allocate space for tip labels.
+
+
+For time-scaled tree, as in this example, it's more often to use x axis by using `theme_tree2`. But with this solution, the heatmap is just another layer and will change the `x` axis. To overcome this issue, we implemented `scale_x_ggtree` to set the x axis more reasonable.
+
+<!-- User can also use `gplot` and tweak the positions of two plot to align properly. -->
+
+
+
+```{r fig.width=8, fig.height=6, fig.align="center", warning=FALSE}
+p <- ggtree(beast_tree, mrsd="2013-01-01") + geom_tiplab(size=2, align=TRUE, linesize=.5) + theme_tree2()
+pp <- (p + scale_y_continuous(expand=c(0, 0.3))) %>%
+    gheatmap(genotype, offset=8, width=0.6, colnames=FALSE) %>%
+        scale_x_ggtree()
+pp + theme(legend.position="right")
 ```
 
 
-![](figures/phylobase_example.png)
+# Visualize tree with multiple sequence alignment
 
-## jplace file format
+With `msaplot` function, user can visualize multiple sequence alignment with phylogenetic tree, as demonstrated below:
+```{r fig.width=8, fig.height=6, fig.align='center', warning=FALSE}
+fasta <- system.file("examples/FluA_H3_AA.fas", package="ggtree")
+msaplot(ggtree(beast_tree), fasta)
+```
 
-`ggtree` provides `write.jplace()` function to store user's own data and associated newick tree to a single `jplace` file, which can be parsed directly in `ggtree` and user's data can be used to annotate the tree directly. For more detail, please refer to the [Tree Data Import](treeImport.html#jplace-file-format) vignette.
+A specific slice of the alignment can also be displayed by specific _window_ parameter.
+
+```{r fig.width=7, fig.height=7, fig.align='center', warning=FALSE}
+msaplot(ggtree(beast_tree), fasta, window=c(150, 200)) + coord_polar(theta='y')
+```
 
 
-# Advance tree annotation
+# Plot tree with associated data
 
-Advance tree annotation including visualizing phylogenetic tree with associated matrix and multiple sequence alignment; annotating tree with subplots and images (especially PhyloPic). For details and examples, please refer to the [Advance Tree Annotation](advanceTreeAnnotation.html) vignette.
+For associating phylogenetic tree with different type of plot produced by user's data, `ggtree` provides `facet_plot` function which accepts an input `data.frame` and a `geom` function to draw the input data. The data will be displayed in an additional panel of the plot.
 
-# Interactive tree annotation
+```{r warning=F, fig.width=10, fig.height=6}
+tr <- rtree(30)
 
-Interactive tree annotation is also possible, please refer to <https://guangchuangyu.github.io/2016/06/identify-method-for-ggtree>.
+d1 <- data.frame(id=tr$tip.label, val=rnorm(30, sd=3))
+p <- ggtree(tr)
+
+p2 <- facet_plot(p, panel="dot", data=d1, geom=geom_point, aes(x=val), color='firebrick')
+d2 <- data.frame(id=tr$tip.label, value = abs(rnorm(30, mean=100, sd=50)))
+
+facet_plot(p2, panel='bar', data=d2, geom=geom_segment, aes(x=0, xend=value, y=y, yend=y), size=3, color='steelblue') + theme_tree2()
+```
+
+
+# Plot tree with images and suplots
+
+Please refer to the following vignettes:
+
++ [Annotating phylogenetic tree with images](https://guangchuangyu.github.io/ggtree/vignettes/ggtree-ggimage.html)
++ [Annotate a phylogenetic tree with insets](https://guangchuangyu.github.io/ggtree/vignettes/ggtree-inset.html)
+
+
 
 # References
 
