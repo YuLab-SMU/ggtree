@@ -17,8 +17,13 @@ weight: 30
 
 ## <i class="fa fa-calendar"></i> 2017
 
+[Molecular epidemiology reveals the role of war in the spread of HIV in Ukraine](http://dx.doi.org/10.1073/pnas.1701447115).
+**_PNAS_**, 2018.
+
+## <i class="fa fa-calendar"></i> 2017
+
 [Integrated view of *Vibrio cholerae* in the Americas](http://science.sciencemag.org/content/358/6364/789.full).
-***Science**, 2017, 358(6364):789-793.
+**_Science_**, 2017, 358(6364):789-793.
 
 
 [Phylogenetic analysis of the human antibody repertoire reveals quantitative signatures of immune senescence and aging](http://dx.doi.org/10.1073/pnas.1617959114).
