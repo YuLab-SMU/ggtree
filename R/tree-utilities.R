@@ -1483,7 +1483,8 @@ re_assign_ycoord_df <- function(df, currentNode) {
         idx <- sapply(pNode, function(i) with(df, all(node[parent == i & parent != node] %in% currentNode)))
         newNode <- pNode[idx]
         ## newNode <- newNode[is.na(df[match(newNode, df$node), "y"])]
-
+        if (length(newNode) == 0)
+            break
         df[match(newNode, df$node), "y"] <- sapply(newNode, function(i) {
             with(df, mean(y[parent == i], na.rm = TRUE))
         })

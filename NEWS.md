@@ -1,3 +1,8 @@
+# ggtree 1.11.5
+
++ fine tune y position after flip; flip compatible with collapse
+    - <https://groups.google.com/d/msgid/bioc-ggtree/1d06342c-9645-4f71-9e66-7d7a7099bf0b%40googlegroups.com?utm_medium=email&utm_source=footer>
+
 # ggtree 1.11.4
 
 + re-implement collapse as collapse.ggtree method by importing dplyr::collapse
