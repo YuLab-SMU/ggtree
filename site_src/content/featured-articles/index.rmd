@@ -15,7 +15,7 @@ weight: 30
 
 
 
-## <i class="fa fa-calendar"></i> 2017
+## <i class="fa fa-calendar"></i> 2018
 
 [Molecular epidemiology reveals the role of war in the spread of HIV in Ukraine](http://dx.doi.org/10.1073/pnas.1701447115).
 **_PNAS_**, 2018.
