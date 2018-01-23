@@ -173,6 +173,9 @@ q + geom_text(data=d, aes(label=label))
 ```
 
 
+[Here is another exammple](https://groups.google.com/forum/?utm_medium=email&utm_source=footer#!msg/bioc-ggtree/ZeR8YZKIzq8/g5RCB_MiAQAJ) for multiple bootstrap support values.
+
+
 ## <i class="fa fa-map-marker"></i> _aesthetic_ mapping
 
 ### <i class="fa fa-angle-double-right"></i> inherit _aes_
