@@ -86,6 +86,7 @@ update:
 
 push:
 	git push upstream master;\
+	git push;\
 	git push origin master
 
 
