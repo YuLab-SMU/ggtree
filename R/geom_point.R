@@ -46,16 +46,19 @@ geom_tippoint <- function(mapping = NULL, data = NULL,
 ##' @title geom_nodepoint
 ##' @inheritParams geom_point2
 ##' @return node point layer
+##' @importFrom ggplot2 aes_string
 ##' @export
 ##' @author Guangchuang Yu
 geom_nodepoint <- function(mapping = NULL, data = NULL,
                        position = "identity", na.rm = FALSE,
                        show.legend = NA, inherit.aes = TRUE, ...) {
-    node <- isTip <- NULL
-    self_mapping <- aes(node = node, subset = !isTip)
+    self_mapping <- aes_(node = ~node, subset = ~ (!isTip))
     if (is.null(mapping)) {
         mapping <- self_mapping
     } else {
+        if (!is.null(mapping$subset)) {
+            self_mapping <- aes_string(node = "node", subset = paste0(as.expression(mapping$subset), '&!isTip'))
+        }
         mapping %<>% modifyList(self_mapping)
     }
     geom_point2(mapping, data, position, na.rm, show.legend, inherit.aes, stat = StatTreeData, ...)
