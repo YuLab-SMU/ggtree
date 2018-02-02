@@ -1,5 +1,6 @@
 # ggtree 1.11.5
 
++ support passing `aes(subset)` in geom_tippoint (2018-01-30, Tue)
 + support passing `aes(subset)` in geom_nodepoint (2018-01-26, Fri)
 + fine tune y position after flip; flip compatible with collapse
     - <https://groups.google.com/d/msgid/bioc-ggtree/1d06342c-9645-4f71-9e66-7d7a7099bf0b%40googlegroups.com?utm_medium=email&utm_source=footer>

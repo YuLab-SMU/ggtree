@@ -14,6 +14,9 @@ geom_tippoint <- function(mapping = NULL, data = NULL,
     if (is.null(mapping)) {
         mapping <- self_mapping
     } else {
+        if (!is.null(mapping$subset)) {
+            self_mapping <- aes_string(node = "node", subset = paste0(as.expression(mapping$subset), '&isTip'))
+        }
         mapping <- modifyList(self_mapping, mapping)
     }
     geom_point2(mapping, data, position, na.rm, show.legend, inherit.aes, stat = StatTreeData, ...)
