@@ -38,6 +38,8 @@ Suggests:
     prettydoc,
     rmarkdown,
     testthat
+Remotes:
+    GuangchuangYu/treeio
 VignetteBuilder: knitr
 ByteCompile: true
 License: Artistic-2.0
