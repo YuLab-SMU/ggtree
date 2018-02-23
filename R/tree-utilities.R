@@ -163,29 +163,19 @@ layoutDaylight <- function( tree, branch.length ){
     ## Remove tips from nodes list, but keeping order.
     nodes <- intersect(nodes, internal_nodes)
 
-    i <- 1
     ave_change <- 1.0
-    while( i <= MAX_COUNT & ave_change > MINIMUM_AVERAGE_ANGLE_CHANGE ){
-        message('Iteration: ', i)
-
+    for (i in seq_len(MAX_COUNT)) {
         ## Reset max_change after iterating over tree.
         total_max <- 0.0
-
-        ## for node in nodes {
-        for( j in seq_along(nodes)){
-            currentNode_id <- nodes[j]
-
+        for(currentNode_id in nodes){
             result <- applyLayoutDaylight(tree_df, currentNode_id)
             tree_df <- result$tree
             total_max <- total_max + result$max_change
-
         }
         # Calculate the running average of angle changes.
-        ave_change <- total_max / length(nodes) * length(i)
-
+        ave_change <- total_max / length(nodes)
         message('Average angle change [',i,'] ', ave_change)
-
-        i <- i + 1
+        if (ave_change <= MINIMUM_AVERAGE_ANGLE_CHANGE) break
     }
 
     return(tree_df)
@@ -199,6 +189,7 @@ layoutDaylight <- function( tree, branch.length ){
 ##' @param df tree data.frame
 ##' @param node_id is id of the node from which daylight is measured to the other subtrees.
 ##' @return list with tree data.frame with updated layout using daylight algorithm and max_change angle.
+##' @importFrom rlang .data
 ##
 ##
 ## ```
@@ -236,58 +227,49 @@ layoutDaylight <- function( tree, branch.length ){
 ## }
 ## ```
 applyLayoutDaylight <- function(df, node_id){
-
-  max_change <- 0.0
-
   # Get lists of node ids for each subtree, including  rest of unrooted tree.
   subtrees <- getSubtreeUnrooted.df(df, node_id)
-  angle_list <- data.frame(left=numeric(0), beta=numeric(0), subtree_id=integer(0) )
 
   # Return tree if only 2 or less subtrees to adjust.
   if(length(subtrees) <= 2){
-    return( list(tree = df, max_change = max_change) )
+    return( list(tree = df, max_change = 0.0) )
   }
 
   # Find start and end angles for each subtree.
   #   subtrees = get subtrees of node
   #   for i-th subtree in subtrees {
-    for (i in seq_along(subtrees) ) {
-        subtree <- subtrees[[i]]
-                                        # [end, start] = get start and end angles of tree.
-
-        angles <- getTreeArcAngles(df, node_id, subtree)
-        angle_list[ i, 'subtree_id'] <- i
-        angle_list[ i, 'left'] <- angles['left']
-        angle_list[ i, 'beta'] <- angles['left'] - angles['right'] # subtree arc angle
-                                        # If subtree arc angle is -ve, then + 2 (360).
-        if(angle_list[ i, 'beta'] < 0 ){
-            angle_list[ i, 'beta'] <- angle_list[ i, 'beta'] + 2
-        }
-    }
+  angle_list = purrr::map_dfr(subtrees, ~{
+    getTreeArcAngles(df, node_id, .x) %>% dplyr::bind_rows()
+  }) %>% dplyr::transmute(
+    .data$left,
+    beta = .data$left - .data$right,
+    beta = ifelse(.data$beta < 0, .data$beta + 2, .data$beta),
+    subtree_id = seq_len(nrow(.))
+  ) %>% dplyr::arrange(.data$left)
   #   sort angle_list by 'left angle' column in ascending order.
-  angle_list <- angle_list[with(angle_list, order(left)), ]
   #   D = 360 - sum( angle_list['beta'] ) # total day
   #   d = D / |subtrees| # equal daylight angle.
-  total_daylight <- 2 - colSums(angle_list['beta'])
+  total_daylight <- 2 - sum(angle_list[['beta']])
   d <- total_daylight / length(subtrees)
 
   # Initialise new left-angle as first subtree left-angle.
-  new_left_angle <- angle_list[1, 'left']
+  new_left_angle <- angle_list$left[1]
 
   # Adjust angles of subtrees and tips connected to current node.
   # for n-th row in angle_list{
   # Skip the first subtree as it is not adjusted.
+  max_change <- 0.0
   for (i in 2:nrow(angle_list) ) {
     # Calculate angle to rotate subtree/leaf to create correct daylight angle.
-    new_left_angle <- new_left_angle + d + angle_list[i, 'beta']
+    new_left_angle <- new_left_angle + d + angle_list$beta[i]
     # Calculate the difference between the old and new left angles.
-    adjust_angle <- new_left_angle - angle_list[i, 'left']
+    adjust_angle <- new_left_angle - angle_list$left[i]
 
     max_change <- max(max_change, abs(adjust_angle))
     #cat('Adjust angle:', abs(adjust_angle), ' Max change:', max_change ,'\n')
 
     # rotate subtree[index] wrt current node
-    subtree_id <- angle_list[i, 'subtree_id']
+    subtree_id <- angle_list$subtree_id[i]
     subtree_nodes <- subtrees[[subtree_id]]$subtree
     # update tree_df for all subtrees with rotated points.
     df <- rotateTreePoints.df(df, node_id, subtree_nodes, adjust_angle)
@@ -491,44 +473,35 @@ rotateTreePoints.df <- function(df, pivot_node, nodes, angle){
   # Rotate nodes around pivot_node.
   # x' = cos(angle)*delta_x - sin(angle)*delta_y + delta_x
   # y' = sin(angle)*delta_x + cos(angle)*delta_y + delta_y
-
   cospitheta <- cospi(angle)
   sinpitheta <- sinpi(angle)
-  for(node in nodes){
-    # Update (x,y) of node
-    delta_x <- df[node, 'x'] - df[pivot_node, 'x']
-    delta_y <- df[node, 'y'] - df[pivot_node, 'y']
-    df[node, 'x'] <- cospitheta * delta_x - sinpitheta * delta_y + df[pivot_node, 'x']
-    df[node, 'y'] <- sinpitheta * delta_x + cospitheta * delta_y + df[pivot_node, 'y']
-
-  }
-
+  pivot_x = df$x[pivot_node]
+  pivot_y = df$y[pivot_node]
+  df = dplyr::mutate(df,
+    delta_x = .data$x - pivot_x,
+    delta_y = .data$y - pivot_y,
+    x = ifelse(node %in% nodes, cospitheta * .data$delta_x - sinpitheta * .data$delta_y + pivot_x, .data$x),
+    y = ifelse(node %in% nodes, sinpitheta * .data$delta_x + cospitheta * .data$delta_y + pivot_y, .data$y),
+    delta_x = NULL,
+    delta_y = NULL
+  )
   # Now update tip labels of rotated tree.
   # angle is in range [0, 360]
+  # Update label angle of tipnode if not root node.
+  nodes = nodes[! nodes %in% df$parent]
   for(node in nodes){
-    # Update label angle of tipnode if not root node.
-    if( isTip.df(df, node) ){
-      # get parent
-      parent_id <- getParent.df(df, node)
-      # if 'node' is not root, then update label angle.
-      if( parent_id != 0 ){
-        theta_parent_child <- getNodeAngle.df(df, parent_id, node)
-        if(!is.na(theta_parent_child)){
-          # Update tip label angle, that is parallel to edge.
-          #df[node, 'angle'] <- -90 - 180 * theta_parent_child * sign(theta_parent_child - 1)
-          if(theta_parent_child > 0 ){
-            df[node, 'angle'] <- 180 * theta_parent_child
-          }else if(theta_parent_child < 0 ){
-            df[node, 'angle'] <- 180 * ( theta_parent_child + 2 )
-          }
-
-        }
-      }
-    }
+    # if (node %in% df$parent) next
+    # get parent
+    parent_id <- df$parent[df$node == node]
+    # if 'node' is not root, then update label angle.
+    theta_parent_child <- getNodeAngle.df(df, parent_id, node)
+    if(is.na(theta_parent_child)) next
+    # Update tip label angle, that is parallel to edge.
+    #df[node, 'angle'] <- -90 - 180 * theta_parent_child * sign(theta_parent_child - 1)
+    theta_parent_child = theta_parent_child + ifelse(theta_parent_child > 0, 0, 2)
+    df[node, 'angle'] = 180 * theta_parent_child
   }
-
-
-  return(df)
+  df
 }
 
 ##' Get the angle between the two nodes specified.
@@ -539,7 +512,7 @@ rotateTreePoints.df <- function(df, pivot_node, nodes, angle){
 ##' @param node_id end node id number
 ##' @return angle in range [-1, 1], i.e. degrees/180, radians/pi
 getNodeAngle.df <- function(df, origin_node_id, node_id){
-  if( (origin_node_id != node_id) & any(origin_node_id %in% df$node) & any(node_id %in% df$node) ){
+  if (origin_node_id != node_id) {
     delta_x <- df$x[node_id] - df$x[origin_node_id]
     delta_y <- df$y[node_id] - df$y[origin_node_id]
     angle <- atan2(delta_y, delta_x) / pi
@@ -586,16 +559,13 @@ getSubtree <- function(tree, node){
 ##' @param node id of starting node.
 ##' @return list of all child node id's from starting node.
 getSubtree.df <- function(df, node){
-  subtree <- c(node)
-  subtree <- subtree[subtree != 0]
+  subtree <- node[node != 0]
   i <- 1
   while( i <= length(subtree)){
     subtree <- c(subtree, getChild.df(df, subtree[i]))
-    # remove any '0' root nodes
-    subtree <- subtree[subtree != 0]
     i <- i + 1
   }
-  return(subtree)
+  subtree
 }
 
 ##' Get all subtrees of specified node. This includes all ancestors and relatives of node and
@@ -649,40 +619,28 @@ getSubtreeUnrooted <- function(tree, node){
 ##' @param node is the tree node id from which the subtrees are derived.
 ##' @return named list of subtrees with the root id of subtree and list of node id's making up subtree.
 getSubtreeUnrooted.df <- function(df, node){
-  # if node leaf, return nothing.
-  if( isTip.df(df, node) ){
-    return(NA)
-  }
-
-  subtrees <- list()
-
   # get subtree for each child node.
   children_ids <- getChild.df(df, node)
+  if (length(children_ids) == 0L) return(NULL)
+  # if node leaf, return nothing.
 
   # remaining_nodes <- getNodes_by_postorder(tree)
-  remaining_nodes <- df$node
-
   # Remove current node from remaining_nodes list.
-  remaining_nodes <- setdiff(remaining_nodes, node)
+  remaining_nodes <- setdiff(df$node, node)
 
+  subtrees <- list()
   for( child in children_ids ){
     subtree <- getSubtree.df(df, child)
-    # Append subtree nodes to list if more than 1 node in subtree (i.e. not a tip)
-    #if(length(subtree) >= 2){
-      subtrees[[length(subtrees)+1]] <- list( node = child, subtree = subtree)
-      # remove subtree nodes from remaining nodes.
-      remaining_nodes <- setdiff(remaining_nodes, as.integer(unlist(subtrees[[length(subtrees)]]['subtree']) ))
-    #}else{
-      # remove remaining nodes
-    #  remaining_nodes <- setdiff(remaining_nodes, subtree)
-    #}
+    subtrees[[length(subtrees)+1]] <- list( node = child, subtree = subtree)
+    # remove subtree nodes from remaining nodes.
+    remaining_nodes <- setdiff(remaining_nodes, subtree)
   }
 
   # The remaining nodes that are not found in the child subtrees are the remaining subtree nodes.
   # ie, parent node and all other nodes. We don't care how they are connected, just their id.
   parent_id <- getParent.df(df, node)
   # If node is not root.
-  if( parent_id != 0 & length(remaining_nodes) >= 1){
+  if( length(parent_id) > 0 & length(remaining_nodes) >= 1){
     subtrees[[length(subtrees)+1]] <- list( node = parent_id, subtree = remaining_nodes)
   }
 
@@ -712,11 +670,7 @@ getRoot.df <- function(df, node){
 isTip <- function(tr, node) {
   children_ids <- getChild(tr, node)
   #length(children_ids) == 0 ## getChild returns 0 if nothing found.
-  if( length(children_ids) == 0 | any(children_ids == 0) ){
-    return(TRUE)
-  }
-  return(FALSE)
-
+  return( length(children_ids) == 0 | any(children_ids == 0) )
 }
 
 isTip.df <- function(df, node) {
@@ -724,10 +678,7 @@ isTip.df <- function(df, node) {
   # return(df[node, 'isTip'])
   # Tip has no children.
   children_ids <- getChild.df(df, node)
-  if( length(children_ids) == 0 | any(children_ids == 0) ){
-    return(TRUE)
-  }
-  return(FALSE)
+  length(children_ids) == 0
 }
 
 
@@ -848,27 +799,16 @@ reroot_node_mapping <- function(tree, tree2) {
 ##' @param node is the node id of child in tree.
 ##' @return integer node id of parent
 getParent.df <- function(df, node) {
-    i <- which(df$node == node)
-    parent_id <- df$parent[i]
-    if (parent_id == node | is.na(parent_id)) {
-        ## root node
-        return(0)
-    }
-    return(parent_id)
+    parent_id <- df$parent[df$node == node]
+    parent_id[parent_id != node]
 }
 
 
 getAncestor.df <- function(df, node) {
     anc <- getParent.df(df, node)
-    anc <- anc[anc != 0]
-    if (length(anc) == 0) {
-        # stop("selected node is root...")
-      return(0)
-    }
     i <- 1
     while(i<= length(anc)) {
         anc <- c(anc, getParent.df(df, anc[i]))
-        anc <- anc[anc != 0]
         i <- i+1
     }
     return(anc)
@@ -883,27 +823,15 @@ getAncestor.df <- function(df, node) {
 ##' @param node is the node id of child in tree.
 ##' @return list of child node ids of parent
 getChild.df <- function(df, node) {
-    i <- which(df$parent == node)
-    if (length(i) == 0) {
-        return(0) # it has no children, hence tip node.
-    }
-    res <- df$node[i]
-    res <- res[res != node] ## node may root
-    return(res)
+    res <- df$node[df$parent == node]
+    res[res != node] ## node may root
 }
 
 get.offspring.df <- function(df, node) {
     sp <- getChild.df(df, node)
-    sp <- sp[sp != 0] # Remove root node.
-    if (length(sp) == 0) {
-        #stop("input node is a tip...")
-      return(0)
-    }
-
     i <- 1
     while(i <= length(sp)) {
         sp <- c(sp, getChild.df(df, sp[i]))
-        sp <- sp[sp != 0]
         i <- i + 1
     }
     return(sp)

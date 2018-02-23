@@ -22,6 +22,8 @@ Imports:
     grid,
     magrittr,
     methods,
+    purrr,
+    rlang,
     rvcheck,
     scales,
     tibble,
