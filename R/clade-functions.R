@@ -234,11 +234,12 @@ flip <- function(tree_view=NULL, node1, node2) {
     sp1.df$y <- sp1.df$y - abs(min_y1 - min_y2)
     sp2.df$y <- sp2.df$y + max(sp1.df$y, na.rm=TRUE) + space - min(sp2.df$y, na.rm=TRUE)
 
+
     df[sp1, "y"] <- sp1.df$y
     df[sp2, "y"] <- sp2.df$y
 
-    yy <- df$y[-c(sp1, sp2)]
-    df$y[-c(sp1, sp2)] <- yy + ((min(sp2.df$y, na.rm=TRUE) - max(yy)) - (min(yy) - max(sp1.df$y, na.rm=TRUE)))/2
+    ## yy <- df$y[-c(sp1, sp2)]
+    ## df$y[-c(sp1, sp2)] <- yy + ((min(sp2.df$y, na.rm=TRUE) - max(yy)) - (min(yy) - max(sp1.df$y, na.rm=TRUE)))/2
 
     anc <- getAncestor.df(df, node1)
     ii <- match(anc, df$node)

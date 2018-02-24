@@ -1,5 +1,10 @@
 # ggtree 1.11.5
 
++ fixed overlapping branch after `flip`
+    - <https://github.com/GuangchuangYu/ggtree/issues/167>
+
+# ggtree 1.11.5
+
 + support passing `aes(subset)` in geom_tippoint (2018-01-30, Tue)
 + support passing `aes(subset)` in geom_nodepoint (2018-01-26, Fri)
 + fine tune y position after flip; flip compatible with collapse
