@@ -1,5 +1,7 @@
 # ggtree 1.11.5
 
++ geom_tiplab2 works with mapping = aes(subset) defined by users  (2018-02-24, Sta)
+    - <https://groups.google.com/d/msgid/bioc-ggtree/72e18c5b-0ce5-4c25-80fa-3e2dabda8f72%40googlegroups.com>
 + fixed overlapping branch after `flip`
     - <https://github.com/GuangchuangYu/ggtree/issues/167>
 

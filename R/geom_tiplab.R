@@ -85,15 +85,17 @@ geom_tiplab <- function(mapping=NULL, hjust = 0,  align = FALSE, linetype = "dot
 ##' @author Guangchuang Yu
 ##' @references \url{https://groups.google.com/forum/#!topic/bioc-ggtree/o35PV3iHO-0}
 geom_tiplab2 <- function(mapping=NULL, hjust=0, ...) {
-
     angle <- isTip <- node <- NULL
-
-    ## m1 <- aes(subset=(abs(angle) < 90), angle=angle)
-    ## m2 <- aes(subset=(abs(angle) >= 90), angle=angle+180)
     m1 <- aes(subset=(isTip & (angle < 90 | angle > 270)), angle=angle, node = node)
     m2 <- aes(subset=(isTip & (angle >= 90 & angle <=270)), angle=angle+180, node = node)
 
     if (!is.null(mapping)) {
+        if (!is.null(mapping$subset)) {
+            m1 <- aes_string(angle = "angle", node = "node",
+                             subset = paste0(as.expression(mapping$subset), '& (isTip & (angle < 90 | angle > 270))'))
+            m2 <- aes_string(angle = "angle+180", node = "node",
+                             subset = paste0(as.expression(mapping$subset), '& (isTip & (angle >= 90 & angle <= 270))'))
+        }
         m1 <- modifyList(mapping, m1)
         m2 <- modifyList(mapping, m2)
     }
