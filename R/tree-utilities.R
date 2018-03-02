@@ -78,14 +78,9 @@ layoutEqualAngle <- function(tree, branch.length ){
         ## Get "start" and "end" angles of a segment for current node in the data.frame.
         start <- df[curNode, "start"]
         end <- df[curNode, "end"]
-
-        if (length(children) == 0) {
-            ## is a tip
-            next
-        }
-
-        for (i in seq_along(children)) {
-            child <- children[i]
+        cur_x = df[curNode, "x"]
+        cur_y = df[curNode, "y"]
+        for (child in children) {
             ## Get the number of tips for child node.
             ntip.child <- nb.sp[child]
 
@@ -96,16 +91,12 @@ layoutEqualAngle <- function(tree, branch.length ){
             ## beta = angle of line from parent node to i-th child.
             beta <- start + alpha / 2
 
-            ## if (branch.length == "none") {
-            ##     length.child <- 1
-            ## } else {
             length.child <- df[child, "branch.length"]
-            ##}
 
             ## update geometry of data.frame.
             ## Calculate (x,y) position of the i-th child node from current node.
-            df[child, "x"] <- df[curNode, "x"] + cospi(beta) * length.child
-            df[child, "y"] <- df[curNode, "y"] + sinpi(beta) * length.child
+            df[child, "x"] <- cur_x + cospi(beta) * length.child
+            df[child, "y"] <- cur_y + sinpi(beta) * length.child
             ## Calculate orthogonal angle to beta for tip label.
             df[child, "angle"] <- -90 - 180 * beta * sign(beta - 1)
             ## Update the start and end angles of the childs segment.
@@ -113,11 +104,8 @@ layoutEqualAngle <- function(tree, branch.length ){
             df[child, "end"] <- start + alpha
             start <- start + alpha
         }
-
     }
-
-    return(df)
-
+    df
 }
 
 ##' Equal daylight layout method for unrooted trees.
@@ -241,7 +229,7 @@ applyLayoutDaylight <- function(df, node_id){
   angle_list = purrr::map_dfr(subtrees, ~{
     getTreeArcAngles(df, node_id, .x) %>% dplyr::bind_rows()
   }) %>% dplyr::transmute(
-    .data$left,
+    left = .data$left,
     beta = .data$left - .data$right,
     beta = ifelse(.data$beta < 0, .data$beta + 2, .data$beta),
     subtree_id = seq_len(nrow(.))
@@ -289,30 +277,29 @@ applyLayoutDaylight <- function(df, node_id){
 ##' @param subtree named list of root id of subtree (node) and list of node ids for given subtree (subtree).
 ##' @return named list with right and left angles in range [0,2] i.e 1 = 180 degrees, 1.5 = 270 degrees.
 getTreeArcAngles <- function(df, origin_id, subtree) {
+    df_x = df$x
+    df_y = df$y
+    x_origin = df_x[origin_id]
+    y_origin = df_y[origin_id]
     ## Initialise variables
     theta_child <- 0.0
     subtree_root_id <- subtree$node
     subtree_node_ids <- subtree$subtree
-
     ## Initialise angle from origin node to parent node.
     ## If subtree_root_id is child of origin_id
-    if( any(subtree_root_id == getChild.df(df, origin_id)) ){
+    if (subtree_root_id %in% getChild.df(df, origin_id)) {
         ## get angle from original node to parent of subtree.
-        theta_left <- getNodeAngle.df(df, origin_id, subtree_root_id)
+        theta_left <- getNodeAngle.vector(x_origin, y_origin, df_x[subtree_root_id], df_y[subtree_root_id])
         theta_right <- theta_left
     } else if( subtree_root_id == origin_id ){
         ## Special case.
         ## get angle from parent of subtree to children
         children_ids <- getChild.df(df, subtree_root_id)
-
         if(length(children_ids) == 2){
             ## get angles from parent to it's two children.
-            theta1 <- getNodeAngle.df(df, origin_id, children_ids[1])
-            theta2 <- getNodeAngle.df(df, origin_id, children_ids[2])
-
+            theta1 <- getNodeAngle.vector(x_origin, y_origin, df_x[children_ids[1]], df_y[children_ids[1]])
+            theta2 <- getNodeAngle.vector(x_origin, y_origin, df_x[children_ids[2]], df_y[children_ids[2]])
             delta <- theta1 - theta2
-
-
             ## correct delta for points crossing 180/-180 quadrant.
             if(delta > 1){
                 delta_adj = delta - 2
@@ -321,7 +308,6 @@ getTreeArcAngles <- function(df, origin_id, subtree) {
             } else{
                 delta_adj <- delta
             }
-
             if(delta_adj >= 0){
                 theta_left = theta1
                 theta_right = theta2
@@ -331,80 +317,50 @@ getTreeArcAngles <- function(df, origin_id, subtree) {
             }
         }else{
             ## subtree only has one child node.
-            theta_left <- getNodeAngle.df(df, origin_id, children_ids[1])
+            theta_left <- getNodeAngle.vector(x_origin, y_origin, df_x[children_ids[1]], df_y[children_ids[1]])
             theta_right <- theta_left
         }
-
     } else {
         ## get the real root of df tree to initialise left and right angles.
         tree_root <- getRoot.df(df)
         if( !is.na(tree_root) & is.numeric(tree_root) ){
-            theta_left <- getNodeAngle.df(df, origin_id, tree_root)
+            theta_left <- getNodeAngle.vector(x_origin, y_origin, df_x[tree_root], df_y[tree_root])
             theta_right <- theta_left
         } else{
       print('ERROR: no root found!')
       theta_left <- NA
     }
-
   }
-
   # no parent angle found.
-  if (is.na(theta_left) ){
+  # Subtree has to have 1 or more nodes to compare.
+  if (is.na(theta_left) || (length(subtree_node_ids) == 0)){
     return(0)
   }
-
-
   # create vector with named columns
   # left-hand and right-hand angles between origin node and the extremities of the tree nodes.
   arc <- c('left' = theta_left, 'right' = theta_right)
 
-  # Subtree has to have 1 or more nodes to compare.
-  if (length(subtree_node_ids) == 0 ){
-    return(0)
-  }
-
-
-  # Remove tips from nodes list, but keeping order.
-  # internal_nodes <- df[!df$isTip,]$node
-  # subtree_node_ids <- intersect(subtree_node_ids, internal_nodes)
-
-
   # Calculate the angle from the origin node to each child node.
   # Moving from parent to children in depth-first traversal.
-  for( i in seq_along(subtree_node_ids) ){
-    parent_id <- subtree_node_ids[i]
+  # Skip if parent_id is a tip or parent and child node are the same.
+  subtree_node_ids = subtree_node_ids[subtree_node_ids %in% df$parent]
+  subtree_node_ids = subtree_node_ids[subtree_node_ids != origin_id]
+  for(parent_id in subtree_node_ids){
     # Get angle from origin node to parent node.
-    # Skip if parent_id is a tip or parent and child node are the same.
-    if(origin_id == parent_id | isTip.df(df, parent_id) ){
-      next
-    }
-
-    theta_parent <- getNodeAngle.df(df, origin_id, parent_id)
-
+    theta_parent <- getNodeAngle.vector(x_origin, y_origin, df_x[parent_id], df_y[parent_id])
     children_ids <- getChild.df(df, parent_id)
-
-    for( j in seq_along(children_ids)){
-      #delta_x <- df[subtree_node_id, 'x'] - df[origin_id, 'x']
-      #delta_y <- df[subtree_node_id, 'y'] - df[origin_id, 'y']
-      #angles[i] <- atan2(delta_y, delta_x) / pi
-      child_id <- children_ids[j]
-      # Skip if child is parent node of subtree.
-      if( child_id == origin_id ){
-        next
-      }
-
-      theta_child <- getNodeAngle.df(df, origin_id, child_id)
-
+    # Skip if child is parent node of subtree.
+    children_ids = children_ids[children_ids != origin_id]
+    for(child_id in children_ids){
+      theta_child <- getNodeAngle.vector(x_origin, y_origin, df_x[child_id], df_y[child_id])
       # Skip if child node is already inside arc.
       # if left < right angle (arc crosses 180/-180 quadrant) and child node is not inside arc of tree.
       # OR if left > right angle (arc crosses 0/360 quadrant) and child node is inside gap
-      if ( (arc['left'] < arc['right'] & !( theta_child > arc['left'] & theta_child < arc['right'])) |
-        (arc['left'] > arc['right'] & ( theta_child < arc['left'] & theta_child > arc['right'])) ){
+      if ((arc['left'] < arc['right'] & !(theta_child > arc['left'] & theta_child < arc['right'])) |
+          (arc['left'] > arc['right'] &  (theta_child < arc['left'] & theta_child > arc['right'])) ){
         # child node inside arc.
         next
       }
-
-
       delta <- theta_child - theta_parent
       delta_adj <- delta
       # Correct the delta if parent and child angles cross the 180/-180 half of circle.
@@ -415,9 +371,7 @@ getTreeArcAngles <- function(df, origin_id, subtree) {
       }else if( delta < -1){ # Edge between parent and child cross upper and lower quadrants of cirlce
         delta_adj <- delta + 2 # delta' = delta - 360
       }
-
       theta_child_adj <- theta_child
-
       # If angle change from parent to node is positive (anti-clockwise), check left angle
       if(delta_adj > 0){
         # If child/parent edges cross the -180/180 quadrant (angle between them is > 180),
@@ -429,8 +383,7 @@ getTreeArcAngles <- function(df, origin_id, subtree) {
             theta_child_adj <- theta_child - 2
           }
         }
-
-          # check if left angle of arc is less than angle of child. Update if true.
+        # check if left angle of arc is less than angle of child. Update if true.
         if( arc['left'] < theta_child_adj ){
           arc['left'] <- theta_child
         }
@@ -450,15 +403,12 @@ getTreeArcAngles <- function(df, origin_id, subtree) {
         if( arc['right'] > theta_child_adj  ){
           arc['right'] <- theta_child
         }
-
       }
     }
-
   }
   # Convert arc angles of [1, -1] to [2,0] domain.
   arc[arc<0] <- arc[arc<0] + 2
-  return(arc)
-
+  arc
 }
 
 ##' Rotate the points in a tree data.frame around a pivot node by the angle specified.
@@ -477,31 +427,24 @@ rotateTreePoints.df <- function(df, pivot_node, nodes, angle){
   sinpitheta <- sinpi(angle)
   pivot_x = df$x[pivot_node]
   pivot_y = df$y[pivot_node]
+  delta_x = df$x - pivot_x
+  delta_y = df$y - pivot_y
   df = dplyr::mutate(df,
-    delta_x = .data$x - pivot_x,
-    delta_y = .data$y - pivot_y,
-    x = ifelse(node %in% nodes, cospitheta * .data$delta_x - sinpitheta * .data$delta_y + pivot_x, .data$x),
-    y = ifelse(node %in% nodes, sinpitheta * .data$delta_x + cospitheta * .data$delta_y + pivot_y, .data$y),
-    delta_x = NULL,
-    delta_y = NULL
+    x = ifelse(.data$node %in% nodes, cospitheta * delta_x - sinpitheta * delta_y + pivot_x, .data$x),
+    y = ifelse(.data$node %in% nodes, sinpitheta * delta_x + cospitheta * delta_y + pivot_y, .data$y)
   )
+  x_parent = df$x[df$parent]
+  y_parent = df$y[df$parent]
   # Now update tip labels of rotated tree.
   # angle is in range [0, 360]
   # Update label angle of tipnode if not root node.
   nodes = nodes[! nodes %in% df$parent]
-  for(node in nodes){
-    # if (node %in% df$parent) next
-    # get parent
-    parent_id <- df$parent[df$node == node]
-    # if 'node' is not root, then update label angle.
-    theta_parent_child <- getNodeAngle.df(df, parent_id, node)
-    if(is.na(theta_parent_child)) next
-    # Update tip label angle, that is parallel to edge.
-    #df[node, 'angle'] <- -90 - 180 * theta_parent_child * sign(theta_parent_child - 1)
-    theta_parent_child = theta_parent_child + ifelse(theta_parent_child > 0, 0, 2)
-    df[node, 'angle'] = 180 * theta_parent_child
-  }
-  df
+  df %>% dplyr::mutate(
+    angle = ifelse(.data$node %in% nodes,
+       getNodeAngle.vector(x_parent, y_parent, .data$x, .data$y) %>%
+         {180 * ifelse(. < 0, 2 + ., .)},
+       .data$angle)
+  )
 }
 
 ##' Get the angle between the two nodes specified.
@@ -513,13 +456,16 @@ rotateTreePoints.df <- function(df, pivot_node, nodes, angle){
 ##' @return angle in range [-1, 1], i.e. degrees/180, radians/pi
 getNodeAngle.df <- function(df, origin_node_id, node_id){
   if (origin_node_id != node_id) {
-    delta_x <- df$x[node_id] - df$x[origin_node_id]
-    delta_y <- df$y[node_id] - df$y[origin_node_id]
-    angle <- atan2(delta_y, delta_x) / pi
-    return( angle )
+    df_x = df$x
+    df_y = df$y
+    atan2(df_y[node_id] - df_y[origin_node_id], df_x[node_id] - df_x[origin_node_id]) / pi
   }else{
-    return(NA)
+    NA
   }
+}
+
+getNodeAngle.vector <- function(x_origin, y_origin, x, y) {
+  atan2(y - y_origin, x - x_origin) / pi
 }
 
 euc.dist <- function(x1, x2) sqrt(sum((x1 - x2) ^ 2))
@@ -624,27 +570,20 @@ getSubtreeUnrooted.df <- function(df, node){
   if (length(children_ids) == 0L) return(NULL)
   # if node leaf, return nothing.
 
-  # remaining_nodes <- getNodes_by_postorder(tree)
-  # Remove current node from remaining_nodes list.
-  remaining_nodes <- setdiff(df$node, node)
-
-  subtrees <- list()
-  for( child in children_ids ){
-    subtree <- getSubtree.df(df, child)
-    subtrees[[length(subtrees)+1]] <- list( node = child, subtree = subtree)
-    # remove subtree nodes from remaining nodes.
-    remaining_nodes <- setdiff(remaining_nodes, subtree)
-  }
+  subtrees = tibble::tibble(
+    node = children_ids,
+    subtree = purrr::map(.data$node, ~getSubtree.df(df, .x))
+  )
+  remaining_nodes = setdiff(df$node, purrr::flatten_int(subtrees$subtree))
 
   # The remaining nodes that are not found in the child subtrees are the remaining subtree nodes.
   # ie, parent node and all other nodes. We don't care how they are connected, just their id.
   parent_id <- getParent.df(df, node)
   # If node is not root.
-  if( length(parent_id) > 0 & length(remaining_nodes) >= 1){
-    subtrees[[length(subtrees)+1]] <- list( node = parent_id, subtree = remaining_nodes)
+  if ((length(parent_id) > 0) & (length(remaining_nodes) > 0)) {
+    subtrees = tibble::add_row(subtrees, node = parent_id, subtree = list(remaining_nodes))
   }
-
-  return(subtrees)
+  purrr::transpose(subtrees)
 }
 
 
