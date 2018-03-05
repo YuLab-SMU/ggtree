@@ -42,10 +42,10 @@ The `ggtree` package extending the `ggplot2` package. It based on grammar of gra
 
 For details, please visit our project website, <https://guangchuangyu.github.io/ggtree>.
 
-+ [Documentation](https://guangchuangyu.github.io/ggtree/documentation/)
-+ [FAQ](https://guangchuangyu.github.io/ggtree/faq/)
-+ [Featured Articles](https://guangchuangyu.github.io/ggtree/featuredArticles/)
-+ [Feedback](https://guangchuangyu.github.io/ggtree/#feedback)
++ [Documentation](https://guangchuangyu.github.io/software/ggtree/documentation/)
++ [FAQ](https://guangchuangyu.github.io/software/ggtree/faq/)
++ [Featured Articles](https://guangchuangyu.github.io/software/ggtree/featuredArticles/)
++ [Feedback](https://guangchuangyu.github.io/software/ggtree/#feedback)
 
 
 -----------------------------------------------------
