@@ -14,8 +14,6 @@ html_preview: false
 #library("txtplot")
 library("badger")
 library("ypages")
-library("ggplot2")
-library("yyplot")
 ```
 
 <img src="https://raw.githubusercontent.com/Bioconductor/BiocStickers/master/ggtree/ggtree.png" height="200" align="right" />
