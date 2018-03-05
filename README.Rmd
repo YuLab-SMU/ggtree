@@ -81,4 +81,9 @@ __G Yu__, DK Smith, H Zhu, Y Guan, TTY Lam^\*^. ggtree: an R package for visuali
 
 
 
+## Contributing
+
+We welcome any contributions! By participating in this project you agree to
+abide by the terms outlined in the [Contributor Code of Conduct](CONDUCT.md).
+
 

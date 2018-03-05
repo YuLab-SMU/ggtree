@@ -4,7 +4,7 @@ PKGSRC  := $(shell basename `pwd`)
 
 all: rd check clean
 
-alldocs: site rd readme
+alldocs: rd readme
 
 rd:
 	Rscript -e 'library(methods); devtools::document()'
@@ -49,25 +49,6 @@ clean:
 	cd ..;\
 	$(RM) -r $(PKGNAME).Rcheck/
 
-site:
-	cd site_src;\
-	ln -s ../../software/themes themes;\
-	Rscript -e 'blogdown::build_site()';\
-	rm themes;\
-	cd ..
-
-vignette:
-	cd site_src/vignettes;\
-	Rscript -e 'ff = list.files(pattern=".R|rmd"); sapply(ff, function(f) rmarkdown::render(f))';\
-	mv *html ../../docs/vignettes/
-
-preview:
-	cd site_src;\
-	ln -s ../../software/themes themes;\
-	Rscript -e 'blogdown::serve_site()';\
-	rm themes;\
-	cd ..
-
 
 gitmaintain:
 	git gc --auto;\
@@ -88,19 +69,6 @@ push:
 	git push upstream master;\
 	git push origin master
 
-
-# mkdocs: mdfiles
-# 	cd mkdocs;\
-# 	mkdocs build;\
-# 	cd ../docs;\
-# 	rm -rf fonts;\
-# 	rm -rf css/font-awesome*
-
-# mdfiles:
-# 	cd mkdocs;\
-# 	Rscript -e 'source("render.R")';\
-# 	cd docs;\
-# 	ln -f -s ../mysoftware/* ./
 
 # svnignore:
 # 	svn propset svn:ignore -F .svnignore .
