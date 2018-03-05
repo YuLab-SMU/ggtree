@@ -66,13 +66,8 @@ __G Yu__, DK Smith, H Zhu, Y Guan, TTY Lam^\*^. ggtree: an R package for visuali
 ### Citation
 
 
-```{r echo=F, comment=NA}
-p <- plot_citation_trend('DO5oG40AAAAJ', 'HtEfBTGE9r8C')
-ggsave(p, file="docs/images/citation.png", width=8, height=4)
-```
 
-
-<img src="docs/images/citation.png" width="890"/>
+<img src="https://guangchuangyu.github.io/software/ggtree/featured-articles/index_files/figure-html/citation-1.png" width="890"/>
 
 
 ### Download stats
@@ -82,17 +77,7 @@ ggsave(p, file="docs/images/citation.png", width=8, height=4)
 `r badge_bioc_download("ggtree", "month", "blue")`
 
 
-```{r echo=F, message=F, comment=NA}
-x <- dlstats::bioc_stats("ggtree")
-x <- x[-nrow(x), ] # last month data is not complete
-## txtplot(ggtree::Date2decimal(x$end), x$Nb_of_downloads, width=100, height=25)
-p <- ggplot(x, aes(end, Nb_of_distinct_IPs)) + geom_point() + geom_line() +
-    theme_minimal() +xlab(NULL) + ylab(NULL) +
-    labs(title="ggtree", subtitle="Monthly download stats (distinct IPs)", caption="data from Bioconductor")
-ggsave(p, file="docs/images/dlstats.png", width=8, height=4)
-```
-
-<img src="docs/images/dlstats.png" width="890"/>
+<img src="https://guangchuangyu.github.io/software/ggtree/index_files/figure-html/dlstats-1.png" width="890"/>
 
 
 

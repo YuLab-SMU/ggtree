@@ -330,8 +330,8 @@ facet_plot(p2, panel='bar', data=d2, geom=geom_segment, aes(x=0, xend=value, y=y
 
 Please refer to the following vignettes:
 
-+ [Annotating phylogenetic tree with images](https://guangchuangyu.github.io/ggtree/vignettes/ggtree-ggimage.html)
-+ [Annotate a phylogenetic tree with insets](https://guangchuangyu.github.io/ggtree/vignettes/ggtree-inset.html)
++ [Annotating phylogenetic tree with images](https://guangchuangyu.github.io/software/ggtree/vignettes/ggtree-ggimage.html)
++ [Annotate a phylogenetic tree with insets](https://guangchuangyu.github.io/software/ggtree/vignettes/ggtree-inset.html)
 
 
 

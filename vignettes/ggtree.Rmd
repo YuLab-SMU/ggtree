@@ -224,8 +224,8 @@ the [Tree Annotation](treeAnnotation.html) vignette.
 + [Tree Manipulation](treeManipulation.html)
 + [Tree Annotation](treeAnnotation.html)
 + [Phylomoji](https://cran.r-project.org/web/packages/emojifont/vignettes/phylomoji.html)
-+ [Annotating phylogenetic tree with images](https://guangchuangyu.github.io/ggtree/vignettes/ggtree-ggimage.html)
-+ [Annotate a phylogenetic tree with insets](https://guangchuangyu.github.io/ggtree/vignettes/ggtree-inset.html)
++ [Annotating phylogenetic tree with images](https://guangchuangyu.github.io/software/ggtree/vignettes/ggtree-ggimage.html)
++ [Annotate a phylogenetic tree with insets](https://guangchuangyu.github.io/software/ggtree/vignettes/ggtree-inset.html)
 
 
 **ggtree homepage**: <https://guangchuangyu.github.io/ggtree> (contains more
