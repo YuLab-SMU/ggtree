@@ -12,7 +12,7 @@ The `ggtree` package extending the `ggplot2` package. It based on grammar of gra
 
 [![Twitter](https://img.shields.io/twitter/url/https/github.com/GuangchuangYu/ggtree.svg?style=social)](https://twitter.com/intent/tweet?hashtags=ggtree&url=http://onlinelibrary.wiley.com/doi/10.1111/2041-210X.12628/abstract&screen_name=guangchuangyu)
 
-For details, please visit our project website, <https://guangchuangyu.github.io/ggtree>.
+For details, please visit our project website, <https://guangchuangyu.github.io/software/ggtree>.
 
 -   [Documentation](https://guangchuangyu.github.io/software/ggtree/documentation/)
 -   [FAQ](https://guangchuangyu.github.io/software/ggtree/faq/)
