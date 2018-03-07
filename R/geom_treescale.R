@@ -94,6 +94,7 @@ stat_treeScaleText <- function(mapping=NULL, data=NULL,
                       offset=offset,
                       color=color,
                       na.rm=na.rm,
+                      vjust = 0,
                       ...)
     )
 }
