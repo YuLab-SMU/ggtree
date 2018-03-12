@@ -2,7 +2,7 @@
 .onAttach <- function(libname, pkgname) {
     pkgVersion <- packageDescription(pkgname, fields="Version")
     msg <- paste0(pkgname, " v", pkgVersion, "  ",
-                  "For help: https://guangchuangyu.github.io/", pkgname, "\n\n")
+                  "For help: https://guangchuangyu.github.io/software/", pkgname, "\n\n")
 
     citation <- paste0("If you use ", pkgname, " in published research, please cite:\n",
                   "Guangchuang Yu, David Smith, Huachen Zhu, Yi Guan, Tommy Tsan-Yuk Lam. ",

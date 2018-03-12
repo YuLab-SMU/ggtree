@@ -228,7 +228,7 @@ the [Tree Annotation](treeAnnotation.html) vignette.
 + [Annotate a phylogenetic tree with insets](https://guangchuangyu.github.io/software/ggtree/vignettes/ggtree-inset.html)
 
 
-**ggtree homepage**: <https://guangchuangyu.github.io/ggtree> (contains more
+**ggtree homepage**: <https://guangchuangyu.github.io/software/ggtree> (contains more
 information about the package, more documentation, a gallery of beautiful
 published images and links to related resources).
 

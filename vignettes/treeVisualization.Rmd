@@ -276,7 +276,7 @@ it also supports *image* geom to label tip with image files. A corresponding
 geom, `geom_nodelab` is also provided for displaying node labels. For details of
 label nodes with images, please refer to
 the vignette,
-[Annotating phylogenetic tree with images](https://guangchuangyu.github.io/ggtree/vignettes/ggtree-ggimage.html).
+[Annotating phylogenetic tree with images](https://guangchuangyu.github.io/software/ggtree/vignettes/ggtree-ggimage.html).
 
 
 
