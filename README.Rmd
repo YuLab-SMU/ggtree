@@ -37,7 +37,6 @@ library("ypages")
 
 The `ggtree` package extending the `ggplot2` package. It based on grammar of graphics and takes all the good parts of `ggplot2`. `ggtree` is designed for not only viewing phylogenetic tree but also displaying annotation data on the tree.
 
-[![Twitter](https://img.shields.io/twitter/url/http/shields.io.svg?style=social&logo=twitter)](https://twitter.com/intent/tweet?hashtags=ggtree&url=http://onlinelibrary.wiley.com/doi/10.1111/2041-210X.12628/abstract&screen_name=guangchuangyu)
 
 
 For details, please visit our project website, <https://guangchuangyu.github.io/software/ggtree>.
@@ -46,6 +45,12 @@ For details, please visit our project website, <https://guangchuangyu.github.io/
 + [FAQ](https://guangchuangyu.github.io/software/ggtree/faq/)
 + [Featured Articles](https://guangchuangyu.github.io/software/ggtree/featuredArticles/)
 + [Feedback](https://guangchuangyu.github.io/software/ggtree/#feedback)
+
+
+[![Twitter](https://img.shields.io/twitter/url/http/shields.io.svg?style=social&logo=twitter)](https://twitter.com/intent/tweet?hashtags=ggtree&url=http://onlinelibrary.wiley.com/doi/10.1111/2041-210X.12628/abstract&screen_name=guangchuangyu)
+`r badger::badge_custom("follow me on", "微信", "green", "https://guangchuangyu.github.io/blog_images/biobabble.jpg")`
+`r badger::badge_custom("打赏", "支付宝/微信", "green", "https://guangchuangyu.github.io/blog_images/pay_qrcode.png")`
+
 
 
 -----------------------------------------------------
@@ -64,7 +69,6 @@ __G Yu__, DK Smith, H Zhu, Y Guan, TTY Lam^\*^. ggtree: an R package for visuali
 
 
 ### Citation
-
 
 
 <img src="https://guangchuangyu.github.io/software/ggtree/featured-articles/index_files/figure-html/citation-1.png" width="890"/>

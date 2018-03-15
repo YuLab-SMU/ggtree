@@ -17,6 +17,7 @@ vignette: >
   %\VignetteIndexEntry{01 ggtree Introduction}
   %\VignetteEngine{knitr::rmarkdown}
   %\usepackage[utf8]{inputenc}
+  %\VignetteEncoding{UTF-8}
 ---
 
 ```{r style, echo=FALSE, results="asis", message=FALSE}
@@ -232,10 +233,23 @@ the [Tree Annotation](treeAnnotation.html) vignette.
 information about the package, more documentation, a gallery of beautiful
 published images and links to related resources).
 
-# Feedback
 
- - For bugs or feature request, please post to [github issue](https://github.com/GuangchuangYu/ggtree/issues).
- - For user questions, please post to [google group](https://groups.google.com/forum/#!forum/bioc-ggtree).
+# Need helps?
+
+
+If you have questions/issues, please visit
+[ggtree homepage](https://guangchuangyu.github.io/software/ggtree/) first.
+Your problems are mostly documented. If you think you found a bug, please follow
+[the guide](https://guangchuangyu.github.io/2016/07/how-to-bug-author/) and
+provide a reproducible example to be posted
+on
+[github issue tracker](https://github.com/GuangchuangYu/ggtree/issues).
+For questions, please post
+to [google group](https://groups.google.com/forum/#!forum/bioc-ggtree). Users
+are highly recommended to subscribe to the [mailing list](https://groups.google.com/forum/#!forum/bioc-ggtree).
+
+
+For Chinese user, you can follow me on [WeChat (微信)](https://guangchuangyu.github.io/blog_images/biobabble.jpg).
 
 
 # Session info

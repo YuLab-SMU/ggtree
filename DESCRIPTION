@@ -46,7 +46,7 @@ Remotes:
 VignetteBuilder: knitr
 ByteCompile: true
 License: Artistic-2.0
-URL: https://guangchuangyu.github.io/ggtree
+URL: https://guangchuangyu.github.io/software/ggtree
 BugReports: https://github.com/GuangchuangYu/ggtree/issues
 Packaged: 2014-12-03 08:16:14 UTC; root
 biocViews: Alignment, Annotation, Clustering, DataImport,
