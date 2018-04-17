@@ -41,6 +41,8 @@
 \alias{reexports}
 \alias{read.hyphy}
 \alias{reexports}
+\alias{read.iqtree}
+\alias{reexports}
 \alias{read.jplace}
 \alias{reexports}
 \alias{read.jtree}
@@ -75,6 +77,6 @@ below to see their documentation.
 
   \item{tidytree}{\code{\link[tidytree]{groupOTU}}, \code{\link[tidytree]{groupClade}}}
 
-  \item{treeio}{\code{\link[treeio]{read.beast}}, \code{\link[treeio]{read.codeml}}, \code{\link[treeio]{read.codeml_mlc}}, \code{\link[treeio]{read.hyphy}}, \code{\link[treeio]{read.jplace}}, \code{\link[treeio]{read.jtree}}, \code{\link[treeio]{read.mrbayes}}, \code{\link[treeio]{read.newick}}, \code{\link[treeio]{read.nhx}}, \code{\link[treeio]{read.paml_rst}}, \code{\link[treeio]{read.phylip}}, \code{\link[treeio]{read.phyloT}}, \code{\link[treeio]{read.r8s}}, \code{\link[treeio]{read.raxml}}}
+  \item{treeio}{\code{\link[treeio]{read.beast}}, \code{\link[treeio]{read.codeml}}, \code{\link[treeio]{read.codeml_mlc}}, \code{\link[treeio]{read.hyphy}}, \code{\link[treeio]{read.iqtree}}, \code{\link[treeio]{read.jplace}}, \code{\link[treeio]{read.jtree}}, \code{\link[treeio]{read.mrbayes}}, \code{\link[treeio]{read.newick}}, \code{\link[treeio]{read.nhx}}, \code{\link[treeio]{read.paml_rst}}, \code{\link[treeio]{read.phylip}}, \code{\link[treeio]{read.phyloT}}, \code{\link[treeio]{read.r8s}}, \code{\link[treeio]{read.raxml}}}
 }}
 
