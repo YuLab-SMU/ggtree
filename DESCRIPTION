@@ -30,7 +30,7 @@ Imports:
     tibble,
     tidyr,
     tidytree (>= 0.1.5),
-    treeio (>= 1.3.9),
+    treeio (>= 1.3.14),
     utils
 Suggests:
     colorspace,

@@ -75,6 +75,10 @@ treeio::read.codeml_mlc
 ##' @export
 treeio::read.hyphy
 
+##' @importFrom treeio read.iqtree
+##' @export
+treeio::read.iqtree
+
 ##' @importFrom treeio read.jplace
 ##' @export
 treeio::read.jplace
