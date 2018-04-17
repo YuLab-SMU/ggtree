@@ -59,6 +59,11 @@ ggplot2::geom_label
 ggplot2::geom_point
 
 
+##' @importFrom treeio read.astral
+##' @export
+treeio::read.astral
+
+
 ##' @importFrom treeio read.beast
 ##' @export
 treeio::read.beast

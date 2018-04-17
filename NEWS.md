@@ -1,6 +1,6 @@
 # ggtree 1.11.6
 
-+ reexport `treeio::read.iqtree` (2018-04-17, Tue)
++ reexport `treeio::read.iqtree` & `treeio::read.astral`(2018-04-17, Tue)
 + now geom_treescale will plot the text that can **always** be separated from
   the bar (2018-03-07, Wed)
 + optimize daylight layout
