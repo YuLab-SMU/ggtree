@@ -141,7 +141,7 @@ plot_grid(
 ```
 
 
-There are also other possible layouts that can be drawed by modifying
+There are also other possible layouts that can be drawn by modifying
 scales/coordination, for examples, [reverse label of time
 scale](https://github.com/GuangchuangYu/ggtree/issues/87), [repropotion
 circular/fan tree](
