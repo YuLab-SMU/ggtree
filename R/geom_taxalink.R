@@ -7,12 +7,14 @@
 ##' @param curvature A numeric value giving the amount of curvature.
 ##' Negative values produce left-hand curves,
 ##' positive values produce right-hand curves, and zero produces a straight line.
+##' @param arrow specification for arrow heads, as created by arrow().
+##' @param arrow.fill fill color to usse for the arrow head (if closed). `NULL` means use `colour` aesthetic.
 ##' @param ... additional parameter
 ##' @return ggplot layer
 ##' @export
 ##' @importFrom ggplot2 GeomCurve
 ##' @author Guangchuang Yu
-geom_taxalink <- function(taxa1, taxa2, curvature=0.5, ...) {
+geom_taxalink <- function(taxa1, taxa2, curvature=0.5, arrow = NULL, arrow.fill = NULL, ...) {
     position = "identity"
     show.legend = NA
     na.rm = TRUE
@@ -31,6 +33,8 @@ geom_taxalink <- function(taxa1, taxa2, curvature=0.5, ...) {
                         taxa2 = taxa2,
                         curvature = curvature,
                         na.rm = na.rm,
+                        arrow = arrow,
+                        arrow.fill = arrow.fill,
                         ...),
           check.aes = FALSE
           )

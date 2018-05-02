@@ -31,12 +31,13 @@ geom_aline <- function(mapping=NULL, linetype="dotted", size=1, ...) {
 ##' @param data data
 ##' @param stat Name of stat to modify data
 ##' @param position position
-##' @param arrow arrow
 ##' @param lineend lineend
 ##' @param na.rm logical
 ##' @param show.legend logical
 ##' @param inherit.aes logical
 ##' @param nudge_x horizontal adjustment of x
+##' @param arrow specification for arrow heads, as created by arrow().
+##' @param arrow.fill fill color to usse for the arrow head (if closed). `NULL` means use `colour` aesthetic.
 ##' @param ... additional parameter
 ##' @importFrom ggplot2 layer
 ##' @export
@@ -45,9 +46,9 @@ geom_aline <- function(mapping=NULL, linetype="dotted", size=1, ...) {
 ##' @return add segment layer
 ##' @author Guangchuang Yu
 geom_segment2 <- function(mapping = NULL, data = NULL, stat = "identity",
-                         position = "identity", arrow = NULL, lineend = "butt",
+                         position = "identity", lineend = "butt",
                          na.rm = FALSE, show.legend = NA, inherit.aes = TRUE,
-                         nudge_x = 0,
+                         nudge_x = 0, arrow = NULL, arrow.fill = NULL,
                          ...) {
 
     default_aes <- aes_(node=~node)
@@ -85,13 +86,14 @@ GeomSegmentGGtree <- ggproto("GeomSegmentGGtree", GeomSegment,
                                  data[which(data$subset),]
                              },
 
-                             draw_panel = function(data, panel_scales, coord, arrow = NULL,
-                                                   lineend = "butt", na.rm = FALSE, nudge_x = 0) {
+                             draw_panel = function(data, panel_params, coord, arrow = NULL, arrow.fill = NULL,
+                                                   lineend = "butt", linejoin = "round", na.rm = FALSE, nudge_x = 0) {
 
                                  data$x <- data$x + nudge_x
                                  ## data$x <- data$x - sapply(data$label, function(x) convertWidth(grobWidth(textGrob(x, gp=gpar(fontsize=.04* .pt))), "native", TRUE))
-                                 GeomSegment$draw_panel(data, panel_scales, coord, arrow,
-                                                        lineend, na.rm)
+                                 GeomSegment$draw_panel(data = data, panel_params = panel_params, coord = coord,
+                                                        arrow = arrow, arrow.fill = arrow.fill,
+                                                        lineend = lineend, linejoin = linejoin, na.rm = na.rm)
                              }
                              )
 

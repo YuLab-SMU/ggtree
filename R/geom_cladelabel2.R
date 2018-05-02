@@ -69,7 +69,7 @@ geom_cladelabel2 <- function(node, label, offset=0, offset.text=0, offset.bar=0,
                              "alpha", "angle", "fontface", "group", "lineheight", "size", "vjust")
 
     # ignore angle
-    arg_list_geom_curve <- c( "curvature", "ncp", "arrow", "lineend",
+    arg_list_geom_curve <- c( "curvature", "ncp", "arrow", "arrow.fill", "lineend",
                               "alpha", "group", "linetype")
 
 
@@ -120,7 +120,6 @@ geom_cladelabel2 <- function(node, label, offset=0, offset.text=0, offset.bar=0,
     args_stat_cladeBar2$show.legend <- show.legend
     args_stat_cladeBar2$inherit.aes <- inherit.aes
     args_stat_cladeBar2$na.rm       <- na.rm
-
 
     if (!is.null(color)) {
         if (length(color) > 2) {
@@ -189,7 +188,8 @@ stat_cladeText2 <- function(mapping=NULL, data=NULL,
 stat_cladeBar2 <- function(mapping=NULL, data=NULL,
                            geom="curve", position="identity",
                            node, offset, align, ...,
-                           show.legend=NA, inherit.aes=FALSE, na.rm=FALSE) {
+                           show.legend=NA, inherit.aes=FALSE, na.rm=FALSE,
+                           arrow=NULL, arrow.fill=NULL) {
   default_aes <- aes_(x=~x, y=~y, node=~node, parent=~parent, xend=~x, yend=~y)
   if (is.null(mapping)) {
     mapping <- default_aes
@@ -209,6 +209,8 @@ stat_cladeBar2 <- function(mapping=NULL, data=NULL,
                     offset=offset,
                     align=align,
                     na.rm=na.rm,
+                    arrow = arrow,
+                    arrow.fill = arrow.fill,
                     ...)
 
   )

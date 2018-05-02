@@ -5,8 +5,9 @@
 \title{geom_segment2}
 \usage{
 geom_segment2(mapping = NULL, data = NULL, stat = "identity",
-  position = "identity", arrow = NULL, lineend = "butt", na.rm = FALSE,
-  show.legend = NA, inherit.aes = TRUE, nudge_x = 0, ...)
+  position = "identity", lineend = "butt", na.rm = FALSE,
+  show.legend = NA, inherit.aes = TRUE, nudge_x = 0, arrow = NULL,
+  arrow.fill = NULL, ...)
 }
 \arguments{
 \item{mapping}{aes mapping}
@@ -17,8 +18,6 @@ geom_segment2(mapping = NULL, data = NULL, stat = "identity",
 
 \item{position}{position}
 
-\item{arrow}{arrow}
-
 \item{lineend}{lineend}
 
 \item{na.rm}{logical}
@@ -28,6 +27,10 @@ geom_segment2(mapping = NULL, data = NULL, stat = "identity",
 \item{inherit.aes}{logical}
 
 \item{nudge_x}{horizontal adjustment of x}
+
+\item{arrow}{specification for arrow heads, as created by arrow().}
+
+\item{arrow.fill}{fill color to usse for the arrow head (if closed). `NULL` means use `colour` aesthetic.}
 
 \item{...}{additional parameter}
 }

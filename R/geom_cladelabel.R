@@ -121,7 +121,7 @@ geom_cladelabel <- function(node, label,
 
 
     }
-    
+
     list(
       layer_bar,
       layer_text
@@ -168,7 +168,7 @@ stat_cladeBar <- function(mapping=NULL, data=NULL,
                           node, offset, align, extend,  ...,
                           show.legend=NA, inherit.aes=FALSE, na.rm=FALSE) {
 
-  
+
     default_aes <- aes_(x=~x, y=~y, node=~node, parent=~parent, xend=~x, yend=~y)
     if (is.null(mapping)) {
         mapping <- default_aes

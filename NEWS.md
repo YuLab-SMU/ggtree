@@ -1,3 +1,12 @@
+# ggtree 1.13.0.001
+
++ compatible with ggplot2 2.2.1.9000 (2018-05-02, Wed)
+  - incorporate newly introduce parameter `linejoin` and `arrow.fill` in `geom_segment`
+
+# ggtree 1.12.0
+
++ Bioconductor 3.7 release (2018-05-01, Tue)
+
 # ggtree 1.11.6
 
 + reexport `treeio::read.iqtree` & `treeio::read.astral`(2018-04-17, Tue)
