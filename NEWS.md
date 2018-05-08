@@ -1,5 +1,7 @@
-# ggtree 1.13.0.001
+# ggtree 1.13.0.002
 
++ typo on vignettes (2018-05-08, Tue)
+  - <https://github.com/GuangchuangYu/ggtree/pull/178>, thanks [@abichat](https://github.com/abichat)
 + compatible with ggplot2 2.2.1.9000 (2018-05-02, Wed)
   - incorporate newly introduce parameter `linejoin` and `arrow.fill` in `geom_segment`
 
