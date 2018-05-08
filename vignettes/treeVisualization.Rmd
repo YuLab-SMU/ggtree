@@ -118,7 +118,7 @@ ggtree(tr, layout="equal_angle")
 ggtree(tr, layout="daylight")
 ggtree(tr, branch.length='none')
 ggtree(tr, branch.length='none', layout='circular')
-ggtree(tr, layout="daylight", branch.length = 'none')
+ggtree(tr, layout="daylight", branch.length='none')
 ```
 
 ```{r echo=F,  fig.width=8, fig.height=8, message=FALSE}
@@ -126,7 +126,7 @@ library(ggtree)
 set.seed(2017-02-16)
 tr <- rtree(50)
 library(cowplot)
-theme_layout <- theme(plot.title = element_text(hjust = 0.5))
+theme_layout <- theme(plot.title=element_text(hjust=0.5))
 plot_grid(
     ggtree(tr) + ggtitle("rectangular (phylogram)")+ theme_layout,
     ggtree(tr, layout="slanted") + ggtitle("slanted (phylogram)")+theme_layout,
@@ -136,7 +136,7 @@ plot_grid(
     ggtree(tr, layout="daylight")+ ggtitle("daylight (unrooted)")+theme_layout,
     ggtree(tr, branch.length='none')+ ggtitle("rectangular (cladogram)")+theme_layout,
     ggtree(tr, branch.length='none', layout='circular')+ ggtitle("circular (cladogram)")+theme_layout,
-    ggtree(tr, layout="daylight", branch.length = 'none')+ ggtitle("daylight (cladogram)")+theme_layout,
+    ggtree(tr, layout="daylight", branch.length='none')+ ggtitle("daylight (cladogram)")+theme_layout,
     ncol=3)
 ```
 
@@ -151,7 +151,7 @@ https://groups.google.com/d/msgid/bioc-ggtree/6db25ec7-ffb1-4776-bfe4-4a1ba239c8
 ggtree(tr) + scale_x_reverse()
 ggtree(tr) + coord_flip()
 ggtree(tr) + scale_x_reverse() + coord_flip()
-print(ggtree(tr), newpage=TRUE, vp = grid::viewport(angle=-30, width=.9, height=.9))
+print(ggtree(tr), newpage=TRUE, vp=grid::viewport(angle=-30, width=.9, height=.9))
 ggtree(tr, layout='slanted') + coord_flip()
 ggtree(tr, layout='slanted', branch.length='none') +
     coord_flip() + scale_y_reverse() +scale_x_reverse()
@@ -175,7 +175,7 @@ plot_grid(
     ggtree(tr, layout='circular') + xlim(-10, NA),
     ggtree(tr) + scale_x_reverse() + coord_polar(theta='y'),
     ggtree(tr) + scale_x_reverse(limits=c(15, 0)) + coord_polar(theta='y'),
-    ncol = 3, labels = LETTERS[1:9])
+    ncol=3, labels=LETTERS[1:9])
 ```
 
 
@@ -186,7 +186,7 @@ A phylogenetic tree can be scaled by time (time-scaled tree) by specifying the p
 
 ```{r fig.width=8, fig.height=4, fig.align="center"}
 tree2d <- read.beast(system.file("extdata", "twoD.tree", package="treeio"))
-ggtree(tree2d, mrsd = "2014-05-01") + theme_tree2()
+ggtree(tree2d, mrsd="2014-05-01") + theme_tree2()
 ```
 
 ## Two dimensional tree
@@ -195,7 +195,7 @@ ggtree(tree2d, mrsd = "2014-05-01") + theme_tree2()
 
 
 ```{r fig.width=9, fig.height=4, fig.align="center"}
-ggtree(tree2d, mrsd = "2014-05-01",
+ggtree(tree2d, mrsd="2014-05-01",
        yscale="NGS", yscale_mapping=c(N2=2, N3=3, N4=4, N5=5, N6=6, N7=7)) +
            theme_classic() + theme(axis.line.x=element_line(), axis.line.y=element_line()) +
                theme(panel.grid.major.x=element_line(color="grey20", linetype="dotted", size=.3),
@@ -233,7 +233,7 @@ ggtree(tree) + geom_treescale(fontsize=8, linesize=2, offset=-1)
 plot_grid(
     ggtree(tree)+geom_treescale(x=0, y=12, width=6, color='red'),
     ggtree(tree)+geom_treescale(fontsize=8, linesize=2, offset=-1),
-    ncol = 2, labels = LETTERS[1:2])
+    ncol=2, labels=LETTERS[1:2])
 ```
 
 
@@ -254,7 +254,7 @@ Showing all the internal nodes and tips in the tree can be done by adding a laye
 
 
 ```{r fig.width=3, fig.height=3, fig.align="center"}
-ggtree(tree)+geom_point(aes(shape=isTip, color=isTip), size=3)
+ggtree(tree) + geom_point(aes(shape=isTip, color=isTip), size=3)
 ```
 
 ```{r fig.width=3, fig.height=3, fig.align="center"}
@@ -306,7 +306,7 @@ p + geom_tiplab(aes(x=branch), size=3, color="purple", vjust=-0.3)
 Based on the middle of branch is very useful when annotating transition from parent node to child node.
 
 
-# update tree view with a new tree
+# Update tree view with a new tree
 
 In previous example, we have a _`p`_ object that stored the tree viewing of 13 tips and internal nodes highlighted with specific colored big dots. If users want to apply this pattern (we can imaging a more complex one) to a new tree, you don't need to build the tree step by step. `ggtree` provides an operator, _`%<%`_, for applying the visualization pattern to a new tree.
 
@@ -315,7 +315,7 @@ For example, the pattern in the _`p`_ object will be applied to a new tree with 
 p %<% rtree(50)
 ```
 
-# theme
+# Theme
 
 `theme_tree()` defined a totally blank canvas, while _`theme_tree2()`_ adds
 phylogenetic distance (via x-axis). These two themes all accept a parameter of
@@ -356,10 +356,10 @@ ggtree(btrees) + facet_wrap(~.id, ncol=10)
 Another way to view the bootstrap trees is to merge them together to form a density tree. We can add a layer of the best tree on the top of the density tree.
 
 ```{r}
-p <- ggtree(btrees, layout="rectangular",   color="lightblue", alpha=.3)
+p <- ggtree(btrees, layout="rectangular", color="lightblue", alpha=.3)
 
 best_tree <- read.tree(system.file("extdata/RAxML", "RAxML_bipartitionsBranchLabels.H3", package="treeio"))
-df <- fortify(best_tree, branch.length = 'none')
+df <- fortify(best_tree, branch.length='none')
 p+geom_tree(data=df, color='firebrick')
 ```
 
@@ -375,7 +375,7 @@ beast_tree <- read.beast(beast_file)
 beast_tree
 p1 <- ggtree(beast_tree, mrsd='2013-01-01') + theme_tree2() +
     ggtitle("Divergence time")
-p2 <- ggtree(beast_tree, branch.length = 'rate') + theme_tree2() +
+p2 <- ggtree(beast_tree, branch.length='rate') + theme_tree2() +
     ggtitle("Substitution rate")
 
 library(cowplot)
@@ -395,7 +395,7 @@ plot_grid(p1, p2, ncol=2)
 In addition to specify `branch.length` in tree visualization, users can change branch length stored in tree object by using `rescale_tree` function.
 
 ```{r}
-beast_tree2 <- rescale_tree(beast_tree, branch.length = 'rate')
+beast_tree2 <- rescale_tree(beast_tree, branch.length='rate')
 ggtree(beast_tree2) + theme_tree2()
 ```
 

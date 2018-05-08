@@ -57,7 +57,7 @@ p <- ggtree(tree)
 MRCA(p, tip=c('A', 'E'))
 ```
 
-# view Clade
+# View Clade
 
 `ggtree` provides a function `viewClade` to visualize a clade of a phylogenetic tree.
 
@@ -66,7 +66,7 @@ viewClade(p+geom_tiplab(), node=21)
 ```
 
 
-# group Clades
+# Group Clades
 
 The `ggtree` package defined several functions to manipulate tree view. _`groupClade`_ and _`groupOTU`_ methods were designed for clustering clades or related OTUs. _`groupClade`_ accepts an internal node or a vector of internal nodes to cluster clade/clades.
 
@@ -92,7 +92,7 @@ ggtree(tree, aes(color=group, linetype=group)) + geom_tiplab(aes(subset=(group==
 ```
 
 
-# group OTUs
+# Group OTUs
 _`groupOTU`_ accepts a vector of OTUs (taxa name) or a list of OTUs.  _`groupOTU`_ will trace back from OTUs to their most recent common ancestor and cluster them together. Related OTUs are not necessarily within a clade, they can be monophyletic (clade), polyphyletic or paraphyletic.
 
 
@@ -119,7 +119,7 @@ ggtree(tree, aes(color=group, linetype=group)) + geom_tiplab() +
 ```
 
 
-_`groupOTU`_ also work with graphic object.
+_`groupOTU`_ also works with graphic object.
 
 ```{r fig.width=5, fig.height=5, fig.align="center", warning=FALSE}
 p <- ggtree(tree)
@@ -162,7 +162,7 @@ ggtree(tree_iris, aes(color=group)) +
 
 
 
-# collapse clade
+# Collapse clade
 
 With _`collapse`_ function, user can collapse a selected clade.
 
@@ -171,7 +171,7 @@ cp <- collapse(p, node=21)
 cp + geom_point2(aes(subset=(node == 21)), size=5, shape=23, fill="steelblue")
 ```
 
-# expand collapsed clade
+# Expand collapsed clade
 
 The collapsed clade can be expanded via _`expand`_ function.
 
@@ -190,7 +190,7 @@ library(cowplot)
 plot_grid(p1, p2, p3, p4, p5, ncol=5)
 ```
 
-# scale clade
+# Scale clade
 
 
 Collpase selected clades can save some space, another approach is to zoom out clade to a small scale.
@@ -211,7 +211,7 @@ plot_grid(ggtree(tree) + geom_hilight(17, fill="steelblue") +
           ncol=2)
 ```
 
-# rotate clade
+# Rotate clade
 
 A selected clade can be rotated by 180 degree using __`rotate`__ function.
 
@@ -228,7 +228,7 @@ set.seed(2016-05-29)
 p <- ggtree(tree <- rtree(50)) + geom_tiplab()
 for (n in reorder(tree, 'postorder')$edge[,1] %>% unique) {
     p <- rotate(p, n)
-    print(p + geom_point2(aes(subset = (node == n)), color='red'))
+    print(p + geom_point2(aes(subset=(node == n)), color='red'))
 }
 ```
 
@@ -236,7 +236,7 @@ for (n in reorder(tree, 'postorder')$edge[,1] %>% unique) {
 
 
 
-# flip clade
+# Flip clade
 
 The positions of two selected clades (should share a same parent) can be flip over using __`flip`__ function.
 
@@ -245,13 +245,13 @@ plot_grid(p, flip(p, 17, 21), ncol=2)
 ```
 
 
-# open tree
+# Open tree
 
 `ggtree` supports `fan` layout and can also transform the `circular` layout tree to a `fan` tree by specifying an open `angle` to `open_tree` function.
 
 ```{r eval=FALSE}
 set.seed(123)
-tr = rtree(50)
+tr <- rtree(50)
 
 p <- ggtree(tr, layout='circular') + geom_tiplab2()
 
@@ -263,7 +263,7 @@ for (angle in seq(0, 270, 10)) {
 ![](figures/fan_layout.gif)
 
 
-# rotate tree
+# Rotate tree
 
 Rotating a `circular` tree is supported by `rotate_tree` function.
 
