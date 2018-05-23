@@ -1,6 +1,9 @@
-# ggtree 1.13.0.003
+# ggtree 1.13.0.004
 
-+ compatible with ggplot2 2.2.1.9000 for `geom_text2(parse="emoji")` (2018-05-23, Wed)
++ bug fixed of `gheatmpa` for rowname subsetting is partial match in R
+  (2018-05-23, Wed)
+  - <https://github.com/GuangchuangYu/ggtree/issues/182>
++ compatible with ggplot2 2.2.1.9000 for `geom_text2(parse="emoji")`
 + typo on vignettes (2018-05-08, Tue)
   - <https://github.com/GuangchuangYu/ggtree/pull/178>, thanks [@abichat](https://github.com/abichat)
 + compatible with ggplot2 2.2.1.9000 (2018-05-02, Wed)

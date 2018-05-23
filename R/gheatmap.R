@@ -57,7 +57,11 @@ gheatmap <- function(p, data, offset=0, width=1, low="green", high="red", color=
     i <- i[!is.na(df$y[i])]
 
     lab <- df$label[i]
-    dd <- dd[lab, , drop=FALSE]
+    ## dd <- dd[lab, , drop=FALSE]
+    ## https://github.com/GuangchuangYu/ggtree/issues/182
+    dd <- dd[match(lab, rownames(dd)), , drop = FALSE]
+
+
     dd$y <- sort(df$y)
     dd$lab <- lab
     ## dd <- melt(dd, id=c("lab", "y"))
