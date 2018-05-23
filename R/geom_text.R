@@ -20,6 +20,7 @@
 ##' @importFrom ggplot2 layer
 ##' @importFrom ggplot2 position_nudge
 ##' @importFrom ggplot2 aes_string
+##' @importFrom rvcheck get_aes_var
 ##' @export
 ##' @seealso
 ##' \link[ggplot2]{geom_text}
@@ -53,11 +54,13 @@ geom_text2 <- function(mapping = NULL, data = NULL,
     }
 
     if (parse == "emoji") {
-        label_aes <- aes_string(label=paste0("suppressMessages(emoji(", as.list(mapping)$label,"))"))
-        mapping <- modifyList(mapping, label_aes)
         emoji <- get_fun_from_pkg("emojifont", "emoji")
         parse <- FALSE
         family <- "EmojiOne"
+        ## label_aes <- aes_string(label=paste0("suppressMessages(emoji(", as.list(mapping)$label,"))"))
+        label_aes <- aes_string(label=paste0("suppressMessages(emoji(", get_aes_var(mapping, "label"), "))"))
+        ## mapping <- modifyList(mapping, aes(label=emoji(!!mapping$label))) ## ggplot2 >= 2.3.0
+        mapping <- modifyList(mapping, label_aes)
     }
 
     layer(

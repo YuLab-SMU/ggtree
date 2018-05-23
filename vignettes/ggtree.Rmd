@@ -192,12 +192,8 @@ knitr::kable(geoms, caption = "Geom layers defined in ggtree.", booktabs = T)
 ```
 
 `r Biocpkg('ggtree')` supports creating phylomoji using Emoji fonts, please
-refer to `r CRANpkg("emojifont")` package vignette for details. The vignette can
-be opened via the following command:
-
-```r
-vignette("phylomoji", package="emojifont")
-```
+refer to the
+[Phylomoji](https://guangchuangyu.github.io/software/ggtree/vignettes/phylomoji.html) vignette.
 
 
 `r Biocpkg('ggtree')` integrates [phylopic](http://phylopic.org/) database and silhouette images of organisms can
@@ -224,7 +220,7 @@ the [Tree Annotation](treeAnnotation.html) vignette.
 + [Tree Visualization](treeVisualization.html)
 + [Tree Manipulation](treeManipulation.html)
 + [Tree Annotation](treeAnnotation.html)
-+ [Phylomoji](https://cran.r-project.org/web/packages/emojifont/vignettes/phylomoji.html)
++ [Phylomoji](https://guangchuangyu.github.io/software/ggtree/vignettes/phylomoji.html)
 + [Annotating phylogenetic tree with images](https://guangchuangyu.github.io/software/ggtree/vignettes/ggtree-ggimage.html)
 + [Annotate a phylogenetic tree with insets](https://guangchuangyu.github.io/software/ggtree/vignettes/ggtree-inset.html)
 
