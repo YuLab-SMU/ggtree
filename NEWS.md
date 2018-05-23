@@ -1,6 +1,6 @@
 # ggtree 1.13.0.003
 
-+ compatible with ggplot2 2.2.1.9000 for `geom_tiplab(parse="emoji")` (2018-05-23, Wed)
++ compatible with ggplot2 2.2.1.9000 for `geom_text2(parse="emoji")` (2018-05-23, Wed)
 + typo on vignettes (2018-05-08, Tue)
   - <https://github.com/GuangchuangYu/ggtree/pull/178>, thanks [@abichat](https://github.com/abichat)
 + compatible with ggplot2 2.2.1.9000 (2018-05-02, Wed)
