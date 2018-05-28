@@ -63,13 +63,14 @@ is.viewClade <- function(tree_view) {
 ##' @rdname collapse
 ##' @param x tree view
 ##' @param node clade node
+##' @param clade_name set clade name. If clade_name = NULL, do nothing
 ##' @param ... additional parameters
 ##' @return tree view
 ##' @method collapse ggtree
 ##' @export
 ##' @seealso expand
 ##' @author Guangchuang Yu
-collapse.ggtree <- function(x=NULL, node, ...) {
+collapse.ggtree <- function(x=NULL, node, clade_name = NULL, ...) {
     tree_view <- get_tree_view(x)
 
     df <- tree_view$data
@@ -99,6 +100,10 @@ collapse.ggtree <- function(x=NULL, node, ...) {
 
     ii <- which(!is.na(df$x))
     df$angle[ii] <- calculate_angle(df[ii,])$angle
+
+    ## set clade name
+    if (!is.null(clade_name))
+        df$label[node] <- clade_name
 
     tree_view$data <- df
     clade <- paste0("clade_", node)

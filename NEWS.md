@@ -1,5 +1,7 @@
-# ggtree 1.13.0.004
+# ggtree 1.13.0.005
 
++ `clade_name` parameter added in `collapse` (2018-05-28, Mon)
+  - <https://groups.google.com/forum/?utm_medium=email&utm_source=footer#!msg/bioc-ggtree/0H1PCJPlI1Q/DeZf9EVhBQAJ>
 + bug fixed of `gheatmpa` for rowname subsetting is partial match in R
   (2018-05-23, Wed)
   - <https://github.com/GuangchuangYu/ggtree/issues/182>
