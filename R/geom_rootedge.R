@@ -34,7 +34,7 @@ StatRootEdge <- ggproto("StatRootEdge", Stat,
                             if (is.null(rootedge) || is.na(rootedge)) {
                                 xend <- d$x
                             } else {
-                                xend <- -rootedge
+                                xend <- d$x - rootedge
                             }
 
                             data.frame(x = d$x, y = d$y,
