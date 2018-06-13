@@ -1,5 +1,7 @@
-# ggtree 1.13.0.005
+# ggtree 1.13.0.006
 
++ `geom_rootedge` (2018-06-13, Wed)
+  - <https://github.com/GuangchuangYu/ggtree/issues/183>
 + `clade_name` parameter added in `collapse` (2018-05-28, Mon)
   - <https://groups.google.com/forum/?utm_medium=email&utm_source=footer#!msg/bioc-ggtree/0H1PCJPlI1Q/DeZf9EVhBQAJ>
 + bug fixed of `gheatmap` for rowname subsetting is partial match in R
