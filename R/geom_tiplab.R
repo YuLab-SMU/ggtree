@@ -14,7 +14,7 @@
 ##' @importFrom ggplot2 geom_text
 ##' @importFrom utils modifyList
 ##' @export
-##' @author Yu Guangchuang
+##' @author Guangchuang Yu
 ##' @examples
 ##' require(ape)
 ##' tr <- rtree(10)
@@ -92,9 +92,9 @@ geom_tiplab2 <- function(mapping=NULL, hjust=0, ...) {
     if (!is.null(mapping)) {
         if (!is.null(mapping$subset)) {
             m1 <- aes_string(angle = "angle", node = "node",
-                             subset = paste0(as.expression(mapping$subset), '& (isTip & (angle < 90 | angle > 270))'))
+                             subset = paste0(as.expression(get_aes_var(mapping, "subset")), '& (isTip & (angle < 90 | angle > 270))'))
             m2 <- aes_string(angle = "angle+180", node = "node",
-                             subset = paste0(as.expression(mapping$subset), '& (isTip & (angle >= 90 & angle <= 270))'))
+                             subset = paste0(as.expression(get_aes_var(mapping, "subset")), '& (isTip & (angle >= 90 & angle <= 270))'))
         }
         m1 <- modifyList(mapping, m1)
         m2 <- modifyList(mapping, m2)

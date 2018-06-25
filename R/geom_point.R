@@ -15,7 +15,7 @@ geom_tippoint <- function(mapping = NULL, data = NULL,
         mapping <- self_mapping
     } else {
         if (!is.null(mapping$subset)) {
-            self_mapping <- aes_string(node = "node", subset = paste0(as.expression(mapping$subset), '&isTip'))
+            self_mapping <- aes_string(node = "node", subset = paste0(as.expression(get_aes_var(mapping, "subset")), '&isTip'))
         }
         mapping <- modifyList(self_mapping, mapping)
     }
@@ -60,7 +60,7 @@ geom_nodepoint <- function(mapping = NULL, data = NULL,
         mapping <- self_mapping
     } else {
         if (!is.null(mapping$subset)) {
-            self_mapping <- aes_string(node = "node", subset = paste0(as.expression(mapping$subset), '&!isTip'))
+            self_mapping <- aes_string(node = "node", subset = paste0(as.expression(get_aes_var(mapping, "subset")), '&!isTip'))
         }
         mapping %<>% modifyList(self_mapping)
     }

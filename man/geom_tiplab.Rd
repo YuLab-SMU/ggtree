@@ -36,5 +36,5 @@ tr <- rtree(10)
 ggtree(tr) + geom_tiplab()
 }
 \author{
-Yu Guangchuang
+Guangchuang Yu
 }
