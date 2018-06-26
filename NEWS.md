@@ -1,7 +1,7 @@
-# ggtree 1.13.0.007
+# ggtree 1.13.1
 
 + `geom_nodepoint` & `geom_tippoint` now compatible with `ggplot2` v 2.2.1 &
-  2.2.2 (2018-06-25, Mon)
+  3.0.0 (2018-06-26, Tue)
 + `geom_rootedge` (2018-06-13, Wed)
   - <https://github.com/GuangchuangYu/ggtree/issues/183>
 + `clade_name` parameter added in `collapse` (2018-05-28, Mon)
