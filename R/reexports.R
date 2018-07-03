@@ -46,6 +46,10 @@ ggplot2::ggsave
 ##' @export
 ggplot2::aes
 
+##' @importFrom ggplot2 fortify
+##' @export
+ggplot2::fortify
+
 ##' @importFrom ggplot2 geom_text
 ##' @export
 ggplot2::geom_text

@@ -1,3 +1,8 @@
+# ggtree 1.13.1.9001
+
++ re-export `ggplot2::fortify`
+  - <https://groups.google.com/d/msgid/bioc-ggtree/bf7a9b3c-9a8f-4d8d-a782-1b467fba38bc%40googlegroups.com>
+
 # ggtree 1.13.1
 
 + `geom_nodepoint` & `geom_tippoint` now compatible with `ggplot2` v 2.2.1 &

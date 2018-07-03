@@ -27,6 +27,8 @@
 \alias{reexports}
 \alias{aes}
 \alias{reexports}
+\alias{fortify}
+\alias{reexports}
 \alias{geom_text}
 \alias{reexports}
 \alias{geom_label}
@@ -75,7 +77,7 @@ below to see their documentation.
 
   \item{dplyr}{\code{\link[dplyr]{collapse}}}
 
-  \item{ggplot2}{\code{\link[ggplot2]{fortify}}, \code{\link[ggplot2]{ggplot}}, \code{\link[ggplot2]{xlim}}, \code{\link[ggplot2]{theme}}, \code{\link[ggplot2]{ggsave}}, \code{\link[ggplot2]{aes}}, \code{\link[ggplot2]{geom_text}}, \code{\link[ggplot2]{geom_label}}, \code{\link[ggplot2]{geom_point}}}
+  \item{ggplot2}{\code{\link[ggplot2]{fortify}}, \code{\link[ggplot2]{ggplot}}, \code{\link[ggplot2]{xlim}}, \code{\link[ggplot2]{theme}}, \code{\link[ggplot2]{ggsave}}, \code{\link[ggplot2]{aes}}, \code{\link[ggplot2]{fortify}}, \code{\link[ggplot2]{geom_text}}, \code{\link[ggplot2]{geom_label}}, \code{\link[ggplot2]{geom_point}}}
 
   \item{tidytree}{\code{\link[tidytree]{groupOTU}}, \code{\link[tidytree]{groupClade}}}
 
