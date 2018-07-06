@@ -21,7 +21,7 @@ facet_plot <- function(p, panel, data, geom, mapping=NULL, ...) {
 add_panel <- function(p, panel) {
     df <- p$data
     if (is.null(df$.panel)) {
-        df$.panel <- factor("Tree")
+        df[[".panel"]] <- factor("Tree")
     }
     levels(df$.panel) %<>% c(., panel)
     p$data <- df

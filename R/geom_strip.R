@@ -9,7 +9,7 @@
 ##' @param offset.text offset of text from bar
 ##' @param align logical
 ##' @param barsize size of bar
-##' @param barextend extend bar vertically
+##' @param extend extend bar vertically
 ##' @param fontsize size of text
 ##' @param angle angle of text
 ##' @param geom one of 'text' or 'label'
@@ -22,7 +22,7 @@
 ##' @export
 ##' @author Guangchuang Yu
 geom_strip <- function(taxa1, taxa2, label=NA, offset=0, offset.text=0,
-                       align=TRUE, barsize=0.5, barextend=0, fontsize=3.88,
+                       align=TRUE, barsize=0.5, extend=0, fontsize=3.88,
                        angle=0, geom="text", hjust=0, fill=NA, family="sans",
                        parse=FALSE, ...) {
     mapping <- NULL
@@ -33,7 +33,7 @@ geom_strip <- function(taxa1, taxa2, label=NA, offset=0, offset.text=0,
     inherit.aes <- FALSE
 
     layer_bar <- stat_stripBar(taxa1=taxa1, taxa2=taxa2, label=label, offset=offset, align=align,
-                               size=barsize, barextend=barextend,
+                               size=barsize, barextend=extend,
                                mapping=mapping, data=data,
                                position=position, show.legend = show.legend,
                                inherit.aes = inherit.aes, na.rm=na.rm, ...)
@@ -45,14 +45,14 @@ geom_strip <- function(taxa1, taxa2, label=NA, offset=0, offset.text=0,
     if (geom == "text") {
         ## no fill parameter
         layer_text <- stat_stripText(taxa1=taxa1, taxa2=taxa2, label=label, offset=offset+offset.text,
-                                    align=align, size=fontsize, barextend=barextend, angle=angle, family=family,
+                                    align=align, size=fontsize, barextend=extend, angle=angle, family=family,
                                     mapping=mapping, data=data, geom=geom, hjust=hjust,
                                     position=position, show.legend = show.legend,
                                     inherit.aes = inherit.aes, na.rm=na.rm, parse=parse, ...)
 
     } else {
         layer_text <- stat_stripText(taxa1=taxa1, taxa2=taxa2, label=label, offset=offset+offset.text,
-                                    align=align, size=fontsize, barextend=barextend, angle=angle, fill=fill,family=family,
+                                    align=align, size=fontsize, barextend=extend, angle=angle, fill=fill,family=family,
                                     mapping=mapping, data=data, geom=geom, hjust=hjust,
                                     position=position, show.legend = show.legend,
                                     inherit.aes = inherit.aes, na.rm=na.rm, parse=parse, ...)
@@ -174,13 +174,16 @@ get_striplabel_position <- function(data, taxa1, taxa2, offset, align, barextend
 
 
 get_striplabel_position_ <- function(data, taxa1, taxa2, barextend=0) {
+    if (length(barextend) == 1) {
+        barextend <- rep(barextend, 2)
+    }
     node1 <- taxa2node(data, taxa1)
     node2 <- taxa2node(data, taxa2)
 
     xx <- with(data, c(x[node == node1], x[node == node2]))
     yy <- with(data, c(y[node == node1], y[node == node2]))
 
-    data.frame(x=max(xx), y=min(yy)-barextend, yend=max(yy)+barextend)
+    data.frame(x=max(xx), y=min(yy)-barextend[2], yend=max(yy)+barextend[1])
 }
 
 ## used in geom_strip, geom_taxalink

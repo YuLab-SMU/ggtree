@@ -232,6 +232,9 @@ get_cladelabel_position <- function(data, node, offset, align, adjustRatio, angl
 
 # get x, y and yend of clade region.
 get_cladelabel_position_ <- function(data, node, angle = "auto", extend = 0) {
+    if (length(extend) == 1) {
+        extend = rep(extend, 2)
+    }
 
     sp <- get.offspring.df(data, node)
     sp2 <- c(sp, node)
@@ -241,7 +244,7 @@ get_cladelabel_position_ <- function(data, node, angle = "auto", extend = 0) {
     y <- y[!is.na(y)]
     mx <- max(sp.df$x, na.rm=TRUE)
 
-    d <- data.frame(x=mx, y=min(y) - extend, yend=max(y) + extend)
+    d <- data.frame(x=mx, y=min(y) - extend[2], yend=max(y) + extend[1])
     if (missing(angle))
         return(d)
 

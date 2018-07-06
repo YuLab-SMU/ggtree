@@ -1,5 +1,7 @@
 # ggtree 1.13.1.9002
 
++ `extend` parameter in `geom_cladelabel` and `geom_strip` supports specifying
+  extension of both sides (2018-07-06, Fri)
 + `geom_nodelab2` for circular layout (2018-07-03, Tue)
   - <https://groups.google.com/d/msgid/bioc-ggtree/cbe5e1e3-99c4-481d-8523-d5b50cf0460b%40googlegroups.com>
 + re-export `ggplot2::fortify`
