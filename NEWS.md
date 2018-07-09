@@ -1,5 +1,6 @@
 # ggtree 1.13.1.9002
 
++ order by y in `facet_plot` (2018-07-09, Mon)
 + `extend` parameter in `geom_cladelabel` and `geom_strip` supports specifying
   extension of both sides (2018-07-06, Fri)
 + `geom_nodelab2` for circular layout (2018-07-03, Tue)

@@ -115,6 +115,8 @@
     } else {
         stop("input 'data' is not supported...")
     }
+
+    res <- res[order(res$y),]
     return(res)
 }
 
