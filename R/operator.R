@@ -111,7 +111,7 @@
         data <- as.data.frame(data)
         ## res <- merge(df[, c('label', 'y')], data, by.x='label', by.y=1) ## , all.x=TRUE)
         res <- merge(df[, !names(df) %in% c('node', 'parent', 'x', 'branch', 'angle')], data, by.x='label', by.y=1)
-        res$.panel <- factor(lv[length(lv)], levels=lv)
+        res[[".panel"]] <- factor(lv[length(lv)], levels=lv)
     } else {
         stop("input 'data' is not supported...")
     }
