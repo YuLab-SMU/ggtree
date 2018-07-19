@@ -25,6 +25,17 @@ ggplot object
 \description{
 plot tree associated data in an additional panel
 }
+\details{
+'facet_plot()' automatically re-arranges the input 'data' according to the tree structure,
+visualizes the 'data' on specific 'panel' using the 'geom' function with aesthetic 'mapping' and other parameters,
+and align the graph with the tree 'p' side by side.
+}
+\examples{
+tr <- rtree(10)
+dd = data.frame(id=tr$tip.label, value=abs(rnorm(10)))
+p <- ggtree(tr)
+facet_plot(p, 'Trait', data = dd, geom=geom_point, mapping=aes(x=value))
+}
 \author{
 Guangchuang Yu
 }

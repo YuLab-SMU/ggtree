@@ -82,7 +82,7 @@ gheatmap <- function(p, data, offset=0, width=1, low="green", high="red", color=
 
     dd$x <- V2
     dd$width <- width
-
+    dd[[".panel"]] <- factor("Tree")
     if (is.null(color)) {
         p2 <- p + geom_tile(data=dd, aes(x, y, fill=value), width=width, inherit.aes=FALSE)
     } else {
@@ -101,6 +101,7 @@ gheatmap <- function(p, data, offset=0, width=1, low="green", high="red", color=
             y <- max(p$data$y) + 1
         }
         mapping$y <- y
+        mapping[[".panel"]] <- factor("Tree")
         p2 <- p2 + geom_text(data=mapping, aes(x=to, y = y, label=from), size=font.size, inherit.aes = FALSE,
                              angle=colnames_angle, nudge_x=colnames_offset_x, nudge_y = colnames_offset_y, hjust=hjust)
     }

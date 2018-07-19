@@ -1,6 +1,9 @@
 ##' plot tree associated data in an additional panel
 ##'
 ##'
+##' 'facet_plot()' automatically re-arranges the input 'data' according to the tree structure,
+##' visualizes the 'data' on specific 'panel' using the 'geom' function with aesthetic 'mapping' and other parameters,
+##' and align the graph with the tree 'p' side by side.
 ##' @title facet_plot
 ##' @param p tree view
 ##' @param panel panel name for plot of input data
@@ -9,6 +12,11 @@
 ##' @param mapping aes mapping for 'geom'
 ##' @param ... additional parameters for 'geom'
 ##' @return ggplot object
+##' @examples
+##' tr <- rtree(10)
+##' dd = data.frame(id=tr$tip.label, value=abs(rnorm(10)))
+##' p <- ggtree(tr)
+##' facet_plot(p, 'Trait', data = dd, geom=geom_point, mapping=aes(x=value))
 ##' @export
 ##' @author Guangchuang Yu
 facet_plot <- function(p, panel, data, geom, mapping=NULL, ...) {
@@ -20,7 +28,7 @@ facet_plot <- function(p, panel, data, geom, mapping=NULL, ...) {
 ##' @importFrom ggplot2 facet_grid
 add_panel <- function(p, panel) {
     df <- p$data
-    if (is.null(df$.panel)) {
+    if (is.null(df[[".panel"]])) {
         df[[".panel"]] <- factor("Tree")
     }
     levels(df$.panel) %<>% c(., panel)
