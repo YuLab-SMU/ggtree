@@ -55,6 +55,10 @@ gitmaintain:
 	git prune -v;\
 	git fsck --full
 
+biocinit:
+	git remote add upstream git@git.bioconductor.org:packages/$(PKGNAME).git;\
+	git fetch --all
+
 release:
 	git checkout RELEASE_3_7;\
 	git fetch --all
