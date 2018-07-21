@@ -46,7 +46,8 @@ viewClade <- function(tree_view=NULL, node, xmax_adjust=0) {
     attr(tree_view, 'viewClade_node') <- node
 
     ## tree_view+xlim(cpos$xmin, xmax + xmax_adjust) + ylim(cpos$ymin, cpos$ymax)
-    tree_view + coord_cartesian(xlim=c(cpos$xmin, xmax), ylim=c(cpos$ymin, cpos$ymax), expand=FALSE)
+    tree_view + coord_cartesian(xlim=c(cpos$xmin, xmax + xmax_adjust),
+                                ylim=c(cpos$ymin, cpos$ymax), expand=FALSE)
 }
 
 is.viewClade <- function(tree_view) {

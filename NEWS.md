@@ -1,5 +1,7 @@
 # ggtree 1.13.2
 
++ xmax_adjust  in `viewClade` (2018-07-21, Sat)
+  - <https://github.com/GuangchuangYu/ggtree/issues/187>
 + update rd of `facet_plot` by adding description and example (2018-07-19, Thu)
 + order by y in `facet_plot` (2018-07-09, Mon)
 + `extend` parameter in `geom_cladelabel` and `geom_strip` supports specifying
