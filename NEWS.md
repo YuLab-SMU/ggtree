@@ -1,3 +1,8 @@
+# ggtree 1.13.3
+
++ update `viewClade` according to the change of `ggplot2` (2018-08-07, Tue)
+  - <https://github.com/GuangchuangYu/ggtree/issues/188>
+  
 # ggtree 1.13.2
 
 + xmax_adjust  in `viewClade` (2018-07-21, Sat)

@@ -4,7 +4,8 @@
 \alias{geom_range}
 \title{geom_range}
 \usage{
-geom_range(range = "length_0.95_HPD", branch.length = "branch.length", ...)
+geom_range(range = "length_0.95_HPD", branch.length = "branch.length",
+  ...)
 }
 \arguments{
 \item{range}{range, e.g. "height_0.95_HPD"}

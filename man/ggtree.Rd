@@ -5,13 +5,13 @@
 \alias{ggtree}
 \alias{package-ggtree}
 \alias{ggtree-package}
-\alias{ggtree}
 \title{visualizing phylogenetic tree and heterogenous associated data based on grammar of graphics
 \code{ggtree} provides functions for visualizing phylogenetic tree and its associated data in R.}
 \usage{
 ggtree(tr, mapping = NULL, layout = "rectangular", open.angle = 0,
-  mrsd = NULL, as.Date = FALSE, yscale = "none", yscale_mapping = NULL,
-  ladderize = TRUE, right = FALSE, branch.length = "branch.length", ...)
+  mrsd = NULL, as.Date = FALSE, yscale = "none",
+  yscale_mapping = NULL, ladderize = TRUE, right = FALSE,
+  branch.length = "branch.length", ...)
 }
 \arguments{
 \item{tr}{phylo object}

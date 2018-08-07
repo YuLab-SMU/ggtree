@@ -4,8 +4,8 @@
 \alias{inset}
 \title{inset}
 \usage{
-inset(tree_view, insets, width, height, hjust = 0, vjust = 0, x = "node",
-  reverse_x = FALSE, reverse_y = FALSE)
+inset(tree_view, insets, width, height, hjust = 0, vjust = 0,
+  x = "node", reverse_x = FALSE, reverse_y = FALSE)
 }
 \arguments{
 \item{tree_view}{tree view}

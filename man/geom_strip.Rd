@@ -5,9 +5,9 @@
 \title{geom_strip}
 \usage{
 geom_strip(taxa1, taxa2, label = NA, offset = 0, offset.text = 0,
-  align = TRUE, barsize = 0.5, extend = 0, fontsize = 3.88, angle = 0,
-  geom = "text", hjust = 0, fill = NA, family = "sans", parse = FALSE,
-  ...)
+  align = TRUE, barsize = 0.5, extend = 0, fontsize = 3.88,
+  angle = 0, geom = "text", hjust = 0, fill = NA,
+  family = "sans", parse = FALSE, ...)
 }
 \arguments{
 \item{taxa1}{taxa1}

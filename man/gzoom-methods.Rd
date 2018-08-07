@@ -3,7 +3,6 @@
 \docType{methods}
 \name{gzoom}
 \alias{gzoom}
-\alias{gzoom}
 \alias{gzoom,ggtree-method}
 \alias{gzoom,treedata-method}
 \alias{gzoom,phylo-method}
@@ -14,8 +13,8 @@ gzoom(object, focus, subtree = FALSE, widths = c(0.3, 0.7), ...)
 \S4method{gzoom}{ggtree}(object, focus, widths = c(0.3, 0.7),
   xmax_adjust = 0)
 
-\S4method{gzoom}{treedata}(object, focus, subtree = FALSE, widths = c(0.3,
-  0.7))
+\S4method{gzoom}{treedata}(object, focus, subtree = FALSE,
+  widths = c(0.3, 0.7))
 
 \S4method{gzoom}{phylo}(object, focus, subtree = FALSE, widths = c(0.3,
   0.7))
@@ -37,5 +36,9 @@ gzoom(object, focus, subtree = FALSE, widths = c(0.3, 0.7), ...)
 figure
 }
 \description{
+gzoom method
+
+gzoom method
+
 zoom selected subtree
 }

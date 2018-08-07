@@ -24,5 +24,7 @@ scale_color(object, by, ...)
 color vector
 }
 \description{
+scale_color method
+
 scale color by a numerical tree attribute
 }

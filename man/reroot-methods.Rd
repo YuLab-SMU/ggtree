@@ -21,5 +21,7 @@ reroot(object, node, ...)
 tree object
 }
 \description{
+reroot method
+
 reroot a tree
 }

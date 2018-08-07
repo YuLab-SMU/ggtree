@@ -4,8 +4,8 @@
 \alias{phylopic}
 \title{phylopic}
 \usage{
-phylopic(tree_view, phylopic_id, size = 512, color = "black", alpha = 0.5,
-  node = NULL, x = NULL, y = NULL, width = 0.1)
+phylopic(tree_view, phylopic_id, size = 512, color = "black",
+  alpha = 0.5, node = NULL, x = NULL, y = NULL, width = 0.1)
 }
 \arguments{
 \item{tree_view}{tree view}
