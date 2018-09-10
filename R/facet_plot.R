@@ -25,6 +25,21 @@ facet_plot <- function(p, panel, data, geom, mapping=NULL, ...) {
     p + geom(data=df, mapping=mapping, ...)
 }
 
+##' label facet_plot output
+##'
+##' 
+##' @title facet_labeller
+##' @param p facet_plot output
+##' @param label labels of facet panels
+##' @return ggplot object
+##' @importFrom ggplot2 labeller
+##' @export
+##' @author Guangchuang Yu
+facet_labeller <- function(p, label) {
+    p+ facet_grid( . ~ .panel, scales="free_x",
+               labeller = labeller(.panel = label))
+}
+
 ##' @importFrom ggplot2 facet_grid
 add_panel <- function(p, panel) {
     df <- p$data

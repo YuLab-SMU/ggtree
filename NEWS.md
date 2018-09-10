@@ -1,3 +1,8 @@
+# ggtree 1.13.4
+
++ `facet_labeller` to label panels of `facet_plot` output (2018-09-10, Mon)
+  - <https://groups.google.com/forum/?utm_medium=email&utm_source=footer#!msg/bioc-ggtree/nAl3bNswxQM/crBwKtS3BAAJ>
+  
 # ggtree 1.13.3
 
 + update `viewClade` according to the change of `ggplot2` (2018-08-07, Tue)
