@@ -36,8 +36,13 @@ facet_plot <- function(p, panel, data, geom, mapping=NULL, ...) {
 ##' @export
 ##' @author Guangchuang Yu
 facet_labeller <- function(p, label) {
-    p+ facet_grid( . ~ .panel, scales="free_x",
-               labeller = labeller(.panel = label))
+    lbs  <-  levels(p$data$.panel)
+    names(lbs)  <-  lbs
+    label <- label[names(label) %in% lbs]
+    lbs[names(label)]  <-  label
+
+    p + facet_grid( . ~ .panel, scales="free_x",
+               labeller = labeller(.panel = lbs))
 }
 
 ##' @importFrom ggplot2 facet_grid
