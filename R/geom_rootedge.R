@@ -3,10 +3,11 @@
 ##'
 ##' @title geom_rootedge
 ##' @param rootedge length of rootedge; use phylo$root.edge if rootedge = NULL (by default).
+##' @param ... additional parameters
 ##' @return ggplot layer
 ##' @export
 ##' @author Guangchuang Yu
-geom_rootedge <- function(rootedge = NULL) {
+geom_rootedge <- function(rootedge = NULL, ...) {
     mapping <- aes_(x = ~x, y = ~y, xend = ~x, yend = ~y,
                     branch.length = ~branch.length,
                     node = ~node, parent = ~parent)
@@ -17,7 +18,7 @@ geom_rootedge <- function(rootedge = NULL) {
         geom = "segment",
         position = "identity",
         show.legend = NA,
-        params = list(rootedge = rootedge),
+        params = list(rootedge = rootedge, ...),
         check.aes = FALSE
     )
 

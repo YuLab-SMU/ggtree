@@ -4,10 +4,12 @@
 \alias{geom_rootedge}
 \title{geom_rootedge}
 \usage{
-geom_rootedge(rootedge = NULL)
+geom_rootedge(rootedge = NULL, ...)
 }
 \arguments{
 \item{rootedge}{length of rootedge; use phylo$root.edge if rootedge = NULL (by default).}
+
+\item{...}{additional parameters}
 }
 \value{
 ggplot layer
