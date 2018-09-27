@@ -10,7 +10,7 @@
 ##' @author Yu Guangchuang
 ##' @examples
 ##' library("ggplot2")
-##' nwk <- system.file("extdata", "sample.nwk", package="ggtree")
+##' nwk <- system.file("extdata", "sample.nwk", package="treeio")
 ##' tree <- read.tree(nwk)
 ##' p <- ggtree(tree) + geom_tippoint(color="#b5e521", alpha=1/4, size=10)
 ##' p %<% rtree(30)
@@ -32,7 +32,7 @@
 ##' @export
 ##' @author Yu Guangchuang
 ##' @examples
-##' nwk <- system.file("extdata", "sample.nwk", package="ggtree")
+##' nwk <- system.file("extdata", "sample.nwk", package="treeio")
 ##' tree <- read.tree(nwk)
 ##' p <- ggtree(tree)
 ##' dd <- data.frame(taxa=LETTERS[1:13],
