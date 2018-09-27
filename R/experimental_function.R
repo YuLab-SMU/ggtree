@@ -156,7 +156,7 @@ scale_x_ggtree <- function(tree_view, breaks=NULL, labels=NULL) {
 ## ##' @export
 ## ##' @author Guangchuang Yu \url{http://ygc.name}
 ## ##' @examples
-## ##' nwk <- system.file("extdata", "sample.nwk", package="ggtree")
+## ##' nwk <- system.file("extdata", "sample.nwk", package="treeio")
 ## ##' tree <- read.tree(nwk)
 ## ##' p <- ggtree(tree)
 ## ##' d <- matrix(abs(rnorm(52)), ncol=4)
