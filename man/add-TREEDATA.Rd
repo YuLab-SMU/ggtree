@@ -18,7 +18,7 @@ ggplot object with annotation data added
 add annotation data to a tree
 }
 \examples{
-nwk <- system.file("extdata", "sample.nwk", package="ggtree")
+nwk <- system.file("extdata", "sample.nwk", package="treeio")
 tree <- read.tree(nwk)
 p <- ggtree(tree)
 dd <- data.frame(taxa=LETTERS[1:13],
