@@ -1,4 +1,4 @@
-# ggtree 1.13.4.991
+# ggtree 1.13.5
 
 + enable additional parameters passed to `geom_rootedge` (2018-09-13, Thu)
   - <https://github.com/GuangchuangYu/ggtree/issues/195>
