@@ -1,8 +1,8 @@
 ---
 title: "ggtree: a phylogenetic tree viewer for different types of tree annotations"
-author: "Guangchuang Yu and Tommy Tsan-Yuk Lam\\
+author: "Guangchuang Yu\\
 
-        School of Public Health, The University of Hong Kong"
+        School of Basic Medical Sciences, Southern Medical University"
 date: "`r Sys.Date()`"
 bibliography: ggtree.bib
 biblio-style: apalike
@@ -244,8 +244,6 @@ For questions, please post
 to [google group](https://groups.google.com/forum/#!forum/bioc-ggtree). Users
 are highly recommended to subscribe to the [mailing list](https://groups.google.com/forum/#!forum/bioc-ggtree).
 
-
-For Chinese user, you can follow me on [WeChat (微信)](https://guangchuangyu.github.io/blog_images/biobabble.jpg).
 
 
 # Session info

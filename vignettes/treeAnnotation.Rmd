@@ -1,8 +1,8 @@
 ---
 title: "Tree Annotation"
-author: "Guangchuang Yu and Tommy Tsan-Yuk Lam\\
+author: "Guangchuang Yu\\
 
-        School of Public Health, The University of Hong Kong"
+        School of Basic Medical Sciences, Southern Medical University"
 date: "`r Sys.Date()`"
 bibliography: ggtree.bib
 biblio-style: apalike
