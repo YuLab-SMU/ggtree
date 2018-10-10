@@ -1,11 +1,11 @@
 
 
 ##' @importFrom ape reorder.phylo
-layout.unrooted <- function(tree, branch.length="branch.length", layout.method="equal_angle", ...) {
+layout.unrooted <- function(model, branch.length="branch.length", layout.method="equal_angle", ...) {
 
     df <- switch(layout.method,
-                 equal_angle = layoutEqualAngle(tree, branch.length),
-                 daylight = layoutDaylight(tree, branch.length)
+                 equal_angle = layoutEqualAngle(model, branch.length),
+                 daylight = layoutDaylight(model, branch.length)
                  )
 
     return(df)
@@ -36,7 +36,9 @@ set_branch_length_cladogram <- function(tree) {
 ##' @param tree phylo object
 ##' @param branch.length set to 'none' for edge length of 1. Otherwise the phylogenetic tree edge length is used.
 ##' @return tree as data.frame with equal angle layout.
-layoutEqualAngle <- function(tree, branch.length ){
+layoutEqualAngle <- function(model, branch.length ){
+	tree <- as.phylo(model)
+	
     if (branch.length == "none") {
         tree <- set_branch_length_cladogram(tree)
     }
@@ -44,7 +46,7 @@ layoutEqualAngle <- function(tree, branch.length ){
     root <- getRoot(tree)
     ## Convert Phylo tree to data.frame.
     ## df <- as.data.frame.phylo_(tree)
-    df <- as_data_frame(tree) %>%
+    df <- as_data_frame(model) %>%
         mutate_(isTip = ~(! node %in% parent))
 
     ## NOTE: Angles (start, end, angle) are in half-rotation units (radians/pi or degrees/180)
@@ -127,15 +129,16 @@ layoutEqualAngle <- function(tree, branch.length ){
 ##' nodes = remove tip nodes.
 ##'
 ##' ```
-layoutDaylight <- function( tree, branch.length ){
-
+layoutDaylight <- function(model, branch.length ){
+	tree <- as.phylo(model)
+	
     ## How to set optimal
     MAX_COUNT <- 5
     MINIMUM_AVERAGE_ANGLE_CHANGE <- 0.05
 
 
     ## Initialize tree.
-    tree_df <- layoutEqualAngle(tree, branch.length)
+    tree_df <- layoutEqualAngle(model, branch.length)
 
     ## nodes = get list of nodes in tree_df
     ## Get list of node id's.

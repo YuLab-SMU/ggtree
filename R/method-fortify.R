@@ -30,7 +30,7 @@ fortify.phylo <- function(model, data,
     }
 
     if (layout %in% c("equal_angle", "daylight")) {
-        res <- layout.unrooted(x, layout.method = layout, branch.length = branch.length, ...)
+        res <- layout.unrooted(model, layout.method = layout, branch.length = branch.length, ...)
     } else {
         if (is.null(x$edge.length) || branch.length == "none") {
             xpos <- getXcoord_no_length(x)
