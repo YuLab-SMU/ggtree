@@ -30,9 +30,11 @@ ggtree(tr, mapping = NULL, layout = "rectangular", open.angle = 0,
 
 \item{yscale_mapping}{yscale mapping for category variable}
 
-\item{ladderize}{logical}
+\item{ladderize}{logical (default \code{TRUE}). Should the tree be re-organized to have a 'ladder'
+aspect?}
 
-\item{right}{logical}
+\item{right}{logical. If \code{ladderize = TRUE}, should the ladder have the smallest clade on the
+right-hand side? See \code{\link[ape]{ladderize}} for more information.}
 
 \item{branch.length}{variable for scaling branch, if 'none' draw cladogram}
 
@@ -53,6 +55,9 @@ drawing phylogenetic tree from phylo object
 require(ape)
 tr <- rtree(10)
 ggtree(tr)
+}
+\seealso{
+\code{\link[ape]{ladderize}}
 }
 \author{
 Yu Guangchuang
