@@ -7,7 +7,7 @@ layout.unrooted <- function(model, branch.length="branch.length", layout.method=
                  equal_angle = layoutEqualAngle(model, branch.length),
                  daylight = layoutDaylight(model, branch.length)
                  )
-    
+
     return(df)
 }
 
@@ -33,21 +33,28 @@ set_branch_length_cladogram <- function(tree) {
 ##' "Inferring Phylogenies" by Joseph Felsenstein.
 ##'
 ##' @title layoutEqualAngle
-##' @param tree phylo object
+##' @param model tree object, e.g. phylo or treedata
 ##' @param branch.length set to 'none' for edge length of 1. Otherwise the phylogenetic tree edge length is used.
 ##' @return tree as data.frame with equal angle layout.
 layoutEqualAngle <- function(model, branch.length ){
 	tree <- as.phylo(model)
-	
-    if (branch.length == "none") {
-        tree <- set_branch_length_cladogram(tree)
-    }
 
-    root <- getRoot(tree)
-    ## Convert Phylo tree to data.frame.
-    ## df <- as.data.frame.phylo_(tree)
-    df <- as_data_frame(model) %>%
-        mutate_(isTip = ~(! node %in% parent))
+  if (! is.null(tree$edge.length)) {
+      if (anyNA(tree$edge.length)) {
+          warning("'edge.length' contains NA values...\n## setting 'edge.length' to NULL automatically when plotting the tree...")
+          tree$edge.length <- NULL
+      }
+  }
+  
+  if (branch.length == "none") {
+      tree <- set_branch_length_cladogram(tree)
+  }
+  
+  root <- getRoot(tree)
+  ## Convert Phylo tree to data.frame.
+  ## df <- as.data.frame.phylo_(tree)
+  df <- as_data_frame(model) %>%
+      mutate_(isTip = ~(! node %in% parent))
 
     ## NOTE: Angles (start, end, angle) are in half-rotation units (radians/pi or degrees/180)
 
@@ -113,7 +120,7 @@ layoutEqualAngle <- function(model, branch.length ){
 ##' Equal daylight layout method for unrooted trees.
 ##'
 ##' #' @title
-##' @param tree phylo object
+##' @param model tree object, e.g. phylo or treedata
 ##' @param branch.length set to 'none' for edge length of 1. Otherwise the phylogenetic tree edge length is used.
 ##' @return tree as data.frame with equal angle layout.
 ##' @references

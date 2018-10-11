@@ -1,3 +1,8 @@
+# ggtree 1.13.6
+
++ made data usable with treedata in 'equal_angle' and 'daylight' layouts (2018-10-11, Thu)
+  - <https://github.com/GuangchuangYu/ggtree/pull/201>
+  
 # ggtree 1.13.5
 
 + enable additional parameters passed to `geom_rootedge` (2018-09-13, Thu)

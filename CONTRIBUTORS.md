@@ -1,3 +1,7 @@
+# Bradley Jones
+
++ made data usable with treedata in 'equal_angle' and 'daylight' layouts 
+  - <https://github.com/GuangchuangYu/ggtree/pull/201>
 
 # Justin Silverman
 
@@ -17,3 +21,4 @@
 + Refactor layoutDaylight
   - <https://github.com/GuangchuangYu/ggtree/pull/165>
   - <https://github.com/GuangchuangYu/ggtree/pull/169>
+

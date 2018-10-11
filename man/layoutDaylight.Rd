@@ -4,10 +4,10 @@
 \alias{layoutDaylight}
 \title{Equal daylight layout method for unrooted trees.}
 \usage{
-layoutDaylight(tree, branch.length)
+layoutDaylight(model, branch.length)
 }
 \arguments{
-\item{tree}{phylo object}
+\item{model}{tree object, e.g. phylo or treedata}
 
 \item{branch.length}{set to 'none' for edge length of 1. Otherwise the phylogenetic tree edge length is used.}
 }

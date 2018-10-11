@@ -4,10 +4,10 @@
 \alias{layoutEqualAngle}
 \title{layoutEqualAngle}
 \usage{
-layoutEqualAngle(tree, branch.length)
+layoutEqualAngle(model, branch.length)
 }
 \arguments{
-\item{tree}{phylo object}
+\item{model}{tree object, e.g. phylo or treedata}
 
 \item{branch.length}{set to 'none' for edge length of 1. Otherwise the phylogenetic tree edge length is used.}
 }
