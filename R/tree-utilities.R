@@ -7,7 +7,7 @@ layout.unrooted <- function(tree, branch.length="branch.length", layout.method="
                  equal_angle = layoutEqualAngle(tree, branch.length),
                  daylight = layoutDaylight(tree, branch.length)
                  )
-
+    
     return(df)
 }
 
