@@ -64,6 +64,12 @@ __G Yu__, DK Smith, H Zhu, Y Guan, TTY Lam^\*^. ggtree: an R package for visuali
 
 ----------------------------------------------------------------------------------------
 
+## Authors
+
+Guangchuang YU <https://guangchuangyu.github.io>
+
+School of Basic Medical Sciences, Southern Medical University
+
 
 ### Citation
 

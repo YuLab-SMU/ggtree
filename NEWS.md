@@ -1,5 +1,7 @@
 # ggtree 1.13.6
 
++ set `scale_y_continuous(expand = c(0, 0))` for `gheatmap` when `colnames = FALSE` (2018-10-17, Wed)
+  - <https://github.com/GuangchuangYu/ggtree/issues/204>
 + made data usable with treedata in 'equal_angle' and 'daylight' layouts (2018-10-11, Thu)
   - <https://github.com/GuangchuangYu/ggtree/pull/201>
   

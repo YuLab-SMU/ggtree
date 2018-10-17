@@ -26,6 +26,7 @@
 ##' @importFrom ggplot2 guide_legend
 ##' @importFrom ggplot2 scale_fill_gradient
 ##' @importFrom ggplot2 scale_fill_discrete
+##' @importFrom ggplot2 scale_y_continuous
 ##' @export
 ##' @author Guangchuang Yu
 gheatmap <- function(p, data, offset=0, width=1, low="green", high="red", color="white",
@@ -108,6 +109,11 @@ gheatmap <- function(p, data, offset=0, width=1, low="green", high="red", color=
 
     p2 <- p2 + theme(legend.position="right", legend.title=element_blank())
     ## p2 <- p2 + guides(fill = guide_legend(override.aes = list(colour = NULL)))
+
+    if (!colnames) {
+        ## https://github.com/GuangchuangYu/ggtree/issues/204
+        p2 <- p2 + scale_y_continuous(expand = c(0,0))
+    }
 
     attr(p2, "mapping") <- mapping
     return(p2)
