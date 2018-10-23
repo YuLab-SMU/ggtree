@@ -22,3 +22,12 @@ setMethod("reroot", signature(object="phylo"),
               return(tree)
           })
 
+
+##' @method reroot treedata
+##' @export
+reroot.treedata <- function(object, node, ...) {
+    tree <- object@phylo
+    tree <- reroot(tree, node, ...)
+    object@phylo <- tree
+    object
+}
