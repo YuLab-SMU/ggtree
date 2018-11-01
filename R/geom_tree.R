@@ -4,7 +4,7 @@
 ##' @title geom_tree
 ##' @param mapping aesthetic mapping
 ##' @param data data
-##' @param layout one of 'rectangular', 'slanted', 'circular', 'radial', 'equal_angle' or 'daylight'
+##' @param layout one of 'rectangular', 'slanted', 'fan', 'circular', 'radial', 'equal_angle' or 'daylight'
 ##' @param multiPhylo logical
 ##' @param ... additional parameter
 ##' @return tree layer
