@@ -2,10 +2,8 @@
 ##'
 ##'
 ##' @title ggtree
+##' @inheritParams geom_tree
 ##' @param tr phylo object
-##' @param mapping aes mapping
-##' @param layout one of 'rectangular', 'slanted', 'fan', 'circular', 'radial', 'equal_angle' or 'daylight'
-##' @param open.angle open angle, only for 'fan' layout
 ##' @param mrsd most recent sampling date
 ##' @param as.Date logical whether using Date class in time tree
 ##' @param yscale y scale
@@ -15,7 +13,6 @@
 ##' @param right logical. If \code{ladderize = TRUE}, should the ladder have the smallest clade on the
 ##' right-hand side? See \code{\link[ape]{ladderize}} for more information. 
 ##' @param branch.length variable for scaling branch, if 'none' draw cladogram
-##' @param ... additional parameter
 ##' @return tree
 ##' @importFrom ggplot2 ggplot
 ##' @importFrom ggplot2 xlab
