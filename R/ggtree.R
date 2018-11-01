@@ -4,6 +4,7 @@
 ##' @title ggtree
 ##' @inheritParams geom_tree
 ##' @param tr phylo object
+##' @param open.angle open angle, only for 'fan' layout
 ##' @param mrsd most recent sampling date
 ##' @param as.Date logical whether using Date class in time tree
 ##' @param yscale y scale
