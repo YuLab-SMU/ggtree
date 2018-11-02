@@ -24,3 +24,25 @@ citEntry(
         "Methods in Ecology and Evolution 2017, 8(1):28-36")
 )
 
+citEntry(
+    entry  = "article",
+    title  = "Two methods for mapping and visualizing associated data on phylogeny using ggtree.",
+    author = personList(
+        as.person("Guangchuang Yu"),
+        as.person("Tommy Tsan-Yuk Lam"),
+        as.person("Huachen Zhu"),
+        as.person("Yi Guan")
+    ),
+    year    = "2018",
+    journal = "Molecular Biology and Evolution",
+    volume  = "",
+    issue   = "",
+    number  = "",
+    pages   = "",
+    doi     = "10.1093/molbev/msy194",
+    PMID    = "",
+    url     = "https://doi.org/10.1093/molbev/msy194",
+    textVersion = paste("Guangchuang Yu, Tommy Tsan-Yuk Lam, Huachen Zhu, Yi Guan.",
+                        "Two methods for mapping and visualizing associated data on phylogeny using ggtree.",
+                        "Molecular Biology and Evolution 2018, accepted. doi: 10.1093/molbev/msy194")
+)

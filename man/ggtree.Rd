@@ -16,7 +16,7 @@ ggtree(tr, mapping = NULL, layout = "rectangular", open.angle = 0,
 \arguments{
 \item{tr}{phylo object}
 
-\item{mapping}{aes mapping}
+\item{mapping}{aesthetic mapping}
 
 \item{layout}{one of 'rectangular', 'slanted', 'fan', 'circular', 'radial', 'equal_angle' or 'daylight'}
 
