@@ -1,3 +1,12 @@
+# ggtree 1.15.1
+
++ better msg when taxa name not consistent in sequence and tree files with `msaplot`. (2018-11-07, Wed)
+  - <https://github.com/GuangchuangYu/ggtree/issues/172#issuecomment-436585370>
+  
+# ggtree 1.14.0
+
++ Bioconductor 3.8 release
+
 # ggtree 1.13.6
 
 + set `scale_y_continuous(expand = c(0, 0))` for `gheatmap` when `colnames = FALSE` (2018-10-17, Wed)
