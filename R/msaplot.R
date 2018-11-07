@@ -24,7 +24,7 @@ msaplot <- function(p, fasta, offset=0, width=1, color=NULL, window=NULL, bg_lin
     } else if (is(fasta, "DNAbin") || is(fasta, "AAbin") ) {
         x <- fasta
     } else if (is(fasta, "character")) {
-        x <- read.fasta(fasta)
+        x <- treeio::read.fasta(fasta)
     } else {
         x <- NULL
     }
