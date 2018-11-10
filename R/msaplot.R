@@ -24,7 +24,7 @@ msaplot <- function(p, fasta, offset=0, width=1, color=NULL, window=NULL, bg_lin
     } else if (is(fasta, "DNAbin") || is(fasta, "AAbin") ) {
         x <- fasta
     } else if (is(fasta, "character")) {
-        x <- read.fasta(fasta)
+        x <- treeio::read.fasta(fasta)
     } else {
         x <- NULL
     }
@@ -40,6 +40,10 @@ msaplot <- function(p, fasta, offset=0, width=1, color=NULL, window=NULL, bg_lin
     }
 
     x <- as.matrix(x)
+
+    if (!all(labels(x) %in% p$data$label)) {
+        stop("taxa name in input sequences are not match with the ones on the tree, please check your input files...")
+    }
 
     if (is.null(window)) {
         window <- c(1, ncol(x))

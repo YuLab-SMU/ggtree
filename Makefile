@@ -60,7 +60,7 @@ biocinit:
 	git fetch --all
 
 release:
-	git checkout RELEASE_3_7;\
+	git checkout RELEASE_3_8;\
 	git fetch --all
 
 update:
