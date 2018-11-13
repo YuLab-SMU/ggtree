@@ -27,13 +27,24 @@ setMethod("reroot", signature(object="phylo"),
 ##' @exportMethod reroot
 setMethod("reroot", signature(object="treedata"),
         function(object, node, ...) {
-        	# reroot tree
-            tree <- object@phylo
+        	# warning message
+        	message("The use of this method may cause some node data to become incorrect (e.g. bootstrap values).")
+        	
+        	# ensure nodes/tips have a label to properly map @anc_seq/@tip_seq
+        	tree <- object@phylo
+        	if (is.null(tree$tip.label)) {
+        		tree$tip.label <- as.character(1:Ntip(tree))
+        	}
+        	if (is.null(tree$node.label)) {
+        		tree$node.label <- as.character((1:tree$Nnode) + Ntip(tree))
+        	}
+        	
+            # reroot tree
             tree <- reroot(tree, node, ...)
             object@phylo <- tree
             
             # update node numbers in data
-            n.tips <- length(tree$tip.label) # Is there a better way in ggtree/treeio to get the number of tips?
+            n.tips <- Ntip(tree)
             node_map <- attr(tree, "node_map")
             data <- object@data
             data$node[match(node_map$from, as.integer(data$node))] <- node_map$to
