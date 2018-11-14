@@ -1,11 +1,11 @@
 
 
 ##' @importFrom ape reorder.phylo
-layout.unrooted <- function(model, branch.length="branch.length", layout.method="equal_angle", ...) {
+layout.unrooted <- function(model, branch.length="branch.length", layout.method="equal_angle", MAX_COUNT=5, ...) {
 
     df <- switch(layout.method,
                  equal_angle = layoutEqualAngle(model, branch.length),
-                 daylight = layoutDaylight(model, branch.length)
+                 daylight = layoutDaylight(model, branch.length, MAX_COUNT)
                  )
 
     return(df)
@@ -136,11 +136,10 @@ layoutEqualAngle <- function(model, branch.length ){
 ##' nodes = remove tip nodes.
 ##'
 ##' ```
-layoutDaylight <- function(model, branch.length ){
+layoutDaylight <- function(model, branch.length, MAX_COUNT=5 ){
 	tree <- as.phylo(model)
 	
     ## How to set optimal
-    MAX_COUNT <- 5
     MINIMUM_AVERAGE_ANGLE_CHANGE <- 0.05
 
 
