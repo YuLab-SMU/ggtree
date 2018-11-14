@@ -36,7 +36,8 @@ xlim_expand <- function(xlim, panel) {
 ##' @author guangchuang yu
 revts <- function(treeview) {
     x <- treeview$data$x
-    x <- x - max(x)
-    treeview$data$x <- x
+    mx <- max(x)
+    treeview$data$x <- x - mx
+    treeview$data$branch <- treeview$data$branch - mx
     treeview
 }

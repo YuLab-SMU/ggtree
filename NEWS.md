@@ -1,5 +1,7 @@
 # ggtree 1.15.1
 
++ now `revts` also reverse the `branch` column (2018-11-11, Sun)
+  - <https://groups.google.com/d/msgid/bioc-ggtree/50765a34-53e5-44d2-bb8f-6d20a11fa890%40googlegroups.com>
 + better msg when taxa name not consistent in sequence and tree files with `msaplot`. (2018-11-07, Wed)
   - <https://github.com/GuangchuangYu/ggtree/issues/172#issuecomment-436585370>
   
