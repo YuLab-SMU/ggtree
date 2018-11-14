@@ -30,6 +30,8 @@ setMethod("reroot", signature(object="treedata"),
         	# warning message
         	message("The use of this method may cause some node data to become incorrect (e.g. bootstrap values).")
         	
+        	newobject <- object
+        	
         	# ensure nodes/tips have a label to properly map @anc_seq/@tip_seq
         	tree <- object@phylo
         	if (is.null(tree$tip.label)) {
@@ -41,14 +43,31 @@ setMethod("reroot", signature(object="treedata"),
         	
             # reroot tree
             tree <- reroot(tree, node, ...)
-            object@phylo <- tree
+            newobject@phylo <- tree
             
             # update node numbers in data
             n.tips <- Ntip(tree)
-            node_map <- attr(tree, "node_map")
-            data <- object@data
-            data$node[match(node_map$from, as.integer(data$node))] <- node_map$to
-            object@data <- data
+            node_map<- attr(tree, "node_map")
             
-            return(object)
+            update_data <- function(data, node_map) {
+            	newdata <- data
+            	newdata[match(node_map$from, data$node), 'node'] <- node_map$to
+            	
+            	# clear root data
+            	root <- newdata$node == (n.tips + 1)
+            	newdata[root,] <- NA
+            	newdata[root,'node'] <- n.tips + 1
+            	
+            	return(newdata)
+            }
+            
+            if (nrow(newobject@data) > 0) {
+            	newobject@data <- update_data(object@data, node_map)
+            }
+            
+            if (nrow(object@extraInfo) > 0) {
+            	newobject@extraInfo <- update_data(object@extraInfo, node_map)
+            }
+            
+            return(newobject)
         })
