@@ -19,8 +19,8 @@ geom_tree <- function(mapping=NULL, data=NULL, layout="rectangular", multiPhylo=
 
 
 stat_tree <- function(mapping=NULL, data=NULL, geom="segment", position="identity",
-                      layout="rectangular", multiPhylo=FALSE, lineend="round", ...,
-                      show.legend=NA, inherit.aes=TRUE, na.rm=TRUE, check.param=TRUE) {
+                      layout="rectangular", multiPhylo=FALSE, lineend="round", MAX_COUNT=5,
+					  ..., show.legend=NA, inherit.aes=TRUE, na.rm=TRUE, check.param=TRUE) {
 
     default_aes <- aes_(x=~x, y=~y,node=~node, parent=~parent)
     if (multiPhylo) {
