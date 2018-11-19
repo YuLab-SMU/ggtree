@@ -4,11 +4,14 @@
 \name{reroot}
 \alias{reroot}
 \alias{reroot,phylo-method}
+\alias{reroot,treedata-method}
 \title{reroot method}
 \usage{
 reroot(object, node, ...)
 
 \S4method{reroot}{phylo}(object, node, ...)
+
+\S4method{reroot}{treedata}(object, node, ...)
 }
 \arguments{
 \item{object}{\code{treedata} object}

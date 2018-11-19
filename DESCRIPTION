@@ -52,4 +52,4 @@ BugReports: https://github.com/GuangchuangYu/ggtree/issues
 Packaged: 2014-12-03 08:16:14 UTC; root
 biocViews: Alignment, Annotation, Clustering, DataImport,
     MultipleSequenceAlignment, ReproducibleResearch, Software, Visualization
-RoxygenNote: 6.1.0
+RoxygenNote: 6.1.1

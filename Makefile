@@ -31,7 +31,7 @@ install:
 
 check: rd build
 	cd ..;\
-	Rscript -e 'rcmdcheck::rcmdcheck("$(PKGNAME)_$(PKGVERS).tar.gz")'
+	Rscript -e "rcmdcheck::rcmdcheck('$(PKGNAME)_$(PKGVERS).tar.gz')"
 
 check2: rd build
 	cd ..;\
@@ -43,7 +43,7 @@ check3: rd build2
 
 bioccheck:
 	cd ..;\
-	Rscript -e 'BiocCheck::BiocCheck("$(PKGNAME)_$(PKGVERS).tar.gz")'
+	Rscript -e "BiocCheck::BiocCheck('$(PKGNAME)_$(PKGVERS).tar.gz')"
 
 clean:
 	cd ..;\
