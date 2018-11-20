@@ -122,6 +122,7 @@ layoutEqualAngle <- function(model, branch.length ){
 ##' #' @title
 ##' @param model tree object, e.g. phylo or treedata
 ##' @param branch.length set to 'none' for edge length of 1. Otherwise the phylogenetic tree edge length is used.
+##' @param MAX_COUNT the maximum number of iterations to run (default 5)
 ##' @return tree as data.frame with equal angle layout.
 ##' @references
 ##' The following aglorithm aims to implement the vague description of the "Equal-daylight Algorithm"
