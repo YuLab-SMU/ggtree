@@ -4,7 +4,7 @@
 ##' @importFrom tibble data_frame
 ##' @importFrom dplyr full_join
 ##' @importFrom dplyr mutate_
-##' @importFrom tidytree as_data_frame
+##' @importFrom tidytree as_tibble
 ##' @method fortify phylo
 ##' @export
 fortify.phylo <- function(model, data,
@@ -42,7 +42,7 @@ fortify.phylo <- function(model, data,
         N <- Nnode(x, internal.only=FALSE)
         xypos <- data_frame(node=1:N, x=xpos, y=ypos)
 
-        df <- as_data_frame(model) %>%
+        df <- as_tibble(model) %>%
             mutate_(isTip = ~(! node %in% parent))
 
         res <- full_join(df, xypos, by = "node")

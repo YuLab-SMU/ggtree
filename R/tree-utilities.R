@@ -53,7 +53,7 @@ layoutEqualAngle <- function(model, branch.length ){
   root <- getRoot(tree)
   ## Convert Phylo tree to data.frame.
   ## df <- as.data.frame.phylo_(tree)
-  df <- as_data_frame(model) %>%
+  df <- as_tibble(model) %>%
       mutate_(isTip = ~(! node %in% parent))
 
     ## NOTE: Angles (start, end, angle) are in half-rotation units (radians/pi or degrees/180)
@@ -669,13 +669,6 @@ getNodesBreadthFirst.df <- function(df){
   return(res)
 
 }
-
-
-
-
-
-
-
 
 
 

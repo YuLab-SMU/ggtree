@@ -4,12 +4,14 @@
 \alias{layoutDaylight}
 \title{Equal daylight layout method for unrooted trees.}
 \usage{
-layoutDaylight(model, branch.length)
+layoutDaylight(model, branch.length, MAX_COUNT = 5)
 }
 \arguments{
 \item{model}{tree object, e.g. phylo or treedata}
 
 \item{branch.length}{set to 'none' for edge length of 1. Otherwise the phylogenetic tree edge length is used.}
+
+\item{MAX_COUNT}{the maximum number of iterations to run (default 5)}
 }
 \value{
 tree as data.frame with equal angle layout.
