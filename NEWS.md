@@ -1,3 +1,7 @@
+# ggtree 1.15.2
+
++ compatible with `tibble` v=2.0.0 (2018-11-29, Thu)
+
 # ggtree 1.15.1
 
 + now `revts` also reverse the `branch` column (2018-11-11, Sun)

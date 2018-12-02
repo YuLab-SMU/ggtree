@@ -25,8 +25,9 @@ set_branch_length <- function(tree_object, branch.length) {
         stop("branch.length should be numerical attributes...")
     }
 
-    edge <- as_data_frame(phylo$edge)
+    edge <- phylo$edge
     colnames(edge) <- c("parent", "node")
+    edge <- as_tibble(edge)
 
     dd <- full_join(edge, tree_anno, by = "node")
 
@@ -166,7 +167,7 @@ scaleY <- function(phylo, df, yscale, layout, ...) {
 
 
 ## ## used by layoutEqualAngle
-## ## will change to tidytree::as_data_frame in future
+## ## will change to tidytree::as_tibble in future
 ## as.data.frame.phylo_ <- function(x, layout="rectangular",
 ##                                  branch.length="branch.length", ...) {
 ##     if (branch.length != 'none') {
