@@ -11,7 +11,7 @@ rd:
 # Rscript -e 'roxygen2::roxygenise(".")'
 
 readme:
-	Rscript -e 'rmarkdown::render("README.Rmd")'
+	Rscript -e 'rmarkdown::render("README.Rmd", encoding="UTF-8")'
 
 sticker:
 	Rscript -e 'source("ggtree_sticker.R")';
