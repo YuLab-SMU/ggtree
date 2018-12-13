@@ -30,12 +30,19 @@ For details, please visit our project website,
     Articles](https://guangchuangyu.github.io/software/ggtree/featuredArticles/)
   - [Feedback](https://guangchuangyu.github.io/software/ggtree/#feedback)
 
+## Authors
+
+Guangchuang YU
+
+School of Basic Medical Sciences, Southern Medical
+University
+
+<https://guangchuangyu.github.io>
+
 [![Twitter](https://img.shields.io/twitter/url/http/shields.io.svg?style=social&logo=twitter)](https://twitter.com/intent/tweet?hashtags=ggtree&url=http://onlinelibrary.wiley.com/doi/10.1111/2041-210X.12628/abstract&screen_name=guangchuangyu)
 [![saythanks](https://img.shields.io/badge/say-thanks-ff69b4.svg)](https://saythanks.io/to/GuangchuangYu)
 [![](https://img.shields.io/badge/follow%20me%20on-微信-green.svg?style=flat)](https://guangchuangyu.github.io/blog_images/biobabble.jpg)
 [![](https://img.shields.io/badge/打赏-支付宝/微信-green.svg?style=flat)](https://guangchuangyu.github.io/blog_images/pay_qrcode.png)
-
------
 
 If you use [ggtree](http://bioconductor.org/packages/ggtree) in
 published research, please cite the most appropriate paper(s) from this
@@ -52,22 +59,7 @@ list:
     35(2):3041-3043. doi:
     [10.1093/molbev/msy194](https://doi.org/10.1093/molbev/msy194).
 
------
-
-## Authors
-
-Guangchuang YU
-
-<https://guangchuangyu.github.io>
-
-School of Basic Medical Sciences, Southern Medical
-University
-
-### Citation
-
 <img src="https://guangchuangyu.github.io/software/ggtree/featured-articles/index_files/figure-html/citation-1.png" width="890"/>
-
-### Download stats
 
 [![download](http://www.bioconductor.org/shields/downloads/ggtree.svg)](https://bioconductor.org/packages/stats/bioc/ggtree)
 [![total](https://img.shields.io/badge/downloads-39844/total-blue.svg?style=flat)](https://bioconductor.org/packages/stats/bioc/ggtree)
