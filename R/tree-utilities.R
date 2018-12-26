@@ -46,10 +46,12 @@ layoutEqualAngle <- function(model, branch.length ){
       }
   }
   
-  if (branch.length == "none") {
+  if (is.null(tree$edge.length) || branch.length == "none") {
       tree <- set_branch_length_cladogram(tree)
   }
-  
+  brlen <- numeric(getNodeNum(tree))
+  brlen[tree$edge[,2]] <- tree$edge.length
+
   root <- getRoot(tree)
   ## Convert Phylo tree to data.frame.
   ## df <- as.data.frame.phylo_(tree)
@@ -70,6 +72,9 @@ layoutEqualAngle <- function(model, branch.length ){
     df[root, "start"] <- 0 # 0-degrees
     df[root, "end"]   <- 2 # 360-degrees
     df[root, "angle"] <- 0 # Angle label.
+
+    df$branch.length <- brlen[df$node] # for cladogram
+
 
     N <- getNodeNum(tree)
 
