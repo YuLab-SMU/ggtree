@@ -1,5 +1,6 @@
 # ggtree 1.15.3
 
++ move `reroot` method to `treeio` package (2018-12-28, Fri)
 + bug fixed for setting `branch.length="none"` in unrooted layouts (2018-12-26, Wed)
   - bug introduced in <https://github.com/GuangchuangYu/ggtree/pull/201>
 

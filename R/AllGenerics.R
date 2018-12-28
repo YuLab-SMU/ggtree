@@ -2,20 +2,6 @@
 setOldClass("ggtree")
 
 ##' @docType methods
-##' @name reroot
-##' @rdname reroot-methods
-##' @title reroot method
-##' @param object \code{treedata} object
-##' @param node internal nnode number
-##' @param ... additional parameter
-##' @return tree object
-##' @importFrom methods setGeneric
-##' @export
-setGeneric("reroot", function(object, node, ...) standardGeneric("reroot"))
-
-## may change to implement ape::root method
-
-##' @docType methods
 ##' @name scale_color
 ##' @rdname scale_color-methods
 ##' @title scale_color method
@@ -23,6 +9,7 @@ setGeneric("reroot", function(object, node, ...) standardGeneric("reroot"))
 ##' @param by one of numerical attributes
 ##' @param ... additional parameter
 ##' @return color vector
+##' @importFrom methods setGeneric
 ##' @export
 setGeneric("scale_color", function(object, by, ...) standardGeneric("scale_color"))
 
