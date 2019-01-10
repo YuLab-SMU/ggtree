@@ -1,3 +1,8 @@
+# ggtree 1.15.4
+
++ reimplement `MRCA` as a method inherited from `tidytree` (2019-01-10, Thu)
++ mv vignettes to [treedata-book](https://yulab-smu.github.io/treedata-book/) 
+
 # ggtree 1.15.3
 
 + move `reroot` method to `treeio` package and rename to `root` (2018-12-28, Fri)

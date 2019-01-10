@@ -39,7 +39,13 @@ gzoom.phylo <- function(phy, focus, subtree=FALSE, widths=c(.3, .7)) {
 }
 
 gzoom.ggtree <- function(tree_view, focus, widths=c(.3, .7), xmax_adjust=0) {
-    node <- MRCA(tree_view, focus)
+    node <- MRCA(tree_view, focus[1], focus[2])
+    if (length(focus) > 2) {
+        for (i in 3:length(focus)) {
+            node <- MRCA(tree_view, focus[i], node)
+        }
+    }
+
     cpos <- get_clade_position(tree_view, node)
     p2 <- with(cpos, tree_view+
                      xlim(xmin, xmax+xmax_adjust)+
