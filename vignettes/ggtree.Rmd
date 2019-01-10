@@ -4,20 +4,15 @@ author: "Guangchuang Yu\\
 
         School of Basic Medical Sciences, Southern Medical University"
 date: "`r Sys.Date()`"
-bibliography: ggtree.bib
-biblio-style: apalike
 output:
-  prettydoc::html_pretty:
+  html_document:
     toc: true
-    theme: cayman
-    highlight: github
   pdf_document:
     toc: true
 vignette: >
-  %\VignetteIndexEntry{01 ggtree Introduction}
+  %\VignetteIndexEntry{ggtree}
   %\VignetteEngine{knitr::rmarkdown}
   %\usepackage[utf8]{inputenc}
-  %\VignetteEncoding{UTF-8}
 ---
 
 ```{r style, echo=FALSE, results="asis", message=FALSE}
@@ -39,11 +34,9 @@ Biocpkg <- function (pkg) {
 
 ```
 
-> You can't even begin to understand biology, you can't understand life, unless
-> you understand what it's all there for, how it arose - and that means
-> evolution.
->
-> --- Richard Dawkins
+# Vignette
+
+Please go to <https://yulab-smu.github.io/treedata-book/> for the full vignette.
 
 
 # Citation
@@ -58,6 +51,8 @@ doi: [10.1111/2041-210X.12628](https://doi.org/10.1111/2041-210X.12628).
 doi: [10.1093/molbev/msy194](https://doi.org/10.1093/molbev/msy194).
 
 
+
+<!--
 
 # Introduction
 
@@ -232,13 +227,18 @@ the [Tree Annotation](treeAnnotation.html) vignette.
 information about the package, more documentation, a gallery of beautiful
 published images and links to related resources).
 
+-->
+
 
 # Need helps?
 
 
 If you have questions/issues, please visit
 [ggtree homepage](https://guangchuangyu.github.io/software/ggtree/) first.
-Your problems are mostly documented. If you think you found a bug, please follow
+Your problems are mostly documented. 
+
+
+If you think you found a bug, please follow
 [the guide](https://guangchuangyu.github.io/2016/07/how-to-bug-author/) and
 provide a reproducible example to be posted
 on
@@ -248,14 +248,3 @@ to [google group](https://groups.google.com/forum/#!forum/bioc-ggtree). Users
 are highly recommended to subscribe to the [mailing list](https://groups.google.com/forum/#!forum/bioc-ggtree).
 
 
-
-# Session info
-
-Here is the output of `sessionInfo()` on the system on which this document was compiled:
-
-```{r echo=FALSE}
-sessionInfo()
-```
-
-
-# References

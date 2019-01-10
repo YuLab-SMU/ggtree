@@ -2,12 +2,12 @@ Package: ggtree
 Type: Package
 Title: an R package for visualization and annotation of phylogenetic trees with
     their covariates and other associated data
-Version: 1.15.3
+Version: 1.15.4
 Authors@R: c(
 	   person("Guangchuang", "Yu",     email = "guangchuangyu@gmail.com", role = c("aut", "cre", "cph"), comment = c(ORCID = "0000-0002-6485-8781")),
 	   person("Tommy Tsan-Yuk", "Lam", email = "tylam.tommy@gmail.com",   role = c("aut", "ths")),
 	   person("Justin", "Silverman",   email = "jsilve24@gmail.com",      role = "ctb"),
-    person("Bradley", "Jones",      email = "brj1@sfu.ca",             role = "ctb"),
+	   person("Bradley", "Jones",      email = "brj1@sfu.ca",             role = "ctb"),
 	   person("Watal M.", "Iwasaki",   email = "heavy.watal@gmail.com",   role = "ctb")
 	   )
 Maintainer: Guangchuang Yu <guangchuangyu@gmail.com>
@@ -39,7 +39,6 @@ Suggests:
     emojifont,
     ggimage,
     knitr,
-    prettydoc,
     rmarkdown,
     testthat
 Remotes:
