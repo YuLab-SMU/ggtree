@@ -34,11 +34,10 @@ Imports:
     treeio (>= 1.3.14),
     utils
 Suggests:
-    colorspace,
-    cowplot,
     emojifont,
     ggimage,
     knitr,
+    prettydoc,
     rmarkdown,
     testthat
 Remotes:

@@ -1,12 +1,14 @@
 ---
-title: "ggtree: a phylogenetic tree viewer for different types of tree annotations"
+title: "ggtree: phylogenetic tree visualization and annotation"
 author: "Guangchuang Yu\\
 
         School of Basic Medical Sciences, Southern Medical University"
 date: "`r Sys.Date()`"
 output:
-  html_document:
-    toc: true
+  prettydoc::html_pretty:
+    toc: false
+    theme: cayman
+    highlight: github
   pdf_document:
     toc: true
 vignette: >
