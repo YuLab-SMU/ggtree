@@ -1,3 +1,7 @@
+# ggtree 1.15.5
+
++ mv `rescale_tree` to `treeio` (2019-01-11, Fri)
+
 # ggtree 1.15.4
 
 + reimplement `MRCA` as a method inherited from `tidytree` (2019-01-10, Thu)
