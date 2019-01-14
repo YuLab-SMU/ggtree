@@ -35,14 +35,14 @@ citEntry(
     ),
     year    = "2018",
     journal = "Molecular Biology and Evolution",
-    volume  = "",
-    issue   = "",
+    volume  = "35",
+    issue   = "2",
     number  = "",
-    pages   = "",
+    pages   = "3041-3043",
     doi     = "10.1093/molbev/msy194",
     PMID    = "",
     url     = "https://doi.org/10.1093/molbev/msy194",
     textVersion = paste("Guangchuang Yu, Tommy Tsan-Yuk Lam, Huachen Zhu, Yi Guan.",
                         "Two methods for mapping and visualizing associated data on phylogeny using ggtree.",
-                        "Molecular Biology and Evolution 2018, accepted. doi: 10.1093/molbev/msy194")
+                        "Molecular Biology and Evolution 2018, 35(2):3041-3043. doi: 10.1093/molbev/msy194")
 )
