@@ -63,7 +63,7 @@ theme_tree2_internal <- function(bgcolor="white", fgcolor="black",
                                  axis.line.y=element_blank(),
                                  axis.ticks.y=element_blank(),
                                  axis.text.y=element_blank(),...) {
-    ## need to set axis.line otherwise the the settng cannot be inherited.
+    ## need to set axis.line otherwise the setting cannot be inherited.
     ## https://github.com/GuangchuangYu/ggtree/issues/218
     theme_bw() +
         theme(legend.position=legend.position,
