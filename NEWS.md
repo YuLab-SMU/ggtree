@@ -1,5 +1,7 @@
 # ggtree 1.15.5
 
++ bug fixed of `theme_tree2` (2019-01-14, Mon)
+  - <https://github.com/GuangchuangYu/ggtree/issues/218>  
 + mv `rescale_tree` to `treeio` (2019-01-11, Fri)
 
 # ggtree 1.15.4
