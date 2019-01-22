@@ -7,7 +7,7 @@
 ##' @param x update by x
 ##' @return updated ggplot object
 ##' @export
-##' @author Yu Guangchuang
+##' @author Guangchuang Yu
 ##' @examples
 ##' library("ggplot2")
 ##' nwk <- system.file("extdata", "sample.nwk", package="treeio")
@@ -30,7 +30,7 @@
 ##' @param data annotation data
 ##' @return ggplot object with annotation data added
 ##' @export
-##' @author Yu Guangchuang
+##' @author Guangchuang Yu
 ##' @examples
 ##' nwk <- system.file("extdata", "sample.nwk", package="treeio")
 ##' tree <- read.tree(nwk)
@@ -121,14 +121,3 @@
 }
 
 
-##' pipe
-##' @importFrom magrittr %>%
-##' @name %>%
-##' @export
-##' @rdname pipe
-##' @param lhs left hand side
-##' @param rhs right hand side
-##' @usage lhs \%>\% rhs
-##' @seealso
-##' \link[magrittr]{pipe}
-NULL

@@ -1,3 +1,7 @@
+##' @importFrom magrittr %>%
+##' @export
+magrittr::%>%
+
 ##' @importFrom ape rtree
 ##' @export
 ape::rtree

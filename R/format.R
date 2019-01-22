@@ -6,7 +6,7 @@
 ##' @param trans transformation function
 ##' @return character vector of '[lower, upper]'
 ##' @export
-##' @author guangchuang yu
+##' @author Guangchuang Yu
 range_format <- function(x, trans = NULL) {
     sapply(x, function(y) {
         if(length(y) == 1 && is.na(y)) {

@@ -6,7 +6,7 @@
 ##' @param feature selected feature
 ##' @param fun function to select nodes to collapse
 ##' @return polytomy tree
-##' @author Guangchuang
+##' @author Guangchuang Yu
 ##' @importFrom ape di2multi
 ##' @importFrom treeio Ntip
 ##' @export
