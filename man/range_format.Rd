@@ -18,5 +18,5 @@ character vector of '[lower, upper]'
 format a list of range (HPD, CI, etc that has length of 2)
 }
 \author{
-guangchuang yu
+Guangchuang Yu
 }

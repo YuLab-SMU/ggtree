@@ -44,6 +44,7 @@ Remotes:
     GuangchuangYu/treeio
 VignetteBuilder: knitr
 ByteCompile: true
+Encoding: UTF-8
 License: Artistic-2.0
 URL: https://guangchuangyu.github.io/software/ggtree
 BugReports: https://github.com/GuangchuangYu/ggtree/issues
