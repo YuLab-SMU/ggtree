@@ -1,3 +1,8 @@
+# ggtree 1.15.6
+
++ `facet_widths` function to set relative widths of facet panels (2019-01-28, Mon)
+  - the output is `ggplotify::as.ggplot(grid_object)`, so it is not the original `ggtree` object.
+
 # ggtree 1.15.5
 
 + bug fixed of `theme_tree2` (2019-01-14, Mon)
