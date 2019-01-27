@@ -117,7 +117,7 @@ msaplot <- function(p, fasta, offset=0, width=1, color=NULL, window=NULL, bg_lin
                        data=msa.df, inherit.aes = FALSE) +
                                scale_fill_manual(values=color)
 
-    breaks <- hist(seq_along(slice), breaks=10, plot=FALSE)$breaks
+    breaks <- graphics::hist(seq_along(slice), breaks=10, plot=FALSE)$breaks
     pos <- start + breaks * width
     mapping <- data.frame(from=breaks+1, to=pos)
     attr(p, "mapping") <- mapping

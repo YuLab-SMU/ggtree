@@ -22,5 +22,5 @@ updated ggtree object
 set legend for multiple geom_hilight layers
 }
 \author{
-guangchuang yu
+Guangchuang Yu
 }

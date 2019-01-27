@@ -20,15 +20,12 @@ Imports:
     ape,
     dplyr,
     ggplot2 (>= 3.0.0),
-    grDevices,
     grid,
     magrittr,
     methods,
     purrr,
     rlang,
     rvcheck (>= 0.1.0),
-    scales,
-    tibble,
     tidyr,
     tidytree (>= 0.1.9),
     treeio (>= 1.3.14),
@@ -37,10 +34,13 @@ Suggests:
     emojifont,
     ggimage,
     ggplotify,
+    grDevices,
     knitr,
     prettydoc,
     rmarkdown,
-    testthat
+    scales,
+    testthat,
+    tibble
 Remotes:
     GuangchuangYu/treeio
 VignetteBuilder: knitr

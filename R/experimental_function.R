@@ -8,7 +8,7 @@
 ##' @param ... additional parameters
 ##' @return geom layer
 ##' @export
-##' @author guangchuang yu
+##' @author Guangchuang Yu
 geom_motif <- function(mapping, data, on, ...) {
     if (is.null(unlist(mapping)$y)) {
         seqnames <- as.character(unlist(mapping)$group)
@@ -107,7 +107,7 @@ scale_x_ggtree <- function(tree_view, breaks=NULL, labels=NULL) {
     }
 
     if (is.null(breaks)) {
-        breaks <- hist(x, breaks=5, plot=FALSE)$breaks
+        breaks <- graphics::hist(x, breaks=5, plot=FALSE)$breaks
     }
     m <- attr(p, "mapping")
 
@@ -266,8 +266,7 @@ coplot <- function(tree1, tree2, hjust=0) {
 ##' @param alpha transparency of color
 ##' @return updated ggtree object
 ##' @export
-##' @importFrom scales alpha
-##' @author guangchuang yu
+##' @author Guangchuang Yu
 set_hilight_legend <- function(p, color, label, alpha=1) {
 	d <- data.frame(color=color, clade=label, x=0, y=1, alpha=alpha)
 	p + geom_rect(aes_(fill=~clade, xmin=~x, xmax=~x, ymin=~y, ymax=~y), data=d, inherit.aes=F) +

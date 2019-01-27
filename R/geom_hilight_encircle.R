@@ -3,13 +3,12 @@
 
 ### draw_key_hack
 
-##' @importFrom scales alpha
 ##' @importFrom grid grobTree
 ##' @importFrom grid rectGrob
 ##' @importFrom grid gpar
 draw_key_hack <- function(data, params, size) {
   print('draw_key_hack') ##DEBUG
-  data$fill <- alpha(data$fill, data$alpha)
+  data$fill <- scales::alpha(data$fill, data$alpha)
   data$alpha <- 1
 
   grobTree(

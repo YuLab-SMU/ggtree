@@ -22,5 +22,5 @@ geom layer
 geom layer to draw aligned motif
 }
 \author{
-guangchuang yu
+Guangchuang Yu
 }
