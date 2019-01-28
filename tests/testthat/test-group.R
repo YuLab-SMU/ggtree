@@ -28,7 +28,7 @@ test_that('groupClade', {
     df <- fortify(groupClade(tree, nodes))
 
     for (i in seq_along(nodes)) {
-        expect_true(all(df$group[df$node %in% ggtree:::get.offspring.df(df, nodes[i])] == i))
+        expect_true(all(df$group[df$node %in% tidytree::offspring(df, nodes[i])$node] == i))
     }
 
 })

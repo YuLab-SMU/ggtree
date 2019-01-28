@@ -27,8 +27,8 @@ Imports:
     rlang,
     rvcheck (>= 0.1.0),
     tidyr,
-    tidytree (>= 0.1.9),
-    treeio (>= 1.3.14),
+    tidytree (>= 0.2.3),
+    treeio (>= 1.7.3),
     utils
 Suggests:
     emojifont,
