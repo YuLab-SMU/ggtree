@@ -131,7 +131,7 @@ get_clade_position <- function(treeview, node) {
 }
 
 get_clade_position_ <- function(data, node) {
-    sp <- tryCatch(get.offspring.df(data, node), error=function(e) NULL)
+    sp <- tryCatch(offspring(data, node)$node, error=function(e) NULL)
 
     i <- match(node, data$node)
     if (is.null(sp)) {

@@ -79,7 +79,8 @@ layoutEqualAngle <- function(model, branch.length ){
     N <- getNodeNum(tree)
 
     ## Get number of tips for each node in tree.
-    nb.sp <- sapply(1:N, function(i) length(get.offspring.tip(tree, i)))
+  ## nb.sp <- sapply(1:N, function(i) length(get.offspring.tip(tree, i)))
+  nb.sp <- sapply(1:N, function(i) length(offspring(tree, i, tiponly = TRUE)))
     ## Get list of node id's.
     nodes <- getNodes_by_postorder(tree)
 
@@ -742,36 +743,39 @@ getChild.df <- function(df, node) {
     res[res != node] ## node may root
 }
 
-get.offspring.df <- function(df, node) {
-    sp <- getChild.df(df, node)
-    i <- 1
-    while(i <= length(sp)) {
-        sp <- c(sp, getChild.df(df, sp[i]))
-        i <- i + 1
-    }
-    return(sp)
-}
+## get.offspring.df <- function(df, node) {
+##     ## sp <- getChild.df(df, node)
+##     ## i <- 1
+##     ## while(i <= length(sp)) {
+##     ##     sp <- c(sp, getChild.df(df, sp[i]))
+##     ##     i <- i + 1
+##     ## }
+##     ## return(sp)
+##     tidytree::offspring(df, node)$node
+## }
 
 
 
-##' extract offspring tips
-##'
-##'
-##' @title get.offspring.tip
-##' @param tr tree
-##' @param node node
-##' @return tip label
-##' @author ygc
-##' @importFrom ape extract.clade
-##' @export
-get.offspring.tip <- function(tr, node) {
-    if ( ! node %in% tr$edge[,1]) {
-        ## return itself
-        return(tr$tip.label[node])
-    }
-    clade <- extract.clade(tr, node)
-    clade$tip.label
-}
+## ##' extract offspring tips
+## ##'
+## ##'
+## ##' @title get.offspring.tip
+## ##' @param tr tree
+## ##' @param node node
+## ##' @return tip label
+## ##' @author ygc
+## ##' @importFrom ape extract.clade
+## ##' @export
+## get.offspring.tip <- function(tr, node) {
+##     ## if ( ! node %in% tr$edge[,1]) {
+##     ##     ## return itself
+##     ##     return(tr$tip.label[node])
+##     ## }
+##     ## clade <- extract.clade(tr, node)
+##     ## clade$tip.label
+##     tid <- offspring(tr, node, tiponly = TRUE)
+##     tr$tip.label[tid]
+## }
 
 
 

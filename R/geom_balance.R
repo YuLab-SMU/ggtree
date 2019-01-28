@@ -190,8 +190,9 @@ get_balance_position_ <- function(data, node, direction) {
     }
 
     i <- match(node, data$node)
-    sp <- tryCatch(get.offspring.df(data, ch[direction]), error=function(e) ch[direction])
-    sp.all <- get.offspring.df(data, i)
+    sp <- tryCatch(offspring(data, ch[direction])$node,
+                   error=function(e) ch[direction])
+    sp.all <- offspring(data, i)$node
     sp.df <- data[match(sp, data$node),]
     sp.all.df <- data[match(sp.all, data$node),]
     n.df <- data[i,]

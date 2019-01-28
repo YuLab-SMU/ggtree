@@ -1,5 +1,6 @@
 # ggtree 1.15.6
 
++ remove `get.offspring.df` and `get.offspring.tip` and instead use `tidytree::offspring` (2019-01-28, Mon)
 + `facet_widths` function to set relative widths of facet panels (2019-01-28, Mon)
   - the output is `ggplotify::as.ggplot(grid_object)`, so it is not the original `ggtree` object.
 

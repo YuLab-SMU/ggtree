@@ -5,6 +5,7 @@
 ##' @param tree_view tree view
 ##' @param node node
 ##' @return taxa name vector
+##' @importFrom tidytree offspring
 ##' @export
 ##' @author Guangchuang Yu
 get_taxa_name <- function(tree_view=NULL, node=NULL) {
@@ -12,8 +13,9 @@ get_taxa_name <- function(tree_view=NULL, node=NULL) {
 
     df <- tree_view$data
     if (!is.null(node)) {
-        sp <- get.offspring.df(df, node)
-        df <- df[sp, ]
+        ## sp <- get.offspring.df(df, node)
+        ## df <- df[sp, ]
+        df <- offspring(df, node)
     }
 
     with(df, {
@@ -81,8 +83,9 @@ collapse.ggtree <- function(x=NULL, node, clade_name = NULL, ...) {
         return(tree_view)
     }
 
-    sp <- get.offspring.df(df, node)
-    sp.df <- df[sp,]
+    ## sp <- get.offspring.df(df, node)
+    ## sp.df <- df[sp,]
+    sp.df <- offspring(df, node)
     ## df[node, "isTip"] <- TRUE
     sp_y <- range(sp.df$y, na.rm=TRUE)
     ii <- which(df$y > max(sp_y))
@@ -91,8 +94,8 @@ collapse.ggtree <- function(x=NULL, node, clade_name = NULL, ...) {
     }
     df$y[node] <- min(sp_y)
 
-    df[sp, "x"] <- NA
-    df[sp, "y"] <- NA
+    df[sp.df$node, "x"] <- NA
+    df[sp.df$node, "y"] <- NA
 
     df <- reassign_y_from_node_to_root(df, node)
 
@@ -170,10 +173,15 @@ rotate <- function(tree_view=NULL, node) {
     tree_view %<>% get_tree_view
 
     df <- tree_view$data
-    sp <- get.offspring.df(df, node)
+    ## sp <- get.offspring.df(df, node)
+    ## sp_idx <- with(df, match(sp, node))
+    ## tip <- sp[df$isTip[sp_idx]]
+    ## sp.df <- df[sp_idx,]
+    sp.df <- offspring(df, node)
+    sp <- sp.df$node
     sp_idx <- with(df, match(sp, node))
     tip <- sp[df$isTip[sp_idx]]
-    sp.df <- df[sp_idx,]
+
     ii <- with(sp.df, match(tip, node))
     jj <- ii[order(sp.df$y[ii])]
     sp.df[jj,"y"] <- rev(sp.df$y[jj])
@@ -215,11 +223,16 @@ flip <- function(tree_view=NULL, node1, node2) {
         stop("node1 and node2 should share a same parent node...")
     }
 
-    sp1 <- c(node1, get.offspring.df(df, node1))
-    sp2 <- c(node2, get.offspring.df(df, node2))
+    ## sp1 <- c(node1, get.offspring.df(df, node1))
+    ## sp2 <- c(node2, get.offspring.df(df, node2))
 
-    sp1.df <- df[sp1,]
-    sp2.df <- df[sp2,]
+    ## sp1.df <- df[sp1,]
+    ## sp2.df <- df[sp2,]
+
+    sp1.df <- offspring(df, node1, self_include = TRUE)
+    sp2.df <- offspring(df, node2, self_include = TRUE)
+    sp1 <- sp1.df$node
+    sp2 <- sp2.df$node
 
     min_y1 <- min(sp1.df$y, na.rm=TRUE)
     min_y2 <- min(sp2.df$y, na.rm=TRUE)
@@ -280,9 +293,11 @@ scaleClade <- function(tree_view=NULL, node, scale=1, vertical_only=TRUE) {
     }
 
     df <- tree_view$data
-    sp <- get.offspring.df(df, node)
-    sp.df <- df[sp,]
-
+    ## sp <- get.offspring.df(df, node)
+    ## sp.df <- df[sp,]
+    sp.df <- offspring(sp, node)
+    sp <- sp.df$node
+    
     ## sp_nr <- nrow(sp.df)
     ## span <- diff(range(sp.df$y))/sp_nr
 

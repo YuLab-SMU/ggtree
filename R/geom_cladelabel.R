@@ -236,9 +236,11 @@ get_cladelabel_position_ <- function(data, node, angle = "auto", extend = 0) {
         extend = rep(extend, 2)
     }
 
-    sp <- get.offspring.df(data, node)
-    sp2 <- c(sp, node)
-    sp.df <- data[match(sp2, data$node),]
+    ## sp <- get.offspring.df(data, node)
+    ## sp2 <- c(sp, node)
+    ## sp.df <- data[match(sp2, data$node),]
+
+    sp.df <- offspring(data, node, self_include = TRUE)
 
     y <- sp.df$y
     y <- y[!is.na(y)]
