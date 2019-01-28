@@ -12,6 +12,7 @@
 ##' @param reverse_x whether x axis was reversed by scale_x_reverse
 ##' @param reverse_y whether y axis was reversed by scale_y_reverse
 ##' @return tree view with insets
+##' @importFrom rvcheck get_fun_from_pkg
 ##' @export
 ##' @author Guangchuang Yu
 inset <- function(tree_view, insets, width, height, hjust=0, vjust=0,

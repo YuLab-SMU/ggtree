@@ -23,7 +23,7 @@ reverse.treeview.data <- function(df) {
 
 
 color_scale <- function(c1="grey", c2="red", n=100) {
-    pal <- colorRampPalette(c(c1, c2))
+    pal <- grDevices::colorRampPalette(c(c1, c2))
     colors <- pal(n)
     return(colors)
 }
