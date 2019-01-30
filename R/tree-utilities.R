@@ -80,7 +80,8 @@ layoutEqualAngle <- function(model, branch.length ){
 
     ## Get number of tips for each node in tree.
   ## nb.sp <- sapply(1:N, function(i) length(get.offspring.tip(tree, i)))
-  nb.sp <- sapply(1:N, function(i) length(offspring(tree, i, tiponly = TRUE)))
+  ## self_include = TRUE to return itself if the input node is a tip
+  nb.sp <- sapply(1:N, function(i) length(offspring(tree, i, tiponly = TRUE, self_include = TRUE)))
     ## Get list of node id's.
     nodes <- getNodes_by_postorder(tree)
 
@@ -88,7 +89,8 @@ layoutEqualAngle <- function(model, branch.length ){
         ## Get number of tips for current node.
         curNtip <- nb.sp[curNode]
         ## Get array of child node indexes of current node.
-        children <- getChild(tree, curNode)
+        ## children <- getChild(tree, curNode)
+        children <- treeio::child(tree, curNode)
 
         ## Get "start" and "end" angles of a segment for current node in the data.frame.
         start <- df[curNode, "start"]
@@ -120,7 +122,9 @@ layoutEqualAngle <- function(model, branch.length ){
             start <- start + alpha
         }
     }
-    df
+  tree_df <- as_tibble(df)
+  class(tree_df) <- c("tbl_tree", class(tree_df))
+  return(tree_df)
 }
 
 ##' Equal daylight layout method for unrooted trees.
@@ -182,8 +186,9 @@ layoutDaylight <- function(model, branch.length, MAX_COUNT=5 ){
         if (ave_change <= MINIMUM_AVERAGE_ANGLE_CHANGE) break
     }
 
-    return(tree_df)
-
+  tree_df <- as_tibble(tree_df)
+  class(tree_df) <- c("tbl_tree", class(tree_df))
+  return(tree_df)
 }
 
 ##' Apply the daylight alorithm to adjust the spacing between the subtrees and tips of the
@@ -303,14 +308,16 @@ getTreeArcAngles <- function(df, origin_id, subtree) {
     subtree_node_ids <- subtree$subtree
     ## Initialise angle from origin node to parent node.
     ## If subtree_root_id is child of origin_id
-    if (subtree_root_id %in% getChild.df(df, origin_id)) {
+    ## if (subtree_root_id %in% getChild.df(df, origin_id)) {
+    if (subtree_root_id %in% tidytree::child(df, origin_id)$node) {
         ## get angle from original node to parent of subtree.
         theta_left <- getNodeAngle.vector(x_origin, y_origin, df_x[subtree_root_id], df_y[subtree_root_id])
         theta_right <- theta_left
     } else if( subtree_root_id == origin_id ){
         ## Special case.
         ## get angle from parent of subtree to children
-        children_ids <- getChild.df(df, subtree_root_id)
+        ## children_ids <- getChild.df(df, subtree_root_id)
+        children_ids <- tidytree::child(df, subtree_root_id)$node
         if(length(children_ids) == 2){
             ## get angles from parent to it's two children.
             theta1 <- getNodeAngle.vector(x_origin, y_origin, df_x[children_ids[1]], df_y[children_ids[1]])
@@ -364,7 +371,8 @@ getTreeArcAngles <- function(df, origin_id, subtree) {
   for(parent_id in subtree_node_ids){
     # Get angle from origin node to parent node.
     theta_parent <- getNodeAngle.vector(x_origin, y_origin, df_x[parent_id], df_y[parent_id])
-    children_ids <- getChild.df(df, parent_id)
+      ## children_ids <- getChild.df(df, parent_id)
+      children_ids <- tidytree::child(df, parent_id)$node
     # Skip if child is parent node of subtree.
     children_ids = children_ids[children_ids != origin_id]
     for(child_id in children_ids){
@@ -503,15 +511,16 @@ getNodeEuclDistances <- function(df, node){
 ##' @return list of all child node id's from starting node.
 getSubtree <- function(tree, node){
 
-  subtree <- c(node)
-  i <- 1
-  while( i <= length(subtree)){
-    subtree <- c(subtree, getChild(tree, subtree[i]))
-    # remove any '0' root nodes
-    subtree <- subtree[subtree != 0]
-    i <- i + 1
-  }
-  return(subtree)
+  ## subtree <- c(node)
+  ## i <- 1
+  ## while( i <= length(subtree)){
+  ##   subtree <- c(subtree, treeio::child(tree, subtree[i]))
+  ##   # remove any '0' root nodes
+  ##   subtree <- subtree[subtree != 0]
+  ##   i <- i + 1
+  ## }
+    ## return(subtree)
+    tidytree::offspring(tree, node, self_include = TRUE)
 }
 
 ##' Get all children of node from df tree using breath-first.
@@ -521,13 +530,15 @@ getSubtree <- function(tree, node){
 ##' @param node id of starting node.
 ##' @return list of all child node id's from starting node.
 getSubtree.df <- function(df, node){
-  subtree <- node[node != 0]
-  i <- 1
-  while( i <= length(subtree)){
-    subtree <- c(subtree, getChild.df(df, subtree[i]))
-    i <- i + 1
-  }
-  subtree
+  ## subtree <- node[node != 0]
+  ## i <- 1
+  ## while( i <= length(subtree)){
+  ##     ## subtree <- c(subtree, getChild.df(df, subtree[i]))
+  ##     subtree <- c(subtree, tidytree::child(df, subtree[i])$node)
+  ##   i <- i + 1
+  ## }
+    ## subtree
+    tidytree:::offspring.tbl_tree(df, node, self_include = TRUE)$node
 }
 
 ##' Get all subtrees of specified node. This includes all ancestors and relatives of node and
@@ -539,7 +550,7 @@ getSubtree.df <- function(df, node){
 ##' @return named list of subtrees with the root id of subtree and list of node id's making up subtree.
 getSubtreeUnrooted <- function(tree, node){
   # if node leaf, return nothing.
-  if( isTip(tree, node) ){
+  if( treeio::isTip(tree, node) ){
     # return NA
     return(NA)
   }
@@ -547,7 +558,8 @@ getSubtreeUnrooted <- function(tree, node){
   subtrees <- list()
 
   # get subtree for each child node.
-  children_ids <- getChild(tree, node)
+    ## children_ids <- getChild(tree, node)
+    children_ids <- treeio::child(tree, node)
 
   remaining_nodes <- getNodes_by_postorder(tree)
   # Remove current node from remaining_nodes list.
@@ -564,7 +576,7 @@ getSubtreeUnrooted <- function(tree, node){
 
   # The remaining nodes that are not found in the child subtrees are the remaining subtree nodes.
   # ie, parent node and all other nodes. We don't care how they are connect, just their ids.
-  parent_id <- getParent(tree, node)
+  parent_id <- parent(tree, node)
   # If node is not root, add remainder of tree nodes as subtree.
   if( parent_id != 0 & length(remaining_nodes) >= 1){
     subtrees[[length(subtrees)+1]] <- list( node = parent_id, subtree = remaining_nodes)
@@ -579,10 +591,12 @@ getSubtreeUnrooted <- function(tree, node){
 ##' @title getSubtreeUnrooted
 ##' @param df tree data.frame
 ##' @param node is the tree node id from which the subtrees are derived.
+##' @importFrom tidytree parent
 ##' @return named list of subtrees with the root id of subtree and list of node id's making up subtree.
 getSubtreeUnrooted.df <- function(df, node){
   # get subtree for each child node.
-  children_ids <- getChild.df(df, node)
+                                        # children_ids <- getChild.df(df, node)
+    children_ids <- tidytree::child(df, node)$node
   if (length(children_ids) == 0L) return(NULL)
   # if node leaf, return nothing.
 
@@ -594,7 +608,7 @@ getSubtreeUnrooted.df <- function(df, node){
 
   # The remaining nodes that are not found in the child subtrees are the remaining subtree nodes.
   # ie, parent node and all other nodes. We don't care how they are connected, just their id.
-  parent_id <- getParent.df(df, node)
+  parent_id <- parent(df, node)$node
   # If node is not root.
   if ((length(parent_id) > 0) & (length(remaining_nodes) > 0)) {
     subtrees = tibble::add_row(subtrees, node = parent_id, subtree = list(remaining_nodes))
@@ -622,19 +636,6 @@ getRoot.df <- function(df, node){
 
 
 
-isTip <- function(tr, node) {
-  children_ids <- getChild(tr, node)
-  #length(children_ids) == 0 ## getChild returns 0 if nothing found.
-  return( length(children_ids) == 0 | any(children_ids == 0) )
-}
-
-isTip.df <- function(df, node) {
-  # df may not have the isTip structure.
-  # return(df[node, 'isTip'])
-  # Tip has no children.
-  children_ids <- getChild.df(df, node)
-  length(children_ids) == 0
-}
 
 
 
@@ -646,7 +647,7 @@ isTip.df <- function(df, node) {
 getNodesBreadthFirst.df <- function(df){
 
   root <- getRoot.df(df)
-  if(isTip.df(df, root)){
+  if(treeio::isTip(df, root)){
     return(root)
   }
 
@@ -660,12 +661,12 @@ getNodesBreadthFirst.df <- function(df){
     i <- i + 1
 
     # Skip if parent is a tip.
-    if(isTip.df(df, parent)){
+    if(treeio::isTip(df, parent)){
       next
     }
 
     # get children of current parent.
-    children <- getChild.df(df,parent)
+    children <- tidytree::child(df,parent)$node
 
     # add children to result
     res <- c(res, children)
@@ -708,137 +709,6 @@ nodeid.gg <- function(p, label) {
 
 
 
-##' Get parent node id of child node.
-##'
-##' @title getParent.df
-##' @param df tree data.frame
-##' @param node is the node id of child in tree.
-##' @return integer node id of parent
-getParent.df <- function(df, node) {
-    parent_id <- df$parent[df$node == node]
-    parent_id[parent_id != node]
-}
-
-
-getAncestor.df <- function(df, node) {
-    anc <- getParent.df(df, node)
-    i <- 1
-    while(i<= length(anc)) {
-        anc <- c(anc, getParent.df(df, anc[i]))
-        i <- i+1
-    }
-    return(anc)
-}
-
-
-
-##' Get list of child node id numbers of parent node
-##'
-##' @title getChild.df
-##' @param df tree data.frame
-##' @param node is the node id of child in tree.
-##' @return list of child node ids of parent
-getChild.df <- function(df, node) {
-    res <- df$node[df$parent == node]
-    res[res != node] ## node may root
-}
-
-## get.offspring.df <- function(df, node) {
-##     ## sp <- getChild.df(df, node)
-##     ## i <- 1
-##     ## while(i <= length(sp)) {
-##     ##     sp <- c(sp, getChild.df(df, sp[i]))
-##     ##     i <- i + 1
-##     ## }
-##     ## return(sp)
-##     tidytree::offspring(df, node)$node
-## }
-
-
-
-## ##' extract offspring tips
-## ##'
-## ##'
-## ##' @title get.offspring.tip
-## ##' @param tr tree
-## ##' @param node node
-## ##' @return tip label
-## ##' @author ygc
-## ##' @importFrom ape extract.clade
-## ##' @export
-## get.offspring.tip <- function(tr, node) {
-##     ## if ( ! node %in% tr$edge[,1]) {
-##     ##     ## return itself
-##     ##     return(tr$tip.label[node])
-##     ## }
-##     ## clade <- extract.clade(tr, node)
-##     ## clade$tip.label
-##     tid <- offspring(tr, node, tiponly = TRUE)
-##     tr$tip.label[tid]
-## }
-
-
-
-
-getParent <- function(tr, node) {
-    if ( node == getRoot(tr) )
-        return(0)
-    edge <- tr[["edge"]]
-    parent <- edge[,1]
-    child <- edge[,2]
-    res <- parent[child == node]
-    if (length(res) == 0) {
-        stop("cannot found parent node...")
-    }
-    if (length(res) > 1) {
-        stop("multiple parent found...")
-    }
-    return(res)
-}
-
-
-
-
-getChild <- function(tr, node) {
-    # Get edge matrix from phylo object.
-    edge <- tr[["edge"]]
-    # Select all rows that match "node".
-    res <- edge[edge[,1] == node, 2]
-    ## if (length(res) == 0) {
-    ##     ## is a tip
-    ##     return(NA)
-    ## }
-    return(res)
-}
-
-
-getSibling <- function(tr, node) {
-    root <- getRoot(tr)
-    if (node == root) {
-        return(NA)
-    }
-
-    parent <- getParent(tr, node)
-    child <- getChild(tr, parent)
-    sib <- child[child != node]
-    return(sib)
-}
-
-
-getAncestor <- function(tr, node) {
-    root <- getRoot(tr)
-    if (node == root) {
-        return(NA)
-    }
-    parent <- getParent(tr, node)
-    res <- parent
-    while(parent != root) {
-        parent <- getParent(tr, parent)
-        res <- c(res, parent)
-    }
-    return(res)
-}
-
 
 isRoot <- function(tr, node) {
     getRoot(tr) == node
@@ -874,12 +744,13 @@ get.trunk <- function(tr) {
 ##' @param from start node
 ##' @param to end node
 ##' @return node vectot
+##' @importFrom tidytree ancestor
 ##' @export
 ##' @author Guangchuang Yu
 get.path <- function(phylo, from, to) {
-    anc_from <- getAncestor(phylo, from)
+    anc_from <- ancestor(phylo, from)
     anc_from <- c(from, anc_from)
-    anc_to <- getAncestor(phylo, to)
+    anc_to <- ancestor(phylo, to)
     anc_to <- c(to, anc_to)
     mrca <- intersect(anc_from, anc_to)[1]
 
@@ -1132,7 +1003,7 @@ getYcoord_scale2 <- function(tr, df, yscale) {
     ii <- 1
     ntip <- length(ordered_tip)
     while(ii < ntip) {
-        sib <- getSibling(tr, ordered_tip[ii])
+        sib <- tidytree::sibling(tr, ordered_tip[ii])
         if (length(sib) == 0) {
             ii <- ii + 1
             next
@@ -1155,7 +1026,7 @@ getYcoord_scale2 <- function(tr, df, yscale) {
     }
 
 
-    long_branch <- getAncestor(tr, ordered_tip[1]) %>% rev
+    long_branch <- ancestor(tr, ordered_tip[1]) %>% rev
     long_branch <- c(long_branch, ordered_tip[1])
 
     N <- getNodeNum(tr)
@@ -1223,7 +1094,7 @@ getYcoord_scale_numeric <- function(tr, df, yscale, ...) {
         tree <- get.tree(tr)
         nodes <- getNodes_by_postorder(tree)
         for (curNode in nodes) {
-            children <- getChild(tree, curNode)
+            children <- treeio::child(tree, curNode)
             if (length(children) == 0) {
                 next
             }
@@ -1249,13 +1120,13 @@ getYcoord_scale_numeric <- function(tr, df, yscale, ...) {
         tree <- get.tree(tr)
         nodes <- rev(getNodes_by_postorder(tree))
         for (curNode in nodes) {
-            parent <- getParent(tree, curNode)
+            parent <- parent(tree, curNode)
             if (parent == 0) { ## already reach root
                 next
             }
             idx <- which(is.na(yy[parent]))
             if (length(idx) > 0) {
-                child <- getChild(tree, parent)
+                child <- treeio::child(tree, parent)
                 yy[parent[idx]] <- mean(yy[child], na.rm=TRUE)
             }
         }

@@ -145,10 +145,12 @@ expand <- function(tree_view=NULL, node) {
     root <- which(df$node == df$parent)
     pp <- node
     while(any(pp != root)) {
-        df[pp, "y"] <- mean(df$y[getChild.df(df, pp)])
+        ## df[pp, "y"] <- mean(df$y[getChild.df(df, pp)])
+        df[pp, "y"] <- mean(tidytree::child(df, pp)$y)
         pp <- df$parent[pp]
     }
-    j <- getChild.df(df, pp)
+    ## j <- getChild.df(df, pp)
+    j <- tidytree::child(df, pp)$node
     j <- j[j!=pp]
     df[pp, "y"] <- mean(df$y[j])
 
@@ -260,10 +262,11 @@ flip <- function(tree_view=NULL, node1, node2) {
     ## yy <- df$y[-c(sp1, sp2)]
     ## df$y[-c(sp1, sp2)] <- yy + ((min(sp2.df$y, na.rm=TRUE) - max(yy)) - (min(yy) - max(sp1.df$y, na.rm=TRUE)))/2
 
-    anc <- getAncestor.df(df, node1)
+    anc <- ancestor(df, node1)$node
     ii <- match(anc, df$node)
     df[ii, "y"] <- NA
-    currentNode <- unlist(as.vector(sapply(anc, getChild.df, df=df)))
+    ## currentNode <- unlist(as.vector(sapply(anc, getChild.df, df=df)))
+    currentNode <- unlist(as.vector(sapply(anc, function(.node) tidytree::child(df, .node)$node)))
     currentNode <- currentNode[!currentNode %in% anc]
 
     tree_view$data <- re_assign_ycoord_df(df, currentNode)
@@ -295,7 +298,7 @@ scaleClade <- function(tree_view=NULL, node, scale=1, vertical_only=TRUE) {
     df <- tree_view$data
     ## sp <- get.offspring.df(df, node)
     ## sp.df <- df[sp,]
-    sp.df <- offspring(sp, node)
+    sp.df <- offspring(df, node)
     sp <- sp.df$node
     
     ## sp_nr <- nrow(sp.df)
@@ -350,10 +353,12 @@ reassign_y_from_node_to_root <- function(df, node) {
     root <- which(df$node == df$parent)
     pp <- df$parent[node]
     while(any(pp != root)) {
-        df[pp, "y"] <- mean(df$y[getChild.df(df, pp)])
+        ## df[pp, "y"] <- mean(df$y[getChild.df(df, pp)])
+        df[pp, "y"] <- mean(tidytree::child(df, pp)$y)
         pp <- df$parent[pp]
     }
-    j <- getChild.df(df, pp)
+    ## j <- getChild.df(df, pp)
+    j <- tidytree::child(df, pp)$node
     j <- j[j!=pp]
     df[pp, "y"] <- mean(df$y[j])
     return(df)

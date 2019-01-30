@@ -120,7 +120,7 @@ scale_color_ <- function(phylo, by, low=NULL, high=NULL, na.color=NULL, default.
     if (is.null(na.color)) {
         nodes <- getNodes_by_postorder(tree)
         for (curNode in nodes) {
-            children <- getChild(tree, curNode)
+            children <- treeio::child(tree, curNode)
             if (length(children) == 0) {
                 next
             }

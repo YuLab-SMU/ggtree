@@ -181,7 +181,8 @@ get_balance_position <- function(treeview, node, direction) {
 }
 
 get_balance_position_ <- function(data, node, direction) {
-    ch <- tryCatch(getChild.df(data, node), error=function(e) NULL)
+    ## ch <- tryCatch(getChild.df(data, node), error=function(e) NULL)
+    ch <- tryCatch(tidytree::child(data, node)$node, error=function(e) NULL)
 
     if (length(ch) < 2 || is.null(ch)){
         stop('balance cannot be a tip')
