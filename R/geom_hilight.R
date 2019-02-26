@@ -101,20 +101,19 @@ stat_hilight <- function(mapping=NULL, data=NULL, geom="rect",
 ##' @export
 StatHilight <- ggproto("StatHilight", Stat,
                        compute_group = function(self, data, scales, params, node, extend, extendto) {
-
-                         df <- get_clade_position_(data, node)
-                         df$xmax <- df$xmax + extend
-                         if (!is.null(extendto) && !is.na(extendto)) {
-                           if (extendto < df$xmax) {
-                             warning("extendto is too small, keep the original xmax value...")
-                           } else {
-                             df$xmax <- extendto
+                           df <- get_clade_position_(data, node)
+                           df$xmax <- df$xmax + extend
+                           if (!is.null(extendto) && !is.na(extendto)) {
+                               if (extendto < df$xmax) {
+                                   warning("extendto is too small, keep the original xmax value...")
+                               } else {
+                                   df$xmax <- extendto
+                               }
                            }
-                         }
-                         return(df)
+                           return(df)
                        },
                        required_aes = c("x", "y", "branch.length")
-)
+                       )
 
 
 ##' get position of clade (xmin, xmax, ymin, ymax)
@@ -131,8 +130,7 @@ get_clade_position <- function(treeview, node) {
 }
 
 get_clade_position_ <- function(data, node) {
-    sp <- tryCatch(offspring(data, node)$node, error=function(e) NULL)
-
+    sp <- tryCatch(tidytree:::offspring.tbl_tree(data, node)$node, error=function(e) NULL)
     i <- match(node, data$node)
     if (is.null(sp)) {
         ## tip
@@ -141,10 +139,10 @@ get_clade_position_ <- function(data, node) {
         sp <- c(sp, node)
         sp.df <- data[match(sp, data$node),]
     }
-
+    
     x <- sp.df$x
     y <- sp.df$y
-
+    
     if ("branch.length" %in% colnames(data)) {
         xmin <- min(x, na.rm=TRUE)-data[["branch.length"]][i]/2
     } else {

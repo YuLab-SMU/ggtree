@@ -48,7 +48,7 @@ For details, please visit our project website, <https://guangchuangyu.github.io/
 + [Feedback](https://guangchuangyu.github.io/software/ggtree/#feedback)
 
 
-## Authors
+## :writing_hand: Authors
 
 Guangchuang YU
 
@@ -65,13 +65,13 @@ School of Basic Medical Sciences, Southern Medical University
 
 If you use `r Biocpkg('ggtree')` in published research, please cite the most appropriate paper(s) from this list:
 
-1. __G Yu__, DK Smith, H Zhu, Y Guan, TTY Lam^\*^. ggtree: an R package for
+1. __G Yu__^\*^, TTY Lam, H Zhu, Y Guan^\*^. Two methods for mapping and visualizing associated data on phylogeny using ggtree. __*Molecular Biology and Evolution*__, 2018, 35(2):3041-3043.
+doi: [10.1093/molbev/msy194](https://doi.org/10.1093/molbev/msy194).
+     - [Source code to produce Supplementary Material](https://github.com/GuangchuangYu/plotting_tree_with_data)
+2. __G Yu__, DK Smith, H Zhu, Y Guan, TTY Lam^\*^. ggtree: an R package for
 visualization and annotation of phylogenetic trees with their covariates and
 other associated data. __*Methods in Ecology and Evolution*__. 2017, 8(1):28-36.
 doi: [10.1111/2041-210X.12628](https://doi.org/10.1111/2041-210X.12628).
-2. __G Yu__^\*^, TTY Lam, H Zhu, Y Guan^\*^. Two methods for mapping and visualizing associated data on phylogeny using ggtree. __*Molecular Biology and Evolution*__, 2018, 35(2):3041-3043.
-doi: [10.1093/molbev/msy194](https://doi.org/10.1093/molbev/msy194).
-     - [Source code to produce Supplementary Material](https://github.com/GuangchuangYu/plotting_tree_with_data)
 
 
 
@@ -88,7 +88,7 @@ doi: [10.1093/molbev/msy194](https://doi.org/10.1093/molbev/msy194).
 
 
 
-## Contributing
+## :sparkling_heart: Contributing
 
 We welcome any contributions! By participating in this project you agree to
 abide by the terms outlined in the [Contributor Code of Conduct](CONDUCT.md).
