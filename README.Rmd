@@ -75,7 +75,7 @@ doi: [10.1111/2041-210X.12628](https://doi.org/10.1111/2041-210X.12628).
 
 
 
-<img src="https://guangchuangyu.github.io/software/ggtree/featured-articles/index_files/figure-html/citation-1.png" width="890"/>
+<img src="https://guangchuangyu.github.io/software/citation_trend/ggtree.png" width="890"/>
 
 
 
@@ -84,7 +84,7 @@ doi: [10.1111/2041-210X.12628](https://doi.org/10.1111/2041-210X.12628).
 `r badge_bioc_download("ggtree", "month", "blue")`
 
 
-<img src="https://guangchuangyu.github.io/software/ggtree/index_files/figure-html/dlstats-1.png" width="890"/>
+<img src="https://guangchuangyu.github.io/software/dlstats/ggtree.png" width="890"/>
 
 
 

@@ -14,7 +14,7 @@
 state and is being actively
 developed.](http://www.repostatus.org/badges/latest/active.svg)](http://www.repostatus.org/#active)
 [![codecov](https://codecov.io/gh/GuangchuangYu/ggtree/branch/master/graph/badge.svg)](https://codecov.io/gh/GuangchuangYu/ggtree)
-[![Last-changedate](https://img.shields.io/badge/last%20change-2019--02--26-green.svg)](https://github.com/GuangchuangYu/ggtree/commits/master)
+[![Last-changedate](https://img.shields.io/badge/last%20change-2019--04--16-green.svg)](https://github.com/GuangchuangYu/ggtree/commits/master)
 
 The `ggtree` package extending the `ggplot2` package. It based on
 grammar of graphics and takes all the good parts of `ggplot2`. `ggtree`
@@ -61,13 +61,13 @@ list:
     Ecology and Evolution***. 2017, 8(1):28-36. doi:
     [10.1111/2041-210X.12628](https://doi.org/10.1111/2041-210X.12628).
 
-<img src="https://guangchuangyu.github.io/software/ggtree/featured-articles/index_files/figure-html/citation-1.png" width="890"/>
+<img src="https://guangchuangyu.github.io/software/citation_trend/ggtree.png" width="890"/>
 
 [![download](http://www.bioconductor.org/shields/downloads/ggtree.svg)](https://bioconductor.org/packages/stats/bioc/ggtree)
-[![](https://img.shields.io/badge/download-43913/total-blue.svg)](https://bioconductor.org/packages/stats/bioc/ggtree)
-[![](https://img.shields.io/badge/download-1882/month-blue.svg)](https://bioconductor.org/packages/stats/bioc/ggtree)
+[![](https://img.shields.io/badge/download-47019/total-blue.svg)](https://bioconductor.org/packages/stats/bioc/ggtree)
+[![](https://img.shields.io/badge/download-1890/month-blue.svg)](https://bioconductor.org/packages/stats/bioc/ggtree)
 
-<img src="https://guangchuangyu.github.io/software/ggtree/index_files/figure-html/dlstats-1.png" width="890"/>
+<img src="https://guangchuangyu.github.io/software/dlstats/ggtree.png" width="890"/>
 
 ## :sparkling\_heart: Contributing
 
