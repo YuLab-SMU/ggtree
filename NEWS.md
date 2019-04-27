@@ -1,5 +1,7 @@
 # ggtree 1.15.6
 
++ compatible with range is NULL in `geom_range` (2019-04-27, Sat)
+  - <https://groups.google.com/d/msg/bioc-ggtree/yNzjtioVVGU/MCh3MPl_CwAJ>
 + remove `getChild`, `getChild.df`, `getParent`, `getParent.df`, `getSibling`, `getAncestor` and `getAncestor.df`,
   instead use `child`, `parent`, `sibling` and `ancestor` methods implemented in `tidytree` and `treeio` (2019-01-30, Wed)
 + remove `get.offspring.df` and `get.offspring.tip` and instead use `tidytree::offspring` (2019-01-28, Mon)

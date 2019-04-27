@@ -53,11 +53,19 @@ StatRange <- ggproto("StatRange", Stat,
 
 
 range_lower <- function(range) {
-    sapply(range, function(x) as.numeric(x[1]))
+    sapply(range, function(x) {
+        ## length(x) == 0 for x is NULL
+        ## see https://groups.google.com/d/msg/bioc-ggtree/yNzjtioVVGU/MCh3MPl_CwAJ
+        if (length(x) == 0)
+            return(NA)
+        as.numeric(x[1])
+    })
 }
 
 range_upper <- function(range) {
     sapply(range, function(x) {
+        if (length(x) == 0) 
+            return(NA) 
         if (length(x) == 1 && is.na(x))
             return(NA)
         as.numeric(x[2])
