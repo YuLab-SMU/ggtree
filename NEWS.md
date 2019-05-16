@@ -1,3 +1,11 @@
+# ggtree 1.17.1
+
++ add `legend_title` variable in `gheatmap` (2019-05-16, Thu)
+
+# ggtree 1.16.0
+
++ Bioconductor 3.9 release
+
 # ggtree 1.15.6
 
 + compatible with range is NULL in `geom_range` (2019-04-27, Sat)

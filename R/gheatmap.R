@@ -17,6 +17,7 @@
 ##' @param colnames_offset_y y offset for column names
 ##' @param font.size font size of matrix colnames
 ##' @param hjust hjust for column names (0: align left, 0.5: align center, 1: align righ)
+##' @param legend_title title of fill legend
 ##' @return tree view
 ##' @importFrom ggplot2 geom_tile
 ##' @importFrom ggplot2 geom_text
@@ -31,7 +32,7 @@
 ##' @author Guangchuang Yu
 gheatmap <- function(p, data, offset=0, width=1, low="green", high="red", color="white",
                      colnames=TRUE, colnames_position="bottom", colnames_angle=0, colnames_level=NULL,
-                     colnames_offset_x = 0, colnames_offset_y = 0, font.size=4, hjust=0.5) {
+                     colnames_offset_x = 0, colnames_offset_y = 0, font.size=4, hjust=0.5, legend_title = "value") {
 
     colnames_position %<>% match.arg(c("bottom", "top"))
     variable <- value <- lab <- y <- NULL
@@ -90,9 +91,9 @@ gheatmap <- function(p, data, offset=0, width=1, low="green", high="red", color=
         p2 <- p + geom_tile(data=dd, aes(x, y, fill=value), width=width, color=color, inherit.aes=FALSE)
     }
     if (is(dd$value,"numeric")) {
-        p2 <- p2 + scale_fill_gradient(low=low, high=high, na.value=NA) # "white")
+        p2 <- p2 + scale_fill_gradient(low=low, high=high, na.value=NA, name = legend_title) # "white")
     } else {
-        p2 <- p2 + scale_fill_discrete(na.value=NA) #"white")
+        p2 <- p2 + scale_fill_discrete(na.value=NA, name = legend_title) #"white")
     }
 
     if (colnames) {
@@ -107,7 +108,7 @@ gheatmap <- function(p, data, offset=0, width=1, low="green", high="red", color=
                              angle=colnames_angle, nudge_x=colnames_offset_x, nudge_y = colnames_offset_y, hjust=hjust)
     }
 
-    p2 <- p2 + theme(legend.position="right", legend.title=element_blank())
+    p2 <- p2 + theme(legend.position="right")
     ## p2 <- p2 + guides(fill = guide_legend(override.aes = list(colour = NULL)))
 
     if (!colnames) {

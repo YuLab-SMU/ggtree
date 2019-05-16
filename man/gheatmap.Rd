@@ -8,7 +8,8 @@ gheatmap(p, data, offset = 0, width = 1, low = "green",
   high = "red", color = "white", colnames = TRUE,
   colnames_position = "bottom", colnames_angle = 0,
   colnames_level = NULL, colnames_offset_x = 0,
-  colnames_offset_y = 0, font.size = 4, hjust = 0.5)
+  colnames_offset_y = 0, font.size = 4, hjust = 0.5,
+  legend_title = "value")
 }
 \arguments{
 \item{p}{tree view}
@@ -40,6 +41,8 @@ gheatmap(p, data, offset = 0, width = 1, low = "green",
 \item{font.size}{font size of matrix colnames}
 
 \item{hjust}{hjust for column names (0: align left, 0.5: align center, 1: align righ)}
+
+\item{legend_title}{title of fill legend}
 }
 \value{
 tree view
