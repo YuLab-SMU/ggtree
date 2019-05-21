@@ -1,5 +1,7 @@
 # ggtree 1.17.1
 
++ extend `xlim_expand` to work with `ggplot2` (2019-05-20, Tue)
+  - <https://yulab-smu.github.io/treedata-book/chapter9.html#xlim_expand>
 + add `legend_title` variable in `gheatmap` (2019-05-16, Thu)
 
 # ggtree 1.16.0
