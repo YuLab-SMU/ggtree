@@ -92,6 +92,10 @@ facet_widths <- function(p, widths) {
 
 panel_col_var <- function(p) {
     m <- p$facet$params$cols[[1]]
+    if (is.null(m))
+        return(m)
+
+    ## rlang::quo_name(m)
     rlang::quo_text(m)
 }
 
