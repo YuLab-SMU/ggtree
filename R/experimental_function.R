@@ -84,58 +84,6 @@ get_heatmap_column_position <- function(treeview, by="bottom") {
     return(mapping)
 }
 
-##' scale x for tree with heatmap
-##'
-##'
-##' @title scale_x_ggtree
-##' @param tree_view tree view
-##' @param breaks breaks for tree
-##' @param labels lables for corresponding breaks
-##' @return tree view
-##' @importFrom ggplot2 scale_x_continuous
-##' @importFrom ggplot2 scale_x_date
-##' @export
-##' @author Guangchuang Yu
-scale_x_ggtree <- function(tree_view, breaks=NULL, labels=NULL) {
-    p <- get_tree_view(tree_view)
-
-    mrsd <- get("mrsd", envir=tree_view$plot_env)
-    if (!is.null(mrsd) && class(p$data$x) == "Date") {
-        x <- Date2decimal(p$data$x)
-    } else {
-        x <- p$data$x
-    }
-
-    if (is.null(breaks)) {
-        breaks <- graphics::hist(x, breaks=5, plot=FALSE)$breaks
-    }
-    m <- attr(p, "mapping")
-
-    if (!is.null(mrsd) &&class(m$to) == "Date") {
-        to <- Date2decimal(m$to)
-    } else {
-        to <- m$to
-    }
-
-    idx <- which(sapply(breaks, function(x) any(x > m$to)))
-    if (length(idx)) {
-        breaks <- breaks[-idx]
-    }
-
-    if (is.null(labels)) {
-        labels <- breaks
-    }
-
-    breaks <- c(breaks, to)
-    labels <- c(labels, gsub("\\.", "", as.character(m$from)))
-
-    if (!is.null(mrsd) && class(p$data$x) == "Date") {
-        p <- p + scale_x_date(breaks=decimal2Date(breaks), labels)
-    } else {
-        p <- p + scale_x_continuous(breaks=breaks, labels=labels)
-    }
-    return(p)
-}
 
 
 

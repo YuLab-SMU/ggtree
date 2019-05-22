@@ -34,15 +34,23 @@ xlim_expand <- function(xlim, panel) {
 ##' @method ggplot_add facet_xlim
 ##' @export
 ggplot_add.facet_xlim <- function(object, plot, object_name) {
-    var <- quo_name(plot$facet$params$cols[[1]])
+    facet_col <- plot$facet$params$cols
+    var <- quo_name(facet_col[[1]])
+
     free_x <- plot$facet$params$free$x
-    if (!is.null(free_x) && !free_x) {
-        message('If you want to adjust xlim for specific panel, you need to set `scales = "free_x"`')
+    if (!is.null(free_x)) {
+        if (!free_x)
+            message('If you want to adjust xlim for specific panel, you need to set `scales = "free_x"`')
     }
+
     class(object) %<>% extract(., .!= "facet_xlim")
-    nm <- names(object$data)
-    nm[nm == '.panel']  <- var
-    names(object$data)  <- nm
+
+    if (!is.null(facet_col)) {
+        nm <- names(object$data)
+        nm[nm == '.panel']  <- var
+        names(object$data)  <- nm
+    }
+
     ggplot_add(object, plot, object_name)
 }
 
