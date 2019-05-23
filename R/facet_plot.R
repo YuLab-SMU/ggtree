@@ -27,7 +27,7 @@ facet_plot <- function(p, panel, data, geom, mapping=NULL, ...) {
 
 ##' @rdname facet-plot
 ##' @export
-geom_facet <- function(panel, data, geom, mapping=NULL, ...) {
+geom_facet <- function(mapping=NULL, data, geom, panel, ...) {
     params <- list(...)
     structure(list(panel = panel, data = data,
                    geom = geom, mapping = mapping,
