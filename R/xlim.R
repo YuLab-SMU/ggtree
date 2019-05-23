@@ -22,10 +22,7 @@ xlim_tree <- function(xlim) {
 ##' @export
 ##' @author guangchuang yu
 xlim_expand <- function(xlim, panel) {
-    dummy <- data.frame(x=xlim, .panel=panel)
-    ly <- geom_blank(aes_(x=~x), dummy, inherit.aes = FALSE)
-    class(ly) <- c("facet_xlim", class(ly))
-    return(ly)
+    structure(list(x = xlim, panel = panel), class = "facet_xlim")
 }
 
 ##' @importFrom rlang quo_name
@@ -42,15 +39,13 @@ ggplot_add.facet_xlim <- function(object, plot, object_name) {
                     'you need to set `scales = "free_x"`')
     }
 
-    class(object) %<>% extract(., .!= "facet_xlim")
-
+    dummy <- data.frame(x = object$x, .panel = object$panel)
     if (!is.null(var)) {
-        nm <- names(object$data)
-        nm[nm == '.panel']  <- var
-        names(object$data)  <- nm
+        names(dummy)[2] <- var
     }
 
-    ggplot_add(object, plot, object_name)
+    obj <- geom_blank(aes_(x = ~x), dummy, inherit.aes = FALSE)
+    ggplot_add(obj, plot, object_name)
 }
 
 ##' reverse timescle x-axis
