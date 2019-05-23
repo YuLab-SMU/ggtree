@@ -26,7 +26,6 @@ xlim_expand <- function(xlim, panel) {
 }
 
 ##' @importFrom rlang quo_name
-##' @importFrom magrittr extract
 ##' @importFrom ggplot2 ggplot_add
 ##' @method ggplot_add facet_xlim
 ##' @export
