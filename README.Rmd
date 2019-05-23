@@ -40,12 +40,7 @@ The `ggtree` package extending the `ggplot2` package. It based on grammar of gra
 
 
 
-For details, please visit our project website, <https://guangchuangyu.github.io/software/ggtree>.
-
-+ [Documentation](https://guangchuangyu.github.io/software/ggtree/documentation/)
-+ [FAQ](https://guangchuangyu.github.io/software/ggtree/faq/)
-+ [Featured Articles](https://guangchuangyu.github.io/software/ggtree/featuredArticles/)
-+ [Feedback](https://guangchuangyu.github.io/software/ggtree/#feedback)
+For details, please visit <https://yulab-smu.github.io/treedata-book/>.
 
 
 ## :writing_hand: Authors
@@ -58,8 +53,8 @@ School of Basic Medical Sciences, Southern Medical University
 
 [![Twitter](https://img.shields.io/twitter/url/http/shields.io.svg?style=social&logo=twitter)](https://twitter.com/intent/tweet?hashtags=ggtree&url=http://onlinelibrary.wiley.com/doi/10.1111/2041-210X.12628/abstract&screen_name=guangchuangyu)
 [![saythanks](https://img.shields.io/badge/say-thanks-ff69b4.svg)](https://saythanks.io/to/GuangchuangYu)
-`r badger::badge_custom('follow me on', '微信', 'green', 'https://guangchuangyu.github.io/blog_images/biobabble.jpg')`
-`r badger::badge_custom('打赏', '支付宝/微信', 'green', 'https://guangchuangyu.github.io/blog_images/pay_qrcode.png')`
+`r badger::badge_custom('follow me on', 'WeChat', 'green', 'https://guangchuangyu.github.io/blog_images/biobabble.jpg')`
+
 
 
 

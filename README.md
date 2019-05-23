@@ -4,8 +4,8 @@
 
 <img src="https://raw.githubusercontent.com/Bioconductor/BiocStickers/master/ggtree/ggtree.png" height="200" align="right" />
 
-[![](https://img.shields.io/badge/release%20version-1.14.6-green.svg)](https://www.bioconductor.org/packages/ggtree)
-[![](https://img.shields.io/badge/devel%20version-1.15.6-green.svg)](https://github.com/guangchuangyu/ggtree)
+[![](https://img.shields.io/badge/release%20version-1.16.0-green.svg)](https://www.bioconductor.org/packages/ggtree)
+[![](https://img.shields.io/badge/devel%20version-1.17.1-green.svg)](https://github.com/guangchuangyu/ggtree)
 [![Bioc](http://www.bioconductor.org/shields/years-in-bioc/ggtree.svg)](https://www.bioconductor.org/packages/devel/bioc/html/ggtree.html#since)
 [![Awesome](https://cdn.rawgit.com/sindresorhus/awesome/d7305f38d29fed78fa85652e3a63e154dd8e8829/media/badge.svg)](https://awesome-r.com/#awesome-r-graphic-displays)
 
@@ -14,21 +14,14 @@
 state and is being actively
 developed.](http://www.repostatus.org/badges/latest/active.svg)](http://www.repostatus.org/#active)
 [![codecov](https://codecov.io/gh/GuangchuangYu/ggtree/branch/master/graph/badge.svg)](https://codecov.io/gh/GuangchuangYu/ggtree)
-[![Last-changedate](https://img.shields.io/badge/last%20change-2019--04--16-green.svg)](https://github.com/GuangchuangYu/ggtree/commits/master)
+[![Last-changedate](https://img.shields.io/badge/last%20change-2019--05--23-green.svg)](https://github.com/GuangchuangYu/ggtree/commits/master)
 
 The `ggtree` package extending the `ggplot2` package. It based on
 grammar of graphics and takes all the good parts of `ggplot2`. `ggtree`
 is designed for not only viewing phylogenetic tree but also displaying
 annotation data on the tree.
 
-For details, please visit our project website,
-<https://guangchuangyu.github.io/software/ggtree>.
-
-  - [Documentation](https://guangchuangyu.github.io/software/ggtree/documentation/)
-  - [FAQ](https://guangchuangyu.github.io/software/ggtree/faq/)
-  - [Featured
-    Articles](https://guangchuangyu.github.io/software/ggtree/featuredArticles/)
-  - [Feedback](https://guangchuangyu.github.io/software/ggtree/#feedback)
+For details, please visit <https://yulab-smu.github.io/treedata-book/>.
 
 ## :writing\_hand: Authors
 
@@ -41,8 +34,7 @@ University
 
 [![Twitter](https://img.shields.io/twitter/url/http/shields.io.svg?style=social&logo=twitter)](https://twitter.com/intent/tweet?hashtags=ggtree&url=http://onlinelibrary.wiley.com/doi/10.1111/2041-210X.12628/abstract&screen_name=guangchuangyu)
 [![saythanks](https://img.shields.io/badge/say-thanks-ff69b4.svg)](https://saythanks.io/to/GuangchuangYu)
-[![](https://img.shields.io/badge/follow%20me%20on-微信-green.svg)](https://guangchuangyu.github.io/blog_images/biobabble.jpg)
-[![](https://img.shields.io/badge/打赏-支付宝/微信-green.svg)](https://guangchuangyu.github.io/blog_images/pay_qrcode.png)
+[![](https://img.shields.io/badge/follow%20me%20on-WeChat-green.svg)](https://guangchuangyu.github.io/blog_images/biobabble.jpg)
 
 If you use [ggtree](http://bioconductor.org/packages/ggtree) in
 published research, please cite the most appropriate paper(s) from this
@@ -64,8 +56,8 @@ list:
 <img src="https://guangchuangyu.github.io/software/citation_trend/ggtree.png" width="890"/>
 
 [![download](http://www.bioconductor.org/shields/downloads/ggtree.svg)](https://bioconductor.org/packages/stats/bioc/ggtree)
-[![](https://img.shields.io/badge/download-47019/total-blue.svg)](https://bioconductor.org/packages/stats/bioc/ggtree)
-[![](https://img.shields.io/badge/download-1890/month-blue.svg)](https://bioconductor.org/packages/stats/bioc/ggtree)
+[![](https://img.shields.io/badge/download-49316/total-blue.svg)](https://bioconductor.org/packages/stats/bioc/ggtree)
+[![](https://img.shields.io/badge/download-1879/month-blue.svg)](https://bioconductor.org/packages/stats/bioc/ggtree)
 
 <img src="https://guangchuangyu.github.io/software/dlstats/ggtree.png" width="890"/>
 
