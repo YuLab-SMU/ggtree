@@ -5,20 +5,20 @@
 \alias{geom_facet}
 \title{facet_plot}
 \usage{
-facet_plot(p, panel, data, geom, mapping = NULL, ...)
+facet_plot(p, mapping = NULL, data, geom, panel, ...)
 
-geom_facet(panel, data, geom, mapping = NULL, ...)
+geom_facet(mapping = NULL, data, geom, panel, ...)
 }
 \arguments{
 \item{p}{tree view}
 
-\item{panel}{panel name for plot of input data}
+\item{mapping}{aes mapping for 'geom'}
 
 \item{data}{data to plot by 'geom', first column should be matched with tip label of tree}
 
 \item{geom}{geom function to plot the data}
 
-\item{mapping}{aes mapping for 'geom'}
+\item{panel}{panel name for plot of input data}
 
 \item{...}{additional parameters for 'geom'}
 }

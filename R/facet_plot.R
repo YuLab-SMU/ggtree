@@ -7,10 +7,10 @@
 ##' @title facet_plot
 ##' @rdname facet-plot
 ##' @param p tree view
-##' @param panel panel name for plot of input data
+##' @param mapping aes mapping for 'geom' 
 ##' @param data data to plot by 'geom', first column should be matched with tip label of tree
 ##' @param geom geom function to plot the data
-##' @param mapping aes mapping for 'geom'
+##' @param panel panel name for plot of input data
 ##' @param ... additional parameters for 'geom'
 ##' @return ggplot object
 ##' @examples
@@ -20,7 +20,7 @@
 ##' facet_plot(p, 'Trait', data = dd, geom=geom_point, mapping=aes(x=value))
 ##' @export
 ##' @author Guangchuang Yu
-facet_plot <- function(p, panel, data, geom, mapping=NULL, ...) {
+facet_plot <- function(p, mapping=NULL, data, geom, panel, ...) {
     p + geom_facet(panel = panel, data = data,
                    geom = geom, mapping = mapping, ...)
 }
