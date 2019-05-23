@@ -25,27 +25,6 @@ xlim_expand <- function(xlim, panel) {
     structure(list(x = xlim, panel = panel), class = "facet_xlim")
 }
 
-##' @importFrom rlang quo_name
-##' @importFrom ggplot2 ggplot_add
-##' @method ggplot_add facet_xlim
-##' @export
-ggplot_add.facet_xlim <- function(object, plot, object_name) {
-    var <- panel_col_var(plot)
-    free_x <- plot$facet$params$free$x
-    if (!is.null(free_x)) {
-        if (!free_x)
-            message('If you want to adjust xlim for specific panel, ',
-                    'you need to set `scales = "free_x"`')
-    }
-
-    dummy <- data.frame(x = object$x, .panel = object$panel)
-    if (!is.null(var)) {
-        names(dummy)[2] <- var
-    }
-
-    obj <- geom_blank(aes_(x = ~x), dummy, inherit.aes = FALSE)
-    ggplot_add(obj, plot, object_name)
-}
 
 ##' reverse timescle x-axis
 ##'

@@ -2,9 +2,12 @@
 % Please edit documentation in R/facet_plot.R
 \name{facet_plot}
 \alias{facet_plot}
+\alias{geom_facet}
 \title{facet_plot}
 \usage{
 facet_plot(p, panel, data, geom, mapping = NULL, ...)
+
+geom_facet(panel, data, geom, mapping = NULL, ...)
 }
 \arguments{
 \item{p}{tree view}
@@ -28,7 +31,7 @@ plot tree associated data in an additional panel
 \details{
 'facet_plot()' automatically re-arranges the input 'data' according to the tree structure,
 visualizes the 'data' on specific 'panel' using the 'geom' function with aesthetic 'mapping' and other parameters,
-and align the graph with the tree 'p' side by side.
+and align the graph with the tree 'p' side by side. 'geom_facet' is a 'ggplot2' layer version of 'facet_plot'
 }
 \examples{
 tr <- rtree(10)

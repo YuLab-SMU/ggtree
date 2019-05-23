@@ -1,5 +1,6 @@
 # ggtree 1.17.1
 
++ `geom_facet`, a geom layer version of `facet_plot` (2019-05-23, Thu)
 + update `scale_x_ggtree`, now we can use `gheatmap() + scale_x_ggtree()` (2019-05-22, Wed)
 + extend `xlim_expand` to work with `ggplot2` (2019-05-20, Tue)
   - <https://yulab-smu.github.io/treedata-book/chapter9.html#xlim_expand>
