@@ -14,6 +14,7 @@
 ##' @param right logical. If \code{ladderize = TRUE}, should the ladder have the smallest clade on the
 ##' right-hand side? See \code{\link[ape]{ladderize}} for more information. 
 ##' @param branch.length variable for scaling branch, if 'none' draw cladogram
+##' @param root.position position of the root node (default = 0)
 ##' @return tree
 ##' @importFrom ggplot2 ggplot
 ##' @importFrom ggplot2 xlab
@@ -41,6 +42,7 @@ ggtree <- function(tr,
                    ladderize      = TRUE,
                    right          = FALSE,
                    branch.length  = "branch.length",
+                   root.position  = 0,
                    ...) {
 
     # Check if layout string is valid.
@@ -71,6 +73,7 @@ ggtree <- function(tr,
                 ladderize     = ladderize,
                 right         = right,
                 branch.length = branch.length,
+                root.position = root.position,
                 ...)
 
     if (is(tr, "multiPhylo")) {

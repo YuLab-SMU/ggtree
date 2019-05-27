@@ -30,7 +30,7 @@ stat_tree <- function(mapping=NULL, data=NULL, geom="segment", position="identit
     if (is.null(mapping)) {
         mapping <- default_aes
     } else {
-        mapping <- modifyList(mapping, default_aes)
+        mapping <- modifyList(default_aes, mapping)
     }
 
     if (layout %in% c("rectangular", "fan", "circular")) {

@@ -19,7 +19,8 @@ geom_rootedge <- function(rootedge = NULL, ...) {
         position = "identity",
         show.legend = NA,
         params = list(rootedge = rootedge, ...),
-        check.aes = FALSE
+        check.aes = FALSE,
+        inherit.aes = FALSE
     )
 
 }
@@ -32,7 +33,9 @@ StatRootEdge <- ggproto("StatRootEdge", Stat,
                             if (is.null(rootedge)) {
                                 rootedge <- d$branch.length
                             }
-                            if (is.null(rootedge) || is.na(rootedge)) {
+                            if (is.null(rootedge)) {
+                                xend <- d$x
+                            } else if (is.na(rootedge)) {
                                 xend <- d$x
                             } else {
                                 xend <- d$x - rootedge

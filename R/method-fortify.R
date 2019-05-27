@@ -14,6 +14,7 @@ fortify.phylo <- function(model, data,
                           mrsd          = NULL,
                           as.Date       = FALSE,
                           yscale        = "none",
+                          root.position = 0,
                           ...) {
 
     x <- as.phylo(model) ## reorder.phylo(get.tree(model), "postorder")
@@ -39,7 +40,7 @@ fortify.phylo <- function(model, data,
 
         ypos <- getYcoord(x)
         N <- Nnode(x, internal.only=FALSE)
-        xypos <- tibble::data_frame(node=1:N, x=xpos, y=ypos)
+        xypos <- tibble::data_frame(node=1:N, x=xpos + root.position, y=ypos)
 
         df <- as_tibble(model) %>%
             mutate_(isTip = ~(! node %in% parent))

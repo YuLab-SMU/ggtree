@@ -11,7 +11,7 @@
 ggtree(tr, mapping = NULL, layout = "rectangular", open.angle = 0,
   mrsd = NULL, as.Date = FALSE, yscale = "none",
   yscale_mapping = NULL, ladderize = TRUE, right = FALSE,
-  branch.length = "branch.length", ...)
+  branch.length = "branch.length", root.position = 0, ...)
 }
 \arguments{
 \item{tr}{phylo object}
@@ -37,6 +37,8 @@ aspect?}
 right-hand side? See \code{\link[ape]{ladderize}} for more information.}
 
 \item{branch.length}{variable for scaling branch, if 'none' draw cladogram}
+
+\item{root.position}{position of the root node (default = 0)}
 
 \item{...}{additional parameter}
 }
