@@ -25,7 +25,7 @@ Imports:
     methods,
     purrr,
     rlang,
-    rvcheck (>= 0.1.0),
+    rvcheck,
     tidyr,
     tidytree (>= 0.2.4),
     treeio (>= 1.8.0),
@@ -47,7 +47,7 @@ VignetteBuilder: knitr
 ByteCompile: true
 Encoding: UTF-8
 License: Artistic-2.0
-URL: https://guangchuangyu.github.io/software/ggtree
+URL: https://yulab-smu.github.io/treedata-book/
 BugReports: https://github.com/GuangchuangYu/ggtree/issues
 Packaged: 2014-12-03 08:16:14 UTC; root
 biocViews: Alignment, Annotation, Clustering, DataImport,
