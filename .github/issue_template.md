@@ -2,8 +2,8 @@
 
 + [ ] Have you read [Feedback](https://guangchuangyu.github.io/ggtree/#feedback) and follow the [guide](https://guangchuangyu.github.io/2016/07/how-to-bug-author/)?
 	* [ ] make sure your are using the latest release version
-	* [ ] read the [documents](https://guangchuangyu.github.io/ggtree/documentation/)
-	* [ ] google your quesion/issue
+	* [ ] read the [documents](https://yulab-smu.github.io/treedata-book/)
+	* [ ] google your question/issue
 
 ### Describe you issue
 
