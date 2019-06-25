@@ -37,7 +37,7 @@ stat_tree <- function(mapping=NULL, data=NULL, geom="segment", position="identit
         list(layer(data=data,
                    mapping=mapping,
                    stat=StatTreeHorizontal,
-                   geom = geom,
+                   geom = GeomTreeHorizontal,
                    position=position,
                    show.legend = show.legend,
                    inherit.aes = inherit.aes,
@@ -78,12 +78,20 @@ stat_tree <- function(mapping=NULL, data=NULL, geom="segment", position="identit
     }
 }
 
+GeomTreeHorizontal <- ggproto("GeomTreeHorizontal",  GeomSegment,
+                              draw_panel =  function(data, panel_params, coord, ...) {
+                                  coords <- coord$transform(data, panel_params)
+                                  GeomSegment$draw_panel(data = data, panel_params = panel_params,
+                                                         coord = coord, ...)
+                              }
+                              )
+
 StatTreeHorizontal <- ggproto("StatTreeHorizontal", Stat,
                               required_aes = c("node", "parent", "x", "y"),
                               compute_group = function(data, params) {
-                                  data
+                                data
                               },
-                              compute_panel = function(self, data, scales, params, layout, lineend) {
+                              compute_panel = function(self, data, scales, params, layout, lineend, continuous = FALSE) {
                                   .fun <- function(data) {
                                       df <- setup_tree_data(data)
                                       x <- df$x
@@ -92,9 +100,42 @@ StatTreeHorizontal <- ggproto("StatTreeHorizontal", Stat,
                                       df$yend <- y
                                       ii <- with(df, match(parent, node))
                                       df$x <- x[ii]
-                                      return(df)
-                                  }
 
+                                      if (continuous && !is.null(df$colour)) {
+                                          df$col2 <- df$colour
+                                          df$col <- df$col2[ii]
+                                      } else {
+                                          return(df )
+                                      }
+                                      
+                                      nsplit <- 100
+                                      xstep <- diff(range(df$x))/nsplit
+                                      
+                                      res <- lapply(1:nrow(df), function(i) {
+                                          node <- df$node[i]
+                                          x <- df$x[i]
+                                          xend <- df$xend[i]
+                                          col <- df$col[i]
+                                          col2 <- df$col2[i]
+                                          
+                                          xn <- floor((xend - x)/xstep)
+                                          if (xn >0) {
+                                              x <- x + 0:xn * xstep
+                                              xend <- c(x[-1] * (1+0.01), xend)
+                                          }
+                                                                                    
+                                          j <- match(c('x', 'xend', 'col', 'col2', 'colour'), colnames(df))
+                                          merge(df[, -j],
+                                                data.frame(node = node,
+                                                           x = x,
+                                                           xend = xend,
+                                                           colour = seq(col, col2, length.out = length(x))),
+                                                by = "node")
+                                      }) %>% do.call('rbind', .)
+                                  
+                                      return(res)
+                                  }
+                                  
                                   if ('.id' %in% names(data)) {
                                       ldf <- split(data, data$.id)
                                       df <- do.call(rbind, lapply(ldf, .fun))
@@ -105,12 +146,13 @@ StatTreeHorizontal <- ggproto("StatTreeHorizontal", Stat,
                               }
                               )
 
+
 StatTreeVertical <- ggproto("StatTreeVertical", Stat,
                             required_aes = c("node", "parent", "x", "y"),
                             compute_group = function(data, params) {
                                 data
                             },
-                            compute_panel = function(self, data, scales, params, layout, lineend) {
+                            compute_panel = function(self, data, scales, params, layout, lineend, continuous = FALSE) {
                                 .fun <- function(data) {
                                     df <- setup_tree_data(data)
                                     x <- df$x
@@ -120,6 +162,8 @@ StatTreeVertical <- ggproto("StatTreeVertical", Stat,
                                     df$y <- y[ii]
                                     df$xend <- x[ii]
                                     df$yend <- y
+                                    if (continuous && !is.null(df$colour ))
+                                        df$colour <- df$colour[ii]
                                     return(df)
                                 }
                                 if ('.id' %in% names(data)) {

@@ -1,5 +1,7 @@
 # ggtree 1.17.1
 
++ `continuous` parameter in `geom_tree` to to continuous color edge from parent to child (2019-09-25, Tue)
+  - <https://yulab-smu.github.io/treedata-book/chapter4.html#color-tree>
 + `root.position` parameter for `fortify` and `ggtree` (2019-05-27, Mon)
 + `geom_facet`, a geom layer version of `facet_plot` (2019-05-23, Thu)
 + update `scale_x_ggtree`, now we can use `gheatmap() + scale_x_ggtree()` (2019-05-22, Wed)
