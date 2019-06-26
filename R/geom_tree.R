@@ -183,7 +183,7 @@ StatTree <- ggproto("StatTree", Stat,
                     compute_group = function(data, params) {
                         data
                     },
-                    compute_panel = function(self, data, scales, params, layout, lineend) {
+                    compute_panel = function(self, data, scales, params, layout, lineend, continuous =  FALSE) {
                         .fun <- function(data) {
                             df <- setup_tree_data(data)
                             x <- df$x
@@ -193,7 +193,47 @@ StatTree <- ggproto("StatTree", Stat,
                             df$y <- y[ii]
                             df$xend <- x
                             df$yend <- y
-                            return(df)
+
+                            if (continuous && !is.null(df$colour)) {
+                                df$col2 <- df$colour
+                                df$col <- df$col2[ii]
+                            } else {
+                                return(df )
+                            }
+                                      
+                            nsplit <- 100
+                            xstep <- diff(range(df$x))/nsplit
+                            
+                            res <- lapply(1:nrow(df), function(i) {
+                                node <- df$node[i]
+                                x <- df$x[i]
+                                xend <- df$xend[i]
+                                y <- df$y[i]
+                                yend <- df$yend[i]
+                                col <- df$col[i]
+                                col2 <- df$col2[i]
+                                
+                                xn <- floor((xend - x)/xstep)
+                                slope <- (yend - y)/(xend - x)
+                                if (xn > 0) {
+                                    x <- x + 0:xn * xstep
+                                    xend <- c(x[-1], xend)
+                                    y <- y + 0:xn * xstep * slope
+                                    yend <- c(y[-1], yend)
+                                }
+                                
+                                j <- match(c('x', 'xend', 'y', 'yend', 'col', 'col2', 'colour'), colnames(df))
+                                merge(df[, -j],
+                                      data.frame(node = node,
+                                                 x = x,
+                                                 xend = xend,
+                                                 y = y,
+                                                 yend = yend,
+                                                 colour = seq(col, col2, length.out = length(x))),
+                                      by = "node")
+                            }) %>% do.call('rbind', .)
+                            
+                            return(res)
                         }
                         if ('.id' %in% names(data)) {
                             ldf <- split(data, data$.id)
