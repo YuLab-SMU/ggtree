@@ -19,6 +19,7 @@
 ##' require(ape)
 ##' tr <- rtree(10)
 ##' ggtree(tr) + geom_tiplab()
+##' @seealso \link{geom_tiplab2}
 geom_tiplab <- function(mapping=NULL, hjust = 0,  align = FALSE, linetype = "dotted", linesize=0.5, geom="text",  offset=0, ...) {
     geom <- match.arg(geom, c("text", "label", "image", "phylopic"))
     if (geom == "text") {
@@ -84,6 +85,7 @@ geom_tiplab <- function(mapping=NULL, hjust = 0,  align = FALSE, linetype = "dot
 ##' @export
 ##' @author Guangchuang Yu
 ##' @references \url{https://groups.google.com/forum/#!topic/bioc-ggtree/o35PV3iHO-0}
+##' @seealso \link{geom_tiplab}
 geom_tiplab2 <- function(mapping=NULL, hjust=0, ...) {
     angle <- isTip <- node <- NULL
     m1 <- aes(subset=(isTip & (angle < 90 | angle > 270)), angle=angle, node = node)
