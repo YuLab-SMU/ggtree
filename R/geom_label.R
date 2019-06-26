@@ -9,7 +9,7 @@
 ##' @param stat Name of stat to modify data
 ##' @param position The position adjustment to use for overlapping points on this layer
 ##' @param family sans by default, can be any supported font
-##' @param parse if TRUE, the labels will be passd into expressions
+##' @param parse if TRUE, the labels will be parsed as expressions
 ##' @param nudge_x horizontal adjustment
 ##' @param nudge_y vertical adjustment
 ##' @param label.padding Amount of padding around label.

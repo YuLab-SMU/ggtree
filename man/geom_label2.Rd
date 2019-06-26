@@ -24,7 +24,7 @@ only needed if you want to override the plot defaults.}
 
 \item{family}{sans by default, can be any supported font}
 
-\item{parse}{if TRUE, the labels will be passd into expressions}
+\item{parse}{if TRUE, the labels will be parsed as expressions}
 
 \item{nudge_x}{horizontal adjustment}
 
