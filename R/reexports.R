@@ -71,7 +71,6 @@ ggplot2::geom_point
 ##' @export
 treeio::read.astral
 
-
 ##' @importFrom treeio read.beast
 ##' @export
 treeio::read.beast

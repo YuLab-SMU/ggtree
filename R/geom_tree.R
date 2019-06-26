@@ -121,7 +121,7 @@ StatTreeHorizontal <- ggproto("StatTreeHorizontal", Stat,
                                           xn <- floor((xend - x)/xstep)
                                           if (xn >0) {
                                               x <- x + 0:xn * xstep
-                                              xend <- c(x[-1] * (1+0.01), xend)
+                                              xend <- c(x[-1] * (1+0.002), xend)
                                           }
                                                                                     
                                           j <- match(c('x', 'xend', 'col', 'col2', 'colour'), colnames(df))
