@@ -2,25 +2,12 @@
 ##'
 ##'
 ##' @title geom_cladelabel2
-##' @param node selected node
-##' @param label clade label
-##' @param offset offset of bar and text from the clade
-##' @param offset.text offset of text from bar
+##' @inheritParams geom_cladelabel
 ##' @param offset.bar offset of bar from text
-##' @param align logical
-##' @param barsize size of bar
-##' @param fontsize font size of text
-## @param angle angle of text
-##' @param geom one of 'text' or 'label'
-##' @param hjust justify text horizontally
-##' @param color color for clade & label, of length 1 or 2
-## @param fill fill label background, only work with geom='label'
-##' @param family sans by default, can be any supported font
-##' @param parse logical, whether parse label
-##' @param ... additional parameter
 ##' @return ggplot layers
 ##' @export
 ##' @author JustGitting
+##' @seealso \link{geom_cladelabel}
 geom_cladelabel2 <- function(node, label, offset=0, offset.text=0, offset.bar=0,
                             align=FALSE, barsize=0.5, fontsize=3.88, hjust = 0,
                             geom="text",

@@ -24,7 +24,7 @@ geom_cladelabel2(node, label, offset = 0, offset.text = 0,
 
 \item{barsize}{size of bar}
 
-\item{fontsize}{font size of text}
+\item{fontsize}{size of text}
 
 \item{hjust}{justify text horizontally}
 
@@ -43,6 +43,9 @@ ggplot layers
 }
 \description{
 annotate a clade with bar and text label
+}
+\seealso{
+\link{geom_cladelabel}
 }
 \author{
 JustGitting

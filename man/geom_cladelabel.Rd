@@ -30,7 +30,7 @@ geom_cladelabel(node, label, offset = 0, offset.text = 0, extend = 0,
 
 \item{geom}{one of 'text' or 'label'}
 
-\item{hjust}{hjust}
+\item{hjust}{justify text horizontally}
 
 \item{color}{color for clade & label, of length 1 or 2}
 
@@ -47,6 +47,9 @@ ggplot layers
 }
 \description{
 annotate a clade with bar and text label
+}
+\seealso{
+\link{geom_cladelabel2}
 }
 \author{
 Guangchuang Yu
