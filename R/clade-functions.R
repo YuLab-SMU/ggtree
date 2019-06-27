@@ -86,6 +86,11 @@ collapse.ggtree <- function(x=NULL, node, clade_name = NULL, ...) {
     ## sp <- get.offspring.df(df, node)
     ## sp.df <- df[sp,]
     sp.df <- offspring(df, node)
+    if (nrow(sp.df) == 0) {
+        warning("input node is a tip...")
+        return(tree_view)
+    }
+
     ## df[node, "isTip"] <- TRUE
     sp_y <- range(sp.df$y, na.rm=TRUE)
     ii <- which(df$y > max(sp_y))
