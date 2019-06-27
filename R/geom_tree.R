@@ -253,13 +253,20 @@ setup_data_continuous_color <- function(x, xend, y, yend, col, col2, xrange = NU
         yend <- y + (xend - x) * slope
     }
 
-    ## col and col2 is not color, but numerical value that can map to colour
+    n <- length(x)
+    if (is.numeric(col) && is.numeric(col2)) {
+        colour <- seq(col, col2, length.out = n)
+    } else if (is.character(col) && is.character(col2)) {
+        colour <- grDevices::colorRampPalette(c(col, col2))(n)
+    } else {
+        stop("col and col2 should be both numeric or character..." )
+    }
 
     data.frame(x = x,
                xend = xend,
                y = y,
                yend = yend,
-               colour = seq(col, col2, length.out = length(x)))
+               colour = colour)
 }
 
 setup_data_continuous_color_tree <- function(df, nsplit = 100, extend = 0) {
