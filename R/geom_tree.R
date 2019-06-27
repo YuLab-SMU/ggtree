@@ -236,7 +236,8 @@ geom_tree2 <- function(layout="rectangular", ...) {
 }
 
 
-setup_data_continuous_color <- function(x, xend, y, yend, col, col2, xrange = NULL, nsplit = 100, extend = 0) {
+setup_data_continuous_color <- function(x, xend, y, yend, col, col2,
+                                        xrange = NULL, nsplit = 100, extend = 0.002) {
     if (is.null(xrange))
         xrange <- c(x, xend)
 
