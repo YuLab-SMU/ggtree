@@ -12,7 +12,7 @@
 ##' @param fontsize size of text
 ##' @param angle angle of text
 ##' @param geom one of 'text' or 'label'
-##' @param hjust hjust
+##' @param hjust justify text horizontally
 ##' @param color color for clade & label, of length 1 or 2
 ##' @param fill fill label background, only work with geom='label'
 ##' @param family sans by default, can be any supported font
@@ -21,6 +21,7 @@
 ##' @return ggplot layers
 ##' @export
 ##' @author Guangchuang Yu
+##' @seealso \link{geom_cladelabel2}
 geom_cladelabel <- function(node, label,
                             offset      = 0,
                             offset.text = 0,

@@ -22,6 +22,9 @@ add tip label for circular layout
 \references{
 \url{https://groups.google.com/forum/#!topic/bioc-ggtree/o35PV3iHO-0}
 }
+\seealso{
+\link{geom_tiplab}
+}
 \author{
 Guangchuang Yu
 }
