@@ -107,33 +107,8 @@ StatTreeHorizontal <- ggproto("StatTreeHorizontal", Stat,
                                       } else {
                                           return(df )
                                       }
-                                      
-                                      nsplit <- 100
-                                      xstep <- diff(range(df$x))/nsplit
-                                      
-                                      res <- lapply(1:nrow(df), function(i) {
-                                          node <- df$node[i]
-                                          x <- df$x[i]
-                                          xend <- df$xend[i]
-                                          col <- df$col[i]
-                                          col2 <- df$col2[i]
-                                          
-                                          xn <- floor((xend - x)/xstep)
-                                          if (xn >0) {
-                                              x <- x + 0:xn * xstep
-                                              xend <- c(x[-1] * (1+0.002), xend)
-                                          }
-                                                                                    
-                                          j <- match(c('x', 'xend', 'col', 'col2', 'colour'), colnames(df))
-                                          merge(df[, -j],
-                                                data.frame(node = node,
-                                                           x = x,
-                                                           xend = xend,
-                                                           colour = seq(col, col2, length.out = length(x))),
-                                                by = "node")
-                                      }) %>% do.call('rbind', .)
-                                  
-                                      return(res)
+
+                                      setup_data_continuous_color_tree(df, nsplit = 100, extend = 0.002)
                                   }
                                   
                                   if ('.id' %in% names(data)) {
@@ -200,40 +175,8 @@ StatTree <- ggproto("StatTree", Stat,
                             } else {
                                 return(df )
                             }
-                                      
-                            nsplit <- 100
-                            xstep <- diff(range(df$x))/nsplit
-                            
-                            res <- lapply(1:nrow(df), function(i) {
-                                node <- df$node[i]
-                                x <- df$x[i]
-                                xend <- df$xend[i]
-                                y <- df$y[i]
-                                yend <- df$yend[i]
-                                col <- df$col[i]
-                                col2 <- df$col2[i]
-                                
-                                xn <- floor((xend - x)/xstep)
-                                slope <- (yend - y)/(xend - x)
-                                if (xn > 0) {
-                                    x <- x + 0:xn * xstep
-                                    xend <- c(x[-1], xend)
-                                    y <- y + 0:xn * xstep * slope
-                                    yend <- c(y[-1], yend)
-                                }
-                                
-                                j <- match(c('x', 'xend', 'y', 'yend', 'col', 'col2', 'colour'), colnames(df))
-                                merge(df[, -j],
-                                      data.frame(node = node,
-                                                 x = x,
-                                                 xend = xend,
-                                                 y = y,
-                                                 yend = yend,
-                                                 colour = seq(col, col2, length.out = length(x))),
-                                      by = "node")
-                            }) %>% do.call('rbind', .)
-                            
-                            return(res)
+
+                            setup_data_continuous_color_tree(df, nsplit = 100, extend = 0.002)
                         }
                         if ('.id' %in% names(data)) {
                             ldf <- split(data, data$.id)
@@ -292,3 +235,47 @@ geom_tree2 <- function(layout="rectangular", ...) {
     }
 }
 
+
+setup_data_continuous_color <- function(x, xend, y, yend, col, col2, xrange = NULL, nsplit = 100, extend = 0) {
+    if (is.null(xrange))
+        xrange <- c(x, xend)
+
+    xstep <- diff(xrange)/nsplit
+    xn <- floor((xend - x)/xstep)
+    slope <- (yend - y)/(xend - x)
+    if (xn > 0) {
+        x <- x + 0:xn * xstep
+        tmp <- x[-1] * (1+extend)
+        tmp[tmp > xend] <- xend
+        xend <- c(tmp, xend)
+
+        y <- y + 0:xn * xstep * slope
+        yend <- y + (xend - x) * slope
+    }
+
+    ## col and col2 is not color, but numerical value that can map to colour
+
+    data.frame(x = x,
+               xend = xend,
+               y = y,
+               yend = yend,
+               colour = seq(col, col2, length.out = length(x)))
+}
+
+setup_data_continuous_color_tree <- function(df, nsplit = 100, extend = 0) {
+    lapply(1:nrow(df), function(i) {
+        df2 <- setup_data_continuous_color(x = df$x[i],
+                                           xend = df$xend[i],
+                                           y = df$y[i],
+                                           yend = df$yend[i],
+                                           col = df$col[i],
+                                           col2 = df$col2[i],
+                                           xrange = range(df$x),
+                                           nsplit = nsplit,
+                                           extend = extend)
+        df2$node <- df$node[i]
+        
+        j <- match(c('x', 'xend', 'y', 'yend', 'col', 'col2', 'colour'), colnames(df))
+        merge(df[i, -j, drop = FALSE], df2, by = "node")
+    }) %>% do.call('rbind', .)
+}
