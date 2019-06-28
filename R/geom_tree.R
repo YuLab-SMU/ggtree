@@ -241,17 +241,23 @@ setup_data_continuous_color <- function(x, xend, y, yend, col, col2,
     if (is.null(xrange))
         xrange <- c(x, xend)
 
-    xstep <- diff(xrange)/nsplit
-    xn <- floor((xend - x)/xstep)
-    slope <- (yend - y)/(xend - x)
+    ## xstep <- diff(xrange)/nsplit
+    ## xn <- floor((xend - x)/xstep)
+    xn <- floor((xend - x) * nsplit /diff(xrange))
+    ## slope <- (yend - y)/(xend - x)
+    ydiff <- yend - y
+    xdiff <- xend - x
+
     if (xn > 0) {
-        x <- x + 0:xn * xstep
-        tmp <- x[-1] * (1+extend)
+        ## x <- x + 0:xn * xstep
+        x <- x + 0:xn * diff(xrange) / nsplit 
+        tmp <- x[-1] * (1 + extend)
         tmp[tmp > xend] <- xend
         xend <- c(tmp, xend)
-
-        y <- y + 0:xn * xstep * slope
-        yend <- y + (xend - x) * slope
+        ## y <- y + 0:xn * xstep * slope
+        y <- y + 0:xn * diff(xrange) * ydiff / (nsplit * xdiff)
+        ## yend <- y + (xend - x) * slope
+        yend <- y + (xend - x) * ydiff / xdiff 
     }
 
     n <- length(x)
@@ -270,7 +276,7 @@ setup_data_continuous_color <- function(x, xend, y, yend, col, col2,
                colour = colour)
 }
 
-setup_data_continuous_color_tree <- function(df, nsplit = 100, extend = 0) {
+setup_data_continuous_color_tree <- function(df, nsplit = 100, extend = 0.002) {
     lapply(1:nrow(df), function(i) {
         df2 <- setup_data_continuous_color(x = df$x[i],
                                            xend = df$xend[i],
@@ -289,29 +295,3 @@ setup_data_continuous_color_tree <- function(df, nsplit = 100, extend = 0) {
 }
 
 
-setup_data_continuous_color_df <- function(df, nsplit = 100, extend = 0) {
-    rr <- range(df$x)
-    if (nrow(df) == 1)
-        rr <- c(df$x, df$xend)
-
-    lapply(1:nrow(df), function(i) {
-        df2 <- setup_data_continuous_color(x = df$x[i],
-                                           xend = df$xend[i],
-                                           y = df$y[i],
-                                           yend = df$yend[i],
-                                           col = df$col[i],
-                                           col2 = df$col2[i],
-                                           xrange = rr,
-                                           nsplit = nsplit,
-                                           extend = extend)
-
-        res <- lapply(df[i,,drop = FALSE], rep, each = nrow(df2)) %>%
-            do.call('cbind', .) %>% as.data.frame
-        res$x <- df2$x
-        res$xend <- df2$xend
-        res$y <- df2$y
-        res$yend <- df2$yend
-        res$colour <- df2$colour
-        return(res)
-    }) %>% do.call('rbind', .)
-}
