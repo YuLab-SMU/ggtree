@@ -287,3 +287,31 @@ setup_data_continuous_color_tree <- function(df, nsplit = 100, extend = 0) {
         merge(df[i, -j, drop = FALSE], df2, by = "node")
     }) %>% do.call('rbind', .)
 }
+
+
+setup_data_continuous_color_df <- function(df, nsplit = 100, extend = 0) {
+    rr <- range(df$x)
+    if (nrow(df) == 1)
+        rr <- c(df$x, df$xend)
+
+    lapply(1:nrow(df), function(i) {
+        df2 <- setup_data_continuous_color(x = df$x[i],
+                                           xend = df$xend[i],
+                                           y = df$y[i],
+                                           yend = df$yend[i],
+                                           col = df$col[i],
+                                           col2 = df$col2[i],
+                                           xrange = rr,
+                                           nsplit = nsplit,
+                                           extend = extend)
+
+        res <- lapply(df[i,,drop = FALSE], rep, each = nrow(df2)) %>%
+            do.call('cbind', .) %>% as.data.frame
+        res$x <- df2$x
+        res$xend <- df2$xend
+        res$y <- df2$y
+        res$yend <- df2$yend
+        res$colour <- df2$colour
+        return(res)
+    }) %>% do.call('rbind', .)
+}

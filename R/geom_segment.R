@@ -77,6 +77,7 @@ geom_segment2 <- function(mapping = NULL, data = NULL, stat = "identity",
     )
 }
 
+
 ##' @importFrom ggplot2 GeomSegment
 ##' @importFrom ggplot2 draw_key_path
 GeomSegmentGGtree <- ggproto("GeomSegmentGGtree", GeomSegment,
@@ -90,6 +91,7 @@ GeomSegmentGGtree <- ggproto("GeomSegmentGGtree", GeomSegment,
                                                    lineend = "butt", linejoin = "round", na.rm = FALSE, nudge_x = 0) {
 
                                  data$x <- data$x + nudge_x
+
                                  ## data$x <- data$x - sapply(data$label, function(x) convertWidth(grobWidth(textGrob(x, gp=gpar(fontsize=.04* .pt))), "native", TRUE))
                                  GeomSegment$draw_panel(data = data, panel_params = panel_params, coord = coord,
                                                         arrow = arrow, arrow.fill = arrow.fill,
