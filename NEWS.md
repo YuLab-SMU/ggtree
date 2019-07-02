@@ -1,5 +1,6 @@
 # ggtree 1.17.1
 
++ `facet_data` to extract data used in `facet_plot` or `geom_facet` (2019-07-02, Tue)
 + `continuous` parameter in `geom_tree` to to continuous color edge from parent to child (2019-09-25, Tue)
   - <https://yulab-smu.github.io/treedata-book/chapter4.html#color-tree>
 + `root.position` parameter for `fortify` and `ggtree` (2019-05-27, Mon)

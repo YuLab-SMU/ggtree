@@ -35,4 +35,35 @@ geom_facet <- function(mapping=NULL, data, geom, panel, ...) {
 }
 
 
+##' extract data used in `facet_plot` or `geom_facet`
+##'
+##' 
+##' @title facet_data
+##' @param tree_view ggtree object
+##' @param panel data plotted in specific panel. If only one dataset used in the panel, return the data frame, else return a list of data frames.
+##' @return data frame or a list of data frames
+##' @export
+##' @author Guangchuang Yu
+facet_data <- function(tree_view, panel) {
+    n <- length(tree_view$layers)
+    j <- which(vapply(1:n, function(i) {
+        d <- tree_view$layers[[i]]$data
+        if(is.null(d$.panel))
+            return(FALSE)
+        d$.panel[1] == panel
+    }, logical(1)))
+
+    d <- tree_view$data
+    res <- lapply(j, function(i) {        
+        d2 <- tree_view$layers[[i]]$data
+
+        lb <- which(names(d2) == 'label')
+        v <- which(!names(d2) %in% names(d))
+
+        return(d2[,c(lb, v)])
+    })
+    if (length(j) == 1)
+        return(res[[1]])
+    return(res)
+}
 
