@@ -1,3 +1,7 @@
+# ggtree 1.17.2
+
++ `geom_inset` (2019-07-05, Fri)
+
 # ggtree 1.17.1
 
 + `facet_data` to extract data used in `facet_plot` or `geom_facet` (2019-07-02, Tue)

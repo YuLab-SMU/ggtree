@@ -20,6 +20,12 @@ ggplot_add.facet_xlim <- function(object, plot, object_name) {
     ggplot_add(obj, plot, object_name)
 }
 
+##' @method ggplot_add tree_inset
+##' @export
+ggplot_add.tree_inset <- function(object, plot, object_name) {
+    object$tree_view <- plot
+    do.call(inset, object)
+}
 
 ##' @method ggplot_add facet_plot
 ##' @export

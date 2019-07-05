@@ -1,22 +1,45 @@
-##' add insets in a tree
+##' add subplots to tree
 ##'
-##'
-##' @title inset
-##' @param tree_view tree view
+##' 
+##' @title geom_inset
+##' @rdname inset
 ##' @param insets a list of ggplot objects, named by node number
-##' @param width width of inset
-##' @param height height of inset
+##' @param width width of inset, relative to the range of x-axis
+##' @param height height of inset, relative to the range of y-axis
 ##' @param hjust horizontal adjustment
 ##' @param vjust vertical adjustment
 ##' @param x x position, one of 'node' and 'branch'
 ##' @param reverse_x whether x axis was reversed by scale_x_reverse
 ##' @param reverse_y whether y axis was reversed by scale_y_reverse
+##' @return inset layer
+##' @export
+##' @author Guangchuang Yu
+geom_inset <- function(insets, width = .1, height = .1, hjust = 0, vjust = 0,
+                       x = "node", reverse_x = FALSE, reverse_y = FALSE) {
+    structure(list(insets = insets, width = width, height = height,
+                   hjust = hjust, vjust = vjust, x = x,
+                   reverse_x = reverse_x, reverse_y = reverse_y), class = "tree_inset")
+}
+
+##' add insets in a tree
+##'
+##'
+##' @title inset
+##' @rdname inset
+##' @param tree_view tree view
+##' @inheritParams geom_inset
 ##' @return tree view with insets
 ##' @importFrom rvcheck get_fun_from_pkg
 ##' @export
 ##' @author Guangchuang Yu
 inset <- function(tree_view, insets, width, height, hjust=0, vjust=0,
                   x="node", reverse_x=FALSE, reverse_y=FALSE) {
+
+    if(width < 0 || width > 1)
+        stop("width should be in range of (0,1)")
+
+    if(height < 0 || height > 1)
+        stop("height should be in range of (0,1)")
 
     df <- tree_view$data[as.numeric(names(insets)),]
     x <- match.arg(x, c("node", "branch", "edge"))
@@ -34,6 +57,9 @@ inset <- function(tree_view, insets, width, height, hjust=0, vjust=0,
         xx <- -xx
     if (reverse_y)
         yy <- -yy
+
+    width <- width * diff(range(xx))
+    height <- height * diff(range(yy))
 
     geom_subview <- get_fun_from_pkg("ggimage", "geom_subview")
 

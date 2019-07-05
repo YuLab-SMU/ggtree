@@ -60,7 +60,8 @@ facet_data <- function(tree_view, panel) {
         lb <- which(names(d2) == 'label')
         v <- which(!names(d2) %in% names(d))
 
-        return(d2[,c(lb, v)])
+        d2 <- d2[,c(lb, v)]
+        d2[order(rownames(d2)),]
     })
     if (length(j) == 1)
         return(res[[1]])
