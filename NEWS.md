@@ -1,6 +1,7 @@
 # ggtree 1.17.2
 
-+ `geom_inset` (2019-07-05, Fri)
++ `geom_tiplab` now works with 'circular' and 'fan' layouts (2019-07-05, Fri)
++ `geom_inset`
 
 # ggtree 1.17.1
 

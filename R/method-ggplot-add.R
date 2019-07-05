@@ -38,6 +38,18 @@ ggplot_add.facet_plot <- function(object, plot, object_name) {
     ggplot_add(obj, plot, object_name)
 }
 
+##' @method ggplot_add tiplab
+##' @export
+ggplot_add.tiplab <- function(object, plot, object_name) {
+    layout <- get("layout", envir = plot$plot_env)
+    if (layout == 'circular' || layout == 'fan') {
+        ly <- do.call(geom_tiplab_circular, object)
+    } else {
+        ly <- do.call(geom_tiplab_rectangular, object)
+    }
+    ggplot_add(ly, plot, object_name)
+}
+
 ##' @importFrom ggplot2 scale_x_continuous
 ##' @importFrom ggplot2 scale_x_date
 ##' @method ggplot_add scale_ggtree

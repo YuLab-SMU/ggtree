@@ -36,9 +36,6 @@ require(ape)
 tr <- rtree(10)
 ggtree(tr) + geom_tiplab()
 }
-\seealso{
-\link{geom_tiplab2}
-}
 \author{
 Guangchuang Yu
 }

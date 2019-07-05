@@ -19,8 +19,19 @@
 ##' require(ape)
 ##' tr <- rtree(10)
 ##' ggtree(tr) + geom_tiplab()
-##' @seealso \link{geom_tiplab2}
 geom_tiplab <- function(mapping=NULL, hjust = 0,  align = FALSE, linetype = "dotted", linesize=0.5, geom="text",  offset=0, ...) {
+    structure(list(mapping = mapping,
+                   hjust = hjust,
+                   align = align,
+                   linetype = linetype,
+                   linesize = linesize,
+                   geom = geom,
+                   offset = offset,
+                   ...),
+              class = "tiplab")
+}
+
+geom_tiplab_rectangular <- function(mapping=NULL, hjust = 0,  align = FALSE, linetype = "dotted", linesize=0.5, geom="text",  offset=0, ...) {
     geom <- match.arg(geom, c("text", "label", "image", "phylopic"))
     if (geom == "text") {
         label_geom <- geom_text2
@@ -102,10 +113,10 @@ geom_tiplab2 <- function(mapping=NULL, hjust=0, ...) {
         m2 <- modifyList(mapping, m2)
     }
 
-    list(geom_tiplab(m1, hjust=hjust, ...),
-         geom_tiplab(m2, hjust=1-hjust, ...)
+    list(geom_tiplab_rectangular(m1, hjust=hjust, ...),
+         geom_tiplab_rectangular(m2, hjust=1-hjust, ...)
          )
 }
 
-
+geom_tiplab_circular <- geom_tiplab2
 
