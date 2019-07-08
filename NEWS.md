@@ -1,7 +1,7 @@
 # ggtree 1.17.2
 
 + `geom_tiplab` now works with 'circular' and 'fan' layouts (2019-07-05, Fri)
-+ `geom_inset`
++ `geom_inset` for adding subplots to specific nodes (see also the `inset` function introduced in v=1.3.8)
 
 # ggtree 1.17.1
 

@@ -97,7 +97,8 @@ msaplot <- function(p, fasta, offset=0, width=1, color=NULL, window=NULL, bg_lin
     lines.df <- data.frame(from=min(xmin), to=max(xmax), y = y)
 
     if (bg_line) {
-        p <- p + geom_segment(data=lines.df, aes(x=from, xend=to, y=y, yend=y), size=h*.2)
+        p <- p + geom_segment(data=lines.df, aes(x=from, xend=to, y=y, yend=y), 
+                              size=h*.2, inherit.aes = FALSE)
     }
 
     msa <- lapply(1:length(y), function(i) {
