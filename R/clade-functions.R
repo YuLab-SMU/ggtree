@@ -212,8 +212,8 @@ expand <- function(tree_view=NULL, node) {
 
         tree_view$data <- calculate_angle(df)
     } else {
-        tree_view$data <- dplyr::bind_rows(df, sp.df) %>%
-            dplyr::arrange(.data$node)
+        df[sp.df$node,] <- sp.df
+        tree_view$data <- df
     }
 
     attr(tree_view, clade) <- NULL
