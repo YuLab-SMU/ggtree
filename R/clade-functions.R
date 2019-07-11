@@ -59,6 +59,7 @@ is.viewClade <- function(tree_view) {
 
 
 
+
 ##' collapse a clade
 ##'
 ##'
@@ -66,15 +67,18 @@ is.viewClade <- function(tree_view) {
 ##' @rdname collapse
 ##' @param x tree view
 ##' @param node clade node
+##' @param mode one of 'none', 'max', 'min' and 'mixed'
 ##' @param clade_name set clade name. If clade_name = NULL, do nothing
 ##' @param ... additional parameters
 ##' @return tree view
 ##' @method collapse ggtree
+##' @importFrom ggplot2 geom_polygon
 ##' @export
 ##' @seealso expand
 ##' @author Guangchuang Yu
-collapse.ggtree <- function(x=NULL, node, clade_name = NULL, ...) {
+collapse.ggtree <- function(x=NULL, node, mode = "none", clade_name = NULL, ...) {
     tree_view <- get_tree_view(x)
+    mode <- match.arg(mode, c("none", "max", "min", "mixed"))
 
     df <- tree_view$data
 
@@ -91,24 +95,52 @@ collapse.ggtree <- function(x=NULL, node, clade_name = NULL, ...) {
         return(tree_view)
     }
 
-    ## df[node, "isTip"] <- TRUE
-    sp_y <- range(sp.df$y, na.rm=TRUE)
-    ii <- which(df$y > max(sp_y))
-    if (length(ii)) {
-        df$y[ii] <- df$y[ii] - diff(sp_y)
+    if (mode == "none") {
+        ## df[node, "isTip"] <- TRUE
+        sp_y <- range(sp.df$y, na.rm=TRUE)
+        ii <- which(df$y > max(sp_y))
+        if (length(ii)) {
+            df$y[ii] <- df$y[ii] - diff(sp_y)
+        }
+        df$y[node] <- min(sp_y)
+        
+        df[sp.df$node, "x"] <- NA
+        df[sp.df$node, "y"] <- NA
+
+        df <- reassign_y_from_node_to_root(df, node)
+        
+        ## re-calculate branch mid position
+        df <- calculate_branch_mid(df)
+
+        ii <- which(!is.na(df$x))
+        df$angle[ii] <- calculate_angle(df[ii,])$angle
+    } else {
+        ## reference https://jean.manguy.eu/subtrees-as-triangles-with-ggtree/
+ 
+        sp_coord <- dplyr::summarise(sp.df[sp.df$isTip,],
+                                     xmax = max(.data$x),
+                                     xmin = min(.data$x),
+                                     ymax = max(.data$y),
+                                     ymin = min(.data$y))
+ 
+        triangle <- switch(
+            mode,
+            max = tibble::tibble(
+                x = c(df$x[node], sp_coord$xmax, sp_coord$xmax),
+                y = c(df$y[node], sp_coord$ymin, sp_coord$ymax)
+            ),
+            min = tibble::tibble(
+                x = c(df$x[node], sp_coord$xmin, sp_coord$xmin),
+                y = c(df$y[node], sp_coord$ymin, sp_coord$ymax)
+            ),
+            mixed = tibble::tibble(
+                x = c(df$x[node], sp_coord$xmin, sp_coord$xmax),
+                y = c(df$y[node], sp_coord$ymin, sp_coord$ymax)                
+            )
+        )
+        ## remove collapsed nodes
+        df <- dplyr::filter(df, !.data$node %in% sp.df$node)
     }
-    df$y[node] <- min(sp_y)
-
-    df[sp.df$node, "x"] <- NA
-    df[sp.df$node, "y"] <- NA
-
-    df <- reassign_y_from_node_to_root(df, node)
-
-    ## re-calculate branch mid position
-    df <- calculate_branch_mid(df)
-
-    ii <- which(!is.na(df$x))
-    df$angle[ii] <- calculate_angle(df[ii,])$angle
 
     ## set clade name
     if (!is.null(clade_name))
@@ -117,6 +149,12 @@ collapse.ggtree <- function(x=NULL, node, clade_name = NULL, ...) {
     tree_view$data <- df
     clade <- paste0("clade_", node)
     attr(tree_view, clade) <- sp.df
+    if (mode != "none") {
+        tree_view <- tree_view +
+            geom_polygon(mapping = aes_(x = ~x, y = ~y),
+                         data = triangle, ...)
+    }
+
     tree_view
 }
 
