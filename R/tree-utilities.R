@@ -357,11 +357,11 @@ getTreeArcAngles <- function(df, origin_id, subtree) {
   # no parent angle found.
   # Subtree has to have 1 or more nodes to compare.
   if (is.na(theta_left) || (length(subtree_node_ids) == 0)){
-    return(0)
+      return(c('left' = 0, 'right' = 0))
   }
   # create vector with named columns
   # left-hand and right-hand angles between origin node and the extremities of the tree nodes.
-  arc <- c('left' = theta_left, 'right' = theta_right)
+    arc <- c('left' = theta_left, 'right' = theta_right)
 
   # Calculate the angle from the origin node to each child node.
   # Moving from parent to children in depth-first traversal.

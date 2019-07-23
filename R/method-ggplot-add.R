@@ -20,6 +20,15 @@ ggplot_add.facet_xlim <- function(object, plot, object_name) {
     ggplot_add(obj, plot, object_name)
 }
 
+##' @method ggplot_add range_xaxis
+##' @export
+ggplot_add.range_xaxis <- function(object, plot, object_name) {
+    d <- plot$data
+    diff <- as.numeric(d[[object$center]][1]) - d$x[1]
+    obj <- scale_x_continuous(sec.axis = ~. + diff)
+    ggplot_add(obj, plot, object_name)
+}
+
 ##' @method ggplot_add tree_inset
 ##' @export
 ggplot_add.tree_inset <- function(object, plot, object_name) {

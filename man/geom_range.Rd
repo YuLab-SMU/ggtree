@@ -4,13 +4,12 @@
 \alias{geom_range}
 \title{geom_range}
 \usage{
-geom_range(range = "length_0.95_HPD", branch.length = "branch.length",
-  ...)
+geom_range(range = "length_0.95_HPD", center = "x", ...)
 }
 \arguments{
 \item{range}{range, e.g. "height_0.95_HPD"}
 
-\item{branch.length}{corresponding branch.length}
+\item{center}{center of the range, mean or median}
 
 \item{...}{additional parameter, e.g. color, size, alpha}
 }

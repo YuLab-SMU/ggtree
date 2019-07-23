@@ -1,3 +1,8 @@
+# ggtree 1.17.3
+
++ `scale_x_range` for adding second x-axis for `geom_range` (2019-07-23, Tue)
++ change `branch.length` parameter to `center` for `geom_range`
+
 # ggtree 1.17.2
 
 + extend `expand` according to the change of `collapse` (2019-07-11, Thu)

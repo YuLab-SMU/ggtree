@@ -3,13 +3,13 @@
 ##'
 ##' @title geom_range
 ##' @param range range, e.g. "height_0.95_HPD"
-##' @param branch.length corresponding branch.length
+##' @param center center of the range, mean or median
 ##' @param ... additional parameter, e.g. color, size, alpha
 ##' @return ggplot layer
 ##' @importFrom ggplot2 aes_string
 ##' @export
 ##' @author Guangchuang Yu
-geom_range <- function(range = "length_0.95_HPD", branch.length = "branch.length", ...) {
+geom_range <- function(range = "length_0.95_HPD", center = "x", ...) {
     position = "identity"
     show.legend = NA
     na.rm = TRUE
@@ -20,7 +20,7 @@ geom_range <- function(range = "length_0.95_HPD", branch.length = "branch.length
     lower <- paste0('range_lower(', range, ')')
     upper <- paste0('range_upper(', range, ')')
 
-    mapping <- modifyList(default_aes, aes_string(branch.length=branch.length, lower=lower, upper=upper))
+    mapping <- modifyList(default_aes, aes_string(center=center, lower=lower, upper=upper))
 
     layer(
         stat = StatRange,
@@ -37,11 +37,13 @@ geom_range <- function(range = "length_0.95_HPD", branch.length = "branch.length
 
 }
 
+
+
 StatRange <- ggproto("StatRange", Stat,
                      compute_group = function(self, data, scales, params) {
                          df <- data[!is.na(data[["lower"]]),]
-                         df[["lower"]] <- df[["lower"]] + df[["x"]] - df[["branch.length"]]
-                         df[["upper"]] <- df[["upper"]] + df[["x"]] - df[["branch.length"]]
+                         df[["lower"]] <- df[["lower"]] + df[["x"]] - as.numeric(df[["center"]])
+                         df[["upper"]] <- df[["upper"]] + df[["x"]] - as.numeric(df[["center"]])
 
                          data.frame(x = df[["lower"]],
                                     xend = df[["upper"]],
