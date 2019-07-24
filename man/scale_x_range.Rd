@@ -4,16 +4,13 @@
 \alias{scale_x_range}
 \title{scale_x_range}
 \usage{
-scale_x_range(center = "x")
-}
-\arguments{
-\item{center}{center of the range}
+scale_x_range()
 }
 \value{
 ggtree object
 }
 \description{
-second x-axis for geom_range
+add second x-axis for geom_range
 }
 \author{
 Guangchuang Yu

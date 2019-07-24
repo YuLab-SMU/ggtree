@@ -20,11 +20,31 @@ ggplot_add.facet_xlim <- function(object, plot, object_name) {
     ggplot_add(obj, plot, object_name)
 }
 
+##' @method ggplot_add geom_range
+##' @export
+ggplot_add.geom_range <- function(object, plot, object_name) {
+    obj <- do.call(geom_range_internal, object)
+    assign(x = "range_range", value = object$range, envir = plot$plot_env)
+    assign(x = "range_center", value = object$center, envir = plot$plot_env)
+    ggplot_add(obj, plot, object_name)
+}
+
 ##' @method ggplot_add range_xaxis
 ##' @export
 ggplot_add.range_xaxis <- function(object, plot, object_name) {
     d <- plot$data
-    diff <- as.numeric(d[[object$center]][1]) - d$x[1]
+    center <- get("range_center", envir = plot$plot_env)
+    if (center == "auto") {
+        range <- get("range_range", envir = plot$plot_env)
+        center_value <- range_center(d[[range]])
+        i <- which(!is.na(center_value))[1]
+        cc <- center_value[i]
+    } else {
+        i <- which(!is.na(d[[center]]))[1]
+        cc <- as.numeric(d[[center]][i])
+    }
+
+    diff <- cc - d$x[i]
     obj <- scale_x_continuous(sec.axis = ~. + diff)
     ggplot_add(obj, plot, object_name)
 }

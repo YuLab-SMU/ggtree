@@ -3,13 +3,18 @@
 ##'
 ##' @title geom_range
 ##' @param range range, e.g. "height_0.95_HPD"
-##' @param center center of the range, mean or median
+##' @param center center of the range, mean, median or auto (default, the center of the range)
 ##' @param ... additional parameter, e.g. color, size, alpha
 ##' @return ggplot layer
 ##' @importFrom ggplot2 aes_string
 ##' @export
 ##' @author Guangchuang Yu
-geom_range <- function(range = "length_0.95_HPD", center = "x", ...) {
+geom_range <- function(range, center = "auto", ...) {
+    structure(list(range = range, center = center, ...), class = "geom_range")
+}
+
+
+geom_range_internal <- function(range, center, ...) {
     position = "identity"
     show.legend = NA
     na.rm = TRUE
@@ -19,6 +24,10 @@ geom_range <- function(range = "length_0.95_HPD", center = "x", ...) {
 
     lower <- paste0('range_lower(', range, ')')
     upper <- paste0('range_upper(', range, ')')
+    if (center == "auto") {
+        center <- paste0('range_center(', range, ')')
+    }
+
 
     mapping <- modifyList(default_aes, aes_string(center=center, lower=lower, upper=upper))
 
@@ -53,24 +62,33 @@ StatRange <- ggproto("StatRange", Stat,
                      required_aes = c("x", "y", "xend", "yend")
                      )
 
+range_center <- function(range) {
+    vapply(range, function(x) {
+        if (length(x) == 0) 
+            return(NA) 
+        if (length(x) == 1 && is.na(x))
+            return(NA)
+        (as.numeric(x[1]) + as.numeric(x[2]))/2
+    }, numeric(1))
+}
 
 range_lower <- function(range) {
-    sapply(range, function(x) {
+    vapply(range, function(x) {
         ## length(x) == 0 for x is NULL
         ## see https://groups.google.com/d/msg/bioc-ggtree/yNzjtioVVGU/MCh3MPl_CwAJ
         if (length(x) == 0)
             return(NA)
         as.numeric(x[1])
-    })
+    }, numeric(1))
 }
 
 range_upper <- function(range) {
-    sapply(range, function(x) {
+    vapply(range, function(x) {
         if (length(x) == 0) 
             return(NA) 
         if (length(x) == 1 && is.na(x))
             return(NA)
         as.numeric(x[2])
-    })
+    }, numeric(1))
 }
 
