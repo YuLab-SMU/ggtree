@@ -12,7 +12,7 @@
 ##' @importFrom ggplot2 ylab
 ##' @export
 ##' @return updated ggplot object with new theme
-##' @author Yu Guangchuang
+##' @author Guangchuang Yu
 ##' @examples
 ##' require(ape)
 ##' tr <- rtree(10)
@@ -29,6 +29,23 @@ theme_tree <- function(bgcolor="white", fgcolor="black", ...) {
 	 )
 }
 
+##' dendrogram theme
+##'
+##'
+##' @title theme_dendrogram
+##' @inheritParams theme_tree
+##' @export
+##' @importFrom ggplot2 element_text
+##' @author Guangchuang Yu
+theme_dendrogram <- function(bgcolor="white", fgcolor="black", ...) {
+    theme_tree(bgcolor = bgcolor, fgcolor = fgcolor,
+               axis.line.y = element_line(color=fgcolor),
+               axis.text.y = element_text(color=fgcolor),
+               axis.ticks.y = element_line(color=fgcolor),
+               ...)
+}
+
+
 ##' tree2 theme
 ##'
 ##'
@@ -43,7 +60,7 @@ theme_tree <- function(bgcolor="white", fgcolor="black", ...) {
 ##' @importFrom ggplot2 element_rect
 ##' @export
 ##' @return updated ggplot object with new theme
-##' @author Yu Guangchuang
+##' @author Guangchuang Yu
 ##' @examples
 ##' require(ape)
 ##' tr <- rtree(10)

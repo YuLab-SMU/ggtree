@@ -1,5 +1,9 @@
 # ggtree 1.17.3
 
++ remove re-export treeio parser function, user now need to load treeio explictly (2019-07-24, Wed) 
++ export `layout_circular`, `layout_fan` and `layout_rectangular`
++ `layout_dendrogram` and `theme_dendrogram` 
+  - <https://yulab-smu.github.io/treedata-book/chapter10.html#dendrogram>
 + `scale_x_range` for adding second x-axis for `geom_range` (2019-07-23, Tue)
 + change `branch.length` parameter to `center` for `geom_range`
 

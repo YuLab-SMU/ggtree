@@ -6,7 +6,6 @@
 \alias{\%>\%}
 \alias{rtree}
 \alias{read.tree}
-\alias{read.nexus}
 \alias{groupOTU}
 \alias{groupClade}
 \alias{collapse}
@@ -19,22 +18,6 @@
 \alias{geom_text}
 \alias{geom_label}
 \alias{geom_point}
-\alias{read.astral}
-\alias{read.beast}
-\alias{read.codeml}
-\alias{read.codeml_mlc}
-\alias{read.hyphy}
-\alias{read.iqtree}
-\alias{read.jplace}
-\alias{read.jtree}
-\alias{read.mrbayes}
-\alias{read.newick}
-\alias{read.nhx}
-\alias{read.paml_rst}
-\alias{read.phylip}
-\alias{read.phyloT}
-\alias{read.r8s}
-\alias{read.raxml}
 \title{Objects exported from other packages}
 \keyword{internal}
 \description{
@@ -42,16 +25,14 @@ These objects are imported from other packages. Follow the links
 below to see their documentation.
 
 \describe{
-  \item{ape}{\code{\link[ape]{rtree}}, \code{\link[ape]{read.tree}}, \code{\link[ape]{read.nexus}}}
+  \item{ape}{\code{\link[ape]{rtree}}, \code{\link[ape]{read.tree}}}
 
   \item{dplyr}{\code{\link[dplyr]{collapse}}}
 
-  \item{ggplot2}{\code{\link[ggplot2]{fortify}}, \code{\link[ggplot2]{ggplot}}, \code{\link[ggplot2]{xlim}}, \code{\link[ggplot2]{theme}}, \code{\link[ggplot2]{ggsave}}, \code{\link[ggplot2]{aes}}, \code{\link[ggplot2]{fortify}}, \code{\link[ggplot2]{geom_text}}, \code{\link[ggplot2]{geom_label}}, \code{\link[ggplot2]{geom_point}}}
+  \item{ggplot2}{\code{\link[ggplot2]{fortify}}, \code{\link[ggplot2]{ggplot}}, \code{\link[ggplot2]{xlim}}, \code{\link[ggplot2]{theme}}, \code{\link[ggplot2]{ggsave}}, \code{\link[ggplot2]{aes}}, \code{\link[ggplot2]{geom_text}}, \code{\link[ggplot2]{geom_label}}, \code{\link[ggplot2]{geom_point}}}
 
   \item{magrittr}{\code{\link[magrittr]{\%>\%}}}
 
   \item{tidytree}{\code{\link[tidytree]{groupOTU}}, \code{\link[tidytree]{groupClade}}}
-
-  \item{treeio}{\code{\link[treeio]{read.astral}}, \code{\link[treeio]{read.beast}}, \code{\link[treeio]{read.codeml}}, \code{\link[treeio]{read.codeml_mlc}}, \code{\link[treeio]{read.hyphy}}, \code{\link[treeio]{read.iqtree}}, \code{\link[treeio]{read.jplace}}, \code{\link[treeio]{read.jtree}}, \code{\link[treeio]{read.mrbayes}}, \code{\link[treeio]{read.newick}}, \code{\link[treeio]{read.nhx}}, \code{\link[treeio]{read.paml_rst}}, \code{\link[treeio]{read.phylip}}, \code{\link[treeio]{read.phyloT}}, \code{\link[treeio]{read.r8s}}, \code{\link[treeio]{read.raxml}}}
 }}
 

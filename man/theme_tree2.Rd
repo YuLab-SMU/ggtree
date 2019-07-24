@@ -25,5 +25,5 @@ tr <- rtree(10)
 ggtree(tr) + theme_tree2()
 }
 \author{
-Yu Guangchuang
+Guangchuang Yu
 }
