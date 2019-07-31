@@ -122,6 +122,11 @@ fortify.phylo4 <- function(model, data,
                            right     = FALSE,
                            mrsd      = NULL,
                            ...) {
+    if (is(model, "dendrogram")) {
+        as.phylo <- phylogram::as.phylo
+    }
+
+    
     phylo <- as.phylo(model)
     df <- fortify.phylo(phylo, data,
                         layout, ladderize, right, mrsd=mrsd, ...)
