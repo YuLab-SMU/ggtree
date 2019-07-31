@@ -2,6 +2,8 @@
 
 S3method(MRCA,gg)
 S3method(collapse,ggtree)
+S3method(fortify,dendrogram)
+S3method(fortify,hclust)
 S3method(fortify,multiPhylo)
 S3method(fortify,obkData)
 S3method(fortify,phylo)

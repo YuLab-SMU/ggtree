@@ -1,3 +1,7 @@
+# ggtree 1.17.4
+
++ support `hclust` and `dendrogram` (2019-07-31, Wed)
+
 # ggtree 1.17.3
 
 + remove re-export treeio parser function, user now need to load treeio explictly (2019-07-24, Wed) 

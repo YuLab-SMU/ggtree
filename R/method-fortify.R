@@ -128,6 +128,18 @@ fortify.phylo4 <- function(model, data,
     scaleY(phylo, df, yscale, layout, ...)
 }
 
+## `ape::as.phylo` (for `hclust`)
+
+##' @method fortify hclust
+##' @export
+fortify.hclust <- fortify.phylo4
+
+## `phylogram::as.phylo` (for `dendrogram`).
+
+##' @method fortify dendrogram
+##' @export
+fortify.dendrogram <- fortify.phylo4
+
 ##' @method fortify phylo4d
 ##' @importFrom treeio as.treedata
 ##' @export
