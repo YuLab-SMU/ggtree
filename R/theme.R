@@ -72,8 +72,9 @@ theme_tree2 <- function(bgcolor="white", fgcolor="black", ...) {
 	  )
 }
 
+##' @importFrom ggplot2 theme_void
 theme_tree2_internal <- function(bgcolor="white", fgcolor="black",
-                                 legend.position="none",
+                                 legend.position="right",
                                  panel.grid.minor=element_blank(),
                                  panel.grid.major=element_blank(),
                                  panel.border=element_blank(),
@@ -82,7 +83,7 @@ theme_tree2_internal <- function(bgcolor="white", fgcolor="black",
                                  axis.text.y=element_blank(),...) {
     ## need to set axis.line otherwise the setting cannot be inherited.
     ## https://github.com/GuangchuangYu/ggtree/issues/218
-    theme_bw() +
+    theme_void() +
         theme(legend.position=legend.position,
               panel.grid.minor=panel.grid.minor,
               panel.grid.major=panel.grid.major,
