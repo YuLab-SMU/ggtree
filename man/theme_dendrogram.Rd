@@ -9,7 +9,7 @@ theme_dendrogram(bgcolor = "white", fgcolor = "black", ...)
 \arguments{
 \item{bgcolor}{background color}
 
-\item{fgcolor}{foreground color}
+\item{fgcolor}{color for axis}
 
 \item{...}{additional parameter}
 }

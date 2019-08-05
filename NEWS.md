@@ -1,6 +1,6 @@
 # ggtree 1.17.4
 
-+ `theme_tree` and `theme_tree2` modify from `theme_void` instead of `theme_bw() (2019-08-05, Mon)
++ `theme_tree` is now based on `theme_void` and the `fgcolor` parameter was removed (2019-08-05, Mon)
 + support `hclust` and `dendrogram` (2019-07-31, Wed)
 
 # ggtree 1.17.3
