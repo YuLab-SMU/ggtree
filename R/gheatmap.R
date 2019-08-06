@@ -28,6 +28,8 @@
 ##' @importFrom ggplot2 scale_fill_gradient
 ##' @importFrom ggplot2 scale_fill_discrete
 ##' @importFrom ggplot2 scale_y_continuous
+##' @importFrom dplyr filter
+##' @importFrom dplyr select
 ##' @export
 ##' @author Guangchuang Yu
 gheatmap <- function(p, data, offset=0, width=1, low="green", high="red", color="white",
@@ -53,11 +55,11 @@ gheatmap <- function(p, data, offset=0, width=1, low="green", high="red", color=
     ## internal nodes)
     df <- p$data
     nodeCo <- intersect(df %>% filter(is.na(x)) %>% 
-                         select(parent, node) %>% unlist(), 
+                         select(.data$parent, .data$node) %>% unlist(), 
                      df %>% filter(!is.na(x)) %>% 
-                         select(parent, node) %>% unlist())
-    labCo <- df %>% filter(node %in% nodeCo) %>% 
-        select(label) %>% unlist()
+                         select(.data$parent, .data$node) %>% unlist())
+    labCo <- df %>% filter(.data$node %in% nodeCo) %>% 
+        select(.data$label) %>% unlist()
     selCo <- intersect(labCo, rownames(data))
     isSel <- df$label %in% selCo
     

@@ -18,19 +18,19 @@
 ##' ggtree(tr) + theme_tree()
 theme_tree <- function(bgcolor="white", ...) {
 
-    ## list(xlab(NULL),
-    ##      ylab(NULL),
-    ##      theme_tree2_internal() +
-    ##      theme(panel.background=element_rect(fill=bgcolor, colour=bgcolor),
-    ##            axis.line.x = element_blank(),
-    ##            axis.text.x = element_blank(),
-    ##            axis.ticks.x = element_blank(),
-    ##            ...)
-    ##      )
-
-    theme_void() +
-    theme(panel.background=element_rect(fill=bgcolor, colour=bgcolor),
-          ...)
+    list(xlab(NULL),
+         ylab(NULL),
+         theme_tree2_internal() +
+         theme(panel.background=element_rect(fill=bgcolor, colour=bgcolor),
+               axis.line.x = element_blank(),
+               axis.text.x = element_blank(),
+               axis.ticks.x = element_blank(),
+               ...)
+         )
+    
+    ## theme_void() +
+    ##     theme(panel.background=element_rect(fill=bgcolor, colour=bgcolor),
+    ##           ...)
 }
 
 ##' dendrogram theme
@@ -74,10 +74,10 @@ theme_dendrogram <- function(bgcolor = "white", fgcolor = "black", ...) {
 ##' tr <- rtree(10)
 ##' ggtree(tr) + theme_tree2()
 theme_tree2 <- function(bgcolor="white", fgcolor="black", ...) {
-     list(xlab(NULL),
-          ylab(NULL),
-	  theme_tree2_internal(bgcolor, fgcolor, ...)
-	  )
+    list(xlab(NULL),
+         ylab(NULL),
+         theme_tree2_internal(bgcolor, fgcolor, ...)
+         )
 }
 
 ##' @importFrom ggplot2 theme_bw

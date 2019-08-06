@@ -1,6 +1,7 @@
 # ggtree 1.17.4
 
-+ `theme_tree` is now based on `theme_void` and the `fgcolor` parameter was removed (2019-08-05, Mon)
++ extend `gheatmap` to support collapsed node (2019-08-06, Tue)
+  - <https://github.com/GuangchuangYu/ggtree/pull/243>
 + support `hclust` and `dendrogram` (2019-07-31, Wed)
 
 # ggtree 1.17.3

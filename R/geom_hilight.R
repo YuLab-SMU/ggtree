@@ -24,7 +24,7 @@ geom_hilight <- function(node, fill="steelblue", alpha=.5, extend=0, extendto=NU
   default_aes <- aes_(x=~x, y=~y, node=~node, parent=~parent, branch.length=~branch.length)
   mapping <- default_aes
 
-  l <- layer(
+  layer(
     stat=StatHilight,
     data = data,
     mapping = mapping,
@@ -40,8 +40,6 @@ geom_hilight <- function(node, fill="steelblue", alpha=.5, extend=0, extendto=NU
                   extendto=extendto,
                   na.rm = na.rm)
   )
-
-  return(l)
 }
 
 ##' stat_hilight

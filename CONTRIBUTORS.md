@@ -22,3 +22,7 @@
   - <https://github.com/GuangchuangYu/ggtree/pull/165>
   - <https://github.com/GuangchuangYu/ggtree/pull/169>
 
+# Ruizhu Huang
+
++ extend `gheatmap` to support collapsed nodes
+  - <https://github.com/GuangchuangYu/ggtree/pull/243>
