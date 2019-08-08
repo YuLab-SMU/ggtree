@@ -91,7 +91,8 @@ StatTreeHorizontal <- ggproto("StatTreeHorizontal", Stat,
                               compute_group = function(data, params) {
                                 data
                               },
-                              compute_panel = function(self, data, scales, params, layout, lineend, continuous = FALSE) {
+                              compute_panel = function(self, data, scales, params, layout, lineend,
+                                                       continuous = FALSE, rootnode = TRUE) {
                                   .fun <- function(data) {
                                       df <- setup_tree_data(data)
                                       x <- df$x
@@ -100,6 +101,15 @@ StatTreeHorizontal <- ggproto("StatTreeHorizontal", Stat,
                                       df$yend <- y
                                       ii <- with(df, match(parent, node))
                                       df$x <- x[ii]
+
+                                      if (!rootnode) {
+                                          ## introduce this paramete in v=1.7.4
+                                          ## rootnode = TRUE by default, which behave as previous versions.
+                                          ## and has advantage of the number of line segments is consistent with tree nodes.
+                                          ## if rootnode = FALSE, the root to itself line segment will be removed.
+
+                                          df <- dplyr::filter(df, .data$node != tidytree:::rootnode.tbl_tree(df)$node)
+                                      }
 
                                       if (continuous && !is.null(df$colour)) {
                                           df$col2 <- df$colour
@@ -127,7 +137,8 @@ StatTreeVertical <- ggproto("StatTreeVertical", Stat,
                             compute_group = function(data, params) {
                                 data
                             },
-                            compute_panel = function(self, data, scales, params, layout, lineend, continuous = FALSE) {
+                            compute_panel = function(self, data, scales, params, layout, lineend,
+                                                     continuous = FALSE, rootnode = TRUE) {
                                 .fun <- function(data) {
                                     df <- setup_tree_data(data)
                                     x <- df$x
@@ -137,10 +148,17 @@ StatTreeVertical <- ggproto("StatTreeVertical", Stat,
                                     df$y <- y[ii]
                                     df$xend <- x[ii]
                                     df$yend <- y
+
+                                    if (!rootnode) {
+                                        df <- dplyr::filter(df, .data$node != tidytree:::rootnode.tbl_tree(df)$node)
+                                    }
+
                                     if (continuous && !is.null(df$colour ))
                                         df$colour <- df$colour[ii]
+
                                     return(df)
                                 }
+
                                 if ('.id' %in% names(data)) {
                                     ldf <- split(data, data$.id)
                                     df <- do.call(rbind, lapply(ldf, .fun))
@@ -158,7 +176,8 @@ StatTree <- ggproto("StatTree", Stat,
                     compute_group = function(data, params) {
                         data
                     },
-                    compute_panel = function(self, data, scales, params, layout, lineend, continuous =  FALSE) {
+                    compute_panel = function(self, data, scales, params, layout, lineend,
+                                             continuous =  FALSE, rootnode = TRUE) {
                         .fun <- function(data) {
                             df <- setup_tree_data(data)
                             x <- df$x
@@ -168,6 +187,10 @@ StatTree <- ggproto("StatTree", Stat,
                             df$y <- y[ii]
                             df$xend <- x
                             df$yend <- y
+
+                            if (!rootnode) {
+                                df <- dplyr::filter(df, .data$node != tidytree:::rootnode.tbl_tree(df)$node)
+                            }
 
                             if (continuous && !is.null(df$colour)) {
                                 df$col2 <- df$colour

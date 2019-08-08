@@ -1,5 +1,8 @@
 # ggtree 1.17.4
 
++ introduce `rootnode` parameter in `geom_tree` with default = TRUE and behave consistent with previous versions (2019-08-08, Thu)
+  - if `rootnode = FALSE`, the line segment of root to itself (although invisible) will be removed.
+  - the invisible root to itself line is kept by default for the number of line segments is consistent with the number of nodes. 
 + extend `gheatmap` to support collapsed node (2019-08-06, Tue)
   - <https://github.com/GuangchuangYu/ggtree/pull/243>
 + support `hclust` and `dendrogram` (2019-07-31, Wed)

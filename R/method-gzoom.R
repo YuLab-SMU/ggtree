@@ -26,12 +26,12 @@ gzoom.phylo <- function(phy, focus, subtree=FALSE, widths=c(.3, .7)) {
     ## foc should +1 since the group index start from 0
     cols <- c("black", "red")[foc+1]
 
-    p1 <- ggtree(phy, color=cols)
+    p1 <- ggtree(phy, colour=cols)
 
     subtr <- drop.tip(phy, phy$tip.label[-focus],
                       subtree=subtree, rooted=TRUE)
 
-    p2 <- ggtree(subtr, color="red") + geom_tiplab(hjust=-0.05)
+    p2 <- ggtree(subtr, colour="red") + geom_tiplab(hjust=-0.05)
     p2 <- p2 + xlim(0, max(p2$data$x)*1.2)
     multiplot(p1, p2, ncol=2, widths=widths)
 
