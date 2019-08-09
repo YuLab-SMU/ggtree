@@ -1,6 +1,6 @@
 <!-- README.md is generated from README.Rmd. Please edit that file -->
 
-# ggtree: an R package for visualization of phylogenetic trees (and other tree-like structures) with their annotation data
+# ggtree: an R package for visualization of phylogenetic trees with their annotation data
 
 <a href="https://yulab-smu.github.io/treedata-book/"><img src="https://raw.githubusercontent.com/Bioconductor/BiocStickers/master/ggtree/ggtree.png" height="200" align="right" /></a>
 
