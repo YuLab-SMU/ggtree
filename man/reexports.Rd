@@ -8,6 +8,8 @@
 \alias{read.tree}
 \alias{groupOTU}
 \alias{groupClade}
+\alias{nodeid}
+\alias{nodelab}
 \alias{collapse}
 \alias{fortify}
 \alias{ggplot}
@@ -33,6 +35,6 @@ below to see their documentation.
 
   \item{magrittr}{\code{\link[magrittr]{\%>\%}}}
 
-  \item{tidytree}{\code{\link[tidytree]{groupOTU}}, \code{\link[tidytree]{groupClade}}}
+  \item{tidytree}{\code{\link[tidytree]{groupOTU}}, \code{\link[tidytree]{groupClade}}, \code{\link[tidytree]{nodeid}}, \code{\link[tidytree]{nodelab}}}
 }}
 

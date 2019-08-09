@@ -18,6 +18,14 @@ tidytree::groupOTU
 ##' @export
 tidytree::groupClade
 
+##' @importFrom tidytree nodeid
+##' @export
+tidytree::nodeid
+
+##' @importFrom tidytree nodelab
+##' @export
+tidytree::nodelab
+
 ##' @importFrom dplyr collapse
 ##' @export
 dplyr::collapse

@@ -1,6 +1,10 @@
 # ggtree 1.17.4
 
-+ defunct `gzoom` function (2019-08-09, Fri)
++ defined `nodelab` method for ggtree to convert node number to label (2019-08-09, Fir)
++ redefined `nodeid` as S3 generic in `tidytree` v=0.2.6 
+  - change the original function as a method for ggtree
+  - move the `nodeid` function for tree object to treeio
++ defunct `gzoom` function 
 + introduce `rootnode` parameter in `geom_tree` with default = FALSE and there will be no line segment of root to itself (although invisible) (2019-08-08, Thu)
   - if `rootnode = TRUE`, will restore previous behavior
   - the invisible root to itself line segment have advantage for the number of line segments is consistent with the number of nodes. 
