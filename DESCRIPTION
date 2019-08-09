@@ -1,7 +1,6 @@
 Package: ggtree
 Type: Package
-Title: an R package for visualization and annotation of phylogenetic trees with
-    their covariates and other associated data
+Title: an R package for visualization of tree and annotation data
 Version: 1.17.4
 Authors@R: c(
 	   person("Guangchuang", "Yu",     email = "guangchuangyu@gmail.com", role = c("aut", "cre", "cph"), comment = c(ORCID = "0000-0002-6485-8781")),
@@ -14,7 +13,7 @@ Authors@R: c(
 Maintainer: Guangchuang Yu <guangchuangyu@gmail.com>
 Description: 'ggtree' extends the 'ggplot2' plotting system which implemented
     the grammar of graphics. 'ggtree' is designed for visualization and annotation
-    of phylogenetic trees with their covariates and other associated data.
+    of phylogenetic trees and other tree-like structure with their associated data.
 Depends:
     R (>= 3.4.0)
 Imports:

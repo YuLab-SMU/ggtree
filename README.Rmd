@@ -8,7 +8,7 @@ html_preview: false
 <!-- README.md is generated from README.Rmd. Please edit that file -->
 
 
-#  ggtree: an R package for visualization and annotation of phylogenetic trees with their covariates and other associated data
+#  ggtree: an R package for visualization of tree and annotation data
 
 ```{r echo=FALSE, results="hide", message=FALSE}
 #library("txtplot")
@@ -25,16 +25,18 @@ Biocpkg <- function (pkg) {
 [![platform](http://www.bioconductor.org/shields/availability/devel/ggtree.svg)](https://www.bioconductor.org/packages/devel/bioc/html/ggtree.html#archives)
 [![Project Status: Active - The project has reached a stable, usable state and is being actively developed.](http://www.repostatus.org/badges/latest/active.svg)](http://www.repostatus.org/#active)
 [![Bioc](http://www.bioconductor.org/shields/years-in-bioc/ggtree.svg)](https://www.bioconductor.org/packages/devel/bioc/html/ggtree.html#since)
+[![Awesome](https://cdn.rawgit.com/sindresorhus/awesome/d7305f38d29fed78fa85652e3a63e154dd8e8829/media/badge.svg)](https://awesome-r.com/#awesome-r-graphic-displays)
+
+
 `r badge_bioc_release("ggtree", "green")`
 `r badge_devel("guangchuangyu/ggtree", "green")`
-
-
 [![codecov](https://codecov.io/gh/GuangchuangYu/ggtree/branch/master/graph/badge.svg)](https://codecov.io/gh/GuangchuangYu/ggtree)
 [![Last-changedate](https://img.shields.io/badge/last%20change-`r gsub('-', '--', Sys.Date())`-green.svg)](https://github.com/GuangchuangYu/ggtree/commits/master)
-`r badge_bioc_download_rank("ggtree")`
+
+
 `r badge_bioc_download("ggtree", "total", "blue")`
 `r badge_bioc_download("ggtree", "month", "blue")`
-[![Awesome](https://cdn.rawgit.com/sindresorhus/awesome/d7305f38d29fed78fa85652e3a63e154dd8e8829/media/badge.svg)](https://awesome-r.com/#awesome-r-graphic-displays)
+`r badge_bioc_download_rank("ggtree")`
 
 
 ```{r comment="", echo=FALSE, results='asis'}
