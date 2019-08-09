@@ -111,14 +111,15 @@ theme_tree2_internal <- function(bgcolor="white", fgcolor="black",
 ##'
 ##' theme for inset function
 ##' @title theme_inset
+##' @param legend.position position of legend
 ##' @param ... additional parameter
 ##' @return ggplot object
 ##' @export
 ##' @author Guangchuang Yu
-theme_inset <- function(...) {
+theme_inset <- function(legend.position =  "none", ...) {
     list(xlab(NULL),
          ylab(NULL),
-         theme_tree(...),
+         theme_tree(legend.position =  legend.position, ...),
          ggimage::theme_transparent()
          )
 }

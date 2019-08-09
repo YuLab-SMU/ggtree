@@ -4,9 +4,11 @@
 \alias{theme_inset}
 \title{theme_inset}
 \usage{
-theme_inset(...)
+theme_inset(legend.position = "none", ...)
 }
 \arguments{
+\item{legend.position}{position of legend}
+
 \item{...}{additional parameter}
 }
 \value{
