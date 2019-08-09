@@ -1,6 +1,6 @@
 <!-- README.md is generated from README.Rmd. Please edit that file -->
 
-# ggtree: an R package for visualization of tree and annotation data
+# ggtree: an R package for visualization of phylogenetic trees (and other tree-like structures) with their annotation data
 
 <a href="https://yulab-smu.github.io/treedata-book/"><img src="https://raw.githubusercontent.com/Bioconductor/BiocStickers/master/ggtree/ggtree.png" height="200" align="right" /></a>
 
@@ -22,8 +22,8 @@ developed.](http://www.repostatus.org/badges/latest/active.svg)](http://www.repo
 
 ‘ggtree’ extends the ‘ggplot2’ plotting system which implemented the
 grammar of graphics. ‘ggtree’ is designed for visualization and
-annotation of phylogenetic trees with their covariates and other
-associated data.
+annotation of phylogenetic trees and other tree-like structures with
+their annotation data.
 
 For details, please visit <https://yulab-smu.github.io/treedata-book/>.
 

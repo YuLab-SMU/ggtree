@@ -8,7 +8,7 @@ html_preview: false
 <!-- README.md is generated from README.Rmd. Please edit that file -->
 
 
-#  ggtree: an R package for visualization of tree and annotation data
+#  ggtree: an R package for visualization of phylogenetic trees (and other tree-like structures) with their annotation data
 
 ```{r echo=FALSE, results="hide", message=FALSE}
 #library("txtplot")
