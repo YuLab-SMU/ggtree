@@ -4,10 +4,10 @@
 + redefined `nodeid` as S3 generic in `tidytree` v=0.2.6 
   - change the original function as a method for ggtree
   - move the `nodeid` function for tree object to treeio
-+ defunct `gzoom` function 
-+ introduce `rootnode` parameter in `geom_tree` with default = FALSE and there will be no line segment of root to itself (although invisible) (2019-08-08, Thu)
-  - if `rootnode = TRUE`, will restore previous behavior
++ defunct `gzoom` function
++ introduce `rootnode` parameter in `geom_tree` with default = TRUE and behave as previous version (2019-08-08, Thu)
   - the invisible root to itself line segment have advantage for the number of line segments is consistent with the number of nodes. 
+  - if `rootnode = FALSE`, there will be no line segment of root to itself.
 + extend `gheatmap` to support collapsed node (2019-08-06, Tue)
   - <https://github.com/GuangchuangYu/ggtree/pull/243>
 + support `hclust` and `dendrogram` (2019-07-31, Wed)
