@@ -37,6 +37,42 @@ geom_cladelabel <- function(node, label,
                             family      = "sans",
                             parse       = FALSE,
                             ...) {
+
+    structure(list(node = node,
+                   label = label,
+                   offset = offset,
+                   offset.text = offset.text,
+                   extend = extend,
+                   align =  align,
+                   barsize = barsize,
+                   fontsize = fontsize,
+                   angle = angle,
+                   geom = geom,
+                   hjust = hjust,
+                   color = color,
+                   fill = fill,
+                   family = family,
+                   parse = parse,
+                   ...),
+              class = 'cladelabel')
+}
+
+
+geom_cladelabel_rectangular <- function(node, label,
+                            offset      = 0,
+                            offset.text = 0,
+                            extend      = 0,
+                            align       = FALSE,
+                            barsize     = 0.5,
+                            fontsize    = 3.88,
+                            angle       = 0,
+                            geom        = "text",
+                            hjust       = 0,
+                            color       = NULL,
+                            fill        = NA,
+                            family      = "sans",
+                            parse       = FALSE,
+                            ...) {
     mapping <- NULL
     data <- NULL
     position <- "identity"

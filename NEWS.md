@@ -1,5 +1,7 @@
 # ggtree 1.17.4
 
++ now `geom_cladelabel` supports `unrooted` and `daylight` layouts (2019-08-14, Wed)
+  - by integrating `geom_cladelabel2`
 + defined `nodelab` method for ggtree to convert node number to label (2019-08-09, Fir)
 + redefined `nodeid` as S3 generic in `tidytree` v=0.2.6 
   - change the original function as a method for ggtree

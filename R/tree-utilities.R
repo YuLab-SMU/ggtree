@@ -309,7 +309,7 @@ getTreeArcAngles <- function(df, origin_id, subtree) {
     ## Initialise angle from origin node to parent node.
     ## If subtree_root_id is child of origin_id
     ## if (subtree_root_id %in% getChild.df(df, origin_id)) {
-    if (subtree_root_id %in% tidytree::child(df, origin_id)$node) {
+    if (subtree_root_id %in% tidytree:::child.tbl_tree(df, origin_id)$node) {
         ## get angle from original node to parent of subtree.
         theta_left <- getNodeAngle.vector(x_origin, y_origin, df_x[subtree_root_id], df_y[subtree_root_id])
         theta_right <- theta_left
@@ -317,7 +317,7 @@ getTreeArcAngles <- function(df, origin_id, subtree) {
         ## Special case.
         ## get angle from parent of subtree to children
         ## children_ids <- getChild.df(df, subtree_root_id)
-        children_ids <- tidytree::child(df, subtree_root_id)$node
+        children_ids <- tidytree:::child.tbl_tree(df, subtree_root_id)$node
         if(length(children_ids) == 2){
             ## get angles from parent to it's two children.
             theta1 <- getNodeAngle.vector(x_origin, y_origin, df_x[children_ids[1]], df_y[children_ids[1]])
@@ -372,7 +372,7 @@ getTreeArcAngles <- function(df, origin_id, subtree) {
     # Get angle from origin node to parent node.
     theta_parent <- getNodeAngle.vector(x_origin, y_origin, df_x[parent_id], df_y[parent_id])
       ## children_ids <- getChild.df(df, parent_id)
-      children_ids <- tidytree::child(df, parent_id)$node
+      children_ids <- tidytree:::child.tbl_tree(df, parent_id)$node
     # Skip if child is parent node of subtree.
     children_ids = children_ids[children_ids != origin_id]
     for(child_id in children_ids){

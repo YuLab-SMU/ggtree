@@ -95,6 +95,18 @@ ggplot_add.tiplab <- function(object, plot, object_name) {
     ggplot_add(ly, plot, object_name)
 }
 
+##' @method ggplot_add cladelabel
+##' @export
+ggplot_add.cladelabel <- function(object, plot, object_name) {
+    layout <- get("layout", envir = plot$plot_env)
+    if (layout == "unrooted" || layout == "daylight") {
+        ly <- do.call(geom_cladelabel2, object)
+    } else {
+        ly <- do.call(geom_cladelabel_rectangular, object)
+    }
+    ggplot_add(ly, plot, object_name)
+}
+
 ##' @importFrom ggplot2 scale_x_continuous
 ##' @importFrom ggplot2 scale_x_date
 ##' @method ggplot_add scale_ggtree
