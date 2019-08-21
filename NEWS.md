@@ -1,3 +1,7 @@
+# ggtree 1.17.5
+
++ support `phylog` defined in ade4 package (2019-08-14, Wed)
+
 # ggtree 1.17.4
 
 + now `geom_cladelabel` supports `unrooted` and `daylight` layouts (2019-08-14, Wed)

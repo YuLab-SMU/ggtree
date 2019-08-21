@@ -7,28 +7,24 @@
 ##' @param on gene to center (i.e. set middle position of the `on` gene to 0)
 ##' @param ... additional parameters
 ##' @return geom layer
+##' @importFrom rvcheck get_aes_var
 ##' @export
 ##' @author Guangchuang Yu
 geom_motif <- function(mapping, data, on, ...) {
-    if (is.null(unlist(mapping)$y)) {
-        seqnames <- as.character(unlist(mapping)$group)
-    } else {
-        seqnames <- as.character(unlist(mapping)$y)
-    }
 
-    if (is.null(unlist(mapping$fill))) {
-        id <- as.character(unlist(mapping$id))
-    } else {
-        id <- as.character(unlist(mapping$fill))
-    }
-    dd <- data[unlist(data[, id]) == on,]
+    seqnames <- 'label' 
+    id <- get_aes_var(mapping, 'fill')
+
+    dd <- data[data[, id] == on,]
     mid <- dd$start + (dd$end - dd$start)/2
-    names(mid) <- as.character(unlist(dd[, seqnames]))
-    adj <- mid[as.character(unlist(data[, seqnames]))]
+    names(mid) <- as.character(dd[, seqnames])
+
+    adj <- mid[as.character(data[, seqnames])]
     data$start <- data$start - adj
     data$end <- data$end - adj
     geom_gene_arrow <- get_fun_from_pkg("gggenes", "geom_gene_arrow")
-    geom_gene_arrow(mapping = mapping, data = as.data.frame(data), ...)
+    mapping <- modifyList(mapping, aes_(y = ~y))
+    geom_gene_arrow(mapping = mapping, data = data, inherit.aes = FALSE, ...)
 }
 
 

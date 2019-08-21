@@ -10,6 +10,7 @@
 \alias{groupClade}
 \alias{nodeid}
 \alias{nodelab}
+\alias{MRCA}
 \alias{collapse}
 \alias{fortify}
 \alias{ggplot}
@@ -35,6 +36,6 @@ below to see their documentation.
 
   \item{magrittr}{\code{\link[magrittr]{\%>\%}}}
 
-  \item{tidytree}{\code{\link[tidytree]{groupOTU}}, \code{\link[tidytree]{groupClade}}, \code{\link[tidytree]{nodeid}}, \code{\link[tidytree]{nodelab}}}
+  \item{tidytree}{\code{\link[tidytree]{groupOTU}}, \code{\link[tidytree]{groupClade}}, \code{\link[tidytree]{nodeid}}, \code{\link[tidytree]{nodelab}}, \code{\link[tidytree]{MRCA}}}
 }}
 

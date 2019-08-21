@@ -145,6 +145,10 @@ fortify.hclust <- fortify.phylo4
 ##' @export
 fortify.dendrogram <- fortify.phylo4
 
+##' @method fortify phylog
+##' @export
+fortify.phylog <- fortify.phylo4
+
 ##' @method fortify phylo4d
 ##' @importFrom treeio as.treedata
 ##' @export

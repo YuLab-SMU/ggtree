@@ -26,6 +26,10 @@ tidytree::nodeid
 ##' @export
 tidytree::nodelab
 
+##' @importFrom tidytree MRCA
+##' @export
+tidytree::MRCA
+
 ##' @importFrom dplyr collapse
 ##' @export
 dplyr::collapse
