@@ -107,6 +107,46 @@ ggplot_add.cladelabel <- function(object, plot, object_name) {
     ggplot_add(ly, plot, object_name)
 }
 
+##' @method ggplot_add striplabel
+##' @export
+ggplot_add.striplabel <- function(object, plot, object_name) {
+    d <- plot$data
+    strip_df <- get_striplabel_position(d, object$taxa1, object$taxa2,
+                                        object$offset, object$align,
+                                        object$extend, adjustRatio=1.02)
+    ly_bar <- geom_segment(aes_(x = ~x, xend = ~xend,
+                                y = ~y, yend = ~yend),
+                           data = strip_df, size = object$barsize)
+
+    strip_text_df <- get_striplabel_position(d, object$taxa1, object$taxa2,
+                                        offset = object$offset + object$offset.text,
+                                        align = object$align,
+                                        object$extend, adjustRatio=1.02)
+    strip_text_df$y <- mean(c(strip_text_df$y, strip_text_df$yend))
+    strip_text_df$label <- object$label
+
+    if (is.null(object$label) || is.na(object$label)) {
+        return(ggplot_add(ly_bar, plot, object_name))
+    }
+
+    if(object$geom == 'text') {
+        ly_text <- geom_text(aes_(x = ~x, y = ~y, label = ~label),
+                             data = strip_text_df, size = object$fontsize,
+                             angle = object$angle, family = object$family,
+                             hjust = object$hjust, parse = object$parse
+                             )
+    } else {
+        ly_text <- geom_label(aes_(x = ~x, y = ~y, label = ~label),
+                              data = strip_text_df, size = object$fontsize,
+                              angle = object$angle, family = object$family,
+                              hjust = object$hjust, parse = object$parse,
+                              fill = object$fill
+                              )
+    }
+
+    ggplot_add(list(ly_bar, ly_text), plot, object_name)
+}
+
 ##' @importFrom ggplot2 scale_x_continuous
 ##' @importFrom ggplot2 scale_x_date
 ##' @method ggplot_add scale_ggtree

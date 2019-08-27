@@ -136,7 +136,8 @@ geom_cladelabel_rectangular <- function(node, label,
 
         } else {
             layer_text = stat_cladeText(node=node, label=label, offset=offset+offset.text,
-                                        align=align, size=fontsize, angle=angle, color=labelcolor, fill=fill,family=family,
+                                        align=align, size=fontsize, angle=angle, color=labelcolor,
+                                        fill=fill,family=family,
                                         mapping=mapping, data=data, geom=geom, hjust=hjust,
                                         position=position, show.legend = show.legend,
                                         inherit.aes = inherit.aes, na.rm=na.rm,
@@ -242,13 +243,15 @@ StatCladeText <- ggproto("StatCladeText", Stat,
 
 StatCladeBar <- ggproto("StatCladBar", Stat,
                         compute_group = function(self, data, scales, params, node, offset, align, extend) {
-                            get_cladelabel_position(data, node, offset, align, adjustRatio=1.02, angle=0, extend=extend)
+                            get_cladelabel_position(data, node, offset, align, adjustRatio=1.02,
+                                                    angle=0, extend=extend)
                         },
                         required_aes = c("x", "y", "xend", "yend")
 )
 
 
-get_cladelabel_position <- function(data, node, offset, align, adjustRatio, angle="auto", extend=0) {
+get_cladelabel_position <- function(data, node, offset, align,
+                                    adjustRatio, angle="auto", extend=0) {
     df <- get_cladelabel_position_(data, node, angle, extend)
     if (align) {
         # Find max x value for all tree nodes so all clade labels align to same position.
