@@ -4,7 +4,7 @@
 \alias{geom_motif}
 \title{geom_motif}
 \usage{
-geom_motif(mapping, data, on, ...)
+geom_motif(mapping, data, on, label, align = "centre", ...)
 }
 \arguments{
 \item{mapping}{aes mapping}
@@ -12,6 +12,10 @@ geom_motif(mapping, data, on, ...)
 \item{data}{data}
 
 \item{on}{gene to center (i.e. set middle position of the `on` gene to 0)}
+
+\item{label}{specify a column to be used to label genes}
+
+\item{align}{where to place gene label, default is 'centre' and can be set to 'left' and 'right'}
 
 \item{...}{additional parameters}
 }
