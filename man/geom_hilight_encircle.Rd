@@ -5,7 +5,7 @@
 \title{geom_hilight_encircle}
 \usage{
 geom_hilight_encircle(data = NULL, node, mapping = NULL,
-  fill = "steelblue", alpha = 0.5, expand = 0, ...)
+  fill = "steelblue", alpha = 0.5, extend = 0, ...)
 }
 \arguments{
 \item{data}{data frame to calculate xspline (default = NULL)}
@@ -18,7 +18,7 @@ geom_hilight_encircle(data = NULL, node, mapping = NULL,
 
 \item{alpha}{alpha (transparency) (default = 0.5)}
 
-\item{expand}{expands the xspline clade region only (default = 0)}
+\item{extend}{expands the xspline clade region only (default = 0)}
 
 \item{...}{addtional parameters, including:
 'spread' spread of shape? (default = 0.1),

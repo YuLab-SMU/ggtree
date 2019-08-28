@@ -219,7 +219,7 @@ get_glob_encircle <- function(data, panel_scales, coord){
 #' @param mapping aesthetic mapping (default = NULL)
 #' @param fill colour fill (default = steelblue)
 #' @param alpha alpha (transparency) (default = 0.5)
-#' @param expand expands the xspline clade region only (default = 0)
+#' @param extend expands the xspline clade region only (default = 0)
 #' @param ... addtional parameters, including:
 #' 'spread' spread of shape? (default = 0.1),
 #' 'linetype' Line type of xspline (default = 1),
@@ -234,7 +234,7 @@ geom_hilight_encircle <- function(data = NULL,
                                   mapping     = NULL,
                                   fill        = 'steelblue',
                                   alpha       = 0.5,
-                                  expand      = 0, # expand whole hilight region.
+                                  extend      = 0, # expand whole hilight region.
                                   ...) {
 
   position    = "identity"
@@ -266,7 +266,7 @@ geom_hilight_encircle <- function(data = NULL,
     params = list(clade_root_node = node,
                   fill = fill,
                   alpha = alpha,
-                  expand = expand,
+                  expand = extend,
                   na.rm = na.rm,
                   ...) # Parameters  to geom
   )

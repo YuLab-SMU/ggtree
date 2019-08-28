@@ -5,14 +5,26 @@
 ##' @param fill color fill (default = steelblue)
 ##' @param alpha alpha transparency, (default = 0.5)
 ##' @param extend extend xmax of the rectangle (default = 0)
-##' @param extendto extend xmax to extendto (default = NULL)
+## @param extendto extend xmax to extendto (default = NULL), only works for rectangular and circular/fan layouts
+##' @param ... additional parameters
 ##' @return ggplot2
 ##' @export
 ##' @importFrom ggplot2 aes_
 ##' @importFrom ggplot2 GeomRect
 ##' @author Guangchuang Yu
-geom_hilight <- function(node, fill="steelblue", alpha=.5, extend=0, extendto=NULL) {
+geom_hilight <- function(node, fill="steelblue", alpha=.5, extend=0, ...) {
+    structure(list(node = node,
+                   fill = fill,
+                   alpha = alpha,
+                   extend = extend,
+                   ## extendto = extendto,
+                   ...),
+              class = 'hilight')
+}
 
+
+
+geom_hilight_rectangular <- function(node, fill="steelblue", alpha=.5, extend=0, extendto=NULL) {
   data = NULL
   stat = "hilight"
   position = "identity"

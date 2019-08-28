@@ -4,8 +4,7 @@
 \alias{geom_hilight}
 \title{geom_hilight}
 \usage{
-geom_hilight(node, fill = "steelblue", alpha = 0.5, extend = 0,
-  extendto = NULL)
+geom_hilight(node, fill = "steelblue", alpha = 0.5, extend = 0, ...)
 }
 \arguments{
 \item{node}{selected node to hilight (required)}
@@ -16,7 +15,7 @@ geom_hilight(node, fill = "steelblue", alpha = 0.5, extend = 0,
 
 \item{extend}{extend xmax of the rectangle (default = 0)}
 
-\item{extendto}{extend xmax to extendto (default = NULL)}
+\item{...}{additional parameters}
 }
 \value{
 ggplot2
