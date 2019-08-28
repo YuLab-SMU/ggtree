@@ -2,7 +2,7 @@
 
 + update `geom_motif` according to the change of `gggenes` and allow labeling genes (2019-08-27, Tue)
   - <https://yulab-smu.github.io/treedata-book/chapter11.html#genome-locus>
-+ re-implement `geom_strip` with more robust support of labelling strip 
++ re-implement `geom_strip` with more robust support of labelling strip, either input taxa using name or id.
 + support `phylog` defined in ade4 package (2019-08-14, Wed)
   - <https://yulab-smu.github.io/treedata-book/chapter9.html#phylog>
 

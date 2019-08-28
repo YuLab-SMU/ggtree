@@ -116,11 +116,12 @@ ggplot_add.striplabel <- function(object, plot, object_name) {
                                         object$extend, adjustRatio=1.02)
     ly_bar <- geom_segment(aes_(x = ~x, xend = ~xend,
                                 y = ~y, yend = ~yend),
-                           data = strip_df, size = object$barsize)
+                           data = strip_df, size = object$barsize,
+                           color = object$color)
 
     strip_text_df <- get_striplabel_position(d, object$taxa1, object$taxa2,
                                         offset = object$offset + object$offset.text,
-                                        align = object$align,
+                                        align = object$align, 
                                         object$extend, adjustRatio=1.02)
     strip_text_df$y <- mean(c(strip_text_df$y, strip_text_df$yend))
     strip_text_df$label <- object$label
@@ -133,14 +134,15 @@ ggplot_add.striplabel <- function(object, plot, object_name) {
         ly_text <- geom_text(aes_(x = ~x, y = ~y, label = ~label),
                              data = strip_text_df, size = object$fontsize,
                              angle = object$angle, family = object$family,
-                             hjust = object$hjust, parse = object$parse
+                             hjust = object$hjust, parse = object$parse,
+                             color = object$color
                              )
     } else {
         ly_text <- geom_label(aes_(x = ~x, y = ~y, label = ~label),
                               data = strip_text_df, size = object$fontsize,
                               angle = object$angle, family = object$family,
                               hjust = object$hjust, parse = object$parse,
-                              fill = object$fill
+                              color = object$color, fill = object$fill
                               )
     }
 

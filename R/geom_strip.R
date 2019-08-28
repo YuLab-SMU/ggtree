@@ -14,6 +14,7 @@
 ##' @param angle angle of text
 ##' @param geom one of 'text' or 'label'
 ##' @param hjust hjust
+##' @param color color for bar and label
 ##' @param fill fill label background, only work with geom='label'
 ##' @param family sans by default, can be any supported font
 ##' @param parse logical, whether parse label
@@ -23,7 +24,7 @@
 ##' @author Guangchuang Yu
 geom_strip <- function(taxa1, taxa2, label, offset=0, offset.text=0,
                        align=TRUE, barsize=0.5, extend=0, fontsize=3.88,
-                       angle=0, geom="text", hjust=0, fill=NA, family="sans",
+                       angle=0, geom="text", hjust=0, color = 'black', fill=NA, family="sans",
                        parse=FALSE, ...) {
 
     if (missing(label)) label <- NA
@@ -40,6 +41,7 @@ geom_strip <- function(taxa1, taxa2, label, offset=0, offset.text=0,
                    angle = angle,
                    geom = geom,
                    hjust = hjust,
+                   color = color,
                    fill = fill,
                    family = family,
                    parse = parse,
