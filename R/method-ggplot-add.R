@@ -29,21 +29,28 @@ ggplot_add.geom_range <- function(object, plot, object_name) {
     ggplot_add(obj, plot, object_name)
 }
 
-##' @method ggplot_add layout_dendrogram
+##' @method ggplot_add layout_ggtree
 ##' @export
-ggplot_add.layout_dendrogram <- function(object, plot, object_name) {
-    plot <- revts(plot)
-    obj <- list(scale_x_reverse(labels = abs),
-                coord_flip(clip = 'off')
-                )
+ggplot_add.layout_ggtree <- function(object, plot, object_name) {
+    if(object$layout == 'fan') {
+        return(open_tree(plot, object$angle))
+    }
+
+    if (object$layout == 'dendrogram') {
+        plot <- revts(plot)
+        obj <- list(scale_x_reverse(labels = abs),
+                    coord_flip(clip = 'off')
+                    )
+    } else if (object$layout == 'circular') {
+        obj <- coord_polar(theta='y', start=-pi/2, -1)
+    } else { ## rectangular
+        obj <- coord_cartesian()
+    }
+    assign("layout", object$layout, envir = plot$plot_env)
     ggplot_add(obj, plot, object_name)
 }
 
-##' @method ggplot_add layout_fan
-##' @export
-ggplot_add.layout_fan <- function(object, plot, object_name) {
-    open_tree(plot, object$angle)
-}
+
 
 ##' @method ggplot_add range_xaxis
 ##' @export

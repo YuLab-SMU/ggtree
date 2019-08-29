@@ -152,7 +152,7 @@ collapse.ggtree <- function(x=NULL, node, mode = "none", clade_name = NULL, ...)
     if (mode != "none") {
         tree_view <- tree_view +
             geom_polygon(mapping = aes_(x = ~x, y = ~y),
-                         data = triangle, ...)
+                         data = triangle, inherit.aes = FALSE, ...)
     }
 
     clade <- paste0("collapse_clade_", node)
