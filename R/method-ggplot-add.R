@@ -111,6 +111,11 @@ ggplot_add.cladelabel <- function(object, plot, object_name) {
 ##' @export
 ggplot_add.hilight <- function(object, plot, object_name) {
     layout <- get("layout", envir = plot$plot_env)
+
+    ## if the plot was not produce by ggtree, but ggplot
+    ## instead of the tree layout, you may get graphics::layout
+    if (!is.character(layout)) layout <- 'rectangular'
+
     if (layout == "unrooted" || layout == "daylight") {
         ly <- do.call(geom_hilight_encircle, object)
     } else {
