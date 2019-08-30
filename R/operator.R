@@ -119,7 +119,7 @@
         stop("input 'data' is not supported...")
     }
 
-    ## res <- res[order(res$y),]
+    res <- res[order(res$y),]
     return(res)
 }
 
