@@ -1,5 +1,6 @@
 # ggtree 1.17.5
 
++ `fortify` methods for hierarchical clustering objects, including `agnes`, `diana` and `twins` (2019-08-30, Fri) 
 + now `geom_hilight` supports `unrooted` and `daylight` layouts (2019-08-28, Wed)
 + update `geom_motif` according to the change of `gggenes` and allow labeling genes (2019-08-27, Tue)
   - <https://yulab-smu.github.io/treedata-book/chapter11.html#genome-locus>

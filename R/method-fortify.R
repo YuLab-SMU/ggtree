@@ -122,8 +122,8 @@ fortify.phylo4 <- function(model, data,
                            right     = FALSE,
                            mrsd      = NULL,
                            ...) {
-    if (is(model, "dendrogram")) {
-        as.phylo <- phylogram::as.phylo
+    if (class(model) %in% c("dendrogram", "agnes", "diana", "twins")) {
+        model <- stats::as.hclust(model)
     }
 
     
@@ -144,6 +144,18 @@ fortify.hclust <- fortify.phylo4
 ##' @method fortify dendrogram
 ##' @export
 fortify.dendrogram <- fortify.phylo4
+
+##' @method fortify agnes
+##' @export
+fortify.agnes <- fortify.phylo4
+
+##' @method fortify diana
+##' @export
+fortify.diana <- fortify.phylo4
+
+##' @method fortify twins
+##' @export
+fortify.twins <- fortify.phylo4
 
 ##' @method fortify phylog
 ##' @export

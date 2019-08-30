@@ -36,10 +36,10 @@ Suggests:
     ggplotify,
     grDevices,
     knitr,
-    phylogram,
     prettydoc,
     rmarkdown,
     scales,
+    stats,
     testthat,
     tibble
 Remotes:
