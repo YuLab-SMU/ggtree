@@ -1,3 +1,7 @@
+# ggtree 1.99.0
+
++ prepare for ggtree v=2.0.0
+
 # ggtree 1.17.5
 
 + `fortify` methods for hierarchical clustering objects, including `agnes`, `diana` and `twins` (2019-08-30, Fri) 
