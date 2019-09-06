@@ -122,11 +122,44 @@ fortify.phylo4 <- function(model, data,
                            right     = FALSE,
                            mrsd      = NULL,
                            ...) {
+    if (class(model) %in% c("dendrogram", "agnes", "diana", "twins")) {
+        model <- stats::as.hclust(model)
+    }
+
+    
     phylo <- as.phylo(model)
     df <- fortify.phylo(phylo, data,
                         layout, ladderize, right, mrsd=mrsd, ...)
     scaleY(phylo, df, yscale, layout, ...)
 }
+
+## `ape::as.phylo` (for `hclust`)
+
+##' @method fortify hclust
+##' @export
+fortify.hclust <- fortify.phylo4
+
+## `phylogram::as.phylo` (for `dendrogram`).
+
+##' @method fortify dendrogram
+##' @export
+fortify.dendrogram <- fortify.phylo4
+
+##' @method fortify agnes
+##' @export
+fortify.agnes <- fortify.phylo4
+
+##' @method fortify diana
+##' @export
+fortify.diana <- fortify.phylo4
+
+##' @method fortify twins
+##' @export
+fortify.twins <- fortify.phylo4
+
+##' @method fortify phylog
+##' @export
+fortify.phylog <- fortify.phylo4
 
 ##' @method fortify phylo4d
 ##' @importFrom treeio as.treedata

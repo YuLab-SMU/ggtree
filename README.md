@@ -1,25 +1,29 @@
 <!-- README.md is generated from README.Rmd. Please edit that file -->
 
-# ggtree: an R package for visualization and annotation of phylogenetic trees with their covariates and other associated data
+# ggtree: an R package for visualization of phylogenetic trees with their annotation data
 
-<img src="https://raw.githubusercontent.com/Bioconductor/BiocStickers/master/ggtree/ggtree.png" height="200" align="right" />
-
-[![](https://img.shields.io/badge/release%20version-1.16.0-green.svg)](https://www.bioconductor.org/packages/ggtree)
-[![](https://img.shields.io/badge/devel%20version-1.17.1-green.svg)](https://github.com/guangchuangyu/ggtree)
-[![Bioc](http://www.bioconductor.org/shields/years-in-bioc/ggtree.svg)](https://www.bioconductor.org/packages/devel/bioc/html/ggtree.html#since)
-[![Awesome](https://cdn.rawgit.com/sindresorhus/awesome/d7305f38d29fed78fa85652e3a63e154dd8e8829/media/badge.svg)](https://awesome-r.com/#awesome-r-graphic-displays)
+<a href="https://yulab-smu.github.io/treedata-book/"><img src="https://raw.githubusercontent.com/Bioconductor/BiocStickers/master/ggtree/ggtree.png" height="200" align="right" /></a>
 
 [![platform](http://www.bioconductor.org/shields/availability/devel/ggtree.svg)](https://www.bioconductor.org/packages/devel/bioc/html/ggtree.html#archives)
 [![Project Status: Active - The project has reached a stable, usable
 state and is being actively
 developed.](http://www.repostatus.org/badges/latest/active.svg)](http://www.repostatus.org/#active)
-[![codecov](https://codecov.io/gh/GuangchuangYu/ggtree/branch/master/graph/badge.svg)](https://codecov.io/gh/GuangchuangYu/ggtree)
-[![Last-changedate](https://img.shields.io/badge/last%20change-2019--05--23-green.svg)](https://github.com/GuangchuangYu/ggtree/commits/master)
+[![Bioc](http://www.bioconductor.org/shields/years-in-bioc/ggtree.svg)](https://www.bioconductor.org/packages/devel/bioc/html/ggtree.html#since)
+[![Awesome](https://cdn.rawgit.com/sindresorhus/awesome/d7305f38d29fed78fa85652e3a63e154dd8e8829/media/badge.svg)](https://awesome-r.com/#awesome-r-graphic-displays)
 
-The `ggtree` package extending the `ggplot2` package. It based on
-grammar of graphics and takes all the good parts of `ggplot2`. `ggtree`
-is designed for not only viewing phylogenetic tree but also displaying
-annotation data on the tree.
+[![](https://img.shields.io/badge/release%20version-1.16.3-green.svg)](https://www.bioconductor.org/packages/ggtree)
+[![](https://img.shields.io/badge/devel%20version-1.17.4-green.svg)](https://github.com/guangchuangyu/ggtree)
+[![codecov](https://codecov.io/gh/GuangchuangYu/ggtree/branch/master/graph/badge.svg)](https://codecov.io/gh/GuangchuangYu/ggtree)
+[![Last-changedate](https://img.shields.io/badge/last%20change-2019--08--09-green.svg)](https://github.com/GuangchuangYu/ggtree/commits/master)
+
+[![](https://img.shields.io/badge/download-54064/total-blue.svg)](https://bioconductor.org/packages/stats/bioc/ggtree)
+[![](https://img.shields.io/badge/download-2000/month-blue.svg)](https://bioconductor.org/packages/stats/bioc/ggtree)
+[![download](http://www.bioconductor.org/shields/downloads/release/ggtree.svg)](https://bioconductor.org/packages/stats/bioc/ggtree)
+
+‘ggtree’ extends the ‘ggplot2’ plotting system which implemented the
+grammar of graphics. ‘ggtree’ is designed for visualization and
+annotation of phylogenetic trees and other tree-like structures with
+their annotation data.
 
 For details, please visit <https://yulab-smu.github.io/treedata-book/>.
 
@@ -27,8 +31,7 @@ For details, please visit <https://yulab-smu.github.io/treedata-book/>.
 
 Guangchuang YU
 
-School of Basic Medical Sciences, Southern Medical
-University
+School of Basic Medical Sciences, Southern Medical University
 
 <https://guangchuangyu.github.io>
 
@@ -52,14 +55,6 @@ list:
     with their covariates and other associated data. ***Methods in
     Ecology and Evolution***. 2017, 8(1):28-36. doi:
     [10.1111/2041-210X.12628](https://doi.org/10.1111/2041-210X.12628).
-
-<img src="https://guangchuangyu.github.io/software/citation_trend/ggtree.png" width="890"/>
-
-[![download](http://www.bioconductor.org/shields/downloads/ggtree.svg)](https://bioconductor.org/packages/stats/bioc/ggtree)
-[![](https://img.shields.io/badge/download-49316/total-blue.svg)](https://bioconductor.org/packages/stats/bioc/ggtree)
-[![](https://img.shields.io/badge/download-1879/month-blue.svg)](https://bioconductor.org/packages/stats/bioc/ggtree)
-
-<img src="https://guangchuangyu.github.io/software/dlstats/ggtree.png" width="890"/>
 
 ## :sparkling\_heart: Contributing
 

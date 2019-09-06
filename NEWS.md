@@ -1,5 +1,46 @@
+# ggtree 1.99.0
+
++ prepare for ggtree v=2.0.0
+
+# ggtree 1.17.5
+
++ `fortify` methods for hierarchical clustering objects, including `agnes`, `diana` and `twins` (2019-08-30, Fri) 
++ now `geom_hilight` supports `unrooted` and `daylight` layouts (2019-08-28, Wed)
++ update `geom_motif` according to the change of `gggenes` and allow labeling genes (2019-08-27, Tue)
+  - <https://yulab-smu.github.io/treedata-book/chapter11.html#genome-locus>
++ re-implement `geom_strip` with more robust support of labelling strip, either input taxa using name or id.
++ support `phylog` defined in ade4 package (2019-08-14, Wed)
+  - <https://yulab-smu.github.io/treedata-book/chapter9.html#phylog>
+
+# ggtree 1.17.4
+
++ now `geom_cladelabel` supports `unrooted` and `daylight` layouts (2019-08-14, Wed)
+  - by integrating `geom_cladelabel2`
++ defined `nodelab` method for ggtree to convert node number to label (2019-08-09, Fir)
++ redefined `nodeid` as S3 generic in `tidytree` v=0.2.6 
+  - change the original function as a method for ggtree
+  - move the `nodeid` function for tree object to treeio
++ defunct `gzoom` function
++ introduce `rootnode` parameter in `geom_tree` with default = TRUE and behave as previous version (2019-08-08, Thu)
+  - the invisible root to itself line segment have advantage for the number of line segments is consistent with the number of nodes. 
+  - if `rootnode = FALSE`, there will be no line segment of root to itself.
++ extend `gheatmap` to support collapsed node (2019-08-06, Tue)
+  - <https://github.com/GuangchuangYu/ggtree/pull/243>
++ support `hclust` and `dendrogram` (2019-07-31, Wed)
+
+# ggtree 1.17.3
+
++ remove re-export treeio parser function, user now need to load treeio explictly (2019-07-24, Wed) 
++ export `layout_circular`, `layout_fan` and `layout_rectangular`
++ `layout_dendrogram` and `theme_dendrogram` 
+  - <https://yulab-smu.github.io/treedata-book/chapter10.html#dendrogram>
++ `scale_x_range` for adding second x-axis for `geom_range` (2019-07-23, Tue)
++ change `branch.length` parameter to `center` for `geom_range`
+
 # ggtree 1.17.2
 
++ extend `expand` according to the change of `collapse` (2019-07-11, Thu)
++ `mode` parameter in `collapse`
 + `geom_tiplab` now works with 'circular' and 'fan' layouts (2019-07-05, Fri)
 + `geom_inset` for adding subplots to specific nodes (see also the `inset` function introduced in v=1.3.8)
 

@@ -14,13 +14,13 @@
 ##' @importFrom grid unit
 ##' @importFrom grid dataViewport
 ##' @importFrom graphics identify
+##' @importFrom ggplot2 last_plot
 ##' @method identify gg
 ##' @export
 ##' @author Guangchuang Yu
-identify.gg <- function(x, ...) {
+identify.gg <- function(x = last_plot(), ...) {
     tree_view <- x
-    ## not used, since if x=NULL, it will call graphics::identify
-    ## tree_view %<>% get_tree_view 
+    ## x=NULL, it will call graphics::identify
 
     x <- tree_view$data$x
     y <- tree_view$data$y

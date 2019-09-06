@@ -45,6 +45,7 @@ StatTaxalink <- ggproto("StatTaxalink", Stat,
                         compute_group = function(self, data, scales, params, taxa1, taxa2) {
                             node1 <- taxa2node(data, taxa1)
                             node2 <- taxa2node(data, taxa2)
+                           
                             x <- data$x
                             y <- data$y
 

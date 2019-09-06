@@ -4,12 +4,15 @@
 \alias{collapse.ggtree}
 \title{collapse-ggtree}
 \usage{
-\method{collapse}{ggtree}(x = NULL, node, clade_name = NULL, ...)
+\method{collapse}{ggtree}(x = NULL, node, mode = "none",
+  clade_name = NULL, ...)
 }
 \arguments{
 \item{x}{tree view}
 
 \item{node}{clade node}
+
+\item{mode}{one of 'none', 'max', 'min' and 'mixed'}
 
 \item{clade_name}{set clade name. If clade_name = NULL, do nothing}
 

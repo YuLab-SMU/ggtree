@@ -3,4 +3,5 @@
 ##' @export
 groupClade.ggtree <- function(.data, .node, group_name = "group", ...) {
     .data$data <- groupClade(.data$data, .node, group_name, ...)
+    return(.data)
 }

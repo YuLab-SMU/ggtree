@@ -4,7 +4,7 @@
 \alias{identify.gg}
 \title{identify}
 \usage{
-\method{identify}{gg}(x, ...)
+\method{identify}{gg}(x = last_plot(), ...)
 }
 \arguments{
 \item{x}{tree view}

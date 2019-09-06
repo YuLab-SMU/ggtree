@@ -20,6 +20,58 @@ ggplot_add.facet_xlim <- function(object, plot, object_name) {
     ggplot_add(obj, plot, object_name)
 }
 
+##' @method ggplot_add geom_range
+##' @export
+ggplot_add.geom_range <- function(object, plot, object_name) {
+    obj <- do.call(geom_range_internal, object)
+    assign(x = "range_range", value = object$range, envir = plot$plot_env)
+    assign(x = "range_center", value = object$center, envir = plot$plot_env)
+    ggplot_add(obj, plot, object_name)
+}
+
+##' @method ggplot_add layout_ggtree
+##' @export
+ggplot_add.layout_ggtree <- function(object, plot, object_name) {
+    if(object$layout == 'fan') {
+        return(open_tree(plot, object$angle))
+    }
+
+    if (object$layout == 'dendrogram') {
+        plot <- revts(plot)
+        obj <- list(scale_x_reverse(labels = abs),
+                    coord_flip(clip = 'off')
+                    )
+    } else if (object$layout == 'circular') {
+        obj <- coord_polar(theta='y', start=-pi/2, -1)
+    } else { ## rectangular
+        obj <- coord_cartesian()
+    }
+    assign("layout", object$layout, envir = plot$plot_env)
+    ggplot_add(obj, plot, object_name)
+}
+
+
+
+##' @method ggplot_add range_xaxis
+##' @export
+ggplot_add.range_xaxis <- function(object, plot, object_name) {
+    d <- plot$data
+    center <- get("range_center", envir = plot$plot_env)
+    if (center == "auto") {
+        range <- get("range_range", envir = plot$plot_env)
+        center_value <- range_center(d[[range]])
+        i <- which(!is.na(center_value))[1]
+        cc <- center_value[i]
+    } else {
+        i <- which(!is.na(d[[center]]))[1]
+        cc <- as.numeric(d[[center]][i])
+    }
+
+    diff <- cc - d$x[i]
+    obj <- scale_x_continuous(sec.axis = ~. + diff)
+    ggplot_add(obj, plot, object_name)
+}
+
 ##' @method ggplot_add tree_inset
 ##' @export
 ggplot_add.tree_inset <- function(object, plot, object_name) {
@@ -48,6 +100,77 @@ ggplot_add.tiplab <- function(object, plot, object_name) {
         ly <- do.call(geom_tiplab_rectangular, object)
     }
     ggplot_add(ly, plot, object_name)
+}
+
+##' @method ggplot_add cladelabel
+##' @export
+ggplot_add.cladelabel <- function(object, plot, object_name) {
+    layout <- get("layout", envir = plot$plot_env)
+    if (layout == "unrooted" || layout == "daylight") {
+        ly <- do.call(geom_cladelabel2, object)
+    } else {
+        ly <- do.call(geom_cladelabel_rectangular, object)
+    }
+    ggplot_add(ly, plot, object_name)
+}
+
+##' @method ggplot_add hilight
+##' @export
+ggplot_add.hilight <- function(object, plot, object_name) {
+    layout <- get("layout", envir = plot$plot_env)
+
+    ## if the plot was not produce by ggtree, but ggplot
+    ## instead of the tree layout, you may get graphics::layout
+    if (!is.character(layout)) layout <- 'rectangular'
+
+    if (layout == "unrooted" || layout == "daylight") {
+        ly <- do.call(geom_hilight_encircle, object)
+    } else {
+        ly <- do.call(geom_hilight_rectangular, object)
+    }
+    ggplot_add(ly, plot, object_name)
+}
+
+##' @method ggplot_add striplabel
+##' @export
+ggplot_add.striplabel <- function(object, plot, object_name) {
+    d <- plot$data
+    strip_df <- get_striplabel_position(d, object$taxa1, object$taxa2,
+                                        object$offset, object$align,
+                                        object$extend, adjustRatio=1.02)
+    ly_bar <- geom_segment(aes_(x = ~x, xend = ~xend,
+                                y = ~y, yend = ~yend),
+                           data = strip_df, size = object$barsize,
+                           color = object$color)
+
+    strip_text_df <- get_striplabel_position(d, object$taxa1, object$taxa2,
+                                        offset = object$offset + object$offset.text,
+                                        align = object$align, 
+                                        object$extend, adjustRatio=1.02)
+    strip_text_df$y <- mean(c(strip_text_df$y, strip_text_df$yend))
+    strip_text_df$label <- object$label
+
+    if (is.null(object$label) || is.na(object$label)) {
+        return(ggplot_add(ly_bar, plot, object_name))
+    }
+
+    if(object$geom == 'text') {
+        ly_text <- geom_text(aes_(x = ~x, y = ~y, label = ~label),
+                             data = strip_text_df, size = object$fontsize,
+                             angle = object$angle, family = object$family,
+                             hjust = object$hjust, parse = object$parse,
+                             color = object$color
+                             )
+    } else {
+        ly_text <- geom_label(aes_(x = ~x, y = ~y, label = ~label),
+                              data = strip_text_df, size = object$fontsize,
+                              angle = object$angle, family = object$family,
+                              hjust = object$hjust, parse = object$parse,
+                              color = object$color, fill = object$fill
+                              )
+    }
+
+    ggplot_add(list(ly_bar, ly_text), plot, object_name)
 }
 
 ##' @importFrom ggplot2 scale_x_continuous

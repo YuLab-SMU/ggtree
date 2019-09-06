@@ -1,8 +1,8 @@
 ##' @importFrom tidytree MRCA
-##' @method MRCA gg
+##' @method MRCA ggtree
 ##' @export
-MRCA.gg <- function(.data, .node1, .node2, ...) {
-    MRCA(.data$data, .node1, .node2, ...)[["node"]]
+MRCA.ggtree <- function(.data, .node1, .node2 = NULL, ...) {
+    MRCA(.data$data, .node1, .node2 = .node2, ...)[["node"]]
 }
 
 

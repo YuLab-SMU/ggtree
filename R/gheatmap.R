@@ -28,6 +28,8 @@
 ##' @importFrom ggplot2 scale_fill_gradient
 ##' @importFrom ggplot2 scale_fill_discrete
 ##' @importFrom ggplot2 scale_y_continuous
+##' @importFrom dplyr filter
+##' @importFrom dplyr select
 ##' @export
 ##' @author Guangchuang Yu
 gheatmap <- function(p, data, offset=0, width=1, low="green", high="red", color="white",
@@ -46,8 +48,22 @@ gheatmap <- function(p, data, offset=0, width=1, low="green", high="red", color=
 
     isTip <- x <- y <- variable <- value <- from <- to <- NULL
 
+    ## handle the display of heatmap on collapsed nodes
+    ## https://github.com/GuangchuangYu/ggtree/issues/242
+    ## extract data on leaves (& on collapsed internal nodes) 
+    ## (the latter is extracted only when the input data has data on collapsed
+    ## internal nodes)
     df <- p$data
-    df <- df[df$isTip,]
+    nodeCo <- intersect(df %>% filter(is.na(x)) %>% 
+                         select(.data$parent, .data$node) %>% unlist(), 
+                     df %>% filter(!is.na(x)) %>% 
+                         select(.data$parent, .data$node) %>% unlist())
+    labCo <- df %>% filter(.data$node %in% nodeCo) %>% 
+        select(.data$label) %>% unlist()
+    selCo <- intersect(labCo, rownames(data))
+    isSel <- df$label %in% selCo
+    
+    df <- df[df$isTip | isSel, ]
     start <- max(df$x, na.rm=TRUE) + offset
 
     dd <- as.data.frame(data)

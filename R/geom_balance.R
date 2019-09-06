@@ -15,7 +15,7 @@
 #' @importFrom ggplot2 aes_
 #' @importFrom ggplot2 GeomRect
 #' @importFrom utils packageVersion
-#' @author Justin Silverman
+#' @author Justin Silverman and modified by Guangchuang Yu
 #' @references J. Silverman, et al. \emph{A phylogenetic transform enhances
 #'   analysis of compositional microbiota data}. (in preparation)
 geom_balance <- function(node, fill="steelblue", color='white', alpha=.5, extend=0, extendto=NULL) {
@@ -30,7 +30,7 @@ geom_balance <- function(node, fill="steelblue", color='white', alpha=.5, extend
   default_aes <- aes_(x=~x, y=~y, node=~node, parent=~parent, branch.length=~branch.length)
   mapping <- default_aes
 
-  l1 <- layer(
+  layer(
     stat=StatBalance,
     data = data,
     mapping = mapping,
@@ -44,103 +44,11 @@ geom_balance <- function(node, fill="steelblue", color='white', alpha=.5, extend
                   alpha=alpha,
                   extend=extend,
                   extendto=extendto,
-                  direction=1,
                   na.rm = na.rm),
     check.aes = FALSE
   )
-  l2 <- layer(
-    stat=StatBalance,
-    data = data,
-    mapping = mapping,
-    geom = GeomRect,
-    position = position,
-    show.legend=show.legend,
-    inherit.aes = inherit.aes,
-    params = list(node=node,
-                  fill=fill,
-                  color=color,
-                  alpha=alpha,
-                  extend=extend,
-                  extendto=extendto,
-                  direction=2,
-                  na.rm = na.rm),
-    check.aes = FALSE
-  )
-  return(c(l1,l2))
 }
 
-#' stat_balance
-#'
-#'
-#' @title stat_balance
-#' @param mapping aes mapping
-#' @param data data
-#' @param geom geometric object
-#' @param position position
-#' @param node node number
-#' @param show.legend show legend
-#' @param inherit.aes logical
-#' @param fill fill color
-#' @param color color to outline highlights and divide balance
-#' @param alpha transparency
-#' @param extend extend xmax of the rectangle
-#' @param extendto extend xmax to extendto
-#' @param ... additional parameter
-#' @return layer
-#' @importFrom ggplot2 layer
-#' @export
-stat_balance <- function(mapping=NULL, data=NULL, geom="rect",
-                         position="identity",  node,
-                         show.legend=NA, inherit.aes=FALSE,
-                         fill, color, alpha, extend=0, extendto=NULL,
-                         ...) {
-
-    default_aes <- aes_(x=~x, y=~y, node=~node, parent=~parent, branch.length=~branch.length)
-    if (is.null(mapping)) {
-        mapping <- default_aes
-    } else {
-        mapping <- modifyList(mapping, default_aes)
-    }
-
-    l1 <- layer(
-        stat=StatBalance,
-        data = data,
-        mapping = mapping,
-        geom = geom,
-        position = position,
-        show.legend=show.legend,
-        inherit.aes = inherit.aes,
-        params = list(node=node,
-                      fill=fill,
-                      color=color,
-                      alpha=alpha,
-                      extend=extend,
-                      extendto=extendto,
-                      direction=1,
-                      ...),
-        check.aes = FALSE
-    )
-
-    l2 <- layer(
-        stat=StatBalance,
-        data = data,
-        mapping = mapping,
-        geom = geom,
-        position = position,
-        show.legend=show.legend,
-        inherit.aes = inherit.aes,
-        params = list(node=node,
-                      fill=fill,
-                      color=color,
-                      alpha=alpha,
-                      extend=extend,
-                      extendto=extendto,
-                      direction=2,
-                      ...),
-        check.aes = FALSE
-    )
-    return(c(l1,l2))
-}
 
 ##' StatBalance
 ##' @rdname ggtree-ggproto
@@ -149,9 +57,9 @@ stat_balance <- function(mapping=NULL, data=NULL, geom="rect",
 ##' @importFrom ggplot2 Stat
 ##' @export
 StatBalance <- ggproto("StatBalance", Stat,
-                       compute_group = function(self, data, scales, params, node, extend, extendto, direction) {
-                           df <- get_balance_position_(data, node, direction)
-
+                       compute_group = function(self, data, scales, params, node, extend, extendto) {
+                           ## df <- get_balance_position_(data, node, direction)
+                           df <- get_balance_position(data, node)
                            df$xmax <- df$xmax + extend
                            if (!is.null(extendto) && !is.na(extendto)) {
                                if (extendto < df$xmax) {
@@ -166,23 +74,23 @@ StatBalance <- ggproto("StatBalance", Stat,
                        )
 
 
-#' get position of balance (xmin, xmax, ymin, ymax)
-#'
-#'
-#' @title get_balance_position
-#' @param treeview tree view
-#' @param node selected node
-#' @param direction either (1 for 'up' or 2 for 'down')
-#' @return data.frame
-#' @export
-#' @author Justin Silverman
-get_balance_position <- function(treeview, node, direction) {
-    get_balance_position_(treeview$data, node, direction)
+## get position of balance (xmin, xmax, ymin, ymax)
+##
+##
+## @title get_balance_position
+## @param data tbl_tree
+## @param node selected node
+## @return data.frame
+## @export
+get_balance_position <- function(data, node) {
+    purrr::map_df(c(1, 2), get_balance_position_, data=data, node=node)
 }
 
+## direction either (1 for 'up' or 2 for 'down')
+## @author Justin Silverman and modified by Guangchuang Yu
 get_balance_position_ <- function(data, node, direction) {
     ## ch <- tryCatch(getChild.df(data, node), error=function(e) NULL)
-    ch <- tryCatch(tidytree::child(data, node)$node, error=function(e) NULL)
+    ch <- tryCatch(tidytree:::child.tbl_tree(data, node)$node, error=function(e) NULL)
 
     if (length(ch) < 2 || is.null(ch)){
         stop('balance cannot be a tip')
@@ -191,9 +99,13 @@ get_balance_position_ <- function(data, node, direction) {
     }
 
     i <- match(node, data$node)
-    sp <- tryCatch(offspring(data, ch[direction])$node,
+    sp <- tryCatch(tidytree:::offspring.tbl_tree(data, ch[direction])$node,
                    error=function(e) ch[direction])
-    sp.all <- offspring(data, i)$node
+    if (length(sp) == 0) {
+        ## sp is a tip, use itself
+        sp <- ch[direction]
+    }
+    sp.all <- tidytree:::offspring.tbl_tree(data, i)$node
     sp.df <- data[match(sp, data$node),]
     sp.all.df <- data[match(sp.all, data$node),]
     n.df <- data[i,]

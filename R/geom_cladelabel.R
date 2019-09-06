@@ -37,6 +37,42 @@ geom_cladelabel <- function(node, label,
                             family      = "sans",
                             parse       = FALSE,
                             ...) {
+
+    structure(list(node = node,
+                   label = label,
+                   offset = offset,
+                   offset.text = offset.text,
+                   extend = extend,
+                   align =  align,
+                   barsize = barsize,
+                   fontsize = fontsize,
+                   angle = angle,
+                   geom = geom,
+                   hjust = hjust,
+                   color = color,
+                   fill = fill,
+                   family = family,
+                   parse = parse,
+                   ...),
+              class = 'cladelabel')
+}
+
+
+geom_cladelabel_rectangular <- function(node, label,
+                            offset      = 0,
+                            offset.text = 0,
+                            extend      = 0,
+                            align       = FALSE,
+                            barsize     = 0.5,
+                            fontsize    = 3.88,
+                            angle       = 0,
+                            geom        = "text",
+                            hjust       = 0,
+                            color       = NULL,
+                            fill        = NA,
+                            family      = "sans",
+                            parse       = FALSE,
+                            ...) {
     mapping <- NULL
     data <- NULL
     position <- "identity"
@@ -100,7 +136,8 @@ geom_cladelabel <- function(node, label,
 
         } else {
             layer_text = stat_cladeText(node=node, label=label, offset=offset+offset.text,
-                                        align=align, size=fontsize, angle=angle, color=labelcolor, fill=fill,family=family,
+                                        align=align, size=fontsize, angle=angle, color=labelcolor,
+                                        fill=fill,family=family,
                                         mapping=mapping, data=data, geom=geom, hjust=hjust,
                                         position=position, show.legend = show.legend,
                                         inherit.aes = inherit.aes, na.rm=na.rm,
@@ -206,13 +243,15 @@ StatCladeText <- ggproto("StatCladeText", Stat,
 
 StatCladeBar <- ggproto("StatCladBar", Stat,
                         compute_group = function(self, data, scales, params, node, offset, align, extend) {
-                            get_cladelabel_position(data, node, offset, align, adjustRatio=1.02, angle=0, extend=extend)
+                            get_cladelabel_position(data, node, offset, align, adjustRatio=1.02,
+                                                    angle=0, extend=extend)
                         },
                         required_aes = c("x", "y", "xend", "yend")
 )
 
 
-get_cladelabel_position <- function(data, node, offset, align, adjustRatio, angle="auto", extend=0) {
+get_cladelabel_position <- function(data, node, offset, align,
+                                    adjustRatio, angle="auto", extend=0) {
     df <- get_cladelabel_position_(data, node, angle, extend)
     if (align) {
         # Find max x value for all tree nodes so all clade labels align to same position.
@@ -241,7 +280,7 @@ get_cladelabel_position_ <- function(data, node, angle = "auto", extend = 0) {
     ## sp2 <- c(sp, node)
     ## sp.df <- data[match(sp2, data$node),]
 
-    sp.df <- tidytree:::offspring.tbl_tree(data, node, self_include = TRUE)
+    sp.df <- offspring.tbl_tree(data, node, self_include = TRUE)
 
     y <- sp.df$y
     y <- y[!is.na(y)]

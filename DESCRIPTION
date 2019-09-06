@@ -1,19 +1,19 @@
 Package: ggtree
 Type: Package
-Title: an R package for visualization and annotation of phylogenetic trees with
-    their covariates and other associated data
-Version: 1.17.2
+Title: an R package for visualization of tree and annotation data
+Version: 1.99.0
 Authors@R: c(
 	   person("Guangchuang", "Yu",     email = "guangchuangyu@gmail.com", role = c("aut", "cre", "cph"), comment = c(ORCID = "0000-0002-6485-8781")),
 	   person("Tommy Tsan-Yuk", "Lam", email = "tylam.tommy@gmail.com",   role = c("aut", "ths")),
 	   person("Justin", "Silverman",   email = "jsilve24@gmail.com",      role = "ctb"),
 	   person("Bradley", "Jones",      email = "brj1@sfu.ca",             role = "ctb"),
-	   person("Watal M.", "Iwasaki",   email = "heavy.watal@gmail.com",   role = "ctb")
+	   person("Watal M.", "Iwasaki",   email = "heavy.watal@gmail.com",   role = "ctb"),
+	   person("Ruizhu", "Huang",       email = "ruizhuRH@gmail.com",      role = "ctb")
 	   )
 Maintainer: Guangchuang Yu <guangchuangyu@gmail.com>
 Description: 'ggtree' extends the 'ggplot2' plotting system which implemented
     the grammar of graphics. 'ggtree' is designed for visualization and annotation
-    of phylogenetic trees with their covariates and other associated data.
+    of phylogenetic trees and other tree-like structures with their annotation data.
 Depends:
     R (>= 3.4.0)
 Imports:
@@ -27,7 +27,7 @@ Imports:
     rlang,
     rvcheck,
     tidyr,
-    tidytree (>= 0.2.4),
+    tidytree (>= 0.2.6),
     treeio (>= 1.8.0),
     utils
 Suggests:
@@ -39,6 +39,7 @@ Suggests:
     prettydoc,
     rmarkdown,
     scales,
+    stats,
     testthat,
     tibble
 Remotes:
@@ -48,7 +49,7 @@ ByteCompile: true
 Encoding: UTF-8
 License: Artistic-2.0
 URL: https://yulab-smu.github.io/treedata-book/
-BugReports: https://github.com/GuangchuangYu/ggtree/issues
+BugReports: https://github.com/YuLab-SMU/ggtree/issues
 Packaged: 2014-12-03 08:16:14 UTC; root
 biocViews: Alignment, Annotation, Clustering, DataImport,
     MultipleSequenceAlignment, ReproducibleResearch, Software, Visualization

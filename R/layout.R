@@ -10,12 +10,8 @@
 rotate_tree <- function(treeview, angle) {
     treeview <- treeview + coord_polar(theta='y', start=(angle-90)/180*pi, -1)
     treeview$data$angle <- treeview$data$angle + angle
+    assign("layout", "circular", envir = treeview$plot_env)
     return(treeview)
-}
-
-
-layout_circular <- function(treeview) {
-    treeview + coord_polar(theta='y', start=-pi/2, -1)
 }
 
 ##' open tree with specific angle
@@ -29,7 +25,7 @@ layout_circular <- function(treeview) {
 ##' @export
 ##' @author Guangchuang Yu
 open_tree <- function(treeview, angle) {
-    p <- layout_circular(treeview)
+    p <- treeview + layout_circular()
     ymax <- max(range(p$data$y))
     p <- p + scale_y_continuous(limits = c(0,
                                            max(c(ymax * (1+angle/(360-angle)), ymax+1))
@@ -40,8 +36,45 @@ open_tree <- function(treeview, angle) {
     angle <- 360/(2+NN) * (1:N+1)
     angle <- angle[idx]
     p$data$angle <- angle
+    assign("layout", "fan", envir = p$plot_env)
     return(p)
 }
 
-layout_fan <- open_tree
+##' @title layout_rectangular
+##' @rdname tree-layout
+##' @export
+layout_rectangular <- function() {
+    layout_ggtree('rectangular')
+}
+
+##' @title layout_circular
+##' @rdname tree-layout
+##' @export
+layout_circular <- function() {
+    layout_ggtree('circular')
+}
+
+##' @title layout_fan
+##' @rdname tree-layout
+##' @param angle open tree at specific angle
+##' @export
+layout_fan <- function(angle = 180) {
+    layout_ggtree('fan', angle = angle)
+}
     
+##' tree layout
+##'
+##'
+##' @title layout_dendrogram
+##' @rdname tree-layout
+##' @export
+##' @author Guangchuang Yu
+layout_dendrogram <- function() {
+    layout_ggtree('dendrogram')
+}
+
+layout_ggtree <- function(layout = 'rectangular', angle = 180) {
+    structure(list(layout = layout, angle = angle),
+              class = 'layout_ggtree')
+}
+

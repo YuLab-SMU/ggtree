@@ -5,30 +5,39 @@
 ##' @param mapping aes mapping
 ##' @param data data
 ##' @param on gene to center (i.e. set middle position of the `on` gene to 0)
+##' @param label specify a column to be used to label genes
+##' @param align where to place gene label, default is 'centre' and can be set to 'left' and 'right'
 ##' @param ... additional parameters
 ##' @return geom layer
+##' @importFrom rvcheck get_aes_var
 ##' @export
 ##' @author Guangchuang Yu
-geom_motif <- function(mapping, data, on, ...) {
-    if (is.null(unlist(mapping)$y)) {
-        seqnames <- as.character(unlist(mapping)$group)
-    } else {
-        seqnames <- as.character(unlist(mapping)$y)
-    }
+geom_motif <- function(mapping, data, on, label, align = 'centre', ...) {
+   
+    id <- get_aes_var(mapping, 'fill')
 
-    if (is.null(unlist(mapping$fill))) {
-        id <- as.character(unlist(mapping$id))
-    } else {
-        id <- as.character(unlist(mapping$fill))
-    }
-    dd <- data[unlist(data[, id]) == on,]
+    dd <- data[data[, id] == on,]
     mid <- dd$start + (dd$end - dd$start)/2
-    names(mid) <- as.character(unlist(dd[, seqnames]))
-    adj <- mid[as.character(unlist(data[, seqnames]))]
+
+    names(mid) <- dd$label
+
+    adj <- mid[data$label]
     data$start <- data$start - adj
     data$end <- data$end - adj
     geom_gene_arrow <- get_fun_from_pkg("gggenes", "geom_gene_arrow")
-    geom_gene_arrow(mapping = mapping, data = as.data.frame(data), ...)
+    mapping <- modifyList(mapping, aes_(y = ~y))
+    ly_gene <- geom_gene_arrow(mapping = mapping, data = data, inherit.aes = FALSE, ...)
+    if (missing(label)) {
+        return(ly_gene)
+    }
+
+    geom_gene_label <- get_fun_from_pkg("gggenes", "geom_gene_label")
+    mapping <- modifyList(mapping, aes_string(label = label))
+    if (align == 'center') align <- 'centre'
+    ly_lab <- geom_gene_label(mapping = mapping, data = data, align = align,
+                              inherit.aes = FALSE,...)
+    list(ly_gene,
+         ly_lab)
 }
 
 

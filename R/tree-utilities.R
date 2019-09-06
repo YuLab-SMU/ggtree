@@ -309,7 +309,7 @@ getTreeArcAngles <- function(df, origin_id, subtree) {
     ## Initialise angle from origin node to parent node.
     ## If subtree_root_id is child of origin_id
     ## if (subtree_root_id %in% getChild.df(df, origin_id)) {
-    if (subtree_root_id %in% tidytree::child(df, origin_id)$node) {
+    if (subtree_root_id %in% tidytree:::child.tbl_tree(df, origin_id)$node) {
         ## get angle from original node to parent of subtree.
         theta_left <- getNodeAngle.vector(x_origin, y_origin, df_x[subtree_root_id], df_y[subtree_root_id])
         theta_right <- theta_left
@@ -317,7 +317,7 @@ getTreeArcAngles <- function(df, origin_id, subtree) {
         ## Special case.
         ## get angle from parent of subtree to children
         ## children_ids <- getChild.df(df, subtree_root_id)
-        children_ids <- tidytree::child(df, subtree_root_id)$node
+        children_ids <- tidytree:::child.tbl_tree(df, subtree_root_id)$node
         if(length(children_ids) == 2){
             ## get angles from parent to it's two children.
             theta1 <- getNodeAngle.vector(x_origin, y_origin, df_x[children_ids[1]], df_y[children_ids[1]])
@@ -357,11 +357,11 @@ getTreeArcAngles <- function(df, origin_id, subtree) {
   # no parent angle found.
   # Subtree has to have 1 or more nodes to compare.
   if (is.na(theta_left) || (length(subtree_node_ids) == 0)){
-    return(0)
+      return(c('left' = 0, 'right' = 0))
   }
   # create vector with named columns
   # left-hand and right-hand angles between origin node and the extremities of the tree nodes.
-  arc <- c('left' = theta_left, 'right' = theta_right)
+    arc <- c('left' = theta_left, 'right' = theta_right)
 
   # Calculate the angle from the origin node to each child node.
   # Moving from parent to children in depth-first traversal.
@@ -372,7 +372,7 @@ getTreeArcAngles <- function(df, origin_id, subtree) {
     # Get angle from origin node to parent node.
     theta_parent <- getNodeAngle.vector(x_origin, y_origin, df_x[parent_id], df_y[parent_id])
       ## children_ids <- getChild.df(df, parent_id)
-      children_ids <- tidytree::child(df, parent_id)$node
+      children_ids <- tidytree:::child.tbl_tree(df, parent_id)$node
     # Skip if child is parent node of subtree.
     children_ids = children_ids[children_ids != origin_id]
     for(child_id in children_ids){
@@ -676,38 +676,6 @@ getNodesBreadthFirst.df <- function(df){
   return(res)
 
 }
-
-
-
-##' convert tip or node label(s) to internal node number
-##'
-##'
-##' @title nodeid
-##' @param x tree object or graphic object return by ggtree
-##' @param label tip or node label(s)
-##' @return internal node number
-##' @importFrom methods is
-##' @export
-##' @author Guangchuang Yu
-nodeid <- function(x, label) {
-    if (is(x, "gg"))
-        return(nodeid.gg(x, label))
-
-    nodeid.tree(x, label)
-}
-
-nodeid.tree <- function(tree, label) {
-    tr <- get.tree(tree)
-    lab <- c(tr$tip.label, tr$node.label)
-    match(label, lab)
-}
-
-nodeid.gg <- function(p, label) {
-    p$data$node[match(label, p$data$label)]
-}
-
-
-
 
 
 isRoot <- function(tr, node) {

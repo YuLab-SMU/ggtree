@@ -26,6 +26,20 @@ xlim_expand <- function(xlim, panel) {
 }
 
 
+
+
+##' add second x-axis for geom_range
+##'
+##'
+##' @title scale_x_range
+##' @return ggtree object
+##' @export
+##' @author Guangchuang Yu
+scale_x_range <- function() {
+    structure(list(), class = "range_xaxis")
+}
+
+
 ##' reverse timescle x-axis
 ##'
 ##'

@@ -8,7 +8,7 @@ html_preview: false
 <!-- README.md is generated from README.Rmd. Please edit that file -->
 
 
-#  ggtree: an R package for visualization and annotation of phylogenetic trees with their covariates and other associated data
+#  ggtree: an R package for visualization of phylogenetic trees with their annotation data
 
 ```{r echo=FALSE, results="hide", message=FALSE}
 #library("txtplot")
@@ -20,23 +20,28 @@ Biocpkg <- function (pkg) {
 
 ```
 
-<img src="https://raw.githubusercontent.com/Bioconductor/BiocStickers/master/ggtree/ggtree.png" height="200" align="right" />
+<a href="https://yulab-smu.github.io/treedata-book/"><img src="https://raw.githubusercontent.com/Bioconductor/BiocStickers/master/ggtree/ggtree.png" height="200" align="right" /></a>
 
-
-`r badge_bioc_release("ggtree", "green")`
-`r badge_devel("guangchuangyu/ggtree", "green")`
+[![platform](http://www.bioconductor.org/shields/availability/devel/ggtree.svg)](https://www.bioconductor.org/packages/devel/bioc/html/ggtree.html#archives)
+[![Project Status: Active - The project has reached a stable, usable state and is being actively developed.](http://www.repostatus.org/badges/latest/active.svg)](http://www.repostatus.org/#active)
 [![Bioc](http://www.bioconductor.org/shields/years-in-bioc/ggtree.svg)](https://www.bioconductor.org/packages/devel/bioc/html/ggtree.html#since)
 [![Awesome](https://cdn.rawgit.com/sindresorhus/awesome/d7305f38d29fed78fa85652e3a63e154dd8e8829/media/badge.svg)](https://awesome-r.com/#awesome-r-graphic-displays)
 
 
-[![platform](http://www.bioconductor.org/shields/availability/devel/ggtree.svg)](https://www.bioconductor.org/packages/devel/bioc/html/ggtree.html#archives)
-[![Project Status: Active - The project has reached a stable, usable state and is being actively developed.](http://www.repostatus.org/badges/latest/active.svg)](http://www.repostatus.org/#active)
+`r badge_bioc_release("ggtree", "green")`
+`r badge_devel("guangchuangyu/ggtree", "green")`
 [![codecov](https://codecov.io/gh/GuangchuangYu/ggtree/branch/master/graph/badge.svg)](https://codecov.io/gh/GuangchuangYu/ggtree)
 [![Last-changedate](https://img.shields.io/badge/last%20change-`r gsub('-', '--', Sys.Date())`-green.svg)](https://github.com/GuangchuangYu/ggtree/commits/master)
 
 
+`r badge_bioc_download("ggtree", "total", "blue")`
+`r badge_bioc_download("ggtree", "month", "blue")`
+`r badge_bioc_download_rank("ggtree")`
 
-The `ggtree` package extending the `ggplot2` package. It based on grammar of graphics and takes all the good parts of `ggplot2`. `ggtree` is designed for not only viewing phylogenetic tree but also displaying annotation data on the tree.
+
+```{r comment="", echo=FALSE, results='asis'}
+cat(packageDescription('ggtree')$Description)
+```
 
 
 
@@ -56,8 +61,6 @@ School of Basic Medical Sciences, Southern Medical University
 `r badger::badge_custom('follow me on', 'WeChat', 'green', 'https://guangchuangyu.github.io/blog_images/biobabble.jpg')`
 
 
-
-
 If you use `r Biocpkg('ggtree')` in published research, please cite the most appropriate paper(s) from this list:
 
 1. __G Yu__^\*^, TTY Lam, H Zhu, Y Guan^\*^. Two methods for mapping and visualizing associated data on phylogeny using ggtree. __*Molecular Biology and Evolution*__, 2018, 35(2):3041-3043.
@@ -67,20 +70,6 @@ doi: [10.1093/molbev/msy194](https://doi.org/10.1093/molbev/msy194).
 visualization and annotation of phylogenetic trees with their covariates and
 other associated data. __*Methods in Ecology and Evolution*__. 2017, 8(1):28-36.
 doi: [10.1111/2041-210X.12628](https://doi.org/10.1111/2041-210X.12628).
-
-
-
-<img src="https://guangchuangyu.github.io/software/citation_trend/ggtree.png" width="890"/>
-
-
-
-`r badge_download_bioc("ggtree")`
-`r badge_bioc_download("ggtree", "total", "blue")`
-`r badge_bioc_download("ggtree", "month", "blue")`
-
-
-<img src="https://guangchuangyu.github.io/software/dlstats/ggtree.png" width="890"/>
-
 
 
 ## :sparkling_heart: Contributing
