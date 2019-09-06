@@ -280,7 +280,7 @@ get_cladelabel_position_ <- function(data, node, angle = "auto", extend = 0) {
     ## sp2 <- c(sp, node)
     ## sp.df <- data[match(sp2, data$node),]
 
-    sp.df <- tidytree:::offspring.tbl_tree(data, node, self_include = TRUE)
+    sp.df <- offspring.tbl_tree(data, node, self_include = TRUE)
 
     y <- sp.df$y
     y <- y[!is.na(y)]
