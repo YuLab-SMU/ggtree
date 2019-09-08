@@ -140,7 +140,8 @@ get_clade_position <- function(treeview, node) {
 }
 
 get_clade_position_ <- function(data, node) {
-    sp <- tryCatch(tidytree:::offspring.tbl_tree(data, node)$node, error=function(e) NULL)
+    #sp <- tryCatch(tidytree:::offspring.tbl_tree(data, node)$node, error=function(e) NULL)
+    sp <- tryCatch(offspring.tbl_tree(data, node)$node, error=function(e) NULL)
     i <- match(node, data$node)
     if (is.null(sp)) {
         ## tip
