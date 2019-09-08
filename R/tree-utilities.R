@@ -538,7 +538,8 @@ getSubtree.df <- function(df, node){
   ##   i <- i + 1
   ## }
     ## subtree
-    tidytree:::offspring.tbl_tree(df, node, self_include = TRUE)$node
+    #tidytree:::offspring.tbl_tree(df, node, self_include = TRUE)$node
+    offspring.tbl_tree(df, node, self_include = TRUE)$node
 }
 
 ##' Get all subtrees of specified node. This includes all ancestors and relatives of node and
