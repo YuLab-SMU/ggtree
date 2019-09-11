@@ -4,9 +4,8 @@
 ##' @param data a list of phylo objects or any object with an as.phylo and fortify method
 ##' @param mapping aesthetic mapping
 ##' @param layout one of 'slanted', 'rectangluar', 'fan', 'circular' or 'radial' (default: 'slanted')
-##' @param branch.length variable to be used to scale branch length. Setting to 'branch.length' will use the branch lengths of the tree objects. Default is 'none' to discard branch length and only plot cladogram (more reasonable for densitree).
 ##' @param tip.order the order of the tips by a character vector of taxa names; or an integer, N, to order the tips by the order of the tips in the Nth tree; or 'mds' to order the tips based on MDS of the distance between the tips (default: 'mds')
-##' @param dangle TRUE to align trees by their tips and FALSE to align treesby their root (default: TRUE)
+##' @param align.tips TRUE to align trees by their tips and FALSE to align trees by their root (default: TRUE)
 ##' @param jitter deviation to jitter tips
 ##' @param ... additional parameters passed to fortify, ggtree and geom_tree
 ##' @return tree layer
@@ -17,18 +16,17 @@
 ##' @examples
 ##' require(ape)
 ##' require(dplyr)
-##' library(ape)
 ##' 
-##' trees <- list(read.tree(text="((a,b),c);"), read.tree(text="((a,c),b);"));
+##' trees <- list(read.tree(text="((a:1,b:1):1.5,c:2.5);"), read.tree(text="((a:1,c:1):1,b:2);"));
 ##' ggdensitree(trees) + geom_tiplab()
 ##' 
 ##' trees.fort <- list(trees[[1]] %>% fortify %>% mutate(tree="a"), trees[[2]] %>% fortify %>% mutate(tree="b"));
 ##' ggdensitree(trees.fort, aes(colour=tree)) + geom_tiplab(colour='black')
-ggdensitree <- function(data=NULL, mapping=NULL, layout="slanted", branch.length = "none",
-                        tip.order='mds', dangle=TRUE, jitter=0, ...) {
+ggdensitree <- function(data=NULL, mapping=NULL, layout="slanted", tip.order='mds',
+						align.tips=TRUE, jitter=0, ...) {
     ## factorize to simplify code
     trees <- lapply(data, as.phylo)
-    trees.f <- lapply(data, fortify, layout=layout, branch.length = branch.length, ...)
+    trees.f <- lapply(data, fortify, layout=layout, ...)
     n.tips <- sum(trees.f[[1]]$isTip)
 
     ## determine tip order
@@ -64,12 +62,12 @@ ggdensitree <- function(data=NULL, mapping=NULL, layout="slanted", branch.length
         }
     }
 	
-    ## reorder tips (and shift x id dangling)
+    ## reorder tips (and shift x id align tips)
     max.x <- vapply(trees.f, function(x) max(x$x, na.rm = TRUE), numeric(1))
     farthest <- max(max.x)
     trees.f <- lapply(1:length(trees), function(i) {
         trees.f[[i]]$y <- getYcoord(trees[[i]], tip.order = tip.order)
-        if (dangle) {
+        if (align.tips) {
             trees.f[[i]]$x <- trees.f[[i]]$x + (farthest - max.x[i])
         }
         if (i > 1 && jitter > 0) {
