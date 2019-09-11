@@ -876,7 +876,7 @@ getXcoord <- function(tr) {
 
 ## @importFrom magrittr %>%
 ##' @importFrom magrittr equals
-getYcoord <- function(tr, step=1) {
+getYcoord <- function(tr, step=1, tip.order = NULL) {
     Ntip <- length(tr[["tip.label"]])
     N <- getNodeNum(tr)
 
@@ -889,9 +889,15 @@ getYcoord <- function(tr, step=1) {
     child_list[as.numeric(names(cl))] <- cl
 
     y <- numeric(N)
-    tip.idx <- child[child <= Ntip]
-    y[tip.idx] <- 1:Ntip * step
+    if (is.null(tip.order)) {
+        tip.idx <- child[child <= Ntip]
+        y[tip.idx] <- 1:Ntip * step
+    } else {
+        tip.idx <- 1:Ntip
+        y[tip.idx] <- match(tr$tip.label, tip.order) * step
+    }
     y[-tip.idx] <- NA
+    
 
     ## use lookup table
     pvec <- integer(max(tr$edge))

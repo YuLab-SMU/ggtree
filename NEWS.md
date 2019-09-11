@@ -1,3 +1,8 @@
+# ggtree 1.99.1
+
++ `ggdensitree` (2019-09-11, Wed)
+  - <https://github.com/YuLab-SMU/ggtree/pull/253>
+  
 # ggtree 1.99.0
 
 + prepare for ggtree v=2.0.0

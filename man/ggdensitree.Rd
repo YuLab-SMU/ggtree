@@ -5,7 +5,8 @@
 \title{ggdensitree}
 \usage{
 ggdensitree(data = NULL, mapping = NULL, layout = "slanted",
-  tip.order = "mds", dangle = TRUE, jitter = 0, ...)
+  branch.length = "none", tip.order = "mds", dangle = TRUE,
+  jitter = 0, ...)
 }
 \arguments{
 \item{data}{a list of phylo objects or any object with an as.phylo and fortify method}
@@ -13,6 +14,8 @@ ggdensitree(data = NULL, mapping = NULL, layout = "slanted",
 \item{mapping}{aesthetic mapping}
 
 \item{layout}{one of 'slanted', 'rectangluar', 'fan', 'circular' or 'radial' (default: 'slanted')}
+
+\item{branch.length}{variable to be used to scale branch length. Setting to 'branch.length' will use the branch lengths of the tree objects. Default is 'none' to discard branch length and only plot cladogram (more reasonable for densitree).}
 
 \item{tip.order}{the order of the tips by a character vector of taxa names; or an integer, N, to order the tips by the order of the tips in the Nth tree; or 'mds' to order the tips based on MDS of the distance between the tips (default: 'mds')}
 
@@ -32,7 +35,6 @@ drawing phylogenetic trees from list of phylo objects
 require(ape)
 require(dplyr)
 library(ape)
-library(tidyverse)
 
 trees <- list(read.tree(text="((a,b),c);"), read.tree(text="((a,c),b);"));
 ggdensitree(trees) + geom_tiplab()
