@@ -5,8 +5,7 @@
 \title{ggdensitree}
 \usage{
 ggdensitree(data = NULL, mapping = NULL, layout = "slanted",
-  branch.length = "none", tip.order = "mds", dangle = TRUE,
-  jitter = 0, ...)
+  tip.order = "mds", align.tips = TRUE, jitter = 0, ...)
 }
 \arguments{
 \item{data}{a list of phylo objects or any object with an as.phylo and fortify method}
@@ -15,11 +14,9 @@ ggdensitree(data = NULL, mapping = NULL, layout = "slanted",
 
 \item{layout}{one of 'slanted', 'rectangluar', 'fan', 'circular' or 'radial' (default: 'slanted')}
 
-\item{branch.length}{variable to be used to scale branch length. Setting to 'branch.length' will use the branch lengths of the tree objects. Default is 'none' to discard branch length and only plot cladogram (more reasonable for densitree).}
-
 \item{tip.order}{the order of the tips by a character vector of taxa names; or an integer, N, to order the tips by the order of the tips in the Nth tree; or 'mds' to order the tips based on MDS of the distance between the tips (default: 'mds')}
 
-\item{dangle}{TRUE to align trees by their tips and FALSE to align treesby their root (default: TRUE)}
+\item{align.tips}{TRUE to align trees by their tips and FALSE to align trees by their root (default: TRUE)}
 
 \item{jitter}{deviation to jitter tips}
 
@@ -34,13 +31,23 @@ drawing phylogenetic trees from list of phylo objects
 \examples{
 require(ape)
 require(dplyr)
-library(ape)
 
-trees <- list(read.tree(text="((a,b),c);"), read.tree(text="((a,c),b);"));
+trees <- list(read.tree(text="((a:1,b:1):1.5,c:2.5);"), read.tree(text="((a:1,c:1):1,b:2);"));
 ggdensitree(trees) + geom_tiplab()
 
 trees.fort <- list(trees[[1]] \%>\% fortify \%>\% mutate(tree="a"), trees[[2]] \%>\% fortify \%>\% mutate(tree="b"));
 ggdensitree(trees.fort, aes(colour=tree)) + geom_tiplab(colour='black')
+
+set.seed(1)
+trees <- rmtree(5, 10)
+time.trees <- lapply(1:length(trees), function(i) {
+ 	tree <- trees[[i]]
+ 	tree$tip.label <- paste0("t", 1:10)
+	dates <- estimate.dates(tree, 1:10, mu=1, nsteps=1)
+	tree$edge.length <- dates[tree$edge[, 2]] - dates[tree$edge[, 1]]
+	fortify(tree) \%>\% mutate(tree=factor(i, levels=as.character(1:10)))
+}) 
+ggdensitree(time.trees, aes(colour=tree), tip.order=paste0("t", 1:10)) + geom_tiplab(colour='black')
 }
 \author{
 Yu Guangchuang, Bradley R. Jones
