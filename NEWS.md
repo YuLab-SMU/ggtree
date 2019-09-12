@@ -2,7 +2,9 @@
 
 + `ggdensitree` (2019-09-11, Wed)
   - <https://github.com/YuLab-SMU/ggtree/pull/253>
-  
+  - <https://github.com/YuLab-SMU/ggtree/pull/255> 
+  - <https://yulab-smu.github.io/treedata-book/chapter4.html#visualize-a-list-of-trees>
+
 # ggtree 1.99.0
 
 + prepare for ggtree v=2.0.0
@@ -11,6 +13,7 @@
 
 + `fortify` methods for hierarchical clustering objects, including `agnes`, `diana` and `twins` (2019-08-30, Fri) 
 + now `geom_hilight` supports `unrooted` and `daylight` layouts (2019-08-28, Wed)
+  - by calling `geom_hilight_encircle`
 + update `geom_motif` according to the change of `gggenes` and allow labeling genes (2019-08-27, Tue)
   - <https://yulab-smu.github.io/treedata-book/chapter11.html#genome-locus>
 + re-implement `geom_strip` with more robust support of labelling strip, either input taxa using name or id.
