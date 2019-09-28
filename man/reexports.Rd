@@ -21,6 +21,8 @@
 \alias{geom_text}
 \alias{geom_label}
 \alias{geom_point}
+\alias{arrow}
+\alias{unit}
 \title{Objects exported from other packages}
 \keyword{internal}
 \description{
@@ -33,6 +35,8 @@ below to see their documentation.
   \item{dplyr}{\code{\link[dplyr]{collapse}}}
 
   \item{ggplot2}{\code{\link[ggplot2]{fortify}}, \code{\link[ggplot2]{ggplot}}, \code{\link[ggplot2]{xlim}}, \code{\link[ggplot2]{theme}}, \code{\link[ggplot2]{ggsave}}, \code{\link[ggplot2]{aes}}, \code{\link[ggplot2]{geom_text}}, \code{\link[ggplot2]{geom_label}}, \code{\link[ggplot2]{geom_point}}}
+
+  \item{grid}{\code{\link[grid]{arrow}}, \code{\link[grid]{unit}}}
 
   \item{magrittr}{\code{\link[magrittr]{\%>\%}}}
 

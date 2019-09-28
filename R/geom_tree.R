@@ -20,7 +20,8 @@ geom_tree <- function(mapping=NULL, data=NULL, layout="rectangular", multiPhylo=
 
 stat_tree <- function(mapping=NULL, data=NULL, geom="segment", position="identity",
                       layout="rectangular", multiPhylo=FALSE, lineend="round", MAX_COUNT=5,
-					  ..., show.legend=NA, inherit.aes=TRUE, na.rm=TRUE, check.param=TRUE) {
+                      ..., arrow=NULL, rootnode=TRUE, show.legend=NA, inherit.aes=TRUE,
+                      na.rm=TRUE, check.param=TRUE) {
 
     default_aes <- aes_(x=~x, y=~y,node=~node, parent=~parent)
     if (multiPhylo) {
@@ -31,6 +32,10 @@ stat_tree <- function(mapping=NULL, data=NULL, geom="segment", position="identit
         mapping <- default_aes
     } else {
         mapping <- modifyList(default_aes, mapping)
+    }
+
+    if (!is.null(arrow)) {
+        rootnode <- FALSE
     }
 
     if (layout %in% c("rectangular", "fan", "circular")) {
@@ -44,6 +49,8 @@ stat_tree <- function(mapping=NULL, data=NULL, geom="segment", position="identit
                    params=list(layout = layout,
                                lineend = lineend,
                                na.rm = na.rm,
+                               arrow = arrow,
+                               rootnode = rootnode,
                                ...),
                    check.aes = FALSE
                    ),
@@ -57,6 +64,8 @@ stat_tree <- function(mapping=NULL, data=NULL, geom="segment", position="identit
                    params=list(layout = layout,
                                lineend = lineend,
                                na.rm = na.rm,
+                               arrow = arrow,
+                               rootnode = rootnode,
                                ...),
                    check.aes = FALSE
                    )
@@ -72,6 +81,8 @@ stat_tree <- function(mapping=NULL, data=NULL, geom="segment", position="identit
               params=list(layout = layout,
                           lineend = lineend,
                           na.rm = na.rm,
+                          arrow = arrow,
+                          rootnode = rootnode,
                           ...),
               check.aes = FALSE
               )
@@ -151,7 +162,7 @@ StatTreeVertical <- ggproto("StatTreeVertical", Stat,
                                     df$yend <- y
 
                                     if (!rootnode) {
-                                        df <- dplyr::filter(df, .data$node != tidytree:::rootnode.tbl_tree(df)$node)
+                                        df <- dplyr::filter(df, .data$node != rootnode.tbl_tree(df)$node)
                                     }
 
                                     if (continuous && !is.null(df$colour ))
@@ -190,7 +201,7 @@ StatTree <- ggproto("StatTree", Stat,
                             df$yend <- y
 
                             if (!rootnode) {
-                                df <- dplyr::filter(df, .data$node != tidytree:::rootnode.tbl_tree(df)$node)
+                                df <- dplyr::filter(df, .data$node != rootnode.tbl_tree(df)$node)
                             }
 
                             if (continuous && !is.null(df$colour)) {

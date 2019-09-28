@@ -46,7 +46,9 @@ ggtree <- function(tr,
                    ...) {
 
     # Check if layout string is valid.
-    layout %<>% match.arg(c("rectangular", "slanted", "fan", "circular", "radial", "unrooted", "equal_angle", "daylight"))
+    layout %<>% match.arg(c("rectangular", "slanted", "fan", "circular",
+                            "radial", "unrooted", "equal_angle", "daylight"))
+
     if (layout == "unrooted") {
         layout <- "daylight"
         message('"daylight" method was used as default layout for unrooted tree.')

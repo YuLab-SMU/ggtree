@@ -70,4 +70,10 @@ ggplot2::geom_label
 ##' @export
 ggplot2::geom_point
 
+##' @importFrom grid arrow
+##' @export
+grid::arrow
 
+##' @importFrom grid unit
+##' @export
+grid::unit
