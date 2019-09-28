@@ -161,6 +161,11 @@ fortify.twins <- fortify.phylo4
 ##' @export
 fortify.phylog <- fortify.phylo4
 
+##' @method fortify igraph
+##' @export
+fortify.igraph <- fortify.phylo4
+
+
 ##' @method fortify phylo4d
 ##' @importFrom treeio as.treedata
 ##' @export
@@ -174,6 +179,7 @@ fortify.phylo4d <- function(model, data,
                             ...) {
     fortify(as.treedata(model), data, layout, yscale, ladderize, right, branch.length, mrsd, ...)
 }
+
 
 
 ##' @method fortify obkData

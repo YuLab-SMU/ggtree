@@ -1,5 +1,6 @@
 # ggtree 1.99.1
 
++ `fortify` method for igraph (only work with tree graph) (2019-09-28, Sat)
 + `ggdensitree` (2019-09-11, Wed)
   - <https://github.com/YuLab-SMU/ggtree/pull/253>
   - <https://github.com/YuLab-SMU/ggtree/pull/255> 
