@@ -42,7 +42,7 @@ stat_tree <- function(mapping=NULL, data=NULL, geom="segment", position="identit
         list(layer(data=data,
                    mapping=mapping,
                    stat=StatTreeHorizontal,
-                   geom = GeomTreeHorizontal,
+                   geom = geom, ## GeomTreeHorizontal,
                    position=position,
                    show.legend = show.legend,
                    inherit.aes = inherit.aes,
@@ -64,7 +64,7 @@ stat_tree <- function(mapping=NULL, data=NULL, geom="segment", position="identit
                    params=list(layout = layout,
                                lineend = lineend,
                                na.rm = na.rm,
-                               arrow = arrow,
+                               ## arrow = arrow,
                                rootnode = rootnode,
                                ...),
                    check.aes = FALSE
@@ -89,13 +89,13 @@ stat_tree <- function(mapping=NULL, data=NULL, geom="segment", position="identit
     }
 }
 
-GeomTreeHorizontal <- ggproto("GeomTreeHorizontal",  GeomSegment,
-                              draw_panel =  function(data, panel_params, coord, ...) {
-                                  coords <- coord$transform(data, panel_params)
-                                  GeomSegment$draw_panel(data = data, panel_params = panel_params,
-                                                         coord = coord, ...)
-                              }
-                              )
+## GeomTreeHorizontal <- ggproto("GeomTreeHorizontal",  GeomSegment,
+##                               draw_panel =  function(data, panel_params, coord, ...) {
+##                                   coords <- coord$transform(data, panel_params)
+##                                   GeomSegment$draw_panel(data = data, panel_params = panel_params,
+##                                                          coord = coord, ...)
+##                               }
+##                               )
 
 StatTreeHorizontal <- ggproto("StatTreeHorizontal", Stat,
                               required_aes = c("node", "parent", "x", "y"),
