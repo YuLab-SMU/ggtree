@@ -1,5 +1,5 @@
 ---
-title: "ggtree: phylogenetic tree visualization and annotation"
+title: "ggtree: tree visualization and annotation"
 author: "Guangchuang Yu\\
 
         School of Basic Medical Sciences, Southern Medical University"
@@ -45,12 +45,34 @@ Please go to <https://yulab-smu.github.io/treedata-book/> for the full vignette.
 
 If you use `r Biocpkg('ggtree')` in published research, please cite the most appropriate paper(s) from this list:
 
-1. __G Yu__, DK Smith, H Zhu, Y Guan, TTY Lam^\*^. ggtree: an R package for
+
+1. __G Yu__^\*^, TTY Lam, H Zhu, Y Guan^\*^. Two methods for mapping and visualizing associated data on phylogeny using ggtree. __*Molecular Biology and Evolution*__, 2018, 35(2):3041-3043.
+doi: [10.1093/molbev/msy194](https://doi.org/10.1093/molbev/msy194).
+2. __G Yu__, DK Smith, H Zhu, Y Guan, TTY Lam^\*^. ggtree: an R package for
 visualization and annotation of phylogenetic trees with their covariates and
 other associated data. __*Methods in Ecology and Evolution*__. 2017, 8(1):28-36.
 doi: [10.1111/2041-210X.12628](https://doi.org/10.1111/2041-210X.12628).
-2. __G Yu__^\*^, TTY Lam, H Zhu, Y Guan^\*^. Two methods for mapping and visualizing associated data on phylogeny using ggtree. __*Molecular Biology and Evolution*__, 2018, 35(2):3041-3043.
-doi: [10.1093/molbev/msy194](https://doi.org/10.1093/molbev/msy194).
+
+
+
+
+# Need helps?
+
+
+If you have questions/issues, please visit
+[ggtree homepage](https://guangchuangyu.github.io/software/ggtree/) first.
+Your problems are mostly documented. 
+
+
+If you think you found a bug, please follow
+[the guide](https://guangchuangyu.github.io/2016/07/how-to-bug-author/) and
+provide a reproducible example to be posted
+on
+[github issue tracker](https://github.com/GuangchuangYu/ggtree/issues).
+For questions, please post
+to [google group](https://groups.google.com/forum/#!forum/bioc-ggtree). Users
+are highly recommended to subscribe to the [mailing list](https://groups.google.com/forum/#!forum/bioc-ggtree).
+
 
 
 
@@ -230,23 +252,5 @@ information about the package, more documentation, a gallery of beautiful
 published images and links to related resources).
 
 -->
-
-
-# Need helps?
-
-
-If you have questions/issues, please visit
-[ggtree homepage](https://guangchuangyu.github.io/software/ggtree/) first.
-Your problems are mostly documented. 
-
-
-If you think you found a bug, please follow
-[the guide](https://guangchuangyu.github.io/2016/07/how-to-bug-author/) and
-provide a reproducible example to be posted
-on
-[github issue tracker](https://github.com/GuangchuangYu/ggtree/issues).
-For questions, please post
-to [google group](https://groups.google.com/forum/#!forum/bioc-ggtree). Users
-are highly recommended to subscribe to the [mailing list](https://groups.google.com/forum/#!forum/bioc-ggtree).
 
 
