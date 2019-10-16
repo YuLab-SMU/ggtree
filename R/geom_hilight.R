@@ -24,7 +24,8 @@ geom_hilight <- function(node, fill="steelblue", alpha=.5, extend=0, ...) {
 
 
 
-geom_hilight_rectangular <- function(node, fill="steelblue", alpha=.5, extend=0, extendto=NULL) {
+geom_hilight_rectangular <- function(node, mapping = NULL, fill="steelblue",
+                                     alpha=.5, extend=0, extendto=NULL) {
   data = NULL
   stat = "hilight"
   position = "identity"
@@ -33,8 +34,14 @@ geom_hilight_rectangular <- function(node, fill="steelblue", alpha=.5, extend=0,
   inherit.aes = FALSE
   check.aes = FALSE
 
-  default_aes <- aes_(x=~x, y=~y, node=~node, parent=~parent, branch.length=~branch.length)
-  mapping <- default_aes
+  default_aes <- aes_(x=~x, y=~y, node=~node, parent=~parent, branch = ~branch)
+
+  if (is.null(mapping)) {
+      mapping <- default_aes
+  } else {
+      mapping <- modifyList(default_aes, mapping)
+  }
+
 
   layer(
     stat=StatHilight,
@@ -78,12 +85,12 @@ stat_hilight <- function(mapping=NULL, data=NULL, geom="rect",
                          fill, alpha, extend=0, extendto=NULL,
                          ...) {
 
-  default_aes <- aes_(x=~x, y=~y, node=~node, parent=~parent, branch.length=~branch.length)
+  default_aes <- aes_(x=~x, y=~y, node=~node, parent=~parent, branch=~branch) #, branch.length=~branch.length)
 
   if (is.null(mapping)) {
     mapping <- default_aes
   } else {
-    mapping <- modifyList(mapping, default_aes)
+    mapping <- modifyList(default_aes, mapping)
   }
 
   layer(
@@ -122,7 +129,7 @@ StatHilight <- ggproto("StatHilight", Stat,
                            }
                            return(df)
                        },
-                       required_aes = c("x", "y", "branch.length")
+                       required_aes = c("x", "y") #, "branch.length")
                        )
 
 
@@ -140,7 +147,6 @@ get_clade_position <- function(treeview, node) {
 }
 
 get_clade_position_ <- function(data, node) {
-    #sp <- tryCatch(tidytree:::offspring.tbl_tree(data, node)$node, error=function(e) NULL)
     sp <- tryCatch(offspring.tbl_tree(data, node)$node, error=function(e) NULL)
     i <- match(node, data$node)
     if (is.null(sp)) {
@@ -155,7 +161,7 @@ get_clade_position_ <- function(data, node) {
     y <- sp.df$y
     
     if ("branch.length" %in% colnames(data)) {
-        xmin <- min(x, na.rm=TRUE)-data[["branch.length"]][i]/2
+        xmin <- min(x, na.rm=TRUE) - data[["branch.length"]][i]/2
     } else {
         xmin <- min(sp.df$branch, na.rm=TRUE)
     }

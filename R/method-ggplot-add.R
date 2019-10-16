@@ -123,6 +123,10 @@ ggplot_add.hilight <- function(object, plot, object_name) {
     ## instead of the tree layout, you may get graphics::layout
     if (!is.character(layout)) layout <- 'rectangular'
 
+    if ("branch.length" %in% colnames(plot$data)) {
+        object$mapping <- aes_(branch.length = ~branch.length)
+    }
+
     if (layout == "unrooted" || layout == "daylight") {
         ly <- do.call(geom_hilight_encircle, object)
     } else {

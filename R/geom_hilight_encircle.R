@@ -245,12 +245,12 @@ geom_hilight_encircle <- function(data = NULL,
 
 
   # Select fields(columns) from the ggtree "data" data.frame to be passed to the GeomHilight ggproto object.
-  default_aes <- aes_( x=~x, y=~y, node=~node, parent=~parent, branch.length=~branch.length )
+  default_aes <- aes_( x=~x, y=~y, node=~node, parent=~parent, branch = ~branch)
 
   if (is.null(mapping)) {
     mapping <- default_aes
   } else {
-    mapping <- modifyList(mapping, default_aes)
+    mapping <- modifyList(default_aes, mapping)
   }
 
   # create xspline geom for non-uniform trees, e.g. unrooted layout

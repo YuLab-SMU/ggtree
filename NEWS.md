@@ -1,5 +1,7 @@
 # ggtree 1.99.1
 
++ bug fixed of `geom_hilight` for `tree$edge.length = NULL` (2019-10-16, Wed)
+  - <https://groups.google.com/d/msg/bioc-ggtree/GULj-eoAluI/Llpm-HbfCwAJ>
 + `fortify` method for igraph (only work with tree graph) (2019-09-28, Sat)
 + `ggdensitree` (2019-09-11, Wed)
   - <https://github.com/YuLab-SMU/ggtree/pull/253>
