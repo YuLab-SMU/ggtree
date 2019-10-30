@@ -59,6 +59,9 @@ biocinit:
 	git remote add upstream git@git.bioconductor.org:packages/$(PKGNAME).git;\
 	git fetch --all
 
+rmoldrelease:
+	git branch -D RELEASE_3_9
+
 release:
 	git checkout RELEASE_3_10;\
 	git fetch --all
