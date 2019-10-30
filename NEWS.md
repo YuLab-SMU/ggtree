@@ -1,3 +1,12 @@
+# ggtree 2.1.1
+
++ fixed `fontface` warning message when `align=TRUE` in `geom_tiplab` (2019-10-30, Wed)
+  - <https://github.com/YuLab-SMU/ggtree/issues/260>
+
+# ggtree 2.0.0
+
++ Bioconductor 3.10 release (2019-10-30, Wed)
+
 # ggtree 1.99.1
 
 + bug fixed of `geom_hilight` for `tree$edge.length = NULL` (2019-10-16, Wed)

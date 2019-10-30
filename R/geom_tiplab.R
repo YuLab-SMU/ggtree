@@ -31,7 +31,7 @@ geom_tiplab <- function(mapping=NULL, hjust = 0,  align = FALSE, linetype = "dot
               class = "tiplab")
 }
 
-geom_tiplab_rectangular <- function(mapping=NULL, hjust = 0,  align = FALSE, linetype = "dotted", linesize=0.5, geom="text",  offset=0, ...) {
+geom_tiplab_rectangular <- function(mapping=NULL, hjust = 0,  align = FALSE, linetype = "dotted", linesize=0.5, geom="text",  offset=0, fontface = "plain", ...) {
     geom <- match.arg(geom, c("text", "label", "image", "phylopic"))
     if (geom == "text") {
         label_geom <- geom_text2
@@ -79,7 +79,7 @@ geom_tiplab_rectangular <- function(mapping=NULL, hjust = 0,  align = FALSE, lin
                           size = linesize, stat = StatTreeData, ...)
        ,
         label_geom(mapping=text_mapping,
-                   hjust = hjust, nudge_x = offset, stat = StatTreeData, ...)
+                   hjust = hjust, nudge_x = offset, stat = StatTreeData, fontface = fontface, ...)
 
     )
 }
