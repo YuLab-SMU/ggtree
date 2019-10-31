@@ -20,23 +20,51 @@ ggplot_add.facet_xlim <- function(object, plot, object_name) {
     ggplot_add(obj, plot, object_name)
 }
 
-##' @method ggplot_add ylim_ggtree
-##' @export
-ggplot_add.ylim_ggtree <- function(object, plot, object_name) {
-    limits <- range(object$ggtree$data$y)
-    expand_limits <- object$expand_limits
 
+##' @method ggplot_add align_axis
+##' @export
+ggplot_add.align_axis <- function(object, plot, object_name) {
+    gg <- object$gg
+    v <- get_aes_var(gg$mapping, object$axis)
+    limits <- range(gg$data[[v]])
+
+    expand_limits <- object$expand_limits
     limits[1] <- limits[1] + (limits[1] * expand_limits[1]) - expand_limits[2]
     limits[2] <- limits[2] + (limits[2] * expand_limits[3]) + expand_limits[4]
 
-
-    if (is(plot$coordinates, "CoordFlip")) {
-        message("the plot was flipped and the y limits of tree will be applied to x-axis")
-        scale_lim <- scale_x_continuous(limits=limits, expand=c(0,0))
-    } else {
-        scale_lim <- scale_y_continuous(limits=limits, expand=c(0,0))
+    if (object$axis == 'x') {
+        if (object$by == "x") {
+            if (is(plot$coordinates, "CoordFlip")) {
+                message("the plot was flipped and the x limits will be applied to y-axis")
+                scale_lim <- scale_y_continuous(limits = limits, expand = c(0, 0))
+            } else {
+                scale_lim <- scale_x_continuous(limits = limits, expand = c(0, 0))
+            }
+        } else {
+            if (is(plot$coordinates, "CoordFlip")) {
+                message("the plot was flipped and the x limits will be applied to x-axis")
+                scale_lim <- scale_x_continuous(limits=limits, expand=c(0,0))
+            } else {
+                scale_lim <- scale_y_continuous(limits=limits, expand=c(0,0))
+            }
+        }
+    } else { ## axis == 'y'
+        if (object$by == "x") {
+            if (is(plot$coordinates, "CoordFlip")) {
+                message("the plot was flipped and the y limits will be applied to y-axis")
+                scale_lim <- scale_y_continuous(limits = limits, expand = c(0, 0))
+            } else {
+                scale_lim <- scale_x_continuous(limits = limits, expand = c(0, 0))
+            }
+        } else {
+            if (is(plot$coordinates, "CoordFlip")) {
+                message("the plot was flipped and the y limits will be applied to x-axis")
+                scale_lim <- scale_x_continuous(limits=limits, expand=c(0,0))
+            } else {
+                scale_lim <- scale_y_continuous(limits=limits, expand=c(0,0))
+            }
+        }
     }
-
     ggplot_add(scale_lim, plot, object_name)
 }
 
