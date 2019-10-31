@@ -1,5 +1,7 @@
 # ggtree 2.1.1
 
++ `ylim_ggtree` for setting y limits of a ggplot based on y limits of input ggtree object (2019-10-31, Thu)
+  - <https://yulab-smu.github.io/treedata-book/chapter7.html#composite_plot>
 + fixed `fontface` warning message when `align=TRUE` in `geom_tiplab` (2019-10-30, Wed)
   - <https://github.com/YuLab-SMU/ggtree/issues/260>
 

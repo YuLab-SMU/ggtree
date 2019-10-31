@@ -16,5 +16,5 @@ updated tree view
 set x axis limits for Tree panel
 }
 \author{
-guangchuang yu
+Guangchuang Yu
 }

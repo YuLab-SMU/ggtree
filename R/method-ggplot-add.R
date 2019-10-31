@@ -20,6 +20,26 @@ ggplot_add.facet_xlim <- function(object, plot, object_name) {
     ggplot_add(obj, plot, object_name)
 }
 
+##' @method ggplot_add ylim_ggtree
+##' @export
+ggplot_add.ylim_ggtree <- function(object, plot, object_name) {
+    limits <- range(object$ggtree$data$y)
+    expand_limits <- object$expand_limits
+
+    limits[1] <- limits[1] + (limits[1] * expand_limits[1]) - expand_limits[2]
+    limits[2] <- limits[2] + (limits[2] * expand_limits[3]) + expand_limits[4]
+
+
+    if (is(plot$coordinates, "CoordFlip")) {
+        message("the plot was flipped and the y limits of tree will be applied to x-axis")
+        scale_lim <- scale_x_continuous(limits=limits, expand=c(0,0))
+    } else {
+        scale_lim <- scale_y_continuous(limits=limits, expand=c(0,0))
+    }
+
+    ggplot_add(scale_lim, plot, object_name)
+}
+
 ##' @method ggplot_add geom_range
 ##' @export
 ggplot_add.geom_range <- function(object, plot, object_name) {
@@ -42,7 +62,11 @@ ggplot_add.layout_ggtree <- function(object, plot, object_name) {
                     coord_flip(clip = 'off')
                     )
     } else if (object$layout == 'circular') {
-        obj <- coord_polar(theta='y', start=-pi/2, -1)
+        ## refer to: https://github.com/GuangchuangYu/ggtree/issues/6
+        ## and also have some space for tree scale (legend)
+        obj <- list(coord_polar(theta='y', start=-pi/2, -1),
+                    scale_y_continuous(limits = c(0, NA), expand = expand_scale(0, 0.6))
+                    )
     } else { ## rectangular
         obj <- coord_cartesian()
     }

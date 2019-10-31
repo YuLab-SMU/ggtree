@@ -18,5 +18,5 @@ updated tree view
 expand x axis limits for specific panel
 }
 \author{
-guangchuang yu
+Guangchuang Yu
 }

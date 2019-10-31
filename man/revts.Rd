@@ -16,5 +16,5 @@ updated treeview
 reverse timescle x-axis
 }
 \author{
-guangchuang yu
+Guangchuang Yu
 }

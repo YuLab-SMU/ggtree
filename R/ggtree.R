@@ -87,13 +87,11 @@ ggtree <- function(tr,
     p <- p + geom_tree(layout=layout, multiPhylo=multiPhylo, ...)
 
 
-    p <- p + theme_tree()
+    p <- p + theme_tree() +
+        scale_y_continuous(expand = expand_scale(0, 0.6))
 
     if (layout == "circular" || layout == "radial") {
         p <- p + layout_circular()
-        ## refer to: https://github.com/GuangchuangYu/ggtree/issues/6
-        ## and also have some space for tree scale (legend)
-        p <- p + ylim(0, NA)
     } else if (layout == "fan") {
         p <- p + layout_fan(open.angle)
     }
