@@ -1,6 +1,7 @@
 # ggtree 2.1.1
 
 + convert roxygen documents using markdown (2019-11-01, Fri)
++ extend `xlim2` and `ylim2` to support discrete scale.
 + `xlim2` and `ylim2` to uniformize axis limits of ggplot objects (2019-10-31, Thu)
   - <https://yulab-smu.github.io/treedata-book/chapter7.html#composite_plot>
   - <https://yulab-smu.github.io/treedata-book/docs/chapter10.html#axis_align>

@@ -95,14 +95,19 @@ axis_align <- function(gg, limits = NULL, axis) {
 
 
 yrange <- function(gg) {
-    ggrange(gg, "y.range")
+    ggrange(gg, "y")
 }
 
 xrange <- function(gg) {
-    ggrange(gg, "x.range")
+    ggrange(gg, "x")
 }
 
+##' @importFrom ggplot2 layer_scales
 ggrange <- function(gg, var) {
+    res <- layer_scales(gg)[[var]]$range$range
+    if (is.character(res)) return(res)
+
+    var <- paste0(var, ".range")
     ggplot_build(gg)$layout$panel_params[[1]][[var]]
 }
 

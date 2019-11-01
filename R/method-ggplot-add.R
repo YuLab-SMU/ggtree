@@ -22,15 +22,23 @@ ggplot_add.facet_xlim <- function(object, plot, object_name) {
 
 
 ##' @method ggplot_add axisAlign
+##' @importFrom ggplot2 scale_x_discrete
+##' @importFrom ggplot2 scale_y_discrete
 ##' @export
 ggplot_add.axisAlign <- function(object, plot, object_name) {
     limits <- object$limits
+
     ## expand_limits <- object$expand_limits
     ## limits[1] <- limits[1] + (limits[1] * expand_limits[1]) - expand_limits[2]
     ## limits[2] <- limits[2] + (limits[2] * expand_limits[3]) + expand_limits[4]
 
-    lim_x <- scale_x_continuous(limits=limits, expand=c(0,0))
-    lim_y <- scale_y_continuous(limits = limits, expand = c(0, 0))
+    if (is.numeric(limits)) {
+        lim_x <- scale_x_continuous(limits=limits, expand=c(0,0))
+        lim_y <- scale_y_continuous(limits = limits, expand = c(0, 0))
+    } else {
+        lim_x <- scale_x_discrete(limits=limits, expand = c(0, 0.6))
+        lim_y <- scale_y_discrete(limits = limits, expand = c(0, 0.6))
+    }
 
     if (object$axis == 'x') {
         ## if (object$by == "x") {
