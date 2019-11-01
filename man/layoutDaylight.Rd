@@ -21,15 +21,12 @@ tree as data.frame with equal angle layout.
 }
 \references{
 The following aglorithm aims to implement the vague description of the "Equal-daylight Algorithm"
-in "Inferring Phylogenies" pp 582-584 by Joseph Felsenstein.
-
-```
-Leafs are subtrees with no children
+in "Inferring Phylogenies" pp 582-584 by Joseph Felsenstein.\preformatted{Leafs are subtrees with no children
 Initialise tree using equal angle algorithm
 tree_df = equal_angle(tree)
 
 nodes = get list of nodes in tree_df breadth-first
 nodes = remove tip nodes.
 
-```
+}
 }

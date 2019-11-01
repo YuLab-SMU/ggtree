@@ -95,8 +95,8 @@ geom_tiplab_rectangular <- function(mapping=NULL, hjust = 0,  align = FALSE, lin
 ##' @return tip label layer
 ##' @export
 ##' @author Guangchuang Yu
-##' @references \url{https://groups.google.com/forum/#!topic/bioc-ggtree/o35PV3iHO-0}
-##' @seealso \link{geom_tiplab}
+##' @references <https://groups.google.com/forum/#!topic/bioc-ggtree/o35PV3iHO-0>
+##' @seealso [geom_tiplab]
 geom_tiplab2 <- function(mapping=NULL, hjust=0, ...) {
     angle <- isTip <- node <- NULL
     m1 <- aes(subset=(isTip & (angle < 90 | angle > 270)), angle=angle, node = node)

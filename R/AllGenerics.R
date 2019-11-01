@@ -5,7 +5,7 @@ setOldClass("ggtree")
 ##' @name scale_color
 ##' @rdname scale_color-methods
 ##' @title scale_color method
-##' @param object \code{treedata} object
+##' @param object `treedata` object
 ##' @param by one of numerical attributes
 ##' @param ... additional parameter
 ##' @return color vector

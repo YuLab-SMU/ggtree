@@ -34,7 +34,7 @@ ggtree(tr, mapping = NULL, layout = "rectangular", open.angle = 0,
 aspect?}
 
 \item{right}{logical. If \code{ladderize = TRUE}, should the ladder have the smallest clade on the
-right-hand side? See \code{\link[ape]{ladderize}} for more information.}
+right-hand side? See \code{\link[ape:ladderize]{ape::ladderize()}} for more information.}
 
 \item{branch.length}{variable for scaling branch, if 'none' draw cladogram}
 
@@ -59,7 +59,7 @@ tr <- rtree(10)
 ggtree(tr)
 }
 \seealso{
-\code{\link[ape]{ladderize}}
+\code{\link[ape:ladderize]{ape::ladderize()}}
 }
 \author{
 Yu Guangchuang

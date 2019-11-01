@@ -1,5 +1,5 @@
 ##' visualizing phylogenetic tree and heterogenous associated data based on grammar of graphics
-##' \code{ggtree} provides functions for visualizing phylogenetic tree and its associated data in R.
+##' `ggtree` provides functions for visualizing phylogenetic tree and its associated data in R.
 ##'
 ##' If you use ggtree in published research, please cite:
 ##' Guangchuang Yu, David Smith, Huachen Zhu, Yi Guan, Tommy Tsan-Yuk Lam.

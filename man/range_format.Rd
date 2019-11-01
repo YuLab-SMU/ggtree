@@ -12,7 +12,7 @@ range_format(x, trans = NULL)
 \item{trans}{transformation function}
 }
 \value{
-character vector of '[lower, upper]'
+character vector of \code{[lower, upper]}
 }
 \description{
 format a list of range (HPD, CI, etc that has length of 2)

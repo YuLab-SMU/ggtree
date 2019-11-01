@@ -23,7 +23,7 @@
 ##' @importFrom ggplot2 position_nudge
 ##' @export
 ##' @seealso
-##' \link[ggplot2]{geom_label}
+##' [geom_label][ggplot2::geom_label]
 ##' @author Guangchuang Yu
 geom_label2 <- function(mapping = NULL, data = NULL,
                         ...,

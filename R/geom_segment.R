@@ -42,7 +42,7 @@ geom_aline <- function(mapping=NULL, linetype="dotted", size=1, ...) {
 ##' @importFrom ggplot2 layer
 ##' @export
 ##' @seealso
-##' \link[ggplot2]{geom_segment}
+##' [geom_segment][ggplot2::geom_segment]
 ##' @return add segment layer
 ##' @author Guangchuang Yu
 geom_segment2 <- function(mapping = NULL, data = NULL, stat = "identity",

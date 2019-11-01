@@ -32,7 +32,7 @@ correspond to multichotomies will not be displayed.
 }
 \references{
 J. Silverman, et al. \emph{A phylogenetic transform enhances
-  analysis of compositional microbiota data}. (in preparation)
+analysis of compositional microbiota data}. (in preparation)
 }
 \author{
 Justin Silverman and modified by Guangchuang Yu

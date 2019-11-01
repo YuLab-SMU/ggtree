@@ -290,13 +290,13 @@ applyLayoutDaylight <- function(df, node_id){
 
 
 ##' Find the right (clockwise rotation, angle from +ve x-axis to furthest subtree nodes) and
-##' left (anti-clockwise angle from +ve x-axis to subtree) Returning arc angle in [0, 2] (0 to 360) domain.
+##' left (anti-clockwise angle from +ve x-axis to subtree) Returning arc angle in `[0, 2]` (0 to 360) domain.
 ##'
 ##' @title getTreeArcAngles
 ##' @param df tree data.frame
 ##' @param origin_id node id from which to calculate left and right hand angles of subtree.
 ##' @param subtree named list of root id of subtree (node) and list of node ids for given subtree (subtree).
-##' @return named list with right and left angles in range [0,2] i.e 1 = 180 degrees, 1.5 = 270 degrees.
+##' @return named list with right and left angles in range `[0,2]` i.e 1 = 180 degrees, 1.5 = 270 degrees.
 getTreeArcAngles <- function(df, origin_id, subtree) {
     df_x = df$x
     df_y = df$y
@@ -437,11 +437,12 @@ getTreeArcAngles <- function(df, origin_id, subtree) {
 
 ##' Rotate the points in a tree data.frame around a pivot node by the angle specified.
 ##'
-##' @title rotateTreePoints.data.fram
+##' @title rotateTreePoints.data.frame
+##' @rdname rotateTreePoints
 ##' @param df tree data.frame
 ##' @param pivot_node is the id of the pivot node.
 ##' @param nodes list of node numbers that are to be rotated by angle around the pivot_node
-##' @param angle in range [0,2], ie degrees/180, radians/pi
+##' @param angle in range `[0,2]`, ie degrees/180, radians/pi
 ##' @return updated tree data.frame with points rotated by angle
 rotateTreePoints.df <- function(df, pivot_node, nodes, angle){
   # Rotate nodes around pivot_node.
@@ -477,7 +478,7 @@ rotateTreePoints.df <- function(df, pivot_node, nodes, angle){
 ##' @param df tree data.frame
 ##' @param origin_node_id origin node id number
 ##' @param node_id end node id number
-##' @return angle in range [-1, 1], i.e. degrees/180, radians/pi
+##' @return angle in range `[-1, 1]`, i.e. degrees/180, radians/pi
 getNodeAngle.df <- function(df, origin_node_id, node_id){
   if (origin_node_id != node_id) {
     df_x = df$x

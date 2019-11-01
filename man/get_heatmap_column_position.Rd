@@ -7,7 +7,7 @@
 get_heatmap_column_position(treeview, by = "bottom")
 }
 \arguments{
-\item{treeview}{output of `gheatmap`}
+\item{treeview}{output of \code{gheatmap}}
 
 \item{by}{one of 'bottom' or 'top'}
 }
@@ -16,7 +16,7 @@ data.frame
 }
 \description{
 return a data.frame that contains position information
-for labeling column names of heatmap produced by `gheatmap` function
+for labeling column names of heatmap produced by \code{gheatmap} function
 }
 \author{
 Guangchuang Yu

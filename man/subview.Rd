@@ -15,9 +15,9 @@ subview(mainview, subview, x, y, width = 0.1, height = 0.1)
 
 \item{y}{y position}
 
-\item{width}{width of subview, [0,1]}
+\item{width}{width of subview}
 
-\item{height}{height of subview, [0,1]}
+\item{height}{height of subview}
 }
 \value{
 ggplot object

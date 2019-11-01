@@ -21,49 +21,46 @@ ggplot_add.facet_xlim <- function(object, plot, object_name) {
 }
 
 
-##' @method ggplot_add align_axis
+##' @method ggplot_add axisAlign
 ##' @export
-ggplot_add.align_axis <- function(object, plot, object_name) {
-    gg <- object$gg
-    v <- get_aes_var(gg$mapping, object$axis)
-    limits <- range(gg$data[[v]])
-
-    expand_limits <- object$expand_limits
-    limits[1] <- limits[1] + (limits[1] * expand_limits[1]) - expand_limits[2]
-    limits[2] <- limits[2] + (limits[2] * expand_limits[3]) + expand_limits[4]
+ggplot_add.axisAlign <- function(object, plot, object_name) {
+    limits <- object$limits
+    ## expand_limits <- object$expand_limits
+    ## limits[1] <- limits[1] + (limits[1] * expand_limits[1]) - expand_limits[2]
+    ## limits[2] <- limits[2] + (limits[2] * expand_limits[3]) + expand_limits[4]
 
     if (object$axis == 'x') {
-        if (object$by == "x") {
-            if (is(plot$coordinates, "CoordFlip")) {
-                message("the plot was flipped and the x limits will be applied to y-axis")
-                scale_lim <- scale_y_continuous(limits = limits, expand = c(0, 0))
-            } else {
-                scale_lim <- scale_x_continuous(limits = limits, expand = c(0, 0))
-            }
+        ## if (object$by == "x") {
+        if (is(plot$coordinates, "CoordFlip")) {
+            message("the plot was flipped and the x limits will be applied to y-axis")
+            scale_lim <- scale_y_continuous(limits = limits, expand = c(0, 0))
         } else {
-            if (is(plot$coordinates, "CoordFlip")) {
-                message("the plot was flipped and the x limits will be applied to x-axis")
-                scale_lim <- scale_x_continuous(limits=limits, expand=c(0,0))
-            } else {
-                scale_lim <- scale_y_continuous(limits=limits, expand=c(0,0))
-            }
+            scale_lim <- scale_x_continuous(limits = limits, expand = c(0, 0))
         }
+        ## } else {
+        ##     if (is(plot$coordinates, "CoordFlip")) {
+        ##         message("the plot was flipped and the x limits will be applied to x-axis")
+        ##         scale_lim <- scale_x_continuous(limits=limits, expand=c(0,0))
+        ##     } else {
+        ##         scale_lim <- scale_y_continuous(limits=limits, expand=c(0,0))
+        ##     }
+        ## }
     } else { ## axis == 'y'
-        if (object$by == "x") {
-            if (is(plot$coordinates, "CoordFlip")) {
-                message("the plot was flipped and the y limits will be applied to y-axis")
-                scale_lim <- scale_y_continuous(limits = limits, expand = c(0, 0))
-            } else {
-                scale_lim <- scale_x_continuous(limits = limits, expand = c(0, 0))
-            }
+        ## if (object$by == "x") {
+        ##     if (is(plot$coordinates, "CoordFlip")) {
+        ##         message("the plot was flipped and the y limits will be applied to y-axis")
+        ##         scale_lim <- scale_y_continuous(limits = limits, expand = c(0, 0))
+        ##     } else {
+        ##         scale_lim <- scale_x_continuous(limits = limits, expand = c(0, 0))
+        ##     }
+        ## } else {
+        if (is(plot$coordinates, "CoordFlip")) {
+            message("the plot was flipped and the y limits will be applied to x-axis")
+            scale_lim <- scale_x_continuous(limits=limits, expand=c(0,0))
         } else {
-            if (is(plot$coordinates, "CoordFlip")) {
-                message("the plot was flipped and the y limits will be applied to x-axis")
-                scale_lim <- scale_x_continuous(limits=limits, expand=c(0,0))
-            } else {
-                scale_lim <- scale_y_continuous(limits=limits, expand=c(0,0))
-            }
+            scale_lim <- scale_y_continuous(limits=limits, expand=c(0,0))
         }
+        ## }
     }
     ggplot_add(scale_lim, plot, object_name)
 }
@@ -78,6 +75,7 @@ ggplot_add.geom_range <- function(object, plot, object_name) {
 }
 
 ##' @method ggplot_add layout_ggtree
+##' @importFrom ggplot2 expand_scale
 ##' @export
 ggplot_add.layout_ggtree <- function(object, plot, object_name) {
     if(object$layout == 'fan') {

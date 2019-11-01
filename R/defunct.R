@@ -51,8 +51,8 @@ phylopic <- function(tree_view, phylopic_id,
 ##' @param subview a ggplot or grob object
 ##' @param x x position
 ##' @param y y position
-##' @param width width of subview, [0,1]
-##' @param height height of subview, [0,1]
+##' @param width width of subview
+##' @param height height of subview
 ##' @return ggplot object
 ##' @importFrom ggplot2 annotation_custom
 ##' @importFrom ggplot2 ggplotGrob
@@ -122,7 +122,7 @@ gzoom.ggtree <- function(tree_view, focus, widths=c(.3, .7), xmax_adjust=0) {
 ##' @title gzoom method
 ##' @rdname gzoom-methods
 ##' @exportMethod gzoom
-##' @param xmax_adjust adjust xmax (xlim[2])
+##' @param xmax_adjust adjust xmax (`xlim[2]`)
 ##' @aliases gzoom,ggtree-method
 setMethod("gzoom", signature(object="ggtree"),
           function(object, focus, widths=c(.3, .7), xmax_adjust=0) {

@@ -11,7 +11,7 @@ geom_motif(mapping, data, on, label, align = "centre", ...)
 
 \item{data}{data}
 
-\item{on}{gene to center (i.e. set middle position of the `on` gene to 0)}
+\item{on}{gene to center (i.e. set middle position of the \code{on} gene to 0)}
 
 \item{label}{specify a column to be used to label genes}
 

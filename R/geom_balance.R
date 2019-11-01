@@ -16,8 +16,8 @@
 #' @importFrom ggplot2 GeomRect
 #' @importFrom utils packageVersion
 #' @author Justin Silverman and modified by Guangchuang Yu
-#' @references J. Silverman, et al. \emph{A phylogenetic transform enhances
-#'   analysis of compositional microbiota data}. (in preparation)
+#' @references J. Silverman, et al. *A phylogenetic transform enhances
+#'   analysis of compositional microbiota data*. (in preparation)
 geom_balance <- function(node, fill="steelblue", color='white', alpha=.5, extend=0, extendto=NULL) {
 
   data = NULL

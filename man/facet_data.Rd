@@ -15,7 +15,7 @@ facet_data(tree_view, panel)
 data frame or a list of data frames
 }
 \description{
-extract data used in `facet_plot` or `geom_facet`
+extract data used in \code{facet_plot} or \code{geom_facet}
 }
 \author{
 Guangchuang Yu

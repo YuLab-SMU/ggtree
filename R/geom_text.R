@@ -23,7 +23,7 @@
 ##' @importFrom rvcheck get_aes_var
 ##' @export
 ##' @seealso
-##' \link[ggplot2]{geom_text}
+##' [geom_text][ggplot2::geom_text]
 ##' @author Guangchuang Yu
 geom_text2 <- function(mapping = NULL, data = NULL,
                        ...,

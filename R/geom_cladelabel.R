@@ -21,7 +21,7 @@
 ##' @return ggplot layers
 ##' @export
 ##' @author Guangchuang Yu
-##' @seealso \link{geom_cladelabel2}
+##' @seealso [geom_cladelabel2]
 geom_cladelabel <- function(node, label,
                             offset      = 0,
                             offset.text = 0,

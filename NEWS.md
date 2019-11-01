@@ -1,7 +1,9 @@
 # ggtree 2.1.1
 
-+ `align_x` and `align_y` for setting x or y limits of a ggplot based on another ggplot object (2019-10-31, Thu)
++ convert roxygen documents using markdown (2019-11-01, Fri)
++ `xlim_align` and `ylim_align` to uniformize axis limits of ggplot objects (2019-10-31, Thu)
   - <https://yulab-smu.github.io/treedata-book/chapter7.html#composite_plot>
+  - <https://yulab-smu.github.io/treedata-book/docs/chapter10.html#axis_align>
 + fixed `fontface` warning message when `align=TRUE` in `geom_tiplab` (2019-10-30, Wed)
   - <https://github.com/YuLab-SMU/ggtree/issues/260>
 

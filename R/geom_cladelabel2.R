@@ -7,7 +7,7 @@
 ##' @return ggplot layers
 ##' @export
 ##' @author JustGitting
-##' @seealso \link{geom_cladelabel}
+##' @seealso [geom_cladelabel]
 geom_cladelabel2 <- function(node, label, offset=0, offset.text=0, offset.bar=0,
                             align=FALSE, barsize=0.5, fontsize=3.88, hjust = 0,
                             geom="text",

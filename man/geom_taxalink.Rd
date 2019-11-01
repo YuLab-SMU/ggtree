@@ -18,7 +18,7 @@ positive values produce right-hand curves, and zero produces a straight line.}
 
 \item{arrow}{specification for arrow heads, as created by arrow().}
 
-\item{arrow.fill}{fill color to usse for the arrow head (if closed). `NULL` means use `colour` aesthetic.}
+\item{arrow.fill}{fill color to usse for the arrow head (if closed). \code{NULL} means use \code{colour} aesthetic.}
 
 \item{...}{additional parameter}
 }

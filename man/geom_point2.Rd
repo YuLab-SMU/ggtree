@@ -32,7 +32,7 @@ point layer
 geom_point2 support aes(subset) via setup_data
 }
 \seealso{
-\link[ggplot2]{geom_point}
+\link[ggplot2:geom_point]{geom_point}
 }
 \author{
 Guangchuang Yu

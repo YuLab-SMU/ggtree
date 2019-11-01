@@ -58,29 +58,51 @@ revts <- function(treeview) {
 
 
 
-##' set axis limits (x or y specific by 'by' parameter) of a ggplot object (left hand side)
-##' based on the x (align_x function) or y (align_y function) limits of another ggplot object (right hand side).
-##' This is useful for using cowplot or patchwork to align ggplot objects.
+##' set axis limits (x or y) of a `ggplot` object (left hand side of `+`)
+##' based on the x (`xlim_align`) or y (`ylim_align`) limits of another `ggplot` object (right hand side of `+`).
+##' This is useful for using `cowplot` or `patchwork` to align `ggplot` objects.
 ##'
 ##'
-##' @title align_x
+##' @title xlim_align
 ##' @rdname align_axis
 ##' @param gg ggplot object
-##' @param expand_limits amount to expand the limits
-##' @param by one of 'x' or 'y'
-##' @return ggplot2 object with new limits and expand
-##' @importFrom ggplot2 expand_scale
+##' @param limits vector of limits. If NULL, determine from `gg`. 
+##' @return ggplot2 object with new limits
 ##' @export
 ##' @author Guangchuang Yu
-align_x <- function(gg, expand_limits = expand_scale(0, 0.6), by = 'x') {
-    structure(list(gg = gg, expand_limits = expand_limits, by = by, axis = "x"),
-              class = "align_axis")
+xlim_align <- function(gg, limits = NULL) {
+    axis_align(gg = gg, limits = limits, axis = 'x')
 }
 
 ##' @rdname align_axis
-##' @title align_y
+##' @title ylim_align
 ##' @export
-align_y <- function(gg, expand_limits = expand_scale(0, 0.6), by = 'y') { 
-    structure(list(gg = gg, expand_limits = expand_limits, by = by, axis = "y"),
-              class = "align_axis")
+ylim_align <- function(gg, limits = NULL) {
+    axis_align(gg = gg, limits = limits, axis = 'y')
 }
+
+axis_align <- function(gg, limits = NULL, axis) {
+    if (is.null(limits)) {
+        if (axis == "x") {
+            limits <- xrange(gg)
+        } else {
+            limits <- yrange(gg)
+        }
+    }
+    structure(list(limits = limits, axis = axis),
+              class = "axisAlign")
+}
+
+
+yrange <- function(gg) {
+    ggrange(gg, "y.range")
+}
+
+xrange <- function(gg) {
+    ggrange(gg, "x.range")
+}
+
+ggrange <- function(gg, var) {
+    ggplot_build(gg)$layout$panel_params[[1]][[var]]
+}
+

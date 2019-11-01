@@ -9,10 +9,10 @@
 ##' @param as.Date logical whether using Date class in time tree
 ##' @param yscale y scale
 ##' @param yscale_mapping yscale mapping for category variable
-##' @param ladderize logical (default \code{TRUE}). Should the tree be re-organized to have a 'ladder'
+##' @param ladderize logical (default `TRUE`). Should the tree be re-organized to have a 'ladder'
 ##' aspect?
-##' @param right logical. If \code{ladderize = TRUE}, should the ladder have the smallest clade on the
-##' right-hand side? See \code{\link[ape]{ladderize}} for more information. 
+##' @param right logical. If `ladderize = TRUE`, should the ladder have the smallest clade on the
+##' right-hand side? See [ape::ladderize()] for more information. 
 ##' @param branch.length variable for scaling branch, if 'none' draw cladogram
 ##' @param root.position position of the root node (default = 0)
 ##' @return tree
@@ -26,7 +26,7 @@
 ##' @importFrom ggplot2 coord_polar
 ##' @export
 ##' @author Yu Guangchuang
-##' @seealso \code{\link[ape]{ladderize}}
+##' @seealso [ape::ladderize()]
 ##' @examples
 ##' require(ape)
 ##' tr <- rtree(10)

@@ -30,7 +30,7 @@ gzoom(object, focus, subtree = FALSE, widths = c(0.3, 0.7), ...)
 
 \item{...}{additional parameter}
 
-\item{xmax_adjust}{adjust xmax (xlim[2])}
+\item{xmax_adjust}{adjust xmax (\code{xlim[2]})}
 }
 \value{
 figure

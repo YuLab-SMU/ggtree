@@ -44,7 +44,7 @@ text layer
 geom_text2 support aes(subset) via setup_data
 }
 \seealso{
-\link[ggplot2]{geom_text}
+\link[ggplot2:geom_text]{geom_text}
 }
 \author{
 Guangchuang Yu

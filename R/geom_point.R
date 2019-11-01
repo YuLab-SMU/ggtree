@@ -105,7 +105,7 @@ geom_rootpoint <- function(mapping = NULL, data = NULL,
 ##' @importFrom ggplot2 layer
 ##' @export
 ##' @seealso
-##' \link[ggplot2]{geom_point}
+##' [geom_point][ggplot2::geom_point]
 ##' @return point layer
 ##' @author Guangchuang Yu
 geom_point2 <- function(mapping = NULL, data = NULL, stat = "identity",

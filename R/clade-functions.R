@@ -42,7 +42,7 @@ viewClade <- function(tree_view=NULL, node, xmax_adjust=0) {
     ## xd <- tree_view$data$branch.length[node]/2
 
     cpos <- get_clade_position(tree_view, node=node)
-    xmax <- ggplot_build(tree_view)$layout$panel_params[[1]]$x.range[2]
+    xmax <- xrange(tree_view)[2]
 
     attr(tree_view, 'viewClade') <- TRUE
     attr(tree_view, 'viewClade_node') <- node

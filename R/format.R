@@ -4,7 +4,7 @@
 ##' @title range_format
 ##' @param x input list
 ##' @param trans transformation function
-##' @return character vector of '[lower, upper]'
+##' @return character vector of `[lower, upper]`
 ##' @export
 ##' @author Guangchuang Yu
 range_format <- function(x, trans = NULL) {
