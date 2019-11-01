@@ -59,25 +59,25 @@ revts <- function(treeview) {
 
 
 ##' set axis limits (x or y) of a `ggplot` object (left hand side of `+`)
-##' based on the x (`xlim_align`) or y (`ylim_align`) limits of another `ggplot` object (right hand side of `+`).
+##' based on the x (`xlim2`) or y (`ylim2`) limits of another `ggplot` object (right hand side of `+`).
 ##' This is useful for using `cowplot` or `patchwork` to align `ggplot` objects.
 ##'
 ##'
-##' @title xlim_align
+##' @title xlim2
 ##' @rdname align_axis
 ##' @param gg ggplot object
 ##' @param limits vector of limits. If NULL, determine from `gg`. 
 ##' @return ggplot2 object with new limits
 ##' @export
 ##' @author Guangchuang Yu
-xlim_align <- function(gg, limits = NULL) {
+xlim2 <- function(gg, limits = NULL) {
     axis_align(gg = gg, limits = limits, axis = 'x')
 }
 
 ##' @rdname align_axis
-##' @title ylim_align
+##' @title ylim2
 ##' @export
-ylim_align <- function(gg, limits = NULL) {
+ylim2 <- function(gg, limits = NULL) {
     axis_align(gg = gg, limits = limits, axis = 'y')
 }
 
