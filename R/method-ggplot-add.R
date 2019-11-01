@@ -29,13 +29,16 @@ ggplot_add.axisAlign <- function(object, plot, object_name) {
     ## limits[1] <- limits[1] + (limits[1] * expand_limits[1]) - expand_limits[2]
     ## limits[2] <- limits[2] + (limits[2] * expand_limits[3]) + expand_limits[4]
 
+    lim_x <- scale_x_continuous(limits=limits, expand=c(0,0))
+    lim_y <- scale_y_continuous(limits = limits, expand = c(0, 0))
+
     if (object$axis == 'x') {
         ## if (object$by == "x") {
         if (is(plot$coordinates, "CoordFlip")) {
             message("the plot was flipped and the x limits will be applied to y-axis")
-            scale_lim <- scale_y_continuous(limits = limits, expand = c(0, 0))
+            scale_lim <- lim_y
         } else {
-            scale_lim <- scale_x_continuous(limits = limits, expand = c(0, 0))
+            scale_lim <- lim_x
         }
         ## } else {
         ##     if (is(plot$coordinates, "CoordFlip")) {
@@ -56,9 +59,9 @@ ggplot_add.axisAlign <- function(object, plot, object_name) {
         ## } else {
         if (is(plot$coordinates, "CoordFlip")) {
             message("the plot was flipped and the y limits will be applied to x-axis")
-            scale_lim <- scale_x_continuous(limits=limits, expand=c(0,0))
+            scale_lim <- lim_x
         } else {
-            scale_lim <- scale_y_continuous(limits=limits, expand=c(0,0))
+            scale_lim <- lim_y
         }
         ## }
     }
