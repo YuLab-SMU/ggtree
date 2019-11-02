@@ -74,21 +74,23 @@ roundDigit <- function(d) {
 }
 
 
-## . function was from plyr package
-##' capture name of variable
-##'
-##' @rdname dotFun
-##' @export
-##' @title .
-##' @param ... expression
-##' @param .env environment
-##' @return expression
-##' @examples
-##' x <- 1
-##' eval(.(x)[[1]])
-. <- function (..., .env = parent.frame()) {
-    structure(as.list(match.call()[-1]), env = .env, class = "quoted")
-}
+globalVariables(".")
+
+## ## . function was from plyr package
+## ##' capture name of variable
+## ##'
+## ##' @rdname dotFun
+## ##' @export
+## ##' @title .
+## ##' @param ... expression
+## ##' @param .env environment
+## ##' @return expression
+## ##' @examples
+## ##' x <- 1
+## ##' eval(.(x)[[1]])
+## . <- function (..., .env = parent.frame()) {
+##     structure(as.list(match.call()[-1]), env = .env, class = "quoted")
+## }
 
 
 ## from ChIPseeker
