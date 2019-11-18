@@ -1,5 +1,6 @@
 # ggtree 2.1.1
 
++ fixed `revts` to work with `collapse` (2019-11-18, Mon)
 + convert roxygen documents using markdown (2019-11-01, Fri)
 + extend `xlim2` and `ylim2` to support discrete scale.
 + `xlim2` and `ylim2` to uniformize axis limits of ggplot objects (2019-10-31, Thu)
