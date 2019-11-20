@@ -40,6 +40,9 @@
 ##'              value=round(abs(rnorm(13, mean=70, sd=10)), digits=1))
 ##' row.names(dd) <- NULL
 ##' p %<+% dd + geom_text(aes(color=place, label=label), hjust=-0.5)
+##' @references G Yu, TTY Lam, H Zhu, Y Guan (2018). Two methods for mapping and visualizing associated data
+##' on phylogeny using ggtree. Molecular Biology and Evolution, 35(2):3041-3043.
+##' <https://doi.org/10.1093/molbev/msy194>
 `%<+%` <- function(pg, data) {
     if (! is.data.frame(data)) {
         stop("input should be a data.frame...")

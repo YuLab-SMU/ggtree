@@ -17,6 +17,11 @@ data frame or a list of data frames
 \description{
 extract data used in \code{facet_plot} or \code{geom_facet}
 }
+\references{
+G Yu, TTY Lam, H Zhu, Y Guan (2018). Two methods for mapping and visualizing associated data
+on phylogeny using ggtree. Molecular Biology and Evolution, 35(2):3041-3043.
+\url{https://doi.org/10.1093/molbev/msy194}
+}
 \author{
 Guangchuang Yu
 }

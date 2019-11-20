@@ -39,6 +39,11 @@ dd = data.frame(id=tr$tip.label, value=abs(rnorm(10)))
 p <- ggtree(tr)
 facet_plot(p, 'Trait', data = dd, geom=geom_point, mapping=aes(x=value))
 }
+\references{
+G Yu, TTY Lam, H Zhu, Y Guan (2018). Two methods for mapping and visualizing associated data
+on phylogeny using ggtree. Molecular Biology and Evolution, 35(2):3041-3043.
+\url{https://doi.org/10.1093/molbev/msy194}
+}
 \author{
 Guangchuang Yu
 }

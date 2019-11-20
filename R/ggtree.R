@@ -27,8 +27,16 @@
 ##' @export
 ##' @author Yu Guangchuang
 ##' @seealso [ape::ladderize()]
+##' @references 1. G Yu, TTY Lam, H Zhu, Y Guan (2018). Two methods for mapping and visualizing associated data
+##' on phylogeny using ggtree. Molecular Biology and Evolution, 35(2):3041-3043.
+##' <https://doi.org/10.1093/molbev/msy194>
+##'
+##' 2. G Yu, DK Smith, H Zhu, Y Guan, TTY Lam (2017). ggtree: an R package for
+##' visualization and annotation of phylogenetic trees with their covariates and
+##' other associated data. Methods in Ecology and Evolution, 8(1):28-36.
+##' <https://doi.org/10.1111/2041-210X.12628>
 ##' @examples
-##' require(ape)
+##' require(ape) 
 ##' tr <- rtree(10)
 ##' ggtree(tr)
 ggtree <- function(tr,
@@ -87,13 +95,15 @@ ggtree <- function(tr,
     p <- p + geom_tree(layout=layout, multiPhylo=multiPhylo, ...)
 
 
-    p <- p + theme_tree() +
-        scale_y_continuous(expand = expand_scale(0, 0.6))
+    p <- p + theme_tree()
 
     if (layout == "circular" || layout == "radial") {
         p <- p + layout_circular()
     } else if (layout == "fan") {
         p <- p + layout_fan(open.angle)
+    } else {
+        p <- p +
+            scale_y_continuous(expand = expand_scale(0, 0.6))
     }
 
     class(p) <- c("ggtree", class(p))

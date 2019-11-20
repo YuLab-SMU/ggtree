@@ -20,6 +20,9 @@
 ##' facet_plot(p, 'Trait', data = dd, geom=geom_point, mapping=aes(x=value))
 ##' @export
 ##' @author Guangchuang Yu
+##' @references G Yu, TTY Lam, H Zhu, Y Guan (2018). Two methods for mapping and visualizing associated data
+##' on phylogeny using ggtree. Molecular Biology and Evolution, 35(2):3041-3043.
+##' <https://doi.org/10.1093/molbev/msy194>
 facet_plot <- function(p, mapping=NULL, data, geom, panel, ...) {
     p + geom_facet(panel = panel, data = data,
                    geom = geom, mapping = mapping, ...)
@@ -44,6 +47,9 @@ geom_facet <- function(mapping=NULL, data, geom, panel, ...) {
 ##' @return data frame or a list of data frames
 ##' @export
 ##' @author Guangchuang Yu
+##' @references G Yu, TTY Lam, H Zhu, Y Guan (2018). Two methods for mapping and visualizing associated data
+##' on phylogeny using ggtree. Molecular Biology and Evolution, 35(2):3041-3043.
+##' <https://doi.org/10.1093/molbev/msy194>
 facet_data <- function(tree_view, panel) {
     n <- length(tree_view$layers)
     j <- which(vapply(1:n, function(i) {
