@@ -70,6 +70,26 @@ ggplot2::geom_label
 ##' @export
 ggplot2::geom_point
 
+##' @importFrom ggplot2 guide_legend
+##' @export
+ggplot2::guide_legend
+
+##' @importFrom ggplot2 scale_colour_manual
+##' @export
+ggplot2::scale_colour_manual
+
+##' @importFrom ggplot2 scale_color_manual
+##' @export
+ggplot2::scale_color_manual
+
+##' @importFrom ggplot2 scale_fill_manual
+##' @export
+ggplot2::scale_fill_manual
+
+##' @importFrom ggplot2 margin
+##' @export
+ggplot2::margin
+
 ##' @importFrom grid arrow
 ##' @export
 grid::arrow

@@ -1,5 +1,7 @@
 # ggtree 2.1.1
 
++ not passing `fontface` if `geom` is `image` or `phylopic` in `geom_tiplab` and `geom_nodelab` (2019-11-29, Fri)
++ import and re-export `guide_legend`, `scale_colour_manual`, `scale_color_manual`, `scale_fill_manual` and `margin` from `ggplot2`
 + `offspring` method for `ggtree` object (2019-11-21, Thu)
 + fixed `revts` to work with `collapse` (2019-11-18, Mon)
 + convert roxygen documents using markdown (2019-11-01, Fri)

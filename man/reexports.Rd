@@ -21,6 +21,11 @@
 \alias{geom_text}
 \alias{geom_label}
 \alias{geom_point}
+\alias{guide_legend}
+\alias{scale_colour_manual}
+\alias{scale_color_manual}
+\alias{scale_fill_manual}
+\alias{margin}
 \alias{arrow}
 \alias{unit}
 \title{Objects exported from other packages}
@@ -34,7 +39,7 @@ below to see their documentation.
 
   \item{dplyr}{\code{\link[dplyr]{collapse}}}
 
-  \item{ggplot2}{\code{\link[ggplot2]{fortify}}, \code{\link[ggplot2]{ggplot}}, \code{\link[ggplot2]{xlim}}, \code{\link[ggplot2]{theme}}, \code{\link[ggplot2]{ggsave}}, \code{\link[ggplot2]{aes}}, \code{\link[ggplot2]{geom_text}}, \code{\link[ggplot2]{geom_label}}, \code{\link[ggplot2]{geom_point}}}
+  \item{ggplot2}{\code{\link[ggplot2]{fortify}}, \code{\link[ggplot2]{ggplot}}, \code{\link[ggplot2]{xlim}}, \code{\link[ggplot2]{theme}}, \code{\link[ggplot2]{ggsave}}, \code{\link[ggplot2]{aes}}, \code{\link[ggplot2]{geom_text}}, \code{\link[ggplot2]{geom_label}}, \code{\link[ggplot2]{geom_point}}, \code{\link[ggplot2]{guide_legend}}, \code{\link[ggplot2]{scale_colour_manual}}, \code{\link[ggplot2]{scale_color_manual}}, \code{\link[ggplot2]{scale_fill_manual}}, \code{\link[ggplot2]{margin}}}
 
   \item{grid}{\code{\link[grid]{arrow}}, \code{\link[grid]{unit}}}
 
