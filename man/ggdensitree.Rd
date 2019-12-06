@@ -21,7 +21,7 @@ ggdensitree(
 
 \item{layout}{one of 'slanted', 'rectangluar', 'fan', 'circular' or 'radial' (default: 'slanted')}
 
-\item{tip.order}{the order of the tips by a character vector of taxa names; or an integer, N, to order the tips by the order of the tips in the Nth tree; 'mds' to order the tips based on MDS of the path length between the tips;  or 'mds_dist' to order the tips based on MDS of the distance between the tips (default: 'mds')}
+\item{tip.order}{the order of the tips by a character vector of taxa names; or an integer, N, to order the tips by the order of the tips in the Nth tree; 'mds' to order the tips based on MDS of the path length between the tips;  or 'mds_dist' to order the tips based on MDS of the distance between the tips (default: 'mds_dist')}
 
 \item{align.tips}{TRUE to align trees by their tips and FALSE to align trees by their root (default: TRUE)}
 
@@ -64,7 +64,7 @@ ggdensitree(time.trees, aes(colour=tree), tip.order=paste0("t", 1:10)) + geom_ti
 
 
 # Read example data
-trees <- read.tree(system.file("ggtree", "inst/examples/ggdensitree_example.tree"))
+trees <- read.tree(system.file("examples", "ggdensitree_example.tree", package="ggtree"))
 
 # Compute OTU
 grp <- list(A = c("a.t1", "a.t2", "a.t3", "a.t4"), B = c("b.t1", "b.t2", "b.t3", "b.t4"), C = c("c.t1", "c.t2", "c.t3", "c.t4"))

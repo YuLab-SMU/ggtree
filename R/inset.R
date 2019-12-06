@@ -27,7 +27,7 @@ geom_inset <- function(insets, width = .1, height = .1, hjust = 0, vjust = 0,
 ##' @title inset
 ##' @rdname inset
 ##' @param tree_view tree view
-##' @inheritParams geom_inset
+## @inheritParams geom_inset
 ##' @return tree view with insets
 ##' @importFrom rvcheck get_fun_from_pkg
 ##' @export

@@ -4,7 +4,7 @@
 ##' @param data a list of phylo objects or any object with an as.phylo and fortify method
 ##' @param mapping aesthetic mapping
 ##' @param layout one of 'slanted', 'rectangluar', 'fan', 'circular' or 'radial' (default: 'slanted')
-##' @param tip.order the order of the tips by a character vector of taxa names; or an integer, N, to order the tips by the order of the tips in the Nth tree; 'mds' to order the tips based on MDS of the path length between the tips;  or 'mds_dist' to order the tips based on MDS of the distance between the tips (default: 'mds')
+##' @param tip.order the order of the tips by a character vector of taxa names; or an integer, N, to order the tips by the order of the tips in the Nth tree; 'mds' to order the tips based on MDS of the path length between the tips;  or 'mds_dist' to order the tips based on MDS of the distance between the tips (default: 'mds_dist')
 ##' @param align.tips TRUE to align trees by their tips and FALSE to align trees by their root (default: TRUE)
 ##' @param jitter deviation to jitter tips
 ##' @param ... additional parameters passed to fortify, ggtree and geom_tree
@@ -42,7 +42,7 @@
 ##' 
 ##' 
 ##' # Read example data
-##' trees <- read.tree(system.file("ggtree", "inst/examples/ggdensitree_example.tree"))
+##' trees <- read.tree(system.file("examples", "ggdensitree_example.tree", package="ggtree"))
 ##' 
 ##' # Compute OTU
 ##' grp <- list(A = c("a.t1", "a.t2", "a.t3", "a.t4"), B = c("b.t1", "b.t2", "b.t3", "b.t4"), C = c("c.t1", "c.t2", "c.t3", "c.t4"))
@@ -60,6 +60,8 @@ ggdensitree <- function(data=NULL, mapping=NULL, layout="slanted", tip.order='md
 	## determine tip order
 	if (length(tip.order) == 1) {
 		if (grepl('mds', tip.order)) {
+			method <- tip.order
+			
 			first.label <- trees.f[[1]] %>%
 				dplyr::filter(.data$isTip) %>%
 				dplyr::pull(.data$label)
@@ -68,7 +70,7 @@ ggdensitree <- function(data=NULL, mapping=NULL, layout="slanted", tip.order='md
 				match(x$tip.label, first.label)
 			})
 			
-			tip.2.tip <- lapply(trees, cophenetic.phylo.check.length)
+			tip.2.tip <- lapply(trees, cophenetic.phylo.check.length, method=method)
 			tip.2.tip <- lapply(1:length(trees), function(i) {
 				tip.2.tip[[i]][tip.order[[i]], tip.order[[i]]]
 			})
@@ -112,7 +114,7 @@ ggdensitree <- function(data=NULL, mapping=NULL, layout="slanted", tip.order='md
 }
 
 ## wrapper for cohpenetic to ensure that branch lengths exist
-cophenetic.phylo.check.length <- function(tree) {
+cophenetic.phylo.check.length <- function(tree, method) {
 	if (method != 'mds_dist' || is.null(tree$edge.length))
 		tree$edge.length <- rep(1, nrow(tree$edge))
 	

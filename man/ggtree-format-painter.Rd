@@ -2,20 +2,24 @@
 % Please edit documentation in R/operator.R
 \name{\%<\%}
 \alias{\%<\%}
-\title{\\%<\\%}
+\title{\%<\%}
 \usage{
 pg \%<\% x
 }
 \arguments{
-\item{pg}{ggplot2 object}
+\item{pg}{ggtree object}
 
-\item{x}{update by x}
+\item{x}{tree object}
 }
 \value{
 updated ggplot object
 }
 \description{
 update tree
+}
+\details{
+This operator apply the visualization directives in ggtree object (lhs)
+to visualize another tree object (rhs), that is similar to Format Painter.
 }
 \examples{
 library("ggplot2")
