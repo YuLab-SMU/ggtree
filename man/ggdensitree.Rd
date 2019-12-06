@@ -4,8 +4,15 @@
 \alias{ggdensitree}
 \title{ggdensitree}
 \usage{
-ggdensitree(data = NULL, mapping = NULL, layout = "slanted",
-  tip.order = "mds", align.tips = TRUE, jitter = 0, ...)
+ggdensitree(
+  data = NULL,
+  mapping = NULL,
+  layout = "slanted",
+  tip.order = "mds",
+  align.tips = TRUE,
+  jitter = 0,
+  ...
+)
 }
 \arguments{
 \item{data}{a list of phylo objects or any object with an as.phylo and fortify method}

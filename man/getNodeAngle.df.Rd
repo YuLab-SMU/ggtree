@@ -14,7 +14,7 @@ getNodeAngle.df(df, origin_node_id, node_id)
 \item{node_id}{end node id number}
 }
 \value{
-angle in range \code{[-1, 1]}, i.e. degrees/180, radians/pi
+angle in range \verb{[-1, 1]}, i.e. degrees/180, radians/pi
 }
 \description{
 Get the angle between the two nodes specified.

@@ -4,8 +4,15 @@
 \alias{geom_hilight_encircle}
 \title{geom_hilight_encircle}
 \usage{
-geom_hilight_encircle(data = NULL, node, mapping = NULL,
-  fill = "steelblue", alpha = 0.5, extend = 0, ...)
+geom_hilight_encircle(
+  data = NULL,
+  node,
+  mapping = NULL,
+  fill = "steelblue",
+  alpha = 0.5,
+  extend = 0,
+  ...
+)
 }
 \arguments{
 \item{data}{data frame to calculate xspline (default = NULL)}

@@ -4,8 +4,14 @@
 \alias{geom_balance}
 \title{geom_balance}
 \usage{
-geom_balance(node, fill = "steelblue", color = "white", alpha = 0.5,
-  extend = 0, extendto = NULL)
+geom_balance(
+  node,
+  fill = "steelblue",
+  color = "white",
+  alpha = 0.5,
+  extend = 0,
+  extendto = NULL
+)
 }
 \arguments{
 \item{node}{selected node (balance) to highlight}

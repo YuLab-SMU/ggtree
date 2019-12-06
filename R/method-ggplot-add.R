@@ -101,11 +101,11 @@ ggplot_add.layout_ggtree <- function(object, plot, object_name) {
     } else if (object$layout == 'circular') {
         ## refer to: https://github.com/GuangchuangYu/ggtree/issues/6
         ## and also have some space for tree scale (legend)
-        obj <- list(coord_polar(theta='y', start=-pi/2, -1),
+        obj <- list(coord_polar(theta='y', start=-pi/2, -1, clip = 'off'),
                     scale_y_continuous(limits = c(0, NA), expand = expand_scale(0, 0.6))
                     )
     } else { ## rectangular
-        obj <- coord_cartesian()
+        obj <- coord_cartesian(clip = 'off')
     }
     assign("layout", object$layout, envir = plot$plot_env)
     ggplot_add(obj, plot, object_name)

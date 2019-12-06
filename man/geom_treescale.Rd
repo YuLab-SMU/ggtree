@@ -4,9 +4,16 @@
 \alias{geom_treescale}
 \title{geom_treescale}
 \usage{
-geom_treescale(x = NULL, y = NULL, width = NULL, offset = NULL,
-  color = "black", linesize = 0.5, fontsize = 3.88,
-  family = "sans")
+geom_treescale(
+  x = NULL,
+  y = NULL,
+  width = NULL,
+  offset = NULL,
+  color = "black",
+  linesize = 0.5,
+  fontsize = 3.88,
+  family = "sans"
+)
 }
 \arguments{
 \item{x}{x position}

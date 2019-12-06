@@ -1,19 +1,22 @@
 ##' update tree
 ##'
+##' This operator apply the visualization directives in ggtree object (lhs)
+##' to visualize another tree object (rhs), that is similar to Format Painter.
 ##'
-##' @rdname update-TREE
-##' @title \%<\%
-##' @param pg ggplot2 object
-##' @param x update by x
+##'
+##' @rdname ggtree-format-painter
+##' @title %<%
+##' @param pg ggtree object
+##' @param x tree object
 ##' @return updated ggplot object
 ##' @export
-##' @author Guangchuang Yu
 ##' @examples
 ##' library("ggplot2")
 ##' nwk <- system.file("extdata", "sample.nwk", package="treeio")
 ##' tree <- read.tree(nwk)
 ##' p <- ggtree(tree) + geom_tippoint(color="#b5e521", alpha=1/4, size=10)
 ##' p %<% rtree(30)
+##' @author Guangchuang Yu
 `%<%` <- function(pg, x) {
     if (! is.tree(x)) {
         stop("input should be a tree object...")
@@ -24,13 +27,14 @@
 ##' add annotation data to a tree
 ##'
 ##'
-##' @rdname add-TREEDATA
-##' @title \%<+\%
+##' @rdname attacher
+##' @title %<+%
 ##' @param pg ggplot2 object
 ##' @param data annotation data
 ##' @return ggplot object with annotation data added
 ##' @export
 ##' @author Guangchuang Yu
+##' @seealso geom_facet
 ##' @examples
 ##' nwk <- system.file("extdata", "sample.nwk", package="treeio")
 ##' tree <- read.tree(nwk)
@@ -94,14 +98,20 @@
 
 ##' update data with tree info (y coordination and panel)
 ##'
+##' add tree information to an input data.
+##' This function will setup y coordination and panel info
+##' for data used in facet_plot and geom_faceet
 ##'
 ##' @rdname add_TREEINFO
-##' @title \%+>\%
+##' @title %+>%
 ##' @param p tree view
 ##' @param data data.frame
 ##' @return updated data.frame
 ##' @importFrom methods is
 ##' @export
+##' @references G Yu, TTY Lam, H Zhu, Y Guan (2018). Two methods for mapping and visualizing associated data
+##' on phylogeny using ggtree. Molecular Biology and Evolution, 35(2):3041-3043.
+##' <https://doi.org/10.1093/molbev/msy194>
 ##' @author Guangchuang Yu
 `%+>%` <- function(p, data) {
     df <- p$data

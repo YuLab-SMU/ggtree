@@ -4,8 +4,14 @@
 \alias{multiplot}
 \title{multiplot}
 \usage{
-multiplot(..., plotlist = NULL, ncol, widths = rep_len(1, ncol),
-  labels = NULL, label_size = 5)
+multiplot(
+  ...,
+  plotlist = NULL,
+  ncol,
+  widths = rep_len(1, ncol),
+  labels = NULL,
+  label_size = 5
+)
 }
 \arguments{
 \item{...}{plots}

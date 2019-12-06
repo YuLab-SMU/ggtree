@@ -4,12 +4,24 @@
 \alias{gheatmap}
 \title{gheatmap}
 \usage{
-gheatmap(p, data, offset = 0, width = 1, low = "green",
-  high = "red", color = "white", colnames = TRUE,
-  colnames_position = "bottom", colnames_angle = 0,
-  colnames_level = NULL, colnames_offset_x = 0,
-  colnames_offset_y = 0, font.size = 4, hjust = 0.5,
-  legend_title = "value")
+gheatmap(
+  p,
+  data,
+  offset = 0,
+  width = 1,
+  low = "green",
+  high = "red",
+  color = "white",
+  colnames = TRUE,
+  colnames_position = "bottom",
+  colnames_angle = 0,
+  colnames_level = NULL,
+  colnames_offset_x = 0,
+  colnames_offset_y = 0,
+  font.size = 4,
+  hjust = 0.5,
+  legend_title = "value"
+)
 }
 \arguments{
 \item{p}{tree view}

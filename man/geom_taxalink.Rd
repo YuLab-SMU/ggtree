@@ -4,8 +4,14 @@
 \alias{geom_taxalink}
 \title{geom_taxalink}
 \usage{
-geom_taxalink(taxa1, taxa2, curvature = 0.5, arrow = NULL,
-  arrow.fill = NULL, ...)
+geom_taxalink(
+  taxa1,
+  taxa2,
+  curvature = 0.5,
+  arrow = NULL,
+  arrow.fill = NULL,
+  ...
+)
 }
 \arguments{
 \item{taxa1}{taxa1, can be label or node number}

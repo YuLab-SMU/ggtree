@@ -17,6 +17,16 @@ updated data.frame
 \description{
 update data with tree info (y coordination and panel)
 }
+\details{
+add tree information to an input data.
+This function will setup y coordination and panel info
+for data used in facet_plot and geom_faceet
+}
+\references{
+G Yu, TTY Lam, H Zhu, Y Guan (2018). Two methods for mapping and visualizing associated data
+on phylogeny using ggtree. Molecular Biology and Evolution, 35(2):3041-3043.
+\url{https://doi.org/10.1093/molbev/msy194}
+}
 \author{
 Guangchuang Yu
 }

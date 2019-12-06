@@ -4,10 +4,22 @@
 \alias{geom_cladelabel2}
 \title{geom_cladelabel2}
 \usage{
-geom_cladelabel2(node, label, offset = 0, offset.text = 0,
-  offset.bar = 0, align = FALSE, barsize = 0.5, fontsize = 3.88,
-  hjust = 0, geom = "text", color = NULL, family = "sans",
-  parse = FALSE, ...)
+geom_cladelabel2(
+  node,
+  label,
+  offset = 0,
+  offset.text = 0,
+  offset.bar = 0,
+  align = FALSE,
+  barsize = 0.5,
+  fontsize = 3.88,
+  hjust = 0,
+  geom = "text",
+  color = NULL,
+  family = "sans",
+  parse = FALSE,
+  ...
+)
 }
 \arguments{
 \item{node}{selected node}
