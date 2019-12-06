@@ -4,8 +4,7 @@
 \alias{collapse.ggtree}
 \title{collapse-ggtree}
 \usage{
-\method{collapse}{ggtree}(x = NULL, node, mode = "none",
-  clade_name = NULL, ...)
+\method{collapse}{ggtree}(x = NULL, node, mode = "none", clade_name = NULL, ...)
 }
 \arguments{
 \item{x}{tree view}

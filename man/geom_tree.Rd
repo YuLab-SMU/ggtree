@@ -4,8 +4,13 @@
 \alias{geom_tree}
 \title{geom_tree}
 \usage{
-geom_tree(mapping = NULL, data = NULL, layout = "rectangular",
-  multiPhylo = FALSE, ...)
+geom_tree(
+  mapping = NULL,
+  data = NULL,
+  layout = "rectangular",
+  multiPhylo = FALSE,
+  ...
+)
 }
 \arguments{
 \item{mapping}{aesthetic mapping}

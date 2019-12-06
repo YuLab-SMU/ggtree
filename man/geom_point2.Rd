@@ -4,9 +4,16 @@
 \alias{geom_point2}
 \title{geom_point2}
 \usage{
-geom_point2(mapping = NULL, data = NULL, stat = "identity",
-  position = "identity", na.rm = FALSE, show.legend = NA,
-  inherit.aes = TRUE, ...)
+geom_point2(
+  mapping = NULL,
+  data = NULL,
+  stat = "identity",
+  position = "identity",
+  na.rm = FALSE,
+  show.legend = NA,
+  inherit.aes = TRUE,
+  ...
+)
 }
 \arguments{
 \item{mapping}{aes mapping}

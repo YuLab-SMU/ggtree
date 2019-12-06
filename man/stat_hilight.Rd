@@ -4,9 +4,20 @@
 \alias{stat_hilight}
 \title{stat_hilight}
 \usage{
-stat_hilight(mapping = NULL, data = NULL, geom = "rect",
-  position = "identity", node, show.legend = NA, inherit.aes = FALSE,
-  fill, alpha, extend = 0, extendto = NULL, ...)
+stat_hilight(
+  mapping = NULL,
+  data = NULL,
+  geom = "rect",
+  position = "identity",
+  node,
+  show.legend = NA,
+  inherit.aes = FALSE,
+  fill,
+  alpha,
+  extend = 0,
+  extendto = NULL,
+  ...
+)
 }
 \arguments{
 \item{mapping}{aes mapping}

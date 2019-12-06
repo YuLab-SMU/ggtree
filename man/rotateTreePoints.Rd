@@ -13,7 +13,7 @@ rotateTreePoints.df(df, pivot_node, nodes, angle)
 
 \item{nodes}{list of node numbers that are to be rotated by angle around the pivot_node}
 
-\item{angle}{in range \code{[0,2]}, ie degrees/180, radians/pi}
+\item{angle}{in range \verb{[0,2]}, ie degrees/180, radians/pi}
 }
 \value{
 updated tree data.frame with points rotated by angle

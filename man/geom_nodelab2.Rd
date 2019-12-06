@@ -4,8 +4,14 @@
 \alias{geom_nodelab2}
 \title{@geom_nodelab2}
 \usage{
-geom_nodelab2(mapping = NULL, nudge_x = 0, nudge_y = 0,
-  geom = "text", hjust = 0.5, ...)
+geom_nodelab2(
+  mapping = NULL,
+  nudge_x = 0,
+  nudge_y = 0,
+  geom = "text",
+  hjust = 0.5,
+  ...
+)
 }
 \arguments{
 \item{mapping}{aes mapping}

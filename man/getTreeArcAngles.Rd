@@ -14,9 +14,9 @@ getTreeArcAngles(df, origin_id, subtree)
 \item{subtree}{named list of root id of subtree (node) and list of node ids for given subtree (subtree).}
 }
 \value{
-named list with right and left angles in range \code{[0,2]} i.e 1 = 180 degrees, 1.5 = 270 degrees.
+named list with right and left angles in range \verb{[0,2]} i.e 1 = 180 degrees, 1.5 = 270 degrees.
 }
 \description{
 Find the right (clockwise rotation, angle from +ve x-axis to furthest subtree nodes) and
-left (anti-clockwise angle from +ve x-axis to subtree) Returning arc angle in \code{[0, 2]} (0 to 360) domain.
+left (anti-clockwise angle from +ve x-axis to subtree) Returning arc angle in \verb{[0, 2]} (0 to 360) domain.
 }

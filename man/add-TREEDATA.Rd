@@ -2,7 +2,7 @@
 % Please edit documentation in R/operator.R
 \name{\%<+\%}
 \alias{\%<+\%}
-\title{\%<+\%}
+\title{\\%<+\\%}
 \usage{
 pg \%<+\% data
 }

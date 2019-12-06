@@ -35,16 +35,16 @@ These objects are imported from other packages. Follow the links
 below to see their documentation.
 
 \describe{
-  \item{ape}{\code{\link[ape]{rtree}}, \code{\link[ape]{read.tree}}}
+  \item{ape}{\code{\link[ape]{read.tree}}, \code{\link[ape]{rtree}}}
 
   \item{dplyr}{\code{\link[dplyr]{collapse}}}
 
-  \item{ggplot2}{\code{\link[ggplot2]{fortify}}, \code{\link[ggplot2]{ggplot}}, \code{\link[ggplot2]{xlim}}, \code{\link[ggplot2]{theme}}, \code{\link[ggplot2]{ggsave}}, \code{\link[ggplot2]{aes}}, \code{\link[ggplot2]{geom_text}}, \code{\link[ggplot2]{geom_label}}, \code{\link[ggplot2]{geom_point}}, \code{\link[ggplot2]{guide_legend}}, \code{\link[ggplot2]{scale_colour_manual}}, \code{\link[ggplot2]{scale_color_manual}}, \code{\link[ggplot2]{scale_fill_manual}}, \code{\link[ggplot2]{margin}}}
+  \item{ggplot2}{\code{\link[ggplot2]{aes}}, \code{\link[ggplot2]{fortify}}, \code{\link[ggplot2]{geom_label}}, \code{\link[ggplot2]{geom_point}}, \code{\link[ggplot2]{geom_text}}, \code{\link[ggplot2]{ggplot}}, \code{\link[ggplot2]{ggsave}}, \code{\link[ggplot2]{guide_legend}}, \code{\link[ggplot2]{margin}}, \code{\link[ggplot2]{scale_color_manual}}, \code{\link[ggplot2]{scale_colour_manual}}, \code{\link[ggplot2]{scale_fill_manual}}, \code{\link[ggplot2]{theme}}, \code{\link[ggplot2]{xlim}}}
 
   \item{grid}{\code{\link[grid]{arrow}}, \code{\link[grid]{unit}}}
 
   \item{magrittr}{\code{\link[magrittr]{\%>\%}}}
 
-  \item{tidytree}{\code{\link[tidytree]{groupOTU}}, \code{\link[tidytree]{groupClade}}, \code{\link[tidytree]{nodeid}}, \code{\link[tidytree]{nodelab}}, \code{\link[tidytree]{MRCA}}}
+  \item{tidytree}{\code{\link[tidytree]{groupClade}}, \code{\link[tidytree]{groupOTU}}, \code{\link[tidytree]{MRCA}}, \code{\link[tidytree]{nodeid}}, \code{\link[tidytree]{nodelab}}}
 }}
 

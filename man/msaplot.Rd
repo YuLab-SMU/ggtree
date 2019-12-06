@@ -4,8 +4,16 @@
 \alias{msaplot}
 \title{msaplot}
 \usage{
-msaplot(p, fasta, offset = 0, width = 1, color = NULL,
-  window = NULL, bg_line = TRUE, height = 0.8)
+msaplot(
+  p,
+  fasta,
+  offset = 0,
+  width = 1,
+  color = NULL,
+  window = NULL,
+  bg_line = TRUE,
+  height = 0.8
+)
 }
 \arguments{
 \item{p}{tree view}

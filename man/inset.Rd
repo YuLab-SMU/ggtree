@@ -5,11 +5,28 @@
 \alias{inset}
 \title{geom_inset}
 \usage{
-geom_inset(insets, width = 0.1, height = 0.1, hjust = 0, vjust = 0,
-  x = "node", reverse_x = FALSE, reverse_y = FALSE)
+geom_inset(
+  insets,
+  width = 0.1,
+  height = 0.1,
+  hjust = 0,
+  vjust = 0,
+  x = "node",
+  reverse_x = FALSE,
+  reverse_y = FALSE
+)
 
-inset(tree_view, insets, width, height, hjust = 0, vjust = 0,
-  x = "node", reverse_x = FALSE, reverse_y = FALSE)
+inset(
+  tree_view,
+  insets,
+  width,
+  height,
+  hjust = 0,
+  vjust = 0,
+  x = "node",
+  reverse_x = FALSE,
+  reverse_y = FALSE
+)
 }
 \arguments{
 \item{insets}{a list of ggplot objects, named by node number}

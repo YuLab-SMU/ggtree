@@ -4,8 +4,15 @@
 \alias{annotation_image}
 \title{annotation_image}
 \usage{
-annotation_image(tree_view, img_info, width = 0.1, align = TRUE,
-  linetype = "dotted", linesize = 1, offset = 0)
+annotation_image(
+  tree_view,
+  img_info,
+  width = 0.1,
+  align = TRUE,
+  linetype = "dotted",
+  linesize = 1,
+  offset = 0
+)
 }
 \arguments{
 \item{tree_view}{tree view}
