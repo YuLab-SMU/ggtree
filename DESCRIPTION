@@ -6,7 +6,7 @@ Authors@R: c(
 	   person("Guangchuang", "Yu",     email = "guangchuangyu@gmail.com", role = c("aut", "cre", "cph"), comment = c(ORCID = "0000-0002-6485-8781")),
 	   person("Tommy Tsan-Yuk", "Lam", email = "tylam.tommy@gmail.com",   role = c("aut", "ths")),
 	   person("Justin", "Silverman",   email = "jsilve24@gmail.com",      role = "ctb"),
-	   person("Bradley", "Jones",      email = "brj1@sfu.ca",             role = "ctb"),
+	   person("Bradley", "Jones",      email = "bjones@cfenet.ubc.ca",             role = "ctb"),
 	   person("Watal M.", "Iwasaki",   email = "heavy.watal@gmail.com",   role = "ctb"),
 	   person("Ruizhu", "Huang",       email = "ruizhuRH@gmail.com",      role = "ctb")
 	   )
