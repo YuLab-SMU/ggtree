@@ -2,9 +2,12 @@
 % Please edit documentation in R/geom_hilight.R
 \name{geom_hilight}
 \alias{geom_hilight}
+\alias{geom_highlight}
 \title{geom_hilight}
 \usage{
 geom_hilight(node, fill = "steelblue", alpha = 0.5, extend = 0, ...)
+
+geom_highlight(node, fill = "steelblue", alpha = 0.5, extend = 0, ...)
 }
 \arguments{
 \item{node}{selected node to hilight (required)}

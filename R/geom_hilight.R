@@ -1,6 +1,7 @@
 ##' layer of hilight clade with rectangle
 ##'
 ##' @title geom_hilight
+##' @rdname geom-hilight
 ##' @param node selected node to hilight (required)
 ##' @param fill color fill (default = steelblue)
 ##' @param alpha alpha transparency, (default = 0.5)
@@ -22,7 +23,9 @@ geom_hilight <- function(node, fill="steelblue", alpha=.5, extend=0, ...) {
               class = 'hilight')
 }
 
-
+##' @rdname geom-hilight
+##' @export
+geom_highlight <- geom_hilight
 
 geom_hilight_rectangular <- function(node, mapping = NULL, fill="steelblue",
                                      alpha=.5, extend=0, extendto=NULL) {
