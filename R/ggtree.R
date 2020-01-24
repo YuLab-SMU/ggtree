@@ -101,6 +101,8 @@ ggtree <- function(tr,
         p <- p + layout_circular()
     } else if (layout == "fan") {
         p <- p + layout_fan(open.angle)
+    } else if (layout %in% c("daylight", "equal_angle")) {
+        p <- p + ggplot2::coord_fixed()
     } else {
         p <- p +
             scale_y_continuous(expand = expand_scale(0, 0.6))
