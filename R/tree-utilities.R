@@ -1192,38 +1192,39 @@ re_assign_ycoord_df <- function(df, currentNode) {
 layoutApe <- function(model, branch.length="branch.length") {
 	tree <- as.phylo(model) %>% reorder("postorder")
 	
+	if (! is.null(tree$edge.length)) {
+		if (anyNA(tree$edge.length)) {
+			warning("'edge.length' contains NA values...\n## setting 'edge.length' to NULL automatically when plotting the tree...")
+			tree$edge.length <- NULL
+		}
+	}
+	
+	if (is.null(tree$edge.length) || branch.length == "none") {
+		tree <- set_branch_length_cladogram(tree)
+	}
+	
 	edge <- tree$edge
 	edge.length <- tree$edge.length
 	nb.sp <- ape::node.depth(tree)
 	
 	df <- as_tibble(model) %>%
 		mutate_(isTip = ~(! node %in% parent))
+	df$branch.length <- edge.length[df$node] # for cladogram
 	
-	# from ape
-	foo <- function(node, ANGLE, AXIS) {
-		ind <- which(edge[, 1] == node)
-		sons <- edge[ind, 2]
-		start <- AXIS - ANGLE/2
-		for (i in 1:length(sons)) {
-			h <- edge.length[ind[i]]
-			angle[sons[i]] <<- alpha <- ANGLE * nb.sp[sons[i]]/nb.sp[node]
-			axis[sons[i]] <<- beta <- start + alpha/2
-			start <- start + alpha
-			xx[sons[i]] <<- h * cos(beta) + xx[node]
-			yy[sons[i]] <<- h * sin(beta) + yy[node]
-		}
-		for (i in sons) if (i > Ntip(tree)) 
-			foo(i, angle[i], axis[i])
-	}
-	Nedge <- dim(edge)[1]
-	yy <- xx <- numeric(Ntip(tree) + Nnode(tree))
-	axis <- angle <- numeric(Ntip(tree) + Nnode(tree))
-	foo(Ntip(tree) + 1L, 2 * pi, 0)
+	# unrooted layout from cran/ape
+	M <- ape::unrooted.xy(Ntip(tree),
+						  Nnode(tree),
+						  tree$edge,
+						  tree$edge.length,
+						  nb.sp,
+						  0)$M
+	xx <- M[, 1]
+	yy <- M[, 2]
+	
 	M <- tibble::data_frame(
 		node = 1:(Ntip(tree) + Nnode(tree)),
 		x = xx - min(xx),
-		y = yy - min(yy),
-		angle = angle
+		y = yy - min(yy)
 	)
 	
 	tree_df <- dplyr::full_join(df, M, by = "node") %>%
