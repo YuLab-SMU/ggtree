@@ -5,7 +5,8 @@ layout.unrooted <- function(model, branch.length="branch.length", layout.method=
 
     df <- switch(layout.method,
                  equal_angle = layoutEqualAngle(model, branch.length),
-                 daylight = layoutDaylight(model, branch.length, MAX_COUNT)
+                 daylight = layoutDaylight(model, branch.length, MAX_COUNT),
+    			 ape = layoutApe(model, branch.length)
                  )
 
     return(df)
@@ -1188,3 +1189,45 @@ re_assign_ycoord_df <- function(df, currentNode) {
     return(df)
 }
 
+layoutApe <- function(model, branch.length="branch.length") {
+	tree <- as.phylo(model) %>% reorder("postorder")
+	
+	edge <- tree$edge
+	edge.length <- tree$edge.length
+	nb.sp <- ape::node.depth(tree)
+	
+	df <- as_tibble(model) %>%
+		mutate_(isTip = ~(! node %in% parent))
+	
+	# from ape
+	foo <- function(node, ANGLE, AXIS) {
+		ind <- which(edge[, 1] == node)
+		sons <- edge[ind, 2]
+		start <- AXIS - ANGLE/2
+		for (i in 1:length(sons)) {
+			h <- edge.length[ind[i]]
+			angle[sons[i]] <<- alpha <- ANGLE * nb.sp[sons[i]]/nb.sp[node]
+			axis[sons[i]] <<- beta <- start + alpha/2
+			start <- start + alpha
+			xx[sons[i]] <<- h * cos(beta) + xx[node]
+			yy[sons[i]] <<- h * sin(beta) + yy[node]
+		}
+		for (i in sons) if (i > Ntip(tree)) 
+			foo(i, angle[i], axis[i])
+	}
+	Nedge <- dim(edge)[1]
+	yy <- xx <- numeric(Ntip(tree) + Nnode(tree))
+	axis <- angle <- numeric(Ntip(tree) + Nnode(tree))
+	foo(Ntip(tree) + 1L, 2 * pi, 0)
+	M <- tibble::data_frame(
+		node = 1:(Ntip(tree) + Nnode(tree)),
+		x = xx - min(xx),
+		y = yy - min(yy),
+		angle = angle
+	)
+	
+	tree_df <- dplyr::full_join(df, M, by = "node") %>%
+		as_tibble()
+	class(tree_df) <- c("tbl_tree", class(tree_df))
+	tree_df
+}

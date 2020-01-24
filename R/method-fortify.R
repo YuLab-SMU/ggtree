@@ -29,7 +29,7 @@ fortify.phylo <- function(model, data,
         }
     }
 
-    if (layout %in% c("equal_angle", "daylight")) {
+    if (layout %in% c("equal_angle", "daylight", "ape")) {
         res <- layout.unrooted(model, layout.method = layout, branch.length = branch.length, ...)
     } else {
         if (is.null(x$edge.length) || branch.length == "none") {
