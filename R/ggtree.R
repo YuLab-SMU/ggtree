@@ -55,7 +55,8 @@ ggtree <- function(tr,
 
     # Check if layout string is valid.
     layout %<>% match.arg(c("rectangular", "slanted", "fan", "circular",
-                            "radial", "unrooted", "equal_angle", "daylight"))
+                            "radial", "unrooted", "equal_angle", "daylight",
+                            "ape"))
 
     if (layout == "unrooted") {
         layout <- "daylight"
@@ -101,6 +102,8 @@ ggtree <- function(tr,
         p <- p + layout_circular()
     } else if (layout == "fan") {
         p <- p + layout_fan(open.angle)
+    } else if (layout %in% c("daylight", "equal_angle", "ape")) {
+        p <- p + ggplot2::coord_fixed()
     } else {
         p <- p +
             scale_y_continuous(expand = expand_scale(0, 0.6))

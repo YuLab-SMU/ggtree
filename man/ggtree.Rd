@@ -28,7 +28,7 @@ ggtree(
 
 \item{mapping}{aesthetic mapping}
 
-\item{layout}{one of 'rectangular', 'slanted', 'fan', 'circular', 'radial', 'equal_angle' or 'daylight'}
+\item{layout}{one of 'rectangular', 'slanted', 'fan', 'circular', 'radial', 'equal_angle', 'daylight' or 'ape'}
 
 \item{open.angle}{open angle, only for 'fan' layout}
 
