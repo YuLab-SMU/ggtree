@@ -63,6 +63,7 @@ fortify.phylo <- function(model, data,
     }
     res <- scaleY(as.phylo(model), res, yscale, layout, ...)
     class(res) <- c("tbl_tree", class(res))
+    attr(res, "layout") <- layout
     return(res)
 }
 
@@ -84,6 +85,7 @@ fortify.multiPhylo <-  function(model, data,
     df <- do.call("rbind", df.list)
     df$.id <- rep(names(df.list), times=sapply(df.list, nrow))
     df$.id <- factor(df$.id, levels=names(df.list))
+    attr(df, "layout") <- layout
     return(df)
 }
 

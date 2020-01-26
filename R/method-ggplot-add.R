@@ -155,6 +155,9 @@ ggplot_add.facet_plot <- function(object, plot, object_name) {
 ##' @export
 ggplot_add.tiplab <- function(object, plot, object_name) {
     layout <- get("layout", envir = plot$plot_env)
+    if (!is(layout, "character")) {
+        layout <- attr(plot$data, "layout")
+    }
     if (layout == 'circular' || layout == 'fan') {
         ly <- do.call(geom_tiplab_circular, object)
     } else {

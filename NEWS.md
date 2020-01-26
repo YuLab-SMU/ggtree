@@ -1,3 +1,11 @@
+# ggtree 2.1.2
+
++ bug fixed of determined layout for `ggplot(tree) + geom_tiplab()` (2020-01-26, Sun)
+  - <https://github.com/YuLab-SMU/ggtree/issues/272>
++ set unrooted layout to use `coord_fixed` by default (2020-01-25, Sat)
++ if `layout = "ape"`, use ape unrooted layout 
+  - <https://github.com/YuLab-SMU/ggtree/issues/272>
+
 # ggtree 2.1.1
 
 + export `geom_highlight` as an alias of `geom_hilight` (2020-01-08, Wed)

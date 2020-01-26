@@ -1,6 +1,7 @@
 # Bradley Jones
 
-
++ ape unrooted layout
+  - <https://github.com/YuLab-SMU/ggtree/issues/272>
 + `ggdensitree` function
   - <https://github.com/YuLab-SMU/ggtree/pull/253>
 + made data usable with treedata in 'equal_angle' and 'daylight' layouts 

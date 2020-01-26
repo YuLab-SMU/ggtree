@@ -1189,8 +1189,9 @@ re_assign_ycoord_df <- function(df, currentNode) {
     return(df)
 }
 
+
 layoutApe <- function(model, branch.length="branch.length") {
-	tree <- as.phylo(model) %>% reorder("postorder")
+	tree <- as.phylo(model) %>% stats::reorder("postorder")
 	
 	if (! is.null(tree$edge.length)) {
 		if (anyNA(tree$edge.length)) {
