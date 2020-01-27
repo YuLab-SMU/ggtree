@@ -4,7 +4,7 @@
   - <https://github.com/YuLab-SMU/ggtree/issues/272>
 + set unrooted layout to use `coord_fixed` by default (2020-01-25, Sat)
 + if `layout = "ape"`, use ape unrooted layout 
-  - <https://github.com/YuLab-SMU/ggtree/issues/272>
+  - <https://github.com/YuLab-SMU/ggtree/pull/273>
 
 # ggtree 2.1.1
 
