@@ -104,7 +104,7 @@ ggtree <- function(tr,
         p <- p + layout_fan(open.angle)
     } else if (layout %in% c("daylight", "equal_angle", "ape")) {
         p <- p + ggplot2::coord_fixed()
-    } else {
+    } else if (yscale == "none") {
         p <- p +
             scale_y_continuous(expand = expand_scale(0, 0.6))
     }
