@@ -1,5 +1,6 @@
 # ggtree 2.1.2
 
++ `expand_scale` was deprecated in ggplot2 v=3.3.0, import `expansion` instead (2020-03-12, Thu)
 + bug fixed of determined layout for `ggplot(tree) + geom_tiplab()` (2020-01-26, Sun)
   - <https://github.com/YuLab-SMU/ggtree/issues/272>
 + set unrooted layout to use `coord_fixed` by default (2020-01-25, Sat)

@@ -106,7 +106,7 @@ ggtree <- function(tr,
         p <- p + ggplot2::coord_fixed()
     } else if (yscale == "none") {
         p <- p +
-            scale_y_continuous(expand = expand_scale(0, 0.6))
+            scale_y_continuous(expand = expansion(0, 0.6))
     }
 
     class(p) <- c("ggtree", class(p))
