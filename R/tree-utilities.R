@@ -455,7 +455,7 @@ rotateTreePoints.df <- function(df, pivot_node, nodes, angle){
   pivot_y = df$y[pivot_node]
   delta_x = df$x - pivot_x
   delta_y = df$y - pivot_y
-  df = dplyr::mutate(df,
+  df = mutate.data.frame(df,
     x = ifelse(.data$node %in% nodes, cospitheta * delta_x - sinpitheta * delta_y + pivot_x, .data$x),
     y = ifelse(.data$node %in% nodes, sinpitheta * delta_x + cospitheta * delta_y + pivot_y, .data$y)
   )
@@ -465,7 +465,7 @@ rotateTreePoints.df <- function(df, pivot_node, nodes, angle){
   # angle is in range [0, 360]
   # Update label angle of tipnode if not root node.
   nodes = nodes[! nodes %in% df$parent]
-  df %>% dplyr::mutate(
+  df %>% mutate.data.frame(
     angle = ifelse(.data$node %in% nodes,
        getNodeAngle.vector(x_parent, y_parent, .data$x, .data$y) %>%
          {180 * ifelse(. < 0, 2 + ., .)},
@@ -634,9 +634,7 @@ getRoot.df <- function(df, node){
 
 
 
-
-
-
+mutate.data.frame <- getFromNamespace("mutate.data.frame", "dplyr")
 
 
 
