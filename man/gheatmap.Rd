@@ -19,6 +19,7 @@ gheatmap(
   colnames_offset_x = 0,
   colnames_offset_y = 0,
   font.size = 4,
+  family = "",
   hjust = 0.5,
   legend_title = "value"
 )
@@ -51,6 +52,8 @@ gheatmap(
 \item{colnames_offset_y}{y offset for column names}
 
 \item{font.size}{font size of matrix colnames}
+
+\item{family}{font of matrix colnames}
 
 \item{hjust}{hjust for column names (0: align left, 0.5: align center, 1: align righ)}
 
