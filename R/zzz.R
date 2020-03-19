@@ -8,7 +8,7 @@
                        '\033[36m', '-', '\033[39m ',
                        "Guangchuang Yu, Tommy Tsan-Yuk Lam, Huachen Zhu, Yi Guan. ",
                        "Two methods for mapping and visualizing associated data on phylogeny using ggtree. ",
-                       "Molecular Biology and Evolution 2018, 35(12):3041-3043. doi: 10.1093/molbev/msy194\n",
+                       "Molecular Biology and Evolution 2018, 35(12):3041-3043. doi:10.1093/molbev/msy194\n",
 
                        '\033[36m', '-', '\033[39m ',
                        "Guangchuang Yu, David Smith, Huachen Zhu, Yi Guan, Tommy Tsan-Yuk Lam. ",
