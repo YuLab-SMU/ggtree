@@ -65,6 +65,7 @@ School of Basic Medical Sciences, Southern Medical University
 If you use `r Biocpkg('ggtree')` in published research, please cite the most appropriate paper(s) from this list:
 
 1. __G Yu__. Using ggtree to visualize data on tree-like structures. __*Current Protocols in Bioinformatics*__, 2020, 69:e96. doi: [10.1002/cpbi.96](https://doi.org/10.1002/cpbi.96).
+   - [Source code and data to reproduce figures in the article](https://github.com/GuangchuangYu/ggtree-current-protocols)
 2. __G Yu__^\*^, TTY Lam, H Zhu, Y Guan^\*^. Two methods for mapping and visualizing associated data on phylogeny using ggtree. __*Molecular Biology and Evolution*__, 2018, 35(2):3041-3043.
 doi: [10.1093/molbev/msy194](https://doi.org/10.1093/molbev/msy194).
      - [Source code to produce Supplementary Material](https://github.com/GuangchuangYu/plotting_tree_with_data)

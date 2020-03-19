@@ -46,6 +46,8 @@ list:
 1.  **G Yu**. Using ggtree to visualize data on tree-like structures.
     ***Current Protocols in Bioinformatics***, 2020, 69:e96. doi:
     [10.1002/cpbi.96](https://doi.org/10.1002/cpbi.96).
+      - [Source code and data to reproduce figures in the
+        article](https://github.com/GuangchuangYu/ggtree-current-protocols)
 2.  **G Yu**<sup>\*</sup>, TTY Lam, H Zhu, Y Guan<sup>\*</sup>. Two
     methods for mapping and visualizing associated data on phylogeny
     using ggtree. ***Molecular Biology and Evolution***, 2018,
