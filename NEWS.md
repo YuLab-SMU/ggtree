@@ -1,8 +1,9 @@
 # ggtree 2.1.3
 
++ remove `mutate_` as it was deprecated in dplyr (2020-03-25, Wed)
 + fixed mutate bug caused by new version of dplyr and tidytree in daylight layout (2020-03-16, Mon)
   - <https://github.com/YuLab-SMU/ggtree/issues/282>
-  
+
 # ggtree 2.1.2
 
 + `expand_scale` was deprecated in ggplot2 v=3.3.0, import `expansion` instead (2020-03-12, Thu)

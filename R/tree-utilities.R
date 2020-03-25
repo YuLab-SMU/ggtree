@@ -57,7 +57,7 @@ layoutEqualAngle <- function(model, branch.length ){
   ## Convert Phylo tree to data.frame.
   ## df <- as.data.frame.phylo_(tree)
   df <- as_tibble(model) %>%
-      mutate_(isTip = ~(! node %in% parent))
+      mutate(isTip = ! .data$node %in% .data$parent)
 
     ## NOTE: Angles (start, end, angle) are in half-rotation units (radians/pi or degrees/180)
 
@@ -1207,7 +1207,7 @@ layoutApe <- function(model, branch.length="branch.length") {
 	nb.sp <- ape::node.depth(tree)
 	
 	df <- as_tibble(model) %>%
-		mutate_(isTip = ~(! node %in% parent))
+		mutate(isTip = ! .data$node %in% .data$parent)
 	df$branch.length <- edge.length[df$node] # for cladogram
 	
 	# unrooted layout from cran/ape
