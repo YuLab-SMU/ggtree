@@ -1,5 +1,7 @@
 # ggtree 2.1.3
 
++ move `xlim2` and `ylim2` to aplot package (2020-03-30, Mon)
+  - <https://cran.r-project.org/package=aplot>
 + remove `mutate_` as it was deprecated in dplyr (2020-03-25, Wed)
 + fixed mutate bug caused by new version of dplyr and tidytree in daylight layout (2020-03-16, Mon)
   - <https://github.com/YuLab-SMU/ggtree/issues/282>

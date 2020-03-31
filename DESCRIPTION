@@ -31,6 +31,7 @@ Imports:
     treeio (>= 1.8.0),
     utils
 Suggests:
+    aplot,
     emojifont,
     ggimage,
     ggplotify,

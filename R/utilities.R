@@ -74,6 +74,8 @@ roundDigit <- function(d) {
 }
 
 
+xrange <- getFromNamespace("xrange", "aplot")
+
 globalVariables(".")
 
 ## ## . function was from plyr package
