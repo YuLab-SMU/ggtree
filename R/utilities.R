@@ -73,8 +73,6 @@ roundDigit <- function(d) {
     round(d)/10^i
 }
 
-##' @import aplot
-xrange <- getFromNamespace("xrange", "aplot")
 
 globalVariables(".")
 

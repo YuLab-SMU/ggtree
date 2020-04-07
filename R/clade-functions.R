@@ -35,6 +35,7 @@ get_taxa_name <- function(tree_view=NULL, node=NULL) {
 ##' @return clade plot
 ##' @importFrom ggplot2 ggplot_build
 ##' @importFrom ggplot2 coord_cartesian
+##' @importFrom aplot xrange
 ##' @export
 ##' @author Guangchuang Yu
 viewClade <- function(tree_view=NULL, node, xmax_adjust=0) {
