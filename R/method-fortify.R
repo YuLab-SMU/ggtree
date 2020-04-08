@@ -1,8 +1,6 @@
 ##' @importFrom ape ladderize
-##' @importFrom treeio as.phylo
-##' @importFrom treeio Nnode
-##' @importFrom dplyr full_join
-##' @importFrom dplyr mutate
+##' @importFrom treeio as.phylo Nnode
+##' @importFrom dplyr full_join mutate
 ##' @importFrom tidytree as_tibble
 ##' @method fortify phylo
 ##' @export
@@ -40,7 +38,7 @@ fortify.phylo <- function(model, data,
 
         ypos <- getYcoord(x)
         N <- Nnode(x, internal.only=FALSE)
-        xypos <- tibble::data_frame(node=1:N, x=xpos + root.position, y=ypos)
+        xypos <- tibble::tibble(node=1:N, x=xpos + root.position, y=ypos)
 
         df <- as_tibble(model) %>%
             mutate(isTip = ! .data$node %in% .data$parent)

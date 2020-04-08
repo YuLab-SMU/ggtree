@@ -1220,7 +1220,7 @@ layoutApe <- function(model, branch.length="branch.length") {
 	xx <- M[, 1]
 	yy <- M[, 2]
 	
-	M <- tibble::data_frame(
+	M <- tibble::tibble(
 		node = 1:(Ntip(tree) + Nnode(tree)),
 		x = xx - min(xx),
 		y = yy - min(yy)
