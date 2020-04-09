@@ -1,8 +1,10 @@
 # ggtree 2.1.5
 
-+ bug fixed of calculating inset width and height (2020-04-09, Thu)
++ bug fixed of `layoutEqualAngle` (2020-04-09, Thu)
+  - in tibble v=3.0.0, df$x = NA will store df$x as lgl variable and assign numeric value to df$x will throw error. Now change to df$x = 0 in `layoutEqualAngle`. 
++ bug fixed of calculating inset width and height 
   - <https://github.com/YuLab-SMU/ggtree/issues/289>
-  
+
 # ggtree 2.1.4
 
 + import `aplot::xrange` 

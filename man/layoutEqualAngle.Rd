@@ -4,7 +4,7 @@
 \alias{layoutEqualAngle}
 \title{layoutEqualAngle}
 \usage{
-layoutEqualAngle(model, branch.length)
+layoutEqualAngle(model, branch.length = "branch.length")
 }
 \arguments{
 \item{model}{tree object, e.g. phylo or treedata}

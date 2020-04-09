@@ -37,7 +37,7 @@ set_branch_length_cladogram <- function(tree) {
 ##' @param model tree object, e.g. phylo or treedata
 ##' @param branch.length set to 'none' for edge length of 1. Otherwise the phylogenetic tree edge length is used.
 ##' @return tree as data.frame with equal angle layout.
-layoutEqualAngle <- function(model, branch.length ){
+layoutEqualAngle <- function(model, branch.length = "branch.length"){
 	tree <- as.phylo(model)
 
   if (! is.null(tree$edge.length)) {
@@ -50,10 +50,11 @@ layoutEqualAngle <- function(model, branch.length ){
   if (is.null(tree$edge.length) || branch.length == "none") {
       tree <- set_branch_length_cladogram(tree)
   }
-  brlen <- numeric(getNodeNum(tree))
+  N <- treeio::Nnode2(tree)
+  brlen <- numeric(N)
   brlen[tree$edge[,2]] <- tree$edge.length
 
-  root <- getRoot(tree)
+  root <- tidytree::rootnode(tree)
   ## Convert Phylo tree to data.frame.
   ## df <- as.data.frame.phylo_(tree)
   df <- as_tibble(model) %>%
@@ -62,11 +63,11 @@ layoutEqualAngle <- function(model, branch.length ){
     ## NOTE: Angles (start, end, angle) are in half-rotation units (radians/pi or degrees/180)
 
     ## create and assign NA to the following fields.
-    df$x <- NA
-    df$y <- NA
-    df$start <- NA # Start angle of segment of subtree.
-    df$end   <- NA # End angle of segment of subtree
-    df$angle <- NA # Orthogonal angle to beta for tip labels.
+    df$x <- 0
+    df$y <- 0
+    df$start <- 0 # Start angle of segment of subtree.
+    df$end   <- 0 # End angle of segment of subtree
+    df$angle <- 0 # Orthogonal angle to beta for tip labels.
     ## Initialize root node position and angles.
     df[root, "x"] <- 0
     df[root, "y"] <- 0
@@ -77,12 +78,10 @@ layoutEqualAngle <- function(model, branch.length ){
     df$branch.length <- brlen[df$node] # for cladogram
 
 
-    N <- getNodeNum(tree)
-
     ## Get number of tips for each node in tree.
   ## nb.sp <- sapply(1:N, function(i) length(get.offspring.tip(tree, i)))
   ## self_include = TRUE to return itself if the input node is a tip
-  nb.sp <- sapply(1:N, function(i) length(offspring(tree, i, tiponly = TRUE, self_include = TRUE)))
+  nb.sp <- vapply(1:N, function(i) length(offspring(tree, i, tiponly = TRUE, self_include = TRUE)), numeric(1))
     ## Get list of node id's.
     nodes <- getNodes_by_postorder(tree)
 
@@ -1220,7 +1219,7 @@ layoutApe <- function(model, branch.length="branch.length") {
 	xx <- M[, 1]
 	yy <- M[, 2]
 	
-	M <- tibble::data_frame(
+	M <- tibble::tibble(
 		node = 1:(Ntip(tree) + Nnode(tree)),
 		x = xx - min(xx),
 		y = yy - min(yy)
