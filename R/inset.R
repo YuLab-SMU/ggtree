@@ -58,8 +58,8 @@ inset <- function(tree_view, insets, width, height, hjust=0, vjust=0,
     if (reverse_y)
         yy <- -yy
 
-    width <- width * diff(range(xx))
-    height <- height * diff(range(yy))
+    width <- width * diff(range(tree_view$data$x))
+    height <- height * diff(range(tree_view$data$y))
 
     geom_subview <- get_fun_from_pkg("ggimage", "geom_subview")
 

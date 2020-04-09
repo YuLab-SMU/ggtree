@@ -1,3 +1,12 @@
+# ggtree 2.1.5
+
++ bug fixed of calculating inset width and height (2020-04-09, Thu)
+  - <https://github.com/YuLab-SMU/ggtree/issues/289>
+  
+# ggtree 2.1.4
+
++ import `aplot::xrange` 
+
 # ggtree 2.1.3
 
 + move `xlim2` and `ylim2` to aplot package (2020-03-30, Mon)
