@@ -44,7 +44,9 @@ Date2decimal <- function(x) {
     }
     year <- format(x, "%Y")
     y <- x - as.Date(paste0(year, "-01-01"))
-    as.numeric(year) + as.numeric(y)/365
+    year <- as.numeric(year)
+    ndate <- ifelse(year %% 4 == 0, 366, 365)
+    year + as.numeric(y)/ndate
 }
 
 ##' convert decimal format to Date, eg "2014.34" to "2014-05-05"
