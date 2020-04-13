@@ -610,7 +610,7 @@ getSubtreeUnrooted.df <- function(df, node){
 
   # The remaining nodes that are not found in the child subtrees are the remaining subtree nodes.
   # ie, parent node and all other nodes. We don't care how they are connected, just their id.
-  parent_id <- parent(df, node)$node
+  parent_id <- parent.tbl_tree(df, node)$node
   # If node is not root.
   if ((length(parent_id) > 0) & (length(remaining_nodes) > 0)) {
     subtrees = tibble::add_row(subtrees, node = parent_id, subtree = list(remaining_nodes))
