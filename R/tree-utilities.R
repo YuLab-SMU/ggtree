@@ -598,7 +598,7 @@ getSubtreeUnrooted <- function(tree, node){
 getSubtreeUnrooted.df <- function(df, node){
   # get subtree for each child node.
                                         # children_ids <- getChild.df(df, node)
-    children_ids <- tidytree::child(df, node)$node
+    children_ids <- child.tbl_tree(df, node)$node
   if (length(children_ids) == 0L) return(NULL)
   # if node leaf, return nothing.
 
