@@ -1,5 +1,7 @@
 # ggtree 2.1.6
 
++ Now `geom_tiplab()` works with unrooted layouts (`ape`, `equal_angle` and `daylight`) (2020-04-23, Thu)
+  - <https://github.com/YuLab-SMU/ggtree/issues/292>
 + bug fixed of `layoutEqualAngle` (2020-04-09, Thu)
   - in tibble v=3.0.0, df$x = NA will store df$x as lgl variable and assign numeric value to df$x will throw error. Now change to df$x = 0 in `layoutEqualAngle`. 
 

@@ -158,7 +158,8 @@ ggplot_add.tiplab <- function(object, plot, object_name) {
     if (!is(layout, "character")) {
         layout <- attr(plot$data, "layout")
     }
-    if (layout == 'circular' || layout == 'fan') {
+    if (layout == 'circular' || layout == 'fan' || layout == "unrooted" ||
+        layout == "equal_angle" || layout == "daylight" || layout == "ape") {
         ly <- do.call(geom_tiplab_circular, object)
     } else {
         ly <- do.call(geom_tiplab_rectangular, object)

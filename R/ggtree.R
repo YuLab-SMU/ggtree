@@ -104,6 +104,12 @@ ggtree <- function(tr,
         p <- p + layout_fan(open.angle)
     } else if (layout %in% c("daylight", "equal_angle", "ape")) {
         p <- p + ggplot2::coord_fixed()
+        d <- p$data
+        pn <- d[d$parent, ]
+        dy <- pn$y - d$y
+        dx <- pn$x - d$x
+        angle <- atan2(dy, dx) * 180 / pi + 180
+        p$data$angle <- angle
     } else if (yscale == "none") {
         p <- p +
             scale_y_continuous(expand = expansion(0, 0.6))
