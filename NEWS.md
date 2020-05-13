@@ -1,3 +1,11 @@
+# ggtree 2.3.0.991
+
++ bug fixed in `getYcoord_scale_category` (2020-05-13, Wed)
+
+# ggtree 2.2.0
+
++ Bioconductor 3.11 release
+
 # ggtree 2.1.6
 
 + Now `geom_tiplab()` works with unrooted layouts (`ape`, `equal_angle` and `daylight`) (2020-04-23, Thu)

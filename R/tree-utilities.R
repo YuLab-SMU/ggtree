@@ -1124,7 +1124,8 @@ getYcoord_scale_category <- function(tr, df, yscale, yscale_mapping=NULL, ...) {
         yy <- df[[yscale]]
         ii <- which(is.na(yy))
         if (length(ii)) {
-            df[ii, yscale] <- df[ii, "node"]
+            ## df[ii, yscale] <- df[ii, "node"]
+            df[[yscale]][ii] <- as.character(df[['node']][ii])
         }
     }
 
