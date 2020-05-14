@@ -371,8 +371,8 @@ scaleClade <- function(tree_view=NULL, node, scale=1, vertical_only=TRUE) {
         sp.df$x <- df$x[node] + (sp.df$x - df$x[node]) * scale
     }
 
-    scale_diff.up <- max(sp.df$y) - max(old.sp.df$y)
-    scale_diff.lw <- min(sp.df$y) - min(old.sp.df$y)
+    scale_diff.up <- max(sp.df$y+0.5*scale) - max(old.sp.df$y+0.5)
+    scale_diff.lw <- min(sp.df$y-0.5*scale) - min(old.sp.df$y-0.5)
 
     ii <- df$y > max(old.sp.df$y)
     if (sum(ii) > 0) {
