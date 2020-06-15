@@ -17,6 +17,8 @@
 ##' @param fill fill label background, only work with geom='label'
 ##' @param family sans by default, can be any supported font
 ##' @param parse logical, whether parse label
+##' @param horizontal logical, whether set label to horizontal, 
+##' default is TRUE.
 ##' @param ... additional parameter
 ##' @return ggplot layers
 ##' @export
@@ -36,6 +38,7 @@ geom_cladelabel <- function(node, label,
                             fill        = NA,
                             family      = "sans",
                             parse       = FALSE,
+                            horizontal  = TRUE,
                             ...) {
 
     structure(list(node = node,
@@ -53,6 +56,7 @@ geom_cladelabel <- function(node, label,
                    fill = fill,
                    family = family,
                    parse = parse,
+                   horizontal = horizontal,
                    ...),
               class = 'cladelabel')
 }
@@ -72,6 +76,7 @@ geom_cladelabel_rectangular <- function(node, label,
                             fill        = NA,
                             family      = "sans",
                             parse       = FALSE,
+                            horizontal  = TRUE,
                             ...) {
     mapping <- NULL
     data <- NULL
@@ -109,7 +114,8 @@ geom_cladelabel_rectangular <- function(node, label,
                                         align=align, size=fontsize, angle=angle, family=family,
                                         mapping=mapping, data=data, geom=geom, hjust=hjust,
                                         position=position, show.legend = show.legend,
-                                        inherit.aes = inherit.aes, na.rm=na.rm, parse=parse, ...)
+                                        inherit.aes = inherit.aes, na.rm=na.rm, parse=parse, 
+                                        horizontal=horizontal, ...)
 
         } else {
             layer_text = stat_cladeText(node=node, label=label, offset=offset+offset.text,
@@ -117,7 +123,7 @@ geom_cladelabel_rectangular <- function(node, label,
                                         mapping=mapping, data=data, geom=geom, hjust=hjust,
                                         position=position, show.legend = show.legend,
                                         inherit.aes = inherit.aes, na.rm=na.rm,
-                                        parse = parse,  ...)
+                                        parse = parse,  horizontal=horizontal, ...)
         }
 
         layer_bar <- stat_cladeBar(node=node, offset=offset, align=align,
@@ -132,7 +138,7 @@ geom_cladelabel_rectangular <- function(node, label,
                                         align=align, size=fontsize, angle=angle, color=labelcolor, family=family,
                                         mapping=mapping, data=data, geom=geom, hjust=hjust,
                                         position=position, show.legend = show.legend,
-                                        inherit.aes = inherit.aes, na.rm=na.rm, parse=parse,  ...)
+                                        inherit.aes = inherit.aes, na.rm=na.rm, parse=parse, horizontal=horizontal, ...)
 
         } else {
             layer_text = stat_cladeText(node=node, label=label, offset=offset+offset.text,
@@ -141,7 +147,7 @@ geom_cladelabel_rectangular <- function(node, label,
                                         mapping=mapping, data=data, geom=geom, hjust=hjust,
                                         position=position, show.legend = show.legend,
                                         inherit.aes = inherit.aes, na.rm=na.rm,
-                                        parse = parse,  ...)
+                                        parse = parse, horizontal=horizontal, ...)
         }
 
         layer_bar <- stat_cladeBar(node        = node,
@@ -171,7 +177,7 @@ stat_cladeText <- function(mapping = NULL, data = NULL,
                            geom = "text", position = "identity",
                            node, label, offset, align, ..., angle,
                            show.legend = NA, inherit.aes = FALSE,
-                           na.rm = FALSE, parse = FALSE) {
+                           na.rm = FALSE, parse = FALSE, horizontal=TRUE) {
 
     default_aes <- aes_(x=~x, y=~y, node=~node, parent=~parent, angle=~angle)
     if (is.null(mapping)) {
@@ -194,6 +200,7 @@ stat_cladeText <- function(mapping = NULL, data = NULL,
                       na.rm  = na.rm,
                       parse  = parse,
                       angle_ = angle,
+                      horizontal = horizontal,
                       ...),
           check.aes = FALSE
           )
@@ -232,8 +239,9 @@ stat_cladeBar <- function(mapping=NULL, data=NULL,
 }
 
 StatCladeText <- ggproto("StatCladeText", Stat,
-                         compute_group = function(self, data, scales, params, node, label, offset, align, angle_) {
-                             df <- get_cladelabel_position(data, node, offset, align, adjustRatio = 1.03, angle_)
+                         compute_group = function(self, data, scales, params, node, label, offset, align, angle_, horizontal) {
+                             df <- get_cladelabel_position(data=data, node=node, offset=offset, align=align, 
+                                                           adjustRatio = 1.03, angle=angle_, horizontal=horizontal)
                              df$y <- mean(c(df$y, df$yend))
                              df$label <- label
                              return(df)
@@ -251,8 +259,8 @@ StatCladeBar <- ggproto("StatCladBar", Stat,
 
 
 get_cladelabel_position <- function(data, node, offset, align,
-                                    adjustRatio, angle="auto", extend=0) {
-    df <- get_cladelabel_position_(data, node, angle, extend)
+                                    adjustRatio, angle="auto", extend=0, horizontal=TRUE) {
+    df <- get_cladelabel_position_(data=data, node=node, angle=angle, extend=extend, horizontal=horizontal)
     if (align) {
         # Find max x value for all tree nodes so all clade labels align to same position.
         mx <- max(data$x, na.rm=TRUE)
@@ -271,7 +279,7 @@ get_cladelabel_position <- function(data, node, offset, align,
 }
 
 # get x, y and yend of clade region.
-get_cladelabel_position_ <- function(data, node, angle = "auto", extend = 0) {
+get_cladelabel_position_ <- function(data, node, angle = "auto", extend = 0, horizontal=TRUE) {
     if (length(extend) == 1) {
         extend = rep(extend, 2)
     }
@@ -289,14 +297,27 @@ get_cladelabel_position_ <- function(data, node, angle = "auto", extend = 0) {
     d <- data.frame(x=mx, y=min(y) - extend[2], yend=max(y) + extend[1])
     if (missing(angle))
         return(d)
-
     if (angle == "auto") {
         d$angle <- mean(range(sp.df$angle))
+        d$angle <- adjust_cladelabel_angle(angle=d$angle, horizontal=horizontal)
     } else {
         d$angle <- angle
     }
-
     return(d)
 
 }
 
+adjust_cladelabel_angle <- function(angle, horizontal){
+    if (horizontal){
+        if (angle >= 90 & angle <= 270){
+            angle <- angle + 180
+        }
+    }else{
+        if(angle > 180){
+            angle <- angle + 90
+        }else{
+            angle <- angle + 270
+        }
+    }
+    return(angle)
+}
