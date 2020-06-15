@@ -309,9 +309,10 @@ get_cladelabel_position_ <- function(data, node, angle = "auto", extend = 0, hor
 
 adjust_cladelabel_angle <- function(angle, horizontal){
     if (horizontal){
-        if (angle >= 90 & angle <= 270){
-            angle <- angle + 180
-        }
+        #if (angle >= 90 & angle <= 270){
+        #    angle <- angle + 180
+        #}
+        angle <- angle
     }else{
         if(angle > 180){
             angle <- angle + 90
