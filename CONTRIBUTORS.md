@@ -30,3 +30,9 @@
 
 + extend `gheatmap` to support collapsed nodes
   - <https://github.com/GuangchuangYu/ggtree/pull/243>
+
+# Shuangbin Xu
+
++ `horizontal` parameter for `geom_cladelabel`
+  - <https://github.com/YuLab-SMU/ggtree/pull/309>
+  

@@ -3,10 +3,7 @@
 + modified the angle of clade labels. Added horizontal parameter to control
   whether set clade labels to horizontal. When the parameter was set to `FALSE`, 
   it will be useful for the layouts in `coord_polar`, such as `circular`, `fan`,
-  `radial`. To better view the clade labels, their angles has been adjusted.
-
-# ggtree 2.3.0.991
-
+  `radial`. To better view the clade labels, their angles has been adjusted. (2020-06-15, Mon)
 + bug fixed in `getYcoord_scale_category` (2020-05-13, Wed)
 
 # ggtree 2.2.0
