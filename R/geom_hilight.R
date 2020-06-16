@@ -28,7 +28,7 @@ geom_hilight <- function(node, fill="steelblue", alpha=.5, extend=0, ...) {
 geom_highlight <- geom_hilight
 
 geom_hilight_rectangular <- function(node, mapping = NULL, fill="steelblue",
-                                     alpha=.5, extend=0, extendto=NULL) {
+                                     alpha=.5, extend=0, extendto=NULL, ...) {
   data = NULL
   stat = "hilight"
   position = "identity"
@@ -60,7 +60,8 @@ geom_hilight_rectangular <- function(node, mapping = NULL, fill="steelblue",
                   alpha=alpha,
                   extend=extend,
                   extendto=extendto,
-                  na.rm = na.rm)
+                  na.rm = na.rm,
+                  ...)
   )
 }
 
@@ -125,7 +126,8 @@ StatHilight <- ggproto("StatHilight", Stat,
                            df$xmax <- df$xmax + extend
                            if (!is.null(extendto) && !is.na(extendto)) {
                                if (extendto < df$xmax) {
-                                   warning("extendto is too small, keep the original xmax value...")
+                                   warning_wrap("extendto is too small for node: ", node, 
+                                                ", keep the original xmax value: ", df$xmax, ".")
                                } else {
                                    df$xmax <- extendto
                                }
@@ -173,3 +175,6 @@ get_clade_position_ <- function(data, node) {
                ymin=min(y, na.rm=TRUE) - 0.5,
                ymax=max(y, na.rm=TRUE) + 0.5)
 }
+
+#' @importFrom utils getFromNamespace
+warning_wrap <- getFromNamespace("warning_wrap", "ggplot2")
