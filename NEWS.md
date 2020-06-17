@@ -1,5 +1,7 @@
 # ggtree 2.3.0.992
 
++ add dot parameters for color or size of `geom_hilight` and more detail messages of
+  warnings for `extendto`. (2020-06-16, Tue)
 + modified the angle of clade labels. Added horizontal parameter to control
   whether set clade labels to horizontal. When the parameter was set to `FALSE`, 
   it will be useful for the layouts in `coord_polar`, such as `circular`, `fan`,
