@@ -182,7 +182,9 @@ fortify.phylo4d <- function(model, data,
     fortify(as.treedata(model), data, layout, yscale, ladderize, right, branch.length, mrsd, ...)
 }
 
-
+##' @method fortify pvclust
+##' @export
+fortify.pvclust <- fortify.phylo4d
 
 ##' @method fortify obkData
 ##' @export

@@ -1,5 +1,6 @@
-# ggtree 2.3.0.992
+# ggtree 2.3.1
 
++ `fortify` method for `pvclust` object (2020-06-21, Mon)
 + add dot parameters for color or size of `geom_hilight` and more detail messages of
   warnings for `extendto`. (2020-06-16, Tue)
 + modified the angle of clade labels. Added horizontal parameter to control
