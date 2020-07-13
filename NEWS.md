@@ -1,3 +1,7 @@
+# ggtree 2.3.2
+
++ update `geom_taxalink` to support circular layout tree (2020-07-13, Mon).
+
 # ggtree 2.3.1
 
 + `fortify` method for `pvclust` object (2020-06-21, Mon)
