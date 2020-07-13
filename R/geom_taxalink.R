@@ -12,7 +12,6 @@
 ##' @param ... additional parameter
 ##' @return ggplot layer
 ##' @export
-##' @importFrom ggplot2 GeomCurve
 ##' @author Guangchuang Yu
 geom_taxalink <- function(taxa1, taxa2, curvature=0.5, arrow = NULL, arrow.fill = NULL, ...) {
     position = "identity"
@@ -25,7 +24,7 @@ geom_taxalink <- function(taxa1, taxa2, curvature=0.5, arrow = NULL, arrow.fill 
     layer(stat=StatTaxalink,
           mapping=mapping,
           data = NULL,
-          geom=GeomCurve,
+          geom=GeomCurveLink,
           position='identity',
           show.legend=show.legend,
           inherit.aes = inherit.aes,
@@ -39,7 +38,6 @@ geom_taxalink <- function(taxa1, taxa2, curvature=0.5, arrow = NULL, arrow.fill 
           check.aes = FALSE
           )
 }
-
 
 StatTaxalink <- ggproto("StatTaxalink", Stat,
                         compute_group = function(self, data, scales, params, taxa1, taxa2) {
@@ -58,3 +56,72 @@ StatTaxalink <- ggproto("StatTaxalink", Stat,
                         required_aes = c("x", "y", "xend", "yend")
                         )
 
+#' @importFrom ggplot2 GeomSegment
+#' @importFrom grid gTree curveGrob gpar
+GeomCurveLink <- ggproto("GeomCurveLink", GeomSegment,
+  default_aes = aes(colour = "black", size = 0.5, linetype = 1, alpha = NA, curvature=0.5),
+  draw_panel = function(data, panel_params, coord, angle = 90,
+                        ncp = 5, arrow = NULL, arrow.fill=NULL, lineend = "butt", na.rm = FALSE) {
+
+    if (!coord$is_linear()) {
+        tmpgroup <- data$group
+        starts <- subset(data, select = c(-xend, -yend))
+        starts$group <- 1
+        ends <- rename(subset(data, select = c(-x, -y)), c("x" = "xend", "y" = "yend"))
+        ends$group <- 2
+        pieces <- rbind(starts, ends)
+
+        trans <- coord$transform(pieces, panel_params)
+        starts <- trans[trans$group==1, ,drop=FALSE]
+        ends <- trans[trans$group==2, ,drop=FALSE]
+        curvature <- unlist(mapply(generate_curvature, starttheta=starts$theta, endtheta=ends$theta, SIMPLIFY=FALSE))
+        ends <- rename(subset(ends, select=c(x, y)), c("xend"="x", "yend"="y"))
+        trans <- cbind(starts, ends)
+        trans$group <- tmpgroup
+        trans$curvature <- curvature
+    }else{
+        trans <- coord$transform(data, panel_params)
+    }
+    arrow.fill <- arrow.fill %||% trans$colour
+
+    grobs <- lapply(seq_len(nrow(trans)), function(i){
+                        curveGrob(
+                              trans$x[i], trans$y[i], trans$xend[i], trans$yend[i],
+                              default.units = "native",
+                              curvature = trans$curvature[i], angle = angle, ncp = ncp,
+                              square = FALSE, squareShape = 1, inflect = FALSE, open = TRUE,
+                              gp = gpar(col = alpha(trans$colour[i], trans$alpha[i]),
+                                        fill = alpha(arrow.fill[i], trans$alpha[i]),
+                                        lwd = trans$size[i] * .pt,
+                                        lty = trans$linetype[i],
+                                        lineend = lineend),
+                                        arrow = arrow)})
+    class(grobs) <- "gList"
+    return(ggname("geom_curve_link", gTree(children=grobs)))
+  }
+)
+
+generate_curvature <- function(starttheta, endtheta){
+    flag <- endtheta - starttheta
+    if (flag > 0){
+        if (flag < pi){
+            origin_direction <- 1
+        }else{
+            origin_direction <- -1
+        }
+    }else{
+        if (abs(flag) < pi){
+            origin_direction <- - 1
+        }else{
+            origin_direction <- 1
+        }
+    }
+    flag <- min(c(abs(flag), 2*pi-abs(flag)))
+    curvature <- origin_direction * (1 - flag/pi)
+    return(curvature)
+}
+
+#' @importFrom utils getFromNamespace
+"%||%" <- getFromNamespace("%||%", "ggplot2")
+
+ggname <- getFromNamespace("ggname", "ggplot2")
