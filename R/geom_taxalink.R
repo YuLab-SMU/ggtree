@@ -179,12 +179,15 @@ ggname <- getFromNamespace("ggname", "ggplot2")
 
 "%|||%" <- function(x, y){
     if (is.null(x)){
+        return(y)
+    }
+    if (is.null(y)) {
+        return(x)
+    }
+
+    if (length(x)<length(y)) {
         return (y)
-    }else{
-        if (length(x)<length(y)){
-            return (y)
-        }else{
-            return (x)
-        }
+    } else {
+        return (x)
     }
 }    
