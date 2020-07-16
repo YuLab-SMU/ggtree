@@ -20,6 +20,7 @@ ggtree(
   right = FALSE,
   branch.length = "branch.length",
   root.position = 0,
+  xlim = NULL,
   ...
 )
 }
@@ -28,7 +29,8 @@ ggtree(
 
 \item{mapping}{aesthetic mapping}
 
-\item{layout}{one of 'rectangular', 'slanted', 'fan', 'circular', 'radial', 'equal_angle', 'daylight' or 'ape'}
+\item{layout}{one of 'rectangular', 'slanted', 'fan', 'circular', 'inward_circular',
+'radial', 'equal_angle', 'daylight' or 'ape'}
 
 \item{open.angle}{open angle, only for 'fan' layout}
 
@@ -49,6 +51,8 @@ right-hand side? See \code{\link[ape:ladderize]{ape::ladderize()}} for more info
 \item{branch.length}{variable for scaling branch, if 'none' draw cladogram}
 
 \item{root.position}{position of the root node (default = 0)}
+
+\item{xlim}{x limits, only works for 'inward_circular' layout}
 
 \item{...}{additional parameter}
 }

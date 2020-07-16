@@ -15,6 +15,7 @@
 ##' right-hand side? See [ape::ladderize()] for more information. 
 ##' @param branch.length variable for scaling branch, if 'none' draw cladogram
 ##' @param root.position position of the root node (default = 0)
+##' @param xlim x limits, only works for 'inward_circular' layout
 ##' @return tree
 ##' @importFrom ggplot2 ggplot
 ##' @importFrom ggplot2 xlab
@@ -51,10 +52,11 @@ ggtree <- function(tr,
                    right          = FALSE,
                    branch.length  = "branch.length",
                    root.position  = 0,
+                   xlim = NULL,
                    ...) {
 
     # Check if layout string is valid.
-    layout %<>% match.arg(c("rectangular", "slanted", "fan", "circular",
+    layout %<>% match.arg(c("rectangular", "slanted", "fan", "circular", 'inward_circular',
                             "radial", "unrooted", "equal_angle", "daylight",
                             "ape"))
 
@@ -100,6 +102,8 @@ ggtree <- function(tr,
 
     if (layout == "circular" || layout == "radial") {
         p <- p + layout_circular()
+    } else if (layout == 'inward_circular') {
+        p <- p + layout_inward_circular(xlim = xlim)
     } else if (layout == "fan") {
         p <- p + layout_fan(open.angle)
     } else if (layout %in% c("daylight", "equal_angle", "ape")) {

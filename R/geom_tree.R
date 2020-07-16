@@ -4,7 +4,8 @@
 ##' @title geom_tree
 ##' @param mapping aesthetic mapping
 ##' @param data data
-##' @param layout one of 'rectangular', 'slanted', 'fan', 'circular', 'radial', 'equal_angle', 'daylight' or 'ape'
+##' @param layout one of 'rectangular', 'slanted', 'fan', 'circular', 'inward_circular',
+##' 'radial', 'equal_angle', 'daylight' or 'ape'
 ##' @param multiPhylo logical
 ##' @param ... additional parameter
 ##' @return tree layer
@@ -38,7 +39,7 @@ stat_tree <- function(mapping=NULL, data=NULL, geom="segment", position="identit
         rootnode <- FALSE
     }
 
-    if (layout %in% c("rectangular", "fan", "circular")) {
+    if (layout %in% c("rectangular", "fan", "circular", "inward_circular")) {
         list(layer(data=data,
                    mapping=mapping,
                    stat=StatTreeHorizontal,

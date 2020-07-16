@@ -19,6 +19,8 @@ layout_fan(angle = 180)
 layout_dendrogram()
 }
 \arguments{
+\item{xlim}{x limits}
+
 \item{angle}{open tree at specific angle}
 }
 \description{

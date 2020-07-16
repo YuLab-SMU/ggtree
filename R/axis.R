@@ -56,8 +56,6 @@ revts <- function(treeview) {
 }
 
 
-
-
 ## ##' set axis limits (x or y) of a `ggplot` object (left hand side of `+`)
 ## ##' based on the x (`xlim2`) or y (`ylim2`) limits of another `ggplot` object (right hand side of `+`).
 ## ##' This is useful for using `cowplot` or `patchwork` to align `ggplot` objects.

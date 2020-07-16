@@ -55,6 +55,7 @@ layout_circular <- function() {
 }
 
 ##' @title layout_inward_circular
+##' @param xlim x limits
 ##' @rdname tree-layout
 ##' @export
 layout_inward_circular <- function(xlim = NULL) {
