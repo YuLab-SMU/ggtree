@@ -54,6 +54,16 @@ layout_circular <- function() {
     layout_ggtree('circular')
 }
 
+##' @title layout_inward_circular
+##' @rdname tree-layout
+##' @export
+layout_inward_circular <- function(xlim = NULL) {
+    if (!is.null(xlim) && length(xlim) == 1) {
+        xlim <- c(xlim, 0)
+    }
+    layout_ggtree(layout = "inward_circular", xlim = xlim)
+}
+
 ##' @title layout_fan
 ##' @rdname tree-layout
 ##' @param angle open tree at specific angle
@@ -73,8 +83,8 @@ layout_dendrogram <- function() {
     layout_ggtree('dendrogram')
 }
 
-layout_ggtree <- function(layout = 'rectangular', angle = 180) {
-    structure(list(layout = layout, angle = angle),
+layout_ggtree <- function(layout = 'rectangular', angle = 180, xlim = NULL) {
+    structure(list(layout = layout, angle = angle, xlim = xlim),
               class = 'layout_ggtree')
 }
 

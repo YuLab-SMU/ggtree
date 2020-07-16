@@ -3,6 +3,7 @@
 \name{layout_rectangular}
 \alias{layout_rectangular}
 \alias{layout_circular}
+\alias{layout_inward_circular}
 \alias{layout_fan}
 \alias{layout_dendrogram}
 \title{layout_rectangular}
@@ -10,6 +11,8 @@
 layout_rectangular()
 
 layout_circular()
+
+layout_inward_circular(xlim = NULL)
 
 layout_fan(angle = 180)
 

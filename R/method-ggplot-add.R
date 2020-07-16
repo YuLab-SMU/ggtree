@@ -98,12 +98,15 @@ ggplot_add.layout_ggtree <- function(object, plot, object_name) {
         obj <- list(scale_x_reverse(labels = abs),
                     coord_flip(clip = 'off')
                     )
-    } else if (object$layout == 'circular') {
+    } else if (object$layout == 'circular' || object$layout == "inward_circular") {
         ## refer to: https://github.com/GuangchuangYu/ggtree/issues/6
         ## and also have some space for tree scale (legend)
         obj <- list(coord_polar(theta='y', start=-pi/2, -1, clip = 'off'),
                     scale_y_continuous(limits = c(0, NA), expand = expansion(0, 0.6))
                     )
+        if (object$layout == 'inward_circular') {
+            obj[[3]] <- scale_x_reverse(limits = object$xlim)
+        }
     } else { ## rectangular
         obj <- coord_cartesian(clip = 'off')
     }
