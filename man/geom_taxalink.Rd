@@ -10,8 +10,9 @@ geom_taxalink(
   curvature = 0.5,
   arrow = NULL,
   arrow.fill = NULL,
-  xexpand = NULL,
-  hratio = 0.5,
+  offset = NULL,
+  hratio = 1,
+  outward = TRUE,
   ...
 )
 }
@@ -28,12 +29,15 @@ positive values produce right-hand curves, and zero produces a straight line.}
 
 \item{arrow.fill}{fill color to usse for the arrow head (if closed). \code{NULL} means use \code{colour} aesthetic.}
 
-\item{xexpand}{numeric, control the shift of curve line (the ratio of axis value,
-rang is "(0-1)"), default is NULL.}
+\item{offset}{numeric, control the shift of curve line (the ratio of axis value,
+range is "(0-1)"), default is NULL.}
 
-\item{hratio}{numeric, the height of curve line, default is 0.5.}
+\item{hratio}{numeric, the height of curve line, default is 1.}
 
-\item{...}{additional parameter}
+\item{outward}{logical, control the orientation of curve when the layout of tree is circular,
+fan or other layout in polar coordinate, default is TRUE.}
+
+\item{...}{additional parameter.}
 }
 \value{
 ggplot layer
