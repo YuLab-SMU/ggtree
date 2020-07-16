@@ -35,6 +35,7 @@
 
 + update `geom_taxalink` to support circular layout tree
   - <https://github.com/YuLab-SMU/ggtree/pull/321>
+  - <https://github.com/YuLab-SMU/ggtree/pull/323>
 + `horizontal` parameter for `geom_cladelabel`
   - <https://github.com/YuLab-SMU/ggtree/pull/309>
   

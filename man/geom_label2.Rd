@@ -61,7 +61,7 @@ label layer
 geom_label2 support aes(subset) via setup_data
 }
 \seealso{
-\link[ggplot2:geom_label]{geom_label}
+\link[ggplot2:geom_text]{geom_label}
 }
 \author{
 Guangchuang Yu
