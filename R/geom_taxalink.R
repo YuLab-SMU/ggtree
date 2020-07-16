@@ -9,15 +9,18 @@
 ##' positive values produce right-hand curves, and zero produces a straight line.
 ##' @param arrow specification for arrow heads, as created by arrow().
 ##' @param arrow.fill fill color to usse for the arrow head (if closed). `NULL` means use `colour` aesthetic.
-##' @param xexpand numeric, control the shift of curve line (the ratio of axis value, 
-##' rang is "(0-1)"), default is NULL.
-##' @param hratio numeric, the height of curve line, default is 0.5.
-##' @param ... additional parameter
+##' @param offset numeric, control the shift of curve line (the ratio of axis value, 
+##' range is "(0-1)"), default is NULL.
+##' @param hratio numeric, the height of curve line, default is 1.
+##' @param outward logical, control the orientation of curve when the layout of tree is circular, 
+##' fan or other layout in polar coordinate, default is TRUE.
+##' @param ... additional parameter.
 ##' @return ggplot layer
 ##' @export
 ##' @author Guangchuang Yu
 geom_taxalink <- function(taxa1, taxa2, curvature=0.5, arrow = NULL, 
-                          arrow.fill = NULL, xexpand=NULL, hratio=0.5, ...) {
+                          arrow.fill = NULL, offset=NULL, hratio=1, 
+                          outward = TRUE, ...) {
     position = "identity"
     show.legend = NA
     na.rm = TRUE
@@ -38,22 +41,23 @@ geom_taxalink <- function(taxa1, taxa2, curvature=0.5, arrow = NULL,
                         na.rm = na.rm,
                         arrow = arrow,
                         arrow.fill = arrow.fill,
-                        xexpand = xexpand,
+                        offset = offset,
                         hratio = hratio,
+                        outward = outward,
                         ...),
           check.aes = FALSE
           )
 }
 
 StatTaxalink <- ggproto("StatTaxalink", Stat,
-                        compute_group = function(self, data, scales, params, taxa1, taxa2, xexpand) {
+                        compute_group = function(self, data, scales, params, taxa1, taxa2, offset) {
                             node1 <- taxa2node(data, taxa1)
                             node2 <- taxa2node(data, taxa2)
                            
                             x <- data$x
                             y <- data$y
-                            if (!is.null(xexpand)){
-                                tmpshift <- xexpand * (max(x, na.rm=TRUE)-min(x, na.rm=TRUE))
+                            if (!is.null(offset)){
+                                tmpshift <- offset * (max(x, na.rm=TRUE)-min(x, na.rm=TRUE))
                                 data.frame(x    = x[node1] + tmpshift,
                                            xend = x[node2] + tmpshift,
                                            y    = y[node1],
@@ -71,9 +75,10 @@ StatTaxalink <- ggproto("StatTaxalink", Stat,
 
 #' @importFrom ggplot2 GeomSegment
 #' @importFrom grid gTree curveGrob gpar
+#' @importFrom scales alpha
 GeomCurveLink <- ggproto("GeomCurveLink", GeomSegment,
   default_aes = aes(colour = "black", size = 0.5, linetype = 1, alpha = NA, curvature=0.5),
-  draw_panel = function(data, panel_params, coord, angle = 90, shape=0.5, hratio=0.5,
+  draw_panel = function(data, panel_params, coord, angle = 90, shape=0.5, hratio=1, outward=TRUE,
                         ncp = 1, arrow = NULL, arrow.fill=NULL, lineend = "butt", na.rm = FALSE) {
 
     if (!coord$is_linear()) {
@@ -87,9 +92,15 @@ GeomCurveLink <- ggproto("GeomCurveLink", GeomSegment,
         trans <- coord$transform(pieces, panel_params)
         starts <- trans[trans$group==1, ,drop=FALSE]
         ends <- trans[trans$group==2, ,drop=FALSE]
-        curvature <- unlist(mapply(generate_curvature, starttheta=starts$theta, 
-                                   endtheta=ends$theta, MoreArgs=list(hratio=hratio, ncp=ncp), 
-                                   SIMPLIFY=FALSE))
+        if (outward){
+            curvature <- unlist(mapply(generate_curvature2, starttheta=starts$theta,
+                                       endtheta=ends$theta, MoreArgs=list(hratio=hratio, ncp=ncp),
+                                       SIMPLIFY=FALSE))
+        }else{
+            curvature <- unlist(mapply(generate_curvature, starttheta=starts$theta, 
+                                       endtheta=ends$theta, MoreArgs=list(hratio=hratio, ncp=ncp), 
+                                       SIMPLIFY=FALSE))
+        }
         ends <- rename(subset(ends, select=c(x, y)), c("xend"="x", "yend"="y"))
         trans <- cbind(starts, ends)
         trans$group <- tmpgroup
@@ -117,44 +128,50 @@ GeomCurveLink <- ggproto("GeomCurveLink", GeomSegment,
   }
 )
 
+# for inward curve lines
 generate_curvature <- function(starttheta, endtheta, hratio, ncp){
     flag <- endtheta - starttheta
     newflag <- min(c(abs(flag), 2*pi-abs(flag)))
     if (flag > 0){
-        if (flag <= pi/2){
+        if (flag <= pi){
             origin_direction <- 1
-            if (ncp==1){
-                origin_direction <- origin_direction * hratio * 0.68 * pi/newflag
-            }
-        }else if (flag < pi && flag > pi/2){
-            origin_direction <- 1
-        }else if (flag > pi && flag <=3*pi/2){
-            origin_direction <- -1
         }else{
             origin_direction <- -1
-            if (ncp==1){
-                origin_direction <- origin_direction * hratio * 0.68 * pi/newflag
-            }
         }
     }else{
-        if (abs(flag)<=pi/2){
+        if (abs(flag)<=pi){
             origin_direction <- -1
-            if (ncp == 1){
-                origin_direction <- origin_direction * hratio * 0.68 * pi/newflag
-            }
-        }else if (abs(flag) < pi && abs(flag) > pi/2){
-            origin_direction <- -1
-        }else if (abs(flag) > pi && abs(flag) <= 3*pi/2){
-            origin_direction <- 1
         }else{
             origin_direction <- 1
-            if (ncp==1){
-                origin_direction <- origin_direction * hratio * 0.68 * pi/newflag 
-            }
         }
     }
-    curvature <- origin_direction * (1 - newflag/pi)
+    curvature <- hratio * origin_direction * (1 - newflag/pi)
     return(curvature)
+}
+
+# for outward curve lines
+generate_curvature2 <- function(starttheta, endtheta, hratio, ncp){
+    flag <- endtheta - starttheta
+    newflag <- min(c(abs(flag), 2*pi-abs(flag)))
+    if (flag > 0){
+        if (flag <= pi){
+            origin_direction <- -1
+        }else{
+            origin_direction <- 1
+        }
+    }else{
+        if (abs(flag)<=pi){
+            origin_direction <- 1
+        }else{
+            origin_direction <- -1
+        }
+    }
+    if (newflag>pi/2){
+        curvature <- hratio * origin_direction * pi/newflag
+    }else{
+        curvature <- hratio * origin_direction * (1-newflag/pi)
+    }
+    return (curvature)
 }
 
 #' @importFrom utils getFromNamespace
