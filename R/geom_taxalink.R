@@ -31,7 +31,7 @@ geom_taxalink <- function(taxa1, taxa2, curvature=0.5, arrow = NULL,
     layer(stat=StatTaxalink,
           mapping=mapping,
           data = NULL,
-          geom=GeomCurveLink,
+          geom=GeomCurvelink,
           position='identity',
           show.legend=show.legend,
           inherit.aes = inherit.aes,
@@ -53,7 +53,6 @@ StatTaxalink <- ggproto("StatTaxalink", Stat,
                         compute_group = function(self, data, scales, params, taxa1, taxa2, offset) {
                             node1 <- taxa2node(data, taxa1)
                             node2 <- taxa2node(data, taxa2)
-                           
                             x <- data$x
                             y <- data$y
                             if (!is.null(offset)){
@@ -73,14 +72,47 @@ StatTaxalink <- ggproto("StatTaxalink", Stat,
                         required_aes = c("x", "y", "xend", "yend")
                         )
 
+
+geom_curvelink <- function(data=NULL, 
+                           mapping=NULL, 
+                           stat = "identity", 
+                           position = "identity",
+                           angle = 90,
+                           arrow = NULL,
+                           arrow.fill = NULL,
+                           lineend = "butt",
+                           na.rm = FALSE,
+                           show.legend = NA,
+                           inherit.aes = TRUE,...){
+
+    layer(
+       data = data,
+       mapping = mapping,
+       stat = stat,
+       geom = GeomCurvelink,
+       position = position,
+       show.legend = show.legend,
+       inherit.aes = inherit.aes,
+       params = list(
+         arrow = arrow,
+         arrow.fill = arrow.fill,
+         angle = angle,
+         lineend = lineend,
+         na.rm = na.rm,
+         ...
+       )
+    )
+
+}
+
 #' @importFrom ggplot2 GeomSegment
 #' @importFrom grid gTree curveGrob gpar
 #' @importFrom scales alpha
-GeomCurveLink <- ggproto("GeomCurveLink", GeomSegment,
-  default_aes = aes(colour = "black", size = 0.5, linetype = 1, alpha = NA, curvature=0.5),
-  draw_panel = function(data, panel_params, coord, angle = 90, shape=0.5, hratio=1, outward=TRUE,
-                        ncp = 1, arrow = NULL, arrow.fill=NULL, lineend = "butt", na.rm = FALSE) {
-
+GeomCurvelink <- ggproto("GeomCurvelink", GeomSegment,
+  required_aes = c("x", "y", "xend", "yend"),
+  default_aes = aes(colour = "black", size = 0.5, linetype = 1, alpha = NA, curvature=0.5, hratio=1, ncp=1),
+  draw_panel = function(data, panel_params, coord, angle = 90, shape=0.5, outward=TRUE,
+                        arrow = NULL, arrow.fill=NULL, lineend = "butt", na.rm = FALSE) {
     if (!coord$is_linear()) {
         tmpgroup <- data$group
         starts <- subset(data, select = c(-xend, -yend))
@@ -94,11 +126,11 @@ GeomCurveLink <- ggproto("GeomCurveLink", GeomSegment,
         ends <- trans[trans$group==2, ,drop=FALSE]
         if (outward){
             curvature <- unlist(mapply(generate_curvature2, starttheta=starts$theta,
-                                       endtheta=ends$theta, MoreArgs=list(hratio=hratio, ncp=ncp),
+                                       endtheta=ends$theta, hratio=starts$hratio, ncp=starts$ncp,
                                        SIMPLIFY=FALSE))
         }else{
             curvature <- unlist(mapply(generate_curvature, starttheta=starts$theta, 
-                                       endtheta=ends$theta, MoreArgs=list(hratio=hratio, ncp=ncp), 
+                                       endtheta=ends$theta, hratio=starts$hratio, ncp=starts$ncp, 
                                        SIMPLIFY=FALSE))
         }
         ends <- rename(subset(ends, select=c(x, y)), c("xend"="x", "yend"="y"))
@@ -114,7 +146,7 @@ GeomCurveLink <- ggproto("GeomCurveLink", GeomSegment,
                         curveGrob(
                               trans$x[i], trans$y[i], trans$xend[i], trans$yend[i],
                               default.units = "native",
-                              curvature = trans$curvature[i], angle = angle, ncp = ncp,
+                              curvature = trans$curvature[i], angle = angle, ncp = trans$ncp[i],
                               square = FALSE, squareShape = 1, inflect = FALSE, open = TRUE,
                               gp = gpar(col = alpha(trans$colour[i], trans$alpha[i]),
                                         fill = alpha(arrow.fill[i], trans$alpha[i]),
@@ -124,7 +156,7 @@ GeomCurveLink <- ggproto("GeomCurveLink", GeomSegment,
                               arrow = arrow,
                               shape = shape)})
     class(grobs) <- "gList"
-    return(ggname("geom_curve_link", gTree(children=grobs)))
+    return(ggname("geom_curvelink", gTree(children=grobs)))
   }
 )
 
