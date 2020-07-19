@@ -162,7 +162,8 @@ ggplot_add.tiplab <- function(object, plot, object_name) {
         layout <- attr(plot$data, "layout")
     }
     if (layout == 'circular' || layout == 'fan' || layout == "unrooted" ||
-        layout == "equal_angle" || layout == "daylight" || layout == "ape") {
+        layout == "equal_angle" || layout == "daylight" || layout == "ape" || 
+        layout == "inward_circular") {
         ly <- do.call(geom_tiplab_circular, object)
     } else {
         ly <- do.call(geom_tiplab_rectangular, object)
@@ -292,5 +293,63 @@ ggplot_add.scale_ggtree <- function(object, plot, object_name) {
     } else {
         obj <- scale_x_continuous(breaks=breaks, labels=labels)
     }
+    ggplot_add(obj, plot, object_name)
+}
+
+##' @importFrom ggplot2 aes_
+##' @importFrom rlang abort as_name
+##' @export
+ggplot_add.taxalink <- function(object, plot, object_name){
+    layout <- get("layout", envir = plot$plot_env)
+    if (object$outward=="auto"){
+       if(layout=="inward_circular"){
+           object$outward <- FALSE
+       }else{
+           object$outward <- TRUE
+       }
+    }
+    if (is.null(object$data) && is.null(object$taxa1) && is.null(object$taxa2)){
+        abort("data and taxa1, taxa2 can't be provided simultaneously!")
+    }
+    if (!is.null(object$data)){
+        if (is.null(object$mapping) || is.null(object$mapping$taxa1) || is.null(object$mapping$taxa2)){
+            abort("when data is provided, the mapping also should be provided, and taxa1, taxa2 are required aesthetics.")
+        }else{
+            node1 <- taxa2node(plot$data, as.vector(object$data[[as_name(object$mapping$taxa1)]]))
+            node2 <- taxa2node(plot$data, as.vector(object$data[[as_name(object$mapping$taxa2)]]))
+        }
+    }else{
+        node1 <- taxa2node(plot$data, object$taxa1)
+        node2 <- taxa2node(plot$data, object$taxa2)
+    }
+    if (any(is.na(node1)) || any(is.na(node2))){
+        missingtaxa <- c(as.vector(object$data[[as_name(object$mapping$taxa1)]])[is.na(node1)], 
+                         as.vector(object$data[[as_name(object$mapping$taxa2)]])[is.na(node2)])
+        abort("The taxa: ", paste(missingtaxa, collapse=", "), " can not be found.", call. = FALSE) 
+    }
+    x <- plot$data$x
+    y <- plot$data$y
+    if (!is.null(object$offset)){
+        tmpshift <- object$offset * (max(x, na.rm=TRUE)-min(x, na.rm=TRUE))
+        dat <- data.frame(x    = x[node1] + tmpshift,
+                          xend = x[node2] + tmpshift,
+                          y    = y[node1],
+                          yend = y[node2])
+    }else{
+        dat <- data.frame(x    = x[node1],
+                          xend = x[node2],
+                          y    = y[node1],
+                          yend = y[node2])
+    }
+    if (!is.null(object$data) && !is.null(object$mapping)){
+        object$data <- cbind(object$data, dat)
+        object$mapping <- object$mapping[!names(object$mapping) %in% c("taxa1", "taxa2")]
+        object$mapping <- modifyList(object$mapping, aes_(x=~x, y=~y, xend=~xend, yend=~yend))
+    }else{
+        object$data <- dat
+        object$mapping <- aes_(x=~x, y=~y, xend=~xend, yend=~yend)
+    }
+    params <- c(list(data=object$data, mapping=object$mapping, outward=object$outward), object$params)
+    obj <- do.call("geom_curvelink", params)
     ggplot_add(obj, plot, object_name)
 }
