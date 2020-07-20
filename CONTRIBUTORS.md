@@ -33,6 +33,8 @@
 
 # Shuangbin Xu
 
++ update `geom_taxalink` to support data frame and aesthetic mapping
+  - <https://github.com/YuLab-SMU/ggtree/pull/324>
 + update `geom_taxalink` to support circular layout tree
   - <https://github.com/YuLab-SMU/ggtree/pull/321>
   - <https://github.com/YuLab-SMU/ggtree/pull/323>

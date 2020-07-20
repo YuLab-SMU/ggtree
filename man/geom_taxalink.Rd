@@ -2,49 +2,60 @@
 % Please edit documentation in R/geom_taxalink.R
 \name{geom_taxalink}
 \alias{geom_taxalink}
-\title{geom_taxalink}
+\title{link between taxa}
 \usage{
 geom_taxalink(
-  taxa1,
-  taxa2,
-  curvature = 0.5,
-  arrow = NULL,
-  arrow.fill = NULL,
+  data = NULL,
+  mapping = NULL,
+  taxa1 = NULL,
+  taxa2 = NULL,
   offset = NULL,
-  hratio = 1,
-  outward = TRUE,
+  outward = "auto",
   ...
 )
 }
 \arguments{
-\item{taxa1}{taxa1, can be label or node number}
+\item{data}{data.frame, The data to be displayed in this layer, default is NULL.}
 
-\item{taxa2}{taxa2, can be label or node number}
+\item{mapping}{Set of aesthetic mappings, default is NULL.}
 
-\item{curvature}{A numeric value giving the amount of curvature.
-Negative values produce left-hand curves,
-positive values produce right-hand curves, and zero produces a straight line.}
+\item{taxa1}{can be label or node number.}
 
-\item{arrow}{specification for arrow heads, as created by arrow().}
-
-\item{arrow.fill}{fill color to usse for the arrow head (if closed). \code{NULL} means use \code{colour} aesthetic.}
+\item{taxa2}{can be label or node number.}
 
 \item{offset}{numeric, control the shift of curve line (the ratio of axis value,
 range is "(0-1)"), default is NULL.}
 
-\item{hratio}{numeric, the height of curve line, default is 1.}
-
 \item{outward}{logical, control the orientation of curve when the layout of tree is circular,
-fan or other layout in polar coordinate, default is TRUE.}
+fan or other layout in polar coordinate, default is "auto", meaning It will automatically.}
 
-\item{...}{additional parameter.}
+\item{..., }{additional parameter.}
 }
 \value{
-ggplot layer
+a list object.
 }
 \description{
-link between taxa
+\code{geom_taxalink} supports data.frame as input,
+the \code{colour}, \code{size}, \code{linetype} and \code{alpha} can be mapped. When the \code{data} was provided,
+the \code{mapping} should be also provided, which \code{taxa1} and \code{taxa2} should be mapped created
+by \code{aes}, \code{aes_} or \code{aes_string}. In addition, the \code{hratio}, control the height of curve line,
+when tree layout is \code{cirular}, default is 1. \code{ncp}, the number of control points used to draw the
+curve, more control points creates a smoother curve, default is 1. They also can be mapped to
+a column of data.
 }
-\author{
-Guangchuang Yu
+\section{Aesthetics}{
+
+\code{geom_taxalink()} understands the following aesthethics (required aesthetics are in bold):
+\itemize{
+\item \strong{\code{taxa1}}
+\item \strong{\code{taxa2}}
+\item \code{group}
+\item \code{colour}
+\item \code{linetype}
+\item \code{size}
+\item \code{curvature}
+\item \code{hratio}
+\item \code{ncp}
 }
+}
+

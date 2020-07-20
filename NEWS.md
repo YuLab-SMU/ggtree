@@ -1,5 +1,6 @@
-# ggtree 2.3.2.991
+# ggtree 2.3.2.992
 
++ update `geom_taxalink` to support aesthetic mapping (2020-07-20, Mon)
 + `layout_inward_circular` for `layout_circular() + scale_x_reverse()` (2020-07-16, Thu)
 
 # ggtree 2.3.2
