@@ -28,7 +28,7 @@ GeomHilight <- ggproto("GeomHilight", Geom,
                        # Additional fields from the layer param field can be used and will be added to the data column.
                        # eg. required_aes = c("x", "y", "branch.length", "clade_root_node") will add "clade_root_node"
                        # to the 'data' data.frame passed to draw_{panel, group}()
-                       required_aes = c("x", "y", "branch.length", "clade_root_node"),
+                       required_aes = c("x", "y", "clade_root_node"),
                        # set default aesthetic parameters appended to 'data' data.frame
                        default_aes = aes(colour   = "black",
                                          fill     = "steelblue",
