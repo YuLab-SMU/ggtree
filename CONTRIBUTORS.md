@@ -31,13 +31,3 @@
 + extend `gheatmap` to support collapsed nodes
   - <https://github.com/GuangchuangYu/ggtree/pull/243>
 
-# Shuangbin Xu
-
-+ update `geom_taxalink` to support data frame and aesthetic mapping
-  - <https://github.com/YuLab-SMU/ggtree/pull/324>
-+ update `geom_taxalink` to support circular layout tree
-  - <https://github.com/YuLab-SMU/ggtree/pull/321>
-  - <https://github.com/YuLab-SMU/ggtree/pull/323>
-+ `horizontal` parameter for `geom_cladelabel`
-  - <https://github.com/YuLab-SMU/ggtree/pull/309>
-  

@@ -1,11 +1,11 @@
 Package: ggtree
 Type: Package
 Title: an R package for visualization of tree and annotation data
-Version: 2.3.2.992
+Version: 2.3.2.993
 Authors@R: c(
        person("Guangchuang", "Yu",     email = "guangchuangyu@gmail.com", role = c("aut", "cre", "cph"), comment = c(ORCID = "0000-0002-6485-8781")),
        person("Tommy Tsan-Yuk", "Lam", email = "tylam.tommy@gmail.com",   role = c("aut", "ths")),
-       person("Shuangbin", "Xu",       email = "xshuangbin@163.com",      role = "ctb", comment = c(ORCID="0000-0003-3513-5362")),
+       person("Shuangbin", "Xu",       email = "xshuangbin@163.com",      role = "aut", comment = c(ORCID="0000-0003-3513-5362")),
        person("Justin", "Silverman",   email = "jsilve24@gmail.com",      role = "ctb"),
        person("Bradley", "Jones",      email = "bjones@cfenet.ubc.ca",    role = "ctb"),
        person("Watal M.", "Iwasaki",   email = "heavy.watal@gmail.com",   role = "ctb"),
