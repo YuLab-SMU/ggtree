@@ -43,10 +43,12 @@ facet_widths <- function(p, widths) {
         widths <- w
     }
     gt  <- ggplot_gtable(ggplot_build(p))
-    for(i in seq_along(widths)) {
-        j <- gt$layout$l[grep(paste0('panel-', i), gt$layout$name)]
-        gt$widths[j] = widths[i] * gt$widths[j]
-    }
+    ## for(i in seq_along(widths)) {
+    ##     j <- gt$layout$l[grep(paste0('panel-1-', i), gt$layout$name)]
+    ##     gt$widths[j] = widths[i] * gt$widths[j]
+    ## }
+    j <- gt$layout$l[grep('panel-', gt$layout$name)]
+    gt$widths[j] <- gt$widths[j] * widths
     return(ggplotify::as.ggplot(gt))
 }
 
