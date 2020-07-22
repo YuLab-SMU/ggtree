@@ -65,7 +65,8 @@ panel_col_levels <- function(p) {
     levels(p$data[[panel_col_var(p)]])
 }
 
-##' @importFrom ggplot2 facet_grid
+##' @importFrom ggplot2 facet_grid vars
+##' @importFrom rlang .data
 add_panel <- function(p, panel) {
     df <- p$data
     if (is.null(df[[".panel"]])) {
@@ -73,6 +74,8 @@ add_panel <- function(p, panel) {
     }
     levels(df$.panel) %<>% c(., panel)
     p$data <- df
-    p + facet_grid(.~.panel, scales="free_x")
+    #p + facet_grid(.~.panel, scales="free_x")
+    p + facet_grid(cols=vars(factor(.data$.panel, levels=levels(df$.panel))),
+                   scales="free_x")
 }
 
