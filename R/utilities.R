@@ -155,5 +155,13 @@ getCols <- function (n) {
 ## }
 
 
-
+build_cladeids_df <- function(trdf, nodeids){
+    dat <- lapply(seq_along(nodeids), function(i){
+             ids <- getSubtree.df(trdf, nodeids[i])
+             dt <- trdf[trdf$node %in% ids,]
+             dt$clade_root_node <- nodeids[i]
+             return(dt)
+              })
+    return(do.call("rbind", dat))
+}
 

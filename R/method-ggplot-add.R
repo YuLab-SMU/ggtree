@@ -204,6 +204,65 @@ ggplot_add.hilight <- function(object, plot, object_name) {
     ggplot_add(ly, plot, object_name)
 }
 
+
+##' @method ggplot_add hilight2
+##' @export
+ggplot_add.hilight2 <- function(object, plot, object_name){
+    layout <- get("layout", envir = plot$plot_env)
+    if (!is.character(layout)) layout <- "rectangular"
+    if (is.null(object$data) && is.null(object$node)){
+        abort("data and node can't be NULL simultaneously!")
+    }
+    if (!is.null(object$data)){
+        if (is.null(object$mapping) || is.null(object$mapping$node)){
+            abort("when data is provided, the mapping also should be provided, and node is required aesthetics.")
+        }else{
+            clade_node <- as.vector(object$data[[as_name(object$mapping$node)]]) 
+        }
+    }else{
+        clade_node <- object$node
+    }
+    flagnode <- match(clade_node, plot$data$node)
+    if (anyNA(flagnode)){
+        flagnode <- clade_node[is.na(flagnode)]
+        abort(paste0("ERROR: clade node id ", paste(flagnode, collapse='; ')," can not be found in tree data."))
+    }
+    if (layout == "unrooted" || layout == "daylight"){
+        data <- build_cladeids_df(trdf=plot$data, nodeids=clade_node)
+    }else{
+        data <- lapply(clade_node, function(i)get_clade_position_(data=plot$data, node=i))
+        data <- do.call("rbind", data)
+        data$clade_root_node <- clade_node
+    }
+    if (!is.null(object$data) && !is.null(object$mapping)){
+        object$data <- merge(data, object$data, by.x="clade_root_node", by.y=as_name(object$mapping$node))
+        object$mapping <- object$mapping[!names(object$mapping) %in% c("node")]
+    }else{
+        object$data <- data
+    }
+    if (layout == "unrooted" || layout == "daylight"){
+        if (!is.null(object$mapping)){
+            object$mapping <- modifyList(object$mapping, aes_(x=~x, y=~y, clade_root_node=~clade_root_node))
+        }else{
+            object$mapping <- aes_(x=~x, y=~y, clade_root_node=~clade_root_node)
+        }
+        params <- c(list(data=object$data, mapping=object$mapping), object$params)
+        ly <- do.call("geom_hilight_encircle2", params)
+    }else{
+        if (!is.null(object$mapping)){
+            object$mapping <- modifyList(object$mapping, aes_(xmin=~xmin, xmax=~xmax, 
+                                                              ymin=~ymin, ymax=~ymax, 
+                                                              clade_root_node=~clade_root_node))
+        }else{
+            object$mapping <- aes_(xmin=~xmin, xmax=~xmax, ymin=~ymin, ymax=~ymax, clade_root_node=~clade_root_node)
+        }
+        params <- c(list(data=object$data, mapping=object$mapping), object$params)
+        ly <- do.call("geom_hilight_rect2", params)
+    }
+    ggplot_add(ly, plot, object_name) 
+}
+
+
 ##' @method ggplot_add striplabel
 ##' @export
 ggplot_add.striplabel <- function(object, plot, object_name) {
@@ -309,7 +368,7 @@ ggplot_add.taxalink <- function(object, plot, object_name){
        }
     }
     if (is.null(object$data) && is.null(object$taxa1) && is.null(object$taxa2)){
-        abort("data and taxa1, taxa2 can't be provided simultaneously!")
+        abort("data and taxa1, taxa2 can't be NULL simultaneously!")
     }
     if (!is.null(object$data)){
         if (is.null(object$mapping) || is.null(object$mapping$taxa1) || is.null(object$mapping$taxa2)){
@@ -325,7 +384,7 @@ ggplot_add.taxalink <- function(object, plot, object_name){
     if (any(is.na(node1)) || any(is.na(node2))){
         missingtaxa <- c(as.vector(object$data[[as_name(object$mapping$taxa1)]])[is.na(node1)], 
                          as.vector(object$data[[as_name(object$mapping$taxa2)]])[is.na(node2)])
-        abort("The taxa: ", paste(missingtaxa, collapse=", "), " can not be found.", call. = FALSE) 
+        abort(paste0("The taxa: ", paste(missingtaxa, collapse=", "), " can not be found.")) 
     }
     x <- plot$data$x
     y <- plot$data$y
