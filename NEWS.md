@@ -1,5 +1,8 @@
 # ggtree 2.3.2.993
 
++ add `type` parameter in `geom_hilight`, default is `auto`, optional `rect` 
+  to `rectangular` layer, `encircle` to `encircle` layer and comment original 
+  `geom_hilight`, and support `subset` in aesthetic. (2020-07-23, Thu)
 + update `geom_hilight` to support aesthetic mapping (2020-07-22, Wed)
 + update `geom_taxalink` to support aesthetic mapping (2020-07-20, Mon)
 + `layout_inward_circular` for `layout_circular() + scale_x_reverse()` (2020-07-16, Thu)
