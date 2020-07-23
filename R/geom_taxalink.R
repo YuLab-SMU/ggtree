@@ -20,15 +20,16 @@
 #' @section Aesthetics:
 #' \code{geom_taxalink()} understands the following aesthethics (required aesthetics are in bold):
 #'     \itemize{
-#'        \item \strong{\code{taxa1}}
-#'        \item \strong{\code{taxa2}}
-#'        \item \code{group}
-#'        \item \code{colour}
-#'        \item \code{linetype}
-#'        \item \code{size}
-#'        \item \code{curvature}
-#'        \item \code{hratio}
-#'        \item \code{ncp}
+#'        \item \strong{\code{taxa1}} label or node number of tree.
+#'        \item \strong{\code{taxa2}} label or node number of tree.
+#'        \item \code{group} group category of link.
+#'        \item \code{colour} control the color of line, default is black.
+#'        \item \code{linetype} control the type of line, default is 1 (solid).
+#'        \item \code{size} control the width of line, default is 0.5.
+#'        \item \code{curvature} control the curvature of line, default is 0.5, 
+#'        it will be created automatically in polar coordinate .
+#'        \item \code{hratio} control the height of curve line, default is 1.
+#'        \item \code{ncp} control the smooth of curve line, default is 1.
 #'     }
 #' @return a list object.
 #' @export
