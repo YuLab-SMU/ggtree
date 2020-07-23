@@ -1,4 +1,4 @@
-# ggtree 2.3.2.993
+# ggtree 2.3.3
 
 + add `type` parameter in `geom_hilight`, default is `auto`, optional `rect` 
   to `rectangular` layer, `encircle` to `encircle` layer and comment original 
