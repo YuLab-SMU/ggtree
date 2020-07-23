@@ -183,41 +183,59 @@ ggplot_add.cladelabel <- function(object, plot, object_name) {
     ggplot_add(ly, plot, object_name)
 }
 
+## ##' @method ggplot_add hilight
+## ##' @export
+## ggplot_add.hilight <- function(object, plot, object_name) {
+##     layout <- get("layout", envir = plot$plot_env)
+## 
+##     ## if the plot was not produce by ggtree, but ggplot
+##     ## instead of the tree layout, you may get graphics::layout
+##     if (!is.character(layout)) layout <- 'rectangular'
+## 
+##     if ("branch.length" %in% colnames(plot$data)) {
+##         object$mapping <- aes_(branch.length = ~branch.length)
+##     }
+## 
+##     if (layout == "unrooted" || layout == "daylight") {
+##         ly <- do.call(geom_hilight_encircle, object)
+##     } else {
+##         ly <- do.call(geom_hilight_rectangular, object)
+##     }
+##     ggplot_add(ly, plot, object_name)
+## }
+
+
 ##' @method ggplot_add hilight
+##' @importFrom rlang quo_name
 ##' @export
-ggplot_add.hilight <- function(object, plot, object_name) {
-    layout <- get("layout", envir = plot$plot_env)
-
-    ## if the plot was not produce by ggtree, but ggplot
-    ## instead of the tree layout, you may get graphics::layout
-    if (!is.character(layout)) layout <- 'rectangular'
-
-    if ("branch.length" %in% colnames(plot$data)) {
-        object$mapping <- aes_(branch.length = ~branch.length)
-    }
-
-    if (layout == "unrooted" || layout == "daylight") {
-        ly <- do.call(geom_hilight_encircle, object)
-    } else {
-        ly <- do.call(geom_hilight_rectangular, object)
-    }
-    ggplot_add(ly, plot, object_name)
-}
-
-
-##' @method ggplot_add hilight2
-##' @export
-ggplot_add.hilight2 <- function(object, plot, object_name){
+ggplot_add.hilight <- function(object, plot, object_name){
     layout <- get("layout", envir = plot$plot_env)
     if (!is.character(layout)) layout <- "rectangular"
-    if (is.null(object$data) && is.null(object$node)){
-        abort("data and node can't be NULL simultaneously!")
+    if (is.null(object$mapping) && is.null(object$node)){
+        abort("mapping and node can't be NULL simultaneously, we can't get the 
+              data to be displayed in this layer, please provide a data or subset 
+              (we will extract the data from tree data.), or provide node!")
     }
-    if (!is.null(object$data)){
-        if (is.null(object$mapping) || is.null(object$mapping$node)){
-            abort("when data is provided, the mapping also should be provided, and node is required aesthetics.")
+    if (!is.null(object$mapping)){
+        if (is.null(object$data)){
+             if (!is.null(object$mapping$subset)){
+                 object$data <- subset(plot$data, eval(parse(text=quo_name(object$mapping$subset))))
+                 object$mapping <- modifyList(object$mapping, aes_(node=~node))
+                 object$mapping <- object$mapping[names(object$mapping)!="subset"]
+                 clade_node <- as.vector(object$data[["node"]])
+             }else{
+                 abort("data and aesthetics subset in mapping are NULL simultaneously,
+                       we can't get the data to be displayed in this layer, please provide a data or
+                       set subset (we will extract the data from tree data.)")
+             }
         }else{
-            clade_node <- as.vector(object$data[[as_name(object$mapping$node)]]) 
+             if (!is.null(object$mapping$subset)){
+                 object$data <- subset(object$data, eval(parse(text=quo_name(object$mapping$subset))))
+                 object$mapping <- object$mapping[names(object$mapping)!="subset"]
+                 clade_node <- as.vector(object$data[[as_name(object$mapping$node)]])
+             }else{
+                 clade_node <- as.vector(object$data[[as_name(object$mapping$node)]])
+             }
         }
     }else{
         clade_node <- object$node
@@ -228,11 +246,15 @@ ggplot_add.hilight2 <- function(object, plot, object_name){
         abort(paste0("ERROR: clade node id ", paste(flagnode, collapse='; ')," can not be found in tree data."))
     }
     if (layout == "unrooted" || layout == "daylight"){
-        data <- build_cladeids_df(trdf=plot$data, nodeids=clade_node)
+        data <- switch(object$type,
+                       auto = build_cladeids_df(trdf=plot$data, nodeids=clade_node),
+                       rect = build_cladeids_df2(trdf=plot$data, nodeids=clade_node),
+                       encircle = build_cladeids_df(trdf=plot$data, nodeids=clade_node))
     }else{
-        data <- lapply(clade_node, function(i)get_clade_position_(data=plot$data, node=i))
-        data <- do.call("rbind", data)
-        data$clade_root_node <- clade_node
+        data <- switch(object$type,
+                       auto = build_cladeids_df2(trdf=plot$data, nodeids=clade_node),
+                       rect = build_cladeids_df2(trdf=plot$data, nodeids=clade_node),
+                       encircle = build_cladeids_df(trdf=plot$data, nodeids=clade_node))
     }
     if (!is.null(object$data) && !is.null(object$mapping)){
         object$data <- merge(data, object$data, by.x="clade_root_node", by.y=as_name(object$mapping$node))
@@ -241,23 +263,15 @@ ggplot_add.hilight2 <- function(object, plot, object_name){
         object$data <- data
     }
     if (layout == "unrooted" || layout == "daylight"){
-        if (!is.null(object$mapping)){
-            object$mapping <- modifyList(object$mapping, aes_(x=~x, y=~y, clade_root_node=~clade_root_node))
-        }else{
-            object$mapping <- aes_(x=~x, y=~y, clade_root_node=~clade_root_node)
-        }
-        params <- c(list(data=object$data, mapping=object$mapping), object$params)
-        ly <- do.call("geom_hilight_encircle2", params)
+        ly <- switch(object$type,
+                     auto = choose_hilight_layer(object=object, type="encircle"),
+                     rect = choose_hilight_layer(object=object, type="rect"),
+                     encircle = choose_hilight_layer(object=object, type="encircle"))
     }else{
-        if (!is.null(object$mapping)){
-            object$mapping <- modifyList(object$mapping, aes_(xmin=~xmin, xmax=~xmax, 
-                                                              ymin=~ymin, ymax=~ymax, 
-                                                              clade_root_node=~clade_root_node))
-        }else{
-            object$mapping <- aes_(xmin=~xmin, xmax=~xmax, ymin=~ymin, ymax=~ymax, clade_root_node=~clade_root_node)
-        }
-        params <- c(list(data=object$data, mapping=object$mapping), object$params)
-        ly <- do.call("geom_hilight_rect2", params)
+        ly <- switch(object$type,
+                     auto = choose_hilight_layer(object=object, type="rect"),
+                     rect = choose_hilight_layer(object=object, type="rect"),
+                     encircle = choose_hilight_layer(object=object, type="encircle"))
     }
     ggplot_add(ly, plot, object_name) 
 }
