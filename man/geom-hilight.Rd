@@ -5,27 +5,75 @@
 \alias{geom_highlight}
 \title{geom_hilight}
 \usage{
-geom_hilight(node, fill = "steelblue", alpha = 0.5, extend = 0, ...)
+geom_hilight(data = NULL, mapping = NULL, node = NULL, type = "auto", ...)
 
-geom_highlight(node, fill = "steelblue", alpha = 0.5, extend = 0, ...)
+geom_highlight(data = NULL, mapping = NULL, node = NULL, type = "auto", ...)
 }
 \arguments{
-\item{node}{selected node to hilight (required)}
+\item{data}{data.frame, The data to be displayed in this layer, default is NULL.}
 
-\item{fill}{color fill (default = steelblue)}
+\item{mapping}{Set of aesthetic mappings, default is NULL.}
 
-\item{alpha}{alpha transparency, (default = 0.5)}
+\item{node}{selected node to hilight, when data and mapping is NULL, it is required.}
 
-\item{extend}{extend xmax of the rectangle (default = 0)}
+\item{type}{the type of layer, default is \code{auto}, meaning rectangular, circular,
+slanted, fan, inward_circular, radial, equal_angle, ape layout tree will use rectangular layer,
+unrooted and daylight layout tree use will use encircle layer. You can specify this parameter to
+\code{rect} (rectangular layer) or \code{encircle} (encircle layer).}
 
-\item{...}{additional parameters}
+\item{...}{additional parameters, see also Aesthetics section.}
 }
 \value{
-ggplot2
+a list object.
 }
 \description{
-layer of hilight clade with rectangle
+layer of hilight clade
+}
+\details{
+\code{geom_hilight} supports data.frame as input. And aesthetics of layer can be mapped.
+you can see the Aesthetics section to set parameters.
+}
+\section{Aesthetics}{
+
+\code{geom_hilight()} understands the following aesthetics for rectangular layer (required
+aesthetics are in bold):
+\itemize{
+\item \strong{\code{node}} selected node to hight light, it is required.
+\item \code{colour} the colour of margin, default is NA.
+\item \code{fill} the colour of fill, default is 'steelblue'.
+\item \code{alpha} the transparency of fill, default is 0.5.
+\item \code{extend} extend xmax of the rectangle, default is 0.
+\item \code{extendto} specify a value, meaning the rectangle extend to, default is NULL.
+\item \code{linetype} the line type of margin, default is 1.
+\item \code{size} the width of line of margin, default is 0.5.
+}
+\code{geom_hilight()} understands the following aesthethics for encircle layer (required
+aesthetics are in bold):
+\itemize{
+\item \strong{\code{node}} selected node to hight light, it is required.
+\item \code{colour} the colour of margin, default is 'black'.
+\item \code{fill} the colour of fill, default is 'steelblue'.
+\item \code{alpha} the transparency of fill, default is 0.5.
+\item \code{expand} expands the xspline clade region, default is 0.
+\item \code{spread} control the size, when only one point.
+\item \code{size} the width of line of margin, default is 0.5.
+\item \code{linetype} the line type of margin, default is 1.
+\item \code{s_shape} the shape of the spline relative to the control points, default is 0.5.
+\item \code{s_open}  whether the spline is a line or a closed shape, default is FALSE.
+}
+}
+
+\examples{
+library(ggplot2)
+set.seed(102)
+tree <- rtree(60)
+p <- ggtree(tree)
+p1 <- p + geom_hilight(node=62) + geom_hilight(node=88, fill="red")
+p1
+dat <- data.frame(id=c(62, 88), type=c("A", "B"))
+p2 <- p + geom_hilight(data=dat, mapping=aes(node=id, fill=type))
+p2
 }
 \author{
-Guangchuang Yu
+Guangchuang Yu and Shuangbin Xu
 }

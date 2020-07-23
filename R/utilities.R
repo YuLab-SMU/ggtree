@@ -154,7 +154,6 @@ getCols <- function (n) {
 ##     return(tree)
 ## }
 
-
 build_cladeids_df <- function(trdf, nodeids){
     dat <- lapply(seq_along(nodeids), function(i){
              ids <- getSubtree.df(trdf, nodeids[i])
@@ -165,3 +164,32 @@ build_cladeids_df <- function(trdf, nodeids){
     return(do.call("rbind", dat))
 }
 
+build_cladeids_df2 <- function(trdf, nodeids){
+    dat <- lapply(nodeids, function(i)get_clade_position_(data=trdf, node=i))
+    dat <- do.call("rbind", dat)
+    dat$clade_root_node <- nodeids
+    return(dat)
+}
+
+choose_hilight_layer <- function(object, type){
+    if (type=="encircle"){
+        if (!is.null(object$mapping)){
+            object$mapping <- modifyList(object$mapping, aes_(x=~x, y=~y, clade_root_node=~clade_root_node))
+        }else{
+            object$mapping <- aes_(x=~x, y=~y, clade_root_node=~clade_root_node)
+        }
+        params <- c(list(data=object$data, mapping=object$mapping), object$params)
+        ly <- do.call("geom_hilight_encircle2", params)
+    }else{
+        if (!is.null(object$mapping)){
+            object$mapping <- modifyList(object$mapping, aes_(xmin=~xmin, xmax=~xmax, 
+                                                              ymin=~ymin, ymax=~ymax, 
+                                                              clade_root_node=~clade_root_node))
+        }else{
+            object$mapping <- aes_(xmin=~xmin, xmax=~xmax, ymin=~ymin, ymax=~ymax, clade_root_node=~clade_root_node)
+        }
+        params <- c(list(data=object$data, mapping=object$mapping), object$params)
+        ly <- do.call("geom_hilight_rect2", params)
+    }
+    return (ly)
+}
