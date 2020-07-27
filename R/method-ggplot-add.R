@@ -136,6 +136,24 @@ ggplot_add.range_xaxis <- function(object, plot, object_name) {
     ggplot_add(obj, plot, object_name)
 }
 
+##' @method ggplot_add hexpand
+##' @export
+ggplot_add.hexpand <- function(object, plot, object_name) {
+    ## xr <- aplot::xrange(plot) ## panel range
+    xr <- ggplot_build(plot)$layout$panel_scales_x[[1]]$range$range ## plot range
+    rr <- range(xr)
+    if (object$direction == 1) {
+        xx <- xr[2] + rr * object$ratio
+    } else if (object$direction == -1) {
+        xx <- xr[1] - rr * object$ratio
+    } else {
+        stop("direction should be 1 or -1")
+    }
+
+    obj <- ggplot2::expand_limits(x = xx)
+    ggplot_add(obj, plot, object_name)
+}
+
 ##' @method ggplot_add tree_inset
 ##' @export
 ggplot_add.tree_inset <- function(object, plot, object_name) {

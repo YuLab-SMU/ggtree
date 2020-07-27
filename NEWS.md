@@ -1,3 +1,7 @@
+# ggtree 2.3.3.991
+
++ `hexpand` to expand x limits by ratio of x range and supports both direction (1 for rhs and -1 for lhs) (2020-07-27, Mon)
+
 # ggtree 2.3.3
 
 + add `type` parameter in `geom_hilight`, default is `auto`, optional `rect` 

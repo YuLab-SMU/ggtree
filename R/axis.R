@@ -1,3 +1,18 @@
+##' expand xlim by ratio of x range
+##'
+##' 
+##' @title hexpand
+##' @param ratio expand x limits by amount of xrange * ratio
+##' @param direction expand x limit at right hand side if direction is 1, or left hand side if direction is -1
+##' @return hexpand object
+##' @export
+##' @author Guangchuang Yu
+hexpand <- function(ratio, direction = 1) {
+    structure(list(ratio = ratio, direction = direction),
+              class = "hexpand")
+}
+
+
 ##' set x axis limits for Tree panel
 ##'
 ##'
