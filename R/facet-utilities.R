@@ -58,7 +58,10 @@ panel_col_var <- function(p) {
         return(m)
 
     ## rlang::quo_name(m)
-    rlang::quo_text(m)
+    rlang::quo_text(m) %>%
+        sub(",.*", "", .) %>%
+        sub(".*\\(", "", .) %>%
+        sub(".data\\$", "", .)
 }
 
 panel_col_levels <- function(p) {
