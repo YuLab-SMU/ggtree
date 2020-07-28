@@ -1,6 +1,8 @@
-# ggtree 2.3.3.992
+# ggtree 2.3.3.993
 
-+ `as_ylab` parameter added in `geom_tiplab()`, which supports displaying tip labels as y-axis label and only works for rectangular and dendrogram layouts (2020-07-28, Tue)
++ defunct `set_hilight_legend` as now `geom_hilight` supports aesthetic mapping and can generate legend automotically (2020-07-28, Tue)
++ remove `annotation_image`, `phylopic` and `subview` as they were defunct for quite a long time. Users should refer to the `ggimage` package if they want to annotate tree with image or subplots.
++ `as_ylab` parameter added in `geom_tiplab()`, which supports displaying tip labels as y-axis label and only works for rectangular and dendrogram layouts 
 + `hexpand` to expand x limits by ratio of x range and supports both direction (1 for rhs and -1 for lhs) (2020-07-27, Mon)
 
 # ggtree 2.3.3
