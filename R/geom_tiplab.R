@@ -9,7 +9,7 @@
 ##' @param linetype linetype for adding line if align = TRUE
 ##' @param linesize line size of line if align = TRUE
 ##' @param geom one of 'text', 'label', 'image' and 'phylopic'
-##' @param as_ylab display tip labels as y-axis label, only works for rectangular layout
+##' @param as_ylab display tip labels as y-axis label, only works for rectangular and dendrogram layouts
 ##' @param ... additional parameter
 ##' @return tip label layer
 ##' @importFrom ggplot2 geom_text

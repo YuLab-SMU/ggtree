@@ -177,7 +177,7 @@ ggplot_add.facet_plot <- function(object, plot, object_name) {
 ggplot_add.tiplab <- function(object, plot, object_name) {
     layout <- get_layout(plot)
     if (object$as_ylab) {
-        if (layout != "rectangular") {
+        if (layout != "rectangular" && layout != "dendrogram") {
             stop("displaying tiplab as y labels only supports rectangular layout")
         }
         ## remove parameters that are not useful
@@ -188,10 +188,7 @@ ggplot_add.tiplab <- function(object, plot, object_name) {
         object$geom <- NULL
         object$offset <- NULL
         object$as_ylab <- NULL
-
-        if (is.null(object$position))
-            object$position <- "right"
-
+            
         res <- ggplot_add.tiplab_ylab(object, plot, object_name)
         return(res)
     }
@@ -210,15 +207,31 @@ ggplot_add.tiplab <- function(object, plot, object_name) {
 ##' @method ggplot_add tiplab_ylab
 ##' @export
 ggplot_add.tiplab_ylab <- function(object, plot, object_name) {
+    layout <- get_layout(plot)
+    if (is.null(object$position)) {
+        if (layout == "rectangular") {
+            object$position <- "right"
+        } else if (layout == "dendrogram") {
+            object$position <- "left"
+        }
+    }
 
     df <- plot$data
     df <- df[df$isTip, ]
     yscale <- scale_y_continuous(breaks = df$y, labels = df$label,
                                  position = object$position, expand = expansion(0, 0.6))
+
     object$position <- NULL
     ytext <- do.call(element_text, object)
 
-    plot + yscale + theme(axis.text.y = ytext)
+    if (is.null(object$position)) {
+        if (layout == "rectangular") {
+            thm <- theme(axis.text.y = ytext)
+        } else if (layout == "dendrogram") {
+            thm <- theme(axis.text.x = ytext)
+        }
+    }
+    plot + yscale + thm
 }
 
 

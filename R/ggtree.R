@@ -57,7 +57,7 @@ ggtree <- function(tr,
 
     # Check if layout string is valid.
     layout %<>% match.arg(c("rectangular", "slanted", "fan", "circular", 'inward_circular',
-                            "radial", "unrooted", "equal_angle", "daylight",
+                            "radial", "unrooted", "equal_angle", "daylight", "dendrogram",
                             "ape"))
 
     if (layout == "unrooted") {
@@ -106,6 +106,8 @@ ggtree <- function(tr,
         p <- p + layout_inward_circular(xlim = xlim)
     } else if (layout == "fan") {
         p <- p + layout_fan(open.angle)
+    } else if (layout == "dendrogram") {
+        p <- p + layout_dendrogram()
     } else if (layout %in% c("daylight", "equal_angle", "ape")) {
         p <- p + ggplot2::coord_fixed()
         d <- p$data

@@ -1,6 +1,6 @@
 # ggtree 2.3.3.992
 
-+ `as_ylab` parameter added in `geom_tiplab()`, which supports displaying tip labels as y-axis label and only works for rectangular layout (2020-07-28, Tue)
++ `as_ylab` parameter added in `geom_tiplab()`, which supports displaying tip labels as y-axis label and only works for rectangular and dendrogram layouts (2020-07-28, Tue)
 + `hexpand` to expand x limits by ratio of x range and supports both direction (1 for rhs and -1 for lhs) (2020-07-27, Mon)
 
 # ggtree 2.3.3

@@ -31,7 +31,7 @@ geom_tiplab(
 
 \item{offset}{tiplab offset}
 
-\item{as_ylab}{display tip labels as y-axis label, only works for rectangular layout}
+\item{as_ylab}{display tip labels as y-axis label, only works for rectangular and dendrogram layouts}
 
 \item{...}{additional parameter}
 }
