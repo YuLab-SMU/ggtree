@@ -16,10 +16,14 @@ facet_labeller <- function(p, label) {
     label <- label[names(label) %in% lbs]
     lbs[names(label)]  <-  label
 
-    ## ff <- as.formula(paste(" . ~ ", .panel))
-    p + facet_grid(. ~ .panel, scales="free_x",
-                   labeller = labeller(.panel = lbs))
+    panel_labeller <- function(variable, value) {
+        return(lbs[value])
+    }
+
+    p + facet_grid(cols=vars(factor(.panel, levels=levels(p$data$.panel))),
+                   scales="free_x",labeller = as_labeller(lbs))
 }
+
 
 
 ##' set relative widths (for column only) of facet plots
