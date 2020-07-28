@@ -175,10 +175,28 @@ ggplot_add.facet_plot <- function(object, plot, object_name) {
 ##' @method ggplot_add tiplab
 ##' @export
 ggplot_add.tiplab <- function(object, plot, object_name) {
-    layout <- get("layout", envir = plot$plot_env)
-    if (!is(layout, "character")) {
-        layout <- attr(plot$data, "layout")
+    layout <- get_layout(plot)
+    if (object$as_ylab) {
+        if (layout != "rectangular") {
+            stop("displaying tiplab as y labels only supports rectangular layout")
+        }
+        ## remove parameters that are not useful
+        object$mapping <- NULL
+        object$align <- NULL
+        object$linetype <- NULL
+        object$linesize <- NULL
+        object$geom <- NULL
+        object$offset <- NULL
+        object$as_ylab <- NULL
+
+        if (is.null(object$position))
+            object$position <- "right"
+
+        res <- ggplot_add.tiplab_ylab(object, plot, object_name)
+        return(res)
     }
+
+    object$as_ylab <- NULL
     if (layout == 'circular' || layout == 'fan' || layout == "unrooted" ||
         layout == "equal_angle" || layout == "daylight" || layout == "ape" || 
         layout == "inward_circular") {
@@ -188,6 +206,21 @@ ggplot_add.tiplab <- function(object, plot, object_name) {
     }
     ggplot_add(ly, plot, object_name)
 }
+
+##' @method ggplot_add tiplab_ylab
+##' @export
+ggplot_add.tiplab_ylab <- function(object, plot, object_name) {
+
+    df <- plot$data
+    df <- df[df$isTip, ]
+    yscale <- scale_y_continuous(breaks = df$y, labels = df$label,
+                                 position = object$position, expand = expansion(0, 0.6))
+    object$position <- NULL
+    ytext <- do.call(element_text, object)
+
+    plot + yscale + theme(axis.text.y = ytext)
+}
+
 
 ##' @method ggplot_add cladelabel
 ##' @export

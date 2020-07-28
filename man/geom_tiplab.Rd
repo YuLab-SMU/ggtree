@@ -12,6 +12,7 @@ geom_tiplab(
   linesize = 0.5,
   geom = "text",
   offset = 0,
+  as_ylab = FALSE,
   ...
 )
 }
@@ -29,6 +30,8 @@ geom_tiplab(
 \item{geom}{one of 'text', 'label', 'image' and 'phylopic'}
 
 \item{offset}{tiplab offset}
+
+\item{as_ylab}{display tip labels as y-axis label, only works for rectangular layout}
 
 \item{...}{additional parameter}
 }

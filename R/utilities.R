@@ -8,6 +8,15 @@ get_tree_view <- function(tree_view) {
     return(tree_view)
 }
 
+get_layout <- function(tree_view = NULL) {
+    plot <- get_tree_view(tree_view)
+    layout <- get("layout", envir = plot$plot_env)
+    if (!is(layout, "character")) {
+        layout <- attr(plot$data, "layout")
+    }
+    return(layout)
+}
+
 reverse.treeview <- function(tv) {
     tv$data <- reverse.treeview.data(tv$data)
     return(tv)

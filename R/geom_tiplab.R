@@ -9,6 +9,7 @@
 ##' @param linetype linetype for adding line if align = TRUE
 ##' @param linesize line size of line if align = TRUE
 ##' @param geom one of 'text', 'label', 'image' and 'phylopic'
+##' @param as_ylab display tip labels as y-axis label, only works for rectangular layout
 ##' @param ... additional parameter
 ##' @return tip label layer
 ##' @importFrom ggplot2 geom_text
@@ -19,7 +20,8 @@
 ##' require(ape)
 ##' tr <- rtree(10)
 ##' ggtree(tr) + geom_tiplab()
-geom_tiplab <- function(mapping=NULL, hjust = 0,  align = FALSE, linetype = "dotted", linesize=0.5, geom="text",  offset=0, ...) {
+geom_tiplab <- function(mapping=NULL, hjust = 0,  align = FALSE, linetype = "dotted",
+                        linesize=0.5, geom="text",  offset=0, as_ylab = FALSE, ...) {
     structure(list(mapping = mapping,
                    hjust = hjust,
                    align = align,
@@ -27,8 +29,17 @@ geom_tiplab <- function(mapping=NULL, hjust = 0,  align = FALSE, linetype = "dot
                    linesize = linesize,
                    geom = geom,
                    offset = offset,
+                   as_ylab = as_ylab,
                    ...),
               class = "tiplab")
+}
+
+geom_tiplab_as_ylab <- function(hjust = 0, position = "right", ...) {
+    structure(list(hjust = hjust,
+                   position = position,
+                   ...),
+              class =  "tiplab_ylab"
+              )
 }
 
 geom_tiplab_rectangular <- function(mapping=NULL, hjust = 0,  align = FALSE, linetype = "dotted", linesize=0.5, geom="text",  offset=0, fontface = "plain", ...) {
