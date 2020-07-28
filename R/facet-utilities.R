@@ -5,7 +5,7 @@
 ##' @param p facet_plot output
 ##' @param label labels of facet panels
 ##' @return ggplot object
-##' @importFrom ggplot2 labeller
+##' @importFrom ggplot2 as_labeller
 ##' @export
 ##' @author Guangchuang Yu
 facet_labeller <- function(p, label) {
@@ -20,7 +20,7 @@ facet_labeller <- function(p, label) {
         return(lbs[value])
     }
 
-    p + facet_grid(cols=vars(factor(.panel, levels=levels(p$data$.panel))),
+    p + facet_grid(cols=vars(factor(.data$.panel, levels=levels(p$data$.panel))),
                    scales="free_x",labeller = as_labeller(lbs))
 }
 
