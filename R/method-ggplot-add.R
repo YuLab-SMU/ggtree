@@ -20,6 +20,11 @@ ggplot_add.facet_xlim <- function(object, plot, object_name) {
     ggplot_add(obj, plot, object_name)
 }
 
+##' @method ggplot_add zoom_clade
+##' @export
+ggplot_add.zoom_clade <- function(object, plot, object_name) {
+    zoomClade(plot, object$node)
+}
 
 ## ##' @method ggplot_add axisAlign
 ## ##' @importFrom ggplot2 scale_x_discrete

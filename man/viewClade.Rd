@@ -7,7 +7,7 @@
 viewClade(tree_view = NULL, node, xmax_adjust = 0)
 }
 \arguments{
-\item{tree_view}{full tree view}
+\item{tree_view}{tree view (i.e. the ggtree object). If tree_view is NULL, the last ggplot will be used.}
 
 \item{node}{internal node number}
 

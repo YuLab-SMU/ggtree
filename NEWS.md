@@ -1,5 +1,7 @@
-# ggtree 2.3.3.993
+# ggtree 2.3.4
 
++ `zoomClade` and `geom_zoom_clade` to zoom in selected clade (2020-08-04, Tue)
+  - these two functions are wrapper function of `ggforce::facet_zoom`
 + update `facet_labeller` according to the change of `ggplot2` (2020-07-28, Tue)
 + defunct `set_hilight_legend` as now `geom_hilight` supports aesthetic mapping and can generate legend automotically 
 + remove `annotation_image`, `phylopic` and `subview` as they were defunct for quite a long time. Users should refer to the `ggimage` package if they want to annotate tree with image or subplots.

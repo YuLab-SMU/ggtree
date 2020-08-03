@@ -7,9 +7,9 @@
 get_taxa_name(tree_view = NULL, node = NULL)
 }
 \arguments{
-\item{tree_view}{tree view}
+\item{tree_view}{tree view (i.e. the ggtree object). If tree_view is NULL, the last ggplot will be used.}
 
-\item{node}{node}
+\item{node}{internal node number}
 }
 \value{
 taxa name vector

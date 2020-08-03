@@ -7,9 +7,9 @@
 \method{collapse}{ggtree}(x = NULL, node, mode = "none", clade_name = NULL, ...)
 }
 \arguments{
-\item{x}{tree view}
+\item{x}{tree view (i.e. the ggtree object). If tree_view is NULL, the last ggplot will be used.}
 
-\item{node}{clade node}
+\item{node}{internal node number}
 
 \item{mode}{one of 'none', 'max', 'min' and 'mixed'}
 

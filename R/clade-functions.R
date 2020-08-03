@@ -2,8 +2,8 @@
 ##'
 ##'
 ##' @title get_taxa_name
-##' @param tree_view tree view
-##' @param node node
+##' @param tree_view tree view (i.e. the ggtree object). If tree_view is NULL, the last ggplot will be used.
+##' @param node internal node number 
 ##' @return taxa name vector
 ##' @importFrom tidytree offspring
 ##' @export
@@ -29,8 +29,7 @@ get_taxa_name <- function(tree_view=NULL, node=NULL) {
 ##'
 ##'
 ##' @title viewClade
-##' @param tree_view full tree view
-##' @param node internal node number
+##' @inheritParams get_taxa_name
 ##' @param xmax_adjust adjust xmax
 ##' @return clade plot
 ##' @importFrom ggplot2 ggplot_build
@@ -66,8 +65,8 @@ is.viewClade <- function(tree_view) {
 ##'
 ##' @title collapse-ggtree
 ##' @rdname collapse
-##' @param x tree view
-##' @param node clade node
+##' @param x tree view (i.e. the ggtree object). If tree_view is NULL, the last ggplot will be used.
+##' @param node internal node number 
 ##' @param mode one of 'none', 'max', 'min' and 'mixed'
 ##' @param clade_name set clade name. If clade_name = NULL, do nothing
 ##' @param ... additional parameters
@@ -168,8 +167,7 @@ collapse.ggtree <- function(x=NULL, node, mode = "none", clade_name = NULL, ...)
 ##'
 ##'
 ##' @title expand
-##' @param tree_view tree view
-##' @param node clade node
+##' @inheritParams get_taxa_name
 ##' @return tree view
 ##' @export
 ##' @seealso collapse
@@ -226,8 +224,7 @@ expand <- function(tree_view=NULL, node) {
 ##'
 ##'
 ##' @title rotate
-##' @param tree_view tree view
-##' @param node selected node
+##' @inheritParams get_taxa_name
 ##' @return ggplot2 object
 ##' @export
 ##' @author Guangchuang Yu
@@ -268,7 +265,7 @@ rotate <- function(tree_view=NULL, node) {
 ##'
 ##'
 ##' @title flip
-##' @param tree_view tree view
+##' @param tree_view tree view (i.e. the ggtree object). If tree_view is NULL, the last ggplot will be used.
 ##' @param node1 node number of branch 1
 ##' @param node2 node number of branch 2
 ##' @return ggplot2 object
@@ -339,8 +336,7 @@ flip <- function(tree_view=NULL, node1, node2) {
 ##'
 ##'
 ##' @title scaleClade
-##' @param tree_view tree view
-##' @param node clade node
+##' @inheritParams get_taxa_name
 ##' @param scale scale
 ##' @param vertical_only logical. If TRUE, only vertical will be scaled.
 ##' If FALSE, the clade will be scaled vertical and horizontally.
@@ -422,4 +418,26 @@ reassign_y_from_node_to_root <- function(df, node) {
     j <- j[j!=pp]
     df[pp, "y"] <- mean(df$y[j])
     return(df)
+}
+
+
+##' zoom selected clade of a tree
+##'
+##' 
+##' @title zoomClade
+##' @inheritParams get_taxa_name
+##' @return full tree with zoom in clade
+##' @author Guangchuang Yu
+##' @export
+zoomClade <- function(tree_view = NULL, node) {
+    p <- get_tree_view(tree_view)
+    sp <- offspring(p, node, self_include=TRUE)
+    xr <- range(sp$x)
+    xr[2] <- xr[2] + diff(xr)/10
+    yr <- range(sp$y)
+    ## nn <- sp$node
+    ## p + ggforce::facet_zoom(y = node %in% nn, ylim = yr)
+    facet_zoom <- getFromNamespace("facet_zoom", "ggforce")
+
+    p + facet_zoom(xlim = xr, ylim=yr)
 }

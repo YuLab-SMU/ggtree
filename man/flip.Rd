@@ -7,7 +7,7 @@
 flip(tree_view = NULL, node1, node2)
 }
 \arguments{
-\item{tree_view}{tree view}
+\item{tree_view}{tree view (i.e. the ggtree object). If tree_view is NULL, the last ggplot will be used.}
 
 \item{node1}{node number of branch 1}
 
