@@ -22,7 +22,6 @@ display root edge
 
 Additional parameters can refer the following parameters
 \itemize{
-\item \code{rootedge} length of rootedge, default is NULL.
 \item \code{size} control the width of rootedge, default is 0.5.
 \item \code{colour} color of rootedge, default is black.
 \item \code{linetype} the type of line, default is 1.
