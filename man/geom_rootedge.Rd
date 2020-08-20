@@ -17,6 +17,35 @@ ggplot layer
 \description{
 display root edge
 }
+\details{
+\code{geom_rootedge} is used to create a rootedge. \cr
+
+Additional parameters can refer the following parameters
+\itemize{
+\item \code{size} control the width of rootedge, default is 0.5.
+\item \code{colour} color of rootedge, default is black.
+\item \code{linetype} the type of line, default is 1.
+\item \code{alpha} modify colour transparency, default is 1.
+}
+}
+\examples{
+library(ggtree)
+set.seed(123)
+tr <- rtree(8)
+p <- ggtree(tr)
+## length of rootedge is 1  
+p + geom_rootedge(rootedge = 1)
+## a red rootedge 
+p +  geom_rootedge(rootedge = 1, color = "red")
+}
+\references{
+\enumerate{
+\item G Yu, DK Smith, H Zhu, Y Guan, TTY Lam (2017). ggtree: an R package for
+visualization and annotation of phylogenetic trees with their covariates and
+other associated data. Methods in Ecology and Evolution, 8(1):28-36.
+\url{https://doi.org/10.1111/2041-210X.12628}
+}
+}
 \author{
 Guangchuang Yu
 }
