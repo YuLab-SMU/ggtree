@@ -17,6 +17,32 @@ ggplot layer
 \description{
 display root edge
 }
+\details{
+\code{geom_rootedge} supports number as input. And aesthetics of layer can be mapped.
+you can see the Aesthetics sections to set parameters.
+}
+\section{Aesthetics}{
+
+\code{geom_rootedge()} understands the following  aesthethics (required aesthetics  are in bold):
+\itemize{
+\item \strong{\code{rootedge}} length of rootedge, default is NULL.
+\item \code{size} control the width of rootedge, default is 0.5.
+\item \code{colour} color of rootedge, default is black.
+\item \code{linetype} the type of line, default is 1.
+\item \code{alpha} modify colour transparency, default is 1.
+}
+}
+
+\examples{
+library(ggtree)
+set.seed(123)
+tr <- rtree(8)
+p <- ggtree(tr)
+## length of rootedge is 1  
+p + geom_rootedge(rootedge = 1)
+## a red rootedge 
+p +  geom_rootedge(rootedge = 1, color = "reds")
+}
 \author{
 Guangchuang Yu
 }
