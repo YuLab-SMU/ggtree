@@ -1,23 +1,25 @@
 #' display root edge
 #'
-#' `geom_rootedge` supports number as input. And aesthetics of layer can be mapped.
-#' you can see the Aesthetics sections to set parameters.
+#' `geom_rootedge` is used to create a rootedge. \cr
 #' 
-#' @title geom_rootedge
-#' @param rootedge length of rootedge; use phylo$root.edge if rootedge = NULL (by default).
-#' @param ... additional parameters
-#' @section Aesthetics:
-#' \code{geom_rootedge()} understands the following  aesthethics (required aesthetics  are in bold):
+#' Additional parameters can refer the following parameters
 #'     \itemize{
-#'         \item \strong{\code{rootedge}} length of rootedge, default is NULL.
+#'         \item \code{rootedge} length of rootedge, default is NULL.
 #'         \item \code{size} control the width of rootedge, default is 0.5.
 #'         \item \code{colour} color of rootedge, default is black.
 #'         \item \code{linetype} the type of line, default is 1.
 #'         \item \code{alpha} modify colour transparency, default is 1.
 #'     }
+#' @title geom_rootedge
+#' @param rootedge length of rootedge; use phylo$root.edge if rootedge = NULL (by default).
+#' @param ... additional parameters
 #' @return ggplot layer
 #' @export
 #' @author Guangchuang Yu
+#' @references 1. G Yu, DK Smith, H Zhu, Y Guan, TTY Lam (2017). ggtree: an R package for
+#' visualization and annotation of phylogenetic trees with their covariates and
+#' other associated data. Methods in Ecology and Evolution, 8(1):28-36.
+#' <https://doi.org/10.1111/2041-210X.12628>
 #' @export 
 #' @examples 
 #' library(ggtree)
