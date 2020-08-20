@@ -1,18 +1,20 @@
 #' display root edge
 #'
-#' `geom_rootedge` is used to create a rootedge. \cr
+#' `geom_rootedge` is used to create a rootedge. 
 #' 
-#' Additional parameters can refer the following parameters
+#' @title geom_rootedge
+#' @param rootedge length of rootedge; use phylo$root.edge if rootedge = NULL (by default).
+#' @param ... additional parameters
+#' 
+#' Additional parameters can be referred to the following parameters:
 #'     \itemize{
 #'         \item \code{size} control the width of rootedge, default is 0.5.
 #'         \item \code{colour} color of rootedge, default is black.
 #'         \item \code{linetype} the type of line, default is 1.
 #'         \item \code{alpha} modify colour transparency, default is 1.
 #'     }
-#' @title geom_rootedge
-#' @param rootedge length of rootedge; use phylo$root.edge if rootedge = NULL (by default).
-#' @param ... additional parameters
-#' @return ggplot layer
+#
+#' @return ggtree rootedge layer
 #' @export
 #' @author Guangchuang Yu
 #' @references 1. G Yu, DK Smith, H Zhu, Y Guan, TTY Lam (2017). ggtree: an R package for

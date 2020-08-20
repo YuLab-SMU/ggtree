@@ -9,24 +9,24 @@ geom_rootedge(rootedge = NULL, ...)
 \arguments{
 \item{rootedge}{length of rootedge; use phylo$root.edge if rootedge = NULL (by default).}
 
-\item{...}{additional parameters}
-}
-\value{
-ggplot layer
-}
-\description{
-display root edge
-}
-\details{
-\code{geom_rootedge} is used to create a rootedge. \cr
+\item{...}{additional parameters
 
-Additional parameters can refer the following parameters
+Additional parameters can be referred to the following parameters:
 \itemize{
 \item \code{size} control the width of rootedge, default is 0.5.
 \item \code{colour} color of rootedge, default is black.
 \item \code{linetype} the type of line, default is 1.
 \item \code{alpha} modify colour transparency, default is 1.
+}}
 }
+\value{
+ggtree rootedge layer
+}
+\description{
+display root edge
+}
+\details{
+\code{geom_rootedge} is used to create a rootedge.
 }
 \examples{
 library(ggtree)
