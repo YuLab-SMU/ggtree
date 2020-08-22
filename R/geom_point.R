@@ -108,6 +108,7 @@ geom_rootpoint <- function(mapping = NULL, data = NULL,
 #' @section Aesthetics:
 #' \code{geom_point2()} understands the following aesthetics for rectangular layer
 #'     \itemize{
+#'        \item \code{subset} logical expression indicating elements or rows to keep: missing values are taken as false; should be in aes().
 #'        \item \code{colour} the colour of point, default is black.
 #'        \item \code{fill} the colour of fill, default is black.
 #'        \item \code{alpha} the transparency of fill, default is 1.
@@ -133,6 +134,9 @@ geom_rootpoint <- function(mapping = NULL, data = NULL,
 #' 
 #' 3. G Yu. Using ggtree to visualize data on tree-like structures. Current Protocols in 
 #' Bioinformatics, 2020, 69:e96. doi: 10.1002/cpbi.96.
+#' 
+#' For more information about tree visualization, please refer to the online book
+#' \url{https://yulab-smu.top/treedata-book/}
 #' @export
 #' @examples
 #' library(ggtree)
@@ -158,8 +162,6 @@ geom_rootpoint <- function(mapping = NULL, data = NULL,
 #'   theme_tree2() + theme(legend.position = 'right')
 #' p
 #' 
-#' ## For more information about tree visualization, please refer to our online book
-#' \url{https://yulab-smu.top/treedata-book/}
 geom_point2 <- function(mapping = NULL, data = NULL, stat = "identity",
                        position = "identity", na.rm = FALSE,
                        show.legend = NA, inherit.aes = TRUE, ...) {

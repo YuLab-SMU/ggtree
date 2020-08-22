@@ -46,6 +46,7 @@ you can see the Aesthetics section to set parameters.
 
 \code{geom_point2()} understands the following aesthetics for rectangular layer
 \itemize{
+\item \code{subset} logical expression indicating elements or rows to keep: missing values are taken as false; should be in aes().
 \item \code{colour} the colour of point, default is black.
 \item \code{fill} the colour of fill, default is black.
 \item \code{alpha} the transparency of fill, default is 1.
@@ -79,8 +80,6 @@ p <- ggtree(beast_tree) +
   theme_tree2() + theme(legend.position = 'right')
 p
 
-## For more information about tree visualization, please refer to our online book
-\url{https://yulab-smu.top/treedata-book/}
 }
 \references{
 \enumerate{
@@ -93,6 +92,9 @@ on phylogeny using ggtree. Molecular Biology and Evolution, 2018, 35(2):3041-304
 \item G Yu. Using ggtree to visualize data on tree-like structures. Current Protocols in
 Bioinformatics, 2020, 69:e96. doi: 10.1002/cpbi.96.
 }
+
+For more information about tree visualization, please refer to the online book
+\url{https://yulab-smu.top/treedata-book/}
 }
 \seealso{
 \link[ggplot2:geom_point]{geom_point};
