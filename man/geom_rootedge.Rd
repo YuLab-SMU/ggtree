@@ -29,14 +29,28 @@ display root edge
 \code{geom_rootedge} is used to create a rootedge.
 }
 \examples{
+\dontrun{
 library(ggtree)
 set.seed(123)
-tr <- rtree(8)
-p <- ggtree(tr)
-## length of rootedge is 1  
-p + geom_rootedge(rootedge = 1)
-## a red rootedge 
-p +  geom_rootedge(rootedge = 1, color = "red")
+## with root edge = 1
+tree1 <- read.tree(text='((A:1,B:2):3,C:2):1;')
+ggtree(tree1) + geom_tiplab() + geom_rootedge()
+
+## without root edge
+tree2 <- read.tree(text='((A:1,B:2):3,C:2);')
+ggtree(tree2) + geom_tiplab() + geom_rootedge()
+
+## setting root edge
+tree2$root.edge <- 2
+ggtree(tree2) + geom_tiplab() + geom_rootedge()
+
+## specify length of root edge for just plotting
+## this will ignore tree$root.edge
+ggtree(tree2) + geom_tiplab() + geom_rootedge(rootedge = 3)
+
+## For more information about tree visualization, please refer to our online book
+## https://yulab-smu.top/treedata-book/chapter4.html
+}
 }
 \references{
 \enumerate{
