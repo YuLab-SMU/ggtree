@@ -23,7 +23,7 @@
 #' <https://doi.org/10.1111/2041-210X.12628>
 #' @export 
 #' @examples 
-#' \dontrun{
+#'
 #' library(ggtree)
 #' set.seed(123)
 #' ## with root edge = 1
@@ -42,9 +42,9 @@
 #' ## this will ignore tree$root.edge
 #' ggtree(tree2) + geom_tiplab() + geom_rootedge(rootedge = 3)
 #' 
-#' ## For more information about tree visualization, please refer to our online book
+#' ## For more information about tree visualization, please refer to the online book
 #' ## https://yulab-smu.top/treedata-book/chapter4.html
-#' }
+#' 
 geom_rootedge <- function(rootedge = NULL, ...) {
     mapping <- aes_(x = ~x, y = ~y, xend = ~x, yend = ~y,
                     branch.length = ~branch.length,
