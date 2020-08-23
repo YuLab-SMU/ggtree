@@ -44,7 +44,7 @@ you can see the Aesthetics section to set parameters.
 }
 \section{Aesthetics}{
 
-\code{geom_point2()} understands the following aesthetics for rectangular layer
+\code{geom_point2()} understands the following aesthetics
 \itemize{
 \item \code{subset} logical expression indicating elements or rows to keep: missing values are taken as false; should be in aes().
 \item \code{colour} the colour of point, default is black.
