@@ -4,10 +4,13 @@
 \alias{geom_zoom_clade}
 \title{geom_zoom_clade}
 \usage{
-geom_zoom_clade(node)
+geom_zoom_clade(node, xexpand = NULL)
 }
 \arguments{
 \item{node}{internal node number}
+
+\item{xexpand}{numeric, extend x, meaning the ratio of range of original x,
+default is NULL.}
 }
 \value{
 updated tree view

@@ -426,14 +426,20 @@ reassign_y_from_node_to_root <- function(df, node) {
 ##' 
 ##' @title zoomClade
 ##' @inheritParams get_taxa_name
+##' @param xexpand numeric, extend x, meaning the ratio of range of original x,
+##' default is NULL.
 ##' @return full tree with zoom in clade
 ##' @author Guangchuang Yu
 ##' @export
-zoomClade <- function(tree_view = NULL, node) {
+zoomClade <- function(tree_view = NULL, node, xexpand=NULL) {
     p <- get_tree_view(tree_view)
     sp <- offspring(p, node, self_include=TRUE)
     xr <- range(sp$x)
-    xr[2] <- xr[2] + diff(xr)/10
+    if (is.null(xexpand)){
+        xr[2] <- xr[2] + diff(xr)/10
+    }else{
+        xr[2] <- xr[2] + diff(xr)/10 + xr[2]*xexpand
+    }
     yr <- range(sp$y)
     ## nn <- sp$node
     ## p + ggforce::facet_zoom(y = node %in% nn, ylim = yr)
