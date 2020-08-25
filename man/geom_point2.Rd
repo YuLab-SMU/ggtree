@@ -16,30 +16,95 @@ geom_point2(
 )
 }
 \arguments{
-\item{mapping}{aes mapping}
+\item{mapping}{Set of aesthetic mapping created by \code{aes()}.
+If \code{inherit.aes = TRUE}, the mapping can be inherited from the plot mapping as
+specified in the call to \code{ggplot()}.}
 
-\item{data}{data}
+\item{data}{The data to be displayed in this layer. If 'NULL' (the default),
+the data is inherited from the plot data as specified in the call to 'ggplot()',}
 
-\item{stat}{Name of stat to modify data}
+\item{stat}{Name of the statistical transformation to be used on the data for this layer.}
 
-\item{position}{position}
+\item{position}{Position adjustment.}
 
-\item{na.rm}{logical}
+\item{na.rm}{logical. If 'FALSE' (the default), missing values are removed with a warning. If 'TRUE', missing values are silently removed.}
 
-\item{show.legend}{logical}
+\item{show.legend}{logical. Should this layer be included in the legends?
+'NA', the default, includes if any aesthetics are mapped. 'FALSE' never includes, and 'TRUE' always includes.}
 
-\item{inherit.aes}{logical}
+\item{inherit.aes}{logical (default is 'TRUE'). If 'FALSE', overrides the default aesthetics,
+rather then combining with them.}
 
-\item{...}{addktional parameter}
+\item{...}{addtional parameters that passed on to this layer. These are often aesthetics, used to set an aesthetic to a fixed value, like \code{colour = "red"} or \code{size = 3}.}
 }
 \value{
 point layer
 }
 \description{
-geom_point2 support aes(subset) via setup_data
+geom_point2 is a modified version of geom_point that supports aes(subset)
+}
+\details{
+\code{geom_point2} creates scatterplots, just similar to \code{ggplot2::geom_point}. It extends the \code{ggplot2::geom_point} to support filtering via the \code{subset} aesthetic mapping (see Aesthetics section).
+}
+\section{Aesthetics}{
+
+\code{geom_point2()} understands the following aesthetics
+\itemize{
+\item \code{subset} logical expression indicating elements or rows to keep: missing values are taken as false; should be in aes().
+\item \code{colour} the colour of point, default is black.
+\item \code{fill} the colour of fill, default is black.
+\item \code{alpha} the transparency of fill, default is 1.
+\item \code{size} the size of point, default is 1.5.
+\item \code{shape} specify a shape, default is 19.
+\item \code{stroke} control point border thickness of point, default is 0.5.
+}
+}
+
+\examples{
+library(ggtree)
+## add point by aes(subset)
+tr <- rtree(10)
+# group tip and node
+ggtree(tr) + geom_point2(aes(shape=isTip, color=isTip), size=3)
+# specify a node to display
+ggtree(tr) + geom_point2(aes(subset=(node==15)), shape=21, size=5, fill='green')
+# specify a tip to display
+ggtree(tr) + geom_point2(aes(subset=(label \%in\% c("t1", "t3"))), shape=21, size=5, fill='green')
+
+## color point with continuous variables
+library(ggtree)
+library(treeio)
+library(ggplot2)
+beast_file <- system.file("examples/MCC_FluA_H3.tree", package="ggtree")
+beast_tree <- read.beast(beast_file)
+p <- ggtree(beast_tree) +
+  geom_tiplab(hjust = -.1)+ 
+  geom_nodepoint(aes(fill = rate), shape = 21, size = 4) +
+  scale_fill_continuous(low = 'blue', high = 'red') +
+  theme_tree2() + theme(legend.position = 'right')
+p
+
+}
+\references{
+\enumerate{
+\item G Yu, DK Smith, H Zhu, Y Guan, TTY Lam (2017). ggtree: an R package for
+visualization and annotation of phylogenetic trees with their covariates and
+other associated data. Methods in Ecology and Evolution, 8(1):28-36.
+\url{https://doi.org/10.1111/2041-210X.12628}
+\item G Yu*, TTY Lam, H Zhu, Y Guan*. Two methods for mapping and visualizing associated data
+on phylogeny using ggtree. Molecular Biology and Evolution, 2018, 35(2):3041-3043. \url{https://doi.org/10.1093/molbev/msy194}
+\item G Yu. Using ggtree to visualize data on tree-like structures. Current Protocols in
+Bioinformatics, 2020, 69:e96. \url{https://doi.org/10.1002/cpbi.96}
+}
+
+For more information about tree visualization, please refer to the online book
+\url{https://yulab-smu.top/treedata-book/}
 }
 \seealso{
-\link[ggplot2:geom_point]{geom_point}
+\link[ggplot2:geom_point]{geom_point};
+\link{geom_rootpoint} add point of root;
+\link{geom_nodepoint} add points of internal nodes;
+\link{geom_tippoint} add points of external nodes (also known as tips or leaves).
 }
 \author{
 Guangchuang Yu

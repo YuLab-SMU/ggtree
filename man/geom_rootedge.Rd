@@ -29,7 +29,7 @@ display root edge
 \code{geom_rootedge} is used to create a rootedge.
 }
 \examples{
-\dontrun{
+
 library(ggtree)
 set.seed(123)
 ## with root edge = 1
@@ -48,9 +48,9 @@ ggtree(tree2) + geom_tiplab() + geom_rootedge()
 ## this will ignore tree$root.edge
 ggtree(tree2) + geom_tiplab() + geom_rootedge(rootedge = 3)
 
-## For more information about tree visualization, please refer to our online book
+## For more information about tree visualization, please refer to the online book
 ## https://yulab-smu.top/treedata-book/chapter4.html
-}
+
 }
 \references{
 \enumerate{
