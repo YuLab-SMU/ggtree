@@ -38,8 +38,69 @@ point layer
 \description{
 geom_point2 support aes(subset) via setup_data
 }
+\details{
+\code{geom_point2} supports data.frame as input.And aesthetics of layer can be mapped.
+you can see the Aesthetics section to set parameters.
+}
+\section{Aesthetics}{
+
+\code{geom_point2()} understands the following aesthetics
+\itemize{
+\item \code{subset} logical expression indicating elements or rows to keep: missing values are taken as false; should be in aes().
+\item \code{colour} the colour of point, default is black.
+\item \code{fill} the colour of fill, default is black.
+\item \code{alpha} the transparency of fill, default is 1.
+\item \code{size} the size of point, default is 1.5.
+\item \code{shape} specify a shape, default is 19.
+\item \code{stroke} control point border thickness of point, default is 0.5.
+}
+}
+
+\examples{
+library(ggtree)
+## add point by aes(subset)
+tr <- rtree(10)
+# group tip and node
+ggtree(tr) + geom_point(aes(shape=isTip, color=isTip), size=3)
+# specify a node to display
+ggtree(tr) + geom_point2(aes(subset=(node==15)), shape=21, size=5, fill='green')
+# specify a tip to display
+ggtree(tr) + geom_point2(aes(subset=(label=="t1")), shape=21, size=5, fill='green')
+
+## color point with continuous variables
+library(ggtree)
+library(treeio)
+library(ggplot2)
+beast_file <- system.file("examples/MCC_FluA_H3.tree", package="ggtree")
+beast_tree <- read.beast(beast_file)
+p <- ggtree(beast_tree) +
+  geom_tiplab(hjust = -.1)+ 
+  geom_point(aes(fill = rate), shape = 21, size = 4) +
+  scale_fill_continuous(low = 'blue', high = 'red') +
+  theme_tree2() + theme(legend.position = 'right')
+p
+
+}
+\references{
+\enumerate{
+\item G Yu, DK Smith, H Zhu, Y Guan, TTY Lam (2017). ggtree: an R package for
+visualization and annotation of phylogenetic trees with their covariates and
+other associated data. Methods in Ecology and Evolution, 8(1):28-36.
+\url{https://doi.org/10.1111/2041-210X.12628}
+\item G Yu*, TTY Lam, H Zhu, Y Guan*. Two methods for mapping and visualizing associated data
+on phylogeny using ggtree. Molecular Biology and Evolution, 2018, 35(2):3041-3043. doi: 10.1093/molbev/msy194.
+\item G Yu. Using ggtree to visualize data on tree-like structures. Current Protocols in
+Bioinformatics, 2020, 69:e96. doi: 10.1002/cpbi.96.
+}
+
+For more information about tree visualization, please refer to the online book
+\url{https://yulab-smu.top/treedata-book/}
+}
 \seealso{
-\link[ggplot2:geom_point]{geom_point}
+\link[ggplot2:geom_point]{geom_point};
+\link{geom_rootpoint} add point of root;
+\link{geom_nodepoint} add point of node;
+\link{geom_tippoint} add point of tip.
 }
 \author{
 Guangchuang Yu
