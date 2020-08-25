@@ -90,20 +90,25 @@ geom_rootpoint <- function(mapping = NULL, data = NULL,
 }
 
 
-#' geom_point2 support aes(subset) via setup_data
+#' geom_point2 is a modified version of geom_point that supports aes(subset)
 #'
-#' `geom_point2` supports data.frame as input.And aesthetics of layer can be mapped.
-#' you can see the Aesthetics section to set parameters. 
+#' `geom_point2` creates scatterplots, just similar to `ggplot2::geom_point`. It extends the `ggplot2::geom_point` to support filtering via the `subset` aesthetic mapping (see Aesthetics section).
+#'
 #'
 #' @title geom_point2
-#' @param mapping aes mapping
-#' @param data data
-#' @param stat Name of stat to modify data
-#' @param position position
-#' @param na.rm logical
-#' @param show.legend logical
-#' @param inherit.aes logical
-#' @param ... addktional parameter
+#' @param mapping Set of aesthetic mapping created by `aes()`.
+#' If `inherit.aes = TRUE`, the mapping can be inherited from the plot mapping as
+#' specified in the call to `ggplot()`.
+#' @param data The data to be displayed in this layer. If 'NULL' (the default),
+#' the data is inherited from the plot data as specified in the call to 'ggplot()',
+#' @param stat Name of the statistical transformation to be used on the data for this layer.
+#' @param position Position adjustment.
+#' @param na.rm logical. If 'FALSE' (the default), missing values are removed with a warning. If 'TRUE', missing values are silently removed.
+#' @param show.legend logical. Should this layer be included in the legends?
+#' 'NA', the default, includes if any aesthetics are mapped. 'FALSE' never includes, and 'TRUE' always includes.
+#' @param inherit.aes logical (default is 'TRUE'). If 'FALSE', overrides the default aesthetics,
+#' rather then combining with them.
+#' @param ... addtional parameters that passed on to this layer. These are often aesthetics, used to set an aesthetic to a fixed value, like `colour = "red"` or `size = 3`.
 #' @importFrom ggplot2 layer
 #' @section Aesthetics:
 #' \code{geom_point2()} understands the following aesthetics
@@ -119,8 +124,8 @@ geom_rootpoint <- function(mapping = NULL, data = NULL,
 #' @seealso
 #'  [geom_point][ggplot2::geom_point]; 
 #'  [geom_rootpoint] add point of root; 
-#'  [geom_nodepoint] add point of node; 
-#'  [geom_tippoint] add point of tip.
+#'  [geom_nodepoint] add points of internal nodes; 
+#'  [geom_tippoint] add points of external nodes (also known as tips or leaves).
 #' @export
 #' @return point layer
 #' @author Guangchuang Yu 
@@ -130,24 +135,24 @@ geom_rootpoint <- function(mapping = NULL, data = NULL,
 #' <https://doi.org/10.1111/2041-210X.12628>
 #' 
 #' 2. G Yu*, TTY Lam, H Zhu, Y Guan*. Two methods for mapping and visualizing associated data 
-#' on phylogeny using ggtree. Molecular Biology and Evolution, 2018, 35(2):3041-3043. doi: 10.1093/molbev/msy194.
+#' on phylogeny using ggtree. Molecular Biology and Evolution, 2018, 35(2):3041-3043. <https://doi.org/10.1093/molbev/msy194>
 #' 
 #' 3. G Yu. Using ggtree to visualize data on tree-like structures. Current Protocols in 
-#' Bioinformatics, 2020, 69:e96. doi: 10.1002/cpbi.96.
+#' Bioinformatics, 2020, 69:e96. <https://doi.org/10.1002/cpbi.96>
 #' 
 #' For more information about tree visualization, please refer to the online book
-#' \url{https://yulab-smu.top/treedata-book/}
+#' <https://yulab-smu.top/treedata-book/>
 #' @export
 #' @examples
 #' library(ggtree)
 #' ## add point by aes(subset)
 #' tr <- rtree(10)
 #' # group tip and node
-#' ggtree(tr) + geom_point(aes(shape=isTip, color=isTip), size=3)
+#' ggtree(tr) + geom_point2(aes(shape=isTip, color=isTip), size=3)
 #' # specify a node to display
 #' ggtree(tr) + geom_point2(aes(subset=(node==15)), shape=21, size=5, fill='green')
 #' # specify a tip to display
-#' ggtree(tr) + geom_point2(aes(subset=(label=="t1")), shape=21, size=5, fill='green')
+#' ggtree(tr) + geom_point2(aes(subset=(label %in% c("t1", "t3"))), shape=21, size=5, fill='green')
 #' 
 #' ## color point with continuous variables
 #' library(ggtree)
@@ -157,7 +162,7 @@ geom_rootpoint <- function(mapping = NULL, data = NULL,
 #' beast_tree <- read.beast(beast_file)
 #' p <- ggtree(beast_tree) +
 #'   geom_tiplab(hjust = -.1)+ 
-#'   geom_point(aes(fill = rate), shape = 21, size = 4) +
+#'   geom_nodepoint(aes(fill = rate), shape = 21, size = 4) +
 #'   scale_fill_continuous(low = 'blue', high = 'red') +
 #'   theme_tree2() + theme(legend.position = 'right')
 #' p
@@ -165,7 +170,7 @@ geom_rootpoint <- function(mapping = NULL, data = NULL,
 geom_point2 <- function(mapping = NULL, data = NULL, stat = "identity",
                        position = "identity", na.rm = FALSE,
                        show.legend = NA, inherit.aes = TRUE, ...) {
-
+  
 
     default_aes <- aes_() # node=~node)
     if (is.null(mapping)) {
