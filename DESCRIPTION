@@ -51,7 +51,7 @@ VignetteBuilder: knitr
 ByteCompile: true
 Encoding: UTF-8
 License: Artistic-2.0
-URL: https://yulab-smu.github.io/treedata-book/
+URL: https://yulab-smu.top/treedata-book/
 BugReports: https://github.com/YuLab-SMU/ggtree/issues
 Packaged: 2014-12-03 08:16:14 UTC; root
 biocViews: Alignment, Annotation, Clustering, DataImport,
