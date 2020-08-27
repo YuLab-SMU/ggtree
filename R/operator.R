@@ -80,31 +80,19 @@
 }
 
 ##' @importFrom dplyr rename
-##' @importFrom dplyr full_join
-# ##' @importFrom dplyr left_join
-#`%add2%` <- function(d1, d2) {
-#    if ("node" %in% colnames(d2)) {
-#        cn <- colnames(d2)
-#        ii <- which(cn %in% c("node", cn[!cn %in% colnames(d1)]))
-#        d2 <- d2[, ii]
-#        dd <- dplyr::left_join(d1, d2, by="node")
-#    } else {
-#        d2[,1] <- as.character(unlist(d2[,1])) ## `unlist` to work with tbl_df
-#        d2 <- dplyr::rename(d2, label = 1) ## rename first column name to 'label'
-#        dd <- dplyr::left_join(d1, d2, by="label")
-#    }
-#    dd <- dd[match(d1$node, dd$node),]
-#    return(dd)
-#}
-
-`%add2%` <- function(d1, d2){
-    if ("node" %in% colnames(d2)){
-        indy <- "node"
-    }else{
-        indy <- colnames(d2)[1]
+##' @importFrom dplyr left_join
+`%add2%` <- function(d1, d2) {
+    if ("node" %in% colnames(d2)) {
+        cn <- colnames(d2)
+        ii <- which(cn %in% c("node", cn[!cn %in% colnames(d1)]))
+        d2 <- d2[, ii]
+        dd <- dplyr::left_join(d1, d2, by="node")
+    } else {
+        d2[,1] <- as.character(unlist(d2[,1])) ## `unlist` to work with tbl_df
+        d2 <- dplyr::rename(d2, label = 1) ## rename first column name to 'label'
+        dd <- dplyr::left_join(d1, d2, by="label")
     }
-    d2 <- d2[d2[[indy]] %in% d1$label,,drop=FALSE]
-    dd <- dplyr::full_join(d1, d2, by=c("label"=indy))
+    dd <- dd[match(d1$node, dd$node),]
     return(dd)
 }
 
