@@ -46,7 +46,7 @@ cat(packageDescription('ggtree')$Description)
 
 
 
-For details, please visit <https://yulab-smu.github.io/treedata-book/>.
+For details, please visit <https://yulab-smu.top/treedata-book/>.
 
 
 ## :writing_hand: Authors

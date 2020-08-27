@@ -5,14 +5,14 @@
 <a href="https://yulab-smu.github.io/treedata-book/"><img src="https://raw.githubusercontent.com/Bioconductor/BiocStickers/master/ggtree/ggtree.png" height="200" align="right" /></a>
 
 [![platform](http://www.bioconductor.org/shields/availability/devel/ggtree.svg)](https://www.bioconductor.org/packages/devel/bioc/html/ggtree.html#archives)
-[![](https://img.shields.io/badge/release%20version-2.0.2-green.svg)](https://www.bioconductor.org/packages/ggtree)
+[![](https://img.shields.io/badge/release%20version-2.2.4-green.svg)](https://www.bioconductor.org/packages/ggtree)
 [![codecov](https://codecov.io/gh/GuangchuangYu/ggtree/branch/master/graph/badge.svg)](https://codecov.io/gh/GuangchuangYu/ggtree)
 [![Awesome](https://cdn.rawgit.com/sindresorhus/awesome/d7305f38d29fed78fa85652e3a63e154dd8e8829/media/badge.svg)](https://awesome-r.com/#awesome-r-graphic-displays)
 
 <!--
 [![Project Status: Active - The project has reached a stable, usable state and is being actively developed.](http://www.repostatus.org/badges/latest/active.svg)](http://www.repostatus.org/#active)
 [![Bioc](http://www.bioconductor.org/shields/years-in-bioc/ggtree.svg)](https://www.bioconductor.org/packages/devel/bioc/html/ggtree.html#since)
-[![Last-changedate](https://img.shields.io/badge/last%20change-2020--03--19-green.svg)](https://github.com/GuangchuangYu/ggtree/commits/master)
+[![Last-changedate](https://img.shields.io/badge/last%20change-2020--08--27-green.svg)](https://github.com/GuangchuangYu/ggtree/commits/master)
 
 ` r badge_devel("guangchuangyu/ggtree", "green")`
 ` r badge_bioc_download("ggtree", "total", "blue")`
@@ -25,7 +25,7 @@ grammar of graphics. ‘ggtree’ is designed for visualization and
 annotation of phylogenetic trees and other tree-like structures with
 their annotation data.
 
-For details, please visit <https://yulab-smu.github.io/treedata-book/>.
+For details, please visit <https://yulab-smu.top/treedata-book/>.
 
 ## :writing\_hand: Authors
 
