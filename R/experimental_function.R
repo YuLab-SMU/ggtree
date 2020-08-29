@@ -1,3 +1,27 @@
+##' filter data for tree annotation layer
+##'
+##' The 'tree_filter()' function returns another function that can be
+##' used to subset ggtree() plot data. The function can be passed to the 'data' parameter
+##' in geom layer to perform subsetting. All rows that satisy your conditions will be retained.
+##' @title tree_filter
+##' @param ... Expressions that return a logical value.
+##' @return A function to filter ggtree plot data using conditions defined by '...'.
+##' @seealso
+##' [filter][dplyr::filter] 
+##' @author Guangchuang Yu
+##' @examples
+##' tree <- rtree(30)
+##' ## similar to 'ggtree(tree) + geom_tippoint()'
+##' ggtree(tree) + geom_point(data = tree_filter(isTip))
+##' @export
+tree_filter <- function(...) {
+    dots <- rlang::quos(...)
+    function(.data) {
+        dplyr::filter(.data, !!!dots)
+    }
+}
+
+
 ##' geom layer to draw aligned motif
 ##'
 ##'
