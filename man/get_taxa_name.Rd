@@ -9,13 +9,22 @@ get_taxa_name(tree_view = NULL, node = NULL)
 \arguments{
 \item{tree_view}{tree view (i.e. the ggtree object). If tree_view is NULL, the last ggplot will be used.}
 
-\item{node}{internal node number}
+\item{node}{internal node number to specify a clade. If NULL, using the whole tree}
 }
 \value{
-taxa name vector
+ordered taxa name vector
 }
 \description{
 get taxa name of a selected node (or tree if node=NULL) sorted by their position in plotting
+}
+\details{
+This function extract an ordered vector of the tips from selected clade or the whole tree
+based on the ggtree() plot.
+}
+\examples{
+tree <- rtree(30)
+p <- ggtree(tree)
+get_taxa_name(p)
 }
 \author{
 Guangchuang Yu

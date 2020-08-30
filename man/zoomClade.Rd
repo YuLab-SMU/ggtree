@@ -9,7 +9,7 @@ zoomClade(tree_view = NULL, node, xexpand = NULL)
 \arguments{
 \item{tree_view}{tree view (i.e. the ggtree object). If tree_view is NULL, the last ggplot will be used.}
 
-\item{node}{internal node number}
+\item{node}{internal node number to specify a clade. If NULL, using the whole tree}
 
 \item{xexpand}{numeric, extend x, meaning the ratio of range of original x,
 default is NULL.}

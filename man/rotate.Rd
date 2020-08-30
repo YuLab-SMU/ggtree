@@ -9,7 +9,7 @@ rotate(tree_view = NULL, node)
 \arguments{
 \item{tree_view}{tree view (i.e. the ggtree object). If tree_view is NULL, the last ggplot will be used.}
 
-\item{node}{internal node number}
+\item{node}{internal node number to specify a clade. If NULL, using the whole tree}
 }
 \value{
 ggplot2 object

@@ -9,7 +9,7 @@ scaleClade(tree_view = NULL, node, scale = 1, vertical_only = TRUE)
 \arguments{
 \item{tree_view}{tree view (i.e. the ggtree object). If tree_view is NULL, the last ggplot will be used.}
 
-\item{node}{internal node number}
+\item{node}{internal node number to specify a clade. If NULL, using the whole tree}
 
 \item{scale}{scale}
 

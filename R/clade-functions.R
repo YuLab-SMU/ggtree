@@ -1,12 +1,18 @@
 ##' get taxa name of a selected node (or tree if node=NULL) sorted by their position in plotting
 ##'
 ##'
+##' This function extract an ordered vector of the tips from selected clade or the whole tree
+##' based on the ggtree() plot. 
 ##' @title get_taxa_name
 ##' @param tree_view tree view (i.e. the ggtree object). If tree_view is NULL, the last ggplot will be used.
-##' @param node internal node number 
-##' @return taxa name vector
+##' @param node internal node number to specify a clade. If NULL, using the whole tree
+##' @return ordered taxa name vector
 ##' @importFrom tidytree offspring
 ##' @export
+##' @examples
+##' tree <- rtree(30)
+##' p <- ggtree(tree)
+##' get_taxa_name(p)
 ##' @author Guangchuang Yu
 get_taxa_name <- function(tree_view=NULL, node=NULL) {
     tree_view %<>% get_tree_view
@@ -17,6 +23,10 @@ get_taxa_name <- function(tree_view=NULL, node=NULL) {
         ## df <- df[sp, ]
         df <- offspring(df, node)
     }
+
+    ## dplyr::filter(.data$isTip) %>%
+    ##     dplyr::arrange(dplyr::desc(.data$y)) %>%
+    ##     dplyr::pull(.data$label)
 
     with(df, {
         i = order(y, decreasing=T)
