@@ -8,7 +8,7 @@
 ##' @param align align tip lab or not, logical
 ##' @param linetype linetype for adding line if align = TRUE
 ##' @param linesize line size of line if align = TRUE
-##' @param geom one of 'text', 'label', 'image' and 'phylopic'
+##' @param geom one of 'text', 'label', 'shadowtext', 'image' and 'phylopic'
 ##' @param as_ylab display tip labels as y-axis label, only works for rectangular and dendrogram layouts
 ##' @param ... additional parameter
 ##' @return tip label layer
@@ -43,11 +43,13 @@ geom_tiplab_as_ylab <- function(hjust = 0, position = "right", ...) {
 }
 
 geom_tiplab_rectangular <- function(mapping=NULL, hjust = 0,  align = FALSE, linetype = "dotted", linesize=0.5, geom="text",  offset=0, fontface = "plain", ...) {
-    geom <- match.arg(geom, c("text", "label", "image", "phylopic"))
+    geom <- match.arg(geom, c("text", "label", "shadowtext", "image", "phylopic"))
     if (geom == "text") {
         label_geom <- geom_text2
     } else if (geom == "label") {
         label_geom <- geom_label2
+    } else if (geom == 'shadowtext') {
+        label_geom <- get_fun_from_pkg("shadowtext", "geom_shadowtext")
     } else if (geom == "image") {
         label_geom <- get_fun_from_pkg("ggimage", "geom_image")
     } else if (geom == "phylopic") {

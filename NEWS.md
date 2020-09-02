@@ -1,5 +1,6 @@
-# ggtree 2.3.4.991
+# ggtree 2.3.4.992
 
++ `geom_tiplab()` support `geom = "shadowtext"` (2020-09-02, Wed)
 + `tree_filter()` which return a function to subset ggtree plot data in geom layers (2020-08-29, Sat)
 + update man files of `geom_rootedge` and `geom_point2`
 

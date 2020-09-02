@@ -27,7 +27,7 @@ geom_tiplab(
 
 \item{linesize}{line size of line if align = TRUE}
 
-\item{geom}{one of 'text', 'label', 'image' and 'phylopic'}
+\item{geom}{one of 'text', 'label', 'shadowtext', 'image' and 'phylopic'}
 
 \item{offset}{tiplab offset}
 
