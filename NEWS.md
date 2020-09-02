@@ -1,6 +1,7 @@
 # ggtree 2.3.4.992
 
-+ `geom_tiplab()` support `geom = "shadowtext"` (2020-09-02, Wed)
++ Defunct `geom_nodelab2()` (2020-09-02, Wed)
++ `geom_tiplab()` and `geom_nodelab()` support `geom = "shadowtext"` 
 + `tree_filter()` which return a function to subset ggtree plot data in geom layers (2020-08-29, Sat)
 + update man files of `geom_rootedge` and `geom_point2`
 

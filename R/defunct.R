@@ -168,3 +168,36 @@ set_hilight_legend <- function(p, color, label, alpha=1) {
     ## p + geom_rect(aes_(fill=~clade, xmin=~x, xmax=~x, ymin=~y, ymax=~y), data=d, inherit.aes=F) +
     ##     guides(fill=guide_legend(override.aes=list(fill=alpha(d$color, d$alpha))))
 }
+
+
+
+##' add node label for circular layout
+##'
+##'
+##' @title geom_nodelab2
+##' @inheritParams geom_nodelab
+##' @return node label layer
+##' @export
+##' @author Guangchuang Yu
+geom_nodelab2 <- function(mapping = NULL, nudge_x = 0, nudge_y = 0, geom = "text", hjust = 0.5, ...) {
+    ## angle <- isTip <- node <- NULL
+    ## m1 <- aes(subset=(!isTip & (angle < 90 | angle > 270)), angle=angle, node = node)
+    ## m2 <- aes(subset=(!isTip & (angle >= 90 & angle <=270)), angle=angle+180, node = node)
+
+    ## if (!is.null(mapping)) {
+    ##     if (!is.null(mapping$subset)) {
+    ##         m1 <- aes_string(angle = "angle", node = "node",
+    ##                          subset = paste0(as.expression(get_aes_var(mapping, "subset")), '& (!isTip & (angle < 90 | angle > 270))'))
+    ##         m2 <- aes_string(angle = "angle+180", node = "node",
+    ##                          subset = paste0(as.expression(get_aes_var(mapping, "subset")), '& (!isTip & (angle >= 90 & angle <= 270))'))
+    ##     }
+    ##     m1 <- modifyList(mapping, m1)
+    ##     m2 <- modifyList(mapping, m2)
+    ## }
+
+    ## list(geom_nodelab(m1, hjust=hjust, nudge_x = nudge_x, nudge_y = nudge_y, geom = geom, ...),
+    ##      geom_nodelab(m2, hjust=1-hjust, nudge_x = nudge_x, nudge_y = nudge_y, geom = geom, ...)
+    ##      )
+    .Defunct(msg = "Please use `geom_nodelab()`, which also supports circular layout")
+}
+
