@@ -174,11 +174,24 @@ build_cladeids_df <- function(trdf, nodeids){
 }
 
 build_cladeids_df2 <- function(trdf, nodeids){
-    dat <- lapply(nodeids, function(i)get_clade_position_(data=trdf, node=i))
+    flagreverse <- check_reverse(data=trdf)
+    dat <- lapply(nodeids, function(i)get_clade_position_(data=trdf, node=i, reverse=flagreverse))
     dat <- do.call("rbind", dat)
     dat$clade_root_node <- nodeids
     return(dat)
 }
+
+check_reverse <- function(data){
+    tiptab <- data[data$isTip,]
+    nodetab <- data[match(tiptab$parent, data$node),]
+    if (all(tiptab$x < nodetab$x)){
+        return(TRUE)
+    }else{
+        return(FALSE)
+    }
+}
+
+
 
 choose_hilight_layer <- function(object, type){
     if (type=="encircle"){

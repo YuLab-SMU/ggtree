@@ -285,6 +285,13 @@ ggplot_add.hilight <- function(object, plot, object_name){
               data to be displayed in this layer, please provide a data or subset 
               (we will extract the data from tree data.), or provide node!")
     }
+    flag_names <- c("parent", "node", "branch.length", "label", "isTip", "x", "y", "branch", "angle")
+    flag_tbl_tree <- all(flag_names %in% names(object$data))
+    if (flag_tbl_tree){
+        framedat <- object$data
+    }else{
+        framedat <- plot$data
+    }
     if (!is.null(object$mapping)){
         if (is.null(object$data)){
              if (!is.null(object$mapping$subset)){
@@ -309,24 +316,28 @@ ggplot_add.hilight <- function(object, plot, object_name){
     }else{
         clade_node <- object$node
     }
-    flagnode <- match(clade_node, plot$data$node)
+    flagnode <- match(clade_node, framedat$node)
     if (anyNA(flagnode)){
         flagnode <- clade_node[is.na(flagnode)]
         abort(paste0("ERROR: clade node id ", paste(flagnode, collapse='; ')," can not be found in tree data."))
     }
     if (layout == "unrooted" || layout == "daylight"){
         data <- switch(object$type,
-                       auto = build_cladeids_df(trdf=plot$data, nodeids=clade_node),
-                       rect = build_cladeids_df2(trdf=plot$data, nodeids=clade_node),
-                       encircle = build_cladeids_df(trdf=plot$data, nodeids=clade_node))
+                       auto = build_cladeids_df(trdf=framedat, nodeids=clade_node),
+                       rect = build_cladeids_df2(trdf=framedat, nodeids=clade_node),
+                       encircle = build_cladeids_df(trdf=framedat, nodeids=clade_node))
     }else{
         data <- switch(object$type,
-                       auto = build_cladeids_df2(trdf=plot$data, nodeids=clade_node),
-                       rect = build_cladeids_df2(trdf=plot$data, nodeids=clade_node),
-                       encircle = build_cladeids_df(trdf=plot$data, nodeids=clade_node))
+                       auto = build_cladeids_df2(trdf=framedat, nodeids=clade_node),
+                       rect = build_cladeids_df2(trdf=framedat, nodeids=clade_node),
+                       encircle = build_cladeids_df(trdf=framedat, nodeids=clade_node))
     }
     if (!is.null(object$data) && !is.null(object$mapping)){
+        if (flag_tbl_tree){
+            object$data <-  object$data[,!colnames(object$data) %in% setdiff(flag_names, as_name(object$mapping$node)),drop=FALSE]
+        }
         object$data <- merge(data, object$data, by.x="clade_root_node", by.y=as_name(object$mapping$node))
+        object$data[[as_name(object$mapping$node)]] <- as.vector(object$data$clade_root_node)
         object$mapping <- object$mapping[!names(object$mapping) %in% c("node")]
     }else{
         object$data <- data
