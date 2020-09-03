@@ -1,5 +1,6 @@
-# ggtree 2.3.4.992
+# ggtree 2.3.4.993
 
++ update `geom_hilight` to support `geom_hilight(data = mydata, node = selected_node)` (2020-09-03, Thu)
 + Defunct `geom_nodelab2()` (2020-09-02, Wed)
 + `geom_tiplab()` and `geom_nodelab()` support `geom = "shadowtext"` 
 + `tree_filter()` which return a function to subset ggtree plot data in geom layers (2020-08-29, Sat)
