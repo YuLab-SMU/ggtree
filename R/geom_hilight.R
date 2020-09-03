@@ -187,7 +187,7 @@ get_clade_position <- function(treeview, node) {
   get_clade_position_(treeview$data, node)
 }
 
-get_clade_position_ <- function(data, node) {
+get_clade_position_ <- function(data, node, reverse=FALSE) {
     sp <- tryCatch(offspring.tbl_tree(data, node)$node, error=function(e) NULL)
     i <- match(node, data$node)
     if (is.null(sp)) {
@@ -202,12 +202,19 @@ get_clade_position_ <- function(data, node) {
     y <- sp.df$y
 
     if ("branch.length" %in% colnames(data)) {
-        xmin <- min(x, na.rm=TRUE) - data[["branch.length"]][i]/2
+        if (reverse){
+            xmin <- min(x, na.rm=TRUE)
+            xmax <- max(x, na.rm=TRUE) + data[["branch.length"]][i]/2
+        }else{
+            xmin <- min(x, na.rm=TRUE) - data[["branch.length"]][i]/2
+            xmax <- max(x, na.rm=TRUE)
+        }
     } else {
         xmin <- min(sp.df$branch, na.rm=TRUE)
+        xmax <- max(x, na.rm=TRUE)
     }
     data.frame(xmin=xmin,
-               xmax=max(x, na.rm=TRUE),
+               xmax=xmax,
                ymin=min(y, na.rm=TRUE) - 0.5,
                ymax=max(y, na.rm=TRUE) + 0.5)
 }
