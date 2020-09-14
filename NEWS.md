@@ -1,9 +1,12 @@
-# ggtree 2.3.4.993
+# ggtree 2.3.5
 
++ `td_unnest()` which return a function to flatten ggtree plot data (2020-09-14, Mon)
+  - <https://yulab-smu.top/treedata-book/chapter12.html#td_unnest>
 + update `geom_hilight` to support `geom_hilight(data = mydata, node = selected_node)` (2020-09-03, Thu)
 + Defunct `geom_nodelab2()` (2020-09-02, Wed)
 + `geom_tiplab()` and `geom_nodelab()` support `geom = "shadowtext"` 
-+ `tree_filter()` which return a function to subset ggtree plot data in geom layers (2020-08-29, Sat)
++ `td_filter()` which return a function to subset ggtree plot data in geom layers (2020-08-29, Sat)
+  - <https://yulab-smu.top/treedata-book/chapter12.html#td_filter>
 + update man files of `geom_rootedge` and `geom_point2`
 + update `geom_hilight` to support `geom_hilight(data = tbl_tree, node = selected_node)`. (2020-09-03, Thu)
 

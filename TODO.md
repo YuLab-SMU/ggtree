@@ -1,6 +1,8 @@
 # TODO LIST
 
-+ [ ]update ggtree man files
++ [ ] `fortify` method for `phyloseq` object should return a tidy data.frame
+  - maybe we can defined another object and provide converter for `phyloseq`
++ [ ] update ggtree man files
 + [ ] extend `geom_cladelabel` to support aes mapping   
 + [ ] `geom_cladelabel` internally calls `geom_cladelabel_rectangular` and `geom_cladelabel2`. The parameter `horizontal` introduced in `geom_cladelabel_retangular` should also be supported in `geom_cladelabel2`
 + [ ] The `daylight` algorithm is quite slow compare to `ggraph` and needs to  be optimized

@@ -38,7 +38,7 @@ Biocpkg <- function (pkg) {
 
 # Vignette
 
-Please go to <https://yulab-smu.github.io/treedata-book/> for the full vignette.
+Please go to <https://yulab-smu.top/treedata-book/> for the full vignette.
 
 
 # Citation
