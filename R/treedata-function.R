@@ -40,11 +40,7 @@ td_filter <- function(..., .f = NULL) {
 td_unnest <- function(cols, ..., .f = NULL) {
     function(.data) {
         if (!is.null(.f)) .data <- .f(.data)
-        ##     tidyr::unnest(.f(.data), {{cols}}, ...)
-        ## } else {
-        tidyr::unnest(.data, {{cols}}, ...)
-        #}
- 
+        tidyr::unnest(.data, {{cols}}, ...) 
     }
 }
 
