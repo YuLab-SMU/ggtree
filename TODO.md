@@ -1,5 +1,7 @@
 # TODO LIST
 
++ tanglegram support
+  - <https://yulab-smu.top/treedata-book/chapter2.html#ggtree-fortify>
 + [ ] `fortify` method for `phyloseq` object should return a tidy data.frame
   - maybe we can defined another object (inherited from treedata?) and provide converter for `phyloseq`
 + [ ] update ggtree man files
