@@ -24,6 +24,9 @@ The 'td_unnest' function returns another function that can be
 used to unnest ggtree() plot data. The function can be passed to
 the 'data' parameter of a geom layer to flattern list-cloumn tree data.
 }
+\seealso{
+\link[tidyr:nest]{unnest}
+}
 \author{
 Guangchuang Yu
 }
