@@ -207,20 +207,20 @@ StatCladeText2 <- ggproto("StatCladeText2", Stat,
 
                           required_aes = c("x", "y", "label"),
 
-                          compute_group = function(self, data, scales, params = NULL, node, label, offset, align) {
-                            df <- get_cladelabel2_position_label(data, node, offset, align, adjustRatio = 1.2)
+                          compute_group = function(self, data, scales, node, label, offset, align, angle_, horizontal) {
+                            df <- get_cladelabel2_position_label(data, node, offset, align, adjustRatio = 1.2, angle_, horizontal)
 
                             # computer_group does not need to return df$label as label is declared in the geom_cladelabel2() function.
                             # The data.frame returned by computer_group() does not override the variables explicitly specified in the geom_cladelabel2()
                             # df$label <- label
 
-                            if(is.null(params$angle)){
-                              df$angle <- df$theta_label * 180
-                              if( df$angle > 90 & df$angle < 270){
-                                # add 180 to angle so label is easy to ready
-                                df$angle <- df$angle + 180
-                              }
-                            }
+                            #if(is.null(params$angle)){
+                            #  df$angle <- df$theta_label * 180
+                            #  if( df$angle > 90 & df$angle < 270){
+                            #    # add 180 to angle so label is easy to ready
+                            #    df$angle <- df$angle + 180
+                            #  }
+                            #}
 
                             return(df)
                           }
@@ -236,7 +236,7 @@ StatCladeBar2 <- ggproto("StatCladeBar2", Stat,
                         }
 )
 
-get_cladelabel2_position_label <- function(data, node, offset, align, adjustRatio) {
+get_cladelabel2_position_label <- function(data, node, offset, align, adjustRatio, angle="auto", horizontal=TRUE) {
   df <- get_cladelabel2_position_(data, node)
 
   if (align) {
@@ -269,7 +269,19 @@ get_cladelabel2_position_label <- function(data, node, offset, align, adjustRati
   x1 <- r*cospi(theta_label) + data[data$node==node, 'x']
   y1 <- r*sinpi(theta_label) + data[data$node==node, 'y']
 
-  data.frame(x=x1, y=y1, theta_label=theta_label)
+  dat <- data.frame(x=x1, y=y1, theta_label=theta_label)
+  if (missing(angle))
+     return(dat)
+  if (angle == "auto") {
+     dat$angle <- dat$theta_label * 180
+     #if( dat$angle > 90 & dat$angle < 270){
+     #    dat$angle <- dat$angle + 180
+     #}
+     dat$angle <- adjust_cladelabel_angle(angle=dat$angle, horizontal=horizontal)
+  } else {
+     dat$angle <- angle
+  }
+  return(dat)
 
 }
 
