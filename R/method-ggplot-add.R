@@ -253,7 +253,6 @@ ggplot_add.cladelabel <- function(object, plot, object_name) {
 }
 
 ##' @method ggplot_add cladelab
-##' @importFrom ggplot2 GeomSegment
 ##' @export
 ggplot_add.cladelab <- function(object, plot, object_name){
     layout <- get("layout", envir=plot$plot_env)
@@ -350,13 +349,15 @@ ggplot_add.cladelab <- function(object, plot, object_name){
                        )
     bar_obj <- list()
     bar_obj$data <- bardata
-    bar_obj$mapping <- reset_mapping(defaultm=GeomSegment$default_aes, inputm=object$mapping)
+    bar_default_aes <- list(barcolour="black", barsize=0.5, colour="black", size=0.5, linetype=1, alpha=NA)
+    bar_obj$mapping <- reset_mapping(defaultm=bar_default_aes, inputm=object$mapping)
     ifelse(is.null(bar_obj$mapping),bar_obj$mapping <- aes_(x=~x, xend=~xend, y=~y, yend=~yend),
            bar_obj$mapping <- modifyList(bar_obj$mapping, aes_(x=~x, xend=~xend, y=~y, yend=~yend)))
     bar_dot_params <- reset_dot_params(mapping=bar_obj$mapping, 
                                        defaultp=bar_params, 
-                                       default_aes=GeomSegment$default_aes,
+                                       default_aes=bar_default_aes,
                                        params=object$params)
+    print(bar_dot_params)
     bar_obj <- c(bar_obj, bar_dot_params)
     if (layout == "unrooted" || layout == "daylight"){
         bar_obj <- do.call("geom_curve", bar_obj)

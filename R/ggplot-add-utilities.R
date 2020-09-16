@@ -195,6 +195,18 @@ reset_dot_params <- function(mapping, defaultp, default_aes, params){
     setidxs <- setdiff(names(setidx), names(defaultidx))
     defaultidx2 <- intersect(names(defaultidx), names(setidx))
     dot_params <- c(defaultidx[defaultidx2], setidx[setidxs], defaultidx[defaultidxs])
+    size_params <- c("barsize", "fontsize", "imagesize")
+    color_params <- c("barcolor", "fontcolor", "imagecolor")
+    colour_params <- c("barcolour", "fontcolour", "imagecolour")
+    if (any(size_params %in% names(dot_params))){
+        names(dot_params) <- gsub(".*size", "size", names(dot_params))
+    }
+    if (any(color_params %in% names(dot_params))){
+        names(dot_params) <- gsub(".*color", "colour", names(dot_params))
+    }
+    if (any(colour_params %in% names(dot_params))){
+        names(dot_params) <- gsub(".*colour", "colour", names(dot_params))
+    }
     return(dot_params)
 }
 
@@ -205,7 +217,8 @@ build_image_layer <- function(data, object, params){
                         phylopic=get_fun_from_pkg("ggimage", "geom_phylopic")
                         )
     image_obj$data <- data
-    image_default_aes <- list(image=NULL, size=0.05, colour = NULL, angle = 0, alpha=1)
+    image_default_aes <- list(image=NULL,imagesize=0.05, imagecolour=NULL, imagecolor=NULL,
+                              size=0.05, colour = NULL, angle = 0, alpha=1)
     image_obj$mapping <- reset_mapping(defaultm=image_default_aes,
                                       inputm=object$mapping)
     ifelse(is.null(image_obj$mapping), 
@@ -220,25 +233,18 @@ build_image_layer <- function(data, object, params){
     return(image_obj)
 }
 
-##' @importFrom ggplot2 GeomText GeomLabel
 build_text_layer <- function(data, object, params){
     text_obj <- list()
     text_obj$data <- data
     if (object$geom=="shadowtext"){label_geom <- get_fun_from_pkg("shadowtext", "geom_shadowtext")}
-    shadowtext_default_aes <- list(colour="black", 
-                                   size=3.88, 
-                                   angle=0, 
-                                   hjust=0.05,
-                                   vjust=0.05,
-                                   alpha=NA,
-                                   family="",
-                                   fontface=1,
-                                   lineheight=1.2,
-                                   bg.colour="black",
-                                   bg.r=0.1)
+    text_default_aes <- list(textcolour="white", textcolor="white", fontsize=3.88, colour="white",
+                            size=3.88, angle=0, hjust=0.05, vjust=0.05,
+                            alpha=NA, family="", fontface=1, lineheight=1.2)
+    shadowtext_default_aes <- c(text_default_aes, list(bg.colour="black",bg.r=0.1))
+    label_default_aes <- c(text_default_aes, list(fill="white"))
     text_obj$mapping <- switch(object$geom,
-                              text=reset_mapping(defaultm=GeomText$default_aes, inputm=object$mapping),
-                              label=reset_mapping(defaultm=GeomLabel$default_aes, inputm=object$mapping),
+                              text=reset_mapping(defaultm=text_default_aes, inputm=object$mapping),
+                              label=reset_mapping(defaultm=label_default_aes, inputm=object$mapping),
                               shadowtext=reset_mapping(defaultm=shadowtext_default_aes, inputm=object$mapping)
                               )
     ifelse(is.null(text_obj$mapping), text_obj$mapping <- aes_(x=~x, y=~y, label=~label, angle=~angle), 
@@ -246,11 +252,11 @@ build_text_layer <- function(data, object, params){
     text_dot_params <- switch(object$geom,
                              text= reset_dot_params(mapping=text_obj$mapping,
                                             defaultp=params,
-                                            default_aes=GeomText$default_aes,
+                                            default_aes=text_default_aes,
                                             params=object$params),
                              label=reset_dot_params(mapping=text_obj$mapping,
                                                     defaultp=params,
-                                                    default_aes=shadowtext_default_aes,
+                                                    default_aes=label_default_aes,
                                                     params=object$params),
                              shadowtext=reset_dot_params(mapping=text_obj$mapping,
                                                          defaultp=params,
