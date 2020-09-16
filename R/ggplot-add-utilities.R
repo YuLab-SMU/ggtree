@@ -199,12 +199,15 @@ reset_dot_params <- function(mapping, defaultp, default_aes, params){
     color_params <- c("barcolor", "fontcolor", "imagecolor")
     colour_params <- c("barcolour", "fontcolour", "imagecolour")
     if (any(size_params %in% names(dot_params))){
+        dot_params <- dot_params[names(dot_params)!="size"]
         names(dot_params) <- gsub(".*size", "size", names(dot_params))
     }
     if (any(color_params %in% names(dot_params))){
+        dot_params <- dot_params[names(dot_params)!="colour"]
         names(dot_params) <- gsub(".*color", "colour", names(dot_params))
     }
     if (any(colour_params %in% names(dot_params))){
+        dot_params <- dot_params[names(dot_params)!="colour"]
         names(dot_params) <- gsub(".*colour", "colour", names(dot_params))
     }
     return(dot_params)
