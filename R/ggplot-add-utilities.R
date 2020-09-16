@@ -124,17 +124,38 @@ build_cladebar_df2 <- function(trdf, nodeids, offset, align){
     return(dat)
 }
 
-reset_params <- function(defaultp, inputp){
+reset_params <- function(defaultp, inputp, type){
     if ("color" %in% names(inputp)){
         inputp$colour <- inputp$color
         inputp <- inputp[names(inputp) != "color"]
+    }
+    if ("barcolor" %in% names(inputp)){
+        inputp$barcolour <- inputp$barcolor
+        inputp <- inputp[names(inputp) != "barcolor"]
+    }
+    if ("textcolor" %in% names(inputp)){
+        inputp$textcolour <- inputp$textcolor
+        inputp <- inputp[names(inputp) != "textcolor"]
+    }
+    if ("imagecolor" %in% names(inputp)){
+        inputp$imagecolour <- inputp$imagecolor
+        inputp <- inputp[names(inputp) != "imagecolor"]
     }
     intdi <- intersect(names(inputp), names(defaultp))
     setd <- setdiff(names(defaultp), names(inputp))
     intdi <- inputp[match(intdi, names(inputp))]
     setd <- defaultp[match(setd, names(defaultp))]
     newp <- c(intdi, setd)
-    names(newp)[grepl("size", names(newp))] <- "size"
+    if (type=="bar"){
+        names(newp)[grepl("barsize",names(newp))] <- "size"
+        names(newp)[grepl("barcolour", names(newp))] <- "colour"
+    }else if (type=="text"){
+        names(newp)[grepl("fontsize", names(newp))] <- "size"
+        names(newp)[grepl("textcolour", names(newp))] <- "colour"
+    }else if (type=="image"){
+        names(newp)[grepl("imagesize", names(newp))] <- "size"
+        names(newp)[grepl("imagecolour", names(newp))] <- "colour"
+    }
     return(newp)
 }
 
@@ -146,11 +167,16 @@ transform_df <- function(data, object, default_aes){
             }else{
                 data[[i]] <- default_aes[[i]]
             }
-        }    
+        }
     }else{
         for ( i in names(default_aes)){
             data[[i]] <- default_aes[[i]]
         }
+    }
+    if ("offset.text" %in% names(object$mapping)){
+        data[["offset.text"]] <- data$offset + object$data[[as_name(object$mapping[["offset.text"]])]]
+    }else{
+        data[["offset.text"]] <- data$offset + default_aes$offset.text
     }
     return(data)
 }
@@ -163,7 +189,12 @@ reset_mapping <- function(defaultm, inputm){
 reset_dot_params <- function(mapping, defaultp, default_aes, params){
     setidx <- intersect(names(default_aes), names(params))
     defaultidx <- setdiff(names(defaultp), names(mapping))
-    dot_params <- c(params[match(setidx, names(params))], defaultp[match(defaultidx, names(defaultp))])
+    setidx <- params[match(setidx, names(params))]
+    defaultidx <- defaultp[match(defaultidx, names(defaultp))]
+    defaultidxs <- setdiff(names(defaultidx), names(setidx))
+    setidxs <- setdiff(names(setidx), names(defaultidx))
+    defaultidx2 <- intersect(names(defaultidx), names(setidx))
+    dot_params <- c(defaultidx[defaultidx2], setidx[setidxs], defaultidx[defaultidxs])
     return(dot_params)
 }
 
@@ -180,23 +211,20 @@ build_image_layer <- function(data, object, params){
     ifelse(is.null(image_obj$mapping), 
            image_obj$mapping <- aes_(x=~x, y=~y),
            image_obj$mapping <- modifyList(image_obj$mapping, aes_(x=~x, y=~y)))
-    print(image_obj$mapping)
-    print(image_obj$data)
     image_dot_params <- reset_dot_params(mapping=image_obj$mapping,
                                          defaultp=params,
                                          default_aes=image_default_aes,
                                          params=object$params)
-    print(image_dot_params)
     image_obj <- c(image_obj, image_dot_params)
-    image_obj <- do.call("geom_phylopic", image_obj)
+    image_obj <- do.call("label_geom", image_obj)
     return(image_obj)
 }
 
 ##' @importFrom ggplot2 GeomText GeomLabel
-##' @importFrom shadowtext geom_shadowtext
 build_text_layer <- function(data, object, params){
     text_obj <- list()
     text_obj$data <- data
+    if (object$geom=="shadowtext"){label_geom <- get_fun_from_pkg("shadowtext", "geom_shadowtext")}
     shadowtext_default_aes <- list(colour="black", 
                                    size=3.88, 
                                    angle=0, 
@@ -229,13 +257,11 @@ build_text_layer <- function(data, object, params){
                                                          default_aes=shadowtext_default_aes,
                                                          params=object$params)
                              )
-    print("text dot")
-    print(text_dot_params)
     text_obj <- c(text_obj, text_dot_params)
     text_obj <- switch(object$geom,
                        text = do.call("geom_text", text_obj),
                        label = do.call("geom_label", text_obj),
-                       shadowtext = do.call("geom_shadowtext", text_obj)                      
+                       shadowtext = do.call("label_geom", text_obj)
                       )
     return(text_obj)
 }

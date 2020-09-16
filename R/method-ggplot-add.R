@@ -288,18 +288,19 @@ ggplot_add.cladelab <- function(object, plot, object_name){
         da_node_label <-data.frame(node=object$node, label=object$label)
     }
     default_raw_aes <- list(offset=0, offset.text=0, align=FALSE, angle=0, extend=0, horizontal=TRUE)
-    default_raw_aes <- reset_params(defaultp=default_raw_aes, inputp=object$params)
-    default_raw_aes$offset.text <- default_raw_aes$offset + default_raw_aes$offset.text
-    bar_params <- list(barsize=0.5, colour = "black")
-    bar_params <- reset_params(defaultp=bar_params, inputp=object$params)
-    text_params <- list(fontsize= 3.88, family = "sans", colour="black", hjust=0)
-    text_params <- reset_params(defaultp=text_params, inputp=object$params)
+    default_raw_aes <- reset_params(defaultp=default_raw_aes, inputp=object$params, type="other")
+    bar_params <- list(barsize=0.5, barcolour = "black")
+    bar_params <- reset_params(defaultp=bar_params, inputp=object$params, type="bar")
+    text_params <- list(fontsize= 3.88, family = "sans", textcolour="black", hjust=0)
+    text_params <- reset_params(defaultp=text_params, inputp=object$params, type="text")
+    image_params <- list(imagesize=0.05, alpha=0.8, imagecolour=NULL)
+    image_params <- reset_params(defaultp=image_params, inputp=object$params, type="image")
     da_node_label <- transform_df(data=da_node_label, object=object, default_aes=default_raw_aes)
     object$mapping <- object$mapping[!names(object$mapping)%in%names(default_raw_aes)]
-    object$params <- object$params[names(object$params)!="angle"]
+    object$params <- object$params[!names(object$params) %in% c("angle", "size", "color", "colour", "hjust")]
     flagnode <- match(da_node_label$node, plot$data$node)
     if (anyNA(flagnode)){
-        flagnode <- clade_node[is.na(flagnode)]
+        flagnode <- da_node_label$node[is.na(flagnode)]
         abort(paste0("ERROR: clade node id ", paste(flagnode, collapse='; ')," can not be found in tree data."))
     }
     if (object$parse == 'emoji') {
@@ -343,8 +344,8 @@ ggplot_add.cladelab <- function(object, plot, object_name){
     annot_obj <- switch(object$geom,
                         text=build_text_layer(data=textdata, object=object, params=text_params),
                         label=build_text_layer(data=textdata, object=object, params=text_params),
-                        image=build_image_layer(data=textdata, object=object, params=text_params),
-                        phylopic=build_image_layer(data=textdata, object=object, params=text_params),
+                        image=build_image_layer(data=textdata, object=object, params=image_params),
+                        phylopic=build_image_layer(data=textdata, object=object, params=image_params),
                         shadowtext=build_text_layer(data=textdata, object=object, params=text_params),
                        )
     bar_obj <- list()
