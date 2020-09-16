@@ -195,9 +195,9 @@ reset_dot_params <- function(mapping, defaultp, default_aes, params){
     setidxs <- setdiff(names(setidx), names(defaultidx))
     defaultidx2 <- intersect(names(defaultidx), names(setidx))
     dot_params <- c(defaultidx[defaultidx2], setidx[setidxs], defaultidx[defaultidxs])
-    size_params <- c("barsize", "fontsize", "imagesize")
-    color_params <- c("barcolor", "fontcolor", "imagecolor")
-    colour_params <- c("barcolour", "fontcolour", "imagecolour")
+    size_params <- c("barsize", "textsize", "fontsize", "imagesize")
+    color_params <- c("barcolor", "textcolor", "fontcolor", "imagecolor")
+    colour_params <- c("barcolour", "textcolour", "fontcolour", "imagecolour")
     if (any(size_params %in% names(dot_params))){
         dot_params <- dot_params[names(dot_params)!="size"]
         names(dot_params) <- gsub(".*size", "size", names(dot_params))
@@ -240,8 +240,9 @@ build_text_layer <- function(data, object, params){
     text_obj <- list()
     text_obj$data <- data
     if (object$geom=="shadowtext"){label_geom <- get_fun_from_pkg("shadowtext", "geom_shadowtext")}
-    text_default_aes <- list(textcolour="white", textcolor="white", fontsize=3.88, colour="white",
-                            size=3.88, angle=0, hjust=0.05, vjust=0.05,
+    text_default_aes <- list(textcolour="white", textcolor="white", textsize=3.88, 
+                             fontsize=3.88, fontcolor="white", fontcolour="white", 
+                             colour="white", size=3.88, angle=0, hjust=0.05, vjust=0.05,
                             alpha=NA, family="", fontface=1, lineheight=1.2)
     shadowtext_default_aes <- c(text_default_aes, list(bg.colour="black",bg.r=0.1))
     label_default_aes <- c(text_default_aes, list(fill="white"))
@@ -266,6 +267,12 @@ build_text_layer <- function(data, object, params){
                                                          default_aes=shadowtext_default_aes,
                                                          params=object$params)
                              )
+    if (object$parse=="emoji" || object$parse){
+        emoji <- get_fun_from_pkg("emojifont", "emoji")
+        text_obj$data$label <- emoji(text_obj$data$label)
+        text_dot_params$family <- "EmojiOne"
+        object$parse <- FALSE
+    }
     text_obj <- c(text_obj, text_dot_params)
     text_obj <- switch(object$geom,
                        text = do.call("geom_text", text_obj),

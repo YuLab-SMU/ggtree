@@ -302,12 +302,6 @@ ggplot_add.cladelab <- function(object, plot, object_name){
         flagnode <- da_node_label$node[is.na(flagnode)]
         abort(paste0("ERROR: clade node id ", paste(flagnode, collapse='; ')," can not be found in tree data."))
     }
-    if (object$parse == 'emoji') {
-        emoji <- get_fun_from_pkg("emojifont", "emoji")
-        clade_label <- emoji(clade_label)
-        object$parse <- FALSE
-        family <- "EmojiOne"
-    }
     if (layout == "unrooted" || layout == "daylight"){
         textdata <- build_cladelabel_df2(trdf=plot$data,
                                          nodeids=da_node_label$node,
@@ -335,7 +329,7 @@ ggplot_add.cladelab <- function(object, plot, object_name){
                                      extend=da_node_label$extend)
     }
     if (!is.null(object$data) && !is.null(object$mapping)){
-        object$data <- object$data[,!colnames(object$data) %in% c("x", "xend", "y", "yend", "label"),drop=FALSE]
+        object$data <- object$data[,!colnames(object$data) %in% c("x", "xend", "y", "yend", "label", "angle"),drop=FALSE]
         textdata <- merge(textdata, object$data, by.x="node", by.y=as_name(object$mapping$node))
         bardata <- merge(bardata, object$data, by.x="node", by.y=as_name(object$mapping$node))
         object$mapping <- object$mapping[!names(object$mapping) %in% c("node", "label")]
@@ -349,7 +343,7 @@ ggplot_add.cladelab <- function(object, plot, object_name){
                        )
     bar_obj <- list()
     bar_obj$data <- bardata
-    bar_default_aes <- list(barcolour="black", barsize=0.5, colour="black", size=0.5, linetype=1, alpha=NA)
+    bar_default_aes <- list(barcolour="black", barcolor="black", barsize=0.5, colour="black", size=0.5, linetype=1, alpha=NA)
     bar_obj$mapping <- reset_mapping(defaultm=bar_default_aes, inputm=object$mapping)
     ifelse(is.null(bar_obj$mapping),bar_obj$mapping <- aes_(x=~x, xend=~xend, y=~y, yend=~yend),
            bar_obj$mapping <- modifyList(bar_obj$mapping, aes_(x=~x, xend=~xend, y=~y, yend=~yend)))
