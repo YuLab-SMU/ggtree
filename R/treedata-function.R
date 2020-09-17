@@ -33,7 +33,7 @@ td_filter <- function(..., .f = NULL) {
 ##' @param ... additional parameters that pass to tidyr::unnest
 ##' @param .f a function (if any, default is NULL) that pre-operate the data
 ##' @return A function to unnest ggtree plot data
-##' @seeals
+##' @seealso
 ##' [unnest][tidyr::unnest]
 ##' @author Guangchuang Yu
 ##' @export

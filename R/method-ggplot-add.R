@@ -252,6 +252,115 @@ ggplot_add.cladelabel <- function(object, plot, object_name) {
     ggplot_add(ly, plot, object_name)
 }
 
+##' @method ggplot_add cladelab
+##' @export
+ggplot_add.cladelab <- function(object, plot, object_name){
+    layout <- get("layout", envir=plot$plot_env)
+    if (is.null(object$mapping) && (is.null(object$node) || is.null(object$label))){
+        abort("mapping and node or label can't be NULL simultaneously, we can't get the
+              data to be displayed in this layer, please provide a data or subset, node 
+              and label in mapping, we will extract the node and label from tree data,
+              or provide node and label!")
+    }
+    if (!is.null(object$mapping)){
+        if (!"node" %in% names(object$mapping) || !"label" %in% names(object$mapping)){
+            abort("when mapping is not NULL, the node and label should be set in mapping!")
+        }
+        if (is.null(object$data)){
+            if (!is.null(object$mapping$subset)){
+                object$data <- subset(plot$data, eval(parse(text=quo_name(object$mapping$subset))))
+                object$mapping <- object$mapping[names(object$mapping)!="subset"]
+            }else{
+                abort("data and aesthetics subset in mapping are NULL simultaneously,
+                       we can't get the data to be displayed in this layer, please provide a data or
+                       set subset (we will extract the data from tree data.)")
+            }
+        }else{
+            if (!is.null(object$mapping$subset)){
+                object$data <- subset(object$data, eval(parse(text=quo_name(object$mapping$subset))))
+                object$mapping <- object$mapping[names(object$mapping)!="subset"]
+            }
+        }
+        da_node_label <- data.frame(node=as.vector(object$data[[as_name(object$mapping$node)]]),
+                                    label=as.vector(object$data[[as_name(object$mapping$label)]]))
+    }else{
+        da_node_label <-data.frame(node=object$node, label=object$label)
+    }
+    default_raw_aes <- list(offset=0, offset.text=0, align=FALSE, angle=0, extend=0, horizontal=TRUE)
+    default_raw_aes <- reset_params(defaultp=default_raw_aes, inputp=object$params, type="other")
+    bar_params <- list(barsize=0.5, barcolour = "black")
+    bar_params <- reset_params(defaultp=bar_params, inputp=object$params, type="bar")
+    text_params <- list(fontsize= 3.88, family = "sans", textcolour="black", hjust=0)
+    text_params <- reset_params(defaultp=text_params, inputp=object$params, type="text")
+    image_params <- list(imagesize=0.05, alpha=0.8, imagecolour=NULL)
+    image_params <- reset_params(defaultp=image_params, inputp=object$params, type="image")
+    da_node_label <- transform_df(data=da_node_label, object=object, default_aes=default_raw_aes)
+    object$mapping <- object$mapping[!names(object$mapping)%in%names(default_raw_aes)]
+    object$params <- object$params[!names(object$params) %in% c("angle", "size", "color", "colour", "hjust")]
+    flagnode <- match(da_node_label$node, plot$data$node)
+    if (anyNA(flagnode)){
+        flagnode <- da_node_label$node[is.na(flagnode)]
+        abort(paste0("ERROR: clade node id ", paste(flagnode, collapse='; ')," can not be found in tree data."))
+    }
+    if (layout == "unrooted" || layout == "daylight"){
+        textdata <- build_cladelabel_df2(trdf=plot$data,
+                                         nodeids=da_node_label$node,
+                                         label=da_node_label$label,
+                                         offset=da_node_label$offset.text,
+                                         align=da_node_label$align,
+                                         angle=da_node_label$angle,
+                                         horizontal=da_node_label$horizontal)
+        bardata <- build_cladebar_df2(trdf=plot$data,
+                                      nodeids=da_node_label$node,
+                                      offset=da_node_label$offset,
+                                      align=da_node_label$align)
+    }else{
+        textdata <- build_cladelabel_df(trdf=plot$data,
+                                        nodeids=da_node_label$node,
+                                        label=da_node_label$label,
+                                        offset=da_node_label$offset.text,
+                                        align=da_node_label$align, 
+                                        angle=da_node_label$angle, 
+                                        horizontal=da_node_label$horizontal)
+        bardata <- build_cladebar_df(trdf=plot$data,
+                                     nodeids=da_node_label$node,
+                                     offset=da_node_label$offset,
+                                     align=da_node_label$align, 
+                                     extend=da_node_label$extend)
+    }
+    if (!is.null(object$data) && !is.null(object$mapping)){
+        object$data <- object$data[,!colnames(object$data) %in% c("x", "xend", "y", "yend", "label", "angle"),drop=FALSE]
+        textdata <- merge(textdata, object$data, by.x="node", by.y=as_name(object$mapping$node))
+        bardata <- merge(bardata, object$data, by.x="node", by.y=as_name(object$mapping$node))
+        object$mapping <- object$mapping[!names(object$mapping) %in% c("node", "label")]
+    }
+    annot_obj <- switch(object$geom,
+                        text=build_text_layer(data=textdata, object=object, params=text_params),
+                        label=build_text_layer(data=textdata, object=object, params=text_params),
+                        image=build_image_layer(data=textdata, object=object, params=image_params),
+                        phylopic=build_image_layer(data=textdata, object=object, params=image_params),
+                        shadowtext=build_text_layer(data=textdata, object=object, params=text_params),
+                       )
+    bar_obj <- list()
+    bar_obj$data <- bardata
+    bar_default_aes <- list(barcolour="black", barcolor="black", barsize=0.5, colour="black", size=0.5, linetype=1, alpha=NA)
+    bar_obj$mapping <- reset_mapping(defaultm=bar_default_aes, inputm=object$mapping)
+    ifelse(is.null(bar_obj$mapping),bar_obj$mapping <- aes_(x=~x, xend=~xend, y=~y, yend=~yend),
+           bar_obj$mapping <- modifyList(bar_obj$mapping, aes_(x=~x, xend=~xend, y=~y, yend=~yend)))
+    bar_dot_params <- reset_dot_params(mapping=bar_obj$mapping, 
+                                       defaultp=bar_params, 
+                                       default_aes=bar_default_aes,
+                                       params=object$params)
+    bar_obj <- c(bar_obj, bar_dot_params)
+    if (layout == "unrooted" || layout == "daylight"){
+        bar_obj <- do.call("geom_curve", bar_obj)
+    }else{
+        bar_obj <- do.call("geom_segment", bar_obj)
+    }
+    obj <- list(annot_obj, bar_obj)
+    ggplot_add(obj, plot, object_name)
+}
+
 ## ##' @method ggplot_add hilight
 ## ##' @export
 ## ggplot_add.hilight <- function(object, plot, object_name) {
