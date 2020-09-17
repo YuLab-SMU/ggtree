@@ -1,3 +1,8 @@
+# ggtree 2.3.5.991
+
++ `geom_cladelab`, an updated version of `geom_cladelabel` that supports aes mapping (2020-09-17, Thu)
+  - <https://github.com/YuLab-SMU/ggtree/pull/342>
+
 # ggtree 2.3.5
 
 + `td_unnest()` which return a function to flatten ggtree plot data (2020-09-14, Mon)
