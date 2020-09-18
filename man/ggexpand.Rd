@@ -2,20 +2,32 @@
 % Please edit documentation in R/axis.R
 \name{hexpand}
 \alias{hexpand}
+\alias{vexpand}
+\alias{ggexpand}
 \title{hexpand}
 \usage{
 hexpand(ratio, direction = 1)
+
+vexpand(ratio, direction = 1)
+
+ggexpand(ratio, direction = 1, side = "hv")
 }
 \arguments{
-\item{ratio}{expand x limits by amount of xrange * ratio}
+\item{ratio}{expand x (y) limits by amount of xrange (yrange) * ratio}
 
 \item{direction}{expand x limit at right hand side if direction is 1, or left hand side if direction is -1}
+
+\item{side}{one of 'h' for horizontal and 'v' for vertical or 'hv' for both.}
 }
 \value{
-hexpand object
+ggexpand object
 }
 \description{
-expand xlim by ratio of x range
+hexpand
+
+vexpand
+
+expand xlim (ylim) by ratio of x (y) range
 }
 \author{
 Guangchuang Yu
