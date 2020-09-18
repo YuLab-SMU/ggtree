@@ -18,6 +18,7 @@ geom_cladelabel2(
   color = NULL,
   family = "sans",
   parse = FALSE,
+  horizontal = TRUE,
   ...
 )
 }
@@ -47,6 +48,9 @@ geom_cladelabel2(
 \item{family}{sans by default, can be any supported font}
 
 \item{parse}{logical, whether parse label}
+
+\item{horizontal}{logical, whether set label to horizontal,
+default is TRUE.}
 
 \item{...}{additional parameter}
 }
