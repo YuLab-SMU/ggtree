@@ -141,22 +141,35 @@ ggplot_add.range_xaxis <- function(object, plot, object_name) {
     ggplot_add(obj, plot, object_name)
 }
 
-##' @method ggplot_add hexpand
+##' @method ggplot_add ggexpand
 ##' @export
-ggplot_add.hexpand <- function(object, plot, object_name) {
-    ## xr <- aplot::xrange(plot) ## panel range
-    xr <- ggplot_build(plot)$layout$panel_scales_x[[1]]$range$range ## plot range
-    rr <- range(xr)
-    if (object$direction == 1) {
-        xx <- xr[2] + rr * object$ratio
-    } else if (object$direction == -1) {
-        xx <- xr[1] - rr * object$ratio
+ggplot_add.ggexpand <- function(object, plot, object_name) {
+    side <- object$side
+    obj <- NULL
+    if (side == 'h' || side == 'hv') {
+        lim <- ggexpand_internal(plot, object$ratio, object$direction, 'x')
+        obj <- ggplot2::expand_limits(x = lim)
+    }
+
+    if (side == 'v' || side == 'hv') {
+        lim <- ggexpand_internal(plot, object$ratio, object$direction, 'y')
+        obj <- list(obj, ggplot2::expand_limits(y = lim))
+    }
+    ggplot_add(obj, plot, object_name)
+}
+
+ggexpand_internal <- function(plot, ratio, direction, var) {
+    r <- ggrange2(plot, var)
+    rr <- diff(r)
+    if (direction == 1) {
+        res <- r[2] + rr * ratio
+    } else if (direction == -1) {
+        res <- r[1] - rr * ratio
     } else {
         stop("direction should be 1 or -1")
     }
 
-    obj <- ggplot2::expand_limits(x = xx)
-    ggplot_add(obj, plot, object_name)
+    return(res)
 }
 
 ##' @method ggplot_add tree_inset

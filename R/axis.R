@@ -1,15 +1,32 @@
-##' expand xlim by ratio of x range
-##'
-##' 
 ##' @title hexpand
-##' @param ratio expand x limits by amount of xrange * ratio
+##' @rdname ggexpand
+##' @export
+hexpand <- function(ratio, direction = 1) {
+    ggexpand(ratio, direction, side = 'h')
+}
+
+##' @title vexpand
+##' @rdname ggexpand
+##' @export
+vexpand <- function(ratio, direction = 1) {
+    ggexpand(ratio, direction, side = 'v')
+}
+
+##' expand xlim (ylim) by ratio of x (y) range
+##'
+##'
+##' @rdname ggexpand
+##' @param ratio expand x (y) limits by amount of xrange (yrange) * ratio
 ##' @param direction expand x limit at right hand side if direction is 1, or left hand side if direction is -1
-##' @return hexpand object
+##' @param side one of 'h' for horizontal and 'v' for vertical or 'hv' for both.
+##' @return ggexpand object
 ##' @export
 ##' @author Guangchuang Yu
-hexpand <- function(ratio, direction = 1) {
-    structure(list(ratio = ratio, direction = direction),
-              class = "hexpand")
+ggexpand <- function(ratio, direction = 1, side = 'hv') {
+    side <- match.arg(side, c('h', 'v', 'hv'))
+
+    structure(list(ratio = ratio, direction = direction, side = side),
+              class = "ggexpand")
 }
 
 
@@ -71,56 +88,11 @@ revts <- function(treeview) {
 }
 
 
-## ##' set axis limits (x or y) of a `ggplot` object (left hand side of `+`)
-## ##' based on the x (`xlim2`) or y (`ylim2`) limits of another `ggplot` object (right hand side of `+`).
-## ##' This is useful for using `cowplot` or `patchwork` to align `ggplot` objects.
-## ##'
-## ##'
-## ##' @title xlim2
-## ##' @rdname align_axis
-## ##' @param gg ggplot object
-## ##' @param limits vector of limits. If NULL, determine from `gg`. 
-## ##' @return ggplot2 object with new limits
-## ##' @export
-## ##' @author Guangchuang Yu
-## xlim2 <- function(gg, limits = NULL) {
-##     axis_align(gg = gg, limits = limits, axis = 'x')
-## }
+ggrange2 <- function(plot, var) {
+    ## aplot::ggrange extract panel range
+    ## this function extract plot range
 
-## ##' @rdname align_axis
-## ##' @title ylim2
-## ##' @export
-## ylim2 <- function(gg, limits = NULL) {
-##     axis_align(gg = gg, limits = limits, axis = 'y')
-## }
-
-## axis_align <- function(gg, limits = NULL, axis) {
-##     if (is.null(limits)) {
-##         if (axis == "x") {
-##             limits <- xrange(gg)
-##         } else {
-##             limits <- yrange(gg)
-##         }
-##     }
-##     structure(list(limits = limits, axis = axis),
-##               class = "axisAlign")
-## }
-
-
-## yrange <- function(gg) {
-##     ggrange(gg, "y")
-## }
-
-## xrange <- function(gg) {
-##     ggrange(gg, "x")
-## }
-
-## ##' @importFrom ggplot2 layer_scales
-## ggrange <- function(gg, var) {
-##     res <- layer_scales(gg)[[var]]$range$range
-##     if (is.character(res)) return(res)
-
-##     var <- paste0(var, ".range")
-##     ggplot_build(gg)$layout$panel_params[[1]][[var]]
-## }
+    var <- paste0("panel_scales_", var)
+    ggplot_build(plot)$layout[[var]][[1]]$range$range
+}
 

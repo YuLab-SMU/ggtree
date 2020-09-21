@@ -14,10 +14,16 @@ geom_tippoint <- function(mapping = NULL, data = NULL,
     if (is.null(mapping)) {
         mapping <- self_mapping
     } else {
-        if (!is.null(mapping$subset)) {
-            self_mapping <- aes_string(node = "node", subset = paste0(as.expression(get_aes_var(mapping, "subset")), '&isTip'))
+        if (is.null(mapping$subset)) {
+            mapping <- modifyList(self_mapping, mapping)   
+        } else { 
+            mapping <- modifyList(self_mapping, mapping)
+            subset_mapping <- aes_string(subset = paste0(
+                                             as.expression(get_aes_var(mapping, "subset")),
+                                             '&isTip')
+                                         )
+            mapping <- modifyList(mapping, subset_mapping)
         }
-        mapping <- modifyList(self_mapping, mapping)
     }
     geom_point2(mapping, data, position, na.rm, show.legend, inherit.aes, stat = StatTreeData, ...)
 }
@@ -59,10 +65,16 @@ geom_nodepoint <- function(mapping = NULL, data = NULL,
     if (is.null(mapping)) {
         mapping <- self_mapping
     } else {
-        if (!is.null(mapping$subset)) {
-            self_mapping <- aes_string(node = "node", subset = paste0(as.expression(get_aes_var(mapping, "subset")), '&!isTip'))
+        if (is.null(mapping$subset)) {
+            mapping <- modifyList(self_mapping, mapping)   
+        } else {
+            mapping <- modifyList(self_mapping, mapping)
+            subset_mapping <- aes_string(subset = paste0(
+                                             as.expression(get_aes_var(mapping, "subset")),
+                                             '&!isTip')
+                                         )
+            mapping <- modifyList(mapping, subset_mapping)               
         }
-        mapping %<>% modifyList(self_mapping)
     }
     geom_point2(mapping, data, position, na.rm, show.legend, inherit.aes, stat = StatTreeData, ...)
 }
@@ -84,7 +96,18 @@ geom_rootpoint <- function(mapping = NULL, data = NULL,
     if (is.null(mapping)) {
         mapping <- self_mapping
     } else {
-        mapping %<>% modifyList(self_mapping)
+        if (is.null(mapping$subset)) {
+            mapping <- modifyList(self_mapping, mapping)               
+        } else {
+            mapping <- modifyList(self_mapping, mapping)
+            subset_mapping <- aes_string(subset = paste0(
+                                             as.expression(get_aes_var(mapping, "subset")),
+                                             '&node==parent')
+                                         )
+            mapping <- modifyList(mapping, subset_mapping)   
+        }
+
+
     }
     geom_point2(mapping, data, position, na.rm, show.legend, inherit.aes, stat = StatTreeData, ...)
 }

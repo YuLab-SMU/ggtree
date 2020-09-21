@@ -89,6 +89,10 @@ fortify.multiPhylo <-  function(model, data,
     return(df)
 }
 
+##' @method fortify treedataList
+##' @export
+fortify.treedataList <- fortify.multiPhylo
+
 ##' @importFrom ggplot2 fortify
 ##' @method fortify treedata
 ##' @export

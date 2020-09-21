@@ -1,6 +1,8 @@
-# ggtree 2.3.5.991
+# ggtree 2.3.5.993
 
-+ `geom_cladelab`, an updated version of `geom_cladelabel` that supports aes mapping (2020-09-17, Thu)
++ `fortify()` method for `treedataList` object (2020-09-20, Sun)
++ `vexpand()` and `ggexpand()` to expand plot limit by ratio of plot range (2020-09-18, Fri) 
++ `geom_cladelab()`, an updated version of `geom_cladelabel` that supports aes mapping (2020-09-17, Thu)
   - <https://github.com/YuLab-SMU/ggtree/pull/342>
 
 # ggtree 2.3.5
