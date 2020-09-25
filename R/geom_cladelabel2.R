@@ -12,7 +12,7 @@ geom_cladelabel2 <- function(node, label, offset=0, offset.text=0, offset.bar=0,
                             align=FALSE, barsize=0.5, fontsize=3.88, hjust = 0,
                             geom="text",
                             color = NULL,
-                            family="sans", parse=FALSE, ...) {
+                            family="sans", parse=FALSE, horizontal=TRUE, ...) {
     mapping <- NULL
     data <- NULL
     position <- "identity"
@@ -52,7 +52,7 @@ geom_cladelabel2 <- function(node, label, offset=0, offset.text=0, offset.bar=0,
     arg_list_geom_label <- c( "nudge_x", "nudge_y", "label.padding", "label.r", "label.size",
                               "alpha", "angle", "fontface", "group", "lineheight", "size", "vjust", "fill")
 
-    arg_list_geom_text <- c( "nudge_x", "nudge_y", "check_overlap",
+    arg_list_geom_text <- c( "nudge_x", "nudge_y", "check_overlap", horizontal,
                              "alpha", "angle", "fontface", "group", "lineheight", "size", "vjust")
 
     # ignore angle
@@ -92,6 +92,7 @@ geom_cladelabel2 <- function(node, label, offset=0, offset.text=0, offset.bar=0,
     args_stat_cladeText2$inherit.aes <- inherit.aes
     args_stat_cladeText2$na.rm       <- na.rm
     args_stat_cladeText2$parse       <- parse
+    args_stat_cladeText2$horizontal  <- horizontal
 
     # create arg list of stat_cladeBar2.
     args_stat_cladeBar2 <- ellipsis[names(ellipsis) %in% arg_list_geom_curve]
@@ -141,7 +142,8 @@ geom_cladelabel2 <- function(node, label, offset=0, offset.text=0, offset.bar=0,
 # Display label at middle angle of clade subtree arc.
 stat_cladeText2 <- function(mapping=NULL, data=NULL,
                             geom="text", position="identity",
-                            node, label, offset, align, ...,
+                            node, label, offset, align, angle, 
+                            horizontal, ...,
                             show.legend=NA, inherit.aes=FALSE,
                             na.rm=FALSE, parse=FALSE) {
   # columns from ggplot data data.frame.
@@ -165,6 +167,8 @@ stat_cladeText2 <- function(mapping=NULL, data=NULL,
                     offset = offset,
                     align  = align,
                     na.rm  = na.rm,
+                    angle_ = angle,
+                    horizontal = horizontal,
                     parse  = parse,
                     ...)
 
@@ -208,7 +212,7 @@ StatCladeText2 <- ggproto("StatCladeText2", Stat,
                           required_aes = c("x", "y", "label"),
 
                           compute_group = function(self, data, scales, node, label, offset, align, angle_, horizontal) {
-                            df <- get_cladelabel2_position_label(data, node, offset, align, adjustRatio = 1.2, angle_, horizontal)
+                            df <- get_cladelabel2_position_label(data, node, offset, align, adjustRatio = 1.2, angle=angle_, horizontal)
 
                             # computer_group does not need to return df$label as label is declared in the geom_cladelabel2() function.
                             # The data.frame returned by computer_group() does not override the variables explicitly specified in the geom_cladelabel2()
