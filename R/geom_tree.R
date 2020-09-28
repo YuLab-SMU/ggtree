@@ -255,13 +255,12 @@ StatTreeEllipse <- ggproto("StatTreeEllipse", Stat,
                                df <- df[!(df$x==df$xend & df$y==df$yend),]
                                if (layout=="ellipse"){
                                    df$curvature <- ifelse(df$y > df$yend, 1, -1) * 0.5
-                                   df$curveangle <- ifelse(df$y > df$yend, 30, 150)
-                                   #df$ncp <- 2
+                                   df$curveangle <- ifelse(df$y > df$yend, 20, 160)
                                }else if (layout=="roundrect"){
                                    df$curvature <- ifelse(df$y > df$yend, 1, -1)
                                    df$curveangle <- 90
-                                   df$square <- TRUE
-                               } 
+                               }
+                               df$square <- TRUE 
                                return (df)
                            }
                    )
