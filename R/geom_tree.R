@@ -4,8 +4,8 @@
 ##' @title geom_tree
 ##' @param mapping aesthetic mapping
 ##' @param data data
-##' @param layout one of 'rectangular', 'dendrogram', 'slanted', 'ellipse', 'fan', 'circular', 'inward_circular',
-##' 'radial', 'equal_angle', 'daylight' or 'ape'
+##' @param layout one of 'rectangular', 'dendrogram', 'slanted', 'ellipse', 'roundrect',
+##' 'fan', 'circular', 'inward_circular', 'radial', 'equal_angle', 'daylight' or 'ape'
 ##' @param multiPhylo logical
 ##' @param ... additional parameter
 ##' @return tree layer
@@ -40,7 +40,8 @@ stat_tree <- function(mapping=NULL, data=NULL, geom="segment", position="identit
     }
 
     if (layout %in% c("rectangular", "dendrogram", "fan", "circular", "inward_circular")) {
-        list(layer(data=data,
+        list(             
+             layer(data=data,
                    mapping=mapping,
                    stat=StatTreeHorizontal,
                    geom = geom, ## GeomTreeHorizontal,
@@ -87,7 +88,7 @@ stat_tree <- function(mapping=NULL, data=NULL, geom="segment", position="identit
                           ...),
               check.aes = FALSE
               )
-    } else if (layout %in% c("ellipse")){
+    } else if (layout %in% c("ellipse", "roundrect")){
         layer(stat=StatTreeEllipse,
               data=data,
               mapping=mapping,
@@ -252,9 +253,15 @@ StatTreeEllipse <- ggproto("StatTreeEllipse", Stat,
                                                             params=params, layout=layout, lineend=lineend,
                                                             continuous=continuous, rootnode=rootnode)
                                df <- df[!(df$x==df$xend & df$y==df$yend),]
-                               df$curvature <- ifelse(df$y > df$yend, 1, -1) * 0.5
-                               df$curveangle <- ifelse(df$y > df$yend, 20, 160)
-                               df$ncp <- 2
+                               if (layout=="ellipse"){
+                                   df$curvature <- ifelse(df$y > df$yend, 1, -1) * 0.5
+                                   df$curveangle <- ifelse(df$y > df$yend, 30, 150)
+                                   #df$ncp <- 2
+                               }else if (layout=="roundrect"){
+                                   df$curvature <- ifelse(df$y > df$yend, 1, -1)
+                                   df$curveangle <- 90
+                                   df$square <- TRUE
+                               } 
                                return (df)
                            }
                    )

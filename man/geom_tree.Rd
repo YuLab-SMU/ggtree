@@ -17,8 +17,8 @@ geom_tree(
 
 \item{data}{data}
 
-\item{layout}{one of 'rectangular', 'dendrogram', 'slanted', 'ellipse', 'fan', 'circular', 'inward_circular',
-'radial', 'equal_angle', 'daylight' or 'ape'}
+\item{layout}{one of 'rectangular', 'dendrogram', 'slanted', 'ellipse', 'roundrect',
+'fan', 'circular', 'inward_circular', 'radial', 'equal_angle', 'daylight' or 'ape'}
 
 \item{multiPhylo}{logical}
 
