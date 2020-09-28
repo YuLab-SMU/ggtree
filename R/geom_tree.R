@@ -4,7 +4,7 @@
 ##' @title geom_tree
 ##' @param mapping aesthetic mapping
 ##' @param data data
-##' @param layout one of 'rectangular', 'dendrogram', 'slanted', 'fan', 'circular', 'inward_circular',
+##' @param layout one of 'rectangular', 'dendrogram', 'slanted', 'ellipse', 'fan', 'circular', 'inward_circular',
 ##' 'radial', 'equal_angle', 'daylight' or 'ape'
 ##' @param multiPhylo logical
 ##' @param ... additional parameter
@@ -87,6 +87,22 @@ stat_tree <- function(mapping=NULL, data=NULL, geom="segment", position="identit
                           ...),
               check.aes = FALSE
               )
+    } else if (layout %in% c("ellipse")){
+        layer(stat=StatTreeEllipse,
+              data=data,
+              mapping=mapping,
+              geom=GeomCurvelink,
+              position=position,
+              show.legend=show.legend,
+              inherit.aes=inherit.aes,
+              params=list(layout=layout,
+                          lineend = lineend,
+                          na.rm = na.rm,
+                          arrow = arrow,
+                          rootnode = rootnode,
+                          ...),
+              check.aes=FALSE
+              )
     }
 }
 
@@ -128,7 +144,7 @@ StatTreeHorizontal <- ggproto("StatTreeHorizontal", Stat,
                                           df$col2 <- df$colour
                                           df$col <- df$col2[ii]
                                       } else {
-                                          return(df )
+                                          return(df)
                                       }
 
                                       setup_data_continuous_color_tree(df, nsplit = 100, extend = 0.002)
@@ -166,7 +182,7 @@ StatTreeVertical <- ggproto("StatTreeVertical", Stat,
                                         df <- dplyr::filter(df, .data$node != rootnode.tbl_tree(df)$node)
                                     }
 
-                                    if (continuous && !is.null(df$colour ))
+                                    if (continuous && !is.null(df$colour))
                                         df$colour <- df$colour[ii]
 
                                     return(df)
@@ -209,7 +225,7 @@ StatTree <- ggproto("StatTree", Stat,
                                 df$col2 <- df$colour
                                 df$col <- df$col2[ii]
                             } else {
-                                return(df )
+                                return(df)
                             }
 
                             setup_data_continuous_color_tree(df, nsplit = 100, extend = 0.002)
@@ -223,6 +239,25 @@ StatTree <- ggproto("StatTree", Stat,
                         return(df)
                     }
                     )
+
+
+StatTreeEllipse <- ggproto("StatTreeEllipse", Stat,
+                           required_aes = c("node", "parent", "x", "y"),
+                           compute_group = function(data, params){
+                               data
+                           },
+                           compute_panel = function(self, data, scales, params, layout, lineend, 
+                                                    continuous =FALSE, rootnode=TRUE){
+                               df <- StatTree$compute_panel(data=data, scales=scales, 
+                                                            params=params, layout=layout, lineend=lineend,
+                                                            continuous=continuous, rootnode=rootnode)
+                               df <- df[!(df$x==df$xend & df$y==df$yend),]
+                               df$curvature <- ifelse(df$y > df$yend, 1, -1) * 0.5
+                               df$curveangle <- ifelse(df$y > df$yend, 20, 160)
+                               df$ncp <- 2
+                               return (df)
+                           }
+                   )
 
 
 setup_tree_data <- function(data) {
