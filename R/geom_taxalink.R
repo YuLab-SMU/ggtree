@@ -144,7 +144,6 @@ geom_curvelink <- function(data=NULL,
                            mapping=NULL, 
                            stat = "identity", 
                            position = "identity",
-                           angle = 90,
                            arrow = NULL,
                            arrow.fill = NULL,
                            lineend = "butt",
@@ -163,7 +162,6 @@ geom_curvelink <- function(data=NULL,
        params = list(
          arrow = arrow,
          arrow.fill = arrow.fill,
-         angle = angle,
          lineend = lineend,
          na.rm = na.rm,
          ...
@@ -177,8 +175,8 @@ geom_curvelink <- function(data=NULL,
 #' @importFrom scales alpha
 GeomCurvelink <- ggproto("GeomCurvelink", GeomSegment,
   required_aes = c("x", "y", "xend", "yend"),
-  default_aes = aes(colour = "black", size = 0.5, linetype = 1, alpha = NA, curvature=0.5, hratio=1, ncp=1),
-  draw_panel = function(data, panel_params, coord, angle = 90, shape=0.5, outward=TRUE,
+  default_aes = aes(colour = "black", size = 0.5, linetype = 1, alpha = NA, curvature=0.5, hratio=1, ncp=1, curveangle=90, square=FALSE),
+  draw_panel = function(data, panel_params, coord, shape=0.5, outward=TRUE,
                         arrow = NULL, arrow.fill=NULL, lineend = "butt", na.rm = FALSE) {
     if (!coord$is_linear()) {
         tmpgroup <- data$group
@@ -213,8 +211,8 @@ GeomCurvelink <- ggproto("GeomCurvelink", GeomSegment,
                         curveGrob(
                               trans$x[i], trans$y[i], trans$xend[i], trans$yend[i],
                               default.units = "native",
-                              curvature = trans$curvature[i], angle = angle, ncp = trans$ncp[i],
-                              square = FALSE, squareShape = 1, inflect = FALSE, open = TRUE,
+                              curvature = trans$curvature[i], angle = trans$curveangle[i], ncp = trans$ncp[i],
+                              square = trans$square[i], squareShape = 1, inflect = FALSE, open = TRUE,
                               gp = gpar(col = alpha(trans$colour[i], trans$alpha[i]),
                                         fill = alpha(arrow.fill[i], trans$alpha[i]),
                                         lwd = trans$size[i] * .pt,

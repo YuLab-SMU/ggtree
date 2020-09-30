@@ -58,7 +58,7 @@ ggtree <- function(tr,
     # Check if layout string is valid.
     layout %<>% match.arg(c("rectangular", "slanted", "fan", "circular", 'inward_circular',
                             "radial", "unrooted", "equal_angle", "daylight", "dendrogram",
-                            "ape"))
+                            "ape", "ellipse", "roundrect"))
 
     if (layout == "unrooted") {
         layout <- "daylight"
