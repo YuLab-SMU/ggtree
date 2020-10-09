@@ -89,6 +89,7 @@ stat_tree <- function(mapping=NULL, data=NULL, geom="segment", position="identit
               check.aes = FALSE
               )
     } else if (layout %in% c("ellipse", "roundrect")){
+        mapping <- modifyList(mapping, aes_(isTip=~isTip))
         layer(stat=StatTreeEllipse,
               data=data,
               mapping=mapping,
@@ -243,21 +244,31 @@ StatTree <- ggproto("StatTree", Stat,
 
 
 StatTreeEllipse <- ggproto("StatTreeEllipse", Stat,
-                           required_aes = c("node", "parent", "x", "y"),
+                           required_aes = c("node", "parent", "x", "y", "isTip"),
                            compute_group = function(data, params){
                                data
                            },
                            compute_panel = function(self, data, scales, params, layout, lineend, 
                                                     continuous =FALSE, rootnode=TRUE){
+
                                df <- StatTree$compute_panel(data=data, scales=scales, 
                                                             params=params, layout=layout, lineend=lineend,
                                                             continuous=continuous, rootnode=rootnode)
                                df <- df[!(df$x==df$xend & df$y==df$yend),]
+                               reverseflag <- check_reverse(df)
                                if (layout=="ellipse"){
-                                   df$curvature <- ifelse(df$y > df$yend, 1, -1) * 0.5
+                                   if (reverseflag){
+                                       df$curvature <- ifelse(df$y > df$yend, -1, 1) * 0.5
+                                   }else{
+                                       df$curvature <- ifelse(df$y > df$yend, 1, -1) * 0.5
+                                   }
                                    df$curveangle <- ifelse(df$y > df$yend, 20, 160)
                                }else if (layout=="roundrect"){
-                                   df$curvature <- ifelse(df$y > df$yend, 1, -1)
+                                   if (reverseflag){
+                                       df$curvature <- ifelse(df$y > df$yend, -1, 1)
+                                   }else{
+                                       df$curvature <- ifelse(df$y > df$yend, 1, -1)
+                                   }
                                    df$curveangle <- 90
                                }
                                df$square <- TRUE 
