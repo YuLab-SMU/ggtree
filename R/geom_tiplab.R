@@ -42,7 +42,9 @@ geom_tiplab_as_ylab <- function(hjust = 0, position = "right", ...) {
               )
 }
 
-geom_tiplab_rectangular <- function(mapping=NULL, hjust = 0,  align = FALSE, linetype = "dotted", linesize=0.5, geom="text",  offset=0, fontface = "plain", ...) {
+geom_tiplab_rectangular <- function(mapping=NULL, hjust = 0,  align = FALSE, 
+                                    linetype = "dotted", linesize=0.5, geom="text",  
+                                    offset=0, family = "", fontface = "plain", ...) {
     geom <- match.arg(geom, c("text", "label", "shadowtext", "image", "phylopic"))
     if (geom == "text") {
         label_geom <- geom_text2
@@ -98,7 +100,8 @@ geom_tiplab_rectangular <- function(mapping=NULL, hjust = 0,  align = FALSE, lin
                        hjust = hjust, nudge_x = offset, stat = StatTreeData, ...)            
         } else {
             label_geom(mapping=text_mapping,
-                       hjust = hjust, nudge_x = offset, stat = StatTreeData, fontface = fontface, ...)
+                       hjust = hjust, nudge_x = offset, stat = StatTreeData, 
+                       family = family, fontface = fontface, ...)
         }
     )
 }
@@ -138,4 +141,38 @@ geom_tiplab2 <- function(mapping=NULL, hjust=0, ...) {
 }
 
 geom_tiplab_circular <- geom_tiplab2
+
+
+
+#' Padding taxa labels
+#'
+#' This function add padding character to the left side of taxa labels.
+#' @param label taxa label 
+#' @param justify should a character vector be left-justified, right-justified (default), centred or left alone.
+#' @param pad padding character (default is a dot)
+#'
+#' @return Taxa labels with padding characters added
+#' @export
+#' @author Guangchuang Yu and Yonghe Xia
+#' @references <https://groups.google.com/g/bioc-ggtree/c/INJ0Nfkq3b0/m/lXefnfV5AQAJ>
+#' @examples
+#' library(ggtree)
+#' set.seed(2015-12-21)
+#' tree <- rtree(5)
+#' tree$tip.label[2] <- "long string for test"
+#' label_pad(tree$tip.label)
+label_pad <- function(label, justify = "right", pad = "·") {
+    x <- format(label, 
+                width = max(nchar(label)),
+                justify = justify)
+    len <- vapply(gregexpr("^\\s+", x),
+                  attr, "match.length",
+                  FUN.VALUE = numeric(1))
+    len[len<0] <- 0
+    
+    y <- vapply(len, 
+                function(i) paste0(rep(pad, each=i), collapse = ''),
+                FUN.VALUE = character(1))
+    paste0(y, label)
+}
 

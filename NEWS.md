@@ -1,3 +1,9 @@
+# ggtree 2.3.6.991
+
++ add `label_pad()` function to add padding characters to taxa labels (2020-10-09, Fri)
+  - <https://groups.google.com/g/bioc-ggtree/c/INJ0Nfkq3b0/m/lXefnfV5AQAJ>
++ add `family` parameter to `geom_tiplab()` 
+
 # ggtree 2.3.6
 
 + new layouts, `roundrect` and `ellipse`
