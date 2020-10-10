@@ -1,4 +1,4 @@
-# ggtree 2.3.6.991
+# ggtree 2.3.7
 
 + add `label_pad()` function to add padding characters to taxa labels (2020-10-09, Fri)
   - <https://groups.google.com/g/bioc-ggtree/c/INJ0Nfkq3b0/m/lXefnfV5AQAJ>
