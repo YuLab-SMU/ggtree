@@ -2,6 +2,7 @@
 
 + tanglegram support
   - <https://yulab-smu.top/treedata-book/chapter2.html#ggtree-fortify>
+  - <https://www.rdocumentation.org/packages/phytools/versions/0.7-70/topics/cophylo> 
 + `fortify` method for `phyloseq` object should return a tidy data.frame
   - maybe we can defined another object (inherited from treedata?) and provide converter for `phyloseq`
 + update ggtree man files
