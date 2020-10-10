@@ -161,7 +161,7 @@ geom_tiplab_circular <- geom_tiplab2
 #' tree <- rtree(5)
 #' tree$tip.label[2] <- "long string for test"
 #' label_pad(tree$tip.label)
-label_pad <- function(label, justify = "right", pad = "·") {
+label_pad <- function(label, justify = "right", pad = "\u00B7") {
     x <- format(label, 
                 width = max(nchar(label)),
                 justify = justify)
