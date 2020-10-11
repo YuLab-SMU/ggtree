@@ -22,7 +22,7 @@ geom_tippoint <- function(mapping = NULL, data = NULL,
                                              as.expression(get_aes_var(mapping, "subset")),
                                              '&isTip')
                                          )
-            mapping <- modifyList(mapping, subset_mapping)
+            mapping <- modifyList(subset_mapping, mapping)
         }
     }
     geom_point2(mapping, data, position, na.rm, show.legend, inherit.aes, stat = StatTreeData, ...)
