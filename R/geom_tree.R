@@ -142,14 +142,19 @@ StatTreeHorizontal <- ggproto("StatTreeHorizontal", Stat,
                                           df <- dplyr::filter(df, .data$node != tidytree:::rootnode.tbl_tree(df)$node)
                                       }
 
-                                      if (continuous && !is.null(df$colour)) {
-                                          df$col2 <- df$colour
-                                          df$col <- df$col2[ii]
+                                      if (continuous) {
+                                          if (!is.null(df$colour)){
+                                              df$col2 <- df$colour
+                                              df$col <- df$col2[ii]
+                                          }
+                                          if (!is.null(df$size)){
+                                              df$size2 <- df$size
+                                              df$size1 <- df$size2[ii]
+                                          }
+                                          setup_data_continuous_color_size_tree(df, nsplit = 100, extend = 0.002)
                                       } else {
                                           return(df)
                                       }
-
-                                      setup_data_continuous_color_tree(df, nsplit = 100, extend = 0.002)
                                   }
                                   
                                   if ('.id' %in% names(data)) {
@@ -184,9 +189,14 @@ StatTreeVertical <- ggproto("StatTreeVertical", Stat,
                                         df <- dplyr::filter(df, .data$node != rootnode.tbl_tree(df)$node)
                                     }
 
-                                    if (continuous && !is.null(df$colour))
-                                        df$colour <- df$colour[ii]
-
+                                    if (continuous){
+                                        if (!is.null(df$colour)){
+                                            df$colour <- df$colour[ii]
+                                        }
+                                        if (!is.null(df$size)){
+                                            df$size <- df$size[ii]
+                                        }
+                                    }
                                     return(df)
                                 }
 
@@ -223,14 +233,19 @@ StatTree <- ggproto("StatTree", Stat,
                                 df <- dplyr::filter(df, .data$node != rootnode.tbl_tree(df)$node)
                             }
 
-                            if (continuous && !is.null(df$colour)) {
-                                df$col2 <- df$colour
-                                df$col <- df$col2[ii]
-                            } else {
+                            if (continuous) {
+                                if (!is.null(df$colour)){
+                                    df$col2 <- df$colour
+                                    df$col <- df$col2[ii]
+                                }
+                                if (!is.null(df$size)){
+                                    df$size2 <- df$size
+                                    df$size1 <- df$size2[ii]
+                                }
+                                setup_data_continuous_color_size_tree(df, nsplit = 100, extend = 0.002)
+                            } else{
                                 return(df)
                             }
-
-                            setup_data_continuous_color_tree(df, nsplit = 100, extend = 0.002)
                         }
                         if ('.id' %in% names(data)) {
                             ldf <- split(data, data$.id)
@@ -250,7 +265,9 @@ StatTreeEllipse <- ggproto("StatTreeEllipse", Stat,
                            },
                            compute_panel = function(self, data, scales, params, layout, lineend, 
                                                     continuous =FALSE, rootnode=TRUE){
-
+                               if (continuous){
+                                   stop("continuous is not implemented for roundrect or ellipse layout")
+                               }
                                df <- StatTree$compute_panel(data=data, scales=scales, 
                                                             params=params, layout=layout, lineend=lineend,
                                                             continuous=continuous, rootnode=rootnode)
@@ -323,8 +340,7 @@ geom_tree2 <- function(layout="rectangular", ...) {
     }
 }
 
-
-setup_data_continuous_color <- function(x, xend, y, yend, col, col2,
+setup_data_continuous_color_size <- function(x, xend, y, yend, col, col2, size1, size2,
                                         xrange = NULL, nsplit = 100, extend = 0.002) {
     if (is.null(xrange))
         xrange <- c(x, xend)
@@ -353,33 +369,42 @@ setup_data_continuous_color <- function(x, xend, y, yend, col, col2,
         colour <- seq(col, col2, length.out = n)
     } else if (is.character(col) && is.character(col2)) {
         colour <- grDevices::colorRampPalette(c(col, col2))(n)
-    } else {
+    } else if (is.null(col) && is.null(col2)){
+        colour <- "black"
+    }else {
         stop("col and col2 should be both numeric or character..." )
     }
-
-    data.frame(x = x,
+    if (is.numeric(size1) && is.numeric(size2)){
+        size <- seq(size1, size2, length.out=n)
+    }else if (is.null(size1) && is.null(size2)){
+        size <- 0.5
+    }
+    dat <- data.frame(x = x,
                xend = xend,
                y = y,
                yend = yend,
-               colour = colour)
+               colour = colour,
+               size = size)
+    return(dat)
 }
 
-setup_data_continuous_color_tree <- function(df, nsplit = 100, extend = 0.002) {
+setup_data_continuous_color_size_tree <- function(df, nsplit = 100, extend = 0.002) {
     lapply(1:nrow(df), function(i) {
-        df2 <- setup_data_continuous_color(x = df$x[i],
-                                           xend = df$xend[i],
-                                           y = df$y[i],
-                                           yend = df$yend[i],
-                                           col = df$col[i],
-                                           col2 = df$col2[i],
-                                           xrange = range(df$x),
-                                           nsplit = nsplit,
-                                           extend = extend)
+        df2 <- setup_data_continuous_color_size(x = df$x[i],
+                                                xend = df$xend[i],
+                                                y = df$y[i],
+                                                yend = df$yend[i],
+                                                col = df$col[i],
+                                                col2 = df$col2[i],
+                                                size1 = df$size1[i],
+                                                size2 = df$size2[i],
+                                                xrange = range(df$x),
+                                                nsplit = nsplit,
+                                                extend = extend)
         df2$node <- df$node[i]
         
-        j <- match(c('x', 'xend', 'y', 'yend', 'col', 'col2', 'colour'), colnames(df))
+        j <- match(c('x', 'xend', 'y', 'yend', 'col', 'col2', 'colour', 'size1', 'size2', 'size'), colnames(df))
+        j <- j[!is.na(j)]
         merge(df[i, -j, drop = FALSE], df2, by = "node")
     }) %>% do.call('rbind', .)
 }
-
-
