@@ -122,7 +122,8 @@ StatTreeHorizontal <- ggproto("StatTreeHorizontal", Stat,
                                 data
                               },
                               compute_panel = function(self, data, scales, params, layout, lineend,
-                                                       continuous = FALSE, rootnode = TRUE) {
+                                                       continuous = FALSE, rootnode = TRUE, 
+                                                       nsplit = 100, extend=0.002) {
                                   .fun <- function(data) {
                                       df <- setup_tree_data(data)
                                       x <- df$x
@@ -151,7 +152,7 @@ StatTreeHorizontal <- ggproto("StatTreeHorizontal", Stat,
                                               df$size2 <- df$size
                                               df$size1 <- df$size2[ii]
                                           }
-                                          setup_data_continuous_color_size_tree(df, nsplit = 100, extend = 0.002)
+                                          setup_data_continuous_color_size_tree(df, nsplit = nsplit, extend = extend)
                                       } else {
                                           return(df)
                                       }
@@ -174,7 +175,8 @@ StatTreeVertical <- ggproto("StatTreeVertical", Stat,
                                 data
                             },
                             compute_panel = function(self, data, scales, params, layout, lineend,
-                                                     continuous = FALSE, rootnode = TRUE) {
+                                                     continuous = FALSE, nsplit=100, 
+                                                     extend=0.002, rootnode = TRUE) {
                                 .fun <- function(data) {
                                     df <- setup_tree_data(data)
                                     x <- df$x
@@ -218,7 +220,8 @@ StatTree <- ggproto("StatTree", Stat,
                         data
                     },
                     compute_panel = function(self, data, scales, params, layout, lineend,
-                                             continuous =  FALSE, rootnode = TRUE) {
+                                             continuous =  FALSE, nsplit = 100, 
+                                             extend = 0.002, rootnode = TRUE) {
                         .fun <- function(data) {
                             df <- setup_tree_data(data)
                             x <- df$x
@@ -242,7 +245,7 @@ StatTree <- ggproto("StatTree", Stat,
                                     df$size2 <- df$size
                                     df$size1 <- df$size2[ii]
                                 }
-                                setup_data_continuous_color_size_tree(df, nsplit = 100, extend = 0.002)
+                                setup_data_continuous_color_size_tree(df, nsplit = nsplit, extend = extend)
                             } else{
                                 return(df)
                             }
@@ -264,13 +267,15 @@ StatTreeEllipse <- ggproto("StatTreeEllipse", Stat,
                                data
                            },
                            compute_panel = function(self, data, scales, params, layout, lineend, 
-                                                    continuous =FALSE, rootnode=TRUE){
+                                                    continuous = FALSE, nsplit = 100, 
+                                                    extend = 0.002, rootnode = TRUE){
                                if (continuous){
                                    stop("continuous is not implemented for roundrect or ellipse layout")
                                }
-                               df <- StatTree$compute_panel(data=data, scales=scales, 
-                                                            params=params, layout=layout, lineend=lineend,
-                                                            continuous=continuous, rootnode=rootnode)
+                               df <- StatTree$compute_panel(data = data, scales = scales, 
+                                                            params = params, layout = layout, lineend = lineend,
+                                                            continuous = continuous, nsplit = nsplit, 
+                                                            extend = extend, rootnode = rootnode)
                                df <- df[!(df$x==df$xend & df$y==df$yend),]
                                reverseflag <- check_reverse(df)
                                if (layout=="ellipse"){
