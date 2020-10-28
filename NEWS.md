@@ -1,3 +1,7 @@
+# ggtree 2.4.0
+
++ Bioconductor 3.12 release (2020-10-28, Wed)
+
 # ggtree 2.3.7
 
 + add `label_pad()` function to add padding characters to taxa labels (2020-10-09, Fri)
