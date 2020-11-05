@@ -54,7 +54,13 @@ right-hand side? See \code{\link[ape:ladderize]{ape::ladderize()}} for more info
 
 \item{xlim}{x limits, only works for 'inward_circular' layout}
 
-\item{...}{additional parameter}
+\item{...}{additional parameter
+
+some dot arguments:
+\itemize{
+\item \code{continuous} logical, whether the aesthethic of \code{size} or \code{color} is continuous, default is FALSE.
+\item \code{nsplit} integer, the number of branch blocks divided when \code{continuous} is TRUE, default is 200.
+}}
 }
 \value{
 tree
