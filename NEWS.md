@@ -2,7 +2,7 @@
 
 + branch size can be grandualy changed (2020-10-29, Thu)
   - <https://github.com/YuLab-SMU/ggtree/pull/349>
-  
+
 # ggtree 2.4.0
 
 + Bioconductor 3.12 release (2020-10-28, Wed)
