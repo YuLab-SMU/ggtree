@@ -19,5 +19,5 @@ geom_nodelab <- function(mapping = NULL, nudge_x = 0, nudge_y = 0, geom = "text"
         mapping <- modifyList(self_mapping, mapping)
     }
 
-    geom_tiplab(mapping, offset = nudge_x, nudge_y = nudge_y, geom = geom, hjust = hjust, ...)
+    geom_tiplab(mapping, offset = nudge_x, nudge_y = nudge_y, geom = geom, hjust = hjust, nodelab=TRUE, ...)
 }

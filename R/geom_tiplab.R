@@ -120,23 +120,41 @@ geom_tiplab_rectangular <- function(mapping=NULL, hjust = 0,  align = FALSE,
 ##' @references <https://groups.google.com/forum/#!topic/bioc-ggtree/o35PV3iHO-0>
 ##' @seealso [geom_tiplab]
 geom_tiplab2 <- function(mapping=NULL, hjust=0, ...) {
-    angle <- isTip <- node <- NULL
-    m1 <- aes(subset=(isTip & (angle < 90 | angle > 270)), angle=angle, node = node)
-    m2 <- aes(subset=(isTip & (angle >= 90 & angle <=270)), angle=angle+180, node = node)
+    params <- list(...)
+    nodelab <- ifelse("nodelab" %in% names(params), TRUE, FALSE)
+    if (nodelab){
+        subset1 <- "(!isTip & (angle < 90 | angle > 270))"
+        subset2 <- "(!isTip & (angle >= 90 & angle <= 270))"
+    }else{
+        subset1 <- "(isTip & (angle < 90 | angle > 270))"
+        subset2 <- "(isTip & (angle >= 90 & angle <=270))"
+    }
+    m1 <- aes_string(subset=subset1, angle="angle", node = "node")
+    m2 <- aes_string(subset=subset2, angle="angle+180", node = "node")
 
     if (!is.null(mapping)) {
         if (!is.null(mapping$subset)) {
-            m1 <- aes_string(angle = "angle", node = "node",
-                             subset = paste0(as.expression(get_aes_var(mapping, "subset")), '& (isTip & (angle < 90 | angle > 270))'))
-            m2 <- aes_string(angle = "angle+180", node = "node",
-                             subset = paste0(as.expression(get_aes_var(mapping, "subset")), '& (isTip & (angle >= 90 & angle <= 270))'))
+            if (nodelab){
+                newsubset1 <- paste0(as.expression(get_aes_var(mapping, "subset")), '& (angle < 90 | angle > 270)')
+                newsubset2 <- paste0(as.expression(get_aes_var(mapping, "subset")), '& (angle >= 90 & angle <= 270)')
+            }else{
+                newsubset1 <- paste0(as.expression(get_aes_var(mapping, "subset")), '& (isTip & (angle < 90 | angle > 270))')
+                newsubset2 <- paste0(as.expression(get_aes_var(mapping, "subset")), '& (isTip & (angle >= 90 & angle <= 270))')
+            }
+            m1 <- aes_string(angle = "angle", node = "node", subset = newsubset1)
+            m2 <- aes_string(angle = "angle+180", node = "node", subset = newsubset2)
         }
         m1 <- modifyList(mapping, m1)
         m2 <- modifyList(mapping, m2)
     }
-
-    list(geom_tiplab_rectangular(m1, hjust=hjust, ...),
-         geom_tiplab_rectangular(m2, hjust=1-hjust, ...)
+    params[["nodelab"]] <- NULL
+    params1 <- params2 <- params
+    params1[["mapping"]] <- m1
+    params1[["hjust"]] <- hjust
+    params2[["mapping"]] <- m2
+    params2[["hjust"]] <- 1-hjust
+    list(do.call("geom_tiplab_rectangular", params1),
+         do.call("geom_tiplab_rectangular", params2)
          )
 }
 
