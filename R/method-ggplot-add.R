@@ -205,6 +205,7 @@ ggplot_add.tiplab <- function(object, plot, object_name) {
         object$linesize <- NULL
         object$geom <- NULL
         object$offset <- NULL
+        object$nodelab <- NULL
         object$as_ylab <- NULL
             
         res <- ggplot_add.tiplab_ylab(object, plot, object_name)
