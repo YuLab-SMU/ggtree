@@ -6,9 +6,22 @@
 ##' @param data data
 ##' @param layout one of 'rectangular', 'dendrogram', 'slanted', 'ellipse', 'roundrect',
 ##' 'fan', 'circular', 'inward_circular', 'radial', 'equal_angle', 'daylight' or 'ape'
-##' @param multiPhylo logical
+##' @param multiPhylo logical, whether input data contains multiple phylo class.
 ##' @param ... additional parameter
+##' 
+##' some dot arguments:
+##' \itemize{
+##'    \item \code{continuous} logical, whether the aesthethic of `size` or `color` is continuous, default is FALSE.
+##'    \item \code{nsplit} integer, the number of branch blocks divided when `continuous` is TRUE, default is 200.
+##' }
 ##' @return tree layer
+##' @section Aesthetics:
+#' \code{geom_tree()} understands the following aesthethics:
+##'     \itemize{
+##'        \item \code{colour} logical, control the color of line, default is black.
+##'        \item \code{linetype} control the type of line, default is 1 (solid).
+##'        \item \code{size} numeric, control the width of line, default is 0.5.
+##'     }
 ##' @importFrom ggplot2 geom_segment
 ##' @importFrom ggplot2 aes
 ##' @export
