@@ -1,5 +1,8 @@
-# ggtree 2.5.0.991
+# ggtree 2.5.0.992
 
++ `geom_nodelab()` now supports circular layout (2020-11-26, Thu)
+  - <https://github.com/YuLab-SMU/ggtree/issues/352>
+  - <https://github.com/YuLab-SMU/ggtree/pull/353>
 + branch size can be grandualy changed (2020-10-29, Thu)
   - <https://github.com/YuLab-SMU/ggtree/pull/349>
 
