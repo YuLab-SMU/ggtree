@@ -126,7 +126,7 @@ geom_tiplab_rectangular <- function(mapping=NULL, hjust = 0,  align = FALSE,
 ##' @seealso [geom_tiplab]
 geom_tiplab2 <- function(mapping=NULL, hjust=0, ...) {
     params <- list(...)
-    if (params[["nodelab"]]){
+    if ("nodelab" %in% names(params) && params[["nodelab"]]){
         # for geom_nodelab
         subset1 <- "(!isTip & (angle < 90 | angle > 270))"
         subset2 <- "(!isTip & (angle >= 90 & angle <= 270))"
