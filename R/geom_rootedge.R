@@ -46,9 +46,10 @@
 #' ## https://yulab-smu.top/treedata-book/chapter4.html
 #' 
 geom_rootedge <- function(rootedge = NULL, ...) {
+    # add isTip for checking whether the x of tree is reversed.
     mapping <- aes_(x = ~x, y = ~y, xend = ~x, yend = ~y,
                     branch.length = ~branch.length,
-                    node = ~node, parent = ~parent)
+                    node = ~node, parent = ~parent, isTip=~isTip)
     layer(
         stat = StatRootEdge,
         data  = NULL,
@@ -66,7 +67,11 @@ geom_rootedge <- function(rootedge = NULL, ...) {
 
 
 StatRootEdge <- ggproto("StatRootEdge", Stat,
-                        compute_group = function(self, data, scales, params, rootedge) {
+                        # compute_group will split subgroup according to isTip, 
+                        # but the whole data should be return, so it is replaced by compute_panel.
+                        compute_panel = function(self, data, scales, params, rootedge) {
+                            # check whether the x of tree is reversed.
+                            reverseflag <- check_reverse(data)
                             d <- data[data$parent == data$node,]
                             if (is.null(rootedge)) {
                                 rootedge <- d$branch.length
@@ -76,11 +81,17 @@ StatRootEdge <- ggproto("StatRootEdge", Stat,
                             } else if (is.na(rootedge)) {
                                 xend <- d$x
                             } else {
-                                xend <- d$x - rootedge
+                                # check whether the x of tree is reversed.
+                                if (reverseflag){
+                                    xend <- d$x + rootedge
+                                }else{
+                                    xend <- d$x - rootedge
+                                }
                             }
 
                             data.frame(x = d$x, y = d$y,
                                        xend = xend, yend = d$y)
+
                         },
                         required_aes = c("x", "y", "xend", "yend")
                         )

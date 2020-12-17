@@ -17,9 +17,13 @@ build_cladeids_df2 <- function(trdf, nodeids){
 }
 
 check_reverse <- function(data){
+    # extract tip point data
     tiptab <- data[data$isTip,]
+    # extract the corresponding parent point data, it might generate NA.
     nodetab <- data[match(tiptab$parent, data$node),]
-    if (all(tiptab$x < nodetab$x)){
+    # remove the NA, and if all x values of tip are smaller than 
+    # corresponding parent x values, the x of tree is reversed.
+    if (all(tiptab$x <= nodetab$x, na.rm=TRUE)){
         return(TRUE)
     }else{
         return(FALSE)
