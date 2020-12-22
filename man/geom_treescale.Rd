@@ -9,6 +9,8 @@ geom_treescale(
   y = NULL,
   width = NULL,
   offset = NULL,
+  offset.label = NULL,
+  label = NULL,
   color = "black",
   linesize = 0.5,
   fontsize = 3.88,
@@ -23,6 +25,10 @@ geom_treescale(
 \item{width}{width of scale}
 
 \item{offset}{offset of text to line}
+
+\item{offset.label}{offset of scale title to line.}
+
+\item{label}{the title of tree scale, default is NULL.}
 
 \item{color}{color}
 
