@@ -1,5 +1,9 @@
-# ggtree 2.5.0.992
+# ggtree 2.5.0.993
 
++ `label` and `offset.label` introduced in `geom_treescale` layer (2020-12-23, Wed)
+  - <https://github.com/YuLab-SMU/ggtree/pull/360>
++ `geom_rootedge` supports reversed x (2020-12-17, Thu)
+  - <https://github.com/YuLab-SMU/ggtree/pull/358>
 + `geom_nodelab()` now supports circular layout (2020-11-26, Thu)
   - <https://github.com/YuLab-SMU/ggtree/issues/352>
   - <https://github.com/YuLab-SMU/ggtree/pull/353>

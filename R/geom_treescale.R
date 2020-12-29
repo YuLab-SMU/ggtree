@@ -27,8 +27,8 @@ geom_treescale <- function(x=NULL, y=NULL, width=NULL, offset=NULL,
 
     default_aes <- aes_(x=~x, y=~y)
     mapping <- default_aes
-    if (is.null(label)){
-        list(
+
+    ly <- list(
             stat_treeScaleLine(xx=x, yy=y, width=width, color=color, offset=offset, size=linesize,
                                offset.label=offset.label, labelname=label,
                                mapping=mapping, data=data,
@@ -41,26 +41,14 @@ geom_treescale <- function(x=NULL, y=NULL, width=NULL, offset=NULL,
                                position=position, show.legend = show.legend,
                                inherit.aes = inherit.aes, na.rm=na.rm)
          )   
-    }else{
-        list(
-            stat_treeScaleLine(xx=x, yy=y, width=width, color=color, offset=offset, size=linesize,
-                               offset.label=offset.label, labelname=label,
-                               mapping=mapping, data=data,
-                               position=position, show.legend = show.legend,
-                               inherit.aes = inherit.aes, na.rm=na.rm),
-            stat_treeScaleText(xx=x, yy=y, width=width, color=color, offset=offset,
-                               offset.label=offset.label, labelname=label,
-                               size=fontsize, family = family,
-                               mapping=mapping, data=data,
-                               position=position, show.legend = show.legend,
-                               inherit.aes = inherit.aes, na.rm=na.rm),
-            stat_treeScaleLabel(xx=x, yy=y, width=width, color=color, offset=offset,
+    if (!is.null(label)){
+        ly[[3]] <- stat_treeScaleLabel(xx=x, yy=y, width=width, color=color, offset=offset,
                                 offset.label=offset.label, labelname=label,
                                 size=fontsize, family=family, mapping=mapping, data=data,
                                 position=position, show.legend=show.legend,
                                 inherit.aes = inherit.aes, na.rm=na.rm)
-        )
     }
+    return(ly)
 }
 
 
@@ -213,24 +201,21 @@ get_treescale_position <- function(data, xx, yy, width, offset=NULL, offset.labe
     } else {
         d <- width
     }
-    
-    if (!is.null(offset.label)){
-        offset.label <- offset.label
-    }
 
     if (is.null(offset)) {
         offset <- 0.4
-        if (is.null(offset.label)){
-            offset.label <- -0.4
-        }
     }
-     
-    if (is.null(label) || is.null(offset.label)){
-        list(LinePosition=data.frame(x=x, xend=x+d, y=y, yend=y),
-             TextPosition=data.frame(x=x+d/2, y=y+offset, label=d))
-    }else{
-        list(LinePosition=data.frame(x=x, xend=x+d, y=y, yend=y),
-             TextPosition=data.frame(x=x+d/2, y=y+offset, label=d),
-             LabelPosition=data.frame(x=x+d/2, y=y+offset.label, label=label))
+    if (is.null(offset.label)){
+        offset.label <- -0.4
+    } 
+  
+    res <-  list(LinePosition = data.frame(x=x, xend=x+d, y=y, yend=y),
+                 TextPosition = data.frame(x=x+d/2, y=y+offset, label=d)
+                )
+  
+    if (!is.null(label)){
+        res[["LabelPosition"]] <- data.frame(x=x+d/2, y=y+offset.label, label=label)
     }
+    
+    return(res)
 }
