@@ -154,7 +154,7 @@ stat_treeScaleLabel <- function(mapping=NULL, data=NULL,
                      offset.label = offset.label,
                      labelname=labelname,
                      na.rm = na.rm,
-                     vjust = 0,
+                     vjust = 1,
                      ...                    
                       )
            
