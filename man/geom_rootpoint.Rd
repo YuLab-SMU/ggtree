@@ -52,18 +52,12 @@ ggtree(tr) + geom_rootpoint(size=2,color="red",shape=2)
 }
 \references{
 \enumerate{
-\item G Yu, DK Smith, H Zhu, Y Guan, TTY Lam (2017). ggtree: an R package for
-visualization and annotation of phylogenetic trees with their covariates and
-other associated data. Methods in Ecology and Evolution, 8(1):28-36.
-\url{https://doi.org/10.1111/2041-210X.12628}
-\item G Yu*, TTY Lam, H Zhu, Y Guan*. Two methods for mapping and visualizing associated data
-on phylogeny using ggtree. Molecular Biology and Evolution, 2018, 35(2):3041-3043. \url{https://doi.org/10.1093/molbev/msy194}
-\item G Yu. Using ggtree to visualize data on tree-like structures. Current Protocols in
-Bioinformatics, 2020, 69:e96. \url{https://doi.org/10.1002/cpbi.96}
+\item Guangchuang Yu. Using ggtree to visualize data on tree-like structures. Current Protocols in Bioinformatics, 2020, 69:e96. doi:10.1002/cpbi.96
+\item Guangchuang Yu, Tommy Tsan-Yuk Lam, Huachen Zhu, Yi Guan. Two methods for mapping and visualizing associated data on phylogeny using ggtree. Molecular Biology and Evolution 2018, 35(12):3041-3043. doi:10.1093/molbev/msy194
+\item Guangchuang Yu, David Smith, Huachen Zhu, Yi Guan, Tommy Tsan-Yuk Lam. ggtree: an R package for visualization and annotation of phylogenetic trees with their covariates and other associated data. Methods in Ecology and Evolution 2017, 8(1):28-36. doi:10.1111/2041-210X.12628
 }
 
-For more information about tree visualization, please refer to the online book
-\url{https://yulab-smu.top/treedata-book/}
+For more information, please refer to the online book:Data Integration, Manipulation and Visualization of Phylogenetic Trees.\url{http://yulab-smu.top/treedata-book/}
 }
 \seealso{
 \link[ggplot2:geom_point]{geom_point};

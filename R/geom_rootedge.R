@@ -17,7 +17,8 @@
 #' @return ggtree rootedge layer
 #' @export
 #' @author Guangchuang Yu
-#' @references 1. G Yu, DK Smith, H Zhu, Y Guan, TTY Lam (2017). ggtree: an R package for
+#' @references
+#' 1. G Yu, DK Smith, H Zhu, Y Guan, TTY Lam (2017). ggtree: an R package for
 #' visualization and annotation of phylogenetic trees with their covariates and
 #' other associated data. Methods in Ecology and Evolution, 8(1):28-36.
 #' <https://doi.org/10.1111/2041-210X.12628>

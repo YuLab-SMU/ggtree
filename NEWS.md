@@ -1,5 +1,6 @@
 # ggtree 2.5.0.993
 
++ update man file of `geom_rootpoint` (2021-01-08, Fri)
 + `label` and `offset.label` introduced in `geom_treescale` layer (2020-12-23, Wed)
   - <https://github.com/YuLab-SMU/ggtree/pull/360>
 + `geom_rootedge` supports reversed x (2020-12-17, Thu)

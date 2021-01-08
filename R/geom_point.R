@@ -89,19 +89,7 @@ geom_nodepoint <- function(mapping = NULL, data = NULL,
 ##' @return root point layer
 ##' @export
 ##' @author Guangchuang Yu
-##' @references 1. G Yu, DK Smith, H Zhu, Y Guan, TTY Lam (2017). ggtree: an R package for
-##' visualization and annotation of phylogenetic trees with their covariates and
-##' other associated data. Methods in Ecology and Evolution, 8(1):28-36.
-##' <https://doi.org/10.1111/2041-210X.12628>
-##' 
-##' 2. G Yu*, TTY Lam, H Zhu, Y Guan*. Two methods for mapping and visualizing associated data 
-##' on phylogeny using ggtree. Molecular Biology and Evolution, 2018, 35(2):3041-3043. <https://doi.org/10.1093/molbev/msy194>
-##' 
-##' 3. G Yu. Using ggtree to visualize data on tree-like structures. Current Protocols in 
-##' Bioinformatics, 2020, 69:e96. <https://doi.org/10.1002/cpbi.96>
-##' 
-##' For more information about tree visualization, please refer to the online book
-##' <https://yulab-smu.top/treedata-book/>
+##' @references `r ggtree:::ggtree_references()`
 ##' @seealso
 ##'  [geom_point][ggplot2::geom_point]; 
 ##'  [geom_rootpoint] add point of root; 
