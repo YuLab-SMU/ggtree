@@ -1,4 +1,4 @@
-# ggtree 2.5.0.993
+# ggtree 2.5.1
 
 + update man file of `geom_rootpoint` (2021-01-08, Fri)
 + `label` and `offset.label` introduced in `geom_treescale` layer (2020-12-23, Wed)

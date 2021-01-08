@@ -4,6 +4,8 @@ PKGSRC  := $(shell basename `pwd`)
 
 all: rd check clean
 
+for-release: rd check-dontrun clean readme
+
 alldocs: rd readme
 
 rd:
@@ -32,6 +34,10 @@ install:
 check: rd build
 	cd ..;\
 	Rscript -e "rcmdcheck::rcmdcheck('$(PKGNAME)_$(PKGVERS).tar.gz')"
+
+check-dontrun: build
+	cd ..;\
+	Rscript -e 'rcmdcheck::rcmdcheck("$(PKGNAME)_$(PKGVERS).tar.gz", args=c("--run-dontrun"))'
 
 check2: rd build
 	cd ..;\
