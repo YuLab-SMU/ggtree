@@ -1,3 +1,8 @@
+# ggtree 2.5.1.9001
+
++ `extendto` argument for `geom_hilight` now compatible with 'inward_circular' and 'dendrogram' layouts (2021-02-25, Thu)
+  - <https://github.com/YuLab-SMU/ggtree/pull/379>
+
 # ggtree 2.5.1
 
 + update man file of `geom_rootpoint` (2021-01-08, Fri)
