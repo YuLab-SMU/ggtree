@@ -103,10 +103,24 @@ GeomHilightRect <- ggproto("GeomHilightRect", Geom,
                            draw_panel = function(self, data, panel_params, coord, linejoin = "mitre") {
                                data$xmax <- data$xmax + data$extend
                                if (!is.null(data$extendto) && !is.na(data$extendto)){
-                                   flag <- data$extendto < data$xmax
-                                   if (any(flag)){
-                                       warning_wrap("extendto is too small for node: ", paste0(data$clade_root_node[flag], collapse="; "),
-                                                    ", keep the original xmax value: ", paste0(data$xmax[flag], collapse="; "), ".")
+                                   # check whether the x of tree is reversed.
+                                   flag1 <- data$xmin < data$xmax
+                                   # check whether extendto is more than xmax 
+                                   flag2 <- data$extendto < data$xmax
+                                   flag <- equals(flag1, flag2)
+                                   if (all(flag1) && any(flag)){
+                                       warning_wrap("extendto ", 
+                                                    paste0(data$extendto[flag], collapse="; "), 
+                                                    ifelse(length(data$extendto[flag])>1, " are", " is"), 
+                                                    " too small for node: ", paste0(data$clade_root_node[flag], collapse="; "),
+                                                    ", keep the original xmax value(s): ", paste0(data$xmax[flag], collapse="; "), ".")
+                                       data$xmax[!flag] <- data$extendto[!flag]
+                                   }else if(!all(flag1) && any(flag)){
+                                       warning_wrap("extendto ", 
+                                                    paste0(data$extendto[flag], collapse="; "), 
+                                                    ifelse(length(data$extendto[flag])>1, " are", " is"),
+                                                    " too big for node: ", paste0(data$clade_root_node[flag], collapse="; "),
+                                                    ", keep the original xmax value(s): ", paste0(data$xmax[flag], collapse="; "), ".")
                                        data$xmax[!flag] <- data$extendto[!flag]
                                    }else{
                                        data$xmax <- data$extendto 
