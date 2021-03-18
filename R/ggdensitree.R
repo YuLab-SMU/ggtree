@@ -71,7 +71,7 @@ ggdensitree <- function(data=NULL, mapping=NULL, layout="slanted", tip.order='mo
 	      . %>%
 	        dplyr::filter(isTip) %>%
 	        dplyr::arrange(y) %>%
-	        `$`("label") %>%
+	        dplyr::pull("label") %>%
 	        match(first.label)
 	    ) %>%
 	      do.call(rbind, .) %>%
