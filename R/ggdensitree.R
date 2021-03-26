@@ -62,15 +62,15 @@ ggdensitree <- function(data=NULL, mapping=NULL, layout="slanted", tip.order='mo
 	if (length(tip.order) == 1) {
 	  if (tip.order == 'mode') {
 	    first.label <- trees.f[[1]] %>%
-	      dplyr::filter(isTip) %>%
-	      dplyr::arrange(y) %>%
-	      dplyr::pull(label)
+	      dplyr::filter(.data$isTip) %>%
+	      dplyr::arrange(.data$y) %>%
+	      dplyr::pull(.data$label)
 
 		  res <- lapply(
 	      trees.f,
 	      . %>%
-	        dplyr::filter(isTip) %>%
-	        dplyr::arrange(y) %>%
+	        dplyr::filter(.data$isTip) %>%
+	        dplyr::arrange(.data$y) %>%
 	        dplyr::pull("label") %>%
 	        match(first.label)
 	    ) %>%
@@ -78,8 +78,8 @@ ggdensitree <- function(data=NULL, mapping=NULL, layout="slanted", tip.order='mo
 	      as.data.frame() %>%
 	      dplyr::group_by_all() %>%
 	      dplyr::summarize(count = dplyr::n(), .groups = 'drop') %>%
-	      dplyr::filter(count == max(count)) %>%
-	      dplyr::select(-count) %>%
+	      dplyr::filter(.data$count == max(.data$count)) %>%
+	      dplyr::select(-.data$count) %>%
 	      dplyr::slice(1) %>%
 	      unlist()
 	    
