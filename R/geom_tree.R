@@ -489,6 +489,7 @@ setup_data_continuous_color_size_tree <- function(df, nsplit = 100, extend = 0.0
                                                 nsplit = nsplit,
                                                 extend = extend)
         df2$node <- df$node[i]
+        # for aes(size=I(variable)) etc.
         if (inhibit.size){
             j <- match(c('x', 'xend', 'y', 'yend', 'col', 'col2', 'colour', 'size1', 'size2'), colnames(df))
             df2$size <- NULL
