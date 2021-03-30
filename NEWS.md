@@ -1,5 +1,7 @@
-# ggtree 2.5.1.9001
+# ggtree 2.5.1.9002
 
++ 'inhibit.size' argument introduced to control whether 'continuous' parameter applies to color or both color and size (2021-03-30, Tue)
+  - <https://github.com/YuLab-SMU/ggtree/pull/385>
 + `extendto` argument for `geom_hilight` now compatible with 'inward_circular' and 'dendrogram' layouts (2021-02-25, Thu)
   - <https://github.com/YuLab-SMU/ggtree/pull/379>
 
