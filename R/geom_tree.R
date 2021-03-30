@@ -13,6 +13,8 @@
 ##' \itemize{
 ##'    \item \code{continuous} logical, whether the aesthethic of `size` or `color` is continuous, default is FALSE.
 ##'    \item \code{nsplit} integer, the number of branch blocks divided when `continuous` is TRUE, default is 200.
+##'    \item \code{inhibit.size} logical, whether inhibit the size when it was mapped to a variable in aesthetic and item \code{continuous} is TRUE,
+##'    default is TRUE, which is useful to 'aes(size=I(variable))'.
 ##' }
 ##' @return tree layer
 ##' @section Aesthetics:
@@ -136,7 +138,7 @@ StatTreeHorizontal <- ggproto("StatTreeHorizontal", Stat,
                               },
                               compute_panel = function(self, data, scales, params, layout, lineend,
                                                        continuous = FALSE, rootnode = TRUE, 
-                                                       nsplit = 100, extend=0.002) {
+                                                       nsplit = 100, extend=0.002, inhibit.size = TRUE) {
                                   .fun <- function(data) {
                                       df <- setup_tree_data(data)
                                       x <- df$x
@@ -157,25 +159,47 @@ StatTreeHorizontal <- ggproto("StatTreeHorizontal", Stat,
                                       }
 
                                       if (continuous) {
+                                          # using ggnewscale new_scale("color") for multiple color scales
+                                          if (length(grep("colour_new", names(df)))==1 && !"colour" %in% names(df)){
+                                              names(df)[grep("colour_new", names(df))] <- "colour"
+                                          }
                                           if (!is.null(df$colour)){
+                                              if (any(is.na(df$colour))){
+                                                  df$colour[is.na(df$colour)] <- 0
+                                              }
                                               df$col2 <- df$colour
                                               df$col <- df$col2[ii]
                                           }
+                                          # using ggnewscale new_scale("size") for multiple size scales
+                                          if (length(grep("size_new", names(df)))==1 && !"size" %in% names(df)){
+                                              names(df)[grep("size_new", names(df))] <- "size"
+                                          }
                                           if (!is.null(df$size)){
+                                              if (any(is.na(df$size))){
+                                                  df$size[is.na(df$size)] <- 0
+                                              }
                                               df$size2 <- df$size
                                               df$size1 <- df$size2[ii]
                                           }
-                                          setup_data_continuous_color_size_tree(df, nsplit = nsplit, extend = extend)
+                                          setup_data_continuous_color_size_tree(df, nsplit = nsplit, extend = extend, inhibit.size = inhibit.size)
                                       } else {
                                           return(df)
                                       }
                                   }
-                                  
+
                                   if ('.id' %in% names(data)) {
                                       ldf <- split(data, data$.id)
                                       df <- do.call(rbind, lapply(ldf, .fun))
                                   } else {
                                       df <- .fun(data)
+                                  }
+
+                                  # using ggnewscale new_scale for multiple color or size scales
+                                  if (length(grep("colour_new", names(data)))==1 && continuous){
+                                      names(df)[match("colour", names(df))] <- names(data)[grep("colour_new", names(data))] 
+                                  }
+                                  if (length(grep("size_new", names(data)))==1 && continuous){
+                                      names(df)[match("size", names(df))] <- names(data)[grep("size_new", names(data))]
                                   }
                                   return(df)
                               }
@@ -189,7 +213,7 @@ StatTreeVertical <- ggproto("StatTreeVertical", Stat,
                             },
                             compute_panel = function(self, data, scales, params, layout, lineend,
                                                      continuous = FALSE, nsplit=100, 
-                                                     extend=0.002, rootnode = TRUE) {
+                                                     extend=0.002, rootnode = TRUE, inhibit.size = TRUE) {
                                 .fun <- function(data) {
                                     df <- setup_tree_data(data)
                                     x <- df$x
@@ -205,21 +229,43 @@ StatTreeVertical <- ggproto("StatTreeVertical", Stat,
                                     }
 
                                     if (continuous){
+                                        # using ggnewscale new_scale("color") for multiple color scales
+                                        if (length(grep("colour_new", names(df)))==1 && !"colour" %in% names(df)){
+                                            names(df)[grep("colour_new", names(df))] <- "colour"
+                                        }
                                         if (!is.null(df$colour)){
+                                            if (any(is.na(df$colour))){
+                                                df$colour[is.na(df$colour)] <- 0
+                                            }
                                             df$colour <- df$colour[ii]
                                         }
+                                        # using ggnewscale new_scale("size") for multiple size scales
+                                        if (length(grep("size_new", names(df)))==1 && !"size" %in% names(df)){
+                                            names(df)[grep("size_new", names(df))] <- "size"
+                                        }
                                         if (!is.null(df$size)){
+                                            if (any(is.na(df$size))){
+                                                df$size[is.na(df$size)] <- 0
+                                            }
                                             df$size <- df$size[ii]
                                         }
                                     }
                                     return(df)
                                 }
-
+                                
                                 if ('.id' %in% names(data)) {
                                     ldf <- split(data, data$.id)
                                     df <- do.call(rbind, lapply(ldf, .fun))
                                 } else {
                                     df <- .fun(data)
+                                }
+                                
+                                # using ggnewscale new_scale for multiple color or size scales
+                                if (length(grep("colour_new", names(data)))==1 && continuous){
+                                    names(df)[match("colour", names(df))] <- names(data)[grep("colour_new", names(data))]
+                                }
+                                if (length(grep("size_new", names(data)))==1 && continuous){
+                                    names(df)[match("size", names(df))] <- names(data)[grep("size_new", names(data))]
                                 }
                                 return(df)
                             }
@@ -234,7 +280,7 @@ StatTree <- ggproto("StatTree", Stat,
                     },
                     compute_panel = function(self, data, scales, params, layout, lineend,
                                              continuous =  FALSE, nsplit = 100, 
-                                             extend = 0.002, rootnode = TRUE) {
+                                             extend = 0.002, rootnode = TRUE, inhibit.size = TRUE) {
                         .fun <- function(data) {
                             df <- setup_tree_data(data)
                             x <- df$x
@@ -250,15 +296,29 @@ StatTree <- ggproto("StatTree", Stat,
                             }
 
                             if (continuous) {
+                                # using ggnewscale new_scale("color") for multiple color scales
+                                if (length(grep("colour_new", names(df)))==1 && !"colour" %in% names(df)){
+                                    names(df)[grep("colour_new", names(df))] <- "colour"
+                                }
                                 if (!is.null(df$colour)){
+                                    if (any(is.na(df$colour))){
+                                        df$colour[is.na(df$colour)] <- 0
+                                    }
                                     df$col2 <- df$colour
                                     df$col <- df$col2[ii]
                                 }
+                                # using ggnewscale new_scale("size") for multiple size scales
+                                if (length(grep("size_new", names(df)))==1 && !"size" %in% names(df)){
+                                    names(df)[grep("size_new", names(df))] <- "size"
+                                }
                                 if (!is.null(df$size)){
+                                    if (any(is.na(df$size))){
+                                        df$size[is.na(df$size)] <- 0
+                                    }
                                     df$size2 <- df$size
                                     df$size1 <- df$size2[ii]
                                 }
-                                setup_data_continuous_color_size_tree(df, nsplit = nsplit, extend = extend)
+                                setup_data_continuous_color_size_tree(df, nsplit = nsplit, extend = extend, inhibit.size = inhibit.size)
                             } else{
                                 return(df)
                             }
@@ -269,6 +329,15 @@ StatTree <- ggproto("StatTree", Stat,
                         } else {
                             df <- .fun(data)
                         }
+                        
+                        # using ggnewscale new_scale for multiple color or size scales
+                        if (length(grep("colour_new", names(data)))==1 && continuous){
+                            names(df)[match("colour", names(df))] <- names(data)[grep("colour_new", names(data))]
+                        }
+                        if (length(grep("size_new", names(data)))==1 && continuous){
+                            names(df)[match("size", names(df))] <- names(data)[grep("size_new", names(data))]
+                        }
+
                         return(df)
                     }
                     )
@@ -283,7 +352,7 @@ StatTreeEllipse <- ggproto("StatTreeEllipse", Stat,
                                                     continuous = FALSE, nsplit = 100, 
                                                     extend = 0.002, rootnode = TRUE){
                                if (continuous){
-                                   stop("continuous is not implemented for roundrect or ellipse layout")
+                                   stop("continuous colour or size are not implemented for roundrect or ellipse layout")
                                }
                                df <- StatTree$compute_panel(data = data, scales = scales, 
                                                             params = params, layout = layout, lineend = lineend,
@@ -406,7 +475,7 @@ setup_data_continuous_color_size <- function(x, xend, y, yend, col, col2, size1,
     return(dat)
 }
 
-setup_data_continuous_color_size_tree <- function(df, nsplit = 100, extend = 0.002) {
+setup_data_continuous_color_size_tree <- function(df, nsplit = 100, extend = 0.002, inhibit.size=TRUE) {
     lapply(1:nrow(df), function(i) {
         df2 <- setup_data_continuous_color_size(x = df$x[i],
                                                 xend = df$xend[i],
@@ -420,8 +489,13 @@ setup_data_continuous_color_size_tree <- function(df, nsplit = 100, extend = 0.0
                                                 nsplit = nsplit,
                                                 extend = extend)
         df2$node <- df$node[i]
-        
-        j <- match(c('x', 'xend', 'y', 'yend', 'col', 'col2', 'colour', 'size1', 'size2', 'size'), colnames(df))
+        # for aes(size=I(variable)) etc.
+        if (inhibit.size){
+            j <- match(c('x', 'xend', 'y', 'yend', 'col', 'col2', 'colour', 'size1', 'size2'), colnames(df))
+            df2$size <- NULL
+        }else{
+            j <- match(c('x', 'xend', 'y', 'yend', 'col', 'col2', 'colour', 'size1', 'size2', 'size'), colnames(df))
+        }
         j <- j[!is.na(j)]
         merge(df[i, -j, drop = FALSE], df2, by = "node")
     }) %>% do.call('rbind', .)
