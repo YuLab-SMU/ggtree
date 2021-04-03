@@ -26,9 +26,9 @@ geom_tree(
 
 some dot arguments:
 \itemize{
-\item \code{continuous} logical, whether the aesthethic of \code{size} or \code{color} is continuous, default is FALSE.
-\item \code{nsplit} integer, the number of branch blocks divided when \code{continuous} is TRUE, default is 200.
-\item \code{inhibit.size} logical, whether inhibit the size when it was mapped to a variable in aesthetic and item \code{continuous} is TRUE,
+\item \code{continuous} a character, which the aesthethic (\code{size} or \code{colour}) will be continuous. It
+should be one of 'color', 'size', 'all' and 'NULL', default is NULL.
+\item \code{nsplit} integer, the number of branch blocks divided when \code{continuous} is not NULL, default is 200.
 default is TRUE, which is useful to 'aes(size=I(variable))'.
 }}
 }
