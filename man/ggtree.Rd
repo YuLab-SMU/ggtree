@@ -58,10 +58,9 @@ right-hand side? See \code{\link[ape:ladderize]{ape::ladderize()}} for more info
 
 some dot arguments:
 \itemize{
-\item \code{continuous} a character, which the aesthethic (\code{size} or \code{colour}) will be continuous. It
-should be one of 'color', 'size', 'all' and 'NULL', default is NULL.
-\item \code{nsplit} integer, the number of branch blocks divided when \code{continuous} is not NULL, default is 200.
-default is TRUE, which is useful to 'aes(size=I(variable))'.
+\item \code{continuous} a character, which the aesthethic ('size' or 'color'('colour')) will be continuous. It
+should be one of 'color' (or 'colour'), 'size', 'all' and 'none', default is 'none'.
+\item \code{nsplit} integer, the number of branch blocks divided when 'continuous' is not "none", default is 200.
 }}
 }
 \value{
