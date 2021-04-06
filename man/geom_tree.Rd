@@ -26,10 +26,9 @@ geom_tree(
 
 some dot arguments:
 \itemize{
-\item \code{continuous} a character, which the aesthethic (\code{size} or \code{colour}) will be continuous. It
-should be one of 'color', 'size', 'all' and 'NULL', default is NULL.
-\item \code{nsplit} integer, the number of branch blocks divided when \code{continuous} is not NULL, default is 200.
-default is TRUE, which is useful to 'aes(size=I(variable))'.
+\item \code{continuous} a character, which the aesthethic ('size' or 'color'('colour')) will be continuous. It
+should be one of 'color' (or 'colour'), 'size', 'all' and 'none', default is 'none'.
+\item \code{nsplit} integer, the number of branch blocks divided when 'continuous' is not "none", default is 200.
 }}
 }
 \value{
@@ -42,9 +41,9 @@ add tree layer
 
 \code{geom_tree()} understands the following aesthethics:
 \itemize{
-\item \code{colour} logical, control the color of line, default is black.
+\item \code{color} character, control the color of line, default is black (\code{continuous} is "none").
 \item \code{linetype} control the type of line, default is 1 (solid).
-\item \code{size} numeric, control the width of line, default is 0.5.
+\item \code{size} numeric, control the width of line, default is 0.5 (\code{continuous} is "none").
 }
 }
 
