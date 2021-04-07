@@ -27,7 +27,7 @@
 ##' @importFrom ggplot2 coord_polar
 ##' @export
 ##' @author Yu Guangchuang
-##' @seealso [ape::ladderize()]
+##' @seealso [geom_tree()]
 ##' @references 1. G Yu, TTY Lam, H Zhu, Y Guan (2018). Two methods for mapping and visualizing associated data
 ##' on phylogeny using ggtree. Molecular Biology and Evolution, 35(2):3041-3043.
 ##' <https://doi.org/10.1093/molbev/msy194>

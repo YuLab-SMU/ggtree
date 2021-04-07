@@ -58,10 +58,7 @@ right-hand side? See \code{\link[ape:ladderize]{ape::ladderize()}} for more info
 
 some dot arguments:
 \itemize{
-\item \code{continuous} logical, whether the aesthethic of \code{size} or \code{color} is continuous, default is FALSE.
-\item \code{nsplit} integer, the number of branch blocks divided when \code{continuous} is TRUE, default is 200.
-\item \code{inhibit.size} logical, whether inhibit the size when it was mapped to a variable in aesthetic and item \code{continuous} is TRUE,
-default is TRUE, which is useful to 'aes(size=I(variable))'.
+\item \code{nsplit} integer, the number of branch blocks divided when 'continuous' is not "none", default is 200.
 }}
 }
 \value{
@@ -92,7 +89,7 @@ other associated data. Methods in Ecology and Evolution, 8(1):28-36.
 }
 }
 \seealso{
-\code{\link[ape:ladderize]{ape::ladderize()}}
+\code{\link[=geom_tree]{geom_tree()}}
 }
 \author{
 Yu Guangchuang

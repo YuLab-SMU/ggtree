@@ -9,6 +9,7 @@ geom_tree(
   data = NULL,
   layout = "rectangular",
   multiPhylo = FALSE,
+  continuous = "none",
   ...
 )
 }
@@ -22,14 +23,15 @@ geom_tree(
 
 \item{multiPhylo}{logical, whether input data contains multiple phylo class.}
 
+\item{continuous}{character, continuous transition for selected aesthethic ('size'
+or 'color'('colour')). It should be one of 'color' (or 'colour'), 'size', 'all'
+and 'none', default is 'none'}
+
 \item{...}{additional parameter
 
 some dot arguments:
 \itemize{
-\item \code{continuous} logical, whether the aesthethic of \code{size} or \code{color} is continuous, default is FALSE.
-\item \code{nsplit} integer, the number of branch blocks divided when \code{continuous} is TRUE, default is 200.
-\item \code{inhibit.size} logical, whether inhibit the size when it was mapped to a variable in aesthetic and item \code{continuous} is TRUE,
-default is TRUE, which is useful to 'aes(size=I(variable))'.
+\item \code{nsplit} integer, the number of branch blocks divided when 'continuous' is not "none", default is 200.
 }}
 }
 \value{
@@ -42,9 +44,9 @@ add tree layer
 
 \code{geom_tree()} understands the following aesthethics:
 \itemize{
-\item \code{colour} logical, control the color of line, default is black.
+\item \code{color} character, control the color of line, default is black (\code{continuous} is "none").
 \item \code{linetype} control the type of line, default is 1 (solid).
-\item \code{size} numeric, control the width of line, default is 0.5.
+\item \code{size} numeric, control the width of line, default is 0.5 (\code{continuous} is "none").
 }
 }
 
