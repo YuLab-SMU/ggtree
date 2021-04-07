@@ -7,12 +7,13 @@
 ##' @param layout one of 'rectangular', 'dendrogram', 'slanted', 'ellipse', 'roundrect',
 ##' 'fan', 'circular', 'inward_circular', 'radial', 'equal_angle', 'daylight' or 'ape'
 ##' @param multiPhylo logical, whether input data contains multiple phylo class.
+##' @param continuous character, continuous transition for selected aesthethic ('size' 
+##' or 'color'('colour')). It should be one of 'color' (or 'colour'), 'size', 'all' 
+##' and 'none', default is 'none'
 ##' @param ... additional parameter
-##' 
+##'
 ##' some dot arguments:
 ##' \itemize{
-##'    \item \code{continuous} character, continuous transition for selected aesthethic ('size' or 'color'('colour')). It 
-##'     should be one of 'color' (or 'colour'), 'size', 'all' and 'none', default is 'none'.
 ##'    \item \code{nsplit} integer, the number of branch blocks divided when 'continuous' is not "none", default is 200.
 ##' }
 ##' @return tree layer
@@ -27,16 +28,28 @@
 ##' @importFrom ggplot2 aes
 ##' @export
 ##' @author Yu Guangchuang
-geom_tree <- function(mapping=NULL, data=NULL, layout="rectangular", multiPhylo=FALSE, ...) {
+geom_tree <- function(mapping=NULL, data=NULL, layout="rectangular", multiPhylo=FALSE, continuous="none", ...) {
+    if (is.logical(continuous)){
+        warning_wrap('The type of "continuous" argument was changed (v>=2.5.2). Now, 
+                     it should be one of "color" (or "colour"), "size", "all", and "none".')
+        ifelse(continuous,
+               warning_wrap('It was set to TRUE, it should be replaced with "color" (or "colour"), 
+                            this meaning the aesthethic of "color" (or "colour") is continuous.'),
+               warning_wrap('It was set to FALSE, it should be replaced with "none", 
+                            this meaning the aesthethic of "color" (or "colour") or "size" will not be continuous.')
+        )
+        continuous <- ifelse(continuous, "color", "none")
+    }
+    continuous <- match.arg(continuous, c("color", "colour", "size", "none", "all"))
     stat_tree(data=data, mapping=mapping, geom="segment",
-              layout=layout, multiPhylo=multiPhylo, ...)
+              layout=layout, multiPhylo=multiPhylo, continuous=continuous, ...)
 }
 
 
 stat_tree <- function(mapping=NULL, data=NULL, geom="segment", position="identity",
                       layout="rectangular", multiPhylo=FALSE, lineend="round", MAX_COUNT=5,
                       ..., arrow=NULL, rootnode=TRUE, show.legend=NA, inherit.aes=TRUE,
-                      na.rm=TRUE, check.param=TRUE) {
+                      na.rm=TRUE, check.param=TRUE, continuous="none") {
 
     default_aes <- aes_(x=~x, y=~y,node=~node, parent=~parent)
     if (multiPhylo) {
@@ -67,6 +80,7 @@ stat_tree <- function(mapping=NULL, data=NULL, geom="segment", position="identit
                                na.rm = na.rm,
                                arrow = arrow,
                                rootnode = rootnode,
+                               continuous = continuous,
                                ...),
                    check.aes = FALSE
                    ),
@@ -82,6 +96,7 @@ stat_tree <- function(mapping=NULL, data=NULL, geom="segment", position="identit
                                na.rm = na.rm,
                                ## arrow = arrow,
                                rootnode = rootnode,
+                               continuous = continuous,
                                ...),
                    check.aes = FALSE
                    )
@@ -99,6 +114,7 @@ stat_tree <- function(mapping=NULL, data=NULL, geom="segment", position="identit
                           na.rm = na.rm,
                           arrow = arrow,
                           rootnode = rootnode,
+                          continuous = continuous,
                           ...),
               check.aes = FALSE
               )
@@ -116,6 +132,7 @@ stat_tree <- function(mapping=NULL, data=NULL, geom="segment", position="identit
                           na.rm = na.rm,
                           arrow = arrow,
                           rootnode = rootnode,
+                          continuous = continuous,
                           ...),
               check.aes=FALSE
               )
@@ -156,15 +173,6 @@ StatTreeHorizontal <- ggproto("StatTreeHorizontal", Stat,
 
                                           df <- dplyr::filter(df, .data$node != tidytree:::rootnode.tbl_tree(df)$node)
                                       }
-                                      if (is.logical(continuous)){
-                                          warning_wrap('The continuous argument type was changed (v>=2.5.2). Now, it should be one of "color"(or "colour"), "size", "all", and "none".')
-                                          ifelse(continuous, 
-                                                 warning_wrap('It was set to TRUE, it should be replaced with "color"(or "colour"), this meaning the aesthethic of "color"(or "colour") is continuous.'),
-                                                 warning_wrap('It was set to FALSE, it should be replaced with "none", this meaning the aesthethic of "color"(or "colour") or "size" will not be continuous.')
-                                          )
-                                          continuous <- ifelse(continuous, "color", "none")
-                                      }
-                                      continuous <- match.arg(continuous, c("color", "colour", "size", "none", "all"))
                                       if (continuous != "none") {
                                           # using ggnewscale new_scale("color") for multiple color scales
                                           if (length(grep("colour_new", names(df)))==1 && !"colour" %in% names(df)){
@@ -233,10 +241,6 @@ StatTreeVertical <- ggproto("StatTreeVertical", Stat,
                                         df <- dplyr::filter(df, .data$node != rootnode.tbl_tree(df)$node)
                                     }
 
-                                    if (is.logical(continuous)){
-                                        continuous <- ifelse(continuous, "color", "none")
-                                    }
-
                                     if (continuous != "none"){
                                         # using ggnewscale new_scale("color") for multiple color scales
                                         if (length(grep("colour_new", names(df)))==1 && !"colour" %in% names(df)){
@@ -303,15 +307,6 @@ StatTree <- ggproto("StatTree", Stat,
                             if (!rootnode) {
                                 df <- dplyr::filter(df, .data$node != rootnode.tbl_tree(df)$node)
                             }
-                            if (is.logical(continuous)){
-                                warning_wrap('The continuous argument type was changed (v>=2.5.2). Now, it should be one of "color" (or "colour"), "size", "all", and "none".')
-                                ifelse(continuous, 
-                                       warning_wrap('It was set to TRUE, it should be replaced with "color" (or "colour"), this meaning the aesthethic of "color" (or "colour") is continuous.'),
-                                       warning_wrap('It was set to FALSE, it should be replaced with "none", this meaning the aesthethic of "color" (or "colour") or "size" will not be continuous.')
-                                )
-                                continuous <- ifelse(continuous, "color", "none")
-                            }
-                            continuous <- match.arg(continuous, c("color", "colour", "size", "none", "all"))
                             if (continuous != "none") {
                                 # using ggnewscale new_scale("color") for multiple color scales
                                 if (length(grep("colour_new", names(df)))==1 && !"colour" %in% names(df)){

@@ -9,6 +9,7 @@ geom_tree(
   data = NULL,
   layout = "rectangular",
   multiPhylo = FALSE,
+  continuous = "none",
   ...
 )
 }
@@ -22,12 +23,14 @@ geom_tree(
 
 \item{multiPhylo}{logical, whether input data contains multiple phylo class.}
 
+\item{continuous}{character, continuous transition for selected aesthethic ('size'
+or 'color'('colour')). It should be one of 'color' (or 'colour'), 'size', 'all'
+and 'none', default is 'none'}
+
 \item{...}{additional parameter
 
 some dot arguments:
 \itemize{
-\item \code{continuous} a character, which the aesthethic ('size' or 'color'('colour')) will be continuous. It
-should be one of 'color' (or 'colour'), 'size', 'all' and 'none', default is 'none'.
 \item \code{nsplit} integer, the number of branch blocks divided when 'continuous' is not "none", default is 200.
 }}
 }

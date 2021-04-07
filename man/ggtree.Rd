@@ -58,8 +58,6 @@ right-hand side? See \code{\link[ape:ladderize]{ape::ladderize()}} for more info
 
 some dot arguments:
 \itemize{
-\item \code{continuous} a character, which the aesthethic ('size' or 'color'('colour')) will be continuous. It
-should be one of 'color' (or 'colour'), 'size', 'all' and 'none', default is 'none'.
 \item \code{nsplit} integer, the number of branch blocks divided when 'continuous' is not "none", default is 200.
 }}
 }
@@ -91,7 +89,7 @@ other associated data. Methods in Ecology and Evolution, 8(1):28-36.
 }
 }
 \seealso{
-\code{\link[ape:ladderize]{ape::ladderize()}}
+\code{\link[=geom_tree]{geom_tree()}}
 }
 \author{
 Yu Guangchuang
