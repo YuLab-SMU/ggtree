@@ -11,7 +11,7 @@
 ##' 
 ##' some dot arguments:
 ##' \itemize{
-##'    \item \code{continuous} a character, which the aesthethic ('size' or 'color'('colour')) will be continuous. It 
+##'    \item \code{continuous} character, continuous transition for selected aesthethic ('size' or 'color'('colour')). It 
 ##'     should be one of 'color' (or 'colour'), 'size', 'all' and 'none', default is 'none'.
 ##'    \item \code{nsplit} integer, the number of branch blocks divided when 'continuous' is not "none", default is 200.
 ##' }
