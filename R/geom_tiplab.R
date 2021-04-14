@@ -11,6 +11,74 @@
 ##' @param geom one of 'text', 'label', 'shadowtext', 'image' and 'phylopic'
 ##' @param as_ylab display tip labels as y-axis label, only works for rectangular and dendrogram layouts
 ##' @param ... additional parameter
+##'
+##' additional parameters can refer the following parameters. 
+##'
+##' The following parameters for geom="text".
+##' \itemize{
+##'     \item \code{size} control the size of tip labels, default is 3.88.
+##'     \item \code{colour} control the colour of tip labels, default is "black".
+##'     \item \code{angle} control the angle of tip labels, default is 0.
+##'     \item \code{vjust} A numeric vector specifying vertical justification, default is 0.5.
+##'     \item \code{alpha} the transparency of text, default is NA.
+##'     \item \code{family} the family of text, default is 'sans'.
+##'     \item \code{fontface} the font face of text, default is 1 (plain), others are 
+##'      2 (bold), 3 (italic), 4 (bold.italic).
+##'     \item \code{lineheight} The height of a line as a multiple of the size of text, default is 1.2 .
+##'     \item \code{nudge_x} horizontal adjustment, default is 0.
+##'     \item \code{nudge_y}  vertical adjustment, default is 0.
+##'     \item \code{check.overlap} if TRUE, text that overlaps previous text in the same layer 
+##'      will not be plotted.
+##'     \item \code{parse} if TRUE, the labels will be parsed into expressions, if it is 'emoji', the labels
+##'      will be parsed into emojifont.
+##' }
+##'
+##' The following parameters for geom="label".
+##' \itemize{
+##'     \item \code{size} the size of tip labels, default is 3.88.
+##'     \item \code{colour} the colour of tip labels, default is "black".
+##'     \item \code{fill} the colour of rectangular box of labels, default is "white".
+##'     \item \code{vjust} numeric vector specifying vertical justification, default is 0.5.
+##'     \item \code{alpha} the transparency of labels, default is NA.
+##'     \item \code{family} the family of text, default is 'sans'.
+##'     \item \code{fontface} the font face of text, default is 1 (plain), others are
+##'     2 (bold), 3 (italic), 4 (bold.italic).
+##'     \item \code{lineheight} The height of a line as a multiple of the size of text, default is 1.2.
+##'     \item \code{nudge_x} horizontal adjustment, default is 0.
+##'     \item \code{nudge_y}  vertical adjustment, default is 0.
+##'     \item \code{check.overlap} if TRUE, text that overlaps previous text in the same layer
+##'      will not be plotted.
+##'     \item \code{parse} if TRUE, the labels will be parsed into expressions, if it is 'emoji', the labels
+##'      will be parsed into emojifont.
+##'     \item \code{label.padding} Amount of padding around label, default is 'unit(0.25, "lines")'.
+##'     \item \code{label.r} Radius of rounded corners, default is 'unit(0.15, "lines")'.
+##'     \item \code{label.size} Size of label border, in mm, default is 0.25.
+##' }
+##'
+##' The following parameters for geom="shadowtext", some parameters are like to geom="text".
+##' \itemize{
+##'     \item \code{bg.colour} the background colour of text, default is "black".
+##'     \item \code{bg.r} the width of background of text, default is 0.1 .
+##' }
+##'
+##' The following parameters for geom="image" or geom="phylopic".
+##' \itemize{
+##'     \item \code{image} the image file path for geom='image', but when geom='phylopic',
+##'      it should be the uid of phylopic databases.
+##'     \item \code{size} the image size, default is 0.05.
+##'     \item \code{colour} the color of image, default is NULL.
+##'     \item \code{alpha} the transparency of image, default is 0.8.
+##' }
+##'
+##' The following parameters for the line when align = TRUE.
+##' \itemize{
+##'     \item \code{colour} the colour of line, default is 'black'.
+##'     \item \code{alpha} the transparency of line, default is NA.
+##'     \item \code{arrow} specification for arrow heads, 
+##'     as created by arrow(), default is NULL.
+##'     \item \code{arrow.fill} fill color to usse for the arrow head (if closed), 
+##'     default is 'NULL', meaning use 'colour' aesthetic.
+##' }
 ##' @return tip label layer
 ##' @importFrom ggplot2 geom_text
 ##' @importFrom utils modifyList
@@ -50,6 +118,7 @@ geom_tiplab_as_ylab <- function(hjust = 0, position = "right", ...) {
 geom_tiplab_rectangular <- function(mapping=NULL, hjust = 0,  align = FALSE, 
                                     linetype = "dotted", linesize=0.5, geom="text",  
                                     offset=0, family = "", fontface = "plain", ...) {
+    params <- list(...)
     geom <- match.arg(geom, c("text", "label", "shadowtext", "image", "phylopic"))
     if (geom == "text") {
         label_geom <- geom_text2
@@ -73,14 +142,27 @@ geom_tiplab_rectangular <- function(mapping=NULL, hjust = 0,  align = FALSE,
         self_mapping <- aes(x = x + diff(range(x, na.rm=TRUE))/200, y= y,
                             label = label, node = node, subset = isTip)
     }
-
+    if ("nodelab" %in% names(params) && params[["nodelab"]]){
+        # for node label
+        subset <- aes_string(subset="!isTip")
+    }else{
+        # for tip label
+        subset <- aes_string(subset="isTip")
+    }
+    self_mapping <- modifyList(self_mapping, subset)
     if (is.null(mapping)) {
         text_mapping <- self_mapping
     } else {
+        if (!is.null(mapping$subset)){
+            newsubset <- aes_string(subset=paste0(as.expression(get_aes_var(mapping, "subset")), 
+                                                  '&', 
+                                                  as.expression(get_aes_var(subset, "subset")))
+                                    )
+            self_mapping <- modifyList(self_mapping, newsubset)
+            mapping$subset <- NULL
+        }
         text_mapping <- modifyList(self_mapping, mapping)
     }
-
-
     show_segment <- FALSE
     if (align && (!is.na(linetype) && !is.null(linetype))) {
         show_segment <- TRUE
@@ -93,20 +175,29 @@ geom_tiplab_rectangular <- function(mapping=NULL, hjust = 0,  align = FALSE,
         if (!is.null(mapping))
             segment_mapping <- modifyList(segment_mapping, mapping)
     }
-
+    params[["nodelab"]] <- NULL
+    imageparams <- list(mapping=text_mapping, hjust = hjust, nudge_x = offset, stat = StatTreeData)
+    imageparams <- extract_params(imageparams, params, c("size", "alpha", "color", "colour", "image", 
+                                                         "angle", "nudge_x", "inherit.aes", "by", "show.legend",
+                                                         "image_fun", ".fun", "asp", "nudge_y", "height", "na.rm")) 
+    labelparams <- list(mapping=text_mapping, hjust = hjust, nudge_x = offset, stat = StatTreeData, family = family, fontface = fontface)
+    labelparams <- extract_params(labelparams, params, 
+                                  c("size", "alpha", "vjust", "color", "colour", "angle", "alpha", 
+                                    "lineheight", "fill", "nudge_x", "nudge_y", "show.legend", "check_overlap",
+                                    "parse", "inherit.aes", "na.rm", "label.r", "label.size", "label.padding",
+                                    "bg.colour", "bg.r"))
     list(
-        if (show_segment)
-            geom_segment2(mapping = segment_mapping,
-                          linetype = linetype, nudge_x = offset,
-                          size = linesize, stat = StatTreeData, ...)
+        if (show_segment){
+            lineparams <- list(mapping = segment_mapping, linetype=linetype, nudge_x = offset, size = linesize, stat = StatTreeData)
+            lineparams <- extract_params(lineparams, params, c("colour", "alpha", "show.legend",  "na.rm",
+                                                               "inherit.aes", "arrow", "arrow.fill", "lineend")) 
+            do.call("geom_segment2", lineparams)
+        }
        ,
         if (geom %in% c("image", "phylopic")) {
-            label_geom(mapping=text_mapping,
-                       hjust = hjust, nudge_x = offset, stat = StatTreeData, ...)            
+            do.call("label_geom", imageparams)
         } else {
-            label_geom(mapping=text_mapping,
-                       hjust = hjust, nudge_x = offset, stat = StatTreeData, 
-                       family = family, fontface = fontface, ...)
+            do.call("label_geom", labelparams)
         }
     )
 }
@@ -126,15 +217,17 @@ geom_tiplab_rectangular <- function(mapping=NULL, hjust = 0,  align = FALSE,
 ##' @seealso [geom_tiplab]
 geom_tiplab2 <- function(mapping=NULL, hjust=0, ...) {
     params <- list(...)
-    if ("nodelab" %in% names(params) && params[["nodelab"]]){
-        # for geom_nodelab
-        subset1 <- "(!isTip & (angle < 90 | angle > 270))"
-        subset2 <- "(!isTip & (angle >= 90 & angle <= 270))"
-    }else{
-        # for geom_tiplab
-        subset1 <- "(isTip & (angle < 90 | angle > 270))"
-        subset2 <- "(isTip & (angle >= 90 & angle <=270))"
-    }
+    #if ("nodelab" %in% names(params) && params[["nodelab"]]){
+    #    # for geom_nodelab
+    #    subset1 <- "(!isTip & (angle < 90 | angle > 270))"
+    #    subset2 <- "(!isTip & (angle >= 90 & angle <= 270))"
+    #}else{
+    #    # for geom_tiplab
+    #    subset1 <- "(isTip & (angle < 90 | angle > 270))"
+    #    subset2 <- "(isTip & (angle >= 90 & angle <=270))"
+    #}
+    subset1 <- "(angle < 90 | angle > 270)"
+    subset2 <- "(angle >= 90 & angle <=270)"
     m1 <- aes_string(subset=subset1, angle="angle", node = "node")
     m2 <- aes_string(subset=subset2, angle="angle+180", node = "node")
 
@@ -148,7 +241,7 @@ geom_tiplab2 <- function(mapping=NULL, hjust=0, ...) {
         m1 <- modifyList(mapping, m1)
         m2 <- modifyList(mapping, m2)
     }
-    params[["nodelab"]] <- NULL
+    #params[["nodelab"]] <- NULL
     params1 <- params2 <- params
     params1[["mapping"]] <- m1
     params1[["hjust"]] <- hjust
@@ -195,3 +288,13 @@ label_pad <- function(label, justify = "right", pad = "\u00B7") {
     paste0(y, label)
 }
 
+
+extract_params <- function(originparam, inputparam, defaultparam){
+    if (any(defaultparam %in% names(inputparam))){
+        args <- intersect(defaultparam, names(inputparam))
+        originparam <- c(originparam, inputparam[names(inputparam) %in% args])
+    }
+    
+    return (originparam)
+
+}
