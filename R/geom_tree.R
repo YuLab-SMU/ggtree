@@ -363,7 +363,7 @@ StatTreeEllipse <- ggproto("StatTreeEllipse", Stat,
                            compute_panel = function(self, data, scales, params, layout, lineend, 
                                                     continuous = "none", nsplit = 100, 
                                                     extend = 0.002, rootnode = TRUE){
-                               if (continuous !="none" || continuous){
+                               if (continuous !="none"){
                                    stop("continuous colour or size are not implemented for roundrect or ellipse layout")
                                }
                                df <- StatTree$compute_panel(data = data, scales = scales, 
