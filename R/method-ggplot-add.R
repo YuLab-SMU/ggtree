@@ -218,7 +218,7 @@ ggplot_add.tiplab <- function(object, plot, object_name) {
         layout == "inward_circular") {
         ly <- do.call(geom_tiplab_circular, object)
     } else {
-        object$nodelab <- NULL
+        #object$nodelab <- NULL
         ly <- do.call(geom_tiplab_rectangular, object)
     }
     ggplot_add(ly, plot, object_name)

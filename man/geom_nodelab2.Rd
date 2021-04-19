@@ -20,11 +20,12 @@ geom_nodelab2(
 
 \item{nudge_y}{vertical adjustment to nudge label}
 
-\item{geom}{one of 'text', 'label', 'image' and 'phylopic'}
+\item{geom}{one of 'text', "shadowtext", 'label', 'image' and 'phylopic'}
 
 \item{hjust}{horizontal alignment, one of 0, 0.5 or 1}
 
-\item{...}{additional parameters}
+\item{...}{additional parameters, see also
+the additional parameters of \code{\link[=geom_tiplab]{geom_tiplab()}}.}
 }
 \value{
 node label layer
