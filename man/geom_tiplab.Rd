@@ -29,7 +29,8 @@ geom_tiplab(
 
 \item{geom}{one of 'text', 'label', 'shadowtext', 'image' and 'phylopic'}
 
-\item{offset}{tiplab offset}
+\item{offset}{tiplab offset, horizontal
+adjustment to nudge tip labels, default is 0.}
 
 \item{as_ylab}{display tip labels as y-axis label, only works for rectangular and dendrogram layouts}
 
@@ -48,8 +49,8 @@ The following parameters for geom="text".
 \item \code{fontface} the font face of text, default is 1 (plain), others are
 2 (bold), 3 (italic), 4 (bold.italic).
 \item \code{lineheight} The height of a line as a multiple of the size of text, default is 1.2 .
-\item \code{nudge_x} horizontal adjustment, default is 0.
-\item \code{nudge_y}  vertical adjustment, default is 0.
+\item \code{nudge_x} horizontal adjustment to nudge labels, default is 0.
+\item \code{nudge_y}  vertical adjustment to nudge labels, default is 0.
 \item \code{check.overlap} if TRUE, text that overlaps previous text in the same layer
 will not be plotted.
 \item \code{parse} if TRUE, the labels will be parsed into expressions, if it is 'emoji', the labels
@@ -67,7 +68,7 @@ The following parameters for geom="label".
 \item \code{fontface} the font face of text, default is 1 (plain), others are
 2 (bold), 3 (italic), 4 (bold.italic).
 \item \code{lineheight} The height of a line as a multiple of the size of text, default is 1.2.
-\item \code{nudge_x} horizontal adjustment, default is 0.
+\item \code{nudge_x} horizontal adjustment to nudge labels, default is 0.
 \item \code{nudge_y}  vertical adjustment, default is 0.
 \item \code{check.overlap} if TRUE, text that overlaps previous text in the same layer
 will not be plotted.

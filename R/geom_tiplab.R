@@ -4,7 +4,8 @@
 ##' @title geom_tiplab
 ##' @param mapping aes mapping
 ##' @param hjust horizontal adjustment
-##' @param offset tiplab offset
+##' @param offset tiplab offset, horizontal 
+##' adjustment to nudge tip labels, default is 0.
 ##' @param align align tip lab or not, logical
 ##' @param linetype linetype for adding line if align = TRUE
 ##' @param linesize line size of line if align = TRUE
@@ -25,8 +26,8 @@
 ##'     \item \code{fontface} the font face of text, default is 1 (plain), others are 
 ##'      2 (bold), 3 (italic), 4 (bold.italic).
 ##'     \item \code{lineheight} The height of a line as a multiple of the size of text, default is 1.2 .
-##'     \item \code{nudge_x} horizontal adjustment, default is 0.
-##'     \item \code{nudge_y}  vertical adjustment, default is 0.
+##'     \item \code{nudge_x} horizontal adjustment to nudge labels, default is 0. 
+##'     \item \code{nudge_y}  vertical adjustment to nudge labels, default is 0.
 ##'     \item \code{check.overlap} if TRUE, text that overlaps previous text in the same layer 
 ##'      will not be plotted.
 ##'     \item \code{parse} if TRUE, the labels will be parsed into expressions, if it is 'emoji', the labels
@@ -44,7 +45,7 @@
 ##'     \item \code{fontface} the font face of text, default is 1 (plain), others are
 ##'     2 (bold), 3 (italic), 4 (bold.italic).
 ##'     \item \code{lineheight} The height of a line as a multiple of the size of text, default is 1.2.
-##'     \item \code{nudge_x} horizontal adjustment, default is 0.
+##'     \item \code{nudge_x} horizontal adjustment to nudge labels, default is 0.
 ##'     \item \code{nudge_y}  vertical adjustment, default is 0.
 ##'     \item \code{check.overlap} if TRUE, text that overlaps previous text in the same layer
 ##'      will not be plotted.
@@ -119,6 +120,16 @@ geom_tiplab_rectangular <- function(mapping=NULL, hjust = 0,  align = FALSE,
                                     linetype = "dotted", linesize=0.5, geom="text",  
                                     offset=0, family = "", fontface = "plain", ...) {
     params <- list(...)
+    if ("nudge_x" %in% names(params)){
+        if (offset != 0){
+            warning_wrap("The nudge_x and offset argument both was provided.
+                         Because they all adjust the horizontal offset of labels,
+                         and the 'nudge_x' is consistency with 'ggplot2'. The
+                         'nudge_x' will be predetermined, 'offset' will be deprecated.")
+        }
+        offset <- params$nudge_x
+        params$nudge_x <- NULL
+    }
     geom <- match.arg(geom, c("text", "label", "shadowtext", "image", "phylopic"))
     if (geom == "text") {
         label_geom <- geom_text2
@@ -178,12 +189,12 @@ geom_tiplab_rectangular <- function(mapping=NULL, hjust = 0,  align = FALSE,
     params[["nodelab"]] <- NULL
     imageparams <- list(mapping=text_mapping, hjust = hjust, nudge_x = offset, stat = StatTreeData)
     imageparams <- extract_params(imageparams, params, c("size", "alpha", "color", "colour", "image", 
-                                                         "angle", "nudge_x", "inherit.aes", "by", "show.legend",
+                                                         "angle", "position", "inherit.aes", "by", "show.legend",
                                                          "image_fun", ".fun", "asp", "nudge_y", "height", "na.rm")) 
     labelparams <- list(mapping=text_mapping, hjust = hjust, nudge_x = offset, stat = StatTreeData, family = family, fontface = fontface)
     labelparams <- extract_params(labelparams, params, 
                                   c("size", "alpha", "vjust", "color", "colour", "angle", "alpha", 
-                                    "lineheight", "fill", "nudge_x", "nudge_y", "show.legend", "check_overlap",
+                                    "lineheight", "fill", "position", "nudge_y", "show.legend", "check_overlap",
                                     "parse", "inherit.aes", "na.rm", "label.r", "label.size", "label.padding",
                                     "bg.colour", "bg.r"))
     list(
