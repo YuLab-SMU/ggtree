@@ -225,7 +225,7 @@ build_image_layer <- function(data, object, params){
                         )
     image_obj$data <- data
     image_default_aes <- list(image=NULL,imagesize=0.05, imagecolour=NULL, imagecolor=NULL,
-                              size=0.05, colour = NULL, angle = 0, alpha=1)
+                              size=0.05, colour = NULL, angle = 0, alpha=1, inherit.aes=FALSE)
     image_obj$mapping <- reset_mapping(defaultm=image_default_aes,
                                       inputm=object$mapping)
     ifelse(is.null(image_obj$mapping), 
@@ -247,7 +247,7 @@ build_text_layer <- function(data, object, params){
     text_default_aes <- list(textcolour="white", textcolor="white", textsize=3.88, 
                              fontsize=3.88, fontcolor="white", fontcolour="white", 
                              colour="white", size=3.88, angle=0, hjust=0.05, vjust=0.05,
-                            alpha=NA, family="", fontface=1, lineheight=1.2)
+                             alpha=NA, family="", fontface=1, lineheight=1.2, inherit.aes=FALSE)
     shadowtext_default_aes <- c(text_default_aes, list(bg.colour="black",bg.r=0.1))
     label_default_aes <- c(text_default_aes, list(fill="white"))
     text_obj$mapping <- switch(object$geom,

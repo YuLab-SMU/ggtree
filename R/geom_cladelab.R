@@ -148,7 +148,7 @@ geom_cladelab <- function(
                           parse=FALSE,
                           ...
                          ){
-    params <- list(...)
+    params <- list(inherit.aes=FALSE,...)
     structure(
               list(
                   data=data,

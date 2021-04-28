@@ -258,7 +258,8 @@ ggplot_add.tiplab_ylab <- function(object, plot, object_name) {
 ##' @method ggplot_add cladelabel
 ##' @export
 ggplot_add.cladelabel <- function(object, plot, object_name) {
-    layout <- get("layout", envir = plot$plot_env)
+    #layout <- get("layout", envir = plot$plot_env)
+    layout <- get_layout(plot)
     if (layout == "unrooted" || layout == "daylight") {
         ly <- do.call(geom_cladelabel2, object)
     } else {
@@ -270,7 +271,8 @@ ggplot_add.cladelabel <- function(object, plot, object_name) {
 ##' @method ggplot_add cladelab
 ##' @export
 ggplot_add.cladelab <- function(object, plot, object_name){
-    layout <- get("layout", envir=plot$plot_env)
+    #layout <- get("layout", envir=plot$plot_env)
+    layout <- get_layout(plot)
     if (is.null(object$mapping) && (is.null(object$node) || is.null(object$label))){
         abort("mapping and node or label can't be NULL simultaneously, we can't get the
               data to be displayed in this layer, please provide a data or subset, node 
@@ -358,7 +360,7 @@ ggplot_add.cladelab <- function(object, plot, object_name){
                        )
     bar_obj <- list()
     bar_obj$data <- bardata
-    bar_default_aes <- list(barcolour="black", barcolor="black", barsize=0.5, colour="black", size=0.5, linetype=1, alpha=NA)
+    bar_default_aes <- list(barcolour="black", barcolor="black", barsize=0.5, colour="black", size=0.5, linetype=1, alpha=NA, inherit.aes=FALSE)
     bar_obj$mapping <- reset_mapping(defaultm=bar_default_aes, inputm=object$mapping)
     ifelse(is.null(bar_obj$mapping),bar_obj$mapping <- aes_(x=~x, xend=~xend, y=~y, yend=~yend),
            bar_obj$mapping <- modifyList(bar_obj$mapping, aes_(x=~x, xend=~xend, y=~y, yend=~yend)))
@@ -402,7 +404,8 @@ ggplot_add.cladelab <- function(object, plot, object_name){
 ##' @importFrom rlang quo_name
 ##' @export
 ggplot_add.hilight <- function(object, plot, object_name){
-    layout <- get("layout", envir = plot$plot_env)
+    #layout <- get("layout", envir = plot$plot_env)
+    layout <- get_layout(plot)
     if (!is.character(layout)) layout <- "rectangular"
     if (is.null(object$mapping) && is.null(object$node)){
         abort("mapping and node can't be NULL simultaneously, we can't get the 
@@ -577,7 +580,8 @@ ggplot_add.scale_ggtree <- function(object, plot, object_name) {
 ##' @importFrom rlang abort as_name
 ##' @export
 ggplot_add.taxalink <- function(object, plot, object_name){
-    layout <- get("layout", envir = plot$plot_env)
+    #layout <- get("layout", envir = plot$plot_env)
+    layout <- get_layout(plot)
     if (object$outward=="auto"){
        if(layout=="inward_circular"){
            object$outward <- FALSE
