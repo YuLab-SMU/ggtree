@@ -46,7 +46,7 @@ layoutEqualAngle <- function(model, branch.length = "branch.length"){
           tree$edge.length <- NULL
       }
   }
-  
+
   if (is.null(tree$edge.length) || branch.length == "none") {
       tree <- set_branch_length_cladogram(tree)
   }
@@ -149,7 +149,7 @@ layoutEqualAngle <- function(model, branch.length = "branch.length"){
 ##' ```
 layoutDaylight <- function(model, branch.length, MAX_COUNT=5 ){
 	tree <- as.phylo(model)
-	
+
     ## How to set optimal
     MINIMUM_AVERAGE_ANGLE_CHANGE <- 0.05
 
@@ -454,7 +454,7 @@ rotateTreePoints.df <- function(df, pivot_node, nodes, angle){
   pivot_y = df$y[pivot_node]
   delta_x = df$x - pivot_x
   delta_y = df$y - pivot_y
-  df = mutate.data.frame(df,
+  df = mutate(df,
     x = ifelse(.data$node %in% nodes, cospitheta * delta_x - sinpitheta * delta_y + pivot_x, .data$x),
     y = ifelse(.data$node %in% nodes, sinpitheta * delta_x + cospitheta * delta_y + pivot_y, .data$y)
   )
@@ -464,7 +464,7 @@ rotateTreePoints.df <- function(df, pivot_node, nodes, angle){
   # angle is in range [0, 360]
   # Update label angle of tipnode if not root node.
   nodes = nodes[! nodes %in% df$parent]
-  df %>% mutate.data.frame(
+  df %>% mutate(
     angle = ifelse(.data$node %in% nodes,
        getNodeAngle.vector(x_parent, y_parent, .data$x, .data$y) %>%
          {180 * ifelse(. < 0, 2 + ., .)},
@@ -630,14 +630,6 @@ getRoot.df <- function(df, node){
   }
   return(root)
 }
-
-
-
-mutate.data.frame <- getFromNamespace("mutate.data.frame", "dplyr")
-
-
-
-
 
 ##' Get the nodes of tree from root in breadth-first order.
 ##'
@@ -896,7 +888,7 @@ getYcoord <- function(tr, step=1, tip.order = NULL) {
         y[tip.idx] <- match(tr$tip.label, tip.order) * step
     }
     y[-tip.idx] <- NA
-    
+
 
     ## use lookup table
     pvec <- integer(max(tr$edge))
@@ -1190,26 +1182,26 @@ re_assign_ycoord_df <- function(df, currentNode) {
 
 layoutApe <- function(model, branch.length="branch.length") {
 	tree <- as.phylo(model) %>% stats::reorder("postorder")
-	
+
 	if (! is.null(tree$edge.length)) {
 		if (anyNA(tree$edge.length)) {
 			warning("'edge.length' contains NA values...\n## setting 'edge.length' to NULL automatically when plotting the tree...")
 			tree$edge.length <- NULL
 		}
 	}
-	
+
 	if (is.null(tree$edge.length) || branch.length == "none") {
 		tree <- set_branch_length_cladogram(tree)
 	}
-	
+
 	edge <- tree$edge
 	edge.length <- tree$edge.length
 	nb.sp <- ape::node.depth(tree)
-	
+
 	df <- as_tibble(model) %>%
 		mutate(isTip = ! .data$node %in% .data$parent)
 	df$branch.length <- edge.length[df$node] # for cladogram
-	
+
 	# unrooted layout from cran/ape
 	M <- ape::unrooted.xy(Ntip(tree),
 						  Nnode(tree),
@@ -1219,13 +1211,13 @@ layoutApe <- function(model, branch.length="branch.length") {
 						  0)$M
 	xx <- M[, 1]
 	yy <- M[, 2]
-	
+
 	M <- tibble::tibble(
 		node = 1:(Ntip(tree) + Nnode(tree)),
 		x = xx - min(xx),
 		y = yy - min(yy)
 	)
-	
+
 	tree_df <- dplyr::full_join(df, M, by = "node") %>%
 		as_tibble()
 	class(tree_df) <- c("tbl_tree", class(tree_df))
