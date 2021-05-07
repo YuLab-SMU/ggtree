@@ -352,8 +352,8 @@ ggplot_add.cladelab <- function(object, plot, object_name){
         object$mapping <- object$mapping[!names(object$mapping) %in% c("node", "label")]
     }
     annot_obj <- switch(object$geom,
-                        text=build_text_layer(data=textdata, object=object, params=text_params),
-                        label=build_text_layer(data=textdata, object=object, params=text_params),
+                        text=build_text_layer(data=textdata, object=object, params=text_params, layout=layout),
+                        label=build_text_layer(data=textdata, object=object, params=text_params, layout=layout),
                         image=build_image_layer(data=textdata, object=object, params=image_params),
                         phylopic=build_image_layer(data=textdata, object=object, params=image_params),
                         shadowtext=build_text_layer(data=textdata, object=object, params=text_params),
