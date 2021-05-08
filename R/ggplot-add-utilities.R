@@ -53,6 +53,21 @@ choose_hilight_layer <- function(object, type){
     return (ly)
 }
 
+extract_all_aes_var <- function(mapping, rmvar=c("node", "subset")){
+    unlist(lapply(names(mapping)[!names(mapping) %in% rmvar], 
+                  function(i) get_aes_var(mapping, i)))
+}
+
+remapping <- function(mapping, samevars){
+    allvars <- extract_all_aes_var(mapping, rmvar=NULL)
+    samevars <- allvars[allvars %in% samevars]
+    tmpmap <- lapply(samevars, function(i) paste0(i, ".x"))
+    tmpmap <- do.call("aes_string", tmpmap)
+    names(tmpmap) <- names(mapping)[allvars %in% samevars]
+    mapping <- modifyList(mapping, tmpmap)
+    return(mapping)
+}
+
 build_cladelabel_df <- function(trdf, nodeids, label, offset, align, angle, horizontal){
     dat <- mapply(function(i, o, a, g, h){get_cladelabel_position(data=trdf, 
                                           node=i, 

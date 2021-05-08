@@ -293,13 +293,21 @@ ggplot_add.cladelab <- function(object, plot, object_name){
                        set subset (we will extract the data from tree data.)")
             }
         }else{
+            #trda <- plot$data[,!colnames(plot$data) %in% c("parent", "branch.length", "x", "y", "branch", "angle")]
+            samevars <- Reduce(intersect,list(extract_all_aes_var(object$mapping), colnames(plot$data), colnames(object$data)))
+            object$data <- merge(object$data, plot$data, by.x=quo_name(object$mapping$node), by.y="node", all.x=TRUE)
+            if (length(samevars) > 0){
+                warning_wrap('The "', paste(samevars, collapse=", ") ,'" has(have) been found in tree data. You might need to 
+                             rename the variable(s) in the data of "geom_cladelab" to avoid this warning!')
+                object$mapping <- remapping(mapping=object$mapping, samevars=samevars)
+            }
             if (!is.null(object$mapping$subset)){
                 object$data <- subset(object$data, eval(parse(text=quo_name(object$mapping$subset))))
                 object$mapping <- object$mapping[names(object$mapping)!="subset"]
             }
         }
-        da_node_label <- data.frame(node=as.vector(object$data[[as_name(object$mapping$node)]]),
-                                    label=as.vector(object$data[[as_name(object$mapping$label)]]))
+        da_node_label <- data.frame(node=as.vector(object$data[[quo_name(object$mapping$node)]]),
+                                    label=as.vector(object$data[[quo_name(object$mapping$label)]]))
     }else{
         da_node_label <-data.frame(node=object$node, label=object$label)
     }
@@ -432,6 +440,16 @@ ggplot_add.hilight <- function(object, plot, object_name){
                        set subset (we will extract the data from tree data.)")
              }
         }else{
+             if (!flag_tbl_tree){
+                 #trda <- plot$data[,!colnames(plot$data) %in% c("parent", "branch.length", "x", "y", "branch", "angle")]
+                 samevars <- Reduce(intersect,list(extract_all_aes_var(object$mapping), colnames(plot$data), colnames(object$data)))
+                 object$data <- merge(object$data, plot$data, by.x=quo_name(object$mapping$node), by.y="node", all.x=TRUE)
+                 if (length(samevars) > 0){
+                     warning_wrap('The "', paste(samevars, collapse=", ") ,'" has(have) been found in tree data. You might need to 
+                                  rename the variable(s) in the data of "geom_hilight" to avoid this warning!')
+                     object$mapping <- remapping(mapping=object$mapping, samevars=samevars)
+                 }
+             }
              if (!is.null(object$mapping$subset)){
                  object$data <- subset(object$data, eval(parse(text=quo_name(object$mapping$subset))))
                  object$mapping <- object$mapping[names(object$mapping)!="subset"]
