@@ -1,3 +1,7 @@
+# ggtree 2.5.3
++ optimize text angle in `geom_cladelab` (2021-05-10, Mon)
+  - <https://github.com/YuLab-SMU/ggtree/pull/396>
+
 # ggtree 2.5.2
 
 + extend 'continuous' parameter to support 4 possible values, i.e., 'none' to disable continuous transition,  'color' (or 'colour') to enable continuous color transition, 'size' to enable continuous size (branch thickness) transition and 'all' to enable continuous color and size transition (2021-04-07, Wed)
