@@ -53,7 +53,7 @@ geom_taxalink <- function(data=NULL,
     }
 
     
-    params <- list(...)
+    params <- list(inherit.aes=FALSE, ...)
     structure(list(data    = data,
                    mapping = mapping,
                    taxa1   = taxa1,
