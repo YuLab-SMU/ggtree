@@ -1200,7 +1200,7 @@ layoutApe <- function(model, branch.length="branch.length") {
 
 	df <- as_tibble(model) %>%
 		mutate(isTip = ! .data$node %in% .data$parent)
-	df$branch.length <- edge.length[df$node] # for cladogram
+	#df$branch.length <- edge.length[df$node] # for cladogram
 
 	# unrooted layout from cran/ape
 	M <- ape::unrooted.xy(Ntip(tree),
