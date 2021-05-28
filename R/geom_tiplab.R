@@ -92,8 +92,8 @@
 geom_tiplab <- function(mapping=NULL, hjust = 0,  align = FALSE, linetype = "dotted",
                         linesize=0.5, geom="text",  offset=0, as_ylab = FALSE, ...) {
     #####in order to check whether it is geom_nodelab
-    .call <- match.call(call = sys.call(sys.parent(1)))
-    nodelab <- ifelse(as.list(.call)[[1]]=="geom_nodelab", TRUE, FALSE)
+    #.call <- match.call(call = sys.call(sys.parent(1)))
+    #nodelab <- ifelse(as.list(.call)[[1]]=="geom_nodelab", TRUE, FALSE)
     #####
     structure(list(mapping = mapping,
                    hjust = hjust,
@@ -103,7 +103,7 @@ geom_tiplab <- function(mapping=NULL, hjust = 0,  align = FALSE, linetype = "dot
                    geom = geom,
                    offset = offset,
                    as_ylab = as_ylab,
-                   nodelab = nodelab,
+                   #nodelab = nodelab,
                    ...),
               class = "tiplab")
 }
