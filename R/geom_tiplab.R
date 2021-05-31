@@ -91,10 +91,6 @@
 ##' ggtree(tr) + geom_tiplab()
 geom_tiplab <- function(mapping=NULL, hjust = 0,  align = FALSE, linetype = "dotted",
                         linesize=0.5, geom="text",  offset=0, as_ylab = FALSE, ...) {
-    #####in order to check whether it is geom_nodelab
-    #.call <- match.call(call = sys.call(sys.parent(1)))
-    #nodelab <- ifelse(as.list(.call)[[1]]=="geom_nodelab", TRUE, FALSE)
-    #####
     structure(list(mapping = mapping,
                    hjust = hjust,
                    align = align,
@@ -103,7 +99,7 @@ geom_tiplab <- function(mapping=NULL, hjust = 0,  align = FALSE, linetype = "dot
                    geom = geom,
                    offset = offset,
                    as_ylab = as_ylab,
-                   #nodelab = nodelab,
+				   node = "external",
                    ...),
               class = "tiplab")
 }
@@ -118,7 +114,8 @@ geom_tiplab_as_ylab <- function(hjust = 0, position = "right", ...) {
 
 geom_tiplab_rectangular <- function(mapping=NULL, hjust = 0,  align = FALSE, 
                                     linetype = "dotted", linesize=0.5, geom="text",  
-                                    offset=0, family = "", fontface = "plain", ...) {
+                                    offset=0, family = "", fontface = "plain", 
+                                    node="external", ...) {
     params <- list(...)
     if ("nudge_x" %in% names(params)){
         if (offset != 0){
@@ -143,28 +140,26 @@ geom_tiplab_rectangular <- function(mapping=NULL, hjust = 0,  align = FALSE,
         label_geom <- get_fun_from_pkg("ggimage", "geom_phylopic")
     }
 
-
+    nodelab <- node
     x <- y <- label <- isTip <- node <- NULL
     if (align == TRUE) {
         self_mapping <- aes(x = max(x, na.rm=TRUE) + diff(range(x, na.rm=TRUE))/200, y = y,
-                            label = label, node = node, subset = isTip)
+                            label = label, node = node)#, subset = isTip)
     }
     else {
         self_mapping <- aes(x = x + diff(range(x, na.rm=TRUE))/200, y= y,
-                            label = label, node = node, subset = isTip)
+                            label = label, node = node)#, subset = isTip)
     }
-    if ("nodelab" %in% names(params) && params[["nodelab"]]){
-        # for node label
-        subset <- aes_string(subset="!isTip")
-    }else{
-        # for tip label
-        subset <- aes_string(subset="isTip")
-    }
+    subset <- switch(nodelab,
+					 internal = aes_string(subset="!isTip"),
+					 external = aes_string(subset="isTip"),
+					 all = aes_string(subset=NULL)
+					 )
     self_mapping <- modifyList(self_mapping, subset)
     if (is.null(mapping)) {
         text_mapping <- self_mapping
     } else {
-        if (!is.null(mapping$subset)){
+        if (!is.null(mapping$subset) && nodelab != "all"){
             newsubset <- aes_string(subset=paste0(as.expression(get_aes_var(mapping, "subset")), 
                                                   '&', 
                                                   as.expression(get_aes_var(subset, "subset")))
@@ -186,7 +181,6 @@ geom_tiplab_rectangular <- function(mapping=NULL, hjust = 0,  align = FALSE,
         if (!is.null(mapping))
             segment_mapping <- modifyList(segment_mapping, mapping)
     }
-    params[["nodelab"]] <- NULL
     imageparams <- list(mapping=text_mapping, hjust = hjust, nudge_x = offset, stat = StatTreeData)
     imageparams <- extract_params(imageparams, params, c("size", "alpha", "color", "colour", "image", 
                                                          "angle", "position", "inherit.aes", "by", "show.legend",

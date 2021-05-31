@@ -10,6 +10,7 @@ geom_nodelab(
   nudge_y = 0,
   geom = "text",
   hjust = 0.5,
+  node = "internal",
   ...
 )
 }
@@ -23,6 +24,11 @@ geom_nodelab(
 \item{geom}{one of 'text', "shadowtext", 'label', 'image' and 'phylopic'}
 
 \item{hjust}{horizontal alignment, one of 0, 0.5 or 1}
+
+\item{node}{a character indicating which node labels will be displayed,
+it should be one of 'internal', 'external' and 'all'. If it is set to 'internal'
+will display internal node labels, 'external' will display the tip labels,
+and 'all' will display internal node and tip labels.}
 
 \item{...}{additional parameters, see also
 the additional parameters of \code{\link[=geom_tiplab]{geom_tiplab()}}.}

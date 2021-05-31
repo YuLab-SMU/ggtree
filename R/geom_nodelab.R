@@ -7,21 +7,19 @@
 ##' @param nudge_y vertical adjustment to nudge label
 ##' @param geom one of 'text', "shadowtext", 'label', 'image' and 'phylopic'
 ##' @param hjust horizontal alignment, one of 0, 0.5 or 1
+##' @param node a character indicating which node labels will be displayed,
+##' it should be one of 'internal', 'external' and 'all'. If it is set to 'internal'
+##' will display internal node labels, 'external' will display the tip labels,
+##' and 'all' will display internal node and tip labels.
 ##' @param ... additional parameters, see also 
 ##' the additional parameters of [geom_tiplab()].
 ##' @seealso [geom_tiplab()]
 ##' @return geom layer
 ##' @export
 ##' @author Guangchuang Yu
-geom_nodelab <- function(mapping = NULL, nudge_x = 0, nudge_y = 0, geom = "text", hjust = 0.5, ...) {
-    #self_mapping <- aes_(subset = ~!isTip)
-    #if (is.null(mapping)) {
-    #    mapping <- self_mapping
-    #} else {
-    #    mapping <- modifyList(self_mapping, mapping)
-    #}
+geom_nodelab <- function(mapping = NULL, nudge_x = 0, nudge_y = 0, geom = "text", hjust = 0.5, node="internal",...) {
 
     p <- geom_tiplab(mapping, offset = nudge_x, nudge_y = nudge_y, geom = geom, hjust = hjust, ...)
-    p$nodelab <- TRUE
+    p$node <- match.arg(node, c("internal", "external", "all"))
     return (p)
 }
