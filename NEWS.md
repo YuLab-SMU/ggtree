@@ -1,4 +1,15 @@
+# ggtree 3.1.0.991
+
++ now `geom_nodelab` has a `node="internal"` parameter. (2021-05-31, Mon)
+  - if `node = "external"`, it equivalent to `geom_tiplab
+  - if `node = "all"`, it equivalent to `list(geom_tiplab(), geom_nodelab())`
+
+# ggtree 3.0.0
+
++ Bioconductor 3.13 relese
+
 # ggtree 2.5.3
+
 + optimize text angle in `geom_cladelab` (2021-05-10, Mon)
   - <https://github.com/YuLab-SMU/ggtree/pull/396>
 
