@@ -51,8 +51,8 @@ geom_range_internal <- function(range, center, ...) {
 StatRange <- ggproto("StatRange", Stat,
                      compute_group = function(self, data, scales, params) {
                          df <- data[!is.na(data[["lower"]]),]
-                         df[["lower"]] <- -df[["lower"]] + as.numeric(df[["center"]]) + df[["x"]] 
-                         df[["upper"]] <- -df[["upper"]] + as.numeric(df[["center"]]) + df[["x"]] 
+                         df[["lower"]] <- as.numeric(df[["center"]]) + df[["x"]] - df[["lower"]] 
+                         df[["upper"]] <- as.numeric(df[["center"]]) + df[["x"]] - df[["upper"]]
 
                          data.frame(x = df[["lower"]],
                                     xend = df[["upper"]],

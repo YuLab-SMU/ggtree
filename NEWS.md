@@ -1,5 +1,7 @@
-# ggtree 3.1.0.991
+# ggtree 3.1.1
 
++ bug fixed in `geom_range` (2021-06-01, Tue)
+  - <https://github.com/YuLab-SMU/ggtree/pull/410>
 + now `geom_nodelab` has a `node="internal"` parameter. (2021-05-31, Mon)
   - if `node = "external"`, it equivalent to `geom_tiplab
   - if `node = "all"`, it equivalent to `list(geom_tiplab(), geom_nodelab())`
