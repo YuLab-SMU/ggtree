@@ -14,14 +14,16 @@ geom_range <- function(range, center = "auto", ...) {
 }
 
 
-geom_range_internal <- function(range, center, ...) {
+geom_range_internal <- function(range, center, mapping=NULL, ...) {
     position = "identity"
     show.legend = NA
     na.rm = TRUE
     inherit.aes = FALSE
 
     default_aes <- aes_(x=~x, y=~y, xend=~x, yend=~y)
-
+    if (!is.null(mapping)){
+        default_aes <- modifyList(mapping, default_aes)
+    }
     lower <- paste0('range_lower(', range, ')')
     upper <- paste0('range_upper(', range, ')')
     if (center == "auto") {
@@ -53,11 +55,9 @@ StatRange <- ggproto("StatRange", Stat,
                          df <- data[!is.na(data[["lower"]]),]
                          df[["lower"]] <- df[["lower"]] + df[["x"]] - as.numeric(df[["center"]])
                          df[["upper"]] <- df[["upper"]] + df[["x"]] - as.numeric(df[["center"]])
-
-                         data.frame(x = df[["lower"]],
-                                    xend = df[["upper"]],
-                                    y = df[["y"]],
-                                    yend = df[["y"]])
+                         df <- df %>% select(-c("x", "xend", "center")) %>%
+                               rename(x=.data$lower, xend=.data$upper)
+                         df
                      },
                      required_aes = c("x", "y", "xend", "yend")
                      )
