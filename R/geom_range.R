@@ -53,11 +53,13 @@ geom_range_internal <- function(range, center, mapping=NULL, ...) {
 StatRange <- ggproto("StatRange", Stat,
                      compute_group = function(self, data, scales, params) {
                          df <- data[!is.na(data[["lower"]]),]
-                         df[["lower"]] <- df[["lower"]] + df[["x"]] - as.numeric(df[["center"]])
-                         df[["upper"]] <- df[["upper"]] + df[["x"]] - as.numeric(df[["center"]])
-                         df <- df %>% select(-c("x", "xend", "center")) %>%
+                         df[["lower"]] <- as.numeric(df[["center"]]) + df[["x"]] - df[["lower"]]
+                         df[["upper"]] <- as.numeric(df[["center"]]) + df[["x"]] - df[["upper"]]
+                         df <- df %>% 
+                               select(-c("x", "xend", "center")) %>%
                                rename(x=.data$lower, xend=.data$upper)
                          df
+
                      },
                      required_aes = c("x", "y", "xend", "yend")
                      )
