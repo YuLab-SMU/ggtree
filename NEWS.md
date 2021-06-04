@@ -1,3 +1,7 @@
+# ggtree 3.1.1.991
+
++ `geom_range` supports aes mapping (2021-06-04, Fri)
+
 # ggtree 3.1.1
 
 + bug fixed in `geom_range` (2021-06-01, Tue)
