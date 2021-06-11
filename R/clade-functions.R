@@ -120,7 +120,7 @@ collapse.ggtree <- function(x=NULL, node, mode = "none", clade_name = NULL, ...)
         df <- reassign_y_from_node_to_root(df, node)
         
         ## re-calculate branch mid position
-        df <- calculate_branch_mid(df)
+        df <- calculate_branch_mid(df, layout=get_layout(tree_view))
 
         ii <- which(!is.na(df$x))
         df$angle[ii] <- calculate_angle(df[ii,])$angle
@@ -217,7 +217,7 @@ expand <- function(tree_view=NULL, node) {
         df[pp, "y"] <- mean(df$y[j])
         
         ## re-calculate branch mid position
-        df <- calculate_branch_mid(df)
+        df <- calculate_branch_mid(df, layout=get_layout(tree_view))
 
         tree_view$data <- calculate_angle(df)
     } else {
@@ -400,7 +400,7 @@ scaleClade <- function(tree_view=NULL, node, scale=1, vertical_only=TRUE) {
     df <- reassign_y_from_node_to_root(df, node)
 
     ## re-calculate branch mid position
-    df <- calculate_branch_mid(df)
+    df <- calculate_branch_mid(df, layout=get_layout(tree_view))
 
     tree_view$data <- calculate_angle(df)
 
