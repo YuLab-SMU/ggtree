@@ -1,5 +1,7 @@
-# ggtree 3.1.1.991
+# ggtree 3.1.1.992
 
++ calculate branch mid point for unrooted layout tree (2021-06-11, Fri)
+  - `branch.y` and `branch.x`
 + `geom_range` supports aes mapping (2021-06-04, Fri)
 
 # ggtree 3.1.1
