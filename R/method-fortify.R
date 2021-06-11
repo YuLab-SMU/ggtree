@@ -49,7 +49,7 @@ fortify.phylo <- function(model, data,
     }
 
     ## add branch mid position
-    res <- calculate_branch_mid(res)
+    res <- calculate_branch_mid(res, layout=layout)
 
     if (!is.null(mrsd)) {
         res <- scaleX_by_time_from_mrsd(res, mrsd, as.Date)
