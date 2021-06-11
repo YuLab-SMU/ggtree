@@ -102,7 +102,7 @@ GeomHilightRect <- ggproto("GeomHilightRect", Geom,
                            draw_key = draw_key_polygon,
                            draw_panel = function(self, data, panel_params, coord, linejoin = "mitre") {
                                data$xmax <- data$xmax + data$extend
-                               if (!is.null(data$extendto) && !is.na(data$extendto)){
+                               if (!any(is.null(data$extendto)) && !any(is.na(data$extendto))){
                                    # check whether the x of tree is reversed.
                                    flag1 <- data$xmin < data$xmax
                                    # check whether extendto is more than xmax 
