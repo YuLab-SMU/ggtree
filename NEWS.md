@@ -1,4 +1,4 @@
-# ggtree 3.1.1.992
+# ggtree 3.1.2
 
 + calculate branch mid point for unrooted layout tree (2021-06-11, Fri)
   - `branch.y` and `branch.x`
