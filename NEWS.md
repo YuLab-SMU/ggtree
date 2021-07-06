@@ -1,3 +1,7 @@
+# ggtree 3.1.2.991
+
++ `geom_tiplab` supports fontface aesthetic (2021-07-06, Tue; @xiangpin)
+
 # ggtree 3.1.2
 
 + calculate branch mid point for unrooted layout tree (2021-06-11, Fri)
