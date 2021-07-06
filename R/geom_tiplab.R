@@ -114,7 +114,7 @@ geom_tiplab_as_ylab <- function(hjust = 0, position = "right", ...) {
 
 geom_tiplab_rectangular <- function(mapping=NULL, hjust = 0,  align = FALSE, 
                                     linetype = "dotted", linesize=0.5, geom="text",  
-                                    offset=0, family = "", fontface = "plain", 
+                                    offset=0, #family = "", fontface = "plain", 
                                     node="external", ...) {
     params <- list(...)
     if ("nudge_x" %in% names(params)){
@@ -185,9 +185,9 @@ geom_tiplab_rectangular <- function(mapping=NULL, hjust = 0,  align = FALSE,
     imageparams <- extract_params(imageparams, params, c("size", "alpha", "color", "colour", "image", 
                                                          "angle", "position", "inherit.aes", "by", "show.legend",
                                                          "image_fun", ".fun", "asp", "nudge_y", "height", "na.rm")) 
-    labelparams <- list(mapping=text_mapping, hjust = hjust, nudge_x = offset, stat = StatTreeData, family = family, fontface = fontface)
+    labelparams <- list(mapping=text_mapping, hjust = hjust, nudge_x = offset, stat = StatTreeData)
     labelparams <- extract_params(labelparams, params, 
-                                  c("size", "alpha", "vjust", "color", "colour", "angle", "alpha", 
+                                  c("size", "alpha", "vjust", "color", "colour", "angle", "alpha", "family", "fontface",
                                     "lineheight", "fill", "position", "nudge_y", "show.legend", "check_overlap",
                                     "parse", "inherit.aes", "na.rm", "label.r", "label.size", "label.padding",
                                     "bg.colour", "bg.r"))
