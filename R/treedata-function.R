@@ -44,3 +44,21 @@ td_unnest <- function(cols, ..., .f = NULL) {
     }
 }
 
+##' mutate data for tree annotation layer
+##'
+##' The 'td_mutate()' function returns another function that can be
+##' used to mutate ggtree() plot data. The function can be passed to the 'data' parameter
+##' of geom layer to perform adding new variables and preserving existing ones.
+##' @title td-mutate
+##' @param ... additional parameters that pass to dplyr::mutate
+##' @param .f a function (if any, default is NULL) that pre-operate the data
+##' @return A function to mutate ggtree plot data
+##' @seealso
+##' [mutate][dplyr::mutate]
+##' @export
+td_mutate <- function(..., .f=NULL){
+    function(.data){
+        if (!is.null(.f)) .data <- .f(.data)
+        dplyr::mutate(.data, ...)
+    }
+}
