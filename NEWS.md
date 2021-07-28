@@ -1,5 +1,7 @@
-# ggtree 3.1.2.991
+# ggtree 3.1.2.992
 
++ `geom_hilight` and `geom_cladelab` supports function as input data (2021-07-28, Wed; #421, @xiangpin)
++ `td_mutate` for mutating tree data
 + `geom_tiplab` supports fontface aesthetic (2021-07-06, Tue; @xiangpin)
 
 # ggtree 3.1.2
