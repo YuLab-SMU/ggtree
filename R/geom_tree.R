@@ -105,7 +105,7 @@ stat_tree <- function(mapping=NULL, data=NULL, geom="segment", position="identit
         layer(stat=StatTree,
               data=data,
               mapping=mapping,
-              geom = geom,
+              geom = GeomSegmentGGtree,
               position=position,
               show.legend = show.legend,
               inherit.aes = inherit.aes,

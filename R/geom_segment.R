@@ -89,16 +89,45 @@ GeomSegmentGGtree <- ggproto("GeomSegmentGGtree", GeomSegment,
 
                              draw_panel = function(data, panel_params, coord, arrow = NULL, arrow.fill = NULL,
                                                    lineend = "butt", linejoin = "round", na.rm = FALSE, nudge_x = 0) {
+                                 data <- ggplot2::remove_missing(data, na.rm = na.rm, c("x", "y", "xend",
+                                                        "yend", "linetype", "size", "shape"), name = "geom_segment")
+                                 if (empty(data))
+                                     return(zeroGrob())
+                                 if (!coord$is_linear()) {
+                                     tmpgroup <- data$group
+                                     starts <- subset(data, select = c(-xend, -yend))
+                                     starts$group <- 1
+                                     ends <- rename(subset(data, select = c(-x, -y)), c("x" = "xend", "y" = "yend"))
+                                     ends$group <- 2
+                                     pieces <- rbind(starts, ends)
 
+                                     trans <- coord$transform(pieces, panel_params)
+                                     starts <- trans[trans$group==1, ,drop=FALSE]
+                                     ends <- trans[trans$group==2, ,drop=FALSE]
+                                     ends <- rename(subset(ends, select=c(x, y)), c("xend"="x", "yend"="y"))
+                                     data <- cbind(starts, ends)
+                                     data$group <- tmpgroup
+                                 }else{
+                                     data <- coord$transform(data, panel_params)
+                                 }
                                  data$x <- data$x + nudge_x
 
+                                 arrow.fill <- arrow.fill %||% data$colour
+                                 return(grid::segmentsGrob(data$x, data$y, data$xend, data$yend,
+                                                           default.units = "native", gp = gpar(col = alpha(data$colour,
+                                                           data$alpha), fill = alpha(arrow.fill, data$alpha),
+                                                           lwd = data$size * ggplot2::.pt, lty = data$linetype,
+                                                           lineend = lineend, linejoin = linejoin), arrow = arrow)
+                                       )
+
+
                                  ## data$x <- data$x - sapply(data$label, function(x) convertWidth(grobWidth(textGrob(x, gp=gpar(fontsize=.04* .pt))), "native", TRUE))
-                                 GeomSegment$draw_panel(data = data, panel_params = panel_params, coord = coord,
-                                                        arrow = arrow, arrow.fill = arrow.fill,
-                                                        lineend = lineend, linejoin = linejoin, na.rm = na.rm)
+                                 ##GeomSegment$draw_panel(data = data, panel_params = panel_params, coord = coord,
+                                 ##                       arrow = arrow, arrow.fill = arrow.fill,
+                                 ##                       lineend = lineend, linejoin = linejoin, na.rm = na.rm)
                              }
                              )
 
 
-
-
+empty <- getFromNamespace("empty", "ggplot2")
+`%||%` <- getFromNamespace("%||%", "ggplot2")
