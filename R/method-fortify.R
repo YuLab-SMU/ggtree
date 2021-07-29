@@ -56,7 +56,8 @@ fortify.phylo <- function(model, data,
     }
 
     if (layout == "slanted") {
-        res <- add_angle_slanted(res)
+        res <- add_angle_slanted(res) %>%
+               adjust.y.slanted(branch.length=branch.length)
     } else {
         ## angle for all layout, if 'rectangular', user use coord_polar, can still use angle
         res <- calculate_angle(res)
