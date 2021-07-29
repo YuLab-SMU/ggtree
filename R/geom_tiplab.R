@@ -194,7 +194,7 @@ geom_tiplab_rectangular <- function(mapping=NULL, hjust = 0,  align = FALSE,
     list(
         if (show_segment){
             lineparams <- list(mapping = segment_mapping, linetype=linetype, nudge_x = offset, size = linesize, stat = StatTreeData)
-            lineparams <- extract_params(lineparams, params, c("colour", "alpha", "show.legend", "na.rm",
+            lineparams <- extract_params(lineparams, params, c("data", "colour", "alpha", "show.legend", "na.rm",
                                                                "inherit.aes", "arrow", "arrow.fill", "lineend")) 
             do.call("geom_segment2", lineparams)
         }
