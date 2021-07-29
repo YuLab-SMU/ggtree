@@ -10,6 +10,7 @@ geom_tree(
   layout = "rectangular",
   multiPhylo = FALSE,
   continuous = "none",
+  position = "identity",
   ...
 )
 }
@@ -26,6 +27,9 @@ geom_tree(
 \item{continuous}{character, continuous transition for selected aesthethic ('size'
 or 'color'('colour')). It should be one of 'color' (or 'colour'), 'size', 'all'
 and 'none', default is 'none'}
+
+\item{position}{Position adjustment, either as a string, or the result of a
+call to a position adjustment function, default is "identity".}
 
 \item{...}{additional parameter
 
