@@ -1247,8 +1247,8 @@ adjust.y.slanted <- function(x, branch.length){
     while(length(NextNode)>0){
         x <- cal.new.y.child(tbl=x, NextNode=NextNode)
         NextNode <- x %>%
-                       dplyr::filter(.data$parent %in% NextNode & !.data$isTip) %>%
-                       dplyr::pull(.data$node)
+                      dplyr::filter(.data$parent %in% NextNode & !.data$isTip) %>%
+                      dplyr::pull(.data$node)
     }
     return(x)
 }
@@ -1258,7 +1258,7 @@ cal.new.y.root <- function(tbl, root){
     dat <- tbl %>%
         dplyr::filter(.data$parent==root & .data$node!=root) %>%
         dplyr::arrange(.data$y)
-    x <- dat %>% dplyr::pull(.data$branch.length)
+    x <- dat %>% dplyr::pull(.data$x)
     y <- dat %>% dplyr::pull(.data$y)
     if (nrow(dat)==2){
         tbl[as.vector(tbl$node)==root, "y"] <- sum(x*rev(y))/sum(x)
@@ -1269,22 +1269,35 @@ cal.new.y.root <- function(tbl, root){
 # adjust y for slanted layout
 cal.new.y.child <- function(tbl, NextNode){
     for (i in NextNode){
-        yn <- tbl %>%
-                dplyr::filter(.data$node==i) %>%
-                dplyr::pull(.data$y)
-        
-        dat <- tbl %>%
-                dplyr::filter(.data$parent==i) %>%
-                dplyr::arrange(.data$y)
+        parent.node <- tbl %>% 
+                  dplyr::filter(.data$node==i) %>%
+                  dplyr::pull(.data$parent)
+        parent.da <- tbl %>% 
+                    dplyr::filter(.data$node==parent.node)
 
-        if (nrow(dat) == 2){
-            x <- dat %>% dplyr::pull(.data$branch.length)
+        parent.x <- parent.da %>%
+                    dplyr::pull(.data$x)
+        parent.y <- parent.da %>%
+                    dplyr::pull(.data$y)
+
+        node.da <- tbl %>%
+                   dplyr::filter(.data$node==i)
+                
+        xn <- node.da %>% 
+              dplyr::pull(.data$x)
+        yn <- node.da %>% 
+              dplyr::pull(.data$y)
+
+        dat <- tbl %>%
+               dplyr::filter(.data$parent==i) 
+
+        if (nrow(dat) > 1){
+            x <- abs(dat %>% dplyr::pull(.data$x) - xn)
             y <- dat %>% dplyr::pull(.data$y)
-            y <-  y - (sum(y)/2 - yn)
-            y1 <- (sum(x*yn) + x[[1]]*(y[[1]]-y[[2]]))/sum(x)
-            y2 <- (sum(x*yn) + x[[2]]*(y[[2]]-y[[1]]))/sum(x)
-            tbl[as.vector(tbl$node)==dat$node[[1]], "y"] <- y1
-            tbl[as.vector(tbl$node)==dat$node[[2]], "y"] <- y2
+            y <-  y - (sum(y)/length(y) - yn)
+            signflag <- ifelse(y>yn, -1, 1)
+            y <- yn - (x * abs(yn - parent.y))/(signflag*abs(xn-parent.x))
+            tbl[match(dat$node, tbl$node), "y"] <- y
         }else if (nrow(dat) == 1){
             tbl[as.vector(tbl$node)==dat$node, "y"] <- yn
         }
