@@ -182,19 +182,19 @@ geom_tiplab_rectangular <- function(mapping=NULL, hjust = 0,  align = FALSE,
             segment_mapping <- modifyList(segment_mapping, mapping)
     }
     imageparams <- list(mapping=text_mapping, hjust = hjust, nudge_x = offset, stat = StatTreeData)
-    imageparams <- extract_params(imageparams, params, c("size", "alpha", "color", "colour", "image", 
+    imageparams <- extract_params(imageparams, params, c("data", "size", "alpha", "color", "colour", "image", 
                                                          "angle", "position", "inherit.aes", "by", "show.legend",
                                                          "image_fun", ".fun", "asp", "nudge_y", "height", "na.rm")) 
     labelparams <- list(mapping=text_mapping, hjust = hjust, nudge_x = offset, stat = StatTreeData)
     labelparams <- extract_params(labelparams, params, 
-                                  c("size", "alpha", "vjust", "color", "colour", "angle", "alpha", "family", "fontface",
+                                  c("data", "size", "alpha", "vjust", "color", "colour", "angle", "alpha", "family", "fontface",
                                     "lineheight", "fill", "position", "nudge_y", "show.legend", "check_overlap",
                                     "parse", "inherit.aes", "na.rm", "label.r", "label.size", "label.padding",
                                     "bg.colour", "bg.r"))
     list(
         if (show_segment){
             lineparams <- list(mapping = segment_mapping, linetype=linetype, nudge_x = offset, size = linesize, stat = StatTreeData)
-            lineparams <- extract_params(lineparams, params, c("colour", "alpha", "show.legend",  "na.rm",
+            lineparams <- extract_params(lineparams, params, c("data", "colour", "alpha", "show.legend", "na.rm",
                                                                "inherit.aes", "arrow", "arrow.fill", "lineend")) 
             do.call("geom_segment2", lineparams)
         }
