@@ -10,6 +10,8 @@
 ##' @param continuous character, continuous transition for selected aesthethic ('size' 
 ##' or 'color'('colour')). It should be one of 'color' (or 'colour'), 'size', 'all' 
 ##' and 'none', default is 'none'
+##' @param position Position adjustment, either as a string, or the result of a
+##' call to a position adjustment function, default is "identity".
 ##' @param ... additional parameter
 ##'
 ##' some dot arguments:
@@ -28,7 +30,7 @@
 ##' @importFrom ggplot2 aes
 ##' @export
 ##' @author Yu Guangchuang
-geom_tree <- function(mapping=NULL, data=NULL, layout="rectangular", multiPhylo=FALSE, continuous="none", ...) {
+geom_tree <- function(mapping=NULL, data=NULL, layout="rectangular", multiPhylo=FALSE, continuous="none", position="identity", ...) {
     if (is.logical(continuous)){
         warning_wrap('The type of "continuous" argument was changed (v>=2.5.2). Now, 
                      it should be one of "color" (or "colour"), "size", "all", and "none".')
@@ -41,7 +43,7 @@ geom_tree <- function(mapping=NULL, data=NULL, layout="rectangular", multiPhylo=
         continuous <- ifelse(continuous, "color", "none")
     }
     continuous <- match.arg(continuous, c("color", "colour", "size", "none", "all"))
-    stat_tree(data=data, mapping=mapping, geom="segment",
+    stat_tree(data=data, mapping=mapping, geom="segment", position=position,
               layout=layout, multiPhylo=multiPhylo, continuous=continuous, ...)
 }
 
