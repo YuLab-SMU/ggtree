@@ -1,5 +1,6 @@
-# ggtree 3.1.2.992
+# ggtree 3.1.3
 
++ `data` argument in `geom_tiplab` and `position` argument in `geom_tree` (2021-08-10, Tue; #426, @xiangpin)
 + `geom_hilight` and `geom_cladelab` supports function as input data (2021-07-28, Wed; #421, @xiangpin)
 + `td_mutate` for mutating tree data
 + `geom_tiplab` supports fontface aesthetic (2021-07-06, Tue; @xiangpin)
