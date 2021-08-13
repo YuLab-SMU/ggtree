@@ -104,7 +104,7 @@ stat_tree <- function(mapping=NULL, data=NULL, geom="segment", position="identit
                    )
              )
     } else if (layout %in% c("slanted", "radial", "equal_angle", "daylight", "ape")) {
-        line.type <- getOption(x="radial.line.type", default="straight")
+        line.type <- getOption(x="layout.radial.linetype", default="straight")
         geom <- switch(line.type, straight=GeomSegmentGGtree, curved=geom)
         layer(stat=StatTree,
               data=data,
