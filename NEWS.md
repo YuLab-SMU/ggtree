@@ -1,3 +1,7 @@
+# ggtree 3.1.3.991
+
++ allow using `options(layout.radial.linetype)` to set linetype of radial layout (either 'strainght' or 'curved') (2021-08-13, Fri; @xiangpin, #427)
+
 # ggtree 3.1.3
 
 + `data` argument in `geom_tiplab` and `position` argument in `geom_tree` (2021-08-10, Tue; #426, @xiangpin)
