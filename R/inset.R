@@ -29,7 +29,7 @@ geom_inset <- function(insets, width = .1, height = .1, hjust = 0, vjust = 0,
 ##' @param tree_view tree view
 ## @inheritParams geom_inset
 ##' @return tree view with insets
-##' @importFrom rvcheck get_fun_from_pkg
+##' @importFrom yulab.utils get_fun_from_pkg
 ##' @export
 ##' @author Guangchuang Yu
 inset <- function(tree_view, insets, width, height, hjust=0, vjust=0,

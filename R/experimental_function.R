@@ -9,7 +9,7 @@
 ##' @param align where to place gene label, default is 'centre' and can be set to 'left' and 'right'
 ##' @param ... additional parameters
 ##' @return geom layer
-##' @importFrom rvcheck get_aes_var
+##' @importFrom ggfun get_aes_var
 ##' @export
 ##' @author Guangchuang Yu
 geom_motif <- function(mapping, data, on, label, align = 'centre', ...) {
