@@ -20,7 +20,7 @@
 ##' @importFrom ggplot2 layer
 ##' @importFrom ggplot2 position_nudge
 ##' @importFrom ggplot2 aes_string
-##' @importFrom rvcheck get_aes_var
+##' @importFrom ggfun get_aes_var
 ##' @export
 ##' @seealso
 ##' [geom_text][ggplot2::geom_text]
