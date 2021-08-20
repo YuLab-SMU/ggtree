@@ -1,5 +1,6 @@
-# ggtree 3.1.3.991
+# ggtree 3.1.3.992
 
++ import `ggfun` and `yulab.utils` (2021-08-20, Fri)
 + allow using `options(layout.radial.linetype)` to set linetype of radial layout (either 'strainght' or 'curved') (2021-08-13, Fri; @xiangpin, #427)
 
 # ggtree 3.1.3
