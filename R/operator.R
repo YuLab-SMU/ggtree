@@ -116,7 +116,6 @@
 `%+>%` <- function(p, data) {
     df <- p$data
     lv <- levels(df$.panel)
-
     if (inherits(data, "GRanges") || inherits(data, "GRangesList")) {
         names(data) <- df$y[match(names(data), df$label)]
         res <- data[order(as.numeric(names(data)))]
@@ -128,6 +127,14 @@
         ## res <- merge(df[, c('label', 'y')], data, by.x='label', by.y=1) ## , all.x=TRUE)
         res <- merge(df[, !names(df) %in% c('node', 'parent', 'x', 'branch', 'angle')], data, by.x='label', by.y=1)
         res[[".panel"]] <- factor(lv[length(lv)], levels=lv)
+        res <- res[order(res$y),]
+    } else if (is.function(data)){
+        res <- data(df)
+        if (!is.data.frame(res)){
+            rlang::abort("Data function must return a data.frame")
+        }
+        res[[".panel"]] <- factor(lv[length(lv)], levels=lv)
+        res %<>% dplyr::filter(.data$isTip)
         res <- res[order(res$y),]
     } else {
         stop("input 'data' is not supported...")
