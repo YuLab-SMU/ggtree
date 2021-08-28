@@ -242,6 +242,7 @@ ggplot_add.tiplab_ylab <- function(object, plot, object_name) {
                                  position = object$position, expand = expansion(0, 0.6))
 
     object$position <- NULL
+    object$node <- NULL
     ytext <- do.call(element_text, object)
 
     if (is.null(object$position)) {
