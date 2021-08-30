@@ -1,5 +1,6 @@
-# ggtree 3.1.3.993
+# ggtree 3.1.4
 
++ introduce `align` parameter in `geom_hilight` (2021-08-30, Mon; @xiangpin, #431)
 + the `data` parameter in `geom_facet` now accepts function as input (2021-08-22, Sun; @xiangpin, #430)
 + import `ggfun` and `yulab.utils` (2021-08-20, Fri)
 + allow using `options(layout.radial.linetype)` to set linetype of radial layout (either 'strainght' or 'curved') (2021-08-13, Fri; @xiangpin, #427)
