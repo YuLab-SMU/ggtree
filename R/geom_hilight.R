@@ -25,6 +25,9 @@
 #'        \item \code{extendto} specify a value, meaning the rectangle extend to, default is NULL.
 #'        \item \code{linetype} the line type of margin, default is 1.
 #'        \item \code{size} the width of line of margin, default is 0.5.
+#'        \item \code{align} control the align direction of the edge of high light rectangular.
+#'          Options is 'none' (default), 'left', 'right', 'both'. This argument only work when the
+#'          'geom_hilight' is plotting using geom_hilight(mapping=aes(...)).
 #'     }
 #' \code{geom_hilight()} understands the following aesthethics for encircle layer (required 
 #' aesthetics are in bold):
@@ -53,6 +56,10 @@
 #' dat <- data.frame(id=c(62, 88), type=c("A", "B"))
 #' p2 <- p + geom_hilight(data=dat, mapping=aes(node=id, fill=type))
 #' p2
+#' p3 <- p + geom_hilight(data=dat, mapping=aes(node=id, fill=type), align="left")
+#' p4 <- p + geom_hilight(data=dat, mapping=aes(node=id, fill=type), align="right")
+#' p5 <- p + geom_hilight(data=dat, mapping=aes(node=id, fill=type), align="both")
+#' p2/ p3/ p4/ p5
 geom_hilight <- function(data=NULL,
                          mapping=NULL,
                          node=NULL,
@@ -100,7 +107,7 @@ GeomHilightRect <- ggproto("GeomHilightRect", Geom,
                                              extend=0, extendto=NULL),
                            required_aes = c("xmin", "xmax", "ymin", "ymax", "clade_root_node"),
                            draw_key = draw_key_polygon,
-                           draw_panel = function(self, data, panel_params, coord, linejoin = "mitre") {
+                           draw_panel = function(self, data, panel_params, coord, linejoin = "mitre", align="none") {
                                data$xmax <- data$xmax + data$extend
                                if (!any(is.null(data$extendto)) && !any(is.na(data$extendto))){
                                    # check whether the x of tree is reversed.
@@ -126,6 +133,7 @@ GeomHilightRect <- ggproto("GeomHilightRect", Geom,
                                        data$xmax <- data$extendto 
                                    }
                                }
+                               data <- build_align_data(data=data, align=align) 
                                if (!coord$is_linear()) {
                                    aesthetics <- setdiff(names(data), c("xmin", "xmax", "ymin", "ymax", "clade_root_node"))
                                    polys <- lapply(split(data, seq_len(nrow(data))), function(row) {
@@ -232,6 +240,30 @@ get_clade_position_ <- function(data, node, reverse=FALSE) {
                ymin=min(y, na.rm=TRUE) - 0.5,
                ymax=max(y, na.rm=TRUE) + 0.5)
 }
+
+build_align_data <- function(data, align){
+    align <- match.arg(align, c("none", "left", "right", "both"))
+    data <- switch(align,
+              none = {
+                  data
+              },
+              left = {
+                  data$xmin <- min(data$xmin, na.rm = TRUE)
+                  data
+              },
+              right = {
+                  data$xmax <- max(data$xmax, na.rm = TRUE)
+                  data
+              },
+              both ={
+                  data$xmin <- min(data$xmin, na.rm = TRUE)
+                  data$xmax <- max(data$xmax, na.rm = TRUE)
+                  data
+              }
+            )
+    return (data)
+}
+
 
 #' @importFrom utils getFromNamespace
 warning_wrap <- getFromNamespace("warning_wrap", "ggplot2")

@@ -46,6 +46,9 @@ aesthetics are in bold):
 \item \code{extendto} specify a value, meaning the rectangle extend to, default is NULL.
 \item \code{linetype} the line type of margin, default is 1.
 \item \code{size} the width of line of margin, default is 0.5.
+\item \code{align} control the align direction of the edge of high light rectangular.
+Options is 'none' (default), 'left', 'right', 'both'. This argument only work when the
+'geom_hilight' is plotting using geom_hilight(mapping=aes(...)).
 }
 \code{geom_hilight()} understands the following aesthethics for encircle layer (required
 aesthetics are in bold):
@@ -73,6 +76,10 @@ p1
 dat <- data.frame(id=c(62, 88), type=c("A", "B"))
 p2 <- p + geom_hilight(data=dat, mapping=aes(node=id, fill=type))
 p2
+p3 <- p + geom_hilight(data=dat, mapping=aes(node=id, fill=type), align="left")
+p4 <- p + geom_hilight(data=dat, mapping=aes(node=id, fill=type), align="right")
+p5 <- p + geom_hilight(data=dat, mapping=aes(node=id, fill=type), align="both")
+p2/ p3/ p4/ p5
 }
 \author{
 Guangchuang Yu and Shuangbin Xu
