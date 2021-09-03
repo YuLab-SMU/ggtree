@@ -89,6 +89,9 @@ GeomSegmentGGtree <- ggproto("GeomSegmentGGtree", GeomSegment,
 
                              draw_panel = function(data, panel_params, coord, arrow = NULL, arrow.fill = NULL,
                                                    lineend = "butt", linejoin = "round", na.rm = FALSE, nudge_x = 0) {
+
+                                 data$x <- data$x + nudge_x
+
                                  data <- ggplot2::remove_missing(data, na.rm = na.rm, c("x", "y", "xend",
                                                         "yend", "linetype", "size", "shape"), name = "geom_segment")
                                  if (empty(data))
@@ -110,7 +113,6 @@ GeomSegmentGGtree <- ggproto("GeomSegmentGGtree", GeomSegment,
                                  }else{
                                      data <- coord$transform(data, panel_params)
                                  }
-                                 data$x <- data$x + nudge_x
 
                                  arrow.fill <- arrow.fill %||% data$colour
                                  return(grid::segmentsGrob(data$x, data$y, data$xend, data$yend,
