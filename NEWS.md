@@ -1,3 +1,7 @@
+# ggtree 3.1.4.991
+
++ bug fixed of `nudge_x` parameter in `geom_segment2` (2021-09-03, Fri; @xiangpin, #433)
+
 # ggtree 3.1.4
 
 + introduce `align` parameter in `geom_hilight` (2021-08-30, Mon; @xiangpin, #431)
