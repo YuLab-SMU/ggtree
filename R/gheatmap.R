@@ -19,6 +19,7 @@
 ##' @param family font of matrix colnames
 ##' @param hjust hjust for column names (0: align left, 0.5: align center, 1: align righ)
 ##' @param legend_title title of fill legend
+##' @param column_annotation in place of the colnames from a matrix, input a custom vector of column labels
 ##' @return tree view
 ##' @importFrom ggplot2 geom_tile
 ##' @importFrom ggplot2 geom_text
@@ -35,7 +36,8 @@
 ##' @author Guangchuang Yu
 gheatmap <- function(p, data, offset=0, width=1, low="green", high="red", color="white",
                      colnames=TRUE, colnames_position="bottom", colnames_angle=0, colnames_level=NULL,
-                     colnames_offset_x = 0, colnames_offset_y = 0, font.size=4, family="", hjust=0.5, legend_title = "value") {
+                     colnames_offset_x = 0, colnames_offset_y = 0, font.size=4, family="", hjust=0.5, legend_title = "value",
+                     column_annotation = NULL) {
 
     colnames_position %<>% match.arg(c("bottom", "top"))
     variable <- value <- lab <- y <- NULL
@@ -121,8 +123,25 @@ gheatmap <- function(p, data, offset=0, width=1, low="green", high="red", color=
         }
         mapping$y <- y
         mapping[[".panel"]] <- factor("Tree")
-        p2 <- p2 + geom_text(data=mapping, aes(x=to, y = y, label=from), size=font.size, family=family, inherit.aes = FALSE,
-                             angle=colnames_angle, nudge_x=colnames_offset_x, nudge_y = colnames_offset_y, hjust=hjust)
+        # if custom column annotations are provided
+        if (!is.null(column_annotation)) {
+            # assess the type of input for the custom column annotation
+            # either a vector or a named vector with positions for specific names
+            if (!is.null(names(column_annotation))) {
+                vector_to_fill <- rep("", nrow(mapping))
+                for (name in names(column_annotation)) {
+                    vector_to_fill[unname(column_annotation[name])] = name
+                }
+                mapping$custom_labels <- vector_to_fill
+            } else {
+                mapping$custom_labels <- column_annotation
+            }
+            p2 <- p2 + geom_text(data=mapping, aes(x=to, y = y, label=custom_labels), size=font.size, family=family, inherit.aes = FALSE,
+                                angle=colnames_angle, nudge_x=colnames_offset_x, nudge_y = colnames_offset_y, hjust=hjust)
+        } else {
+            p2 <- p2 + geom_text(data=mapping, aes(x=to, y = y, label=from), size=font.size, family=family, inherit.aes = FALSE,
+                                 angle=colnames_angle, nudge_x=colnames_offset_x, nudge_y = colnames_offset_y, hjust=hjust)
+        }
     }
 
     p2 <- p2 + theme(legend.position="right")
