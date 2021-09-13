@@ -19,7 +19,7 @@
 ##' @param family font of matrix colnames
 ##' @param hjust hjust for column names (0: align left, 0.5: align center, 1: align righ)
 ##' @param legend_title title of fill legend
-##' @param column_annotation in place of the colnames from a matrix, input a custom vector of column labels
+##' @param custom_column_labels instead of the column names from a matrix, input a custom vector of column labels
 ##' @return tree view
 ##' @importFrom ggplot2 geom_tile
 ##' @importFrom ggplot2 geom_text
@@ -37,7 +37,7 @@
 gheatmap <- function(p, data, offset=0, width=1, low="green", high="red", color="white",
                      colnames=TRUE, colnames_position="bottom", colnames_angle=0, colnames_level=NULL,
                      colnames_offset_x = 0, colnames_offset_y = 0, font.size=4, family="", hjust=0.5, legend_title = "value",
-                     column_annotation = NULL) {
+                     custom_column_labels = NULL) {
 
     colnames_position %<>% match.arg(c("bottom", "top"))
     variable <- value <- lab <- y <- NULL
@@ -124,22 +124,41 @@ gheatmap <- function(p, data, offset=0, width=1, low="green", high="red", color=
         mapping$y <- y
         mapping[[".panel"]] <- factor("Tree")
         # if custom column annotations are provided
-        if (!is.null(column_annotation)) {
+        if (!is.null(custom_column_labels)) {
             # assess the type of input for the custom column annotation
             # either a vector or a named vector with positions for specific names
-            if (!is.null(names(column_annotation))) {
+            if (is.null(names(custom_column_labels))) {
+                if (length(custom_column_labels) > nrow(mapping)) {
+                    warning("Input label vector has more elements than there are columns")
+                    sprintf("Using the first %s elements as labels", nrow(mapping))
+                    custom_column_labels <- custom_column_labels[1:nrow(mapping)]
+                    mapping$custom_labels <- custom_column_labels
+                 } else if (length(custom_column_labels) < nrow(mapping)){
+                        warning("Input label vector has fewer elements than there are columns")
+                        sprintf("Using all available labels, n = %s", length(custom_column_labels))
+                     mapping$custom_labels <- c(custom_column_labels, rep("", nrow(mapping) - length(custom_column_labels)))
+                 } else {
+                        mapping$custom_labels <- custom_column_labels
+                    }
+                } else {
                 vector_to_fill <- rep("", nrow(mapping))
-                for (name in names(column_annotation)) {
-                    vector_to_fill[unname(column_annotation[name])] = name
+                for (name in names(custom_column_labels)) {
+                    if (!as.numeric(unname(custom_column_labels[name]))) {
+                        warning("At least one element of the named column label vector was not a valid index")
+                        break
+                    } else if (as.numeric(unname(custom_column_labels[name])) > nrow(mapping)) {
+                        warning("Named column label vector tries to access an index that is out of range")
+                        break
+                    } else {
+                        vector_to_fill[unname(custom_column_labels[name])] = name
+                    }
                 }
                 mapping$custom_labels <- vector_to_fill
-            } else {
-                mapping$custom_labels <- column_annotation
             }
             p2 <- p2 + geom_text(data=mapping, aes(x=to, y = y, label=custom_labels), size=font.size, family=family, inherit.aes = FALSE,
-                                angle=colnames_angle, nudge_x=colnames_offset_x, nudge_y = colnames_offset_y, hjust=hjust)
+                                 angle=colnames_angle, nudge_x=colnames_offset_x, nudge_y = colnames_offset_y, hjust=hjust)
         } else {
-            p2 <- p2 + geom_text(data=mapping, aes(x=to, y = y, label=from), size=font.size, family=family, inherit.aes = FALSE,
+            p2 <- p2 + geom_text(data=mapping, aes(x=to, y = y, label=cus), size=font.size, family=family, inherit.aes = FALSE,
                                  angle=colnames_angle, nudge_x=colnames_offset_x, nudge_y = colnames_offset_y, hjust=hjust)
         }
     }
