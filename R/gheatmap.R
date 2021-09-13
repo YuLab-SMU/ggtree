@@ -129,13 +129,13 @@ gheatmap <- function(p, data, offset=0, width=1, low="green", high="red", color=
             # either a vector or a named vector with positions for specific names
             if (is.null(names(custom_column_labels))) {
                 if (length(custom_column_labels) > nrow(mapping)) {
-                    warning("Input label vector has more elements than there are columns")
-                    sprintf("Using the first %s elements as labels", nrow(mapping))
-                    custom_column_labels <- custom_column_labels[1:nrow(mapping)]
-                    mapping$custom_labels <- custom_column_labels
-                 } else if (length(custom_column_labels) < nrow(mapping)){
-                        warning("Input label vector has fewer elements than there are columns")
-                        sprintf("Using all available labels, n = %s", length(custom_column_labels))
+                    warning(paste("Input column label vector has more elements than there are columns.",
+                                  "\n", "Using the first ", nrow(mapping)," elements as labels", sep=""))
+                    mapping$custom_labels <- custom_column_labels[1:nrow(mapping)]
+                 } else if (length(custom_column_labels) < nrow(mapping)) {
+                        warning(paste("Input column label vector has fewer elements than there are columns.",
+                                   "\n", "Using all available labels, n = ",
+                                   length(custom_column_labels), sep=""))
                      mapping$custom_labels <- c(custom_column_labels, rep("", nrow(mapping) - length(custom_column_labels)))
                  } else {
                         mapping$custom_labels <- custom_column_labels
@@ -143,14 +143,17 @@ gheatmap <- function(p, data, offset=0, width=1, low="green", high="red", color=
                 } else {
                 vector_to_fill <- rep("", nrow(mapping))
                 for (name in names(custom_column_labels)) {
-                    if (!as.numeric(unname(custom_column_labels[name]))) {
-                        warning("At least one element of the named column label vector was not a valid index")
-                        break
-                    } else if (as.numeric(unname(custom_column_labels[name])) > nrow(mapping)) {
-                        warning("Named column label vector tries to access an index that is out of range")
+                    # check to see if the index passed is valid integer
+                    if (!is.na(as.numeric(unname(custom_column_labels[name]))) &
+                        as.numeric(unname(custom_column_labels[name])) <= nrow(mapping)) {
+                        vector_to_fill[unname(custom_column_labels[name])] = name
+                    } else if (!is.na(as.numeric(unname(custom_column_labels[name]))) &
+                               as.numeric(unname(custom_column_labels[name])) > nrow(mapping)) {
+                        warning("Named column label vector tries to access an index that is out of range, so it will be discarded")
                         break
                     } else {
-                        vector_to_fill[unname(custom_column_labels[name])] = name
+                        warning("At least one element of the named column label vector was not a valid index")
+                        break
                     }
                 }
                 mapping$custom_labels <- vector_to_fill
@@ -158,7 +161,7 @@ gheatmap <- function(p, data, offset=0, width=1, low="green", high="red", color=
             p2 <- p2 + geom_text(data=mapping, aes(x=to, y = y, label=custom_labels), size=font.size, family=family, inherit.aes = FALSE,
                                  angle=colnames_angle, nudge_x=colnames_offset_x, nudge_y = colnames_offset_y, hjust=hjust)
         } else {
-            p2 <- p2 + geom_text(data=mapping, aes(x=to, y = y, label=cus), size=font.size, family=family, inherit.aes = FALSE,
+            p2 <- p2 + geom_text(data=mapping, aes(x=to, y = y, label=from), size=font.size, family=family, inherit.aes = FALSE,
                                  angle=colnames_angle, nudge_x=colnames_offset_x, nudge_y = colnames_offset_y, hjust=hjust)
         }
     }
