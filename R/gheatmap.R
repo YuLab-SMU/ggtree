@@ -131,33 +131,30 @@ gheatmap <- function(p, data, offset=0, width=1, low="green", high="red", color=
                 if (length(custom_column_labels) > nrow(mapping)) {
                     warning(paste("Input column label vector has more elements than there are columns.",
                                   "\n", "Using the first ", nrow(mapping)," elements as labels", sep=""))
-                    mapping$custom_labels <- custom_column_labels[1:nrow(mapping)]
+                    mapping$custom_labels <- as.character(custom_column_labels[1:nrow(mapping)])
                  } else if (length(custom_column_labels) < nrow(mapping)) {
                         warning(paste("Input column label vector has fewer elements than there are columns.",
                                    "\n", "Using all available labels, n = ",
                                    length(custom_column_labels), sep=""))
-                     mapping$custom_labels <- c(custom_column_labels, rep("", nrow(mapping) - length(custom_column_labels)))
+                     mapping$custom_labels <- as.character(c(custom_column_labels,
+                                rep("", nrow(mapping) - length(custom_column_labels))))
                  } else {
                         mapping$custom_labels <- custom_column_labels
                     }
+            } else {
+                if (!is.null(colnames_level)) {
+                    # use the colnames levels if available
+                    # otherwise use the default order provided by the data frame
+                    vector_order <- colnames_level
+                    
                 } else {
-                vector_to_fill <- rep("", nrow(mapping))
-                for (name in names(custom_column_labels)) {
-                    # check to see if the index passed is valid integer
-                    if (!is.na(as.numeric(unname(custom_column_labels[name]))) &
-                        as.numeric(unname(custom_column_labels[name])) <= nrow(mapping)) {
-                        vector_to_fill[unname(custom_column_labels[name])] = name
-                    } else if (!is.na(as.numeric(unname(custom_column_labels[name]))) &
-                               as.numeric(unname(custom_column_labels[name])) > nrow(mapping)) {
-                        warning("Named column label vector tries to access an index that is out of range, so it will be discarded")
-                        break
-                    } else {
-                        warning("At least one element of the named column label vector was not a valid index")
-                        break
-                    }
+                    vector_order <- as.character(mapping$from)
                 }
-                mapping$custom_labels <- vector_to_fill
-            }
+                for (elem in custom_column_labels) {
+                    vector_order[which(vector_order == elem)] = names(which(custom_column_labels == elem))
+                }
+                mapping$custom_labels <- vector_order
+                }
             p2 <- p2 + geom_text(data=mapping, aes(x=to, y = y, label=custom_labels), size=font.size, family=family, inherit.aes = FALSE,
                                  angle=colnames_angle, nudge_x=colnames_offset_x, nudge_y = colnames_offset_y, hjust=hjust)
         } else {
@@ -165,7 +162,6 @@ gheatmap <- function(p, data, offset=0, width=1, low="green", high="red", color=
                                  angle=colnames_angle, nudge_x=colnames_offset_x, nudge_y = colnames_offset_y, hjust=hjust)
         }
     }
-
     p2 <- p2 + theme(legend.position="right")
     ## p2 <- p2 + guides(fill = guide_legend(override.aes = list(colour = NULL)))
 
