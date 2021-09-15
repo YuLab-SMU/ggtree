@@ -1,5 +1,6 @@
-# ggtree 3.1.4.991
+# ggtree 3.1.4.992
 
++ custom column headers for `gheatmap` (2021-09-15, Wed, @matt-sd-watson, #434)
 + bug fixed of `nudge_x` parameter in `geom_segment2` (2021-09-03, Fri; @xiangpin, #433)
 
 # ggtree 3.1.4

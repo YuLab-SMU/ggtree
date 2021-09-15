@@ -36,8 +36,8 @@
 ##' @author Guangchuang Yu
 gheatmap <- function(p, data, offset=0, width=1, low="green", high="red", color="white",
                      colnames=TRUE, colnames_position="bottom", colnames_angle=0, colnames_level=NULL,
-                     colnames_offset_x = 0, colnames_offset_y = 0, font.size=4, family="", hjust=0.5, legend_title = "value",
-                     custom_column_labels = NULL) {
+                     colnames_offset_x = 0, colnames_offset_y = 0, font.size=4, family="",
+                     hjust=0.5, legend_title = "value", custom_column_labels = NULL) {
 
     colnames_position %<>% match.arg(c("bottom", "top"))
     variable <- value <- lab <- y <- NULL
@@ -49,7 +49,7 @@ gheatmap <- function(p, data, offset=0, width=1, low="green", high="red", color=
     ## convert width to width of each cell
     width <- width * (p$data$x %>% range(na.rm=TRUE) %>% diff) / ncol(data)
 
-    isTip <- x <- y <- variable <- value <- from <- to <- NULL
+    isTip <- x <- from <- to <- custom_labels <- NULL
 
     ## handle the display of heatmap on collapsed nodes
     ## https://github.com/GuangchuangYu/ggtree/issues/242
@@ -131,15 +131,15 @@ gheatmap <- function(p, data, offset=0, width=1, low="green", high="red", color=
                 if (length(custom_column_labels) > nrow(mapping)) {
                     warning(paste("Input column label vector has more elements than there are columns.",
                                   "\n", "Using the first ", nrow(mapping)," elements as labels", sep=""))
-                    mapping$custom_labels <- as.character(custom_column_labels[1:nrow(mapping)])
+                    mapping[["custom_labels"]] <- as.character(custom_column_labels[1:nrow(mapping)])
                  } else if (length(custom_column_labels) < nrow(mapping)) {
                         warning(paste("Input column label vector has fewer elements than there are columns.",
                                    "\n", "Using all available labels, n = ",
                                    length(custom_column_labels), sep=""))
-                     mapping$custom_labels <- as.character(c(custom_column_labels,
+                        mapping[["custom_labels"]] <- as.character(c(custom_column_labels,
                                 rep("", nrow(mapping) - length(custom_column_labels))))
                  } else {
-                        mapping$custom_labels <- custom_column_labels
+                     mapping[["custom_labels"]] <- custom_column_labels
                     }
             } else {
                 if (!is.null(colnames_level)) {
@@ -153,13 +153,15 @@ gheatmap <- function(p, data, offset=0, width=1, low="green", high="red", color=
                 for (elem in custom_column_labels) {
                     vector_order[which(vector_order == elem)] = names(which(custom_column_labels == elem))
                 }
-                mapping$custom_labels <- vector_order
+                mapping[["custom_labels"]] <- vector_order
                 }
-            p2 <- p2 + geom_text(data=mapping, aes(x=to, y = y, label=custom_labels), size=font.size, family=family, inherit.aes = FALSE,
-                                 angle=colnames_angle, nudge_x=colnames_offset_x, nudge_y = colnames_offset_y, hjust=hjust)
+            p2 <- p2 + geom_text(data=mapping, aes(x=to, y = y, label=custom_labels),
+                                 size=font.size, family=family, inherit.aes = FALSE, angle=colnames_angle,
+                                 nudge_x=colnames_offset_x, nudge_y = colnames_offset_y, hjust=hjust)
         } else {
-            p2 <- p2 + geom_text(data=mapping, aes(x=to, y = y, label=from), size=font.size, family=family, inherit.aes = FALSE,
-                                 angle=colnames_angle, nudge_x=colnames_offset_x, nudge_y = colnames_offset_y, hjust=hjust)
+            p2 <- p2 + geom_text(data=mapping, aes(x=to, y = y, label=from), size=font.size, family=family,
+                                 inherit.aes = FALSE, angle=colnames_angle,
+                                 nudge_x=colnames_offset_x, nudge_y = colnames_offset_y, hjust=hjust)
         }
     }
     p2 <- p2 + theme(legend.position="right")

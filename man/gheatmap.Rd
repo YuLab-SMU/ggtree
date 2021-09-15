@@ -21,7 +21,8 @@ gheatmap(
   font.size = 4,
   family = "",
   hjust = 0.5,
-  legend_title = "value"
+  legend_title = "value",
+  custom_column_labels = NULL
 )
 }
 \arguments{
@@ -58,6 +59,8 @@ gheatmap(
 \item{hjust}{hjust for column names (0: align left, 0.5: align center, 1: align righ)}
 
 \item{legend_title}{title of fill legend}
+
+\item{custom_column_labels}{instead of the column names from a matrix, input a custom vector of column labels}
 }
 \value{
 tree view
