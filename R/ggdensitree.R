@@ -119,11 +119,10 @@ ggdensitree <- function(data=NULL, mapping=NULL, layout="slanted", tip.order='mo
 	
 	## reorder tips (and shift x id align tips)
 	max.x <- vapply(trees.f, function(x) max(x$x, na.rm = TRUE), numeric(1))
-	farthest <- max(max.x)
 	trees.f <- lapply(1:length(trees), function(i) {
 		trees.f[[i]]$y <- getYcoord(trees[[i]], tip.order = tip.order)
 		if (align.tips) {
-			trees.f[[i]]$x <- trees.f[[i]]$x + (farthest - max.x[i])
+			trees.f[[i]]$x <- trees.f[[i]]$x - max.x[i]
 		}
 		if (i > 1 && jitter > 0) {
 			trees.f[[i]]$y[1:n.tips] %<>% add(stats::rnorm(n.tips, mean=0, sd=jitter))
