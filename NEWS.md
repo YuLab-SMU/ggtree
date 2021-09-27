@@ -1,5 +1,19 @@
-# ggtree 3.1.4.992
+# TODO LIST
 
++ tanglegram support
+  - <https://yulab-smu.top/treedata-book/chapter2.html#ggtree-fortify>
+  - <https://www.rdocumentation.org/packages/phytools/versions/0.7-70/topics/cophylo> 
++ `fortify` method for `phyloseq` object should return a tidy data.frame
+  - maybe we can defined another object (inherited from treedata?) and provide converter for `phyloseq`
++ update ggtree man files
++ The `daylight` algorithm is quite slow compare to `ggraph` and needs to  be optimized
+  - <https://github.com/thomasp85/ggraph/commit/14de66f1225336179b4598cb42a4beda95682211>
++ rewrite `revts` to `scale_revts`
+
+
+# ggtree 3.1.4.993
+
++ `ggdensitree` with `align.tips=TRUE` sets max x to 0 (2021-09-26, Sun, @brj1, #439)
 + custom column headers for `gheatmap` (2021-09-15, Wed, @matt-sd-watson, #434)
 + bug fixed of `nudge_x` parameter in `geom_segment2` (2021-09-03, Fri; @xiangpin, #433)
 
