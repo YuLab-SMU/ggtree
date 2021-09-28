@@ -11,9 +11,9 @@
 + rewrite `revts` to `scale_revts`
 
 
-# ggtree 3.1.4.993
+# ggtree 3.1.5
 
-+ `ggdensitree` with `align.tips=TRUE` sets max x to 0 (2021-09-26, Sun, @brj1, #439)
++ `ggdensitree` with `align.tips=TRUE` sets max x to 0 (2021-09-26, Sun; @brj1, #437, #439)
 + custom column headers for `gheatmap` (2021-09-15, Wed, @matt-sd-watson, #434)
 + bug fixed of `nudge_x` parameter in `geom_segment2` (2021-09-03, Fri; @xiangpin, #433)
 
