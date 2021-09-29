@@ -767,7 +767,7 @@ getXcoord2 <- function(x, root, parent, child, len, start=0, rev=FALSE) {
     while(anyNA(x)) {
         idx <- which(parent %in% currentNode)
         newNode <- child[idx]
-        x[newNode] <- x[parent[idx]]+len[idx] * direction
+        x[newNode] <- x[parent[idx]]+len[idx] * direction * sign(len[idx])
         currentNode <- newNode
     }
 

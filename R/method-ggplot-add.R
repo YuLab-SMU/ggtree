@@ -386,7 +386,7 @@ ggplot_add.cladelab <- function(object, plot, object_name){
                                        params=object$params)
     bar_obj <- c(bar_obj, bar_dot_params)
     if (layout == "unrooted" || layout == "daylight"){
-        bar_obj <- do.call("geom_curve", bar_obj)
+        bar_obj <- do.call(ggplot2::geom_curve, bar_obj)
     }else{
         bar_obj <- do.call("geom_segment", bar_obj)
     }
