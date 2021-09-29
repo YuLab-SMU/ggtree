@@ -10,6 +10,9 @@
   - <https://github.com/thomasp85/ggraph/commit/14de66f1225336179b4598cb42a4beda95682211>
 + rewrite `revts` to `scale_revts`
 
+# ggtree 3.1.5.900
+
++ work with negative edge lengths (`hclust` may generate negative tree heights) (2021-09-29, Wed; @xiangpin, #441)
 
 # ggtree 3.1.5
 
