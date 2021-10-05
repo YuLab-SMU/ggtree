@@ -9,6 +9,10 @@
 + The `daylight` algorithm is quite slow compare to `ggraph` and needs to  be optimized
   - <https://github.com/thomasp85/ggraph/commit/14de66f1225336179b4598cb42a4beda95682211>
 + rewrite `revts` to `scale_revts`
++ `geom_hilight` supports linear gradual colored rectangle
+  - e.g., `grid.rect(gp=gpar(fill=linearGradient()))`
+  - <https://developer.r-project.org/Blog/public/2020/07/15/new-features-in-the-r-graphics-engine/>
+
 
 # ggtree 3.1.5.900
 
