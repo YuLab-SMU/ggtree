@@ -28,6 +28,17 @@
 #'        \item \code{align} control the align direction of the edge of high light rectangular.
 #'          Options is 'none' (default), 'left', 'right', 'both'. This argument only work when the
 #'          'geom_hilight' is plotting using geom_hilight(mapping=aes(...)).
+#'        \item \code{gradient} logical, whether to set the color of hight light layer to gradient,
+#'          default is FALSE, it only work for rectangular, ellipse, roundrect layouts.
+#'        \item \code{gradient.direction} character, the direction of gradient color, default is 'rt'
+#'          meaning the locations of gradient color is from root to tip, options are 'rt' and 'tr'.
+#'        \item \code{gradient.length.out} integer, desired length of the sequence of gradient color,
+#'          default is 2.
+#'        \item \code{roundrect} logical, whether to use the round rectangular layer, default is FALSE,
+#'          it can not be used with \code{gradient=TRUE}, and it only work for rectangular, ellipse, 
+#'          roundrect layouts
+#'        \item \code{roundrect.r} numeric, the radius of the rounded corners, when \code{roundrect=TRUE},
+#'          default is 0.05.
 #'     }
 #' \code{geom_hilight()} understands the following aesthethics for encircle layer (required 
 #' aesthetics are in bold):
@@ -59,7 +70,10 @@
 #' p3 <- p + geom_hilight(data=dat, mapping=aes(node=id, fill=type), align="left")
 #' p4 <- p + geom_hilight(data=dat, mapping=aes(node=id, fill=type), align="right")
 #' p5 <- p + geom_hilight(data=dat, mapping=aes(node=id, fill=type), align="both")
-#' p2/ p3/ p4/ p5
+#' p6 <- p + geom_hilight(data=dat, mapping=aes(node=id, fill=type), gradient = TRUE, alpha=0.68)
+#' p7 <- p + geom_hilight(data=dat, mapping=aes(node=id, fill=type), gradient = TRUE, gradient.direction="tr", alpha=0.68)
+#' p8 <- p + geom_hilight(data=dat, mapping=aes(node=id, fill=type), roundrect = TRUE, alpha=0.68)
+#' p2/ p3/ p4/ p5 / p6/ p7/ p8
 geom_hilight <- function(data=NULL,
                          mapping=NULL,
                          node=NULL,
@@ -107,7 +121,14 @@ GeomHilightRect <- ggproto("GeomHilightRect", Geom,
                                              extend=0, extendto=NULL),
                            required_aes = c("xmin", "xmax", "ymin", "ymax", "clade_root_node"),
                            draw_key = draw_key_polygon,
-                           draw_panel = function(self, data, panel_params, coord, linejoin = "mitre", align="none") {
+                           draw_panel = function(self, data, panel_params, coord, 
+                                                 linejoin = "mitre", align="none", 
+                                                 gradient = FALSE, 
+                                                 gradient.direction = "rt",
+                                                 gradient.length.out = 2,
+                                                 roundrect = FALSE,
+                                                 roundrect.r = 0.05
+                                                 ){
                                data$xmax <- data$xmax + data$extend
                                if (!any(is.null(data$extendto)) && !any(is.na(data$extendto))){
                                    # check whether the x of tree is reversed.
@@ -135,28 +156,120 @@ GeomHilightRect <- ggproto("GeomHilightRect", Geom,
                                }
                                data <- build_align_data(data=data, align=align) 
                                if (!coord$is_linear()) {
-                                   aesthetics <- setdiff(names(data), c("xmin", "xmax", "ymin", "ymax", "clade_root_node"))
+                                   if (gradient){
+                                       warning_wrap("The gradient color hight light layer only presents in rectangular, ellipse, roundrect layouts")
+                                   }
+                                   if (roundrect){
+                                       warning_wrap("The round rectangular hight light layer only presents in rectangular, ellipse, roundrect layouts")
+                                   }
+                                   aesthetics <- setdiff(colnames(data), #"x.start", "y.start", "x.stop", "y.stop"), 
+                                                         c("xmin", "xmax", "ymin", "ymax", "clade_root_node"))
+                                   #df.start <- lapply(split(data, data$clade_root_node), function(node){
+                                   #                 dplyr::mutate(node, x=.data$xmin, y=(.data$ymax-.data$ymin)/2)
+                                   #                 }) %>%
+                                   #            dplyr::bind_rows() %>%
+                                   #            dplyr::select(!c("xmin", "xmax", "ymin", "ymax"))
+                                   #df.stop <- lapply(split(data, data$clade_root_node), function(node){
+                                   #                 dplyr::mutate(node, x=.data$xmax, y=(.data$ymax-.data$ymin)/2)
+                                   #                 }) %>% 
+                                   #           dplyr::bind_rows() %>%
+                                   #           dplyr::select(!c("xmin", "xmax", "ymin", "ymax"))
+                                   #
+                                   #df.start <- ggplot2::coord_munch(coord, data = df.start, panel_params) %>% 
+                                   #            dplyr::select(c("x", "y", "clade_root_node")) %>%
+                                   #            dplyr::rename(x.start="x", y.start="y")
+
+                                   #df.stop <- ggplot2::coord_munch(coord, data = df.stop, panel_params) %>%
+                                   #           dplyr::select(c("x", "y", "clade_root_node")) %>%
+                                   #           dplyr::rename(x.stop="x", y.stop="y")
+
+                                   #df <- df.start %>% left_join(df.stop, by="clade_root_node")
+                                   #data <- data %>% dplyr::left_join(df, by="clade_root_node")
                                    polys <- lapply(split(data, seq_len(nrow(data))), function(row) {
                                                  poly <- rect_to_poly(row$xmin, row$xmax, row$ymin, row$ymax)
                                                  aes <- new_data_frame(row[aesthetics])[rep(1,5), ]
+                                                 #draw_panel_polar(data = cbind(poly, aes), 
+                                                 #                 panel_params = panel_params, 
+                                                 #                 coord = coord, 
+                                                 #                 gradient = gradient, 
+                                                 #                 gradient.direction = gradient.direction,
+                                                 #                 gradient.length.out = gradient.length.out
+                                                 #   )
                                                  GeomPolygon$draw_panel(cbind(poly, aes), panel_params, coord)
                                                  })
-                                   ggname("bar", do.call("grobTree", polys))
+                                   ggname("geom_hilight_rect2", do.call("grobTree", polys))
                                }else{
                                    coords <- coord$transform(data, panel_params)
-                                   ggname("geom_hilight_rect2", rectGrob(
-                                           coords$xmin, coords$ymax,
-                                           width = coords$xmax - coords$xmin,
-                                           height = coords$ymax - coords$ymin,
-                                           default.units = "native",
-                                           just = c("left", "top"),
-                                           gp = gpar(col = coords$colour,
-                                                     fill = alpha(coords$fill, coords$alpha),
-                                                     lwd = coords$size * ggplot2:::.pt,
-                                                     lty = coords$linetype,
-                                                     linejoin = linejoin,
-                                                     lineend = if (identical(linejoin, "round")) "round" else "square")
-                                         ))
+                                   hilightGrob <- ifelse(roundrect, grid::roundrectGrob, grid::rectGrob)
+                                   if (gradient){
+                                       if (roundrect){
+                                           warning_wrap("The round rectangular and gradient are not applied simultaneously")
+                                       }
+                                       gradient.direction <- match.arg(gradient.direction, c("rt", "tr"))
+                                       rects <- lapply(split(coords, seq_len(nrow(coords))), function(row){
+                                                     fill <- grid::linearGradient(
+                                                                 x1 = 0,
+                                                                 x2 = 1,
+                                                                 y1 = 0.5,
+                                                                 y2 = 0.5,
+                                                                 colours = if(gradient.direction == "rt"){
+                                                                               alpha(c(row$fill, "white"), row$alpha)
+                                                                           }else{
+                                                                               rev(alpha(c(row$fill, "white"), row$alpha))
+                                                                           },
+                                                                 stops = seq(0, 1, length.out = gradient.length.out)
+                                                             )
+                                                     rectGrob(
+                                                         x = row$xmin, y = row$ymax, 
+                                                         width = row$xmax - row$xmin, 
+                                                         height = row$ymax - row$ymin,
+                                                         default.units = "native",
+                                                         just = c("left", "top"),
+                                                         gp = gpar(col = row$colour,
+                                                                   fill = fill,
+                                                                   lwd = row$size * ggplot2:::.pt,
+                                                                   lty = row$linetype,
+                                                                   linejoin = linejoin,
+                                                                   lineend = if (identical(linejoin, "round")) "round" else "square")
+                                                     )
+                                                 })
+                                       ggname("geom_hilight_rect2", do.call("grobTree", rects))
+                                   }else{
+                                       if (roundrect){
+                                           rects <- lapply(split(coords, seq_len(nrow(coords))), function(row) 
+                                                        grid::roundrectGrob(
+                                                            row$xmin, row$ymax,
+                                                            width = row$xmax - row$xmin,
+                                                            height = row$ymax - row$ymin,
+                                                            r = grid::unit(roundrect.r, "snpc"),
+                                                            default.units = "native",
+                                                            just = c("left", "top"),
+                                                            gp = grid::gpar(
+                                                              col = row$colour,
+                                                              fill = alpha(row$fill, row$alpha),
+                                                              lwd = row$size * ggplot2::.pt,
+                                                              lty = row$linetype,
+                                                              lineend = "butt"
+                                                            )
+                                                        )
+                                                    )
+                                           ggname("geom_hilight_rect2", do.call("grobTree", rects)) 
+                                       }else{
+                                           ggname("geom_hilight_rect2", rectGrob(
+                                                  coords$xmin, coords$ymax,
+                                                  width = coords$xmax - coords$xmin,
+                                                  height = coords$ymax - coords$ymin,
+                                                  default.units = "native",
+                                                  just = c("left", "top"),
+                                                  gp = gpar(col = coords$colour,
+                                                            fill = alpha(coords$fill, coords$alpha),
+                                                            lwd = coords$size * ggplot2:::.pt,
+                                                            lty = coords$linetype,
+                                                            linejoin = linejoin,
+                                                            lineend = if (identical(linejoin, "round")) "round" else "square")
+                                             ))
+                                       }
+                                   }
                                }
                            }
 
@@ -195,6 +308,94 @@ GeomHilightEncircle <- ggproto("GeomHilightEncircle", Geom,
                                 }
                                 
                         )
+
+
+#draw_panel_polar <- function (data, panel_params, coord, rule = "evenodd", gradient, gradient.direction, gradient.length.out){
+#    n <- nrow(data)
+#    if (n == 1)
+#        return(zeroGrob())
+#    munched <- ggplot2::coord_munch(coord, data, panel_params)
+#    if (is.null(munched$subgroup)) {
+#        munched <- munched[order(munched$group), ]
+#        first_idx <- !duplicated(munched$group)
+#        first_rows <- munched[first_idx, ]
+#        if (gradient){
+#            gradient.direction <- match.arg(gradient.direction, c("rt", "tr"))
+#            rects <- lapply(split(munched, munched$group), function(row){
+#                            fill <- grid::linearGradient(
+#                                        x1 = unique(row$x.start), 
+#                                        x2 = unique(row$x.stop),
+#                                        y1 = 0,
+#                                        y2 = 1,
+#                                        default.units = "native",
+#                                        colours = if (gradient.direction=="rt"){
+#                                                     alpha(c(first_rows$fill, "white"), first_rows$alpha) 
+#                                                  }else{
+#                                                     rev(alpha(c(first_rows$fill, "white"), first_rows$alpha))
+#                                                  },
+#                                        stops = seq(0, 1, length.out = gradient.length.out)
+#                                    )
+#                            grid::polygonGrob(
+#                                row$x, row$y, id = row$group,
+#                                default.units = "native",
+#                                gp = gpar(col = first_rows$colour,
+#                                          fill = fill,
+#                                          lwd = first_rows$size * ggplot2:::.pt,
+#                                          lty = first_rows$linetype)
+#                            )
+#                     })
+#            ggname("geom_polygon2", do.call("grobTree", rects))   
+#        }else{
+#            ggname("geom_polygon2", grid::polygonGrob(munched$x, munched$y,
+#               default.units = "native", id = munched$group, gp = gpar(col = first_rows$colour,
+#               fill = alpha(first_rows$fill, first_rows$alpha),
+#               lwd = first_rows$size * ggplot2::.pt, lty = first_rows$linetype)))
+#        }
+#    }
+#    else {
+#        if (utils::packageVersion("grid") < "3.6") {
+#            abort("Polygons with holes requires R 3.6 or above")
+#        }
+#        munched <- munched[order(munched$group, munched$subgroup), ]
+#        id <- match(munched$subgroup, unique(munched$subgroup))
+#        first_idx <- !duplicated(munched$group)
+#        first_rows <- munched[first_idx, ]
+#        if (gradient){
+#            gradient.direction <- match.arg(gradient.direction, c("rt", "tr"))
+#            rects <- lapply(split(munched, munched$group), function(row){
+#                            fill <- grid::linearGradient(
+#                                        x1 = first_rows$x.start,
+#                                        x2 = first_rows$x.stop,
+#                                        y1 = first_rows$y.start,
+#                                        y2 = first_rows$y.stop,
+#                                        default.units = "native",
+#                                        colours = if (gradient.direction=="rt"){
+#                                                     alpha(c(first_rows$fill, "white"), first_rows$alpha)
+#                                                  }else{
+#                                                     rev(alpha(c(first_rows$fill, "white"), first_rows$alpha))
+#                                                  },
+#                                        stops = seq(0, 1, length.out = gradient.length.out)
+#                                    )
+#                            grid::pathGrob(
+#                                row$x, row$y, id = match(row$subgroup, unique(row$group)), 
+#                                pathId = munched$group,
+#                                rule = rule, default.units = "native",
+#                                gp = gpar(col = first_rows$colour,
+#                                          fill = fill,
+#                                          lwd = first_rows$size * ggplot2:::.pt,
+#                                          lty = first_rows$linetype)
+#                            )
+#                     })
+#            ggname("geom_polygon2", do.call("grobTree", rects)) 
+#        }else{
+#            ggname("geom_polygon2", grid::pathGrob(munched$x, munched$y,
+#                default.units = "native", id = id, pathId = munched$group,
+#                rule = rule, gp = gpar(col = first_rows$colour, fill = alpha(first_rows$fill,
+#                first_rows$alpha), lwd = first_rows$size * ggplot2::.pt,
+#                lty = first_rows$linetype)))
+#        }
+#    }
+#}
 
 ##' get position of clade (xmin, xmax, ymin, ymax)
 ##'

@@ -376,7 +376,8 @@ ggplot_add.cladelab <- function(object, plot, object_name){
                        )
     bar_obj <- list()
     bar_obj$data <- bardata
-    bar_default_aes <- list(barcolour="black", barcolor="black", barsize=0.5, colour="black", size=0.5, linetype=1, alpha=NA, inherit.aes=FALSE)
+    bar_default_aes <- list(barcolour="black", barcolor="black", barsize=0.5, colour="black", size=0.5, 
+                            linetype=1, alpha=NA, inherit.aes=FALSE, show.legend=NA)
     bar_obj$mapping <- reset_mapping(defaultm=bar_default_aes, inputm=object$mapping)
     ifelse(is.null(bar_obj$mapping),bar_obj$mapping <- aes_(x=~x, xend=~xend, y=~y, yend=~yend),
            bar_obj$mapping <- modifyList(bar_obj$mapping, aes_(x=~x, xend=~xend, y=~y, yend=~yend)))

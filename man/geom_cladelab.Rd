@@ -155,13 +155,14 @@ p2 <- p + geom_cladelab(data=data,
                              label=annote, 
                              image=image,
                              color=group, 
-                             offset=offset, 
-                             offset.text=offset.text),
+                             offset=offset
+                        ),
                         geom="shadowtext",
                         hjust=0.5,
                         align=TRUE,
                         horizontal=FALSE,
-                        angle=90
+                        angle=90,
+                        show.legend = FALSE
                        ) 
 p2
 }
