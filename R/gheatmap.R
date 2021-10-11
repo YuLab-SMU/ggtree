@@ -57,11 +57,11 @@ gheatmap <- function(p, data, offset=0, width=1, low="green", high="red", color=
     ## (the latter is extracted only when the input data has data on collapsed
     ## internal nodes)
     df <- p$data
-    nodeCo <- intersect(df %>% filter(is.na(x)) %>% 
+    nodeCo <- intersect(df %>% dplyr::filter(is.na(x)) %>% 
                          select(.data$parent, .data$node) %>% unlist(), 
-                     df %>% filter(!is.na(x)) %>% 
+                     df %>% dplyr::filter(!is.na(x)) %>% 
                          select(.data$parent, .data$node) %>% unlist())
-    labCo <- df %>% filter(.data$node %in% nodeCo) %>% 
+    labCo <- df %>% dplyr::filter(.data$node %in% nodeCo) %>% 
         select(.data$label) %>% unlist()
     selCo <- intersect(labCo, rownames(data))
     isSel <- df$label %in% selCo
