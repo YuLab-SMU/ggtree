@@ -764,29 +764,25 @@ getXcoord2 <- function(x, root, parent, child, len, start=0, rev=FALSE) {
         direction <- -1
     }
 
-    if (any(len < 0) && (is.null(getOption("ignore.negative.edge")) || !getOption("ignore.negative.edge"))){
-        warning_wrap("The tree contained negative ", 
-                  ifelse(sum(len < 0)>1, "edge lengths", "edge length"),
-                  ". If you want to ignore the ", 
-                  ifelse(sum(len<0) > 1, "edges", "edge"),
-                  ", you can set 'options(ignore.negative.edge=TRUE)', then re-run ggtree."
-        )
-    }
+    ignore_negative_edge <- getOption("ignore.negative.edge", default=FALSE)
 
-    if (getOption("ignore.negative.edge", default=FALSE)){
-        while(anyNA(x)) {
-            idx <- which(parent %in% currentNode)
-            newNode <- child[idx]
+    if (any(len < 0) && !ignore_negative_edge) {
+        warning_wrap("The tree contained negative ", 
+                     ifelse(sum(len < 0)>1, "edge lengths", "edge length"),
+                     ". If you want to ignore the ", 
+                     ifelse(sum(len<0) > 1, "edges", "edge"),
+                     ", you can set 'options(ignore.negative.edge=TRUE)', then re-run ggtree."
+                     )
+    }
+    while(anyNA(x)) {
+        idx <- which(parent %in% currentNode)
+        newNode <- child[idx]
+        if (ignore_negative_edge){
             x[newNode] <- x[parent[idx]]+len[idx] * direction * sign(len[idx])
-            currentNode <- newNode
-        }
-    }else{
-        while(anyNA(x)) {
-            idx <- which(parent %in% currentNode)
-            newNode <- child[idx]
+        } else {
             x[newNode] <- x[parent[idx]]+len[idx] * direction
-            currentNode <- newNode
-        }        
+        }
+        currentNode <- newNode
     }
     
     return(x)
