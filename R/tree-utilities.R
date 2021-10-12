@@ -769,7 +769,7 @@ getXcoord2 <- function(x, root, parent, child, len, start=0, rev=FALSE) {
                   ifelse(sum(len < 0)>1, "edge lengths", "edge length"),
                   ". If you want to ignore the ", 
                   ifelse(sum(len<0) > 1, "edges", "edge"),
-                  "you can set 'options(ignore.negative.edge=TRUE)', then re-run ggtree."
+                  ", you can set 'options(ignore.negative.edge=TRUE)', then re-run ggtree."
         )
     }
 
