@@ -304,7 +304,9 @@ build_text_layer <- function(data, object, params, layout){
                                                          params=object$params)
                              )
     if (object$parse=="emoji"){
+        emojifont <- "emojifont"
         emoji <- get_fun_from_pkg("emojifont", "emoji")
+        require(emojifont, character.only = TRUE) %>% suppressMessages()
         text_obj$data$label <- emoji(text_obj$data$label)
         text_dot_params$family <- "EmojiOne"
         object$parse <- FALSE
