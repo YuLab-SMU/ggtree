@@ -14,9 +14,10 @@
   - <https://developer.r-project.org/Blog/public/2020/07/15/new-features-in-the-r-graphics-engine/>
 
 
-# ggtree 3.1.5.900
+# ggtree 3.1.5.901
 
-+ work with negative edge lengths (`hclust` may generate negative tree heights) (2021-09-29, Wed; @xiangpin, #441)
++ `geom_hilight` supports fill linear gradient colour and round rect background (2021-10-11, Mon; @xiangpin, #444)
++ work with negative edge lengths (`hclust` may generate negative tree heights) (2021-09-29, Wed; @xiangpin, #441, #445)
 
 # ggtree 3.1.5
 
