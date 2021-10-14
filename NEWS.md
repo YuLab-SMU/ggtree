@@ -1,3 +1,5 @@
+<!--
+
 # TODO LIST
 
 + tanglegram support
@@ -12,10 +14,14 @@
 + `geom_hilight` supports linear gradual colored rectangle
   - e.g., `grid.rect(gp=gpar(fill=linearGradient()))`
   - <https://developer.r-project.org/Blog/public/2020/07/15/new-features-in-the-r-graphics-engine/>
++ `inset` and relative functions support circular layout
+
+-->
 
 
-# ggtree 3.1.5.901
+# ggtree 3.1.5.902
 
++ `geom_cladelab` now supports extend parameter as in `geom_cladelabel` (2021-10-14, Thu, @xiangpin, #446)
 + `geom_hilight` supports fill linear gradient colour and round rect background (2021-10-11, Mon; @xiangpin, #444)
 + work with negative edge lengths (`hclust` may generate negative tree heights) (2021-09-29, Wed; @xiangpin, #441, #445)
 
