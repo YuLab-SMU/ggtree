@@ -179,17 +179,26 @@ reset_params <- function(defaultp, inputp, type){
 }
 
 transform_df <- function(data, object, default_aes){
+    data <- tibble::as_tibble(data)
     if (!is.null(object$mapping)){
         for (i in names(default_aes)){
             if (i %in% names(object$mapping)){
                 data[[i]] <- object$data[[as_name(object$mapping[[i]])]]
             }else{
-                data[[i]] <- default_aes[[i]]
+                if (i == "extend" && length(default_aes[[i]]) == 2){
+                    data[[i]] <- rep(list(default_aes[[i]]), nrow(data))
+                }else{
+                    data[[i]] <- default_aes[[i]]
+                }
             }
         }
     }else{
         for ( i in names(default_aes)){
-            data[[i]] <- default_aes[[i]]
+            if (i == "extend" && length(default_aes[[i]]) == 2){
+                data[[i]] <- rep(list(default_aes[[i]]), nrow(data))
+            }else{
+                data[[i]] <- default_aes[[i]]
+            }
         }
     }
     if ("offset.text" %in% names(object$mapping)){
@@ -294,8 +303,10 @@ build_text_layer <- function(data, object, params, layout){
                                                          default_aes=shadowtext_default_aes,
                                                          params=object$params)
                              )
-    if (object$parse=="emoji" || object$parse){
+    if (object$parse=="emoji"){
+        emojifont <- "emojifont"
         emoji <- get_fun_from_pkg("emojifont", "emoji")
+        require(emojifont, character.only = TRUE) %>% suppressMessages()
         text_obj$data$label <- emoji(text_obj$data$label)
         text_dot_params$family <- "EmojiOne"
         object$parse <- FALSE
