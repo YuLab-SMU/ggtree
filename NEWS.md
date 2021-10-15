@@ -2,6 +2,8 @@
 
 # TODO LIST
 
++ `height` parameter to `collapse()`
+  - <https://github.com/YuLab-SMU/ggtree/issues/409#issuecomment-944034311>
 + tanglegram support
   - <https://yulab-smu.top/treedata-book/chapter2.html#ggtree-fortify>
   - <https://www.rdocumentation.org/packages/phytools/versions/0.7-70/topics/cophylo> 
