@@ -4,6 +4,8 @@
 
 + `height` parameter to `collapse()`
   - <https://github.com/YuLab-SMU/ggtree/issues/409#issuecomment-944034311>
++ rewrite `revts` to `scale_revts`
++ `inset` and relative functions support circular layout
 + tanglegram support
   - <https://yulab-smu.top/treedata-book/chapter2.html#ggtree-fortify>
   - <https://www.rdocumentation.org/packages/phytools/versions/0.7-70/topics/cophylo> 
@@ -12,11 +14,6 @@
 + update ggtree man files
 + The `daylight` algorithm is quite slow compare to `ggraph` and needs to  be optimized
   - <https://github.com/thomasp85/ggraph/commit/14de66f1225336179b4598cb42a4beda95682211>
-+ rewrite `revts` to `scale_revts`
-+ `geom_hilight` supports linear gradual colored rectangle
-  - e.g., `grid.rect(gp=gpar(fill=linearGradient()))`
-  - <https://developer.r-project.org/Blog/public/2020/07/15/new-features-in-the-r-graphics-engine/>
-+ `inset` and relative functions support circular layout
 
 -->
 
