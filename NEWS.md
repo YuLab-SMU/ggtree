@@ -19,7 +19,7 @@
 -->
 
 
-# ggtree 3.1.5.902
+# ggtree 3.1.6
 
 + `geom_cladelab` now supports extend parameter as in `geom_cladelabel` (2021-10-14, Thu, @xiangpin, #446)
 + `geom_hilight` supports fill linear gradient colour and round rect background (2021-10-11, Mon; @xiangpin, #444)
