@@ -19,9 +19,26 @@ geom_highlight(data = NULL, mapping = NULL, node = NULL, type = "auto", ...)
 \item{type}{the type of layer, default is \code{auto}, meaning rectangular, circular,
 slanted, fan, inward_circular, radial, equal_angle, ape layout tree will use rectangular layer,
 unrooted and daylight layout tree use will use encircle layer. You can specify this parameter to
-\code{rect} (rectangular layer) or \code{encircle} (encircle layer).}
+\code{rect} (rectangular layer) or \code{encircle} (encircle layer), 'gradient' (gradient color),
+'roundrect' (round rectangular layer).}
 
-\item{...}{additional parameters, see also Aesthetics section.}
+\item{...}{additional parameters, see also the below and Aesthetics section.
+\itemize{
+\item \code{align} control the align direction of the edge of high light rectangular.
+Options is 'none' (default), 'left', 'right', 'both'. This argument only work when the
+'geom_hilight' is plotting using geom_hilight(mapping=aes(...)).
+\item \code{gradient} logical, whether to set the color of hight light layer to gradient,
+default is FALSE, it only work for rectangular, ellipse, roundrect layouts.
+\item \code{gradient.direction} character, the direction of gradient color, default is 'rt'
+meaning the locations of gradient color is from root to tip, options are 'rt' and 'tr'.
+\item \code{gradient.length.out} integer, desired length of the sequence of gradient color,
+default is 2.
+\item \code{roundrect} logical, whether to use the round rectangular layer, default is FALSE,
+it can not be used with \code{gradient=TRUE}, and it only work for rectangular, ellipse,
+roundrect layouts
+\item \code{roundrect.r} numeric, the radius of the rounded corners, when \code{roundrect=TRUE},
+default is 0.05.
+}}
 }
 \value{
 a list object.
@@ -46,20 +63,6 @@ aesthetics are in bold):
 \item \code{extendto} specify a value, meaning the rectangle extend to, default is NULL.
 \item \code{linetype} the line type of margin, default is 1.
 \item \code{size} the width of line of margin, default is 0.5.
-\item \code{align} control the align direction of the edge of high light rectangular.
-Options is 'none' (default), 'left', 'right', 'both'. This argument only work when the
-'geom_hilight' is plotting using geom_hilight(mapping=aes(...)).
-\item \code{gradient} logical, whether to set the color of hight light layer to gradient,
-default is FALSE, it only work for rectangular, ellipse, roundrect layouts.
-\item \code{gradient.direction} character, the direction of gradient color, default is 'rt'
-meaning the locations of gradient color is from root to tip, options are 'rt' and 'tr'.
-\item \code{gradient.length.out} integer, desired length of the sequence of gradient color,
-default is 2.
-\item \code{roundrect} logical, whether to use the round rectangular layer, default is FALSE,
-it can not be used with \code{gradient=TRUE}, and it only work for rectangular, ellipse,
-roundrect layouts
-\item \code{roundrect.r} numeric, the radius of the rounded corners, when \code{roundrect=TRUE},
-default is 0.05.
 }
 \code{geom_hilight()} understands the following aesthethics for encircle layer (required
 aesthetics are in bold):

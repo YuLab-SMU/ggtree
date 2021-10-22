@@ -48,6 +48,14 @@ choose_hilight_layer <- function(object, type){
             object$mapping <- aes_(xmin=~xmin, xmax=~xmax, ymin=~ymin, ymax=~ymax, clade_root_node=~clade_root_node)
         }
         params <- c(list(data=object$data, mapping=object$mapping), object$params)
+        if (type == "gradient"){
+            params$gradient <- TRUE
+            params$roundrect <- FALSE		
+        }
+        if (type == "roundrect"){
+            params$gradient <- FALSE
+            params$roundrect <- TRUE
+        }
         ly <- do.call("geom_hilight_rect2", params)
     }
     return (ly)

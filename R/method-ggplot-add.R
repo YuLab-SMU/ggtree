@@ -486,12 +486,18 @@ ggplot_add.hilight <- function(object, plot, object_name){
         data <- switch(object$type,
                        auto = build_cladeids_df(trdf=framedat, nodeids=clade_node),
                        rect = build_cladeids_df2(trdf=framedat, nodeids=clade_node),
-                       encircle = build_cladeids_df(trdf=framedat, nodeids=clade_node))
+                       encircle = build_cladeids_df(trdf=framedat, nodeids=clade_node),
+                       gradient = build_cladeids_df2(trdf=framedat, nodeids=clade_node),
+                       roundrect = build_cladeids_df2(trdf=framedat, nodeids=clade_node)
+                    )
     }else{
         data <- switch(object$type,
                        auto = build_cladeids_df2(trdf=framedat, nodeids=clade_node),
                        rect = build_cladeids_df2(trdf=framedat, nodeids=clade_node),
-                       encircle = build_cladeids_df(trdf=framedat, nodeids=clade_node))
+                       encircle = build_cladeids_df(trdf=framedat, nodeids=clade_node),
+                       gradient = build_cladeids_df2(trdf=framedat, nodeids=clade_node),
+                       roundrect = build_cladeids_df2(trdf=framedat, nodeids=clade_node)
+                    )
     }
     if (!is.null(object$data) && !is.null(object$mapping)){
         if (flag_tbl_tree){
@@ -505,14 +511,20 @@ ggplot_add.hilight <- function(object, plot, object_name){
     }
     if (layout == "unrooted" || layout == "daylight"){
         ly <- switch(object$type,
-                     auto = choose_hilight_layer(object=object, type="encircle"),
-                     rect = choose_hilight_layer(object=object, type="rect"),
-                     encircle = choose_hilight_layer(object=object, type="encircle"))
+                     auto = choose_hilight_layer(object = object, type = "encircle"),
+                     rect = choose_hilight_layer(object = object, type = "rect"),
+                     encircle = choose_hilight_layer(object = object, type="encircle"),
+                     gradient = choose_hilight_layer(object = object, type = "gradient"),
+                     roundrect = choose_hilight_layer(object = object, type = "roundrect")
+                  )
     }else{
         ly <- switch(object$type,
-                     auto = choose_hilight_layer(object=object, type="rect"),
-                     rect = choose_hilight_layer(object=object, type="rect"),
-                     encircle = choose_hilight_layer(object=object, type="encircle"))
+                     auto = choose_hilight_layer(object = object, type = "rect"),
+                     rect = choose_hilight_layer(object = object, type = "rect"),
+                     encircle = choose_hilight_layer(object = object, type = "encircle"),
+                     gradient = choose_hilight_layer(object = object, type = "gradient"),
+                     roundrect = choose_hilight_layer(object = object, type = "roundrect")	 
+                  )
     }
     ggplot_add(ly, plot, object_name) 
 }
