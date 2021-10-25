@@ -2,6 +2,8 @@
 
 # TODO LIST
 
++ `type` parameter in `geom_hilight` accepts 'roundrect' and 'gradient'
+  - <https://github.com/YuLab-SMU/ggtree/pull/444#issuecomment-949335277>
 + `height` parameter to `collapse()`
   - <https://github.com/YuLab-SMU/ggtree/issues/409#issuecomment-944034311>
 + rewrite `revts` to `scale_revts`
@@ -21,7 +23,7 @@
 # ggtree 3.1.6
 
 + `geom_cladelab` now supports extend parameter as in `geom_cladelabel` (2021-10-14, Thu, @xiangpin, #446)
-+ `geom_hilight` supports fill linear gradient colour and round rect background (2021-10-11, Mon; @xiangpin, #444)
++ `geom_hilight` supports fill linear gradient colour and round rect background (2021-10-11, Mon; @xiangpin, #449, #444)
 + work with negative edge lengths (`hclust` may generate negative tree heights) (2021-09-29, Wed; @xiangpin, #441, #445)
 
 # ggtree 3.1.5
