@@ -70,10 +70,10 @@ giteeinit:
 	git fetch --all
 
 rmoldrelease:
-	git branch -D RELEASE_3_12
+	git branch -D RELEASE_3_13
 
 release:
-	git checkout RELEASE_3_13;\
+	git checkout RELEASE_3_14;\
 	git fetch --all
 
 update:
