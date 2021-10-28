@@ -1,8 +1,7 @@
 PKGNAME := $(shell sed -n "s/Package: *\([^ ]*\)/\1/p" DESCRIPTION)
 PKGVERS := $(shell sed -n "s/Version: *\([^ ]*\)/\1/p" DESCRIPTION)
 PKGSRC  := $(shell basename `pwd`)
-BIOCOLD := RELEASE_3_13
-BIOCCUR := RELEASE_3_14
+BIOCVER := RELEASE_3_14
 
 
 all: rd check clean
@@ -72,11 +71,11 @@ giteeinit:
 	git remote add gitee git@gitee.com:GuangchuangYu/$(PKGNAME).git;\
 	git fetch --all
 
-rmoldrelease:
-	git branch -D $(BIOCOLD)
+rmrelease:
+	git branch -D $(BIOCVER)
 
 release:
-	git checkout $(BIOCCUR);\
+	git checkout $(BIOCVER);\
 	git fetch --all
 
 update:

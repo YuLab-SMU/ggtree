@@ -1,11 +1,19 @@
-make update;\
-sed -i 's/RELEASE_3_13/RELEASE_3_14/g' Makefile;\
-sed -i 's/RELEASE_3_12/RELEASE_3_13/g' Makefile;\
+## rm old release branch
+make rmrelease
 
-git add .;\
-git commit -m 'update bioc version';\
+## merge change from bioc
+make update
+
+## set current release version
+sed -i 's/RELEASE_3_13/RELEASE_3_14/g' Makefile
+
+## commit and push to github
+git add .
+git commit -m 'update bioc version'
 git push
 
-make rmoldrelease;\
-make release;\
+## pull current release branch
+make release
+
+## go back to master branch
 git checkout master
