@@ -19,6 +19,13 @@
 
 -->
 
+# ggtree 3.3.0.900
+
++ set `na.value = 'white'` in `msaplot()` (2021-10-29, Fri)
+
+# ggtree 3.2.0
+
++ Bioconductor 3.14 release
 
 # ggtree 3.1.6
 

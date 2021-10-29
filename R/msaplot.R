@@ -116,7 +116,7 @@ msaplot <- function(p, fasta, offset=0, width=1, color=NULL, window=NULL, bg_lin
                            ymin=ymin, ymax=ymax,
                            fill=seq),
                        data=msa.df, inherit.aes = FALSE) +
-                               scale_fill_manual(values=color)
+                               scale_fill_manual(values=color, na.value = 'white')
 
     breaks <- graphics::hist(seq_along(slice), breaks=10, plot=FALSE)$breaks
     pos <- start + breaks * width
