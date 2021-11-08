@@ -2,6 +2,7 @@
 
 # TODO LIST
 
++ `phylomorphospace`
 + `type` parameter in `geom_hilight` accepts 'roundrect' and 'gradient'
   - <https://github.com/YuLab-SMU/ggtree/pull/444#issuecomment-949335277>
 + `height` parameter to `collapse()`
