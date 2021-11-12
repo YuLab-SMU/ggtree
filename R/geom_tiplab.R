@@ -178,8 +178,8 @@ geom_tiplab_rectangular <- function(mapping=NULL, hjust = 0,  align = FALSE,
                                node = node,
                                label = label,
                                subset = isTip)
-        if (!is.null(mapping))
-            segment_mapping <- modifyList(segment_mapping, mapping)
+        if (!is.null(text_mapping))
+            segment_mapping <- modifyList(segment_mapping, text_mapping)
     }
     imageparams <- list(mapping=text_mapping, hjust = hjust, nudge_x = offset, stat = StatTreeData)
     imageparams <- extract_params(imageparams, params, c("data", "size", "alpha", "color", "colour", "image", 
@@ -194,7 +194,7 @@ geom_tiplab_rectangular <- function(mapping=NULL, hjust = 0,  align = FALSE,
     list(
         if (show_segment){
             lineparams <- list(mapping = segment_mapping, linetype=linetype, nudge_x = offset, size = linesize, stat = StatTreeData)
-            lineparams <- extract_params(lineparams, params, c("data", "colour", "alpha", "show.legend", "na.rm",
+            lineparams <- extract_params(lineparams, params, c("data", "color", "colour", "alpha", "show.legend", "na.rm",
                                                                "inherit.aes", "arrow", "arrow.fill", "lineend")) 
             do.call("geom_segment2", lineparams)
         }
