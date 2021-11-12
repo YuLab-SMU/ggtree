@@ -3,8 +3,10 @@
 # TODO LIST
 
 + `phylomorphospace`
-+ `type` parameter in `geom_hilight` accepts 'roundrect' and 'gradient'
-  - <https://github.com/YuLab-SMU/ggtree/pull/444#issuecomment-949335277>
+  - <https://github.com/YuLab-SMU/ggtree/issues/370>
+  - <https://github.com/wabarr/ggphylomorpho>
++ visualize support values obtained from different methods
+  - <https://github.com/YuLab-SMU/ggtree/issues/451>
 + `height` parameter to `collapse()`
   - <https://github.com/YuLab-SMU/ggtree/issues/409#issuecomment-944034311>
 + rewrite `revts` to `scale_revts`
