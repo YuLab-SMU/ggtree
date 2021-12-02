@@ -26,7 +26,7 @@
 
 # ggtree 3.3.0.901
 
-+ `scale_color_subtree` and `scale_colour_subtree` to color subtree via taxa group information (e.g., cutree) (2021-12-01, Wed)
++ `scale_color_subtree` and `scale_colour_subtree` to color subtree via taxa group information (e.g., cutree, or kmeans) (2021-12-01, Wed)
 + set `na.value = 'white'` in `msaplot()` (2021-10-29, Fri)
 
 # ggtree 3.2.0

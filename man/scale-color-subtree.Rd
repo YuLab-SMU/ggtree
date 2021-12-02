@@ -10,13 +10,13 @@ scale_color_subtree(group)
 scale_colour_subtree(group)
 }
 \arguments{
-\item{group}{taxa group information (e.g., output of cutree)}
+\item{group}{taxa group information}
 }
 \value{
 updated tree view
 }
 \description{
-scale tree color by subtree (e.g., output of cutree)
+scale tree color by subtree (e.g., output of cutree, kmeans, or other clustering algorithm)
 }
 \author{
 Guangchuang Yu

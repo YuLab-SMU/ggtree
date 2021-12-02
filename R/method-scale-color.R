@@ -1,13 +1,17 @@
-##' scale tree color by subtree (e.g., output of cutree)
+##' scale tree color by subtree (e.g., output of cutree, kmeans, or other clustering algorithm)
 ##'
 ##' 
 ##' @title scale_color_subtree
 ##' @rdname scale-color-subtree
-##' @param group taxa group information (e.g., output of cutree)
+##' @param group taxa group information
 ##' @return updated tree view
 ##' @export
 ##' @author Guangchuang Yu
 scale_color_subtree <- function(group) {
+    if (inherits(group, 'kmeans')) {
+        group <- group$cluster
+    }
+
     structure(group,
               class = 'color_subtree'
               )
@@ -17,7 +21,7 @@ scale_color_subtree <- function(group) {
 ##' @export
 scale_colour_subtree <- scale_color_subtree
 
-scale_color_subtree_ <- function(p, group) {
+scale_color_subtree_ <- function(p, group) {    
     g <- split(names(group), group)
     groupOTU(p, g, group_name = 'subtree') +
         aes_(color = ~subtree)
