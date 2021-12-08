@@ -2,6 +2,11 @@
 
 # TODO LIST
 
++ use graph layout to visualize tree
+  - <https://github.com/YuLab-SMU/ggtree/issues/460>  
+    + igraph layout 
+    + graphlayouts: <https://cran.r-project.org/web/packages/graphlayouts/index.html>
+    + TreeAndLeaf layout: <https://www.bioconductor.org/packages/TreeAndLeaf>
 + `phylogeography`
   - <https://stackoverflow.com/questions/68668788/phylogeography-how-to-combine-phylogenetic-tree-and-geographic-map-and-create>
 + `phylomorphospace`
