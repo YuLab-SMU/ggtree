@@ -51,7 +51,9 @@ facet_widths <- function(p, widths) {
     ##     j <- gt$layout$l[grep(paste0('panel-1-', i), gt$layout$name)]
     ##     gt$widths[j] = widths[i] * gt$widths[j]
     ## }
-    j <- gt$layout$l[grep('panel-', gt$layout$name)]
+    ## j <- gt$layout$l[grep('panel-', gt$layout$name)]
+    ## issue: https://github.com/YuLab-SMU/ggtree/issues/459
+    j <- gt$layout$l[grep('panel-1-', gt$layout$name)]    
     gt$widths[j] <- gt$widths[j] * widths
     return(ggplotify::as.ggplot(gt))
 }
