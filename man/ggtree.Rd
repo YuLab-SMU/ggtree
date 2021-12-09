@@ -21,6 +21,7 @@ ggtree(
   branch.length = "branch.length",
   root.position = 0,
   xlim = NULL,
+  layout.params = list(),
   ...
 )
 }
@@ -53,6 +54,8 @@ right-hand side? See \code{\link[ape:ladderize]{ape::ladderize()}} for more info
 \item{root.position}{position of the root node (default = 0)}
 
 \item{xlim}{x limits, only works for 'inward_circular' layout}
+
+\item{layout.params}{list, the parameters of layout, when layout is a function.}
 
 \item{...}{additional parameter
 
