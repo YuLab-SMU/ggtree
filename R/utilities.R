@@ -117,6 +117,17 @@ getCols <- function (n) {
     grDevices::colorRampPalette(col3)(n)
 }
 
+message_wrap <- function(...){
+    msg <- .return_wrap(...)
+    message(msg)
+}
+
+.return_wrap <- function(...){
+    msg <- paste(..., collapse = "", sep = "")
+    wrapped <- strwrap(msg, width = getOption("width") - 2) %>%
+        glue::glue_collapse(., "\n", last = "\n")
+    wrapped
+}
 
 ##
 ##

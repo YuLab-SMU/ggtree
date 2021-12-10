@@ -45,7 +45,8 @@ Suggests:
     rmarkdown,
     stats,
     testthat,
-    tibble
+    tibble,
+    glue
 Remotes:
     GuangchuangYu/treeio
 VignetteBuilder: knitr

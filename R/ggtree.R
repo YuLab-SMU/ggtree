@@ -16,6 +16,7 @@
 ##' @param branch.length variable for scaling branch, if 'none' draw cladogram
 ##' @param root.position position of the root node (default = 0)
 ##' @param xlim x limits, only works for 'inward_circular' layout
+##' @param layout.params list, the parameters of layout, when layout is a function.
 ##' @return tree
 ##' @importFrom ggplot2 ggplot
 ##' @importFrom ggplot2 xlab
@@ -53,12 +54,22 @@ ggtree <- function(tr,
                    branch.length  = "branch.length",
                    root.position  = 0,
                    xlim = NULL,
+                   layout.params = list(),
                    ...) {
 
     # Check if layout string is valid.
-    layout %<>% match.arg(c("rectangular", "slanted", "fan", "circular", 'inward_circular',
+    trash <- try(silent = TRUE,
+                 expr = {
+                   layout %<>% match.arg(c("rectangular", "slanted", "fan", "circular", 'inward_circular',
                             "radial", "unrooted", "equal_angle", "daylight", "dendrogram",
                             "ape", "ellipse", "roundrect"))
+                  }
+             )
+
+    dd <- check.graph.layout(tr, trash, layout, layout.params)
+    if (inherits(trash, "try-error") && !is.null(dd)){
+        layout <- "rectangular"
+    }
 
     if (layout == "unrooted") {
         layout <- "daylight"
@@ -88,6 +99,17 @@ ggtree <- function(tr,
                 branch.length = branch.length,
                 root.position = root.position,
                 ...)
+
+    if (!is.null(dd)){
+        message_wrap("The tree object will be displayed with graph layout since 
+                      layout argument was specified the graph layout function.")
+        p$data <- dplyr::left_join(
+                    p$data %>% select(-c("x", "y")), 
+                    dd, 
+                    by = "node"
+        )
+        layout <- "equal_angle"
+    }
 
     if (is(tr, "multiPhylo")) {
         multiPhylo <- TRUE
@@ -153,4 +175,31 @@ ggtree_references <- function() {
            "Data Integration, Manipulation and Visualization of Phylogenetic Trees.",
            "<http://yulab-smu.top/treedata-book/>\n"
            )
+}
+
+check.graph.layout <- function(tr, trash, layout, layout.params){
+    if (inherits(trash, "try-error")){
+        gp <- ape::as.igraph.phylo(as.phylo(tr), use.labels = FALSE)
+        #dd <- ggraph::create_layout(gp, layout = layout)
+        if (is.function(layout)){
+            dd <- do.call(layout, c(list(gp), layout.params))
+            if (!inherits(dd, "matrix")){
+                if ("xy" %in% names(dd)){
+                    dd <- dd$xx
+                }else if ("layout" %in% names(dd)){
+                    dd <- dd$layout
+                }else{
+                    stop(trash, call. = FALSE)
+                }
+            }
+            dd <- data.frame(dd)
+            colnames(dd) <- c("x", "y")
+            dd$node <- seq_len(nrow(dd))
+        }else{
+            stop(trash, call. = FALSE)
+        }
+    }else{
+        dd <- NULL
+    }
+    return(dd)
 }
