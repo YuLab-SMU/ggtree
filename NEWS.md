@@ -2,11 +2,8 @@
 
 # TODO LIST
 
-+ use graph layout to visualize tree
-  - <https://github.com/YuLab-SMU/ggtree/issues/460>  
-    + igraph layout 
-    + graphlayouts: <https://cran.r-project.org/web/packages/graphlayouts/index.html>
-    + TreeAndLeaf layout: <https://www.bioconductor.org/packages/TreeAndLeaf>
+
++ TreeAndLeaf layout: <https://www.bioconductor.org/packages/TreeAndLeaf>
 + `phylogeography`
   - <https://stackoverflow.com/questions/68668788/phylogeography-how-to-combine-phylogenetic-tree-and-geographic-map-and-create>
 + `phylomorphospace`
@@ -29,8 +26,11 @@
 
 -->
 
-# ggtree 3.3.0.901
-
+# ggtree 3.3.1
+  
++ use graph layouts to visualize tree (2021-12-10, Fri, #460, #461)
+  - igraph layout 
+  - graphlayouts: <https://cran.r-project.org/web/packages/graphlayouts/index.html>
 + `scale_color_subtree` and `scale_colour_subtree` to color subtree via taxa group information (e.g., cutree, or kmeans) (2021-12-01, Wed)
 + set `na.value = 'white'` in `msaplot()` (2021-10-29, Fri)
 
