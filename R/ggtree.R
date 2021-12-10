@@ -101,6 +101,8 @@ ggtree <- function(tr,
                 ...)
 
     if (!is.null(dd)){
+        message_wrap("The tree object will be displayed with graph layout since 
+                      layout argument was specified the graph layout function.")
         p$data <- dplyr::left_join(
                     p$data %>% select(-c("x", "y")), 
                     dd, 
