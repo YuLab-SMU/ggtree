@@ -119,7 +119,12 @@ theme_tree2_internal <- function(bgcolor="white", fgcolor="black",
 theme_inset <- function(legend.position =  "none", ...) {
     list(xlab(NULL),
          ylab(NULL),
-         theme_tree(legend.position =  legend.position, ...),
-         ggimage::theme_transparent()
+         theme_tree(legend.position = legend.position,
+                    function() theme(panel.background = element_rect(fill = "transparent", colour = NA),
+                                     plot.background = element_rect(fill = "transparent", colour = NA), 
+                                     legend.key = element_rect(fill = "transparent", colour = NA),
+                                     legend.background = element_rect(fill = "transparent",colour = NA),
+                                     ...)
+                    )
          )
 }
