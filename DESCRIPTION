@@ -34,8 +34,7 @@ Imports:
     tidytree (>= 0.3.9),
     treeio (>= 1.8.0),
     utils,
-    scales,
-    pillar
+    scales
 Suggests:
     emojifont,
     ggimage,

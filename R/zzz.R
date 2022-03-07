@@ -1,5 +1,4 @@
 ##' @importFrom utils packageDescription
-##' @importFrom pillar style_subtle
 .onAttach <- function(libname, pkgname) {
     pkgVersion <- packageDescription(pkgname, fields = "Version")
     ref <- random_ref(pkgname = pkgname, pkgVersion = pkgVersion, random_n = 2)
