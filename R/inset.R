@@ -1,19 +1,29 @@
-##' add subplots to tree
-##'
+##' gemo_inset can add subplots to tree by accepting a list of ggplot objects that are ancestral 
+##' stats or data associated with selected nodes in the tree. These ggplot objects can be any 
+##' kind of charts or hybrid of of these charts.
+##' 
+##' Users can also use 
+##' 
 ##' 
 ##' @title geom_inset
 ##' @rdname inset
 ##' @param insets a list of ggplot objects, named by node number
-##' @param width width of inset, relative to the range of x-axis
-##' @param height height of inset, relative to the range of y-axis
-##' @param hjust horizontal adjustment
-##' @param vjust vertical adjustment
-##' @param x x position, one of 'node' and 'branch'
-##' @param reverse_x whether x axis was reversed by scale_x_reverse
-##' @param reverse_y whether y axis was reversed by scale_y_reverse
+##' @param width width of the inset, relative to the range of x-axis, defaults to .1
+##' @param height height of the inset, relative to the range of y-axis, defaults to .1
+##' @param hjust adjust the horizontal position of the charts, charts will go left if hjust > 0
+##' @param vjust adjust the vertical position of the charts, charts will go down if vjust > 0
+##' @param x the position where users want to place the charts, one of 'node' (default) and 'branch'
+##' @param reverse_x whether to reverse x axis of the charts by 'ggplot2::scale_x_reverse', defaults to 'FALSE'
+##' @param reverse_y whether to reverse y axis of the charts by 'ggplot2::scale_y_reverse', defaults to 'FALSE'
 ##' @return inset layer
 ##' @export
 ##' @author Guangchuang Yu
+##' @references
+##' For demonstration of this function, please refer to chapter 8.3 of 
+##' *Data Integration, Manipulation and Visualization of Phylogenetic Trees*
+##' <http://yulab-smu.top/treedata-book/index.html> by Guangchuang Yu.
+##' 
+
 geom_inset <- function(insets, width = .1, height = .1, hjust = 0, vjust = 0,
                        x = "node", reverse_x = FALSE, reverse_y = FALSE) {
     structure(list(insets = insets, width = width, height = height,
@@ -21,13 +31,13 @@ geom_inset <- function(insets, width = .1, height = .1, hjust = 0, vjust = 0,
                    reverse_x = reverse_x, reverse_y = reverse_y), class = "tree_inset")
 }
 
-##' add insets in a tree
+##' add subplots as insets in a tree
 ##'
 ##'
 ##' @title inset
 ##' @rdname inset
-##' @param tree_view tree view
-## @inheritParams geom_inset
+##' @param tree_view tree view 
+##' @inheritParams geom_inset
 ##' @return tree view with insets
 ##' @importFrom yulab.utils get_fun_from_pkg
 ##' @export
@@ -74,7 +84,7 @@ inset <- function(tree_view, insets, width, height, hjust=0, vjust=0,
 ##'
 ##'
 ##' @title nodebar
-##' @param position position of bar, one of 'stack' and 'dodge'
+##' @param position position of bars, if 'stack' (default) make bars stacked atop one another, 'dodge' make them dodged side-to-side
 ##' @inheritParams nodepie
 ##' @return list of ggplot objects
 ##' @export
@@ -105,10 +115,10 @@ nodebar <- function(data, cols, color, alpha=1, position="stack") {
 ##'
 ##'
 ##' @title nodepie
-##' @param data a data.frame of stats with an additional column of node number
-##' @param cols column of stats
-##' @param color color of bar
-##' @param alpha alpha
+##' @param data a data.frame of stats with an additional column of node number named "node"
+##' @param cols columns of the data.frame that store the stats
+##' @param color set color of bars
+##' @param alpha set transparency of the charts
 ##' @return list of ggplot objects
 ##' @export
 ##' @author Guangchuang Yu

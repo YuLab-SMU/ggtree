@@ -5,7 +5,7 @@
 ##' of geom layer to perform subsetting. All rows that satisy your conditions will be retained.
 ##' @title td-filter
 ##' @param ... Expressions that return a logical value.
-##' @param .f a function (if any, default is NULL) that pre-operate the data
+##' @param .f a function (if any, defaults to NULL) that pre-operate the data
 ##' @return A function to filter ggtree plot data using conditions defined by '...'.
 ##' @seealso
 ##' [filter][dplyr::filter] 
@@ -14,6 +14,10 @@
 ##' tree <- rtree(30)
 ##' ## similar to 'ggtree(tree) + geom_tippoint()'
 ##' ggtree(tree) + geom_point(data = td_filter(isTip))
+##' @references
+##' For more detailed demonstration of this function, please refer to chapter 12.5.1 of 
+##' *Data Integration, Manipulation and Visualization of Phylogenetic Trees*
+##' <http://yulab-smu.top/treedata-book/index.html> by Guangchuang Yu.
 ##' @export
 td_filter <- function(..., .f = NULL) {
     dots <- rlang::quos(...)
@@ -31,11 +35,15 @@ td_filter <- function(..., .f = NULL) {
 ##' @title td-unnest
 ##' @param cols columns to unnest
 ##' @param ... additional parameters that pass to tidyr::unnest
-##' @param .f a function (if any, default is NULL) that pre-operate the data
+##' @param .f a function (if any, defaults to NULL) that pre-operate the data
 ##' @return A function to unnest ggtree plot data
 ##' @seealso
 ##' [unnest][tidyr::unnest]
 ##' @author Guangchuang Yu
+##' @references
+##' For demonstration of this function, please refer to chapter 12.5.2 of 
+##' *Data Integration, Manipulation and Visualization of Phylogenetic Trees*
+##' <http://yulab-smu.top/treedata-book/index.html> by Guangchuang Yu.
 ##' @export
 td_unnest <- function(cols, ..., .f = NULL) {
     function(.data) {
@@ -51,7 +59,7 @@ td_unnest <- function(cols, ..., .f = NULL) {
 ##' of geom layer to perform adding new variables and preserving existing ones.
 ##' @title td-mutate
 ##' @param ... additional parameters that pass to dplyr::mutate
-##' @param .f a function (if any, default is NULL) that pre-operate the data
+##' @param .f a function (if any, defaults to NULL) that pre-operate the data
 ##' @return A function to mutate ggtree plot data
 ##' @seealso
 ##' [mutate][dplyr::mutate]

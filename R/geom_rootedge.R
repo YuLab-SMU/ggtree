@@ -1,17 +1,17 @@
-#' display root edge
+#' display root edge layer for a tree
 #'
-#' `geom_rootedge` is used to create a rootedge. 
+#' `geom_rootedge` is used to create a rootedge as ggtree doesn’t plot the root edge by default. 
 #' 
 #' @title geom_rootedge
-#' @param rootedge length of rootedge; use phylo$root.edge if rootedge = NULL (by default).
+#' @param rootedge length of rootedge; use phylo$root.edge if rootedge = NULL (default).
 #' @param ... additional parameters
 #' 
 #' Additional parameters can be referred to the following parameters:
 #'     \itemize{
-#'         \item \code{size} control the width of rootedge, default is 0.5.
-#'         \item \code{colour} color of rootedge, default is black.
-#'         \item \code{linetype} the type of line, default is 1.
-#'         \item \code{alpha} modify colour transparency, default is 1.
+#'         \item \code{size} control the width of rootedge, defaults to 0.5.
+#'         \item \code{colour} color of rootedge, defaults to black.
+#'         \item \code{linetype} the type of line, defaults to 1.
+#'         \item \code{alpha} modify colour transparency, defaults to 1.
 #'     }
 #
 #' @return ggtree rootedge layer
@@ -22,6 +22,7 @@
 #' visualization and annotation of phylogenetic trees with their covariates and
 #' other associated data. Methods in Ecology and Evolution, 8(1):28-36.
 #' <https://doi.org/10.1111/2041-210X.12628>
+#' 
 #' @export 
 #' @examples 
 #'
@@ -43,8 +44,10 @@
 #' ## this will ignore tree$root.edge
 #' ggtree(tree2) + geom_tiplab() + geom_rootedge(rootedge = 3)
 #' 
-#' ## For more information about tree visualization, please refer to the online book
-#' ## https://yulab-smu.top/treedata-book/chapter4.html
+#' 
+#' ## For more detailed demonstration of this function, please refer to chapter A.4.5 of 
+#' ## *Data Integration, Manipulation and Visualization of Phylogenetic Trees*
+#' ## <http://yulab-smu.top/treedata-book/index.html> by Guangchuang Yu.
 #' 
 geom_rootedge <- function(rootedge = NULL, ...) {
     # add isTip for checking whether the x of tree is reversed.

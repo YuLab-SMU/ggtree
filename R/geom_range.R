@@ -1,14 +1,18 @@
-##' bar of range (HPD, range etc) to present uncertainty of evolutionary inference
+##' horizontal bar of range (HPD, range etc) on nodes to present uncertainty of evolutionary inference
 ##'
 ##'
 ##' @title geom_range
-##' @param range range, e.g. "height_0.95_HPD"
+##' @param range range(interval) to be displayed, e.g. "height_0.95_HPD"
 ##' @param center center of the range, mean, median or auto (default, the center of the range)
 ##' @param ... additional parameter, e.g. color, size, alpha
 ##' @return ggplot layer
 ##' @importFrom ggplot2 aes_string
 ##' @export
 ##' @author Guangchuang Yu
+##' @references  
+##' For demonstration of this function, please refer to chapter 5.2.4 of 
+##' *Data Integration, Manipulation and Visualization of Phylogenetic Trees*
+##' <http://yulab-smu.top/treedata-book/index.html> by Guangchuang Yu.
 geom_range <- function(range, center = "auto", ...) {
     structure(list(range = range, center = center, ...), class = "geom_range")
 }

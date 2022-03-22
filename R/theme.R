@@ -1,8 +1,9 @@
 ##' tree theme
 ##'
+##' 'theme_tree' defines a blank background to display tree
 ##'
 ##' @title theme_tree
-##' @param bgcolor background color
+##' @param bgcolor set background color, defaults to "white"
 ##' @param ... additional parameter
 ##' @importFrom ggplot2 theme_void
 ##' @importFrom ggplot2 theme
@@ -38,7 +39,7 @@ theme_tree <- function(bgcolor="white", ...) {
 ##'
 ##' @title theme_dendrogram
 ##' @inheritParams theme_tree
-##' @param fgcolor color for axis
+##' @param fgcolor set color of axis
 ##' @export
 ##' @importFrom ggplot2 element_text
 ##' @author Guangchuang Yu
@@ -56,10 +57,11 @@ theme_dendrogram <- function(bgcolor = "white", fgcolor = "black", ...) {
 
 ##' tree2 theme
 ##'
+##' 'theme_tree2' supports displaying phylogenetic distance by setting x-axis
 ##'
 ##' @title theme_tree2
-##' @param bgcolor background color
-##' @param fgcolor foreground color
+##' @param bgcolor set background color, defaults to "white"
+##' @param fgcolor set foreground color, defaults to "black"
 ##' @param ... additional parameter
 ##' @importFrom ggplot2 theme_bw
 ##' @importFrom ggplot2 theme
@@ -111,7 +113,7 @@ theme_tree2_internal <- function(bgcolor="white", fgcolor="black",
 ##'
 ##' theme for inset function
 ##' @title theme_inset
-##' @param legend.position position of legend
+##' @param legend.position set the position of legend
 ##' @param ... additional parameter
 ##' @return ggplot object
 ##' @export

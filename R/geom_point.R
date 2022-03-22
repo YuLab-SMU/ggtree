@@ -1,5 +1,5 @@
 
-##' add tip point
+##' add tip point layer for a tree
 ##'
 ##'
 ##' @title geom_tippoint
@@ -7,6 +7,15 @@
 ##' @return tip point layer
 ##' @export
 ##' @author Guangchuang Yu
+##' @examples
+##' library(ggtree)
+##' tr<- rtree(15)
+##' x <- ggtree(tr)
+##' x + geom_tippoint()
+##' @references
+##' For more detailed demonstration, please refer to chapter 4.3.2 of 
+##' *Data Integration, Manipulation and Visualization of Phylogenetic Trees*
+##' <http://yulab-smu.top/treedata-book/index.html> by Guangchuang Yu.
 geom_tippoint <- function(mapping = NULL, data = NULL,
                        position = "identity", na.rm = FALSE,
                           show.legend = NA, inherit.aes = TRUE, ...) {
@@ -49,7 +58,7 @@ geom_tippoint <- function(mapping = NULL, data = NULL,
 ## }
 
 
-##' add node point
+##' add node point layer to a tree
 ##'
 ##'
 ##' @title geom_nodepoint
@@ -58,6 +67,14 @@ geom_tippoint <- function(mapping = NULL, data = NULL,
 ##' @importFrom ggplot2 aes_string
 ##' @export
 ##' @author Guangchuang Yu
+##' library(ggtree)
+##' tr<- rtree(15)
+##' x <- ggtree(tr)
+##' x + geom_nodepoint()
+##' @references
+##' For more detailed demonstration, please refer to chapter 4.3.2 of 
+##' *Data Integration, Manipulation and Visualization of Phylogenetic Trees*
+##' <http://yulab-smu.top/treedata-book/index.html> by Guangchuang Yu.
 geom_nodepoint <- function(mapping = NULL, data = NULL,
                        position = "identity", na.rm = FALSE,
                        show.legend = NA, inherit.aes = TRUE, ...) {
@@ -80,9 +97,9 @@ geom_nodepoint <- function(mapping = NULL, data = NULL,
 }
 
 
-##' geom_rootpoint is used to add root point
+##' geom_rootpoint is used to add root point layer to a tree
 ##'
-##' geom_rootpoint inherit from geom_point2, it is used to display and customize the points on the root
+##' geom_rootpoint inherit from geom_point2, and it is used to display and customize the points on the root
 ##'
 ##' @title geom_rootpoint
 ##' @inheritParams geom_point2
@@ -136,13 +153,13 @@ geom_rootpoint <- function(mapping = NULL, data = NULL,
 #' If `inherit.aes = TRUE`, the mapping can be inherited from the plot mapping as
 #' specified in the call to `ggplot()`.
 #' @param data The data to be displayed in this layer. If 'NULL' (the default),
-#' the data is inherited from the plot data as specified in the call to 'ggplot()',
+#' the data is inherited from the plot data as specified in the call to `ggplot()`.
 #' @param stat Name of the statistical transformation to be used on the data for this layer.
 #' @param position Position adjustment.
-#' @param na.rm logical. If 'FALSE' (the default), missing values are removed with a warning. If 'TRUE', missing values are silently removed.
+#' @param na.rm logical. If 'FALSE' (default), missing values are removed with a warning. If 'TRUE', missing values are silently removed.
 #' @param show.legend logical. Should this layer be included in the legends?
 #' 'NA', the default, includes if any aesthetics are mapped. 'FALSE' never includes, and 'TRUE' always includes.
-#' @param inherit.aes logical (default is 'TRUE'). If 'FALSE', overrides the default aesthetics,
+#' @param inherit.aes logical (defaults to 'TRUE'). If 'FALSE', overrides the default aesthetics,
 #' rather then combining with them.
 #' @param ... addtional parameters that passed on to this layer. These are often aesthetics, used to set an aesthetic to a fixed value, like `colour = "red"` or `size = 3`.
 #' @importFrom ggplot2 layer
@@ -150,12 +167,12 @@ geom_rootpoint <- function(mapping = NULL, data = NULL,
 #' \code{geom_point2()} understands the following aesthetics
 #'     \itemize{
 #'        \item \code{subset} logical expression indicating elements or rows to keep: missing values are taken as false; should be in aes().
-#'        \item \code{colour} the colour of point, default is black.
-#'        \item \code{fill} the colour of fill, default is black.
-#'        \item \code{alpha} the transparency of fill, default is 1.
-#'        \item \code{size} the size of point, default is 1.5.
-#'        \item \code{shape} specify a shape, default is 19.
-#'        \item \code{stroke} control point border thickness of point, default is 0.5.
+#'        \item \code{colour} the colour of point, defaults to "black".
+#'        \item \code{fill} the colour of fill, defaults to "black".
+#'        \item \code{alpha} the transparency of fill, defaults to 1.
+#'        \item \code{size} the size of point, defaults to 1.5.
+#'        \item \code{shape} specify a shape, defaults to 19.
+#'        \item \code{stroke} control point border thickness of point, defaults to 0.5.
 #'     }
 #' @seealso
 #'  [geom_point][ggplot2::geom_point]; 

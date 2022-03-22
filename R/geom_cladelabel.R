@@ -18,7 +18,7 @@
 ##' @param family sans by default, can be any supported font
 ##' @param parse logical, whether parse label
 ##' @param horizontal logical, whether set label to horizontal, 
-##' default is TRUE.
+##' defaults to TRUE.
 ##' @param ... additional parameter
 ##' @return ggplot layers
 ##' @export

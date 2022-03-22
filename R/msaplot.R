@@ -1,23 +1,28 @@
-##' multiple sequence alignment with phylogenetic tree
+##' visualize phylogenetic tree with multiple sequence alignment
 ##'
 ##'
 ##' @title msaplot
 ##' @param p tree view
-##' @param fasta fasta file, multiple sequence alignment
-##' @param offset offset of MSA to tree
-##' @param width total width of alignment, compare to width of tree
-##' @param color color
-##' @param window specific a slice to display
-##' @param bg_line whether add background line in alignment
-##' @param height height ratio of sequence
+##' @param fasta fasta file that contains multiple sequence alignment information
+##' @param offset set the offset of MSA to tree
+##' @param width total width of alignment, compare to width of tree, defaults to 1,
+##' which means they are of the same length
+##' @param color set color of the tree
+##' @param window specific a slice of alignment to display
+##' @param bg_line whether to add background line in alignment, defaults to "TRUE"
+##' @param height height ratio of sequence, defaults to 0.8
 ##' @return tree view
 ##' @export
-## @importFrom colorspace rainbow_hcl
+##' @importFrom colorspace rainbow_hcl
 ##' @importFrom treeio read.fasta
 ##' @importFrom ggplot2 geom_segment
 ##' @importFrom ggplot2 geom_rect
 ##' @importFrom ggplot2 scale_fill_manual
 ##' @author Guangchuang Yu
+##' @references
+##' For demonstration of this function, please refer to chapter 7.4 of 
+##' *Data Integration, Manipulation and Visualization of Phylogenetic Trees*
+##' <http://yulab-smu.top/treedata-book/index.html> by Guangchuang Yu.
 msaplot <- function(p, fasta, offset=0, width=1, color=NULL, window=NULL, bg_line = TRUE, height = 0.8){
     if (missingArg(fasta)) {
         x <- NULL

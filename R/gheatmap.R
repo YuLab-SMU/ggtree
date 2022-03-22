@@ -1,25 +1,27 @@
-##' append a heatmap of a matrix to right side of phylogenetic tree
+##' append a heatmap of a matrix to the right side of a phylogenetic tree
 ##'
 ##'
 ##' @title gheatmap
 ##' @param p tree view
 ##' @param data matrix or data.frame
-##' @param offset offset of heatmap to tree
-##' @param width total width of heatmap, compare to width of tree
-##' @param low color of lowest value
-##' @param high color of highest value
-##' @param color color of heatmap cell border
-##' @param colnames logical, add matrix colnames or not
-##' @param colnames_position one of 'bottom' or 'top'
-##' @param colnames_angle angle of column names
-##' @param colnames_level levels of colnames
-##' @param colnames_offset_x x offset for column names
-##' @param colnames_offset_y y offset for column names
-##' @param font.size font size of matrix colnames
-##' @param family font of matrix colnames
-##' @param hjust hjust for column names (0: align left, 0.5: align center, 1: align righ)
+##' @param offset set offset of the heatmap to tree
+##' @param width total width of heatmap, compare to width of tree, defaults to 1,
+##' which means they are of the same length
+##' @param low set color of the lowest value, defaults to "green"
+##' @param high set color of the highest value, defaults to "red"
+##' @param color set color of heatmap cell border, defaults to "white"
+##' @param colnames logical, whether to add matrix colnames, defaults to "TRUE"
+##' @param colnames_position set the position of the colnames, one of 'bottom' (default) or 'top'
+##' @param colnames_angle set the angle of colnames
+##' @param colnames_level set levels of colnames
+##' @param colnames_offset_x set x offset for colnames
+##' @param colnames_offset_y set y offset for colnames
+##' @param font.size set font size of matrix colnames
+##' @param family font of matrix colnames, can be any supported font
+##' @param hjust adjust horizonal position of column names (0: align left, 0.5: align center (default), 1: align righ)
 ##' @param legend_title title of fill legend
-##' @param custom_column_labels instead of the column names from a matrix, input a custom vector of column labels
+##' @param custom_column_labels instead of using the colnames from the input matrix/data.frame, 
+##' input a custom vector to be set as column labels
 ##' @return tree view
 ##' @importFrom ggplot2 geom_tile
 ##' @importFrom ggplot2 geom_text
@@ -34,6 +36,10 @@
 ##' @importFrom dplyr select
 ##' @export
 ##' @author Guangchuang Yu
+##' @references
+##' For demonstration of this function, please refer to chapter 7.3 of 
+##' *Data Integration, Manipulation and Visualization of Phylogenetic Trees*
+##' <http://yulab-smu.top/treedata-book/index.html> by Guangchuang Yu.
 gheatmap <- function(p, data, offset=0, width=1, low="green", high="red", color="white",
                      colnames=TRUE, colnames_position="bottom", colnames_angle=0, colnames_level=NULL,
                      colnames_offset_x = 0, colnames_offset_y = 0, font.size=4, family="",

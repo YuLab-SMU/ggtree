@@ -1,10 +1,13 @@
-##' add horizontal align lines
+##' add horizontal align lines layer to a tree
+##'
+##' 'geom_aline'align all tips to the longest one by adding 
+##' padding characters to the right side of the tip.
 ##'
 ##'
 ##' @title geom_aline
 ##' @param mapping aes mapping
-##' @param linetype line type
-##' @param size line size
+##' @param linetype set line type of the line, defaults to "dotted"
+##' @param size set line size of the line, defaults to 1
 ##' @param ... additional parameter
 ##' @return aline layer
 ##' @export
@@ -25,17 +28,19 @@ geom_aline <- function(mapping=NULL, linetype="dotted", size=1, ...) {
 
 ##' geom_segment2 support aes(subset) via setup_data
 ##'
+##' 'geom_segment2' is a modified version of geom_segment, with subset aesthetic supported
 ##'
 ##' @title geom_segment2
-##' @param mapping aes mapping
-##' @param data data
-##' @param stat Name of stat to modify data
-##' @param position position
-##' @param lineend lineend
-##' @param na.rm logical
-##' @param show.legend logical
-##' @param inherit.aes logical
-##' @param nudge_x horizontal adjustment of x
+##' @param mapping Set of aesthetic mappings, defaults to NULL
+##' @param data A layer specific dataset -
+##'             only needed if you want to override the plot defaults.
+##' @param stat Name of stat to modify data.
+##' @param position The position adjustment to use for overlapping points on this layer.
+##' @param lineend Line end style, one of butt (default), round and square.
+##' @param na.rm If "FALSE" (default), missing values are removed with a warning. If "TRUE", missing values are silently removed, logical.
+##' @param show.legend Whether to show legend, logical.
+##' @param inherit.aes Whether to inherit aesthetic mappings, logical, defaults to "TRUE".
+##' @param nudge_x adjust the horizontal position of the segments.
 ##' @param arrow specification for arrow heads, as created by arrow().
 ##' @param arrow.fill fill color to usse for the arrow head (if closed). `NULL` means use `colour` aesthetic.
 ##' @param ... additional parameter

@@ -2,7 +2,7 @@
 ##'
 ##'
 ##' @title as.polytomy
-##' @param tree tree object
+##' @param tree tree object, 'phylo' object only
 ##' @param feature selected feature
 ##' @param fun function to select nodes to collapse
 ##' @return polytomy tree

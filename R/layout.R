@@ -1,8 +1,8 @@
-##' rotate circular tree
+##' rotate circular tree in a certain angle
 ##'
 ##' 
 ##' @title rotate_tree
-##' @param treeview tree view
+##' @param treeview tree view in circular layout
 ##' @param angle the angle of rotation
 ##' @return updated tree view
 ##' @export
@@ -10,8 +10,7 @@
 ##' tree <- rtree(15)
 ##' p <- ggtree(tree) + geom_tiplab()
 ##' p2 <- open_tree(p, 180)
-##' p3 <- rotate_tree(p2, 180)
-##' p3
+##' rotate_tree(p2, 180)
 ##' @author Guangchuang Yu
 rotate_tree <- function(treeview, angle) {
     treeview <- treeview + coord_polar(theta='y', start=(angle-90)/180*pi, -1)
@@ -20,11 +19,12 @@ rotate_tree <- function(treeview, angle) {
     return(treeview)
 }
 
-##' transform a tree in either rectangular or circular layout into the fan layout that opens with a specific angle
+##' transform a tree in either rectangular or circular layout into the fan layout 
+##' that opens with a specific angle
 ##'
 ##' 
 ##' @title open_tree
-##' @param treeview tree view
+##' @param treeview tree view in rectangular/circular layout
 ##' @param angle open the tree at a specific angle
 ##' @return updated tree view
 ##' @importFrom ggplot2 scale_y_continuous
@@ -58,7 +58,7 @@ open_tree <- function(treeview, angle) {
 ##' @export
 ##' @examples
 ##' tree <- rtree(20)
-##' ggtree(tree, layout = "circular") + layout_rectangular()
+##' p <- ggtree(tree, layout = "circular") + layout_rectangular()
 layout_rectangular <- function() {
     layout_ggtree('rectangular')
 }
@@ -77,7 +77,7 @@ layout_circular <- function() {
     layout_ggtree('circular')
 }
 
-##' transform rectangular/circular layout to inward_circular layout
+##' transform rectangular/circular layout to inward circular layout
 ##'
 ##' 
 ##' @title layout_inward_circular

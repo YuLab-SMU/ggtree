@@ -37,6 +37,10 @@
 ##' visualization and annotation of phylogenetic trees with their covariates and
 ##' other associated data. Methods in Ecology and Evolution, 8(1):28-36.
 ##' <https://doi.org/10.1111/2041-210X.12628>
+##'     
+##' For more information, please refer to 
+##' *Data Integration, Manipulation and Visualization of Phylogenetic Trees*
+##' <http://yulab-smu.top/treedata-book/index.html> by Guangchuang Yu.
 ##' @examples
 ##' require(ape) 
 ##' tr <- rtree(10)

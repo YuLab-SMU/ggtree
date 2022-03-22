@@ -1,9 +1,9 @@
-##' label facet_plot output
+##' function to relable selected panels created by 'geom_facet' or 'facet-plot'
 ##'
 ##' 
 ##' @title facet_labeller
 ##' @param p facet_plot output
-##' @param label labels of facet panels
+##' @param label new labels of facet panels
 ##' @return ggplot object
 ##' @importFrom ggplot2 as_labeller
 ##' @export
