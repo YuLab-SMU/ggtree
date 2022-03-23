@@ -4,10 +4,10 @@
 ##' @title multiplot
 ##' @param ... plots
 ##' @param plotlist plot list
-##' @param ncol number of column
-##' @param widths widths of plots
-##' @param labels labels for labeling the plots
-##' @param label_size font size of label
+##' @param ncol set the number of column to display the plots
+##' @param widths the width of each plot
+##' @param labels set labels for labeling the plots
+##' @param label_size set font size of the label
 ##' @return plot
 ##' @importFrom grid grid.newpage
 ##' @importFrom grid unit

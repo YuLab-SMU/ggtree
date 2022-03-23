@@ -4,24 +4,34 @@
 ##' @title geom_strip
 ##' @param taxa1 taxa1
 ##' @param taxa2 taxa2
-##' @param label optional label
+##' @param label add label alongside the bar (optional)
 ##' @param offset offset of bar and text from the clade
 ##' @param offset.text offset of text from bar
-##' @param align logical
-##' @param barsize size of bar
-##' @param extend extend bar vertically
-##' @param fontsize size of text
-##' @param angle angle of text
+##' @param align logical, whether to align bars to the most distant bar ,defaults to "TRUE"
+##' Note that if "FALSE", the bars might cross the tree
+##' @param barsize set size of the bar
+##' @param extend extend bar length vertically
+##' @param fontsize set size of the text
+##' @param angle set the angle of text
 ##' @param geom one of 'text' or 'label'
-##' @param hjust hjust
-##' @param color color for bar and label
-##' @param fill fill label background, only work with geom='label'
-##' @param family sans by default, can be any supported font
-##' @param parse logical, whether parse label
+##' @param hjust adjust the horizonal position of the bar
+##' @param color set color for bar and label
+##' @param fill set color to fill label background, only work with geom='label'
+##' @param family "sans" by default, can be any supported font
+##' @param parse logical, whether to parse labels, if "TRUE", the labels will be parsed into expressions, defaults to "FALSE"
 ##' @param ... additional parameter
 ##' @return ggplot layers
 ##' @export
 ##' @author Guangchuang Yu
+##' @examples
+##' library(ggtree)
+##' tr<- rtree(15)
+##' x <- ggtree(tr)
+##' x + geom_strip(13, 1, color = "red") + geom_strip(3, 7, color = "blue")
+##' @references
+##' For more detailed demonstration of this function, please refer to chapter 5.2.1 of 
+##' *Data Integration, Manipulation and Visualization of Phylogenetic Trees*
+##' <http://yulab-smu.top/treedata-book/index.html> by Guangchuang Yu.
 geom_strip <- function(taxa1, taxa2, label, offset=0, offset.text=0,
                        align=TRUE, barsize=0.5, extend=0, fontsize=3.88,
                        angle=0, geom="text", hjust=0, color = 'black', fill=NA, family="sans",

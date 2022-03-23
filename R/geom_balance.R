@@ -4,20 +4,32 @@
 #' correspond to multichotomies will not be displayed.
 #'
 #' @title geom_balance
-#' @param node selected node (balance) to highlight
-#' @param fill color fill
-#' @param color color to outline highlights and divide balance
-#' @param alpha alpha (transparency)
-#' @param extend extend xmax of the rectangle
-#' @param extendto extend xmax to extendto
+#' @param node selected node (balance) to highlight its two direct descendant
+#' @param fill color to fill in the highlight rectangle, default to "steelblue"
+#' @param color color to outline highlight rectangle and divide balance, defaults to "white"
+#' @param alpha alpha (transparency) for the highlight rectangle, defaults to 0.5
+#' @param extend extend xmax of the highlight rectangle by the value of extend
+#' @param extendto extend xmax of the highlight rectangle to the value of extendto
 #' @return ggplot2
 #' @export
 #' @importFrom ggplot2 aes_
 #' @importFrom ggplot2 GeomRect
 #' @importFrom utils packageVersion
 #' @author Justin Silverman and modified by Guangchuang Yu
-#' @references J. Silverman, et al. *A phylogenetic transform enhances
-#'   analysis of compositional microbiota data*. (in preparation)
+#' @examples 
+#' library(ggtree)
+#' set.seed(123)
+#' tr<- rtree(15)
+#' x <- ggtree(tr)
+#' x + geom_balance(17)
+#' 
+#' @references 
+#' J. Silverman, et al. *A phylogenetic transform enhances
+#' analysis of compositional microbiota data*. (in preparation)   
+#'    
+#' For more detailed demonstration, please refer to chapter 5.2.2 of 
+#' *Data Integration, Manipulation and Visualization of Phylogenetic Trees*
+#' <http://yulab-smu.top/treedata-book/index.html> by Guangchuang Yu.
 geom_balance <- function(node, fill="steelblue", color='white', alpha=.5, extend=0, extendto=NULL) {
 
   data = NULL

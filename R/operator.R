@@ -26,11 +26,12 @@
 
 ##' add annotation data to a tree
 ##'
+##' This operator attaches annotation data to a ggtree graphic object
 ##'
 ##' @rdname attacher
 ##' @title %<+%
 ##' @param pg ggplot2 object
-##' @param data annotation data
+##' @param data annotation data that contains a column of “node” , or the first column of taxa labels
 ##' @return ggplot object with annotation data added
 ##' @export
 ##' @author Guangchuang Yu

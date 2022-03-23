@@ -1,20 +1,26 @@
-##' add tree scale
+##' add tree scale to a tree
+##'
+##' 'geom_treescale' automatically adds a scale bar for evolutionary distance
 ##'
 ##'
 ##' @title geom_treescale
-##' @param x x position
-##' @param y y position
-##' @param width width of scale
-##' @param offset offset of text to line
-##' @param label the title of tree scale, default is NULL.
-##' @param offset.label offset of scale title to line.
-##' @param color color
-##' @param linesize size of line
-##' @param fontsize size of text
-##' @param family sans by default, can be any supported font
+##' @param x set x position of the scale
+##' @param y set y position of the scale
+##' @param width set the length of the tree scale
+##' @param offset set offset of text to line, defaults to NULL
+##' @param label set the title of tree scale, defaults to NULL.
+##' @param offset.label set offset of the scale title to line.
+##' @param color set color of the scale
+##' @param linesize set size of line
+##' @param fontsize set size of text
+##' @param family 'sans' by default, can be any supported font
 ##' @return ggplot layers
 ##' @export
 ##' @author Guangchuang Yu
+##' @references
+##' For demonstration of this function, please refer to chapter 4.3.1 of 
+##' *Data Integration, Manipulation and Visualization of Phylogenetic Trees*
+##' <http://yulab-smu.top/treedata-book/index.html> by Guangchuang Yu.
 geom_treescale <- function(x=NULL, y=NULL, width=NULL, offset=NULL, 
                            offset.label=NULL, label=NULL, color="black",
                            linesize=0.5, fontsize=3.88, family="sans") {

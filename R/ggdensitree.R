@@ -1,11 +1,14 @@
 ##' drawing phylogenetic trees from list of phylo objects
+##' 
+##' The trees plotted by 'ggdensitree()' will be stacked on top of each other and the 
+##' structures of the trees will be rotated to ensure the consistency of the tip order. 
 ##'
 ##' @title ggdensitree
 ##' @param data a list of phylo objects or any object with an as.phylo and fortify method
 ##' @param mapping aesthetic mapping
 ##' @param layout one of 'slanted', 'rectangluar', 'fan', 'circular' or 'radial' (default: 'slanted')
 ##' @param tip.order the order of the tips by a character vector of taxa names; or an integer, N, to order the tips by the order of the tips in the Nth tree; 'mode' to order the tips by the most common order; 'mds' to order the tips based on MDS of the path length between the tips;  or 'mds_dist' to order the tips based on MDS of the distance between the tips (default: 'mode')
-##' @param align.tips TRUE to align trees by their tips and FALSE to align trees by their root (default: TRUE)
+##' @param align.tips TRUE (default) to align trees by their tips and FALSE to align trees by their root
 ##' @param jitter deviation to jitter tips
 ##' @param ... additional parameters passed to fortify, ggtree and geom_tree
 ##' @return tree layer
@@ -13,6 +16,10 @@
 ##' @importFrom magrittr add
 ##' @export
 ##' @author Yu Guangchuang, Bradley R. Jones
+##' @references
+##' For more detailed demonstration of this function, please refer to chapter 4.4.2 of 
+##' *Data Integration, Manipulation and Visualization of Phylogenetic Trees*
+##' <http://yulab-smu.top/treedata-book/index.html> by Guangchuang Yu.
 ##' @examples
 ##' require(ape)
 ##' require(dplyr)

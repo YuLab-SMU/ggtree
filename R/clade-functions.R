@@ -4,7 +4,7 @@
 ##' This function extract an ordered vector of the tips from selected clade or the whole tree
 ##' based on the ggtree() plot. 
 ##' @title get_taxa_name
-##' @param tree_view tree view (i.e. the ggtree object). If tree_view is NULL, the last ggplot will be used.
+##' @param tree_view tree view (i.e. the ggtree object). If tree_view is NULL, the last ggplot object will be used.
 ##' @param node internal node number to specify a clade. If NULL, using the whole tree
 ##' @return ordered taxa name vector
 ##' @importFrom tidytree offspring
@@ -35,17 +35,22 @@ get_taxa_name <- function(tree_view=NULL, node=NULL) {
 }
 
 
-##' view a clade of tree
+##' view a selected clade of tree, clade can be selected by specifying a node number or 
+##' determined by the most recent common ancestor of selected tips
 ##'
 ##'
 ##' @title viewClade
 ##' @inheritParams get_taxa_name
-##' @param xmax_adjust adjust xmax
+##' @param xmax_adjust adjust the max range of x axis
 ##' @return clade plot
 ##' @importFrom ggplot2 ggplot_build
 ##' @importFrom ggplot2 coord_cartesian
 ##' @importFrom aplot xrange
 ##' @export
+##' @examples
+##' x <- rtree(15)
+##' p <- ggtree(x) + geom_tiplab()
+##' viewClade(p, 18, xmax_adjust = 0.)
 ##' @author Guangchuang Yu
 viewClade <- function(tree_view=NULL, node, xmax_adjust=0) {
     tree_view %<>% get_tree_view
@@ -70,20 +75,26 @@ is.viewClade <- function(tree_view) {
 
 
 
-##' collapse a clade
+##' collapse a selected clade, which can later be expanded with the 'expand()' fuction if necessary
 ##'
 ##'
 ##' @title collapse-ggtree
 ##' @rdname collapse
 ##' @param x tree view (i.e. the ggtree object). If tree_view is NULL, the last ggplot will be used.
 ##' @param node internal node number 
-##' @param mode one of 'none', 'max', 'min' and 'mixed'
-##' @param clade_name set clade name. If clade_name = NULL, do nothing
-##' @param ... additional parameters
+##' @param mode one of 'none'(default), 'max', 'min' and 'mixed'. 'none' would simply collapse the clade as 'tip' and 
+##' the rest will display a triangle, whose shape is determined by the farest/closest tip of the collapsed clade to indicate it
+##' @param clade_name set a name for the collapsed clade. If clade_name = NULL, do nothing
+##' @param ... additional parameters to set the color or transparency of the triangle
 ##' @return tree view
 ##' @method collapse ggtree
 ##' @importFrom ggplot2 geom_polygon
 ##' @export
+##' @examples
+##' x <- rtree(15)
+##' p <- ggtree(x) + geom_tiplab()
+##' p
+##' p1 <- collapse(p, node = 17, mode = "mixed", clade_name = "cclade", alpha = 0.8, color = "grey", fill = "light blue")
 ##' @seealso expand
 ##' @author Guangchuang Yu
 collapse.ggtree <- function(x=NULL, node, mode = "none", clade_name = NULL, ...) {
@@ -173,13 +184,18 @@ collapse.ggtree <- function(x=NULL, node, mode = "none", clade_name = NULL, ...)
     tree_view
 }
 
-##' expand collased clade
+##' expand collapsed clade
 ##'
 ##'
 ##' @title expand
 ##' @inheritParams get_taxa_name
 ##' @return tree view
 ##' @export
+##' examples
+##' x <- rtree(15)
+##' p <- ggtree(x) + geom_tiplab()
+##' p1 <- collapse(p, 17)
+##' expand(p1, 17)
 ##' @seealso collapse
 ##' @author Guangchuang Yu
 expand <- function(tree_view=NULL, node) {
@@ -230,13 +246,17 @@ expand <- function(tree_view=NULL, node) {
     return(tree_view)
 }
 
-##' rotate 180 degree of a selected branch
+##' rotate selected clade by 180 degree
 ##'
 ##'
 ##' @title rotate
 ##' @inheritParams get_taxa_name
 ##' @return ggplot2 object
 ##' @export
+##' @examples
+##' x <- rtree(15)
+##' p <- ggtree(x) + geom_tiplab()
+##' rotate(p, 17)
 ##' @author Guangchuang Yu
 rotate <- function(tree_view=NULL, node) {
     tree_view %<>% get_tree_view
@@ -271,15 +291,19 @@ rotate <- function(tree_view=NULL, node) {
 
 
 
-##' flip position of two selected branches
+##' exchange the position of 2 clades
 ##'
 ##'
 ##' @title flip
 ##' @param tree_view tree view (i.e. the ggtree object). If tree_view is NULL, the last ggplot will be used.
-##' @param node1 node number of branch 1
-##' @param node2 node number of branch 2
-##' @return ggplot2 object
+##' @param node1 node number of clade 1. It should share a same parent node with node2
+##' @param node2 node number of clade 2. It should share a same parent node with node1
+##' @return ggplot object
 ##' @export
+##' x <- rtree(15)
+##' p <- ggtree(x) + geom_tiplab() +
+##'   geom_nodelab(aes(subset=!isTip, label=node), hjust = -.1, color = "red")
+##' flip(p, 19, 20)   ## Depends on the condition of your tree
 ##' @author Guangchuang Yu
 flip <- function(tree_view=NULL, node1, node2) {
     tree_view %<>% get_tree_view
@@ -342,17 +366,22 @@ flip <- function(tree_view=NULL, node1, node2) {
 }
 
 
-##' scale clade
+##' zoom out/in a selected clade to emphasize or de-emphasize it
 ##'
 ##'
 ##' @title scaleClade
 ##' @inheritParams get_taxa_name
-##' @param scale scale
-##' @param vertical_only logical. If TRUE, only vertical will be scaled.
+##' @param scale the scale of the selected clade. The clade will be zoom in when scale > 1,
+##' and will be zoom out when scale < 1
+##' @param vertical_only logical. If TRUE (default), only vertical will be scaled.
 ##' If FALSE, the clade will be scaled vertical and horizontally.
-##' TRUE by default.
 ##' @return tree view
 ##' @export
+##' @examples
+##' x <- rtree(15)
+##' p <- ggtree(x) + geom_tiplab() +
+##'   geom_nodelab(aes(subset=!isTip, label=node), hjust = -.1, color = "red")
+##' scaleClade(p, 24, scale = .1)
 ##' @author Guangchuang Yu
 scaleClade <- function(tree_view=NULL, node, scale=1, vertical_only=TRUE) {
     tree_view %<>% get_tree_view
@@ -431,15 +460,20 @@ reassign_y_from_node_to_root <- function(df, node) {
 }
 
 
-##' zoom selected clade of a tree
+##' zoom in on a selected clade of a tree, while showing its on the full view of tree as a seperated panel for reference
 ##'
 ##' 
 ##' @title zoomClade
 ##' @inheritParams get_taxa_name
-##' @param xexpand numeric, extend x, meaning the ratio of range of original x,
+##' @param xexpand numeric, expend the xlim of the zoom area.
 ##' default is NULL.
 ##' @return full tree with zoom in clade
 ##' @author Guangchuang Yu
+##' @examples
+##' x <- rtree(15)
+##' p <- ggtree(x) + geom_tiplab() +
+##'   geom_nodelab(aes(subset=!isTip, label=node), hjust = -.1, color = "red")
+##' zoomClade(p, 21, xexpand = .2)
 ##' @export
 zoomClade <- function(tree_view = NULL, node, xexpand=NULL) {
     p <- get_tree_view(tree_view)

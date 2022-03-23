@@ -3,10 +3,10 @@
 ##'
 ##' @title geom_tree
 ##' @param mapping aesthetic mapping
-##' @param data data
+##' @param data data of the tree
 ##' @param layout one of 'rectangular', 'dendrogram', 'slanted', 'ellipse', 'roundrect',
 ##' 'fan', 'circular', 'inward_circular', 'radial', 'equal_angle', 'daylight' or 'ape'
-##' @param multiPhylo logical, whether input data contains multiple phylo class.
+##' @param multiPhylo logical, whether input data contains multiple phylo class, defaults to "FALSE".
 ##' @param continuous character, continuous transition for selected aesthethic ('size' 
 ##' or 'color'('colour')). It should be one of 'color' (or 'colour'), 'size', 'all' 
 ##' and 'none', default is 'none'
@@ -30,6 +30,11 @@
 ##' @importFrom ggplot2 aes
 ##' @export
 ##' @author Yu Guangchuang
+##' @examples
+##' @references
+##' For demonstration of this function, please refer to chapter 4.2.1 of 
+##' *Data Integration, Manipulation and Visualization of Phylogenetic Trees*
+##' <http://yulab-smu.top/treedata-book/index.html> by Guangchuang Yu.
 geom_tree <- function(mapping=NULL, data=NULL, layout="rectangular", multiPhylo=FALSE, continuous="none", position="identity", ...) {
     if (is.logical(continuous)){
         warning_wrap('The type of "continuous" argument was changed (v>=2.5.2). Now, 
