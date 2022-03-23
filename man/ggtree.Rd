@@ -90,6 +90,10 @@ visualization and annotation of phylogenetic trees with their covariates and
 other associated data. Methods in Ecology and Evolution, 8(1):28-36.
 \url{https://doi.org/10.1111/2041-210X.12628}
 }
+
+For more information, please refer to
+\emph{Data Integration, Manipulation and Visualization of Phylogenetic Trees}
+\url{http://yulab-smu.top/treedata-book/index.html} by Guangchuang Yu.
 }
 \seealso{
 \code{\link[=geom_tree]{geom_tree()}}

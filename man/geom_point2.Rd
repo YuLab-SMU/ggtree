@@ -21,18 +21,18 @@ If \code{inherit.aes = TRUE}, the mapping can be inherited from the plot mapping
 specified in the call to \code{ggplot()}.}
 
 \item{data}{The data to be displayed in this layer. If 'NULL' (the default),
-the data is inherited from the plot data as specified in the call to 'ggplot()',}
+the data is inherited from the plot data as specified in the call to \code{ggplot()}.}
 
 \item{stat}{Name of the statistical transformation to be used on the data for this layer.}
 
 \item{position}{Position adjustment.}
 
-\item{na.rm}{logical. If 'FALSE' (the default), missing values are removed with a warning. If 'TRUE', missing values are silently removed.}
+\item{na.rm}{logical. If 'FALSE' (default), missing values are removed with a warning. If 'TRUE', missing values are silently removed.}
 
 \item{show.legend}{logical. Should this layer be included in the legends?
 'NA', the default, includes if any aesthetics are mapped. 'FALSE' never includes, and 'TRUE' always includes.}
 
-\item{inherit.aes}{logical (default is 'TRUE'). If 'FALSE', overrides the default aesthetics,
+\item{inherit.aes}{logical (defaults to 'TRUE'). If 'FALSE', overrides the default aesthetics,
 rather then combining with them.}
 
 \item{...}{addtional parameters that passed on to this layer. These are often aesthetics, used to set an aesthetic to a fixed value, like \code{colour = "red"} or \code{size = 3}.}
@@ -51,12 +51,12 @@ geom_point2 is a modified version of geom_point that supports aes(subset)
 \code{geom_point2()} understands the following aesthetics
 \itemize{
 \item \code{subset} logical expression indicating elements or rows to keep: missing values are taken as false; should be in aes().
-\item \code{colour} the colour of point, default is black.
-\item \code{fill} the colour of fill, default is black.
-\item \code{alpha} the transparency of fill, default is 1.
-\item \code{size} the size of point, default is 1.5.
-\item \code{shape} specify a shape, default is 19.
-\item \code{stroke} control point border thickness of point, default is 0.5.
+\item \code{colour} the colour of point, defaults to "black".
+\item \code{fill} the colour of fill, defaults to "black".
+\item \code{alpha} the transparency of fill, defaults to 1.
+\item \code{size} the size of point, defaults to 1.5.
+\item \code{shape} specify a shape, defaults to 19.
+\item \code{stroke} control point border thickness of point, defaults to 0.5.
 }
 }
 

@@ -7,21 +7,27 @@
 scaleClade(tree_view = NULL, node, scale = 1, vertical_only = TRUE)
 }
 \arguments{
-\item{tree_view}{tree view (i.e. the ggtree object). If tree_view is NULL, the last ggplot will be used.}
+\item{tree_view}{tree view (i.e. the ggtree object). If tree_view is NULL, the last ggplot object will be used.}
 
 \item{node}{internal node number to specify a clade. If NULL, using the whole tree}
 
-\item{scale}{scale}
+\item{scale}{the scale of the selected clade. The clade will be zoom in when scale > 1,
+and will be zoom out when scale < 1}
 
-\item{vertical_only}{logical. If TRUE, only vertical will be scaled.
-If FALSE, the clade will be scaled vertical and horizontally.
-TRUE by default.}
+\item{vertical_only}{logical. If TRUE (default), only vertical will be scaled.
+If FALSE, the clade will be scaled vertical and horizontally.}
 }
 \value{
 tree view
 }
 \description{
-scale clade
+zoom out/in a selected clade to emphasize or de-emphasize it
+}
+\examples{
+x <- rtree(15)
+p <- ggtree(x) + geom_tiplab() +
+  geom_nodelab(aes(subset=!isTip, label=node), hjust = -.1, color = "red")
+scaleClade(p, 24, scale = .1)
 }
 \author{
 Guangchuang Yu

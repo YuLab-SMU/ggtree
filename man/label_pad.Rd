@@ -9,15 +9,15 @@ label_pad(label, justify = "right", pad = "·")
 \arguments{
 \item{label}{taxa label}
 
-\item{justify}{should a character vector be left-justified, right-justified (default), centred or left alone.}
+\item{justify}{should a character vector be right-justified (default), left-justified, centred or left alone.}
 
-\item{pad}{padding character (default is a dot)}
+\item{pad}{padding character (defaults to dots)}
 }
 \value{
 Taxa labels with padding characters added
 }
 \description{
-This function add padding character to the left side of taxa labels.
+This function adds padding characters to the left side of taxa labels, adjust their length to the longest label.
 }
 \examples{
 library(ggtree)

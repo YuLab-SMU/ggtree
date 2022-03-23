@@ -18,31 +18,39 @@ geom_treescale(
 )
 }
 \arguments{
-\item{x}{x position}
+\item{x}{set x position of the scale}
 
-\item{y}{y position}
+\item{y}{set y position of the scale}
 
-\item{width}{width of scale}
+\item{width}{set the length of the tree scale}
 
-\item{offset}{offset of text to line}
+\item{offset}{set offset of text to line, defaults to NULL}
 
-\item{offset.label}{offset of scale title to line.}
+\item{offset.label}{set offset of the scale title to line.}
 
-\item{label}{the title of tree scale, default is NULL.}
+\item{label}{set the title of tree scale, defaults to NULL.}
 
-\item{color}{color}
+\item{color}{set color of the scale}
 
-\item{linesize}{size of line}
+\item{linesize}{set size of line}
 
-\item{fontsize}{size of text}
+\item{fontsize}{set size of text}
 
-\item{family}{sans by default, can be any supported font}
+\item{family}{'sans' by default, can be any supported font}
 }
 \value{
 ggplot layers
 }
 \description{
-add tree scale
+add tree scale to a tree
+}
+\details{
+'geom_treescale' automatically adds a scale bar for evolutionary distance
+}
+\references{
+For demonstration of this function, please refer to chapter 4.3.1 of
+\emph{Data Integration, Manipulation and Visualization of Phylogenetic Trees}
+\url{http://yulab-smu.top/treedata-book/index.html} by Guangchuang Yu.
 }
 \author{
 Guangchuang Yu

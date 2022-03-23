@@ -7,17 +7,23 @@
 viewClade(tree_view = NULL, node, xmax_adjust = 0)
 }
 \arguments{
-\item{tree_view}{tree view (i.e. the ggtree object). If tree_view is NULL, the last ggplot will be used.}
+\item{tree_view}{tree view (i.e. the ggtree object). If tree_view is NULL, the last ggplot object will be used.}
 
 \item{node}{internal node number to specify a clade. If NULL, using the whole tree}
 
-\item{xmax_adjust}{adjust xmax}
+\item{xmax_adjust}{adjust the max range of x axis}
 }
 \value{
 clade plot
 }
 \description{
-view a clade of tree
+view a selected clade of tree, clade can be selected by specifying a node number or
+determined by the most recent common ancestor of selected tips
+}
+\examples{
+x <- rtree(15)
+p <- ggtree(x) + geom_tiplab()
+viewClade(p, 18, xmax_adjust = 0.)
 }
 \author{
 Guangchuang Yu

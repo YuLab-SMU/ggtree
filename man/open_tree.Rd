@@ -7,15 +7,21 @@
 open_tree(treeview, angle)
 }
 \arguments{
-\item{treeview}{tree view}
+\item{treeview}{tree view in rectangular/circular layout}
 
-\item{angle}{angle}
+\item{angle}{open the tree at a specific angle}
 }
 \value{
 updated tree view
 }
 \description{
-open tree with specific angle
+transform a tree in either rectangular or circular layout into the fan layout
+that opens with a specific angle
+}
+\examples{
+tree <- rtree(15)
+p <- ggtree(tree) + geom_tiplab()
+open_tree(p, 180)
 }
 \author{
 Guangchuang Yu

@@ -86,6 +86,10 @@ ggplot2::scale_color_manual
 ##' @export
 ggplot2::scale_fill_manual
 
+##' @importFrom ggplot2 scale_x_continuous
+##' @export
+ggplot2::scale_x_continuous
+
 ##' @importFrom ggplot2 margin
 ##' @export
 ggplot2::margin
@@ -97,3 +101,8 @@ grid::arrow
 ##' @importFrom grid unit
 ##' @export
 grid::unit
+
+
+##' @importFrom aplot plot_list
+##' @export
+aplot::plot_list

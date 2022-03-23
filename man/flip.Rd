@@ -9,15 +9,22 @@ flip(tree_view = NULL, node1, node2)
 \arguments{
 \item{tree_view}{tree view (i.e. the ggtree object). If tree_view is NULL, the last ggplot will be used.}
 
-\item{node1}{node number of branch 1}
+\item{node1}{node number of clade 1. It should share a same parent node with node2}
 
-\item{node2}{node number of branch 2}
+\item{node2}{node number of clade 2. It should share a same parent node with node1}
 }
 \value{
-ggplot2 object
+ggplot object
 }
 \description{
-flip position of two selected branches
+exchange the position of 2 clades
+}
+\examples{
+set.seed(123)
+x <- rtree(15)
+p <- ggtree(x) + geom_tiplab() +
+  geom_nodelab(aes(subset=!isTip, label=node), hjust = -.1, color = "red")
+flip(p, 23, 24)   ## Depends on the condition of your tree
 }
 \author{
 Guangchuang Yu

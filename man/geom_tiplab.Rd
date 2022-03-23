@@ -19,20 +19,23 @@ geom_tiplab(
 \arguments{
 \item{mapping}{aes mapping}
 
-\item{hjust}{horizontal adjustment}
+\item{hjust}{horizontal adjustment, defaults to 0}
 
-\item{align}{align tip lab or not, logical}
+\item{align}{if TRUE, align all tip labels to the longest tip by adding padding characters
+to the left side of tip labels, defaults to "FALSE"
+with a line connecting each tip and its corresponding label, defaults to "FALSE"}
 
-\item{linetype}{linetype for adding line if align = TRUE}
+\item{linetype}{set linetype of the line if align = TRUE, defaults to "dotted"}
 
-\item{linesize}{line size of line if align = TRUE}
+\item{linesize}{set line size of the line if align = TRUE, defaults to 0.5}
 
 \item{geom}{one of 'text', 'label', 'shadowtext', 'image' and 'phylopic'}
 
 \item{offset}{tiplab offset, horizontal
-adjustment to nudge tip labels, default is 0.}
+adjustment to nudge tip labels, defaults to 0}
 
-\item{as_ylab}{display tip labels as y-axis label, only works for rectangular and dendrogram layouts}
+\item{as_ylab}{display tip labels as y-axis label,
+only works for rectangular and dendrogram layouts, defaults to "FALSE"}
 
 \item{...}{additional parameter
 
@@ -40,17 +43,17 @@ additional parameters can refer the following parameters.
 
 The following parameters for geom="text".
 \itemize{
-\item \code{size} control the size of tip labels, default is 3.88.
-\item \code{colour} control the colour of tip labels, default is "black".
-\item \code{angle} control the angle of tip labels, default is 0.
-\item \code{vjust} A numeric vector specifying vertical justification, default is 0.5.
-\item \code{alpha} the transparency of text, default is NA.
-\item \code{family} the family of text, default is 'sans'.
-\item \code{fontface} the font face of text, default is 1 (plain), others are
+\item \code{size} control the size of tip labels, defaults to 3.88.
+\item \code{colour} control the colour of tip labels, defaults to "black".
+\item \code{angle} control the angle of tip labels, defaults to 0.
+\item \code{vjust} A numeric vector specifying vertical justification, defaults to 0.5.
+\item \code{alpha} the transparency of text, defaults to NA.
+\item \code{family} the family of text, defaults to 'sans'.
+\item \code{fontface} the font face of text, defaults to 1 (plain), others are
 2 (bold), 3 (italic), 4 (bold.italic).
-\item \code{lineheight} The height of a line as a multiple of the size of text, default is 1.2 .
-\item \code{nudge_x} horizontal adjustment to nudge labels, default is 0.
-\item \code{nudge_y}  vertical adjustment to nudge labels, default is 0.
+\item \code{lineheight} The height of a line as a multiple of the size of text, defaults to 1.2 .
+\item \code{nudge_x} horizontal adjustment to nudge labels, defaults to 0.
+\item \code{nudge_y}  vertical adjustment to nudge labels, defaults to 0.
 \item \code{check.overlap} if TRUE, text that overlaps previous text in the same layer
 will not be plotted.
 \item \code{parse} if TRUE, the labels will be parsed into expressions, if it is 'emoji', the labels
@@ -59,61 +62,74 @@ will be parsed into emojifont.
 
 The following parameters for geom="label".
 \itemize{
-\item \code{size} the size of tip labels, default is 3.88.
-\item \code{colour} the colour of tip labels, default is "black".
-\item \code{fill} the colour of rectangular box of labels, default is "white".
-\item \code{vjust} numeric vector specifying vertical justification, default is 0.5.
-\item \code{alpha} the transparency of labels, default is NA.
-\item \code{family} the family of text, default is 'sans'.
-\item \code{fontface} the font face of text, default is 1 (plain), others are
+\item \code{size} the size of tip labels, defaults to 3.88.
+\item \code{colour} the colour of tip labels, defaults to "black".
+\item \code{fill} the colour of rectangular box of labels, defaults to "white".
+\item \code{vjust} numeric vector specifying vertical justification, defaults to 0.5.
+\item \code{alpha} the transparency of labels, defaults to NA.
+\item \code{family} the family of text, defaults to 'sans'.
+\item \code{fontface} the font face of text, defaults to 1 (plain), others are
 2 (bold), 3 (italic), 4 (bold.italic).
-\item \code{lineheight} The height of a line as a multiple of the size of text, default is 1.2.
-\item \code{nudge_x} horizontal adjustment to nudge labels, default is 0.
-\item \code{nudge_y}  vertical adjustment, default is 0.
+\item \code{lineheight} The height of a line as a multiple of the size of text, defaults to 1.2.
+\item \code{nudge_x} horizontal adjustment to nudge labels, defaults to 0.
+\item \code{nudge_y}  vertical adjustment, defaults to 0.
 \item \code{check.overlap} if TRUE, text that overlaps previous text in the same layer
 will not be plotted.
 \item \code{parse} if TRUE, the labels will be parsed into expressions, if it is 'emoji', the labels
 will be parsed into emojifont.
-\item \code{label.padding} Amount of padding around label, default is 'unit(0.25, "lines")'.
-\item \code{label.r} Radius of rounded corners, default is 'unit(0.15, "lines")'.
-\item \code{label.size} Size of label border, in mm, default is 0.25.
+\item \code{label.padding} Amount of padding around label, defaults to 'unit(0.25, "lines")'.
+\item \code{label.r} Radius of rounded corners, defaults to 'unit(0.15, "lines")'.
+\item \code{label.size} Size of label border, in mm, defaults to 0.25.
 }
 
 The following parameters for geom="shadowtext", some parameters are like to geom="text".
 \itemize{
-\item \code{bg.colour} the background colour of text, default is "black".
-\item \code{bg.r} the width of background of text, default is 0.1 .
+\item \code{bg.colour} the background colour of text, defaults to "black".
+\item \code{bg.r} the width of background of text, defaults to 0.1 .
 }
 
 The following parameters for geom="image" or geom="phylopic".
 \itemize{
 \item \code{image} the image file path for geom='image', but when geom='phylopic',
 it should be the uid of phylopic databases.
-\item \code{size} the image size, default is 0.05.
-\item \code{colour} the color of image, default is NULL.
-\item \code{alpha} the transparency of image, default is 0.8.
+\item \code{size} the image size, defaults to 0.05.
+\item \code{colour} the color of image, defaults to NULL.
+\item \code{alpha} the transparency of image, defaults to 0.8.
 }
 
 The following parameters for the line when align = TRUE.
 \itemize{
-\item \code{colour} the colour of line, default is 'black'.
-\item \code{alpha} the transparency of line, default is NA.
+\item \code{colour} the colour of line, defaults to 'black'.
+\item \code{alpha} the transparency of line, defaults to NA.
 \item \code{arrow} specification for arrow heads,
-as created by arrow(), default is NULL.
+as created by arrow(), defaults to NULL.
 \item \code{arrow.fill} fill color to usse for the arrow head (if closed),
-default is 'NULL', meaning use 'colour' aesthetic.
+defaults to 'NULL', meaning use 'colour' aesthetic.
 }}
 }
 \value{
 tip label layer
 }
 \description{
-add tip label layer
+add tip label layer for a tree
+}
+\details{
+'geom_tiplab' not only supports using text or label geom to display tip labels,
+but also supports image geom to label tip with image files or phylopics.
+
+For adding tip labels to a tree with circular layout, 'geom_tiplab' will
+automatically adjust the angle of the tip labels to the tree by
+internally calling 'geom_tiplab2'.
 }
 \examples{
 require(ape)
 tr <- rtree(10)
 ggtree(tr) + geom_tiplab()
+}
+\references{
+For more detailed demonstration, please refer to chapter 4.3.3 of
+\emph{Data Integration, Manipulation and Visualization of Phylogenetic Trees}
+\url{http://yulab-smu.top/treedata-book/index.html} by Guangchuang Yu.
 }
 \author{
 Guangchuang Yu

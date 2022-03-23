@@ -7,7 +7,7 @@
 geom_range(range, center = "auto", ...)
 }
 \arguments{
-\item{range}{range, e.g. "height_0.95_HPD"}
+\item{range}{range(interval) to be displayed, e.g. "height_0.95_HPD"}
 
 \item{center}{center of the range, mean, median or auto (default, the center of the range)}
 
@@ -17,7 +17,12 @@ geom_range(range, center = "auto", ...)
 ggplot layer
 }
 \description{
-bar of range (HPD, range etc) to present uncertainty of evolutionary inference
+horizontal bar of range (HPD, range etc) on nodes to present uncertainty of evolutionary inference
+}
+\references{
+For demonstration of this function, please refer to chapter 5.2.4 of
+\emph{Data Integration, Manipulation and Visualization of Phylogenetic Trees}
+\url{http://yulab-smu.top/treedata-book/index.html} by Guangchuang Yu.
 }
 \author{
 Guangchuang Yu

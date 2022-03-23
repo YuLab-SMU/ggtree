@@ -20,16 +20,16 @@ If \code{inherit.aes = TRUE}, the mapping can be inherited from the plot mapping
 specified in the call to \code{ggplot()}.}
 
 \item{data}{The data to be displayed in this layer. If 'NULL' (the default),
-the data is inherited from the plot data as specified in the call to 'ggplot()',}
+the data is inherited from the plot data as specified in the call to \code{ggplot()}.}
 
 \item{position}{Position adjustment.}
 
-\item{na.rm}{logical. If 'FALSE' (the default), missing values are removed with a warning. If 'TRUE', missing values are silently removed.}
+\item{na.rm}{logical. If 'FALSE' (default), missing values are removed with a warning. If 'TRUE', missing values are silently removed.}
 
 \item{show.legend}{logical. Should this layer be included in the legends?
 'NA', the default, includes if any aesthetics are mapped. 'FALSE' never includes, and 'TRUE' always includes.}
 
-\item{inherit.aes}{logical (default is 'TRUE'). If 'FALSE', overrides the default aesthetics,
+\item{inherit.aes}{logical (defaults to 'TRUE'). If 'FALSE', overrides the default aesthetics,
 rather then combining with them.}
 
 \item{...}{addtional parameters that passed on to this layer. These are often aesthetics, used to set an aesthetic to a fixed value, like \code{colour = "red"} or \code{size = 3}.}
@@ -38,8 +38,17 @@ rather then combining with them.}
 node point layer
 }
 \description{
-add node point
+add node point layer to a tree
+}
+\references{
+For more detailed demonstration, please refer to chapter 4.3.2 of
+\emph{Data Integration, Manipulation and Visualization of Phylogenetic Trees}
+\url{http://yulab-smu.top/treedata-book/index.html} by Guangchuang Yu.
 }
 \author{
 Guangchuang Yu
+library(ggtree)
+tr<- rtree(15)
+x <- ggtree(tr)
+x + geom_nodepoint()
 }

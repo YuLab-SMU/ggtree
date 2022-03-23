@@ -23,7 +23,7 @@ ggdensitree(
 
 \item{tip.order}{the order of the tips by a character vector of taxa names; or an integer, N, to order the tips by the order of the tips in the Nth tree; 'mode' to order the tips by the most common order; 'mds' to order the tips based on MDS of the path length between the tips;  or 'mds_dist' to order the tips based on MDS of the distance between the tips (default: 'mode')}
 
-\item{align.tips}{TRUE to align trees by their tips and FALSE to align trees by their root (default: TRUE)}
+\item{align.tips}{TRUE (default) to align trees by their tips and FALSE to align trees by their root}
 
 \item{jitter}{deviation to jitter tips}
 
@@ -34,6 +34,10 @@ tree layer
 }
 \description{
 drawing phylogenetic trees from list of phylo objects
+}
+\details{
+The trees plotted by 'ggdensitree()' will be stacked on top of each other and the
+structures of the trees will be rotated to ensure the consistency of the tip order.
 }
 \examples{
 require(ape)
@@ -73,6 +77,11 @@ otu.trees <- lapply(example.trees, groupOTU, grp)
 
 # Plot multiple trees colored by OTU
 ggdensitree(otu.trees, aes(colour=group), alpha=1/6, tip.order='mds') + scale_colour_manual(values=c("black", "red", "green", "blue"))
+}
+\references{
+For more detailed demonstration of this function, please refer to chapter 4.4.2 of
+\emph{Data Integration, Manipulation and Visualization of Phylogenetic Trees}
+\url{http://yulab-smu.top/treedata-book/index.html} by Guangchuang Yu.
 }
 \author{
 Yu Guangchuang, Bradley R. Jones

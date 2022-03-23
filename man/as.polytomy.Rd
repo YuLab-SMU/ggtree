@@ -7,7 +7,7 @@
 as.polytomy(tree, feature, fun)
 }
 \arguments{
-\item{tree}{tree object}
+\item{tree}{tree object, 'phylo' object only}
 
 \item{feature}{selected feature}
 

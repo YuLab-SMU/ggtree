@@ -17,12 +17,12 @@ geom_tree(
 \arguments{
 \item{mapping}{aesthetic mapping}
 
-\item{data}{data}
+\item{data}{data of the tree}
 
 \item{layout}{one of 'rectangular', 'dendrogram', 'slanted', 'ellipse', 'roundrect',
 'fan', 'circular', 'inward_circular', 'radial', 'equal_angle', 'daylight' or 'ape'}
 
-\item{multiPhylo}{logical, whether input data contains multiple phylo class.}
+\item{multiPhylo}{logical, whether input data contains multiple phylo class, defaults to "FALSE".}
 
 \item{continuous}{character, continuous transition for selected aesthethic ('size'
 or 'color'('colour')). It should be one of 'color' (or 'colour'), 'size', 'all'
@@ -54,6 +54,15 @@ add tree layer
 }
 }
 
+\examples{
+tree <- rtree(10)
+ggplot(tree) + geom_tree()
+}
+\references{
+For demonstration of this function, please refer to chapter 4.2.1 of
+\emph{Data Integration, Manipulation and Visualization of Phylogenetic Trees}
+\url{http://yulab-smu.top/treedata-book/index.html} by Guangchuang Yu.
+}
 \author{
 Yu Guangchuang
 }

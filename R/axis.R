@@ -110,8 +110,7 @@ scale_x_range <- function() {
 ##' tr <- rtree(10)
 ##' p <- ggtree(tr) + theme_tree2()
 ##' p2 <- revts(p) 
-##' p3 <- p2 + scale_x_continuous(labels=abs)
-##' plot_list(p, p2, p3, ncol=3, tag_levels="A")
+##' p2 + scale_x_continuous(labels=abs)
 ##' @author Guangchuang Yu
 revts <- function(treeview) {
     x <- treeview$data$x

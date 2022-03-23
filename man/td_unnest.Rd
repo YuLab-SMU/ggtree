@@ -11,7 +11,7 @@ td_unnest(cols, ..., .f = NULL)
 
 \item{...}{additional parameters that pass to tidyr::unnest}
 
-\item{.f}{a function (if any, default is NULL) that pre-operate the data}
+\item{.f}{a function (if any, defaults to NULL) that pre-operate the data}
 }
 \value{
 A function to unnest ggtree plot data
@@ -23,6 +23,11 @@ flatterns a list-column of data frame
 The 'td_unnest' function returns another function that can be
 used to unnest ggtree() plot data. The function can be passed to
 the 'data' parameter of a geom layer to flattern list-cloumn tree data.
+}
+\references{
+For demonstration of this function, please refer to chapter 12.5.2 of
+\emph{Data Integration, Manipulation and Visualization of Phylogenetic Trees}
+\url{http://yulab-smu.top/treedata-book/index.html} by Guangchuang Yu.
 }
 \seealso{
 \link[tidyr:nest]{unnest}

@@ -11,17 +11,24 @@
 
 \item{node}{internal node number}
 
-\item{mode}{one of 'none', 'max', 'min' and 'mixed'}
+\item{mode}{one of 'none'(default), 'max', 'min' and 'mixed'. 'none' would simply collapse the clade as 'tip' and
+the rest will display a triangle, whose shape is determined by the farest/closest tip of the collapsed clade to indicate it}
 
-\item{clade_name}{set clade name. If clade_name = NULL, do nothing}
+\item{clade_name}{set a name for the collapsed clade. If clade_name = NULL, do nothing}
 
-\item{...}{additional parameters}
+\item{...}{additional parameters to set the color or transparency of the triangle}
 }
 \value{
 tree view
 }
 \description{
-collapse a clade
+collapse a selected clade, which can later be expanded with the 'expand()' fuction if necessary
+}
+\examples{
+x <- rtree(15)
+p <- ggtree(x) + geom_tiplab()
+p
+p1 <- collapse(p, node = 17, mode = "mixed", clade_name = "cclade", alpha = 0.8, color = "grey", fill = "light blue")
 }
 \seealso{
 expand

@@ -7,9 +7,9 @@
 theme_tree2(bgcolor = "white", fgcolor = "black", ...)
 }
 \arguments{
-\item{bgcolor}{background color}
+\item{bgcolor}{set background color, defaults to "white"}
 
-\item{fgcolor}{foreground color}
+\item{fgcolor}{set foreground color, defaults to "black"}
 
 \item{...}{additional parameter}
 }
@@ -18,6 +18,9 @@ updated ggplot object with new theme
 }
 \description{
 tree2 theme
+}
+\details{
+'theme_tree2' supports displaying phylogenetic distance by setting x-axis
 }
 \examples{
 require(ape)

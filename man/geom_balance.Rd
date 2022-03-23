@@ -14,17 +14,17 @@ geom_balance(
 )
 }
 \arguments{
-\item{node}{selected node (balance) to highlight}
+\item{node}{selected node (balance) to highlight its two direct descendant}
 
-\item{fill}{color fill}
+\item{fill}{color to fill in the highlight rectangle, default to "steelblue"}
 
-\item{color}{color to outline highlights and divide balance}
+\item{color}{color to outline highlight rectangle and divide balance, defaults to "white"}
 
-\item{alpha}{alpha (transparency)}
+\item{alpha}{alpha (transparency) for the highlight rectangle, defaults to 0.5}
 
-\item{extend}{extend xmax of the rectangle}
+\item{extend}{extend xmax of the highlight rectangle by the value of extend}
 
-\item{extendto}{extend xmax to extendto}
+\item{extendto}{extend xmax of the highlight rectangle to the value of extendto}
 }
 \value{
 ggplot2
@@ -36,9 +36,21 @@ highlights the two direct descendant clades of an internal node
 Particularly useful when studying neighboring clades. Note that balances that
 correspond to multichotomies will not be displayed.
 }
+\examples{
+library(ggtree)
+set.seed(123)
+tr<- rtree(15)
+x <- ggtree(tr)
+x + geom_balance(17)
+
+}
 \references{
 J. Silverman, et al. \emph{A phylogenetic transform enhances
 analysis of compositional microbiota data}. (in preparation)
+
+For more detailed demonstration, please refer to chapter 5.2.2 of
+\emph{Data Integration, Manipulation and Visualization of Phylogenetic Trees}
+\url{http://yulab-smu.top/treedata-book/index.html} by Guangchuang Yu.
 }
 \author{
 Justin Silverman and modified by Guangchuang Yu

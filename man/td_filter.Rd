@@ -9,7 +9,7 @@ td_filter(..., .f = NULL)
 \arguments{
 \item{...}{Expressions that return a logical value.}
 
-\item{.f}{a function (if any, default is NULL) that pre-operate the data}
+\item{.f}{a function (if any, defaults to NULL) that pre-operate the data}
 }
 \value{
 A function to filter ggtree plot data using conditions defined by '...'.
@@ -26,6 +26,11 @@ of geom layer to perform subsetting. All rows that satisy your conditions will b
 tree <- rtree(30)
 ## similar to 'ggtree(tree) + geom_tippoint()'
 ggtree(tree) + geom_point(data = td_filter(isTip))
+}
+\references{
+For more detailed demonstration of this function, please refer to chapter 12.5.1 of
+\emph{Data Integration, Manipulation and Visualization of Phylogenetic Trees}
+\url{http://yulab-smu.top/treedata-book/index.html} by Guangchuang Yu.
 }
 \seealso{
 \link[dplyr:filter]{filter}

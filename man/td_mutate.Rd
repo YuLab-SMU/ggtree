@@ -9,7 +9,7 @@ td_mutate(..., .f = NULL)
 \arguments{
 \item{...}{additional parameters that pass to dplyr::mutate}
 
-\item{.f}{a function (if any, default is NULL) that pre-operate the data}
+\item{.f}{a function (if any, defaults to NULL) that pre-operate the data}
 }
 \value{
 A function to mutate ggtree plot data

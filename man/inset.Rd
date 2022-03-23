@@ -31,19 +31,19 @@ inset(
 \arguments{
 \item{insets}{a list of ggplot objects, named by node number}
 
-\item{width}{width of inset, relative to the range of x-axis}
+\item{width}{width of the inset, relative to the range of x-axis, defaults to .1}
 
-\item{height}{height of inset, relative to the range of y-axis}
+\item{height}{height of the inset, relative to the range of y-axis, defaults to .1}
 
-\item{hjust}{horizontal adjustment}
+\item{hjust}{adjust the horizontal position of the charts, charts will go left if hjust > 0}
 
-\item{vjust}{vertical adjustment}
+\item{vjust}{adjust the vertical position of the charts, charts will go down if vjust > 0}
 
-\item{x}{x position, one of 'node' and 'branch'}
+\item{x}{the position where users want to place the charts, one of 'node' (default) and 'branch'}
 
-\item{reverse_x}{whether x axis was reversed by scale_x_reverse}
+\item{reverse_x}{whether to reverse x axis of the charts by 'ggplot2::scale_x_reverse', defaults to 'FALSE'}
 
-\item{reverse_y}{whether y axis was reversed by scale_y_reverse}
+\item{reverse_y}{whether to reverse y axis of the charts by 'ggplot2::scale_y_reverse', defaults to 'FALSE'}
 
 \item{tree_view}{tree view}
 }
@@ -53,9 +53,19 @@ inset layer
 tree view with insets
 }
 \description{
-add subplots to tree
+gemo_inset can add subplots to tree by accepting a list of ggplot objects that are ancestral
+stats or data associated with selected nodes in the tree. These ggplot objects can be any
+kind of charts or hybrid of of these charts.
 
-add insets in a tree
+add subplots as insets in a tree
+}
+\details{
+Users can also use
+}
+\references{
+For demonstration of this function, please refer to chapter 8.3 of
+\emph{Data Integration, Manipulation and Visualization of Phylogenetic Trees}
+\url{http://yulab-smu.top/treedata-book/index.html} by Guangchuang Yu.
 }
 \author{
 Guangchuang Yu

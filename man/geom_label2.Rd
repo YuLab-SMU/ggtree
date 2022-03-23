@@ -23,42 +23,57 @@ geom_label2(
 )
 }
 \arguments{
-\item{mapping}{the aesthetic mapping}
+\item{mapping}{Set of aesthetic mappings, defaults to NULL.}
 
 \item{data}{A layer specific dataset -
 only needed if you want to override the plot defaults.}
 
-\item{...}{other arguments passed on to 'layer'}
+\item{...}{other arguments passed on to 'layer'.}
 
-\item{stat}{Name of stat to modify data}
+\item{stat}{Name of the stat to modify data.}
 
-\item{position}{The position adjustment to use for overlapping points on this layer}
+\item{position}{The position adjustment to use for overlapping points on this layer.}
 
-\item{family}{sans by default, can be any supported font}
+\item{family}{"sans" by default, can be any supported font.}
 
-\item{parse}{if TRUE, the labels will be parsed as expressions}
+\item{parse}{if 'TRUE', the labels will be parsed as expressions, defaults to 'FALSE'.}
 
-\item{nudge_x}{horizontal adjustment}
+\item{nudge_x}{adjust the horizontal position of the labels.}
 
-\item{nudge_y}{vertical adjustment}
+\item{nudge_y}{adjust the vertical position of the labels.}
 
-\item{label.padding}{Amount of padding around label.}
+\item{label.padding}{Amount of padding around label, defaults to 'unit(0.25, "lines")'.}
 
-\item{label.r}{Radius of rounded corners.}
+\item{label.r}{Use to set the radius of rounded corners of the label, defaults to 'unit(0.15, "lines")'.}
 
-\item{label.size}{Size of label border, in mm}
+\item{label.size}{Size of label border, in mm, defaults to 0.25.}
 
-\item{na.rm}{logical}
+\item{na.rm}{If "FALSE" (default), missing values are removed with a warning. If "TRUE", missing values are silently removed, logical.}
 
-\item{show.legend}{logical}
+\item{show.legend}{Whether to show legend, logical, defaults to "NA".}
 
-\item{inherit.aes}{logical}
+\item{inherit.aes}{Whether to inherit aesthetic mappings, logical, defaults to "TRUE".}
 }
 \value{
 label layer
 }
 \description{
 geom_label2 support aes(subset) via setup_data
+}
+\details{
+'geom_label2' is a modified version of geom_label, with subset aesthetic supported
+}
+\examples{
+library(ggtree)
+set.seed(123)
+tr<- rtree(15)
+x <- ggtree(tr)
+x + geom_label2(aes(label = node, subset = isTip == FALSE))
+}
+\references{
+For more detailed demonstration of this function, please refer to chapter A.4.5 of
+\emph{Data Integration, Manipulation and Visualization of Phylogenetic Trees}
+\url{http://yulab-smu.top/treedata-book/index.html} by Guangchuang Yu.
 }
 \seealso{
 \link[ggplot2:geom_text]{geom_label}

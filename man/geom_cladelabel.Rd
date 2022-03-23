@@ -56,7 +56,7 @@ geom_cladelabel(
 \item{parse}{logical, whether parse label}
 
 \item{horizontal}{logical, whether set label to horizontal,
-default is TRUE.}
+defaults to TRUE.}
 
 \item{...}{additional parameter}
 }

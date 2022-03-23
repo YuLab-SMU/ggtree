@@ -7,13 +7,22 @@
 xlim_tree(xlim)
 }
 \arguments{
-\item{xlim}{xlim}
+\item{xlim}{x axis limits}
 }
 \value{
 updated tree view
 }
 \description{
-set x axis limits for Tree panel
+set x axis limits specially for Tree panel
+}
+\examples{
+x <- rtree(30)
+p <- ggtree(x) + geom_tiplab()
+d <- data.frame(label = x$tip.label, 
+                value = rnorm(30))
+p2 <- p + geom_facet(panel = "Dot", data = d, 
+            geom = geom_point, mapping = aes(x = value))
+p2 + xlim_tree(6)
 }
 \author{
 Guangchuang Yu

@@ -7,16 +7,20 @@
 geom_zoom_clade(node, xexpand = NULL)
 }
 \arguments{
-\item{node}{internal node number}
+\item{node}{internal node number to zoom in its corresponding clade}
 
-\item{xexpand}{numeric, extend x, meaning the ratio of range of original x,
-default is NULL.}
+\item{xexpand}{numeric, extend x, meaning the ratio of range of the xlim of the original tree,
+defaults to NULL.}
 }
 \value{
 updated tree view
 }
 \description{
 zoom selected clade of a tree
+}
+\details{
+'geom_zoom_clade' zooms in on a selected clade of a tree,
+while showing its on the full view of tree as a seperated panel for reference
 }
 \author{
 Guangchuang Yu

@@ -7,7 +7,7 @@
 theme_tree(bgcolor = "white", ...)
 }
 \arguments{
-\item{bgcolor}{background color}
+\item{bgcolor}{set background color, defaults to "white"}
 
 \item{...}{additional parameter}
 }
@@ -16,6 +16,9 @@ updated ggplot object with new theme
 }
 \description{
 tree theme
+}
+\details{
+'theme_tree' defines a blank background to display tree
 }
 \examples{
 require(ape)

@@ -29,33 +29,34 @@ geom_strip(
 
 \item{taxa2}{taxa2}
 
-\item{label}{optional label}
+\item{label}{add label alongside the bar (optional)}
 
 \item{offset}{offset of bar and text from the clade}
 
 \item{offset.text}{offset of text from bar}
 
-\item{align}{logical}
+\item{align}{logical, whether to align bars to the most distant bar ,defaults to "TRUE"
+Note that if "FALSE", the bars might cross the tree}
 
-\item{barsize}{size of bar}
+\item{barsize}{set size of the bar}
 
-\item{extend}{extend bar vertically}
+\item{extend}{extend bar length vertically}
 
-\item{fontsize}{size of text}
+\item{fontsize}{set size of the text}
 
-\item{angle}{angle of text}
+\item{angle}{set the angle of text}
 
 \item{geom}{one of 'text' or 'label'}
 
-\item{hjust}{hjust}
+\item{hjust}{adjust the horizonal position of the bar}
 
-\item{color}{color for bar and label}
+\item{color}{set color for bar and label}
 
-\item{fill}{fill label background, only work with geom='label'}
+\item{fill}{set color to fill label background, only work with geom='label'}
 
-\item{family}{sans by default, can be any supported font}
+\item{family}{"sans" by default, can be any supported font}
 
-\item{parse}{logical, whether parse label}
+\item{parse}{logical, whether to parse labels, if "TRUE", the labels will be parsed into expressions, defaults to "FALSE"}
 
 \item{...}{additional parameter}
 }
@@ -64,6 +65,17 @@ ggplot layers
 }
 \description{
 annotate associated taxa (from taxa1 to taxa2, can be Monophyletic, Polyphyletic or Paraphyletc Taxa) with bar and (optional) text label
+}
+\examples{
+library(ggtree)
+tr<- rtree(15)
+x <- ggtree(tr)
+x + geom_strip(13, 1, color = "red") + geom_strip(3, 7, color = "blue")
+}
+\references{
+For more detailed demonstration of this function, please refer to chapter 5.2.1 of
+\emph{Data Integration, Manipulation and Visualization of Phylogenetic Trees}
+\url{http://yulab-smu.top/treedata-book/index.html} by Guangchuang Yu.
 }
 \author{
 Guangchuang Yu

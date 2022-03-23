@@ -10,13 +10,13 @@ geom_hilight(data = NULL, mapping = NULL, node = NULL, type = "auto", ...)
 geom_highlight(data = NULL, mapping = NULL, node = NULL, type = "auto", ...)
 }
 \arguments{
-\item{data}{data.frame, The data to be displayed in this layer, default is NULL.}
+\item{data}{data.frame, The data to be displayed in this layer, defaults to NULL.}
 
-\item{mapping}{Set of aesthetic mappings, default is NULL.}
+\item{mapping}{Set of aesthetic mappings, defaults to NULL.}
 
 \item{node}{selected node to hilight, when data and mapping is NULL, it is required.}
 
-\item{type}{the type of layer, default is \code{auto}, meaning rectangular, circular,
+\item{type}{the type of layer, defaults to \code{auto}, meaning rectangular, circular,
 slanted, fan, inward_circular, radial, equal_angle, ape layout tree will use rectangular layer,
 unrooted and daylight layout tree use will use encircle layer. You can specify this parameter to
 \code{rect} (rectangular layer) or \code{encircle} (encircle layer), 'gradient' (gradient color),
@@ -27,12 +27,12 @@ unrooted and daylight layout tree use will use encircle layer. You can specify t
 \item \code{align} control the align direction of the edge of high light rectangular.
 Options is 'none' (default), 'left', 'right', 'both'. This argument only work when the
 'geom_hilight' is plotting using geom_hilight(mapping=aes(...)).
-\item \code{gradient.direction} character, the direction of gradient color, default is 'rt'
+\item \code{gradient.direction} character, the direction of gradient color, defaults to 'rt'
 meaning the locations of gradient color is from root to tip, options are 'rt' and 'tr'.
 \item \code{gradient.length.out} integer, desired length of the sequence of gradient color,
-default is 2.
+defaults to 2.
 \item \code{roundrect.r} numeric, the radius of the rounded corners, when \code{roundrect=TRUE},
-default is 0.05.
+defaults to 0.05.
 }}
 }
 \value{
@@ -51,27 +51,27 @@ you can see the Aesthetics section to set parameters.
 aesthetics are in bold):
 \itemize{
 \item \strong{\code{node}} selected node to hight light, it is required.
-\item \code{colour} the colour of margin, default is NA.
-\item \code{fill} the colour of fill, default is 'steelblue'.
-\item \code{alpha} the transparency of fill, default is 0.5.
-\item \code{extend} extend xmax of the rectangle, default is 0.
-\item \code{extendto} specify a value, meaning the rectangle extend to, default is NULL.
-\item \code{linetype} the line type of margin, default is 1.
-\item \code{size} the width of line of margin, default is 0.5.
+\item \code{colour} the colour of margin, defaults to NA.
+\item \code{fill} the colour of fill, defaults to 'steelblue'.
+\item \code{alpha} the transparency of fill, defaults to 0.5.
+\item \code{extend} extend xmax of the rectangle, defaults to 0.
+\item \code{extendto} specify a value, meaning the rectangle extend to, defaults to NULL.
+\item \code{linetype} the line type of margin, defaults to 1.
+\item \code{size} the width of line of margin, defaults to 0.5.
 }
 \code{geom_hilight()} understands the following aesthethics for encircle layer (required
 aesthetics are in bold):
 \itemize{
 \item \strong{\code{node}} selected node to hight light, it is required.
-\item \code{colour} the colour of margin, default is 'black'.
-\item \code{fill} the colour of fill, default is 'steelblue'.
-\item \code{alpha} the transparency of fill, default is 0.5.
-\item \code{expand} expands the xspline clade region, default is 0.
+\item \code{colour} the colour of margin, defaults to 'black'.
+\item \code{fill} the colour of fill, defaults to 'steelblue'.
+\item \code{alpha} the transparency of fill, defaults to 0.5.
+\item \code{expand} expands the xspline clade region, defaults to 0.
 \item \code{spread} control the size, when only one point.
-\item \code{size} the width of line of margin, default is 0.5.
-\item \code{linetype} the line type of margin, default is 1.
-\item \code{s_shape} the shape of the spline relative to the control points, default is 0.5.
-\item \code{s_open}  whether the spline is a line or a closed shape, default is FALSE.
+\item \code{size} the width of line of margin, defaults to 0.5.
+\item \code{linetype} the line type of margin, defaults to 1.
+\item \code{s_shape} the shape of the spline relative to the control points, defaults to 0.5.
+\item \code{s_open}  whether the spline is a line or a closed shape, defaults to FALSE.
 }
 }
 
@@ -94,6 +94,11 @@ p7 <- p + geom_hilight(data=dat, mapping=aes(node=id, fill=type), type = "gradie
 # display the high light layer with round rectangular.
 p8 <- p + geom_hilight(data=dat, mapping=aes(node=id, fill=type), type = "roundrect", alpha=0.68)
 p2/ p3/ p4/ p5 / p6/ p7/ p8
+}
+\references{
+For more detailed demonstration, please refer to chapter 5.2.2 of
+\emph{Data Integration, Manipulation and Visualization of Phylogenetic Trees}
+\url{http://yulab-smu.top/treedata-book/index.html} by Guangchuang Yu.
 }
 \author{
 Guangchuang Yu and Shuangbin Xu

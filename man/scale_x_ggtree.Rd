@@ -7,7 +7,7 @@
 scale_x_ggtree(breaks = waiver(), labels = waiver())
 }
 \arguments{
-\item{breaks}{breaks for tree}
+\item{breaks}{set breaks for tree}
 
 \item{labels}{lables for corresponding breaks}
 }
@@ -16,6 +16,15 @@ updated tree view
 }
 \description{
 scale x for tree with gheatmap
+}
+\details{
+Since setting x-axis for tree with gheatmap by using 'theme_tree2()' is quite tricky,
+'scale_x_ggtree' can help set the x-axis more reasonably.
+}
+\references{
+For more detailed demonstration of this function, please refer to chapter 7.3 of
+\emph{Data Integration, Manipulation and Visualization of Phylogenetic Trees}
+\url{http://yulab-smu.top/treedata-book/index.html} by Guangchuang Yu.
 }
 \author{
 Guangchuang Yu

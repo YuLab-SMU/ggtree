@@ -20,23 +20,24 @@ geom_segment2(
 )
 }
 \arguments{
-\item{mapping}{aes mapping}
+\item{mapping}{Set of aesthetic mappings, defaults to NULL}
 
-\item{data}{data}
+\item{data}{A layer specific dataset -
+only needed if you want to override the plot defaults.}
 
-\item{stat}{Name of stat to modify data}
+\item{stat}{Name of stat to modify data.}
 
-\item{position}{position}
+\item{position}{The position adjustment to use for overlapping points on this layer.}
 
-\item{lineend}{lineend}
+\item{lineend}{Line end style, one of butt (default), round and square.}
 
-\item{na.rm}{logical}
+\item{na.rm}{If "FALSE" (default), missing values are removed with a warning. If "TRUE", missing values are silently removed, logical.}
 
-\item{show.legend}{logical}
+\item{show.legend}{Whether to show legend, logical.}
 
-\item{inherit.aes}{logical}
+\item{inherit.aes}{Whether to inherit aesthetic mappings, logical, defaults to "TRUE".}
 
-\item{nudge_x}{horizontal adjustment of x}
+\item{nudge_x}{adjust the horizontal position of the segments.}
 
 \item{arrow}{specification for arrow heads, as created by arrow().}
 
@@ -49,6 +50,9 @@ add segment layer
 }
 \description{
 geom_segment2 support aes(subset) via setup_data
+}
+\details{
+'geom_segment2' is a modified version of geom_segment, with subset aesthetic supported
 }
 \seealso{
 \link[ggplot2:geom_segment]{geom_segment}

@@ -7,7 +7,7 @@
 theme_inset(legend.position = "none", ...)
 }
 \arguments{
-\item{legend.position}{position of legend}
+\item{legend.position}{set the position of legend}
 
 \item{...}{additional parameter}
 }

@@ -7,15 +7,21 @@
 rotate_tree(treeview, angle)
 }
 \arguments{
-\item{treeview}{tree view}
+\item{treeview}{tree view in circular layout}
 
-\item{angle}{angle}
+\item{angle}{the angle of rotation}
 }
 \value{
 updated tree view
 }
 \description{
-rotate circular tree
+rotate circular tree in a certain angle
+}
+\examples{
+tree <- rtree(15)
+p <- ggtree(tree) + geom_tiplab()
+p2 <- open_tree(p, 180)
+rotate_tree(p2, 180)
 }
 \author{
 Guangchuang Yu

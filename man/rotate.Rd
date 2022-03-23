@@ -7,7 +7,7 @@
 rotate(tree_view = NULL, node)
 }
 \arguments{
-\item{tree_view}{tree view (i.e. the ggtree object). If tree_view is NULL, the last ggplot will be used.}
+\item{tree_view}{tree view (i.e. the ggtree object). If tree_view is NULL, the last ggplot object will be used.}
 
 \item{node}{internal node number to specify a clade. If NULL, using the whole tree}
 }
@@ -15,7 +15,12 @@ rotate(tree_view = NULL, node)
 ggplot2 object
 }
 \description{
-rotate 180 degree of a selected branch
+rotate selected clade by 180 degree
+}
+\examples{
+x <- rtree(15)
+p <- ggtree(x) + geom_tiplab()
+rotate(p, 17)
 }
 \author{
 Guangchuang Yu

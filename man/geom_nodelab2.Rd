@@ -14,15 +14,15 @@ geom_nodelab2(
 )
 }
 \arguments{
-\item{mapping}{aes mapping}
+\item{mapping}{aesthetic mappings, defaults to NULL}
 
-\item{nudge_x}{horizontal adjustment to nudge label}
+\item{nudge_x}{horizontal adjustment to nudge labels, defaults to 0}
 
-\item{nudge_y}{vertical adjustment to nudge label}
+\item{nudge_y}{vertical adjustment to nudge labels, defaults to 0}
 
 \item{geom}{one of 'text', "shadowtext", 'label', 'image' and 'phylopic'}
 
-\item{hjust}{horizontal alignment, one of 0, 0.5 or 1}
+\item{hjust}{horizontal alignment, defaults to 0.5}
 
 \item{...}{additional parameters, see also
 the additional parameters of \code{\link[=geom_tiplab]{geom_tiplab()}}.}

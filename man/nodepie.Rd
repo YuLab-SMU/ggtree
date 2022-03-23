@@ -7,13 +7,13 @@
 nodepie(data, cols, color, alpha = 1)
 }
 \arguments{
-\item{data}{a data.frame of stats with an additional column of node number}
+\item{data}{a data.frame of stats with an additional column of node number named "node"}
 
-\item{cols}{column of stats}
+\item{cols}{columns of the data.frame that store the stats}
 
-\item{color}{color of bar}
+\item{color}{set color of bars}
 
-\item{alpha}{alpha}
+\item{alpha}{set transparency of the charts}
 }
 \value{
 list of ggplot objects

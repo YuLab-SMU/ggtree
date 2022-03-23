@@ -9,9 +9,9 @@ geom_aline(mapping = NULL, linetype = "dotted", size = 1, ...)
 \arguments{
 \item{mapping}{aes mapping}
 
-\item{linetype}{line type}
+\item{linetype}{set line type of the line, defaults to "dotted"}
 
-\item{size}{line size}
+\item{size}{set line size of the line, defaults to 1}
 
 \item{...}{additional parameter}
 }
@@ -19,7 +19,11 @@ geom_aline(mapping = NULL, linetype = "dotted", size = 1, ...)
 aline layer
 }
 \description{
-add horizontal align lines
+add horizontal align lines layer to a tree
+}
+\details{
+'geom_aline'align all tips to the longest one by adding
+padding characters to the right side of the tip.
 }
 \author{
 Yu Guangchuang

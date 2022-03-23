@@ -15,15 +15,15 @@ geom_nodelab(
 )
 }
 \arguments{
-\item{mapping}{aes mapping}
+\item{mapping}{aesthetic mappings, defaults to NULL}
 
-\item{nudge_x}{horizontal adjustment to nudge label}
+\item{nudge_x}{horizontal adjustment to nudge labels, defaults to 0}
 
-\item{nudge_y}{vertical adjustment to nudge label}
+\item{nudge_y}{vertical adjustment to nudge labels, defaults to 0}
 
 \item{geom}{one of 'text', "shadowtext", 'label', 'image' and 'phylopic'}
 
-\item{hjust}{horizontal alignment, one of 0, 0.5 or 1}
+\item{hjust}{horizontal alignment, defaults to 0.5}
 
 \item{node}{a character indicating which node labels will be displayed,
 it should be one of 'internal', 'external' and 'all'. If it is set to 'internal'
@@ -37,7 +37,12 @@ the additional parameters of \code{\link[=geom_tiplab]{geom_tiplab()}}.}
 geom layer
 }
 \description{
-add node label layer
+add node label layer for a tree
+}
+\references{
+For demonstration of this function, please refer to chapter A.4.5 of
+\emph{Data Integration, Manipulation and Visualization of Phylogenetic Trees}
+\url{http://yulab-smu.top/treedata-book/index.html} by Guangchuang Yu.
 }
 \seealso{
 \code{\link[=geom_tiplab]{geom_tiplab()}}

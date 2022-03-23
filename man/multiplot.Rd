@@ -18,13 +18,13 @@ multiplot(
 
 \item{plotlist}{plot list}
 
-\item{ncol}{number of column}
+\item{ncol}{set the number of column to display the plots}
 
-\item{widths}{widths of plots}
+\item{widths}{the width of each plot}
 
-\item{labels}{labels for labeling the plots}
+\item{labels}{set labels for labeling the plots}
 
-\item{label_size}{font size of label}
+\item{label_size}{set font size of the label}
 }
 \value{
 plot

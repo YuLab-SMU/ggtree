@@ -7,15 +7,15 @@
 nodebar(data, cols, color, alpha = 1, position = "stack")
 }
 \arguments{
-\item{data}{a data.frame of stats with an additional column of node number}
+\item{data}{a data.frame of stats with an additional column of node number named "node"}
 
-\item{cols}{column of stats}
+\item{cols}{columns of the data.frame that store the stats}
 
-\item{color}{color of bar}
+\item{color}{set color of bars}
 
-\item{alpha}{alpha}
+\item{alpha}{set transparency of the charts}
 
-\item{position}{position of bar, one of 'stack' and 'dodge'}
+\item{position}{position of bars, if 'stack' (default) make bars stacked atop one another, 'dodge' make them dodged side-to-side}
 }
 \value{
 list of ggplot objects

@@ -9,7 +9,7 @@ geom_tiplab2(mapping = NULL, hjust = 0, ...)
 \arguments{
 \item{mapping}{aes mapping}
 
-\item{hjust}{horizontal adjustment}
+\item{hjust}{horizontal adjustment, defaults to 0}
 
 \item{...}{additional parameter, see geom_tiplab}
 }
@@ -18,6 +18,16 @@ tip label layer
 }
 \description{
 add tip label for circular layout
+}
+\details{
+'geom_tiplab2' will automatically adjust the angle of the tip labels
+to the tree with circular layout
+}
+\examples{
+library(ggtree)
+set.seed(123)
+tr <- rtree(10)
+ggtree(tr, layout = "circular") + geom_tiplab2()
 }
 \references{
 \url{https://groups.google.com/forum/#!topic/bioc-ggtree/o35PV3iHO-0}

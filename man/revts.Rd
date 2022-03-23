@@ -7,13 +7,22 @@
 revts(treeview)
 }
 \arguments{
-\item{treeview}{treeview}
+\item{treeview}{original tree view}
 }
 \value{
-updated treeview
+updated tree view
 }
 \description{
-reverse timescle x-axis
+reverse timescle x-axis by setting the most recent tip to 0
+}
+\details{
+'scale_x_continuous(labels=abs)' is required if users want to set the x-axis lable to absolute value
+}
+\examples{
+tr <- rtree(10)
+p <- ggtree(tr) + theme_tree2()
+p2 <- revts(p) 
+p2 + scale_x_continuous(labels=abs)
 }
 \author{
 Guangchuang Yu

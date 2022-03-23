@@ -7,7 +7,7 @@
 expand(tree_view = NULL, node)
 }
 \arguments{
-\item{tree_view}{tree view (i.e. the ggtree object). If tree_view is NULL, the last ggplot will be used.}
+\item{tree_view}{tree view (i.e. the ggtree object). If tree_view is NULL, the last ggplot object will be used.}
 
 \item{node}{internal node number to specify a clade. If NULL, using the whole tree}
 }
@@ -15,7 +15,13 @@ expand(tree_view = NULL, node)
 tree view
 }
 \description{
-expand collased clade
+expand collapsed clade
+}
+\examples{
+x <- rtree(15)
+p <- ggtree(x) + geom_tiplab()
+p1 <- collapse(p, 17)
+expand(p1, 17)
 }
 \seealso{
 collapse

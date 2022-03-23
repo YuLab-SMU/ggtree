@@ -9,13 +9,16 @@ pg \%<+\% data
 \arguments{
 \item{pg}{ggplot2 object}
 
-\item{data}{annotation data}
+\item{data}{annotation data that contains a column of “node” , or the first column of taxa labels}
 }
 \value{
 ggplot object with annotation data added
 }
 \description{
 add annotation data to a tree
+}
+\details{
+This operator attaches annotation data to a ggtree graphic object
 }
 \examples{
 nwk <- system.file("extdata", "sample.nwk", package="treeio")

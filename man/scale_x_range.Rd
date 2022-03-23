@@ -12,6 +12,14 @@ ggtree object
 \description{
 add second x-axis for geom_range
 }
+\details{
+notice that the first axis is disabled in the default theme thus users need to enable it first before using scale_x_range
+}
+\references{
+For demonstration of this function ,please refer to chapter 5.2.4 of
+\emph{Data Integration, Manipulation and Visualization of Phylogenetic Trees}
+\url{http://yulab-smu.top/treedata-book/index.html} by Guangchuang Yu.
+}
 \author{
 Guangchuang Yu
 }

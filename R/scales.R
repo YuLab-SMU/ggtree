@@ -19,4 +19,3 @@ scale_x_ggtree <- function(breaks = waiver(), labels = waiver()) {
     structure(list(breaks = breaks, labels = labels), class="scale_ggtree")
 }
 
-

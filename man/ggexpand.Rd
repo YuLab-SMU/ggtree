@@ -13,11 +13,11 @@ vexpand(ratio, direction = 1)
 ggexpand(ratio, direction = 1, side = "hv")
 }
 \arguments{
-\item{ratio}{expand x (y) limits by amount of xrange (yrange) * ratio}
+\item{ratio}{expand x (y) axis limits by amount of xrange (yrange) * ratio}
 
-\item{direction}{expand x limit at right hand side if direction is 1, or left hand side if direction is -1}
+\item{direction}{expand x axis limit at right hand side if direction is 1 (default), or left hand side if direction is -1}
 
-\item{side}{one of 'h' for horizontal and 'v' for vertical or 'hv' for both.}
+\item{side}{one of 'h' for horizontal and 'v' for vertical or 'hv' for both (default).}
 }
 \value{
 ggexpand object
@@ -27,7 +27,13 @@ hexpand
 
 vexpand
 
-expand xlim (ylim) by ratio of x (y) range
+expand xlim (ylim) by ratio of x (y) axis range
+}
+\examples{
+x <- rtree(20)
+x$tip.label <- paste0('RRRRREEEEEAAAAALLLLLYYYYY_Long_Lable_', x$tip.label)
+p1 <- ggtree(x) + geom_tiplab()
+p1 + ggexpand(1.5, side = "h")
 }
 \author{
 Guangchuang Yu

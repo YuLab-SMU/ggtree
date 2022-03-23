@@ -30,43 +30,50 @@ gheatmap(
 
 \item{data}{matrix or data.frame}
 
-\item{offset}{offset of heatmap to tree}
+\item{offset}{set offset of the heatmap to tree}
 
-\item{width}{total width of heatmap, compare to width of tree}
+\item{width}{total width of heatmap, compare to width of tree, defaults to 1,
+which means they are of the same length}
 
-\item{low}{color of lowest value}
+\item{low}{set color of the lowest value, defaults to "green"}
 
-\item{high}{color of highest value}
+\item{high}{set color of the highest value, defaults to "red"}
 
-\item{color}{color of heatmap cell border}
+\item{color}{set color of heatmap cell border, defaults to "white"}
 
-\item{colnames}{logical, add matrix colnames or not}
+\item{colnames}{logical, whether to add matrix colnames, defaults to "TRUE"}
 
-\item{colnames_position}{one of 'bottom' or 'top'}
+\item{colnames_position}{set the position of the colnames, one of 'bottom' (default) or 'top'}
 
-\item{colnames_angle}{angle of column names}
+\item{colnames_angle}{set the angle of colnames}
 
-\item{colnames_level}{levels of colnames}
+\item{colnames_level}{set levels of colnames}
 
-\item{colnames_offset_x}{x offset for column names}
+\item{colnames_offset_x}{set x offset for colnames}
 
-\item{colnames_offset_y}{y offset for column names}
+\item{colnames_offset_y}{set y offset for colnames}
 
-\item{font.size}{font size of matrix colnames}
+\item{font.size}{set font size of matrix colnames}
 
-\item{family}{font of matrix colnames}
+\item{family}{font of matrix colnames, can be any supported font}
 
-\item{hjust}{hjust for column names (0: align left, 0.5: align center, 1: align righ)}
+\item{hjust}{adjust horizonal position of column names (0: align left, 0.5: align center (default), 1: align righ)}
 
 \item{legend_title}{title of fill legend}
 
-\item{custom_column_labels}{instead of the column names from a matrix, input a custom vector of column labels}
+\item{custom_column_labels}{instead of using the colnames from the input matrix/data.frame,
+input a custom vector to be set as column labels}
 }
 \value{
 tree view
 }
 \description{
-append a heatmap of a matrix to right side of phylogenetic tree
+append a heatmap of a matrix to the right side of a phylogenetic tree
+}
+\references{
+For demonstration of this function, please refer to chapter 7.3 of
+\emph{Data Integration, Manipulation and Visualization of Phylogenetic Trees}
+\url{http://yulab-smu.top/treedata-book/index.html} by Guangchuang Yu.
 }
 \author{
 Guangchuang Yu

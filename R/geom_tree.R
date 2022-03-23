@@ -31,6 +31,8 @@
 ##' @export
 ##' @author Yu Guangchuang
 ##' @examples
+##' tree <- rtree(10)
+##' ggplot(tree) + geom_tree()
 ##' @references
 ##' For demonstration of this function, please refer to chapter 4.2.1 of 
 ##' *Data Integration, Manipulation and Visualization of Phylogenetic Trees*

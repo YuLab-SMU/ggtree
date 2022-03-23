@@ -13,7 +13,6 @@
 ##' @param height height ratio of sequence, defaults to 0.8
 ##' @return tree view
 ##' @export
-##' @importFrom colorspace rainbow_hcl
 ##' @importFrom treeio read.fasta
 ##' @importFrom ggplot2 geom_segment
 ##' @importFrom ggplot2 geom_rect

@@ -22,8 +22,6 @@
 ##' For demonstration of this function, please refer to chapter 8.3 of 
 ##' *Data Integration, Manipulation and Visualization of Phylogenetic Trees*
 ##' <http://yulab-smu.top/treedata-book/index.html> by Guangchuang Yu.
-##' 
-
 geom_inset <- function(insets, width = .1, height = .1, hjust = 0, vjust = 0,
                        x = "node", reverse_x = FALSE, reverse_y = FALSE) {
     structure(list(insets = insets, width = width, height = height,
@@ -37,7 +35,6 @@ geom_inset <- function(insets, width = .1, height = .1, hjust = 0, vjust = 0,
 ##' @title inset
 ##' @rdname inset
 ##' @param tree_view tree view 
-##' @inheritParams geom_inset
 ##' @return tree view with insets
 ##' @importFrom yulab.utils get_fun_from_pkg
 ##' @export

@@ -7,15 +7,24 @@
 xlim_expand(xlim, panel)
 }
 \arguments{
-\item{xlim}{xlim}
+\item{xlim}{x axis limits}
 
-\item{panel}{panel}
+\item{panel}{name of the panel to expand}
 }
 \value{
 updated tree view
 }
 \description{
 expand x axis limits for specific panel
+}
+\examples{
+x <- rtree(30)
+p <- ggtree(x) + geom_tiplab()
+d <- data.frame(label = x$tip.label, 
+                value = rnorm(30))
+p2 <- p + geom_facet(panel = "Dot", data = d, 
+            geom = geom_point, mapping = aes(x = value))
+p2 + xlim_expand(c(-10, 10), 'Dot')
 }
 \author{
 Guangchuang Yu

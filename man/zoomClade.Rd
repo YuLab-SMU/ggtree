@@ -7,18 +7,24 @@
 zoomClade(tree_view = NULL, node, xexpand = NULL)
 }
 \arguments{
-\item{tree_view}{tree view (i.e. the ggtree object). If tree_view is NULL, the last ggplot will be used.}
+\item{tree_view}{tree view (i.e. the ggtree object). If tree_view is NULL, the last ggplot object will be used.}
 
 \item{node}{internal node number to specify a clade. If NULL, using the whole tree}
 
-\item{xexpand}{numeric, extend x, meaning the ratio of range of original x,
+\item{xexpand}{numeric, expend the xlim of the zoom area.
 default is NULL.}
 }
 \value{
 full tree with zoom in clade
 }
 \description{
-zoom selected clade of a tree
+zoom in on a selected clade of a tree, while showing its on the full view of tree as a seperated panel for reference
+}
+\examples{
+x <- rtree(15)
+p <- ggtree(x) + geom_tiplab() +
+  geom_nodelab(aes(subset=!isTip, label=node), hjust = -.1, color = "red")
+zoomClade(p, 21, xexpand = .2)
 }
 \author{
 Guangchuang Yu

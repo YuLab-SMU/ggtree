@@ -19,12 +19,36 @@ layout_fan(angle = 180)
 layout_dendrogram()
 }
 \arguments{
-\item{xlim}{x limits}
+\item{xlim}{setting x limits, which will affect the center space of the tree}
 
 \item{angle}{open tree at specific angle}
 }
 \description{
-tree layout
+transform circular/fan layout to rectangular layout
+
+transform rectangular layout to circular layout
+
+transform rectangular/circular layout to inward circular layout
+
+transform rectangular/circular layout to fan layout
+
+transform rectangular layout to dendrogram layout
+}
+\examples{
+tree <- rtree(20)
+p <- ggtree(tree, layout = "circular") + layout_rectangular()
+tree <- rtree(20)
+p <- ggtree(tree)
+p + layout_circular()
+tree <- rtree(20)
+p <- ggtree(tree)
+p + layout_inward_circular(xlim=4) + geom_tiplab(hjust=1)
+tree <- rtree(20)
+p <- ggtree(tree)
+p + layout_fan(angle=90)
+tree <- rtree(20)
+p <- ggtree(tree)
+p + p + layout_dendrogram()
 }
 \author{
 Guangchuang Yu

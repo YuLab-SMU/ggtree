@@ -9,13 +9,13 @@ facet_labeller(p, label)
 \arguments{
 \item{p}{facet_plot output}
 
-\item{label}{labels of facet panels}
+\item{label}{new labels of facet panels}
 }
 \value{
 ggplot object
 }
 \description{
-label facet_plot output
+function to relable selected panels created by 'geom_facet' or 'facet-plot'
 }
 \author{
 Guangchuang Yu

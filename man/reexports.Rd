@@ -25,9 +25,11 @@
 \alias{scale_colour_manual}
 \alias{scale_color_manual}
 \alias{scale_fill_manual}
+\alias{scale_x_continuous}
 \alias{margin}
 \alias{arrow}
 \alias{unit}
+\alias{plot_list}
 \title{Objects exported from other packages}
 \keyword{internal}
 \description{
@@ -37,9 +39,11 @@ below to see their documentation.
 \describe{
   \item{ape}{\code{\link[ape]{read.tree}}, \code{\link[ape]{rtree}}}
 
+  \item{aplot}{\code{\link[aplot]{plot_list}}}
+
   \item{dplyr}{\code{\link[dplyr:compute]{collapse}}}
 
-  \item{ggplot2}{\code{\link[ggplot2]{aes}}, \code{\link[ggplot2]{fortify}}, \code{\link[ggplot2:geom_text]{geom_label}}, \code{\link[ggplot2]{geom_point}}, \code{\link[ggplot2]{geom_text}}, \code{\link[ggplot2]{ggplot}}, \code{\link[ggplot2]{ggsave}}, \code{\link[ggplot2]{guide_legend}}, \code{\link[ggplot2:element]{margin}}, \code{\link[ggplot2:scale_manual]{scale_color_manual}}, \code{\link[ggplot2:scale_manual]{scale_colour_manual}}, \code{\link[ggplot2:scale_manual]{scale_fill_manual}}, \code{\link[ggplot2]{theme}}, \code{\link[ggplot2:lims]{xlim}}}
+  \item{ggplot2}{\code{\link[ggplot2]{aes}}, \code{\link[ggplot2]{fortify}}, \code{\link[ggplot2:geom_text]{geom_label}}, \code{\link[ggplot2]{geom_point}}, \code{\link[ggplot2]{geom_text}}, \code{\link[ggplot2]{ggplot}}, \code{\link[ggplot2]{ggsave}}, \code{\link[ggplot2]{guide_legend}}, \code{\link[ggplot2:element]{margin}}, \code{\link[ggplot2:scale_manual]{scale_color_manual}}, \code{\link[ggplot2:scale_manual]{scale_colour_manual}}, \code{\link[ggplot2:scale_manual]{scale_fill_manual}}, \code{\link[ggplot2:scale_continuous]{scale_x_continuous}}, \code{\link[ggplot2]{theme}}, \code{\link[ggplot2:lims]{xlim}}}
 
   \item{grid}{\code{\link[grid]{arrow}}, \code{\link[grid]{unit}}}
 

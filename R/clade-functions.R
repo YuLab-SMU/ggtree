@@ -191,7 +191,7 @@ collapse.ggtree <- function(x=NULL, node, mode = "none", clade_name = NULL, ...)
 ##' @inheritParams get_taxa_name
 ##' @return tree view
 ##' @export
-##' examples
+##' @examples
 ##' x <- rtree(15)
 ##' p <- ggtree(x) + geom_tiplab()
 ##' p1 <- collapse(p, 17)
@@ -300,10 +300,12 @@ rotate <- function(tree_view=NULL, node) {
 ##' @param node2 node number of clade 2. It should share a same parent node with node1
 ##' @return ggplot object
 ##' @export
+##' @examples
+##' set.seed(123)
 ##' x <- rtree(15)
 ##' p <- ggtree(x) + geom_tiplab() +
 ##'   geom_nodelab(aes(subset=!isTip, label=node), hjust = -.1, color = "red")
-##' flip(p, 19, 20)   ## Depends on the condition of your tree
+##' flip(p, 23, 24)   ## Depends on the condition of your tree
 ##' @author Guangchuang Yu
 flip <- function(tree_view=NULL, node1, node2) {
     tree_view %<>% get_tree_view

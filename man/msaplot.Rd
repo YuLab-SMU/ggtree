@@ -18,25 +18,31 @@ msaplot(
 \arguments{
 \item{p}{tree view}
 
-\item{fasta}{fasta file, multiple sequence alignment}
+\item{fasta}{fasta file that contains multiple sequence alignment information}
 
-\item{offset}{offset of MSA to tree}
+\item{offset}{set the offset of MSA to tree}
 
-\item{width}{total width of alignment, compare to width of tree}
+\item{width}{total width of alignment, compare to width of tree, defaults to 1,
+which means they are of the same length}
 
-\item{color}{color}
+\item{color}{set color of the tree}
 
-\item{window}{specific a slice to display}
+\item{window}{specific a slice of alignment to display}
 
-\item{bg_line}{whether add background line in alignment}
+\item{bg_line}{whether to add background line in alignment, defaults to "TRUE"}
 
-\item{height}{height ratio of sequence}
+\item{height}{height ratio of sequence, defaults to 0.8}
 }
 \value{
 tree view
 }
 \description{
-multiple sequence alignment with phylogenetic tree
+visualize phylogenetic tree with multiple sequence alignment
+}
+\references{
+For demonstration of this function, please refer to chapter 7.4 of
+\emph{Data Integration, Manipulation and Visualization of Phylogenetic Trees}
+\url{http://yulab-smu.top/treedata-book/index.html} by Guangchuang Yu.
 }
 \author{
 Guangchuang Yu

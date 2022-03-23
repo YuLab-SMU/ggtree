@@ -20,11 +20,14 @@
   - <https://www.rdocumentation.org/packages/phytools/versions/0.7-70/topics/cophylo> 
 + `fortify` method for `phyloseq` object should return a tidy data.frame
   - maybe we can defined another object (inherited from treedata?) and provide converter for `phyloseq`
-+ update ggtree man files
 + The `daylight` algorithm is quite slow compare to `ggraph` and needs to  be optimized
   - <https://github.com/thomasp85/ggraph/commit/14de66f1225336179b4598cb42a4beda95682211>
 
 -->
+
+# ggtree 3.3.1.900
+
++ update man files (2022-03-23, Wed, #489)
 
 # ggtree 3.3.1
   
