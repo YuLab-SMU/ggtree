@@ -159,7 +159,7 @@ ggplot_add.ggexpand <- function(object, plot, object_name) {
 }
 
 ggexpand_internal <- function(plot, ratio, direction, var) {
-    r <- ggrange(plot, var)
+    r <- ggfun::ggrange(plot, var)
     rr <- diff(r)
     if (direction == 1) {
         res <- r[2] + rr * ratio

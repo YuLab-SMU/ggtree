@@ -175,5 +175,5 @@ message_wrap <- function(...){
 ## }
 
 
-ggrange <- getFromNamespace("ggrange", "aplot")
+
 

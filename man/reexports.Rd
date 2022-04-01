@@ -30,6 +30,7 @@
 \alias{arrow}
 \alias{unit}
 \alias{plot_list}
+\alias{identify}
 \title{Objects exported from other packages}
 \keyword{internal}
 \description{
@@ -42,6 +43,8 @@ below to see their documentation.
   \item{aplot}{\code{\link[aplot]{plot_list}}}
 
   \item{dplyr}{\code{\link[dplyr:compute]{collapse}}}
+
+  \item{ggfun}{\code{\link[ggfun:reexports]{identify}}}
 
   \item{ggplot2}{\code{\link[ggplot2]{aes}}, \code{\link[ggplot2]{fortify}}, \code{\link[ggplot2:geom_text]{geom_label}}, \code{\link[ggplot2]{geom_point}}, \code{\link[ggplot2]{geom_text}}, \code{\link[ggplot2]{ggplot}}, \code{\link[ggplot2]{ggsave}}, \code{\link[ggplot2]{guide_legend}}, \code{\link[ggplot2:element]{margin}}, \code{\link[ggplot2:scale_manual]{scale_color_manual}}, \code{\link[ggplot2:scale_manual]{scale_colour_manual}}, \code{\link[ggplot2:scale_manual]{scale_fill_manual}}, \code{\link[ggplot2:scale_continuous]{scale_x_continuous}}, \code{\link[ggplot2]{theme}}, \code{\link[ggplot2:lims]{xlim}}}
 

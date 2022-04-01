@@ -106,3 +106,7 @@ grid::unit
 ##' @importFrom aplot plot_list
 ##' @export
 aplot::plot_list
+
+##' @importFrom ggfun identify
+##' @export
+ggfun::identify
