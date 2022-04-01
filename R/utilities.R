@@ -173,3 +173,7 @@ message_wrap <- function(...){
 ##     tree$edge.length <- c(tree$edge.length, rep(0, ii))
 ##     return(tree)
 ## }
+
+
+ggrange <- getFromNamespace("ggrange", "aplot")
+

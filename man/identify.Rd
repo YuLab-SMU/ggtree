@@ -4,15 +4,17 @@
 \alias{identify.gg}
 \title{identify}
 \usage{
-\method{identify}{gg}(x = last_plot(), ...)
+\method{identify}{gg}(x = last_plot(), col = "auto", ...)
 }
 \arguments{
 \item{x}{tree view}
 
-\item{...}{additional parameters}
+\item{col}{selected columns to extract. Default is "auto" which will select all columns for 'ggplot' object and 'node' column for 'ggtree' object}
+
+\item{...}{additional parameters, normally ignored}
 }
 \value{
-node id
+closest data point
 }
 \description{
 identify node by interactive click

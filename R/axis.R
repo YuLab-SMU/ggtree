@@ -120,12 +120,3 @@ revts <- function(treeview) {
     treeview
 }
 
-
-ggrange2 <- function(plot, var) {
-    ## aplot::ggrange extract panel range
-    ## this function extract plot range
-
-    var <- paste0("panel_scales_", var)
-    ggplot_build(plot)$layout[[var]][[1]]$range$range
-}
-
