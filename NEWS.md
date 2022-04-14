@@ -25,7 +25,7 @@
 
 -->
 
-# ggtree 3.3.1.901
+# ggtree 3.3.2
 
 + mv `identify()` method to 'ggfun' (2022-04-01, Fri)
 + update `identify.gg()` to support 'ggplot' object and `+xlim()` 
