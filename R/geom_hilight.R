@@ -13,6 +13,8 @@
 #' unrooted and daylight layout tree use will use encircle layer. You can specify this parameter to
 #' `rect` (rectangular layer) or `encircle` (encircle layer), 'gradient' (gradient color), 
 #' 'roundrect' (round rectangular layer).
+#' @param to.bottom logical, whether set the high light layer to the bottom in all layers of 'ggtree'
+#' object, default is FALSE.
 #' @param ... additional parameters, see also the below and Aesthetics section.
 #'     \itemize{
 #'        \item \code{align} control the align direction of the edge of high light rectangular.
@@ -82,12 +84,14 @@ geom_hilight <- function(data=NULL,
                          mapping=NULL,
                          node=NULL,
                          type="auto",
+                         to.bottom=FALSE,
                           ...){
     params <- list(...)
     structure(list(data    = data,
                    mapping = mapping,
                    node    = node,
                    type    = type,
+                   to.bottom = to.bottom,
                    params  = params),
               class = 'hilight')
 }

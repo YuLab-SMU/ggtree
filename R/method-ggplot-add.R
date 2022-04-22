@@ -532,7 +532,12 @@ ggplot_add.hilight <- function(object, plot, object_name){
                      roundrect = choose_hilight_layer(object = object, type = "roundrect")	 
                   )
     }
-    ggplot_add(ly, plot, object_name) 
+    plot <- ggplot_add(ly, plot, object_name)
+    if (object$to.bottom){
+        idx <- length(plot$layers)
+        plot$layers <- c(plot$layers[idx], plot$layers[-idx])
+    }
+    plot    
 }
 
 
