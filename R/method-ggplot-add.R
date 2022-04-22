@@ -341,7 +341,7 @@ ggplot_add.cladelab <- function(object, plot, object_name){
         flagnode <- da_node_label$node[is.na(flagnode)]
         abort(paste0("ERROR: clade node id ", paste(flagnode, collapse='; ')," can not be found in tree data."))
     }
-    if (layout == "unrooted" || layout == "daylight"){
+    if (layout %in% c("unrooted", "daylight", "ape", "equal_angle")){
         textdata <- build_cladelabel_df2(trdf=plot$data,
                                          nodeids=da_node_label$node,
                                          label=da_node_label$label,
@@ -384,6 +384,9 @@ ggplot_add.cladelab <- function(object, plot, object_name){
     bar_obj$data <- bardata
     bar_default_aes <- list(barcolour="black", barcolor="black", barsize=0.5, colour="black", size=0.5, 
                             linetype=1, alpha=NA, inherit.aes=FALSE, show.legend=NA)
+    if (layout %in% c("unrooted", "daylight", "equal_angle", "ape")){
+        bar_default_aes <- c(bar_default_aes, list(curvature = .5, ncp = 5))
+    }
     bar_obj$mapping <- reset_mapping(defaultm=bar_default_aes, inputm=object$mapping)
     ifelse(is.null(bar_obj$mapping),bar_obj$mapping <- aes_(x=~x, xend=~xend, y=~y, yend=~yend),
            bar_obj$mapping <- modifyList(bar_obj$mapping, aes_(x=~x, xend=~xend, y=~y, yend=~yend)))
@@ -392,7 +395,7 @@ ggplot_add.cladelab <- function(object, plot, object_name){
                                        default_aes=bar_default_aes,
                                        params=object$params)
     bar_obj <- c(bar_obj, bar_dot_params)
-    if (layout == "unrooted" || layout == "daylight"){
+    if (layout %in% c("unrooted", "daylight", "equal_angle", "ape")){
         bar_obj <- do.call(ggplot2::geom_curve, bar_obj)
     }else{
         bar_obj <- do.call("geom_segment", bar_obj)
@@ -488,7 +491,7 @@ ggplot_add.hilight <- function(object, plot, object_name){
         flagnode <- clade_node[is.na(flagnode)]
         abort(paste0("ERROR: clade node id ", paste(flagnode, collapse='; ')," can not be found in tree data."))
     }
-    if (layout == "unrooted" || layout == "daylight"){
+    if (layout %in% c("unrooted", "daylight", "equal_angle", "ape")){
         data <- switch(object$type,
                        auto = build_cladeids_df(trdf=framedat, nodeids=clade_node),
                        rect = build_cladeids_df2(trdf=framedat, nodeids=clade_node),
@@ -515,11 +518,11 @@ ggplot_add.hilight <- function(object, plot, object_name){
     }else{
         object$data <- data
     }
-    if (layout == "unrooted" || layout == "daylight"){
+    if (layout %in% c("unrooted", "daylight", "equal_angle", "ape")){
         ly <- switch(object$type,
                      auto = choose_hilight_layer(object = object, type = "encircle"),
                      rect = choose_hilight_layer(object = object, type = "rect"),
-                     encircle = choose_hilight_layer(object = object, type="encircle"),
+                     encircle = choose_hilight_layer(object = object, type = "encircle"),
                      gradient = choose_hilight_layer(object = object, type = "gradient"),
                      roundrect = choose_hilight_layer(object = object, type = "roundrect")
                   )
@@ -532,7 +535,12 @@ ggplot_add.hilight <- function(object, plot, object_name){
                      roundrect = choose_hilight_layer(object = object, type = "roundrect")	 
                   )
     }
-    ggplot_add(ly, plot, object_name) 
+    plot <- ggplot_add(ly, plot, object_name)
+    if (object$to.bottom){
+        idx <- length(plot$layers)
+        plot$layers <- c(plot$layers[idx], plot$layers[-idx])
+    }
+    plot    
 }
 
 
@@ -576,6 +584,125 @@ ggplot_add.striplabel <- function(object, plot, object_name) {
     }
 
     ggplot_add(list(ly_bar, ly_text), plot, object_name)
+}
+
+##' @method ggplot_add striplab
+##' @export
+ggplot_add.striplab <- function(object, plot, object_name){
+    layout <- get_layout(plot) 
+    if (is.null(object$data) && is.null(object$taxa1) && is.null(object$taxa2) && is.null(object$label)){
+        abort("data and taxa1, taxa2, label can't be NULL simultaneously!")
+    }
+    if (!is.null(object$data)){
+        if (is.null(object$mapping) || 
+            is.null(object$mapping$taxa1) || 
+            is.null(object$mapping$taxa2) || 
+            is.null(object$mapping$label)){
+            abort("when data is provided, the mapping also should be provided, 
+                  and taxa1, taxa2, label are required aesthetics.")
+        }else{
+            if (!is.null(object$mapping$subset)){
+                object$data <- subset(object$data, eval(parse(text=quo_name(object$mapping$subset))))
+                object$mapping <- object$mapping[names(object$mapping)!="subset"]
+            }
+            da_taxa_label <- data.frame(
+                taxa1 = as.vector(object$data[[quo_name(object$mapping$taxa1)]]),
+                taxa2 = as.vector(object$data[[quo_name(object$mapping$taxa2)]]),
+                label = as.vector(object$data[[quo_name(object$mapping$label)]])
+            )
+        }
+    }else{
+        da_taxa_label <- data.frame(taxa1 = object$taxa1, taxa2 = object$taxa2, label = object$label)
+    }    
+
+    default_raw_aes <- list(offset=0, offset.text=0, align=TRUE, angle=0, extend=0, horizontal=TRUE)
+    default_raw_aes <- reset_params(defaultp=default_raw_aes, inputp=object$params, type="other")
+    bar_params <- list(barsize=0.5, barcolour = "black")
+    bar_params <- reset_params(defaultp=bar_params, inputp=object$params, type="bar")
+    text_params <- list(fontsize= 3.88, family = "sans", textcolour="black", hjust=0)
+    text_params <- reset_params(defaultp=text_params, inputp=object$params, type="text")
+    image_params <- list(imagesize=0.05, alpha=0.8, imagecolour=NULL)
+    image_params <- reset_params(defaultp=image_params, inputp=object$params, type="image")
+    da_taxa_label <- transform_df(data = da_taxa_label, object = object, default_aes = default_raw_aes)
+    object$mapping <- object$mapping[!names(object$mapping)%in%names(default_raw_aes)]
+    object$params <- object$params[!names(object$params) %in% c("angle", "size", "color", "colour", "hjust")]
+    taxa <- unique(c(da_taxa_label$taxa1, da_taxa_label$taxa2))
+    flagnode <- match(taxa, plot$data$label)
+    if (anyNA(flagnode)){
+        flagnode <- taxa[is.na(flagnode)]
+        abort(paste0("ERROR: The taxa id: ", paste(flagnode, collapse='; ')," can not be found in tree data."))
+    }
+
+    #if (layout %in% c("unrooted", "daylight", "equal_angle", "ape")){
+    #    textdata <- build_striplabel_df2(trdf = plot$data,
+    #                                     taxa1 = da_taxa_label$taxa1,
+    #                                     taxa2 = da_taxa_label$taxa2,
+    #                                     label = da_taxa_label$label,
+    #                                     offset = da_taxa_label$offset.text,
+    #                                     align = da_taxa_label$align,
+    #                                     angle = da_taxa_label$angle,
+    #                                     horizontal = da_taxa_label$horizontal)
+    #    bardata <- build_stripbar_df2(trdf = plot$data,
+    #                                  taxa1 = da_taxa_label$taxa1,
+    #                                  taxa2 = da_taxa_label$taxa2,
+    #                                  offset = da_taxa_label$offset,
+    #                                  align = da_taxa_label$align)
+    #}else{
+    textdata <- build_striplabel_df(trdf = plot$data,
+                                    taxa1 = da_taxa_label$taxa1,
+                                    taxa2 = da_taxa_label$taxa2,
+                                    label = da_taxa_label$label,
+                                    offset = da_taxa_label$offset.text,
+                                    align = da_taxa_label$align,
+                                    angle = da_taxa_label$angle,
+                                    horizontal = da_taxa_label$horizontal)
+    bardata <- build_stripbar_df(trdf = plot$data,
+                                 taxa1 = da_taxa_label$taxa1,
+                                 taxa2 = da_taxa_label$taxa2,
+                                 offset = da_taxa_label$offset,
+                                 align = da_taxa_label$align,
+                                 extend = da_taxa_label$extend)
+    #}
+
+    if (!is.null(object$data) && !is.null(object$mapping)){
+        object$data <- object$data[,!colnames(object$data) %in% c("x", "xend", "y", "yend", "label", "angle"),drop=FALSE]
+        textdata <- dplyr::left_join(textdata, object$data, 
+                                     by=c("taxa1"=quo_name(object$mapping$taxa1), 
+                                          "taxa2"=quo_name(object$mapping$taxa2))
+                    )
+        bardata <- dplyr::left_join(bardata, 
+                                    object$data, 
+                                    by=c("taxa1"=quo_name(object$mapping$taxa1), 
+                                         "taxa2"=quo_name(object$mapping$taxa2))
+                    )
+        object$mapping <- object$mapping[!names(object$mapping) %in% c("taxa1", "taxa2", "node", "label")]
+    }
+    annot_obj <- switch(object$geom,
+                        text = build_text_layer(data=textdata, object=object, params=text_params, layout=layout),
+                        label = build_text_layer(data=textdata, object=object, params=text_params, layout=layout),
+                        image = build_image_layer(data=textdata, object=object, params=image_params),
+                        phylopic = build_image_layer(data=textdata, object=object, params=image_params),
+                        shadowtext = build_text_layer(data=textdata, object=object, params=text_params),
+                       )
+    bar_obj <- list()
+    bar_obj$data <- bardata
+    bar_default_aes <- list(barcolour="black", barcolor="black", barsize=0.5, colour="black", size=0.5,
+                            linetype=1, alpha=NA, inherit.aes=FALSE, show.legend=NA)
+    bar_obj$mapping <- reset_mapping(defaultm=bar_default_aes, inputm=object$mapping)
+    ifelse(is.null(bar_obj$mapping),bar_obj$mapping <- aes_(x=~x, xend=~xend, y=~y, yend=~yend),
+           bar_obj$mapping <- modifyList(bar_obj$mapping, aes_(x=~x, xend=~xend, y=~y, yend=~yend)))
+    bar_dot_params <- reset_dot_params(mapping=bar_obj$mapping,
+                                       defaultp=bar_params,
+                                       default_aes=bar_default_aes,
+                                       params=object$params)
+    bar_obj <- c(bar_obj, bar_dot_params)
+    #if (layout %in% c("unrooted", "daylight", "ape", "equal_angle")){
+    #    bar_obj <- do.call(ggplot2::geom_curve, bar_obj)
+    #}else{
+    bar_obj <- do.call("geom_segment", bar_obj)
+    #}
+    obj <- list(annot_obj, bar_obj)
+    ggplot_add(obj, plot, object_name)
 }
 
 ##' @importFrom ggplot2 scale_x_continuous

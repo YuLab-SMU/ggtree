@@ -5,9 +5,23 @@
 \alias{geom_highlight}
 \title{geom_hilight}
 \usage{
-geom_hilight(data = NULL, mapping = NULL, node = NULL, type = "auto", ...)
+geom_hilight(
+  data = NULL,
+  mapping = NULL,
+  node = NULL,
+  type = "auto",
+  to.bottom = FALSE,
+  ...
+)
 
-geom_highlight(data = NULL, mapping = NULL, node = NULL, type = "auto", ...)
+geom_highlight(
+  data = NULL,
+  mapping = NULL,
+  node = NULL,
+  type = "auto",
+  to.bottom = FALSE,
+  ...
+)
 }
 \arguments{
 \item{data}{data.frame, The data to be displayed in this layer, defaults to NULL.}
@@ -21,6 +35,9 @@ slanted, fan, inward_circular, radial, equal_angle, ape layout tree will use rec
 unrooted and daylight layout tree use will use encircle layer. You can specify this parameter to
 \code{rect} (rectangular layer) or \code{encircle} (encircle layer), 'gradient' (gradient color),
 'roundrect' (round rectangular layer).}
+
+\item{to.bottom}{logical, whether set the high light layer to the bottom in all layers of 'ggtree'
+object, default is FALSE.}
 
 \item{...}{additional parameters, see also the below and Aesthetics section.
 \itemize{

@@ -42,6 +42,7 @@ Suggests:
     emojifont,
     ggimage,
     ggplotify,
+    shadowtext,
     grDevices,
     knitr,
     prettydoc,
