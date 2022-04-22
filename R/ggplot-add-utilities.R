@@ -76,6 +76,48 @@ remapping <- function(mapping, samevars){
     return(mapping)
 }
 
+build_striplabel_df <- function(trdf, taxa1, taxa2, label, offset, align, angle, horizontal){
+    dat <- mapply(get_striplab_position,
+                     taxa1 = taxa1,
+                     taxa2 = taxa2,
+                     offset = offset,
+                     angle = angle,
+                     align = align,
+                     horizontal = horizontal,
+                  MoreArgs = list(
+                     data = trdf,
+                     adjustRatio = 1.03
+                  ),
+                  SIMPLIFY = FALSE
+           )
+    dat <- do.call("rbind", dat)
+    dat$y <- unlist(mapply(function(x, y){mean(c(x, y))}, dat$y, dat$yend, SIMPLIFY=FALSE))
+    dat$taxa1 <- taxa1
+    dat$taxa2 <- taxa2
+    dat$label <- label
+    return(dat)
+}
+
+build_stripbar_df <- function(trdf, taxa1, taxa2, offset, align, extend){
+    dat <- mapply(get_striplab_position,
+                     taxa1 = taxa1,
+                     taxa2 = taxa2,
+                     offset = offset,
+                     align = align,
+                     extend = extend,
+                  MoreArgs = list(
+                     data = trdf,
+                     angle = 0,
+                     adjustRatio = 1.02
+                  ),
+                  SIMPLIFY = FALSE
+           )
+    dat <- do.call("rbind", dat)
+    dat$taxa1 <- taxa1
+    dat$taxa2 <- taxa2
+    return(dat)
+}
+
 build_cladelabel_df <- function(trdf, nodeids, label, offset, align, angle, horizontal){
     dat <- mapply(function(i, o, a, g, h){get_cladelabel_position(data=trdf, 
                                           node=i, 
@@ -116,6 +158,44 @@ build_cladebar_df <- function(trdf, nodeids, offset, align, extend){
     return(dat)
 
 }
+
+#build_striplabel_df2 <- function(trdf, taxa1, taxa2, label, offset, align, angle, horizontal){
+#    dat <- mapply(get_striplab_position2,
+#                           taxa1 = taxa1,
+#                           taxa2 = taxa2,
+#                           offset = offset,
+#                           align = align,
+#                           angle = angle,
+#                           horizontal = horizontal,
+#                           MoreArgs = list(
+#                               datai = trdf,
+#                               adjustRatio = 1.2
+#                           ),
+#                  SIMPLIFY=FALSE)
+#    dat <- do.call("rbind", dat)
+#    dat$taxa1 <- taxa1
+#    dat$taxa2 <- taxa2
+#    dat$label <- label
+#    return (dat)
+#}
+#
+#build_stripbar_df2 <- function(trdf, taxa1, taxa2, offset, align){
+#    dat <- mapply(get_striplab_position_bar,
+#                    taxa1 = taxa1,
+#                    taxa2 = taxa2,
+#                    offset = offset,
+#                    align = align,
+#                  MoreArgs = list(
+#                    data = trdf,
+#                    adjustRatio = 1.1),
+#               SIMPLIFY = FALSE
+#           )
+#    dat <- do.call("rbind", dat)
+#    colnames(dat) <- c("x", "y", "xend", "yend")
+#    dat$taxa1 <- taxa1
+#    dat$taxa2 <- taxa2
+#    return(dat)
+#}
 
 build_cladelabel_df2 <- function(trdf, nodeids, label, offset, align, angle, horizontal){
     dat <- mapply(get_cladelabel2_position_label,

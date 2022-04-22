@@ -63,7 +63,7 @@ annotate a clade with bar and text label or (image)
 aesthetics are in bold):
 \itemize{
 \item \strong{\code{node}} selected node to hight light, it is required.
-\item \strong{\code{label}} labels showed, it is required.
+\item \strong{\code{label}} labels to be shown, it is required.
 \item \code{colour} the colour of text, defaults to "black".
 \item \code{size} the size of text, defaults to 3.88.
 \item \code{angle} the angle of text, defaults to 0.
@@ -82,7 +82,7 @@ they should use textcolour, fontsize to avoid the confusion with bar layer annot
 aesthetics are in bold):
 \itemize{
 \item \strong{\code{node}} selected node to hight light, it is required.
-\item \strong{\code{label}} labels to be showed, it is required.
+\item \strong{\code{label}} labels to be shown, it is required.
 \item \code{colour} the colour of text, defaults to "black".
 \item \code{fill} the background colour of the label, defaults to "white".
 \item \code{size} the size of text, defaults to 3.88.
@@ -102,7 +102,7 @@ they should use textcolour, fontsize to avoid the confusion with bar layer annot
 aesthetics are in bold):
 \itemize{
 \item \strong{\code{node}} selected node to hight light, it is required.
-\item \strong{\code{label}} labels to be showed, it is required.
+\item \strong{\code{label}} labels to be shown, it is required.
 \item \code{colour} the colour of text, defaults to "black".
 \item \code{bg.colour} the background colour of text, defaults to 'black'.
 \item \code{bg.r} the width of background text, defaults to 0.1.
@@ -123,7 +123,7 @@ they should use textcolour, fontsize to avoid the confusion with bar layer annot
 aesthetics are in bold):
 \itemize{
 \item \strong{\code{node}} selected node to hight light, it is required.
-\item \strong{\code{label}} labels to be showed, it is required.
+\item \strong{\code{label}} labels to be shown, it is required.
 \item \strong{\code{image}} the image to be annotated, when geom="phylopic",
 the uid of phylopic databases, it is required.
 \item \code{colour} the color of image, defaults to NULL.
