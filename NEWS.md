@@ -25,6 +25,11 @@
 
 -->
 
+# ggtree 3.3.3
+
++ `geom_striplab()` that supports `aes()` mapping (2022-04-22, Fri, #493)
++ `to.bottom` parameter introduced in `geom_hilight()` to allow the highlight layer was added into the lowest layer stack (2022-04-22, Fri, #492)
+
 # ggtree 3.3.2
 
 + mv `identify()` method to 'ggfun' (2022-04-01, Fri)
