@@ -1,3 +1,8 @@
+#!/bin/bash
+
+oldver=RELEASE_3_14
+newver=RELEASE_3_15
+
 ## rm old release branch
 make rmrelease
 
@@ -5,7 +10,7 @@ make rmrelease
 make update
 
 ## set current release version
-sed -i 's/RELEASE_3_13/RELEASE_3_14/g' Makefile
+sed -i 's/$oldver/$newver/g' Makefile
 
 ## commit and push to github
 git add .
