@@ -10,7 +10,7 @@ make rmrelease
 make update
 
 ## set current release version
-sed -i 's/$oldver/$newver/g' Makefile
+sed -i "s/$oldver/$newver/g" Makefile
 
 ## commit and push to github
 git add .
