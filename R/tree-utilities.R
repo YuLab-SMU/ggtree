@@ -1244,3 +1244,54 @@ layoutApe <- function(model, branch.length="branch.length") {
 	class(tree_df) <- c("tbl_tree", class(tree_df))
 	tree_df
 }
+
+.nodeId <- function (tree, type = "all"){
+    type <- match.arg(type, c("all", "tips", "internal"))
+    if (inherits(tree, "treedata")) {
+        tree <- tree@phylo
+    }
+    nodes <- unique(as.vector(tree$edge))
+    if (type == "all") {
+        return(nodes)
+    }
+    edge <- tree$edge
+    tips <- edge[!edge[, 2] %in% edge[, 1], 2]
+    if (type == "tips"){
+        return(tips)
+    }
+    else if (type == "internal") {
+        return(setdiff(nodes, tips))
+    }
+}
+
+.convert_tips2ancestors_sbp <- function (tree, include.root = FALSE, type = "all", include.self = TRUE){
+    all.nodes <- .nodeId(tree)
+    if (!include.root) {
+        all.nodes <- setdiff(all.nodes, treeio::rootnode(tree))
+    }
+    tip.nodes <- .nodeId(tree, type = "tips")
+    .internal_anc <- switch(type, all = treeio::ancestor, parent = treeio::parent)
+    ancestor <- lapply(tip.nodes, .internal_anc, .data = tree)
+    if (include.self) {
+        ancestor <- mapply(append, tip.nodes, ancestor, SIMPLIFY = FALSE)
+    }
+    sbp <- lapply(ancestor, function(i) all.nodes %in% i) %>%
+        stats::setNames(tip.nodes) %>% do.call(rbind, .) 
+    colnames(sbp) <- all.nodes
+    return(sbp)
+}
+
+getXcoord_no_length_slanted <- function(x){
+    x <- -colSums(x)
+    x <- unname(x[order(as.numeric(names(x)))])
+    x <- x + max(abs(x))
+    return(x)
+}
+
+getYcoord_no_length_slanted <- function(y){
+    y <- seq_len(nrow(y)) * y
+    y[y==0] <- NA
+    y <- colMeans(y, na.rm = TRUE)
+    y <- unname(y[order(as.numeric(names(y)))])
+    return(y)
+}

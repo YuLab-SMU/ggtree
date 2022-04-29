@@ -32,14 +32,20 @@ fortify.phylo <- function(model, data,
     if (layout %in% c("equal_angle", "daylight", "ape")) {
         res <- layout.unrooted(model, layout.method = layout, branch.length = branch.length, ...)
     } else {
+        ypos <- getYcoord(x)
+        N <- Nnode(x, internal.only=FALSE)
         if (is.null(x$edge.length) || branch.length == "none") {
-            xpos <- getXcoord_no_length(x)
+            if (layout == 'slanted'){
+                sbp <- .convert_tips2ancestors_sbp(x, include.root = TRUE)
+                xpos <- getXcoord_no_length_slanted(sbp)
+                ypos <- getYcoord_no_length_slanted(sbp)  
+            }else{
+                xpos <- getXcoord_no_length(x)
+            }
         } else {
             xpos <- getXcoord(x)
         }
 
-        ypos <- getYcoord(x)
-        N <- Nnode(x, internal.only=FALSE)
         xypos <- tibble::tibble(node=1:N, x=xpos + root.position, y=ypos)
 
         df <- as_tibble(model) %>%
