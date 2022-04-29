@@ -1270,16 +1270,29 @@ layoutApe <- function(model, branch.length="branch.length") {
         all.nodes <- setdiff(all.nodes, treeio::rootnode(tree))
     }
     tip.nodes <- .nodeId(tree, type = "tips")
-    .internal_anc <- switch(type, all = treeio::ancestor, parent = treeio::parent)
-    ancestor <- lapply(tip.nodes, .internal_anc, .data = tree)
-    if (include.self) {
-        ancestor <- mapply(append, tip.nodes, ancestor, SIMPLIFY = FALSE)
-    }
-    sbp <- lapply(ancestor, function(i) all.nodes %in% i) %>%
-        stats::setNames(tip.nodes) %>% do.call(rbind, .) 
+    sbp <- lapply(tip.nodes, 
+                       .internal_ancestor, 
+                       .data = tree, 
+                       all.nodes = all.nodes,
+                       type = type, 
+                       include.self = include.self
+                ) %>%
+           stats::setNames(tip.nodes) %>% 
+           do.call(rbind, .) 
     colnames(sbp) <- all.nodes
     return(sbp)
 }
+
+.internal_ancestor <- function(.data, .node, all.nodes, type = 'all', include.self=TRUE){
+    .internal_anc <- switch(type, all = treeio::ancestor, parent = treeio::parent)
+    x <- .internal_anc(.data=.data, .node=.node)
+    if (include.self){
+        x <- c(x, .node)
+    }
+    x <- all.nodes %in% x
+    return (x)
+}
+
 
 getXcoord_no_length_slanted <- function(x){
     x <- -colSums(x)
