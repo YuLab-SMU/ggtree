@@ -25,6 +25,15 @@
 
 -->
 
+# ggtree 3.5.0.900
+
++ new 'slanted' layout for `branch.length = 'none'` (2022-04-29, Fri, #497)
+    - only works for Cartesian coordination, that means it will not work for `layout = 'radial'`
+
+# ggtree 3.4.0
+
++ Bioconductor 3.15 release (2022-04-28, Thu)
+
 # ggtree 3.3.3
 
 + `geom_striplab()` that supports `aes()` mapping (2022-04-22, Fri, #493)
