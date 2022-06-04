@@ -904,9 +904,7 @@ getYcoord <- function(tr, step=1, tip.order = NULL) {
     y[-tip.idx] <- NA
 
 
-    ## use lookup table
-    pvec <- integer(max(tr$edge))
-    pvec[child] = parent
+    pvec <- edge2vec(tr)
 
     currentNode <- 1:Ntip
     while(anyNA(y)) {
@@ -1307,4 +1305,48 @@ getYcoord_no_length_slanted <- function(y){
     y <- colMeans(y, na.rm = TRUE)
     y <- unname(y[order(as.numeric(names(y)))])
     return(y)
+}
+
+
+edge2vec <- function(tr) {
+  parent <- tr$edge[,1]
+  child <- tr$edge[,2]
+  
+  ## use lookup table
+  pvec <- integer(max(tr$edge))
+  pvec[child] <- parent
+  return(pvec)
+}
+
+
+extract_inode_hclust_item <- function(h, i, ev) {
+  j <- h$merge[i,]
+  if (any(j < 0)) {
+    j2 <- j[j < 0][1]
+    res <- ev[abs(j2)]
+  } else {
+    res <- ev[extract_inode_hclust_item(h, j, ev)]
+  }
+  return(res)
+}
+
+
+
+# tr is converted from h via ape::as.phylo
+update_edge_hclust <- function(tr, h) {
+  ev <- edge2vec(tr)
+  
+  nodes <- vapply(seq_along(h$height), function(i) {
+    extract_inode_hclust_item(h, i, ev)
+  }, numeric(1))
+  
+  len <- numeric(max(tr$edge))
+  len[nodes] <- h$height
+  pn <- ev[nodes]
+  pn[pn == 0] <- rootnode(tr)
+  len[nodes] <- len[pn] - len[nodes]
+  len[1:Ntip(tr)] <- max(h$height)/10
+
+  tr$edge.length <- len[tr$edge[,2]]
+  return(tr)
 }

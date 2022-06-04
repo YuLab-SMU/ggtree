@@ -25,8 +25,9 @@
 
 -->
 
-# ggtree 3.5.0.900
+# ggtree 3.5.0.901
 
++ `update_edge_hclust()` to adjust edge length of a `phylo` object converted from a `hclust` object via `ape::as.phylo()` (2022-06-05, Sun)
 + new 'slanted' layout for `branch.length = 'none'` (2022-04-29, Fri, #497)
     - only works for Cartesian coordination, that means it will not work for `layout = 'radial'`
 
