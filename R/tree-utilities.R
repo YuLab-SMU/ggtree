@@ -1319,27 +1319,36 @@ edge2vec <- function(tr) {
 }
 
 
-extract_inode_hclust_item <- function(h, i, ev) {
-  j <- h$merge[i,]
-  if (any(j < 0)) {
-    j2 <- j[j < 0][1]
-    res <- ev[abs(j2)]
-  } else {
-    res <- ev[extract_inode_hclust_item(h, j, ev)]
-  }
-  return(res)
-}
-
-
-
 # tr is converted from h via ape::as.phylo
 update_edge_hclust <- function(tr, h) {
   ev <- edge2vec(tr)
+
+  #extract_inode_hclust_item <- function(h, i, ev) {
+  #  j <- h$merge[i,]
+  #  if (any(j < 0)) {
+  #    j2 <- j[j < 0][1]
+  #    res <- ev[abs(j2)]
+  #  } else {
+  #    res <- ev[extract_inode_hclust_item(h, j, ev)]
+  #  }
+  #  return(res)
+  #}
+
+  #nodes <- vapply(seq_along(h$height), function(i) {
+  #  extract_inode_hclust_item(h, i, ev)
+  #}, numeric(1))
   
-  nodes <- vapply(seq_along(h$height), function(i) {
-    extract_inode_hclust_item(h, i, ev)
-  }, numeric(1))
-  
+  nodes <- integer(length(h$height))
+  for (i in seq_along(nodes)) {
+    j <- h$merge[i,]
+    if (any(j < 0)) {
+      j2 <- j[j < 0][1]
+      nodes[i] <- ev[abs(j2)]
+    } else {
+      nodes[i] <- ev[nodes[j[1]]]
+    }
+  }
+
   len <- numeric(max(tr$edge))
   len[nodes] <- h$height
   pn <- ev[nodes]
@@ -1350,3 +1359,5 @@ update_edge_hclust <- function(tr, h) {
   tr$edge.length <- len[tr$edge[,2]]
   return(tr)
 }
+
+
