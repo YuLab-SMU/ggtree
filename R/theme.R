@@ -121,7 +121,7 @@ theme_tree2_internal <- function(bgcolor="white", fgcolor="black",
 theme_inset <- function(legend.position =  "none", ...) {
     list(xlab(NULL),
          ylab(NULL),
-         theme_tree(legend.position = legend.position, ...),
+         theme_tree(legend.position = legend.position, plot.margin = unit(c(0, 0, 0, 0), "lines"), ...),
          ggfun::theme_transparent()
          )
 }
