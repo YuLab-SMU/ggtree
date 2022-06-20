@@ -119,7 +119,7 @@ nodebar <- function(data, cols, color, alpha=1, position="stack") {
 ##' @return list of ggplot objects
 ##' @export
 ##' @author Guangchuang Yu
-nodepie <- function(data, cols, color, alpha=1) {
+nodepie <- function(data, cols, color, alpha=1, outline.color="transparent", outline.size=0) {
     if (! "node" %in% colnames(data)) {
         stop("data should have a column 'node'...")
     }
@@ -128,14 +128,14 @@ nodepie <- function(data, cols, color, alpha=1) {
         color <- NA
     }
     ldf <- gather(data, type, value, !! cols) %>% split(., .$node)
-    lapply(ldf, function(df) ggpie(df, y=~value, fill=~type, color, alpha))
+    lapply(ldf, function(df) ggpie(df, y=~value, fill=~type, color, alpha, outline.color, outline.size))
 }
 
 
 ##' @importFrom methods missingArg
-ggpie <- function(data, y, fill, color, alpha=1) {
+ggpie <- function(data, y, fill, color, alpha=1, outline.color="transparent", outline.size=0) {
     p <- ggplot(data, aes_(x=1, y=y, fill=fill)) +
-        geom_bar(stat='identity', alpha=alpha) +
+        geom_bar(stat='identity', alpha=alpha, color=outline.color, size=outline.size, show.legend = F) +
         coord_polar(theta='y') + theme_inset()
 
     if (missingArg(color) || is.null(color) || is.na(color)) {
