@@ -4,7 +4,14 @@
 \alias{nodepie}
 \title{nodepie}
 \usage{
-nodepie(data, cols, color, alpha = 1)
+nodepie(
+  data,
+  cols,
+  color,
+  alpha = 1,
+  outline.color = "transparent",
+  outline.size = 0
+)
 }
 \arguments{
 \item{data}{a data.frame of stats with an additional column of node number named "node"}
@@ -14,6 +21,10 @@ nodepie(data, cols, color, alpha = 1)
 \item{color}{set color of bars}
 
 \item{alpha}{set transparency of the charts}
+
+\item{outline.color}{color of outline}
+
+\item{outline.size}{size of outline}
 }
 \value{
 list of ggplot objects

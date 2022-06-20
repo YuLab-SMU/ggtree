@@ -1352,7 +1352,7 @@ update_edge_hclust <- function(tr, h) {
   len <- numeric(max(tr$edge))
   len[nodes] <- h$height
   pn <- ev[nodes]
-  pn[pn == 0] <- rootnode(tr)
+  pn[pn == 0] <- treeio::rootnode(tr)
   len[nodes] <- len[pn] - len[nodes]
   len[1:Ntip(tr)] <- max(h$height)/10
 

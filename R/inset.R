@@ -116,6 +116,8 @@ nodebar <- function(data, cols, color, alpha=1, position="stack") {
 ##' @param cols columns of the data.frame that store the stats
 ##' @param color set color of bars
 ##' @param alpha set transparency of the charts
+##' @param outline.color color of outline
+##' @param outline.size size of outline
 ##' @return list of ggplot objects
 ##' @export
 ##' @author Guangchuang Yu
