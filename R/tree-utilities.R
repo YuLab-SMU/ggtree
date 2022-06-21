@@ -1319,8 +1319,10 @@ edge2vec <- function(tr) {
 }
 
 
-# tr is converted from h via ape::as.phylo
-update_edge_hclust <- function(tr, h) {
+
+as.phylo.hclust2 <- function(x, hang=0.1, ...) {
+  h <- x
+  tr <- ape::as.phylo(x)
   ev <- edge2vec(tr)
 
   #extract_inode_hclust_item <- function(h, i, ev) {
@@ -1354,7 +1356,7 @@ update_edge_hclust <- function(tr, h) {
   pn <- ev[nodes]
   pn[pn == 0] <- treeio::rootnode(tr)
   len[nodes] <- len[pn] - len[nodes]
-  len[1:Ntip(tr)] <- max(h$height)/10
+  len[1:Ntip(tr)] <- hang #max(h$height)/10
 
   tr$edge.length <- len[tr$edge[,2]]
   return(tr)

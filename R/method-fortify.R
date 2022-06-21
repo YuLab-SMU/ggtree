@@ -134,12 +134,16 @@ fortify.phylo4 <- function(model, data,
                            right     = FALSE,
                            mrsd      = NULL,
                            ...) {
-    if (class(model) %in% c("dendrogram", "agnes", "diana", "twins")) {
+    if (inherits(model, c("dendrogram", "agnes", "diana", "twins"))) {
         model <- stats::as.hclust(model)
     }
 
-    
-    phylo <- as.phylo(model)
+    if (inherits(model, "hclust")) {
+        phylo <- as.phylo.hclust2(model)
+    } else {
+        phylo <- as.phylo(model)
+    }
+
     df <- fortify.phylo(phylo, data,
                         layout, ladderize, right, mrsd=mrsd, ...)
     scaleY(phylo, df, yscale, layout, ...)
