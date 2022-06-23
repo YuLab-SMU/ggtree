@@ -25,6 +25,10 @@
 
 -->
 
+# ggtree 3.5.1.900
+
++ optimize `geom_tiplab` to better compatible with dendrogram layout (2022-06-23, Thu)
+
 # ggtree 3.5.1
 
 + `as.phylo.hclust2` to correct edge length as displayed in `stats:::plot.hclust` (2022-06-21, Tue)
