@@ -200,11 +200,20 @@ ggplot_add.facet_plot <- function(object, plot, object_name) {
 ##' @export
 ggplot_add.tiplab <- function(object, plot, object_name) {
     layout <- get_layout(plot)
+    if (layout == 'dendrogram' && object$hjust == 0 ){
+        object$hjust <- .5
+    }
     if (object$as_ylab) {
         if (layout != "rectangular" && layout != "dendrogram") {
             stop("displaying tiplab as y labels only supports rectangular layout")
         }
         ## remove parameters that are not useful
+        fontsize <- object$size
+        object$size <- 0
+        object$as_ylab <- NULL
+        ly <- do.call(geom_tiplab_rectangular, object)
+        plot <- ggplot_add(ly, plot, object_name)
+        object$size <- fontsize
         object$mapping <- NULL
         object$align <- NULL
         object$linetype <- NULL
@@ -212,16 +221,13 @@ ggplot_add.tiplab <- function(object, plot, object_name) {
         object$geom <- NULL
         object$offset <- NULL
         object$nodelab <- NULL
-        object$as_ylab <- NULL
-            
         res <- ggplot_add.tiplab_ylab(object, plot, object_name)
         return(res)
     }
 
     object$as_ylab <- NULL
-    if (layout == 'circular' || layout == 'fan' || layout == "unrooted" ||
-        layout == "equal_angle" || layout == "daylight" || layout == "ape" || 
-        layout == "inward_circular") {
+    if (layout %in% c('circular', 'fan', "unrooted", 
+                      "equal_angle", "daylight", "ape", "inward_circular")){
         ly <- do.call(geom_tiplab_circular, object)
     } else {
         #object$nodelab <- NULL
