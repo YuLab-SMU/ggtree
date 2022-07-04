@@ -475,7 +475,14 @@ build_align_data <- function(data, align){
 
 
 #' @importFrom utils getFromNamespace
-warning_wrap <- getFromNamespace("warning_wrap", "ggplot2")
+
+# previously exported from ggplot2
+warning_wrap <- function (...) {
+    x = paste0(...)
+    x = paste(strwrap(x), collapse = "\n")
+    warning(x, call. = FALSE)
+}
+                   
 rect_to_poly <- getFromNamespace("rect_to_poly", "ggplot2")
 new_data_frame <- getFromNamespace("new_data_frame", "ggplot2")
 
