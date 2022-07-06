@@ -62,5 +62,5 @@ BugReports: https://github.com/YuLab-SMU/ggtree/issues
 Packaged: 2014-12-03 08:16:14 UTC; root
 biocViews: Alignment, Annotation, Clustering, DataImport,
     MultipleSequenceAlignment, Phylogenetics, ReproducibleResearch, Software, Visualization
-RoxygenNote: 7.1.2
+RoxygenNote: 7.2.0
 Roxygen: list(markdown = TRUE)

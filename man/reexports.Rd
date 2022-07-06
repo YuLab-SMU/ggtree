@@ -52,6 +52,6 @@ below to see their documentation.
 
   \item{magrittr}{\code{\link[magrittr:pipe]{\%>\%}}}
 
-  \item{tidytree}{\code{\link[tidytree]{MRCA}}, \code{\link[tidytree]{groupClade}}, \code{\link[tidytree]{groupOTU}}, \code{\link[tidytree]{nodeid}}, \code{\link[tidytree]{nodelab}}}
+  \item{tidytree}{\code{\link[tidytree]{groupClade}}, \code{\link[tidytree]{groupOTU}}, \code{\link[tidytree]{MRCA}}, \code{\link[tidytree]{nodeid}}, \code{\link[tidytree]{nodelab}}}
 }}
 

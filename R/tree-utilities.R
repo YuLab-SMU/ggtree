@@ -81,7 +81,7 @@ layoutEqualAngle <- function(model, branch.length = "branch.length"){
     ## Get number of tips for each node in tree.
   ## nb.sp <- sapply(1:N, function(i) length(get.offspring.tip(tree, i)))
   ## self_include = TRUE to return itself if the input node is a tip
-  nb.sp <- vapply(1:N, function(i) length(offspring(tree, i, tiponly = TRUE, self_include = TRUE)), numeric(1))
+  nb.sp <- vapply(1:N, function(i) length(suppressMessages(offspring(tree, i, tiponly = TRUE, self_include = TRUE))), numeric(1))
     ## Get list of node id's.
     nodes <- getNodes_by_postorder(tree)
 
@@ -97,6 +97,9 @@ layoutEqualAngle <- function(model, branch.length = "branch.length"){
         end <- df[curNode, "end"]
         cur_x = df[curNode, "x"]
         cur_y = df[curNode, "y"]
+
+        total_angle = end - start
+
         for (child in children) {
             ## Get the number of tips for child node.
             ntip.child <- nb.sp[child]
@@ -104,7 +107,8 @@ layoutEqualAngle <- function(model, branch.length = "branch.length"){
             ## Calculated in half radians.
             ## alpha: angle of segment for i-th child with ntips_ij tips.
             ## alpha = (left_angle - right_angle) * (ntips_ij)/(ntips_current)
-            alpha <- (end - start) * ntip.child / curNtip
+            ## alpha <- (end - start) * ntip.child / curNtip
+            alpha <- total_angle * ntip.child / curNtip
             ## beta = angle of line from parent node to i-th child.
             beta <- start + alpha / 2
 
