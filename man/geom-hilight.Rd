@@ -74,7 +74,7 @@ aesthetics are in bold):
 \item \code{extend} extend xmax of the rectangle, defaults to 0.
 \item \code{extendto} specify a value, meaning the rectangle extend to, defaults to NULL.
 \item \code{linetype} the line type of margin, defaults to 1.
-\item \code{size} the width of line of margin, defaults to 0.5.
+\item \code{linewidth} the width of line of margin, defaults to 0.5.
 }
 \code{geom_hilight()} understands the following aesthethics for encircle layer (required
 aesthetics are in bold):
@@ -85,7 +85,7 @@ aesthetics are in bold):
 \item \code{alpha} the transparency of fill, defaults to 0.5.
 \item \code{expand} expands the xspline clade region, defaults to 0.
 \item \code{spread} control the size, when only one point.
-\item \code{size} the width of line of margin, defaults to 0.5.
+\item \code{linewidth} the width of line of margin, defaults to 0.5.
 \item \code{linetype} the line type of margin, defaults to 1.
 \item \code{s_shape} the shape of the spline relative to the control points, defaults to 0.5.
 \item \code{s_open}  whether the spline is a line or a closed shape, defaults to FALSE.

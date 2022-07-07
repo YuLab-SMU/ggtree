@@ -1,7 +1,7 @@
 #' link between taxa 
 #'
 #' `geom_taxalink` supports data.frame as input,
-#' the `colour`, `size`, `linetype` and `alpha` can be mapped. When the `data` was provided, 
+#' the `colour`, `linewidth`, `linetype` and `alpha` can be mapped. When the `data` was provided, 
 #' the `mapping` should be also provided, which `taxa1` and `taxa2` should be mapped created 
 #' by `aes`, `aes_` or `aes_string`. In addition, the `hratio`, control the height of curve line, 
 #' when tree layout is `cirular`, default is 1. `ncp`, the number of control points used to draw the 
@@ -25,7 +25,7 @@
 #'        \item \code{group} group category of link.
 #'        \item \code{colour} control the color of line, default is black.
 #'        \item \code{linetype} control the type of line, default is 1 (solid).
-#'        \item \code{size} control the width of line, default is 0.5.
+#'        \item \code{linewidth} control the width of line, default is 0.5.
 #'        \item \code{curvature} control the curvature of line, default is 0.5, 
 #'        it will be created automatically in polar coordinate .
 #'        \item \code{hratio} control the height of curve line, default is 1.
@@ -175,7 +175,8 @@ geom_curvelink <- function(data=NULL,
 #' @importFrom scales alpha
 GeomCurvelink <- ggproto("GeomCurvelink", GeomSegment,
   required_aes = c("x", "y", "xend", "yend"),
-  default_aes = aes(colour = "black", size = 0.5, linetype = 1, alpha = NA, curvature=0.5, hratio=1, ncp=1, curveangle=90, square=FALSE),
+  default_aes = aes(colour = "black", linewidth = 0.5, linetype = 1, alpha = NA, curvature=0.5, hratio=1, ncp=1, curveangle=90, square=FALSE),
+  rename_size = TRUE,
   draw_panel = function(data, panel_params, coord, shape=0.5, outward=TRUE,
                         arrow = NULL, arrow.fill=NULL, lineend = "butt", na.rm = FALSE) {
     if (!coord$is_linear()) {
@@ -215,7 +216,7 @@ GeomCurvelink <- ggproto("GeomCurvelink", GeomSegment,
                               square = trans$square[i], squareShape = 1, inflect = FALSE, open = TRUE,
                               gp = gpar(col = alpha(trans$colour[i], trans$alpha[i]),
                                         fill = alpha(arrow.fill[i], trans$alpha[i]),
-                                        lwd = trans$size[i] * ggplot2::.pt,
+                                        lwd = trans$linewidth[i] * ggplot2::.pt,
                                         lty = trans$linetype[i],
                                         lineend = lineend),
                               arrow = arrow,

@@ -7,12 +7,12 @@
 ##' @title geom_aline
 ##' @param mapping aes mapping
 ##' @param linetype set line type of the line, defaults to "dotted"
-##' @param size set line size of the line, defaults to 1
+##' @param linewidth set width of the line, defaults to 1
 ##' @param ... additional parameter
 ##' @return aline layer
 ##' @export
 ##' @author Yu Guangchuang
-geom_aline <- function(mapping=NULL, linetype="dotted", size=1, ...) {
+geom_aline <- function(mapping=NULL, linetype="dotted", linewidth = 1, ...) {
     x <- y <- isTip <- NULL
     dot_mapping <- aes(xend=x+diff(range(x))/200, x=max(x), yend=y, subset=isTip)
     if (!is.null(mapping)) {
@@ -21,7 +21,7 @@ geom_aline <- function(mapping=NULL, linetype="dotted", size=1, ...) {
 
     geom_segment2(dot_mapping,
                   linetype=linetype,
-                  size=size, stat = StatTreeData, ...)
+                  linewidth = linewidth, stat = StatTreeData, ...)
 }
 
 
@@ -98,7 +98,7 @@ GeomSegmentGGtree <- ggproto("GeomSegmentGGtree", GeomSegment,
                                  data$x <- data$x + nudge_x
 
                                  data <- ggplot2::remove_missing(data, na.rm = na.rm, c("x", "y", "xend",
-                                                        "yend", "linetype", "size", "shape"), name = "geom_segment")
+                                                        "yend", "linetype", "linewidth", "shape"), name = "geom_segment")
                                  if (empty(data))
                                      return(zeroGrob())
                                  if (!coord$is_linear()) {
@@ -123,7 +123,7 @@ GeomSegmentGGtree <- ggproto("GeomSegmentGGtree", GeomSegment,
                                  return(grid::segmentsGrob(data$x, data$y, data$xend, data$yend,
                                                            default.units = "native", gp = gpar(col = alpha(data$colour,
                                                            data$alpha), fill = alpha(arrow.fill, data$alpha),
-                                                           lwd = data$size * ggplot2::.pt, lty = data$linetype,
+                                                           lwd = data$linewidth * ggplot2::.pt, lty = data$linetype,
                                                            lineend = lineend, linejoin = linejoin), arrow = arrow)
                                        )
 

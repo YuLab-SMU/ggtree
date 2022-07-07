@@ -4,7 +4,7 @@
 ##' @title geom_range
 ##' @param range range(interval) to be displayed, e.g. "height_0.95_HPD"
 ##' @param center center of the range, mean, median or auto (default, the center of the range)
-##' @param ... additional parameter, e.g. color, size, alpha
+##' @param ... additional parameter, e.g. color, linewidth, alpha
 ##' @return ggplot layer
 ##' @importFrom ggplot2 aes_string
 ##' @export

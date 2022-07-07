@@ -25,7 +25,7 @@ Imports:
     ape,
     aplot,
     dplyr,
-    ggplot2 (>= 3.0.0),
+    ggplot2 (> 3.3.6),
     grid,
     magrittr,
     methods,

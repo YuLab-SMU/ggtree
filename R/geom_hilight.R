@@ -38,7 +38,7 @@
 #'        \item \code{extend} extend xmax of the rectangle, defaults to 0.
 #'        \item \code{extendto} specify a value, meaning the rectangle extend to, defaults to NULL.
 #'        \item \code{linetype} the line type of margin, defaults to 1.
-#'        \item \code{size} the width of line of margin, defaults to 0.5.
+#'        \item \code{linewidth} the width of line of margin, defaults to 0.5.
 #'     }
 #' \code{geom_hilight()} understands the following aesthethics for encircle layer (required 
 #' aesthetics are in bold):
@@ -49,7 +49,7 @@
 #'        \item \code{alpha} the transparency of fill, defaults to 0.5.
 #'        \item \code{expand} expands the xspline clade region, defaults to 0.
 #'        \item \code{spread} control the size, when only one point.
-#'        \item \code{size} the width of line of margin, defaults to 0.5.
+#'        \item \code{linewidth} the width of line of margin, defaults to 0.5.
 #'        \item \code{linetype} the line type of margin, defaults to 1.
 #'        \item \code{s_shape} the shape of the spline relative to the control points, defaults to 0.5.
 #'        \item \code{s_open}  whether the spline is a line or a closed shape, defaults to FALSE.
@@ -125,10 +125,11 @@ geom_hilight_rect2 <- function(data=NULL,
 #' @importFrom grid rectGrob gpar grobTree
 GeomHilightRect <- ggproto("GeomHilightRect", Geom,
                            default_aes = aes(colour = NA, fill = "steelblue", 
-                                             size = 0.5, linetype = 1, alpha = 0.5,
+                                             linewidth = 0.5, linetype = 1, alpha = 0.5,
                                              extend=0, extendto=NULL),
                            required_aes = c("xmin", "xmax", "ymin", "ymax", "clade_root_node"),
                            draw_key = draw_key_polygon,
+                           rename_size = TRUE,
                            draw_panel = function(self, data, panel_params, coord, 
                                                  linejoin = "mitre", align="none", 
                                                  gradient = FALSE, 
@@ -195,7 +196,7 @@ GeomHilightRect <- ggproto("GeomHilightRect", Geom,
                                    #data <- data %>% dplyr::left_join(df, by="clade_root_node")
                                    polys <- lapply(split(data, seq_len(nrow(data))), function(row) {
                                                  poly <- rect_to_poly(row$xmin, row$xmax, row$ymin, row$ymax)
-                                                 aes <- new_data_frame(row[aesthetics])[rep(1,5), ]
+                                                 aes <- row[rep(1,5), aesthetics] 
                                                  #draw_panel_polar(data = cbind(poly, aes), 
                                                  #                 panel_params = panel_params, 
                                                  #                 coord = coord, 
@@ -203,7 +204,7 @@ GeomHilightRect <- ggproto("GeomHilightRect", Geom,
                                                  #                 gradient.direction = gradient.direction,
                                                  #                 gradient.length.out = gradient.length.out
                                                  #   )
-                                                 GeomPolygon$draw_panel(cbind(poly, aes), panel_params, coord)
+                                                 GeomPolygon$draw_panel(vctrs::vec_cbind(poly, aes), panel_params, coord)
                                                  })
                                    ggname("geom_hilight_rect2", do.call("grobTree", polys))
                                }else{
@@ -235,7 +236,7 @@ GeomHilightRect <- ggproto("GeomHilightRect", Geom,
                                                          just = c("left", "top"),
                                                          gp = gpar(col = row$colour,
                                                                    fill = fill,
-                                                                   lwd = row$size * ggplot2:::.pt,
+                                                                   lwd = row$linewidth * ggplot2:::.pt,
                                                                    lty = row$linetype,
                                                                    linejoin = linejoin,
                                                                    lineend = if (identical(linejoin, "round")) "round" else "square")
@@ -255,7 +256,7 @@ GeomHilightRect <- ggproto("GeomHilightRect", Geom,
                                                             gp = grid::gpar(
                                                               col = row$colour,
                                                               fill = alpha(row$fill, row$alpha),
-                                                              lwd = row$size * ggplot2::.pt,
+                                                              lwd = row$linewidth * ggplot2::.pt,
                                                               lty = row$linetype,
                                                               lineend = "butt"
                                                             )
@@ -271,7 +272,7 @@ GeomHilightRect <- ggproto("GeomHilightRect", Geom,
                                                   just = c("left", "top"),
                                                   gp = gpar(col = coords$colour,
                                                             fill = alpha(coords$fill, coords$alpha),
-                                                            lwd = coords$size * ggplot2:::.pt,
+                                                            lwd = coords$linewidth * ggplot2:::.pt,
                                                             lty = coords$linetype,
                                                             linejoin = linejoin,
                                                             lineend = if (identical(linejoin, "round")) "round" else "square")
@@ -306,9 +307,10 @@ geom_hilight_encircle2 <- function(data=NULL,
 GeomHilightEncircle <- ggproto("GeomHilightEncircle", Geom,
                                 required_aes = c("x", "y", "clade_root_node"),
                                 default_aes = aes(colour="black", fill="steelblue", alpha = 0.5,
-                                                  expand=0, spread=0.1, linetype=1, size=0.5,
+                                                  expand=0, spread=0.1, linetype=1, linewidth = 0.5,
                                                   s_shape=0.5, s_open=FALSE),
                                 draw_key = draw_key_polygon,
+                                rename_size = TRUE,
                                 draw_panel = function(data, panel_scales, coord){
                                     globs <- lapply(split(data, data$clade_root_node), function(i)
                                                    get_glob_encircle(i, panel_scales, coord))
@@ -475,9 +477,14 @@ build_align_data <- function(data, align){
 
 
 #' @importFrom utils getFromNamespace
-warning_wrap <- getFromNamespace("warning_wrap", "ggplot2")
+#warning_wrap <- getFromNamespace("warning_wrap", "ggplot2")
+warning_wrap <- function(...){
+    x = paste0(...)
+    x = paste(strwrap(x), collapse = "\n")
+    warning(x, call. = FALSE)
+}
 rect_to_poly <- getFromNamespace("rect_to_poly", "ggplot2")
-new_data_frame <- getFromNamespace("new_data_frame", "ggplot2")
+#new_data_frame <- getFromNamespace("new_data_frame", "ggplot2")
 
 ## ##' layer of hilight clade with rectangle
 ## ##'
