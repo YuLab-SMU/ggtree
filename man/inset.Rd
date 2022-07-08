@@ -69,6 +69,4 @@ For demonstration of this function, please refer to chapter 8.3 of
 }
 \author{
 Guangchuang Yu
-
-Guangchuang Yu
 }
