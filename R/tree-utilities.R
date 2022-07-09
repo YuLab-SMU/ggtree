@@ -81,7 +81,7 @@ layoutEqualAngle <- function(model, branch.length = "branch.length"){
     ## Get number of tips for each node in tree.
   ## nb.sp <- sapply(1:N, function(i) length(get.offspring.tip(tree, i)))
   ## self_include = TRUE to return itself if the input node is a tip
-  nb.sp <- vapply(1:N, function(i) length(suppressMessages(offspring(tree, i, tiponly = TRUE, self_include = TRUE))), numeric(1))
+  nb.sp <- vapply(1:N, function(i) length(offspring(tree, i,  type="tips", self_include = TRUE)), numeric(1))
     ## Get list of node id's.
     nodes <- getNodes_by_postorder(tree)
 

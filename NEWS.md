@@ -25,8 +25,9 @@
 
 -->
 
-# ggtree 3.5.1.900
+# ggtree 3.5.1.901
 
++ bug fixed in 'equal_angle' layout (2022-07-08, Fri, #514)
 + optimize `geom_tiplab` to better compatible with dendrogram layout (2022-06-23, Thu)
 
 # ggtree 3.5.1
