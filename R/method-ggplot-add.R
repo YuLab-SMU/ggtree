@@ -115,8 +115,10 @@ ggplot_add.layout_ggtree <- function(object, plot, object_name) {
     } else { ## rectangular
         obj <- coord_cartesian(clip = 'off')
     }
+    plot <- ggplot_add(obj, plot, object_name)
+    plot$plot_env <- build_new_plot_env(plot$plot_env)
     assign("layout", object$layout, envir = plot$plot_env)
-    ggplot_add(obj, plot, object_name)
+    return(plot)
 }
 
 

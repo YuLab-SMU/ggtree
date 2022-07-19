@@ -15,6 +15,7 @@
 rotate_tree <- function(treeview, angle) {
     treeview <- treeview + coord_polar(theta='y', start=(angle-90)/180*pi, -1)
     treeview$data$angle <- treeview$data$angle + angle
+    treeview$plot_env <- build_new_plot_env(treeview$plot_env)
     assign("layout", "circular", envir = treeview$plot_env)
     return(treeview)
 }
@@ -46,6 +47,7 @@ open_tree <- function(treeview, angle) {
     angle <- 360/(2+NN) * (1:N+1)
     angle <- angle[idx]
     p$data$angle <- angle
+    p$plot_env <- build_new_plot_env(p$plot_env)
     assign("layout", "fan", envir = p$plot_env)
     return(p)
 }
