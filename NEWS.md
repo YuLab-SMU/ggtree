@@ -25,10 +25,11 @@
 
 -->
 
-# ggtree 3.5.1.901
+# ggtree 3.5.1.902
 
++ clone the plot environment before assigning layout (2022-07-19, Tue, #516)
 + bug fixed in 'equal_angle' layout (2022-07-08, Fri, #514)
-+ optimize `geom_tiplab` to better compatible with dendrogram layout (2022-06-23, Thu)
++ optimize `geom_tiplab` to better compatible with dendrogram layout (2022-06-23, Thu, #508)
 
 # ggtree 3.5.1
 
