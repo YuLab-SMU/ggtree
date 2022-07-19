@@ -17,6 +17,9 @@
 ##' @param root.position position of the root node (default = 0)
 ##' @param xlim x limits, only works for 'inward_circular' layout
 ##' @param layout.params list, the parameters of layout, when layout is a function.
+##' @param hang numeric The fraction of the tree plot height by which labels should hang 
+##' below the rest of the plot. A negative value will cause the labels to hang down from 0. This
+##' parameter only work with the 'dendrogram' layout for 'hclust' like class, default is 0.1.
 ##' @return tree
 ##' @importFrom ggplot2 ggplot
 ##' @importFrom ggplot2 xlab
@@ -59,6 +62,7 @@ ggtree <- function(tr,
                    root.position  = 0,
                    xlim = NULL,
                    layout.params = list(),
+                   hang = .1,
                    ...) {
 
     # Check if layout string is valid.
@@ -102,6 +106,7 @@ ggtree <- function(tr,
                 right         = right,
                 branch.length = branch.length,
                 root.position = root.position,
+                hang          = hang,
                 ...)
 
     if (!is.null(dd)){

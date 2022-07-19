@@ -117,6 +117,10 @@ revts <- function(treeview) {
     mx <- max(x, na.rm=TRUE)
     treeview$data$x <- x - mx
     treeview$data$branch <- treeview$data$branch - mx
+	tip.edge.len <- attr(treeview$data, 'tip.edge.len')
+    if (!is.null(tip.edge.len)){
+        treeview$data[treeview$data$isTip,"x", drop=TRUE] <- tip.edge.len
+    }
     treeview
 }
 

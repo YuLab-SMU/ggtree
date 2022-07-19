@@ -22,6 +22,7 @@ ggtree(
   root.position = 0,
   xlim = NULL,
   layout.params = list(),
+  hang = 0.1,
   ...
 )
 }
@@ -56,6 +57,10 @@ right-hand side? See \code{\link[ape:ladderize]{ape::ladderize()}} for more info
 \item{xlim}{x limits, only works for 'inward_circular' layout}
 
 \item{layout.params}{list, the parameters of layout, when layout is a function.}
+
+\item{hang}{numeric The fraction of the tree plot height by which labels should hang
+below the rest of the plot. A negative value will cause the labels to hang down from 0. This
+parameter only work with the 'dendrogram' layout for 'hclust' like class, default is 0.1.}
 
 \item{...}{additional parameter
 
