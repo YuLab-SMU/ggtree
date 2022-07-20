@@ -139,7 +139,7 @@ fortify.phylo4 <- function(model, data,
         model <- stats::as.hclust(model)
     }
 
-    if (inherits(model, "hclust") && layout == 'dendrogram') {
+    if (inherits(model, "hclust")) {
         phylo <- as.phylo.hclust2(model, hang = hang)
     } else {
         phylo <- as.phylo(model)
@@ -147,9 +147,14 @@ fortify.phylo4 <- function(model, data,
 
     df <- fortify.phylo(phylo, data,
                         layout, ladderize, right, mrsd=mrsd, ...)
-    if (!is.null(attr(phylo, 'tip.edge.len'))){
-        attr(df, 'tip.edge.len') <- attr(phylo, 'tip.edge.len')
+    mx <- max(df$x, na.rm=TRUE)
+    df$x <- df$x - mx
+    df$branch <- df$branch - mx
+    tip.edge.len <- attr(phylo, 'tip.edge.len')
+    if (!is.null(tip.edge.len)){
+        df[df$isTip, "x", drop=TRUE] <- tip.edge.len
     }
+    attr(df, 'revts.done') = TRUE
     scaleY(phylo, df, yscale, layout, ...)
 }
 
