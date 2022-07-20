@@ -100,7 +100,7 @@ ggplot_add.layout_ggtree <- function(object, plot, object_name) {
 
     if (object$layout == 'dendrogram') {
         plot <- revts(plot)
-        obj <- list(scale_x_reverse(labels = abs),
+        obj <- list(scale_x_reverse(labels = function(x){-x}),
                     coord_flip(clip = 'off')
                     )
     } else if (object$layout == 'circular' || object$layout == "inward_circular") {
