@@ -1355,14 +1355,21 @@ as.phylo.hclust2 <- function(x, hang=0.1, ...) {
     }
   }
 
-  len <- numeric(max(tr$edge))
-  len[nodes] <- h$height
-  pn <- ev[nodes]
-  pn[pn == 0] <- treeio::rootnode(tr)
-  len[nodes] <- len[pn] - len[nodes]
-  len[1:Ntip(tr)] <- hang #max(h$height)/10
+  #len <- numeric(max(tr$edge))
+  #len[nodes] <- h$height
+  #pn <- ev[nodes]
+  #pn[pn == 0] <- treeio::rootnode(tr)
+  #len[nodes] <- len[pn] - len[nodes]
+  #len[1:Ntip(tr)] <- hang #max(h$height)/10
 
-  tr$edge.length <- len[tr$edge[,2]]
+  #tr$edge.length <- len[tr$edge[,2]]
+
+  tip2parent <- tr$edge[match(seq_len(Ntip(tr)), tr$edge[,2]), 1]
+  if (hang > 0){
+    tip.edge.len <- hang * max(h$height) - h$height[match(tip2parent, nodes)]
+    attr(tr,'tip.edge.len') <- tip.edge.len
+  }
+  tr$edge.length <- tr$edge.length * 2
   return(tr)
 }
 

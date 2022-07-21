@@ -100,7 +100,7 @@ ggplot_add.layout_ggtree <- function(object, plot, object_name) {
 
     if (object$layout == 'dendrogram') {
         plot <- revts(plot)
-        obj <- list(scale_x_reverse(labels = abs),
+        obj <- list(scale_x_reverse(labels = function(x){-x}),
                     coord_flip(clip = 'off')
                     )
     } else if (object$layout == 'circular' || object$layout == "inward_circular") {
@@ -202,8 +202,16 @@ ggplot_add.facet_plot <- function(object, plot, object_name) {
 ##' @export
 ggplot_add.tiplab <- function(object, plot, object_name) {
     layout <- get_layout(plot)
-    if (layout == 'dendrogram' && object$hjust == 0 ){
-        object$hjust <- .5
+    if (layout == 'dendrogram'){
+        if( object$hjust == 0 ){
+            object$hjust = 1
+        }
+        if (!'vjust' %in% names(object)){
+            object$vjust = .5
+        }
+        if (!'angle' %in% names(object)){
+            object$angle = 90
+        }
     }
     if (object$as_ylab) {
         if (layout != "rectangular" && layout != "dendrogram") {
