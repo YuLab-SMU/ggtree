@@ -528,6 +528,9 @@ ggplot_add.hilight <- function(object, plot, object_name){
         if (flag_tbl_tree){
             object$data <-  object$data[,!colnames(object$data) %in% setdiff(flag_names, as_name(object$mapping$node)),drop=FALSE]
         }
+        object$data <- object$data[, !colnames(object$data) %in% setdiff(intersect(colnames(object$data), 
+                                                                     colnames(data)), 
+                                                                     as_name(object$mapping$node)), drop=FALSE]
         object$data <- merge(data, object$data, by.x="clade_root_node", by.y=as_name(object$mapping$node))
         object$data[[as_name(object$mapping$node)]] <- as.vector(object$data$clade_root_node)
         object$mapping <- object$mapping[!names(object$mapping) %in% c("node")]
