@@ -113,7 +113,7 @@ scale_x_range <- function() {
 ##' p2 + scale_x_continuous(labels=abs)
 ##' @author Guangchuang Yu
 revts <- function(treeview) {
-    if (attr(treeview$data, 'revts.done')){
+    if (!is.null(attr(treeview$data, 'revts.done'))){
          return(treeview)
     }
     x <- treeview$data$x
