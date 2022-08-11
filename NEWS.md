@@ -25,8 +25,10 @@
 
 -->
 
-# ggtree 3.5.1.902
+# ggtree 3.5.2
 
++ `scale_color_subtree()` now supports passing a numeric value and internally it will call `cutree(tree, k)` (2022-08-11, Thu)
++ support 'linkage' class defined in the 'mdendro' package (2022-08-11, Thu)
 + clone the plot environment before assigning layout (2022-07-19, Tue, #516)
 + bug fixed in 'equal_angle' layout (2022-07-08, Fri, #514)
 + optimize `geom_tiplab` to better compatible with dendrogram layout (2022-06-23, Thu, #508)

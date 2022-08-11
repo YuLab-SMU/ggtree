@@ -135,7 +135,8 @@ fortify.phylo4 <- function(model, data,
                            mrsd      = NULL,
                            hang      = .1,
                            ...) {
-    if (inherits(model, c("dendrogram", "agnes", "diana", "twins"))) {
+    if (inherits(model, c("dendrogram", "linkage", 
+                        "agnes", "diana", "twins"))) {
         model <- stats::as.hclust(model)
     }
 
@@ -190,6 +191,9 @@ fortify.phylog <- fortify.phylo4
 ##' @export
 fortify.igraph <- fortify.phylo4
 
+##' @method fortify linkage
+##' @export
+fortify.linkage <- fortify.phylo4
 
 ##' @method fortify phylo4d
 ##' @importFrom treeio as.treedata
