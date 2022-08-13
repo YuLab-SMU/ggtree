@@ -7,6 +7,7 @@ citEntry(
 	publisher = "Chapman and Hall/{CRC}",
     year = "2022",
 	edition = "1st edition",
+    url = "https://www.amazon.com/Integration-Manipulation-Visualization-Phylogenetic-Computational-ebook/dp/B0B5NLZR1Z/",
     textVersion = paste("Guangchuang Yu. (2022).",
                         "Data Integration, Manipulation and Visualization of Phylogenetic Trees (1st edition).",
                         "Chapman and Hall/CRC.")   
