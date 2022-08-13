@@ -1,7 +1,7 @@
 Package: ggtree
 Type: Package
 Title: an R package for visualization of tree and annotation data
-Version: 3.5.2
+Version: 3.5.2.991
 Authors@R: c(
        person("Guangchuang", "Yu",     email = "guangchuangyu@gmail.com", role = c("aut", "cre", "cph"), 
             comment = c(ORCID = "0000-0002-6485-8781")),
@@ -57,7 +57,7 @@ VignetteBuilder: knitr
 ByteCompile: true
 Encoding: UTF-8
 License: Artistic-2.0
-URL: https://yulab-smu.top/treedata-book/ (book), http://onlinelibrary.wiley.com/doi/10.1111/2041-210X.12628 (paper)
+URL: https://www.amazon.com/Integration-Manipulation-Visualization-Phylogenetic-Computational-ebook/dp/B0B5NLZR1Z/ (book), http://onlinelibrary.wiley.com/doi/10.1111/2041-210X.12628 (paper)
 BugReports: https://github.com/YuLab-SMU/ggtree/issues
 Packaged: 2014-12-03 08:16:14 UTC; root
 biocViews: Alignment, Annotation, Clustering, DataImport,
