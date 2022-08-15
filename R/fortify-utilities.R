@@ -32,6 +32,18 @@ scaleY <- function(phylo, df, yscale, layout, ...) {
 }
 
 
+adjust_hclust_tip.edge.len <- function(df, phylo){
+    mx <- max(df$x, na.rm=TRUE)
+    df$x <- df$x - mx       
+    df$branch <- df$branch - mx
+    tip.edge.len <- attr(phylo, 'tip.edge.len')
+    if (!is.null(tip.edge.len)){
+        df[df$isTip, "x", drop=TRUE] <- tip.edge.len
+    }                       
+    attr(df, 'revts.done') = TRUE
+    return(df)
+}
+
 ##
 ##
 ## old version of fortify.phylo

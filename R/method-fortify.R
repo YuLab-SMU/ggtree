@@ -148,14 +148,7 @@ fortify.phylo4 <- function(model, data,
 
     df <- fortify.phylo(phylo, data,
                         layout, ladderize, right, mrsd=mrsd, ...)
-    mx <- max(df$x, na.rm=TRUE)
-    df$x <- df$x - mx
-    df$branch <- df$branch - mx
-    tip.edge.len <- attr(phylo, 'tip.edge.len')
-    if (!is.null(tip.edge.len)){
-        df[df$isTip, "x", drop=TRUE] <- tip.edge.len
-    }
-    attr(df, 'revts.done') = TRUE
+    df <- adjust_hclust_tip.edge.len(df, phylo)
     scaleY(phylo, df, yscale, layout, ...)
 }
 
@@ -205,8 +198,12 @@ fortify.phylo4d <- function(model, data,
                             right         = FALSE,
                             branch.length = "branch.length",
                             mrsd          = NULL,
+							hang          = 0.1,
                             ...) {
-    fortify(as.treedata(model), data, layout, yscale, ladderize, right, branch.length, mrsd, ...)
+    model <- as.treedata(model, hang = hang)
+    df <- fortify(model, data, layout, yscale, ladderize, right, branch.length, mrsd, ...)
+    df <- adjust_hclust_tip.edge.len(df, model@phylo)
+    return (df)
 }
 
 ##' @method fortify pvclust
