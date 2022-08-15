@@ -24,8 +24,9 @@
   - <https://github.com/thomasp85/ggraph/commit/14de66f1225336179b4598cb42a4beda95682211>
 
 -->
-# ggtree 3.5.2.991
+# ggtree 3.5.2.992
 
++ update `fortify` method for `pvclust` object (2022-08-15, Mon)
 + add citation of the tree data book (2022-08-13, Sat)
 
 # ggtree 3.5.2
