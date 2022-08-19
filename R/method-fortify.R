@@ -68,6 +68,7 @@ fortify.phylo <- function(model, data,
         res <- calculate_angle(res)
     }
     res <- scaleY(as.phylo(model), res, yscale, layout, ...)
+    res <- adjust_hclust_tip.edge.len(res, x)
     class(res) <- c("tbl_tree", class(res))
     attr(res, "layout") <- layout
     return(res)
@@ -148,7 +149,6 @@ fortify.phylo4 <- function(model, data,
 
     df <- fortify.phylo(phylo, data,
                         layout, ladderize, right, mrsd=mrsd, ...)
-    df <- adjust_hclust_tip.edge.len(df, phylo)
     scaleY(phylo, df, yscale, layout, ...)
 }
 
@@ -202,7 +202,6 @@ fortify.phylo4d <- function(model, data,
                             ...) {
     model <- as.treedata(model, hang = hang)
     df <- fortify(model, data, layout, yscale, ladderize, right, branch.length, mrsd, ...)
-    df <- adjust_hclust_tip.edge.len(df, model@phylo)
     return (df)
 }
 

@@ -33,7 +33,11 @@ scaleY <- function(phylo, df, yscale, layout, ...) {
 
 
 adjust_hclust_tip.edge.len <- function(df, phylo){
-    tip.edge.len <- attr(phylo, 'tip.edge.len')
+    if (inherits(phylo, 'treedata')){
+        tip.edge.len <- attr(phylo@phylo, 'tip.edge.len')
+    }else{
+        tip.edge.len <- attr(phylo, 'tip.edge.len')
+    }
     if (!is.null(tip.edge.len)){
         mx <- max(df$x, na.rm=TRUE)
         df$x <- df$x - mx
