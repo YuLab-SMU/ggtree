@@ -1,5 +1,4 @@
 
-
 ##' @importFrom ggplot2 last_plot
 get_tree_view <- function(tree_view) {
     if (is.null(tree_view))
@@ -15,6 +14,18 @@ get_layout <- function(tree_view = NULL) {
         layout <- attr(plot$data, "layout")
     }
     return(layout)
+}
+
+build_new_plot_env <- function(env){
+    newenv <- list2env(
+                x = as.list(
+                  env, 
+                  all.names = TRUE
+                ), 
+                parent = parent.env(env)
+              )
+    attributes(newenv) <- attributes(env)
+    return(newenv)
 }
 
 reverse.treeview <- function(tv) {

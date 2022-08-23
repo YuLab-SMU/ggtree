@@ -24,11 +24,18 @@
   - <https://github.com/thomasp85/ggraph/commit/14de66f1225336179b4598cb42a4beda95682211>
 
 -->
+# ggtree 3.5.2.992
 
-# ggtree 3.5.1.901
++ update `fortify` method for `pvclust` object (2022-08-15, Mon)
++ add citation of the tree data book (2022-08-13, Sat)
 
+# ggtree 3.5.2
+
++ `scale_color_subtree()` now supports passing a numeric value and internally it will call `cutree(tree, k)` (2022-08-11, Thu)
++ support 'linkage' class defined in the 'mdendro' package (2022-08-11, Thu)
++ clone the plot environment before assigning layout (2022-07-19, Tue, #516)
 + bug fixed in 'equal_angle' layout (2022-07-08, Fri, #514)
-+ optimize `geom_tiplab` to better compatible with dendrogram layout (2022-06-23, Thu)
++ optimize `geom_tiplab` to better compatible with dendrogram layout (2022-06-23, Thu, #508)
 
 # ggtree 3.5.1
 

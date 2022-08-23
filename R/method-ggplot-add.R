@@ -100,7 +100,7 @@ ggplot_add.layout_ggtree <- function(object, plot, object_name) {
 
     if (object$layout == 'dendrogram') {
         plot <- revts(plot)
-        obj <- list(scale_x_reverse(labels = abs),
+        obj <- list(scale_x_reverse(labels = function(x){-x}),
                     coord_flip(clip = 'off')
                     )
     } else if (object$layout == 'circular' || object$layout == "inward_circular") {
@@ -115,8 +115,10 @@ ggplot_add.layout_ggtree <- function(object, plot, object_name) {
     } else { ## rectangular
         obj <- coord_cartesian(clip = 'off')
     }
+    plot <- ggplot_add(obj, plot, object_name)
+    plot$plot_env <- build_new_plot_env(plot$plot_env)
     assign("layout", object$layout, envir = plot$plot_env)
-    ggplot_add(obj, plot, object_name)
+    return(plot)
 }
 
 
@@ -200,8 +202,16 @@ ggplot_add.facet_plot <- function(object, plot, object_name) {
 ##' @export
 ggplot_add.tiplab <- function(object, plot, object_name) {
     layout <- get_layout(plot)
-    if (layout == 'dendrogram' && object$hjust == 0 ){
-        object$hjust <- .5
+    if (layout == 'dendrogram'){
+        if( object$hjust == 0 ){
+            object$hjust = 1
+        }
+        if (!'vjust' %in% names(object)){
+            object$vjust = .5
+        }
+        if (!'angle' %in% names(object)){
+            object$angle = 90
+        }
     }
     if (object$as_ylab) {
         if (layout != "rectangular" && layout != "dendrogram") {
@@ -214,11 +224,11 @@ ggplot_add.tiplab <- function(object, plot, object_name) {
         ly <- do.call(geom_tiplab_rectangular, object)
         plot <- ggplot_add(ly, plot, object_name)
         object$size <- fontsize
-        object$mapping <- NULL
+        #object$mapping <- NULL
         object$align <- NULL
         object$linetype <- NULL
         object$linesize <- NULL
-        object$geom <- NULL
+        #object$geom <- NULL
         object$offset <- NULL
         object$nodelab <- NULL
         res <- ggplot_add.tiplab_ylab(object, plot, object_name)
@@ -249,11 +259,30 @@ ggplot_add.tiplab_ylab <- function(object, plot, object_name) {
     }
 
     df <- plot$data
-    df <- df[df$isTip, ]
+    if ('label' %in% names(object$mapping)){
+        if (object$geom == 'text'){
+            xx <- do.call('geom_text', list(mapping=object$mapping))
+            xx$computed_mapping <- c(xx$mapping, plot$mapping[setdiff(names(plot$mapping), names(xx$mapping))])
+            class(xx$computed_mapping) <- "uneval"
+            if (!is.null(object$data)){
+                df <- object$data
+            }else{
+                df <- df[df$isTip,]
+            }
+            df <- suppressWarnings(xx$compute_aesthetics(data=df, plot=plot))
+        }else{
+            message('The geom is not text, as_ylab will use original tip labels of tree')
+            df <- df[df$isTip, ]
+        }
+    }else{
+        df <- df[df$isTip, ]
+    }
     yscale <- scale_y_continuous(breaks = df$y, labels = df$label,
                                  position = object$position, expand = expansion(0, 0.6))
 
     object$position <- NULL
+    object$mapping <- NULL
+    object$geom <- NULL
     object$node <- NULL
     ytext <- do.call(element_text, object)
 
@@ -518,6 +547,9 @@ ggplot_add.hilight <- function(object, plot, object_name){
         if (flag_tbl_tree){
             object$data <-  object$data[,!colnames(object$data) %in% setdiff(flag_names, as_name(object$mapping$node)),drop=FALSE]
         }
+        object$data <- object$data[, !colnames(object$data) %in% setdiff(intersect(colnames(object$data), 
+                                                                     colnames(data)), 
+                                                                     as_name(object$mapping$node)), drop=FALSE]
         object$data <- merge(data, object$data, by.x="clade_root_node", by.y=as_name(object$mapping$node))
         object$data[[as_name(object$mapping$node)]] <- as.vector(object$data$clade_root_node)
         object$mapping <- object$mapping[!names(object$mapping) %in% c("node")]

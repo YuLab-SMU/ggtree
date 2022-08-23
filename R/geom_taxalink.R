@@ -205,6 +205,9 @@ GeomCurvelink <- ggproto("GeomCurvelink", GeomSegment,
         trans$curvature <- curvature
     }else{
         trans <- coord$transform(data, panel_params)
+        if (inherits(coord, 'CoordFlip')){ 
+            trans$curvature <- -1 * trans$curvature
+        }
     }
     arrow.fill <- arrow.fill %|||% trans$colour
 
@@ -225,6 +228,7 @@ GeomCurvelink <- ggproto("GeomCurvelink", GeomSegment,
     return(ggname("geom_curvelink", gTree(children=grobs)))
   }
 )
+
 
 # for inward curve lines
 generate_curvature <- function(starttheta, endtheta, hratio, ncp){

@@ -68,6 +68,7 @@ fortify.phylo <- function(model, data,
         res <- calculate_angle(res)
     }
     res <- scaleY(as.phylo(model), res, yscale, layout, ...)
+    res <- adjust_hclust_tip.edge.len(res, x)
     class(res) <- c("tbl_tree", class(res))
     attr(res, "layout") <- layout
     return(res)
@@ -133,13 +134,15 @@ fortify.phylo4 <- function(model, data,
                            ladderize = TRUE,
                            right     = FALSE,
                            mrsd      = NULL,
+                           hang      = .1,
                            ...) {
-    if (inherits(model, c("dendrogram", "agnes", "diana", "twins"))) {
+    if (inherits(model, c("dendrogram", "linkage", 
+                        "agnes", "diana", "twins"))) {
         model <- stats::as.hclust(model)
     }
 
     if (inherits(model, "hclust")) {
-        phylo <- as.phylo.hclust2(model)
+        phylo <- as.phylo.hclust2(model, hang = hang)
     } else {
         phylo <- as.phylo(model)
     }
@@ -181,6 +184,9 @@ fortify.phylog <- fortify.phylo4
 ##' @export
 fortify.igraph <- fortify.phylo4
 
+##' @method fortify linkage
+##' @export
+fortify.linkage <- fortify.phylo4
 
 ##' @method fortify phylo4d
 ##' @importFrom treeio as.treedata
@@ -192,8 +198,11 @@ fortify.phylo4d <- function(model, data,
                             right         = FALSE,
                             branch.length = "branch.length",
                             mrsd          = NULL,
+							hang          = 0.1,
                             ...) {
-    fortify(as.treedata(model), data, layout, yscale, ladderize, right, branch.length, mrsd, ...)
+    model <- as.treedata(model, hang = hang)
+    df <- fortify(model, data, layout, yscale, ladderize, right, branch.length, mrsd, ...)
+    return (df)
 }
 
 ##' @method fortify pvclust
