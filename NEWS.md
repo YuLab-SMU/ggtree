@@ -24,6 +24,11 @@
   - <https://github.com/thomasp85/ggraph/commit/14de66f1225336179b4598cb42a4beda95682211>
 
 -->
+
+# ggtree 3.5.3.001
+
++ move `scale_color_subtree()` to the 'ggtreeDendro' package (2022-09-23, Fri)
+
 # ggtree 3.5.3
 
 + update `fortify` method for `pvclust` object (2022-08-15, Mon)

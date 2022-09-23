@@ -174,11 +174,7 @@ ggexpand_internal <- function(plot, ratio, direction, var) {
     return(res)
 }
 
-##' @method ggplot_add color_subtree
-##' @export
-ggplot_add.color_subtree <- function(object, plot, object_name) {
-    scale_color_subtree_(plot, object)
-}
+
 
 ##' @method ggplot_add tree_inset
 ##' @export
