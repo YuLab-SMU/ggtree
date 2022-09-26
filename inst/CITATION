@@ -14,6 +14,7 @@ citEntry(
                         "Chapman and Hall/CRC. doi:10.1201/9781003279242")   
 )
 
+
 citEntry(
     entry  = "article",
     title = "Using ggtree to Visualize Data on Tree-Like Structures",
@@ -29,6 +30,34 @@ citEntry(
                         "Using ggtree to visualize data on tree-like structures.",
                         "Current Protocols in Bioinformatics, 2020, 69:e96. doi: 10.1002/cpbi.96")   
 )
+
+
+citEntry(
+    entry  = "article",
+    title = "Ggtree: A serialized data object for visualization of a phylogenetic tree and annotation data",
+    author = personList(
+        as.person("Shuangbin Xu"),
+        as.person("Lin Li"),
+        as.person("Xiao Luo"),
+        as.person("Meijun Chen"),
+        as.person("Wenli Tang"),
+        as.person("Li Zhan"),
+        as.person("Zehan Dai"),
+        as.person("Tommy T. Lam"),
+        as.person("Yi Guan"),
+        as.person("Guangchuang Yu")
+    ),
+    year = "2022",
+    journal = "iMeta",
+    volume = "4",
+    number = "1",
+    pages = "e56",
+    doi = "10.1002/imt2.56",
+    textVersion = paste("Shuangbin Xu, Lin Li, Xiao Luo, Meijun Chen, Wenli Tang, Li Zhan, Zehan Dai, Tommy T. Lam, Yi Guan, Guangchuang Yu.",
+                        "Ggtree: A serialized data object for visualization of a phylogenetic tree and annotation data.",
+                        "iMeta 2022, 4(1):e56. doi:10.1002/imt2.56")
+)
+
 
 citEntry(
     entry  = "article",
