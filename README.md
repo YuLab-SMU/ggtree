@@ -46,7 +46,7 @@ list:
 1.  S Xu, L Li, X Luo, M Chen, W Tang, L Zhan, Z Dai, TT. Lam, Y Guan,
     **G Yu**. Ggtree: A serialized data object for visualization of a
     phylogenetic tree and annotation data. ***iMeta***, 2022, 4(1):e56.
-    <doi:%5B10.1002/imt2.56>\](<https://doi.org/10.1002/imt2.56>)
+    doi: [10.1002/imt2.56](https://doi.org/10.1002/imt2.56).
 2.  **G Yu**. Using ggtree to visualize data on tree-like structures.
     ***Current Protocols in Bioinformatics***, 2020, 69:e96. doi:
     [10.1002/cpbi.96](https://doi.org/10.1002/cpbi.96).
