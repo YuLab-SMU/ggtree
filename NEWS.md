@@ -25,8 +25,9 @@
 
 -->
 
-# ggtree 3.5.3.001
+# ggtree 3.5.3.002
 
++ add new citation (the iMeta 2022 paper) (2022-09-26, Mon)
 + move `scale_color_subtree()` to the 'ggtreeDendro' package (2022-09-23, Fri)
 
 # ggtree 3.5.3
