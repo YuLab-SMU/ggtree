@@ -12,7 +12,7 @@
 <!--
 [![Project Status: Active - The project has reached a stable, usable state and is being actively developed.](http://www.repostatus.org/badges/latest/active.svg)](http://www.repostatus.org/#active)
 [![Bioc](http://www.bioconductor.org/shields/years-in-bioc/ggtree.svg)](https://www.bioconductor.org/packages/devel/bioc/html/ggtree.html#since)
-[![Last-changedate](https://img.shields.io/badge/last%20change-2022--09--26-green.svg)](https://github.com/GuangchuangYu/ggtree/commits/master)
+[![Last-changedate](https://img.shields.io/badge/last%20change-2022--09--27-green.svg)](https://github.com/GuangchuangYu/ggtree/commits/master)
 
 ` r badge_devel("guangchuangyu/ggtree", "green")`
 ` r badge_bioc_download("ggtree", "total", "blue")`
@@ -45,7 +45,7 @@ list:
 
 1.  S Xu, L Li, X Luo, M Chen, W Tang, L Zhan, Z Dai, TT. Lam, Y Guan,
     **G Yu**. Ggtree: A serialized data object for visualization of a
-    phylogenetic tree and annotation data. ***iMeta***, 2022, 4(1):e56.
+    phylogenetic tree and annotation data. ***iMeta***, 2022, 1(4):e56.
     doi: [10.1002/imt2.56](https://doi.org/10.1002/imt2.56).
 2.  **G Yu**. Using ggtree to visualize data on tree-like structures.
     ***Current Protocols in Bioinformatics***, 2020, 69:e96. doi:
