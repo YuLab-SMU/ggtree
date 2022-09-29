@@ -35,6 +35,7 @@ citEntry(
     number = "4",
     pages = "e56",
     doi = "10.1002/imt2.56",
+    url = "https://onlinelibrary.wiley.com/doi/full/10.1002/imt2.56",
     textVersion = paste("Shuangbin Xu, Lin Li, Xiao Luo, Meijun Chen, Wenli Tang, Li Zhan, Zehan Dai, Tommy T. Lam, Yi Guan, Guangchuang Yu.",
                         "Ggtree: A serialized data object for visualization of a phylogenetic tree and annotation data.",
                         "iMeta 2022, 4(1):e56. doi:10.1002/imt2.56")
