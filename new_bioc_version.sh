@@ -1,7 +1,7 @@
 #!/bin/bash
 
-oldver=RELEASE_3_14
-newver=RELEASE_3_15
+oldver=RELEASE_3_15
+newver=RELEASE_3_16
 
 ## rm old release branch
 make rmrelease
