@@ -14,7 +14,7 @@ make update
 sed -i "s/$oldver/$newver/g" Makefile
 
 ## add release in NEWS.md
-echo "# $pkg\n\n+ Bioconductor $newver ($(date +'%Y-%m-%d, %a'))\n\n" > tmp.md
+echo "# $pkg\n\n+ Bioconductor $newver ($(date +'%Y-%m-%d, %a'))\n" > tmp.md
 cat NEWS.md >> tmp.md 
 mv tmp.md NEWS.md
 
