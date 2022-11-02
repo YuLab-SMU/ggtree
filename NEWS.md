@@ -1,3 +1,4 @@
+
 <!--
 
 # TODO LIST
@@ -25,13 +26,15 @@
 
 -->
 
-# ggtree 3.5.3.002
 
-+ add new citation (the iMeta 2022 paper) (2022-09-26, Mon)
-+ move `scale_color_subtree()` to the 'ggtreeDendro' package (2022-09-23, Fri)
+# ggtree 3.6.0
+
++ Bioconductor RELEASE_3_16 (2022-11-02, Wed)
 
 # ggtree 3.5.3
 
++ add new citation (the iMeta 2022 paper) (2022-09-26, Mon)
++ move `scale_color_subtree()` to the 'ggtreeDendro' package (2022-09-23, Fri)
 + update `fortify` method for `pvclust` object (2022-08-15, Mon)
 + add citation of the tree data book (2022-08-13, Sat)
 
