@@ -11,7 +11,7 @@ geom_range(range, center = "auto", ...)
 
 \item{center}{center of the range, mean, median or auto (default, the center of the range)}
 
-\item{...}{additional parameter, e.g. color, size, alpha}
+\item{...}{additional parameter, e.g. color, linewidth, alpha}
 }
 \value{
 ggplot layer

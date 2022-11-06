@@ -36,7 +36,7 @@ a list object.
 }
 \description{
 \code{geom_taxalink} supports data.frame as input,
-the \code{colour}, \code{size}, \code{linetype} and \code{alpha} can be mapped. When the \code{data} was provided,
+the \code{colour}, \code{linewidth}, \code{linetype} and \code{alpha} can be mapped. When the \code{data} was provided,
 the \code{mapping} should be also provided, which \code{taxa1} and \code{taxa2} should be mapped created
 by \code{aes}, \code{aes_} or \code{aes_string}. In addition, the \code{hratio}, control the height of curve line,
 when tree layout is \code{cirular}, default is 1. \code{ncp}, the number of control points used to draw the
@@ -52,7 +52,7 @@ a column of data.
 \item \code{group} group category of link.
 \item \code{colour} control the color of line, default is black.
 \item \code{linetype} control the type of line, default is 1 (solid).
-\item \code{size} control the width of line, default is 0.5.
+\item \code{linewidth} control the width of line, default is 0.5.
 \item \code{curvature} control the curvature of line, default is 0.5,
 it will be created automatically in polar coordinate .
 \item \code{hratio} control the height of curve line, default is 1.

@@ -27,7 +27,7 @@ with a line connecting each tip and its corresponding label, defaults to "FALSE"
 
 \item{linetype}{set linetype of the line if align = TRUE, defaults to "dotted"}
 
-\item{linesize}{set line size of the line if align = TRUE, defaults to 0.5}
+\item{linesize}{set line width if align = TRUE, defaults to 0.5}
 
 \item{geom}{one of 'text', 'label', 'shadowtext', 'image' and 'phylopic'}
 

@@ -4,14 +4,14 @@
 \alias{geom_aline}
 \title{geom_aline}
 \usage{
-geom_aline(mapping = NULL, linetype = "dotted", size = 1, ...)
+geom_aline(mapping = NULL, linetype = "dotted", linewidth = 1, ...)
 }
 \arguments{
 \item{mapping}{aes mapping}
 
 \item{linetype}{set line type of the line, defaults to "dotted"}
 
-\item{size}{set line size of the line, defaults to 1}
+\item{linewidth}{set width of the line, defaults to 1}
 
 \item{...}{additional parameter}
 }

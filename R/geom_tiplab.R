@@ -17,7 +17,7 @@
 ##' to the left side of tip labels, defaults to "FALSE"
 ##' with a line connecting each tip and its corresponding label, defaults to "FALSE"
 ##' @param linetype set linetype of the line if align = TRUE, defaults to "dotted"
-##' @param linesize set line size of the line if align = TRUE, defaults to 0.5
+##' @param linesize set line width if align = TRUE, defaults to 0.5
 ##' @param geom one of 'text', 'label', 'shadowtext', 'image' and 'phylopic'
 ##' @param as_ylab display tip labels as y-axis label, 
 ##' only works for rectangular and dendrogram layouts, defaults to "FALSE"
@@ -207,7 +207,7 @@ geom_tiplab_rectangular <- function(mapping=NULL, hjust = 0,  align = FALSE,
                                     "bg.colour", "bg.r"))
     list(
         if (show_segment){
-            lineparams <- list(mapping = segment_mapping, linetype=linetype, nudge_x = offset, size = linesize, stat = StatTreeData)
+            lineparams <- list(mapping = segment_mapping, linetype=linetype, nudge_x = offset, linewidth = linesize, stat = StatTreeData)
             lineparams <- extract_params(lineparams, params, c("data", "color", "colour", "alpha", "show.legend", "na.rm",
                                                                "inherit.aes", "arrow", "arrow.fill", "lineend")) 
             do.call("geom_segment2", lineparams)
