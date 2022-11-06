@@ -26,8 +26,9 @@
 
 -->
 
-# ggtree 3.7.0.001
+# ggtree 3.7.1
 
++ compatible with ggplot2 v=3.4.0 (2022-11-07, Mon)
 + allows setting `options(clade_align = TRUE)` to align `geom_hilight()` layer and allows setting `options(clade_width_extend = 0.35)` to set the amount the width extension (in y-axis) of `geom_hilight()`. These two features is designed for `ggtreeDendro::geom_rect_subtree()` layer (2022-11-06, Sun)
 
 # ggtree 3.6.0
