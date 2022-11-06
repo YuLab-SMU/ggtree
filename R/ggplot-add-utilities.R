@@ -10,9 +10,13 @@ build_cladeids_df <- function(trdf, nodeids){
 
 build_cladeids_df2 <- function(trdf, nodeids){
     flagreverse <- check_reverse(data=trdf)
-    dat <- lapply(nodeids, function(i)get_clade_position_(data=trdf, node=i, reverse=flagreverse))
+    dat <- lapply(nodeids, function(i) get_clade_position_(data=trdf, node=i, reverse=flagreverse))
     dat <- do.call("rbind", dat)
     dat$clade_root_node <- nodeids
+    if (getOption("clade_align", default = FALSE)) {
+       dat$xmin <- min(dat$xmin)
+       dat$xmax <- max(dat$xmax)         
+    }
     return(dat)
 }
 

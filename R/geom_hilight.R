@@ -444,10 +444,12 @@ get_clade_position_ <- function(data, node, reverse=FALSE) {
         xmin <- min(sp.df$branch, na.rm=TRUE)
         xmax <- max(x, na.rm=TRUE)
     }
+
+    w <- getOption("clade_width_extend", default = 0.5)
     data.frame(xmin=xmin,
                xmax=xmax,
-               ymin=min(y, na.rm=TRUE) - 0.5,
-               ymax=max(y, na.rm=TRUE) + 0.5)
+               ymin=min(y, na.rm=TRUE) - w,
+               ymax=max(y, na.rm=TRUE) + w)
 }
 
 build_align_data <- function(data, align){
