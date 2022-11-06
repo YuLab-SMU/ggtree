@@ -1,3 +1,25 @@
+## defunct since v=3.5.3
+
+##' scale tree color by subtree (e.g., output of cutree, kmeans, or other clustering algorithm)
+##'
+##' 
+##' @title scale_color_subtree
+##' @rdname scale-color-subtree
+##' @param group taxa group information
+##' @return updated tree view
+##' @export
+##' @author Guangchuang Yu
+scale_color_subtree <- function(group) {
+    message("This scale function was moved to the ggtreeDendro package\n",
+        "please use 'ggtreeDendro::scale_color_subtree' instead.\n")
+    NULL
+}
+
+##' @rdname scale-color-subtree
+##' @export
+scale_colour_subtree <- scale_color_subtree
+
+
 ## ##' annotation taxa with images
 ## ##'
 ## ##'

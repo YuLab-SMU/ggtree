@@ -46,8 +46,6 @@ cat(packageDescription('ggtree')$Description)
 
 
 
-For details, please visit <https://yulab-smu.top/treedata-book/>.
-
 
 ## :writing_hand: Authors
 
@@ -55,29 +53,39 @@ Guangchuang YU
 
 School of Basic Medical Sciences, Southern Medical University
 
-<https://guangchuangyu.github.io>
+<https://yulab-smu.top>
 
 [![Twitter](https://img.shields.io/twitter/url/http/shields.io.svg?style=social&logo=twitter)](https://twitter.com/intent/tweet?hashtags=ggtree&url=http://onlinelibrary.wiley.com/doi/10.1111/2041-210X.12628/abstract&screen_name=guangchuangyu)
 [![saythanks](https://img.shields.io/badge/say-thanks-ff69b4.svg)](https://saythanks.io/to/GuangchuangYu)
 `r badger::badge_custom('follow me on', 'WeChat', 'green', 'https://guangchuangyu.github.io/blog_images/biobabble.jpg')`
 
 
+
 If you use `r Biocpkg('ggtree')` in published research, please cite the most appropriate paper(s) from this list:
 
-1. __G Yu__. Using ggtree to visualize data on tree-like structures. __*Current Protocols in Bioinformatics*__, 2020, 69:e96. doi: [10.1002/cpbi.96](https://doi.org/10.1002/cpbi.96).
+1. S Xu, L Li, X Luo, M Chen, W Tang, L Zhan, Z Dai, TT. Lam, Y Guan, __G Yu__. Ggtree: A serialized data object for visualization of a phylogenetic tree and annotation data. __*iMeta*__, 2022, 1(4):e56. doi: [10.1002/imt2.56](https://doi.org/10.1002/imt2.56)
+2. __G Yu__. Data Integration, Manipulation and Visualization of Phylogenetic Treess (1st edition). __*Chapman and Hall/CRC*__, 2022. doi: [10.1201/9781003279242](https://doi.org/10.1201/9781003279242)
+3. __G Yu__. Using ggtree to visualize data on tree-like structures. __*Current Protocols in Bioinformatics*__, 2020, 69:e96. doi: [10.1002/cpbi.96](https://doi.org/10.1002/cpbi.96)
    - [Source code and data to reproduce figures in the article](https://github.com/GuangchuangYu/ggtree-current-protocols)
-2. __G Yu__^\*^, TTY Lam, H Zhu, Y Guan^\*^. Two methods for mapping and visualizing associated data on phylogeny using ggtree. __*Molecular Biology and Evolution*__, 2018, 35(2):3041-3043.
-doi: [10.1093/molbev/msy194](https://doi.org/10.1093/molbev/msy194).
+4. __G Yu__^\*^, TTY Lam, H Zhu, Y Guan^\*^. Two methods for mapping and visualizing associated data on phylogeny using ggtree. __*Molecular Biology and Evolution*__, 2018, 35(2):3041-3043.
+doi: [10.1093/molbev/msy194](https://doi.org/10.1093/molbev/msy194)
      - [Source code to produce Supplementary Material](https://github.com/GuangchuangYu/plotting_tree_with_data)
-3. __G Yu__, DK Smith, H Zhu, Y Guan, TTY Lam^\*^. ggtree: an R package for
+5. __G Yu__, DK Smith, H Zhu, Y Guan, TTY Lam^\*^. ggtree: an R package for
 visualization and annotation of phylogenetic trees with their covariates and
 other associated data. __*Methods in Ecology and Evolution*__. 2017, 8(1):28-36.
-doi: [10.1111/2041-210X.12628](https://doi.org/10.1111/2041-210X.12628).
+doi: [10.1111/2041-210X.12628](https://doi.org/10.1111/2041-210X.12628)
+
+
+<center>
+<a href="https://www.routledge.com/Data-Integration-Manipulation-and-Visualization-of-Phylogenetic-Trees/Yu/p/book/9781032233574"><img src="https://yulab-smu.top/treedata-book/9781032233574_cover_review.png" style="width:500px;border:2px solid black;"/></a>
+</center>
 
 
 ## :sparkling_heart: Contributing
 
 We welcome any contributions! By participating in this project you agree to
 abide by the terms outlined in the [Contributor Code of Conduct](CONDUCT.md).
+
+
 
 
