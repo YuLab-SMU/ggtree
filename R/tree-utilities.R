@@ -42,7 +42,9 @@ layoutEqualAngle <- function(model, branch.length = "branch.length"){
 
   if (! is.null(tree$edge.length)) {
       if (anyNA(tree$edge.length)) {
-          warning("'edge.length' contains NA values...\n## setting 'edge.length' to NULL automatically when plotting the tree...")
+          cli_alert_warning(c("{.code edge.length} contains NA values...",
+                          "## setting {.code edge.length} of the tree to NULL ",
+                          "automatically when plotting the tree..."), wrap = TRUE)
           tree$edge.length <- NULL
       }
   }
@@ -771,12 +773,10 @@ getXcoord2 <- function(x, root, parent, child, len, start=0, rev=FALSE) {
     ignore_negative_edge <- getOption("ignore.negative.edge", default=FALSE)
 
     if (any(len < 0) && !ignore_negative_edge) {
-        warning_wrap("The tree contained negative ", 
-                     ifelse(sum(len < 0)>1, "edge lengths", "edge length"),
-                     ". If you want to ignore the ", 
-                     ifelse(sum(len<0) > 1, "edges", "edge"),
-                     ", you can set 'options(ignore.negative.edge=TRUE)', then re-run ggtree."
-                     )
+        cli_alert_warning(c("The tree contained negative ", ifelse(sum(len < 0)>1, "edge lengths", "edge length"), 
+                        ". If you want to ignore the ", ifelse(sum(len<0) > 1, "edges", "edge"), ", you can 
+                        set {.code options(ignore.negative.edge=TRUE)}, then re-run ggtree."
+                     ), wrap = TRUE)
     }
     while(anyNA(x)) {
         idx <- which(parent %in% currentNode)

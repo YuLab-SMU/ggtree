@@ -123,6 +123,7 @@ geom_hilight_rect2 <- function(data=NULL,
 
 #' @importFrom ggplot2 draw_key_polygon Geom ggproto aes GeomPolygon
 #' @importFrom grid rectGrob gpar grobTree
+#' @importFrom cli cli_alert_warning
 GeomHilightRect <- ggproto("GeomHilightRect", Geom,
                            default_aes = aes(colour = NA, fill = "steelblue", 
                                              linewidth = 0.5, linetype = 1, alpha = 0.5,
@@ -146,18 +147,16 @@ GeomHilightRect <- ggproto("GeomHilightRect", Geom,
                                    flag2 <- data$extendto < data$xmax
                                    flag <- equals(flag1, flag2)
                                    if (all(flag1) && any(flag)){
-                                       warning_wrap("extendto ", 
-                                                    paste0(data$extendto[flag], collapse="; "), 
-                                                    ifelse(length(data$extendto[flag])>1, " are", " is"), 
-                                                    " too small for node: ", paste0(data$clade_root_node[flag], collapse="; "),
-                                                    ", keep the original xmax value(s): ", paste0(data$xmax[flag], collapse="; "), ".")
+                                       cli_alert_warning(c("{.code extendto} ", paste0(data$extendto[flag], collapse="; "), 
+                                                    ifelse(length(data$extendto[flag])>1, " are", " is")," too small for node: ", 
+                                                    paste0(data$clade_root_node[flag], collapse="; "),", keep the original xmax value(s): ", 
+                                                    paste0(data$xmax[flag], collapse="; "), "."), wrap = TRUE)
                                        data$xmax[!flag] <- data$extendto[!flag]
                                    }else if(!all(flag1) && any(flag)){
-                                       warning_wrap("extendto ", 
-                                                    paste0(data$extendto[flag], collapse="; "), 
-                                                    ifelse(length(data$extendto[flag])>1, " are", " is"),
-                                                    " too big for node: ", paste0(data$clade_root_node[flag], collapse="; "),
-                                                    ", keep the original xmax value(s): ", paste0(data$xmax[flag], collapse="; "), ".")
+                                       cli_alert_warning(c("{.code extendto} ", paste0(data$extendto[flag], collapse="; "), 
+                                                    ifelse(length(data$extendto[flag])>1, " are", " is"), " too big for node: ", 
+                                                    paste0(data$clade_root_node[flag], collapse="; "), ", keep the original xmax value(s): ", 
+                                                    paste0(data$xmax[flag], collapse="; "), "."), wrap = TRUE)
                                        data$xmax[!flag] <- data$extendto[!flag]
                                    }else{
                                        data$xmax <- data$extendto 
@@ -166,10 +165,12 @@ GeomHilightRect <- ggproto("GeomHilightRect", Geom,
                                data <- build_align_data(data=data, align=align) 
                                if (!coord$is_linear()) {
                                    if (gradient){
-                                       warning_wrap("The gradient color hight light layer only presents in rectangular, ellipse, roundrect layouts")
+                                       cli_alert_warning("The gradient color hight light layer only presents in 
+                                                         rectangular, ellipse, roundrect layouts.", wrap = TRUE)
                                    }
                                    if (roundrect){
-                                       warning_wrap("The round rectangular hight light layer only presents in rectangular, ellipse, roundrect layouts")
+                                       cli_alert_warning("The round rectangular hight light layer only presents in 
+                                                         rectangular, ellipse, roundrect layouts.", wrap =TRUE)
                                    }
                                    aesthetics <- setdiff(colnames(data), #"x.start", "y.start", "x.stop", "y.stop"), 
                                                          c("xmin", "xmax", "ymin", "ymax", "clade_root_node"))
@@ -212,7 +213,7 @@ GeomHilightRect <- ggproto("GeomHilightRect", Geom,
                                    hilightGrob <- ifelse(roundrect, grid::roundrectGrob, grid::rectGrob)
                                    if (gradient){
                                        if (roundrect){
-                                           warning_wrap("The round rectangular and gradient are not applied simultaneously")
+                                           cli_alert_warning("The round rectangular and gradient are not applied simultaneously")
                                        }
                                        gradient.direction <- match.arg(gradient.direction, c("rt", "tr"))
                                        rects <- lapply(split(coords, seq_len(nrow(coords))), function(row){
@@ -304,6 +305,10 @@ geom_hilight_encircle2 <- function(data=NULL,
           )
 }
 
+check_linewidth <- getFromNamespace('check_linewidth', 'ggplot2')
+snake_class <- getFromNamespace('snake_class', 'ggplot2')
+snakeize <- getFromNamespace('snakeize', 'ggplot2')
+
 GeomHilightEncircle <- ggproto("GeomHilightEncircle", Geom,
                                 required_aes = c("x", "y", "clade_root_node"),
                                 default_aes = aes(colour="black", fill="steelblue", alpha = 0.5,
@@ -311,7 +316,8 @@ GeomHilightEncircle <- ggproto("GeomHilightEncircle", Geom,
                                                   s_shape=0.5, s_open=FALSE),
                                 draw_key = draw_key_polygon,
                                 rename_size = TRUE,
-                                draw_panel = function(data, panel_scales, coord){
+                                draw_panel = function(self, data, panel_scales, coord){
+                                    data <- check_linewidth(data, snake_class(self))
                                     globs <- lapply(split(data, data$clade_root_node), function(i)
                                                    get_glob_encircle(i, panel_scales, coord))
                                     ggname("geom_hilight_encircle2", do.call("grobTree", globs))
@@ -479,14 +485,7 @@ build_align_data <- function(data, align){
 
 
 #' @importFrom utils getFromNamespace
-#warning_wrap <- getFromNamespace("warning_wrap", "ggplot2")
-warning_wrap <- function(...){
-    x = paste0(...)
-    x = paste(strwrap(x), collapse = "\n")
-    warning(x, call. = FALSE)
-}
 rect_to_poly <- getFromNamespace("rect_to_poly", "ggplot2")
-#new_data_frame <- getFromNamespace("new_data_frame", "ggplot2")
 
 ## ##' layer of hilight clade with rectangle
 ## ##'
