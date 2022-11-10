@@ -133,10 +133,11 @@ geom_tiplab_rectangular <- function(mapping=NULL, hjust = 0,  align = FALSE,
     params <- list(...)
     if ("nudge_x" %in% names(params)){
         if (offset != 0){
-            warning_wrap("Both nudge_x and offset arguments are provided.
+            cli_alert_warning("Both {.code nudge_x} and {.code offset} arguments are provided.
                          Because they all adjust the horizontal offset of labels,
-                         and the 'nudge_x' is consistent with 'ggplot2'. The
-                         'offset' will be deprecated here and only the 'nudge_x' will be used.")
+                         and the {.code nudge_x} is consistent with {.code ggplot2}. The
+                         {.code offset} will be deprecated here and only the {.code nudge_x} will be used.", 
+                         wrap = TRUE)
         }
         offset <- params$nudge_x
         params$nudge_x <- NULL

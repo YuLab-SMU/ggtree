@@ -341,8 +341,9 @@ ggplot_add.cladelab <- function(object, plot, object_name){
                 samevars <- Reduce(intersect,list(extract_all_aes_var(object$mapping), colnames(plot$data), colnames(object$data)))
                 object$data <- merge(object$data, plot$data, by.x=quo_name(object$mapping$node), by.y="node", all.x=TRUE)
                 if (length(samevars) > 0){
-                    warning_wrap('The "', paste(samevars, collapse=", ") ,'" has(have) been found in tree data. You might need to 
-                                 rename the variable(s) in the data of "geom_cladelab" to avoid this warning!')
+                    cli_alert_warning(text=c('The "', paste(samevars, collapse=", ") ,'" has(have) been found in tree data. You might need to 
+                                 rename the variable(s) in the data of "geom_cladelab" to avoid this warning!'),
+                                 wrap = TRUE)
                     object$mapping <- remapping(mapping=object$mapping, samevars=samevars)
                 }
             }
@@ -500,8 +501,10 @@ ggplot_add.hilight <- function(object, plot, object_name){
                      samevars <- Reduce(intersect,list(extract_all_aes_var(object$mapping), colnames(plot$data), colnames(object$data)))
                      object$data <- merge(object$data, plot$data, by.x=quo_name(object$mapping$node), by.y="node", all.x=TRUE)
                      if (length(samevars) > 0){
-                         warning_wrap('The "', paste(samevars, collapse=", ") ,'" has(have) been found in tree data. You might need to 
-                                      rename the variable(s) in the data of "geom_hilight" to avoid this warning!')
+                         cli_alert_warning(text=c('The "', paste(samevars, collapse=", ") ,'" has(have) been found in tree data. You might need to 
+                                      rename the variable(s) in the data of "geom_hilight" to avoid this warning!'),
+                                      wrap = TRUE
+                                     )
                          object$mapping <- remapping(mapping=object$mapping, samevars=samevars)
                      }
                  }

@@ -139,7 +139,7 @@ get_glob_encircle <- function(data, panel_scales, coord){
     data.frame(x,y,first_row[!names(first_row) %in% c("x","y")])
   }
 
-  coords <- coords[ch,]
+  coords <- coords[ch,,drop=FALSE]
   ## FIXME: using grid:: a lot. importFrom instead?
 
   ## convert from lengths to physical units, for computing *directions*
@@ -195,7 +195,8 @@ get_glob_encircle <- function(data, panel_scales, coord){
   ## browser()
 
   gp <- grid::get.gpar()
-  pars1 <- c("colour","linetype","alpha","fill","size")
+  # the 'size' of line in ggplot2 3.4.0 have been replaced with 'linewidth'
+  pars1 <- c("colour","linetype","alpha","fill","linewidth")
   pars2 <- c("col","lty","alpha","fill","lwd")
   gp[pars2] <- first_row[pars1]
   grid::xsplineGrob(

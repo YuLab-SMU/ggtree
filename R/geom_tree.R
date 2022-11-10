@@ -39,14 +39,10 @@
 ##' <http://yulab-smu.top/treedata-book/index.html> by Guangchuang Yu.
 geom_tree <- function(mapping=NULL, data=NULL, layout="rectangular", multiPhylo=FALSE, continuous="none", position="identity", ...) {
     if (is.logical(continuous)){
-        warning_wrap('The type of "continuous" argument was changed (v>=2.5.2). Now, 
-                     it should be one of "color" (or "colour"), "size", "all", and "none".')
-        ifelse(continuous,
-               warning_wrap('It was set to TRUE, it should be replaced with "color" (or "colour"), 
-                            this meaning the aesthethic of "color" (or "colour") is continuous.'),
-               warning_wrap('It was set to FALSE, it should be replaced with "none", 
-                            this meaning the aesthethic of "color" (or "colour") or "size" will not be continuous.')
-        )
+        cli::cli_warn(c("The type of {.code continuous} argument was changed (v>=2.5.2). Now,", 
+                        "i" = "Consider using {.code continuous = \"color\"}, {.code continuous = \"colour\"}, ", 
+                        "{.code continuous = \"size\"}, {.code continuous = \"all\"} or",
+                        " {.code continuous = \"none\"} instead."))
         continuous <- ifelse(continuous, "color", "none")
     }
     continuous <- match.arg(continuous, c("color", "colour", "size", "none", "all"))

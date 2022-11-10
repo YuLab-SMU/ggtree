@@ -38,7 +38,8 @@ Imports:
     treeio (>= 1.8.0),
     utils,
     scales,
-    stats
+    stats,
+    cli
 Suggests:
     emojifont,
     ggimage,
