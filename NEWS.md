@@ -26,6 +26,10 @@
 
 -->
 
+# ggtree 3.7.1.001
+
++ using `cli::cli_alert_warning()` instead of `warning_wrap` (2022-11-10, Thu)
+
 # ggtree 3.7.1
 
 + compatible with ggplot2 v=3.4.0 (2022-11-07, Mon)

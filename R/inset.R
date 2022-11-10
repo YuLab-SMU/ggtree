@@ -100,7 +100,7 @@ nodebar <- function(data, cols, color, alpha=1, position="stack") {
                                      theme_inset()
                    )
 
-    if (missingArg(color) || is.null(color) || is.na(color)) {
+    if (missingArg(color) || is.null(color) || any(is.na(color))) {
         ## do nothing
     } else {
         bars <- lapply(bars, function(p) p+scale_fill_manual(values=color))
@@ -140,7 +140,7 @@ ggpie <- function(data, y, fill, color, alpha=1, outline.color="transparent", ou
         geom_bar(stat='identity', alpha=alpha, color=outline.color, size=outline.size, show.legend = F) +
         coord_polar(theta='y') + theme_inset()
 
-    if (missingArg(color) == TRUE || is.null(color) == TRUE || any(is.na(color)) == TRUE) {
+    if (missingArg(color) || is.null(color) || any(is.na(color))) {
         ## do nothing
     } else {
         p <- p+scale_fill_manual(values=color)

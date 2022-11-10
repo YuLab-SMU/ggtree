@@ -1,7 +1,7 @@
 Package: ggtree
 Type: Package
 Title: an R package for visualization of tree and annotation data
-Version: 3.7.1
+Version: 3.7.1.001
 Authors@R: c(
        person("Guangchuang", "Yu",     email = "guangchuangyu@gmail.com", role = c("aut", "cre", "cph"), 
             comment = c(ORCID = "0000-0002-6485-8781")),
