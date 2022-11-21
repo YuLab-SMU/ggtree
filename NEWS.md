@@ -26,8 +26,9 @@
 
 -->
 
-# ggtree 3.7.1.001
+# ggtree 3.7.1.002
 
++ update `theme_dendrogram()` to use `ggfun::theme_noxaxis()` (2022-11-21, Mon)
 + using `cli::cli_alert_warning()` instead of `warning_wrap` (2022-11-10, Thu)
 
 # ggtree 3.7.1

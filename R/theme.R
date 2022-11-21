@@ -44,14 +44,9 @@ theme_tree <- function(bgcolor="white", ...) {
 ##' @importFrom ggplot2 element_text
 ##' @author Guangchuang Yu
 theme_dendrogram <- function(bgcolor = "white", fgcolor = "black", ...) {
-    theme_tree2(bgcolor = bgcolor,
-                axis.line.x = element_blank(),
-                axis.text.x = element_blank(),
-                axis.ticks.x = element_blank(),
-                axis.line.y = element_line(color=fgcolor),
-                axis.text.y = element_text(color=fgcolor),
-                axis.ticks.y = element_line(color=fgcolor),
-                ...)
+    list(theme_tree2(bgcolor = bgcolor)
+        ggfun::theme_noxaxis(color=bgcolor, ...)
+    )
 }
 
 
