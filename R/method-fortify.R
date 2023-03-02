@@ -188,6 +188,10 @@ fortify.igraph <- fortify.phylo4
 ##' @export
 fortify.linkage <- fortify.phylo4
 
+##' @method fortify dendro
+##' @export
+fortify.dendro <- fortify.phylo4
+
 ##' @method fortify phylo4d
 ##' @importFrom treeio as.treedata
 ##' @export

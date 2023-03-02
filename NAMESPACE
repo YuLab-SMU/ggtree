@@ -3,6 +3,7 @@
 S3method(MRCA,ggtree)
 S3method(collapse,ggtree)
 S3method(fortify,agnes)
+S3method(fortify,dendro)
 S3method(fortify,dendrogram)
 S3method(fortify,diana)
 S3method(fortify,hclust)
