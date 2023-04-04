@@ -30,7 +30,8 @@
 ##' ggdensitree(trees) + geom_tiplab()
 ##' 
 ##' # Plot multiple trees with aligned tips with tip labels and separate tree colors
-##' trees.fort <- list(trees[[1]] %>% fortify %>% mutate(tree="a"), trees[[2]] %>% fortify %>% mutate(tree="b"));
+##' trees.fort <- list(trees[[1]] %>% fortify %>% 
+##'               mutate(tree="a"), trees[[2]] %>% fortify %>% mutate(tree="b"));
 ##' ggdensitree(trees.fort, aes(colour=tree)) + geom_tiplab(colour='black')
 ##' 
 ##' 
@@ -53,11 +54,14 @@
 ##' example.trees <- read.tree(system.file("examples", "ggdensitree_example.tree", package="ggtree"))
 ##' 
 ##' # Compute OTU
-##' grp <- list(A = c("a.t1", "a.t2", "a.t3", "a.t4"), B = c("b.t1", "b.t2", "b.t3", "b.t4"), C = c("c.t1", "c.t2", "c.t3", "c.t4"))
+##' grp <- list(A = c("a.t1", "a.t2", "a.t3", "a.t4"), 
+##'             B = c("b.t1", "b.t2", "b.t3", "b.t4"), 
+##'             C = c("c.t1", "c.t2", "c.t3", "c.t4"))
 ##' otu.trees <- lapply(example.trees, groupOTU, grp)
 ##' 
 ##' # Plot multiple trees colored by OTU
-##' ggdensitree(otu.trees, aes(colour=group), alpha=1/6, tip.order='mds') + scale_colour_manual(values=c("black", "red", "green", "blue"))
+##' ggdensitree(otu.trees, aes(colour=group), alpha=1/6, tip.order='mds') + 
+##'     scale_colour_manual(values=c("black", "red", "green", "blue"))
 ggdensitree <- function(data=NULL, mapping=NULL, layout="slanted", tip.order='mode',
 						align.tips=TRUE, jitter=0, ...) {
 	## factorize to simplify code

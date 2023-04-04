@@ -94,7 +94,9 @@ is.viewClade <- function(tree_view) {
 ##' x <- rtree(15)
 ##' p <- ggtree(x) + geom_tiplab()
 ##' p
-##' p1 <- collapse(p, node = 17, mode = "mixed", clade_name = "cclade", alpha = 0.8, color = "grey", fill = "light blue")
+##' p1 <- collapse(p, node = 17, mode = "mixed", 
+##'                clade_name = "cclade", alpha = 0.8, 
+##'                color = "grey", fill = "light blue")
 ##' @seealso expand
 ##' @author Guangchuang Yu
 collapse.ggtree <- function(x=NULL, node, mode = "none", clade_name = NULL, ...) {

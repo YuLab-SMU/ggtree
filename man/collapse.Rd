@@ -28,7 +28,9 @@ collapse a selected clade, which can later be expanded with the 'expand()' fucti
 x <- rtree(15)
 p <- ggtree(x) + geom_tiplab()
 p
-p1 <- collapse(p, node = 17, mode = "mixed", clade_name = "cclade", alpha = 0.8, color = "grey", fill = "light blue")
+p1 <- collapse(p, node = 17, mode = "mixed", 
+               clade_name = "cclade", alpha = 0.8, 
+               color = "grey", fill = "light blue")
 }
 \seealso{
 expand
