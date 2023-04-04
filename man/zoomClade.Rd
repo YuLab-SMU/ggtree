@@ -21,10 +21,12 @@ full tree with zoom in clade
 zoom in on a selected clade of a tree, while showing its on the full view of tree as a seperated panel for reference
 }
 \examples{
+\dontrun{
 x <- rtree(15)
 p <- ggtree(x) + geom_tiplab() +
   geom_nodelab(aes(subset=!isTip, label=node), hjust = -.1, color = "red")
 zoomClade(p, 21, xexpand = .2)
+}
 }
 \author{
 Guangchuang Yu

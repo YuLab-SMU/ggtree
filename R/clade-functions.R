@@ -472,10 +472,12 @@ reassign_y_from_node_to_root <- function(df, node) {
 ##' @return full tree with zoom in clade
 ##' @author Guangchuang Yu
 ##' @examples
+##' \dontrun{
 ##' x <- rtree(15)
 ##' p <- ggtree(x) + geom_tiplab() +
 ##'   geom_nodelab(aes(subset=!isTip, label=node), hjust = -.1, color = "red")
 ##' zoomClade(p, 21, xexpand = .2)
+##' }
 ##' @export
 zoomClade <- function(tree_view = NULL, node, xexpand=NULL) {
     p <- get_tree_view(tree_view)

@@ -26,7 +26,7 @@
 
 -->
 
-# ggtree 3.7.1.003
+# ggtree 3.7.2
 
 + `ggtree()` supports 'dendro' object (`ggdendro::dendro_data()` output) (2023-03-02, Thu)
 + update `theme_dendrogram()` to use `ggfun::theme_noxaxis()` (2022-11-21, Mon)
