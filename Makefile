@@ -87,7 +87,7 @@ update:
 
 push:
 	git push upstream master;\
-	git push gitee master;\
+	#git push gitee master;\
 	git push origin master
 
 
