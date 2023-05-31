@@ -1,5 +1,4 @@
-# ggtree\n\n+ Bioconductor RELEASE_3_17 (2023-05-31, Wed)\n
-# ggtree\n\n+ Bioconductor RELEASE_3_17 (2023-05-03, Wed)\n
+
 
 <!--
 
@@ -27,6 +26,10 @@
   - <https://github.com/thomasp85/ggraph/commit/14de66f1225336179b4598cb42a4beda95682211>
 
 -->
+
+# ggtree 3.8.0
+
++ Bioconductor RELEASE_3_17 (2023-05-03, Wed)
 
 # ggtree 3.7.2
 
