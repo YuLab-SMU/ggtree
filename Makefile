@@ -82,15 +82,15 @@ release:
 
 update:
 	git fetch --all;\
-	git checkout master;\
-	git merge upstream/master;\
-	git merge gitee/master;\
-	git merge origin/master
+	git checkout devel;\
+	git merge upstream/devel;\
+	git merge gitee/devel;\
+	git merge origin/devel
 
 push:
-	git push upstream master;\
-	#git push gitee master;\
-	git push origin master
+	git push upstream devel;\
+	#git push gitee devel;\
+	git push origin devel
 
 
 # svnignore:
@@ -99,8 +99,8 @@ push:
 # svncommit:
 # 	git checkout devel;\
 # 	git svn rebase;\
-# 	git merge master --log;\
+# 	git merge devel --log;\
 # 	git svn dcommit;\
 # 	git push -u origin devel;\
-# 	git checkout master;\
+# 	git checkout devel;\
 # 	git merge devel
