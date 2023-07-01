@@ -84,7 +84,7 @@ update:
 	git fetch --all;\
 	git checkout devel;\
 	git merge upstream/devel;\
-	git merge gitee/devel;\
+	#git merge gitee/devel;\
 	git merge origin/devel
 
 push:
