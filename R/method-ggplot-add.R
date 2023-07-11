@@ -748,7 +748,7 @@ ggplot_add.striplab <- function(object, plot, object_name){
 ##' @export
 ggplot_add.scale_ggtree <- function(object, plot, object_name) {
     mrsd <- get("mrsd", envir = plot$plot_env)
-    if (!is.null(mrsd) && class(plot$data$x) == "Date") {
+    if (!is.null(mrsd) && inherits(plot$data$x, "Date")) {
         x <- Date2decimal(plot$data$x)
     } else {
         x <- plot$data$x
@@ -762,7 +762,7 @@ ggplot_add.scale_ggtree <- function(object, plot, object_name) {
     }
     m <- attr(plot, "mapping")
 
-    if (!is.null(mrsd) && class(m$to) == "Date") {
+    if (!is.null(mrsd) && inherits(m$to, "Date")) {
         to <- Date2decimal(m$to)
     } else {
         to <- m$to
@@ -784,7 +784,7 @@ ggplot_add.scale_ggtree <- function(object, plot, object_name) {
     breaks <- c(breaks, to)
     labels <- c(labels, gsub("\\.", "", as.character(m$from)))
 
-    if (!is.null(mrsd) && class(plot$data$x) == "Date") {
+    if (!is.null(mrsd) && inherits(plot$data$x, "Date")) {
         obj <- scale_x_date(breaks=decimal2Date(breaks), labels)
     } else {
         obj <- scale_x_continuous(breaks=breaks, labels=labels)

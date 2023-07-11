@@ -4,12 +4,12 @@
 \alias{\%+>\%}
 \title{\%+>\%}
 \usage{
-p \%+>\% data
+p \%+>\% .data
 }
 \arguments{
 \item{p}{tree view}
 
-\item{data}{data.frame}
+\item{.data}{data.frame}
 }
 \value{
 updated data.frame

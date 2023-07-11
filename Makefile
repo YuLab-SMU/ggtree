@@ -1,7 +1,7 @@
 PKGNAME := $(shell sed -n "s/Package: *\([^ ]*\)/\1/p" DESCRIPTION)
 PKGVERS := $(shell sed -n "s/Version: *\([^ ]*\)/\1/p" DESCRIPTION)
 PKGSRC  := $(shell basename `pwd`)
-BIOCVER := RELEASE_3_16
+BIOCVER := RELEASE_3_17
 
 
 all: rd check clean
@@ -22,8 +22,9 @@ sticker:
 	rm Rplots.pdf
 
 build:
-	cd ..;\
-	R CMD build $(PKGSRC)
+	# cd ..;\
+	# R CMD build $(PKGSRC)
+	Rscript -e 'devtools::build()'
 
 build2:
 	cd ..;\
@@ -33,10 +34,11 @@ install:
 	cd ..;\
 	R CMD INSTALL $(PKGNAME)_$(PKGVERS).tar.gz
 
-check: rd build
-	cd ..;\
-	Rscript -e "rcmdcheck::rcmdcheck('$(PKGNAME)_$(PKGVERS).tar.gz')"
-
+check: rd 
+	#cd ..;\
+	#Rscript -e "rcmdcheck::rcmdcheck('$(PKGNAME)_$(PKGVERS).tar.gz')"
+	Rscript -e 'devtools::check()'
+	
 check-dontrun: build
 	cd ..;\
 	Rscript -e 'rcmdcheck::rcmdcheck("$(PKGNAME)_$(PKGVERS).tar.gz", args=c("--run-dontrun"))'
@@ -80,15 +82,15 @@ release:
 
 update:
 	git fetch --all;\
-	git checkout master;\
-	git merge upstream/master;\
-	git merge gitee/master;\
-	git merge origin/master
+	git checkout devel;\
+	git merge upstream/devel;\
+	#git merge gitee/devel;\
+	git merge origin/devel
 
 push:
-	git push upstream master;\
-	git push gitee master;\
-	git push origin master
+	git push upstream devel;\
+	#git push gitee devel;\
+	git push origin devel
 
 
 # svnignore:
@@ -97,8 +99,8 @@ push:
 # svncommit:
 # 	git checkout devel;\
 # 	git svn rebase;\
-# 	git merge master --log;\
+# 	git merge devel --log;\
 # 	git svn dcommit;\
 # 	git push -u origin devel;\
-# 	git checkout master;\
+# 	git checkout devel;\
 # 	git merge devel

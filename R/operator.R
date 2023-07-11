@@ -106,7 +106,7 @@
 ##' @rdname add_TREEINFO
 ##' @title %+>%
 ##' @param p tree view
-##' @param data data.frame
+##' @param .data data.frame
 ##' @return updated data.frame
 ##' @importFrom methods is
 ##' @export
@@ -114,23 +114,23 @@
 ##' on phylogeny using ggtree. Molecular Biology and Evolution, 35(2):3041-3043.
 ##' <https://doi.org/10.1093/molbev/msy194>
 ##' @author Guangchuang Yu
-`%+>%` <- function(p, data) {
+`%+>%` <- function(p, .data) {
     df <- p$data
     lv <- levels(df$.panel)
-    if (inherits(data, "GRanges") || inherits(data, "GRangesList")) {
-        names(data) <- df$y[match(names(data), df$label)]
-        res <- data[order(as.numeric(names(data)))]
+    if (inherits(.data, "GRanges") || inherits(.data, "GRangesList")) {
+        names(.data) <- df$y[match(names(.data), df$label)]
+        res <- .data[order(as.numeric(names(.data)))]
         mcols <- get_fun_from_pkg("GenomicRanges", "mcols")
         `mcols<-` <- get_fun_from_pkg("GenomicRanges", "`mcols<-`")
         mcols(res)$.panel <- factor(lv[length(lv)], levels=lv)
-    } else if (is(data, "data.frame") || is(data, "tbl_df")) {
-        data <- as.data.frame(data)
+    } else if (is(.data, "data.frame") || is(.data, "tbl_df")) {
+        .data <- as.data.frame(.data)
         ## res <- merge(df[, c('label', 'y')], data, by.x='label', by.y=1) ## , all.x=TRUE)
-        res <- merge(df[, !names(df) %in% c('node', 'parent', 'x', 'branch', 'angle')], data, by.x='label', by.y=1)
+        res <- merge(df[, !names(df) %in% c('node', 'parent', 'x', 'branch', 'angle')], .data, by.x='label', by.y=1)
         res[[".panel"]] <- factor(lv[length(lv)], levels=lv)
         res <- res[order(res$y),]
-    } else if (is.function(data)){
-        res <- data(df)
+    } else if (is.function(.data)){
+        res <- .data(df)
         if (!is.data.frame(res)){
             rlang::abort("Data function must return a data.frame")
         }

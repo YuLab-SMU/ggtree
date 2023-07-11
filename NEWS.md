@@ -1,4 +1,5 @@
 
+
 <!--
 
 # TODO LIST
@@ -25,6 +26,16 @@
   - <https://github.com/thomasp85/ggraph/commit/14de66f1225336179b4598cb42a4beda95682211>
 
 -->
+
+# ggtree 3.8.0
+
++ Bioconductor RELEASE_3_17 (2023-05-03, Wed)
+
+# ggtree 3.7.2
+
++ `ggtree()` supports 'dendro' object (`ggdendro::dendro_data()` output) (2023-03-02, Thu)
++ update `theme_dendrogram()` to use `ggfun::theme_noxaxis()` (2022-11-21, Mon)
++ using `cli::cli_alert_warning()` instead of `warning_wrap` (2022-11-10, Thu)
 
 # ggtree 3.7.1
 

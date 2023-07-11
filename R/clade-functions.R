@@ -94,7 +94,9 @@ is.viewClade <- function(tree_view) {
 ##' x <- rtree(15)
 ##' p <- ggtree(x) + geom_tiplab()
 ##' p
-##' p1 <- collapse(p, node = 17, mode = "mixed", clade_name = "cclade", alpha = 0.8, color = "grey", fill = "light blue")
+##' p1 <- collapse(p, node = 17, mode = "mixed", 
+##'                clade_name = "cclade", alpha = 0.8, 
+##'                color = "grey", fill = "light blue")
 ##' @seealso expand
 ##' @author Guangchuang Yu
 collapse.ggtree <- function(x=NULL, node, mode = "none", clade_name = NULL, ...) {
@@ -472,10 +474,12 @@ reassign_y_from_node_to_root <- function(df, node) {
 ##' @return full tree with zoom in clade
 ##' @author Guangchuang Yu
 ##' @examples
+##' \dontrun{
 ##' x <- rtree(15)
 ##' p <- ggtree(x) + geom_tiplab() +
 ##'   geom_nodelab(aes(subset=!isTip, label=node), hjust = -.1, color = "red")
 ##' zoomClade(p, 21, xexpand = .2)
+##' }
 ##' @export
 zoomClade <- function(tree_view = NULL, node, xexpand=NULL) {
     p <- get_tree_view(tree_view)

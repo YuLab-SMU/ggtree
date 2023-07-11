@@ -72,7 +72,8 @@
 #' p5 <- p + geom_hilight(data=dat, mapping=aes(node=id, fill=type), align="both")
 #' # display the high light layer with gradiental color rectangular.
 #' p6 <- p + geom_hilight(data=dat, mapping=aes(node=id, fill=type), type = "gradient", alpha=0.68)
-#' p7 <- p + geom_hilight(data=dat, mapping=aes(node=id, fill=type), type = "gradient", gradient.direction="tr", alpha=0.68)
+#' p7 <- p + geom_hilight(data=dat, mapping=aes(node=id, fill=type), 
+#'                       type = "gradient", gradient.direction="tr", alpha=0.68)
 #' # display the high light layer with round rectangular.
 #' p8 <- p + geom_hilight(data=dat, mapping=aes(node=id, fill=type), type = "roundrect", alpha=0.68)
 #' p2/ p3/ p4/ p5 / p6/ p7/ p8
