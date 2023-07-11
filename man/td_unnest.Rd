@@ -30,7 +30,7 @@ For demonstration of this function, please refer to chapter 12.5.2 of
 \url{http://yulab-smu.top/treedata-book/index.html} by Guangchuang Yu.
 }
 \seealso{
-\link[tidyr:nest]{unnest}
+\link[tidyr:unnest]{unnest}
 }
 \author{
 Guangchuang Yu

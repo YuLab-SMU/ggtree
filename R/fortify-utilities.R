@@ -32,13 +32,14 @@ scaleY <- function(phylo, df, yscale, layout, ...) {
 }
 
 
-adjust_hclust_tip.edge.len <- function(df, phylo){
+adjust_hclust_tip.edge.len <- function(df, phylo, layout, branch.length="branch.length"){
     if (inherits(phylo, 'treedata')){
         tip.edge.len <- attr(phylo@phylo, 'tip.edge.len')
     }else{
         tip.edge.len <- attr(phylo, 'tip.edge.len')
     }
-    if (!is.null(tip.edge.len)){
+    if (!is.null(tip.edge.len) && branch.length!='none' && 
+        layout %in% c('rectangular', 'dendrogram', 'roundrect')){
         mx <- max(df$x, na.rm=TRUE)
         df$x <- df$x - mx
         df$branch <- df$branch - mx

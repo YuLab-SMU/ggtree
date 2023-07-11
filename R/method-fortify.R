@@ -68,7 +68,7 @@ fortify.phylo <- function(model, data,
         res <- calculate_angle(res)
     }
     res <- scaleY(as.phylo(model), res, yscale, layout, ...)
-    res <- adjust_hclust_tip.edge.len(res, x)
+    res <- adjust_hclust_tip.edge.len(res, x, layout, branch.length)
     class(res) <- c("tbl_tree", class(res))
     attr(res, "layout") <- layout
     return(res)
