@@ -28,6 +28,11 @@
 -->
 
 
+# ggtree 3.9.0.001
+
++ allows using `linewidth` parameter (synonyms for `size`) in `ggtree()` (2023-07-15, Sat, #574)
++ bug fixed in setting `branch.length = "none"` to plot 'hclust' object (2023-07-15, Sat, #574)
+
 # ggtree 3.8.0
 
 + Bioconductor RELEASE_3_17 (2023-05-03, Wed)
