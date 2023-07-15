@@ -50,7 +50,7 @@ add tree layer
 \itemize{
 \item \code{color} character, control the color of line, default is black (\code{continuous} is "none").
 \item \code{linetype} control the type of line, default is 1 (solid).
-\item \code{size} numeric, control the width of line, default is 0.5 (\code{continuous} is "none").
+\item \code{linewidth} numeric, control the width of line, default is 0.5 (\code{continuous} is "none").
 }
 }
 

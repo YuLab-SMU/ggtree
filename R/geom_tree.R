@@ -24,7 +24,7 @@
 ##'     \itemize{
 ##'        \item \code{color} character, control the color of line, default is black (\code{continuous} is "none").
 ##'        \item \code{linetype} control the type of line, default is 1 (solid).
-##'        \item \code{size} numeric, control the width of line, default is 0.5 (\code{continuous} is "none").
+##'        \item \code{linewidth} numeric, control the width of line, default is 0.5 (\code{continuous} is "none").
 ##'     }
 ##' @importFrom ggplot2 geom_segment
 ##' @importFrom ggplot2 aes
@@ -41,11 +41,11 @@ geom_tree <- function(mapping=NULL, data=NULL, layout="rectangular", multiPhylo=
     if (is.logical(continuous)){
         cli::cli_warn(c("The type of {.code continuous} argument was changed (v>=2.5.2). Now,", 
                         "i" = "Consider using {.code continuous = \"color\"}, {.code continuous = \"colour\"}, ", 
-                        "{.code continuous = \"size\"}, {.code continuous = \"all\"} or",
-                        " {.code continuous = \"none\"} instead."))
+                        "{.code continuous = \"size\"}, {.code continuous = \"all\"}, or ",
+                        "{.code continuous = \"linewidth\"}, {.code continuous = \"none\"} instead."))
         continuous <- ifelse(continuous, "color", "none")
     }
-    continuous <- match.arg(continuous, c("color", "colour", "size", "none", "all"))
+    continuous <- match.arg(continuous, c("color", "colour", "size", "none", "all", "linewidth"))
     stat_tree(data=data, mapping=mapping, geom="segment", position=position,
               layout=layout, multiPhylo=multiPhylo, continuous=continuous, ...)
 }
@@ -161,7 +161,8 @@ StatTreeHorizontal <- ggproto("StatTreeHorizontal", Stat,
                               },
                               compute_panel = function(self, data, scales, params, layout, lineend,
                                                        continuous = "none", rootnode = TRUE, 
-                                                       nsplit = 100, extend=0.002 ) {
+                                                       nsplit = 100, extend=0.002) {
+                                  data <- rename_linewidth(data)
                                   .fun <- function(data) {
                                       df <- setup_tree_data(data)
                                       x <- df$x
@@ -221,6 +222,7 @@ StatTreeHorizontal <- ggproto("StatTreeHorizontal", Stat,
                                   if (length(grep("size_new", names(data)))==1 && continuous != "none"){
                                       names(df)[match("size", names(df))] <- names(data)[grep("size_new", names(data))]
                                   }
+                                  df <- rename_size(df)
                                   return(df)
                               }
                               )
@@ -234,6 +236,7 @@ StatTreeVertical <- ggproto("StatTreeVertical", Stat,
                             compute_panel = function(self, data, scales, params, layout, lineend,
                                                      continuous = "none", nsplit=100, 
                                                      extend=0.002, rootnode = TRUE) {
+                                data <- rename_linewidth(data)
                                 .fun <- function(data) {
                                     df <- setup_tree_data(data)
                                     x <- df$x
@@ -287,6 +290,7 @@ StatTreeVertical <- ggproto("StatTreeVertical", Stat,
                                 if (length(grep("size_new", names(data)))==1 && continuous != "none"){
                                     names(df)[match("size", names(df))] <- names(data)[grep("size_new", names(data))]
                                 }
+                                df <- rename_size(df)
                                 return(df)
                             }
                             )
@@ -301,6 +305,7 @@ StatTree <- ggproto("StatTree", Stat,
                     compute_panel = function(self, data, scales, params, layout, lineend,
                                              continuous =  "none", nsplit = 100, 
                                              extend = 0.002, rootnode = TRUE) {
+                        data <- rename_linewidth(data)
                         .fun <- function(data) {
                             df <- setup_tree_data(data)
                             x <- df$x
@@ -356,7 +361,7 @@ StatTree <- ggproto("StatTree", Stat,
                         if (length(grep("size_new", names(data)))==1 && continuous != "none"){
                             names(df)[match("size", names(df))] <- names(data)[grep("size_new", names(data))]
                         }
-
+                        df <- rename_size(df)
                         return(df)
                     }
                     )
@@ -447,7 +452,7 @@ geom_tree2 <- function(layout="rectangular", ...) {
 }
 
 setup_data_continuous_color_size <- function(x, xend, y, yend, col, col2, size1, size2,
-                                        xrange = NULL, nsplit = 100, extend = 0.002) {
+                                        xrange = NULL, nsplit = 100, extend = 0.002, ...) {
     if (is.null(xrange))
         xrange <- c(x, xend)
 
@@ -494,7 +499,7 @@ setup_data_continuous_color_size <- function(x, xend, y, yend, col, col2, size1,
     return(dat)
 }
 
-setup_data_continuous_color_size_tree <- function(df, nsplit = 100, extend = 0.002, continuous = "colour") {
+setup_data_continuous_color_size_tree <- function(df, nsplit = 100, extend = 0.002, continuous = "colour", ...) {
     lapply(1:nrow(df), function(i) {
         df2 <- setup_data_continuous_color_size(x = df$x[i],
                                                 xend = df$xend[i],
@@ -512,7 +517,7 @@ setup_data_continuous_color_size_tree <- function(df, nsplit = 100, extend = 0.0
         if (continuous %in% c("color", "colour")){
             j <- match(c('x', 'xend', 'y', 'yend', 'col', 'col2', 'colour', 'size1', 'size2'), colnames(df))
             df2$size <- NULL
-        }else if (continuous == "size"){
+        }else if (continuous %in%  c("size", "linewidth")){
             j <- match(c("x", "xend", "y", "yend", "col", "col2", "size1", "size2", "size"), colnames(df))
             df2$colour <- NULL
         }else if (continuous == "all"){
@@ -521,4 +526,19 @@ setup_data_continuous_color_size_tree <- function(df, nsplit = 100, extend = 0.0
         j <- j[!is.na(j)]
         merge(df[i, -j, drop = FALSE], df2, by = "node")
     }) %>% do.call('rbind', .)
+}
+
+rename_linewidth <- function(data){
+    if (!is.null(data$linewidth) && is.null(data$size)) {
+        data$size <- data$linewidth
+    }
+    return (data)
+}
+
+rename_size <- function(data){
+    if (!is.null(data$linewidth) && !is.null(data$size)){
+        data$linewidth <- data$size
+        data$size <- NULL
+    }
+    return (data)
 }

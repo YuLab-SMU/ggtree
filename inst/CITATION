@@ -1,7 +1,7 @@
 citHeader("To cite ggtree in publications use:")
 
-citEntry(
-    entry  = "book",
+bibentry(
+    bibtype  = "book",
     title = "Data Integration, Manipulation and Visualization of Phylogenetic Treess",
     author = person("Guangchuang", "Yu"),
 	publisher = "Chapman and Hall/{CRC}",
@@ -14,20 +14,20 @@ citEntry(
                         "Chapman and Hall/CRC. doi:10.1201/9781003279242")   
 )
 
-citEntry(
-    entry  = "article",
+bibentry(
+    bibtype  = "article",
     title = "Ggtree: A serialized data object for visualization of a phylogenetic tree and annotation data",
     author = personList(
-        as.person("Shuangbin Xu"),
-        as.person("Lin Li"),
-        as.person("Xiao Luo"),
-        as.person("Meijun Chen"),
-        as.person("Wenli Tang"),
-        as.person("Li Zhan"),
-        as.person("Zehan Dai"),
-        as.person("Tommy T. Lam"),
-        as.person("Yi Guan"),
-        as.person("Guangchuang Yu")
+        person("Shuangbin", "Xu"),
+        person("Lin", "Li"),
+        person("Xiao", "Luo"),
+        person("Meijun", "Chen"),
+        person("Wenli", "Tang"),
+        person("Li", "Zhan"),
+        person("Zehan", "Dai"),
+        person("Tommy T. Lam"),
+        person("Yi", "Guan"),
+        person("Guangchuang", "Yu")
     ),
     year = "2022",
     journal = "iMeta",
@@ -42,8 +42,8 @@ citEntry(
 )
 
 
-citEntry(
-    entry  = "article",
+bibentry(
+    bibtype  = "article",
     title = "Using ggtree to Visualize Data on Tree-Like Structures",
     author = person("Guangchuang", "Yu"),
     year = "2020",
@@ -59,8 +59,8 @@ citEntry(
 )
 
 
-citEntry(
-    entry  = "article",
+bibentry(
+    bibtype  = "article",
     title  = "Two methods for mapping and visualizing associated data on phylogeny using ggtree.",
     author = personList(
         as.person("Guangchuang Yu"),
@@ -82,8 +82,8 @@ citEntry(
                         "Molecular Biology and Evolution 2018, 35(2):3041-3043. doi: 10.1093/molbev/msy194")
 )
 
-citEntry(
-    entry  = "article",
+bibentry(
+    bibtype  = "article",
     title  = "ggtree: an R package for visualization and annotation of phylogenetic trees with their covariates and other associated data.",
     author = personList(
         as.person("Guangchuang Yu"),
