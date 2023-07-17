@@ -52,8 +52,6 @@ Suggests:
     testthat,
     tibble,
     glue
-Remotes:
-    GuangchuangYu/treeio
 VignetteBuilder: knitr
 ByteCompile: true
 Encoding: UTF-8
