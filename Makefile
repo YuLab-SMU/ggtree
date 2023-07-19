@@ -80,17 +80,19 @@ release:
 	git checkout $(BIOCVER);\
 	git fetch --all
 
+
 update:
 	git fetch --all;\
 	git checkout devel;\
 	git merge upstream/devel;\
-	#git merge gitee/devel;\
-	git merge origin/devel
+	git merge origin/devel;\
+	git merge yulab/devel
 
 push:
 	git push upstream devel;\
-	#git push gitee devel;\
+	git push yulab devel;\
 	git push origin devel
+
 
 
 # svnignore:
