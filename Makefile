@@ -81,6 +81,9 @@ release:
 	git fetch --all
 
 
+yulab:
+	git push yulab devel
+	
 update:
 	git fetch --all;\
 	git checkout devel;\
