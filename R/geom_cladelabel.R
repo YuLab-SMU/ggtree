@@ -101,6 +101,7 @@ geom_cladelabel_rectangular <- function(node, label,
     }
 
     if (parse == 'emoji') {
+        check_installed('emojifont', "for `geom_cladelabel()` with parse = 'emoji'.")
         emoji <- get_fun_from_pkg("emojifont", "emoji")
         label <- emoji(label)
         parse <- FALSE

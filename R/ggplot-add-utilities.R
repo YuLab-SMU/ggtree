@@ -335,6 +335,7 @@ reset_dot_params <- function(mapping, defaultp, default_aes, params){
 
 build_image_layer <- function(data, object, params){
     image_obj <- list()
+    check_installed('ggimage', "for `geom_cladelab()` or `geom_striplab()` with geom='image' or geom='phylopic'.")
     label_geom <- switch(object$geom,
                         image=get_fun_from_pkg("ggimage", "geom_image"),
                         phylopic=get_fun_from_pkg("ggimage", "geom_phylopic")
@@ -361,7 +362,10 @@ build_image_layer <- function(data, object, params){
 build_text_layer <- function(data, object, params, layout){
     text_obj <- list()
     text_obj$data <- data
-    if (object$geom=="shadowtext"){label_geom <- get_fun_from_pkg("shadowtext", "geom_shadowtext")}
+    if (object$geom=="shadowtext"){
+        check_installed('shadowtext', "for `geom_cladelab()` or `geom_striplab()` with geom='shadowtext'.")
+        label_geom <- get_fun_from_pkg("shadowtext", "geom_shadowtext")
+    }
     text_default_aes <- list(textcolour="white", textcolor="white", textsize=3.88, 
                              fontsize=3.88, fontcolor="white", fontcolour="white", 
                              colour="white", size=3.88, angle=0, hjust=0.5, vjust=0.5,
@@ -396,6 +400,7 @@ build_text_layer <- function(data, object, params, layout){
                                                          params=object$params)
                              )
     if (object$parse=="emoji"){
+        check_installed('emojifont', "for `geom_cladelab()` or `geom_striplab()` with parse='emoji'.")
         emojifont <- "emojifont"
         emoji <- get_fun_from_pkg("emojifont", "emoji")
         require(emojifont, character.only = TRUE) %>% suppressMessages()

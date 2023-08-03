@@ -148,10 +148,13 @@ geom_tiplab_rectangular <- function(mapping=NULL, hjust = 0,  align = FALSE,
     } else if (geom == "label") {
         label_geom <- geom_label2
     } else if (geom == 'shadowtext') {
+        check_installed('shadowtext', "for `geom_tiplab()` with geom = 'shadowtext'.")
         label_geom <- get_fun_from_pkg("shadowtext", "geom_shadowtext")
     } else if (geom == "image") {
+        check_installed('ggimage', "for `geom_tiplab()` with geom = 'image'.")
         label_geom <- get_fun_from_pkg("ggimage", "geom_image")
     } else if (geom == "phylopic") {
+        check_installed('ggimage', "for `geom_tiplab()` with geom = 'phylopic'.")
         label_geom <- get_fun_from_pkg("ggimage", "geom_phylopic")
     }
 

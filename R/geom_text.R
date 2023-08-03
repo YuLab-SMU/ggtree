@@ -54,6 +54,7 @@ geom_text2 <- function(mapping = NULL, data = NULL,
     }
 
     if (parse == "emoji") {
+        check_installed('emojifont', "for `geom_text2()` with parse = 'emoji'.")
         emoji <- get_fun_from_pkg("emojifont", "emoji")
         parse <- FALSE
         family <- "EmojiOne"
