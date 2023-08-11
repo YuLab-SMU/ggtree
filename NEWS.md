@@ -28,8 +28,9 @@
 -->
 
 
-# ggtree 3.9.0.001
+# ggtree 3.9.1
 
++ use `rlang::check_installed()` to check whether the suggested pkg is installed (2023-08-11, Fri, #580)
 + allows using `linewidth` parameter (synonyms for `size`) in `ggtree()` (2023-07-15, Sat, #574)
 + bug fixed in setting `branch.length = "none"` to plot 'hclust' object (2023-07-15, Sat, #574)
 
