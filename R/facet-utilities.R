@@ -36,6 +36,7 @@ facet_labeller <- function(p, label) {
 ##' @author Guangchuang Yu
 ##' @export
 ##' @importFrom ggplot2 ggplot_gtable
+##' @importFrom rlang check_installed
 facet_widths <- function(p, widths) {
     if (!is.null(names(widths))) {
         ## if (is.ggtree(p) && !is.null(names(widths))) {
@@ -55,6 +56,7 @@ facet_widths <- function(p, widths) {
     ## issue: https://github.com/YuLab-SMU/ggtree/issues/459
     j <- gt$layout$l[grep('panel-1-', gt$layout$name)]    
     gt$widths[j] <- gt$widths[j] * widths
+    check_installed('ggplotify', 'for `facet_widths()`.')
     return(ggplotify::as.ggplot(gt))
 }
 
