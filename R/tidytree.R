@@ -3,3 +3,6 @@ rootnode.tbl_tree <- utils::getFromNamespace("rootnode.tbl_tree", "tidytree")
 offspring.tbl_tree <- utils::getFromNamespace("offspring.tbl_tree", "tidytree")
 child.tbl_tree <- utils::getFromNamespace("child.tbl_tree", "tidytree")
 parent.tbl_tree <- utils::getFromNamespace("parent.tbl_tree", "tidytree")
+
+#' @import tidytree
+NULL
