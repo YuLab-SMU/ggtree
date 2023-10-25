@@ -15,7 +15,12 @@ sed -i "s/$oldver/$newver/g" Makefile
 
 ## add release in NEWS.md
 ver=$(head DESCRIPTION |grep Version  |cut -d' ' -f2)
-echo -e "# $pkg $ver\n\n+ Bioconductor $newver ($(date +'%Y-%m-%d, %a'))\n" > tmp.md
+x=$(echo $ver | cut -d'.' -f1)
+y=$(echo $ver | cut -d'.' -f2)
+z=$(echo $ver | cut -d'.' -f3)
+y2=$(echo $(($y -1)))
+
+echo -e "# $pkg $x.$y2.$z\n\n+ Bioconductor $newver ($(date +'%Y-%m-%d, %a'))\n" > tmp.md
 cat NEWS.md >> tmp.md 
 mv tmp.md NEWS.md
 
