@@ -485,8 +485,8 @@ build_align_data <- function(data, align){
 }
 
 
-#' @importFrom utils getFromNamespace
-rect_to_poly <- getFromNamespace("rect_to_poly", "ggplot2")
+
+
 
 ## ##' layer of hilight clade with rectangle
 ## ##'
@@ -627,3 +627,22 @@ rect_to_poly <- getFromNamespace("rect_to_poly", "ggplot2")
 ##                        required_aes = c("x", "y") #, "branch.length")
 ##                        )
 
+#' @importFrom utils getFromNamespace
+data_frame0 <- getFromNamespace("data_frame0", "ggplot2")
+
+
+# taken from ggplot2 as it was removed in recent release.
+# 
+# Convert rectangle to polygon
+# Useful for non-Cartesian coordinate systems where it's easy to work purely in
+# terms of locations, rather than locations and dimensions. Note that, though
+# `polygonGrob()` expects an open form, closed form is needed for correct
+# munching (c.f. https://github.com/tidyverse/ggplot2/issues/3037#issuecomment-458406857).
+#
+# @keyword internal
+rect_to_poly <- function(xmin, xmax, ymin, ymax) {
+  data_frame0(
+    y = c(ymax, ymax, ymin, ymin, ymax),
+    x = c(xmin, xmax, xmax, xmin, xmin)
+  )
+}
