@@ -28,9 +28,9 @@
   - <https://github.com/thomasp85/ggraph/commit/14de66f1225336179b4598cb42a4beda95682211>
 
 -->
-# ggtree 3.11.0.001
+# ggtree 3.11.1
 
-+ copy `rect_to_poly()` from ggplot2 to make it compatible with the comming release of ggplot2 (2024-02-13, Tue)
++ copy `rect_to_poly()` from ggplot2 to make it compatible with ggplot2 3.5.0 (2024-02-13, Tue)
 
 # ggtree 3.10.0
 

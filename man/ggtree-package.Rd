@@ -2,8 +2,9 @@
 % Please edit documentation in R/ggtree-package.R
 \docType{package}
 \name{ggtree-package}
-\alias{ggtree}
 \alias{ggtree-package}
+\alias{_PACKAGE}
+\alias{package-ggtree}
 \title{ggtree: an R package for visualization of tree and annotation data}
 \description{
 'ggtree' extends the 'ggplot2' plotting system which implemented the grammar of graphics. 'ggtree' is designed for visualization and annotation of phylogenetic trees and other tree-like structures with their annotation data.
