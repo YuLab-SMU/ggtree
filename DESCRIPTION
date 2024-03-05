@@ -52,8 +52,6 @@ Suggests:
     testthat,
     tibble,
     glue
-Remotes:
-    YuLab-SMU/treeio
 VignetteBuilder: knitr
 ByteCompile: true
 Encoding: UTF-8
