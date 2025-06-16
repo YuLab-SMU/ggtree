@@ -306,7 +306,16 @@ geom_hilight_encircle2 <- function(data=NULL,
           )
 }
 
-check_linewidth <- getFromNamespace('check_linewidth', 'ggplot2')
+check_linewidth <- function(data, name) {
+  if (is.null(data$linewidth) && !is.null(data$size)) {
+    warning(paste0(
+      "Using the `size` aesthetic with ", name, " was deprecated in ggplot2 3.4.0.\n",
+      "Please use the `linewidth` aesthetic instead."
+    ))
+    data$linewidth <- data$size
+  }
+  data
+}
 snake_class <- getFromNamespace('snake_class', 'ggplot2')
 snakeize <- getFromNamespace('snakeize', 'ggplot2')
 
