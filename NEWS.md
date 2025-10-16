@@ -22,8 +22,9 @@
 
 -->
 
-# ggtree 3.99.0
+# ggtree 3.99.1
 
++ update `gheatmap` and `geom_range` to compatible with ggplot2 v=4.0.0 (2025-10-16, Thu, #668, #672)
 + interactive ggtree (2025-09-16, #662)
   - incorporated iggtree, <https://github.com/YuLab-SMU/iggtree>
 + Added support for XStringSet in msaplot (2027-07-13, Sun, #631)
