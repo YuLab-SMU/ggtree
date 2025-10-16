@@ -33,7 +33,10 @@ geom_range_internal <- function(range, center, mapping=NULL, position = "identit
     }
 
 
-    mapping <- modifyList(default_aes, aes(center=!!sym("center"), lower=!!sym("lower"), upper=!!sym("upper")))
+    mapping <- modifyList(default_aes, aes(center = !!new_quosure(parse_expr(center)), 
+                                           lower  = !!new_quosure(parse_expr(lower)), 
+                                           upper  = !!new_quosure(parse_expr(upper)))
+    )
 
     layer(
         stat = StatRange,
@@ -41,10 +44,9 @@ geom_range_internal <- function(range, center, mapping=NULL, position = "identit
         data = NULL,
         geom = GeomInteractiveSegment,
         position = position,
-        show.legend=show.legend,
+        show.legend = show.legend,
         inherit.aes = inherit.aes,
-        params = list(na.rm = na.rm,
-                      ...),
+        params = list(na.rm = na.rm, ...),
         check.aes = FALSE
     )
 
@@ -53,7 +55,7 @@ geom_range_internal <- function(range, center, mapping=NULL, position = "identit
 
 
 StatRange <- ggproto("StatRange", Stat,
-                     compute_group = function(self, data, scales, params) {
+                     compute_panel = function(self, data, scales, params) {
                          df <- data[!is.na(data[["lower"]]),]
                          df[["lower"]] <- as.numeric(df[["center"]]) + df[["x"]] - df[["lower"]]
                          df[["upper"]] <- as.numeric(df[["center"]]) + df[["x"]] - df[["upper"]]
@@ -63,7 +65,8 @@ StatRange <- ggproto("StatRange", Stat,
                          df
 
                      },
-                     required_aes = c("x", "y", "xend", "yend")
+                     required_aes = c("x", "y", "xend", "yend"),
+                     optional_aes = c("center", "lower", "upper")
                      )
 
 range_center <- function(range) {

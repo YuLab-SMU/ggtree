@@ -112,11 +112,19 @@ p7 <- p + geom_hilight(data=dat, mapping=aes(node=id, fill=type),
 # display the high light layer with round rectangular.
 p8 <- p + geom_hilight(data=dat, mapping=aes(node=id, fill=type), type = "roundrect", alpha=0.68)
 p2/ p3/ p4/ p5 / p6/ p7/ p8
+
 library(ggiraph)
-f <- ggtree(tree, layout = 'daylight', mapping = aes(tooltip = round(branch.length, 2), data_id = node))
-f1 <- f + geom_hilight(data=dat, mapping=aes(node=id, fill=type, tooltip = id, data_id = id), to.bottom = TRUE)
-ff <- ggtree(tree, layout = 'circular', mapping = aes(tooltip = round(branch.length, 2), data_id = node))
-ff1 <- ff + geom_hilight(data=dat, mapping=aes(node=id, fill=type, tooltip = id, data_id = id), to.bottom = TRUE)
+f <- ggtree(tree, layout = 'daylight', 
+            mapping = aes(tooltip = round(branch.length, 2), data_id = node))
+f1 <- f + geom_hilight(data=dat, 
+            mapping=aes(node=id, fill=type, tooltip = id, data_id = id), to.bottom = TRUE)
+ff <- ggtree(tree, layout = 'circular', 
+             mapping = aes(tooltip = round(branch.length, 2), data_id = node))
+ff1 <- ff + geom_hilight(
+              data=dat, 
+              mapping = aes(node=id, fill=type, tooltip = id, data_id = id), 
+              to.bottom = TRUE
+            )
 girafe(ggobj = f1)
 girafe(ggobj = ff1)
 }
