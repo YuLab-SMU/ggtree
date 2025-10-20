@@ -3,7 +3,7 @@
 ##'
 ##' @title msaplot
 ##' @param p tree view
-##' @param fasta fasta file that contains multiple sequence alignment information, or XStringSet object. see also the 'seqmagick' package for more file types. 
+##' @param fasta fasta file that contains multiple sequence alignment information, or XStringSet object. see also the 'seqmagick' package for more file types.
 ##' @param offset set the offset of MSA to tree
 ##' @param width total width of alignment, compare to width of tree, defaults to 1,
 ##' which means they are of the same length
@@ -19,25 +19,25 @@
 ##' @importFrom ggplot2 scale_fill_manual
 ##' @author Guangchuang Yu
 ##' @references
-##' For demonstration of this function, please refer to chapter 7.4 of 
+##' For demonstration of this function, please refer to chapter 7.4 of
 ##' *Data Integration, Manipulation and Visualization of Phylogenetic Trees*
 ##' <http://yulab-smu.top/treedata-book/index.html> by Guangchuang Yu.
-msaplot <- function(p, fasta, offset=0, width=1, color=NULL, window=NULL, bg_line = TRUE, height = 0.8){
+msaplot <- function(p, fasta, offset = 0, width = 1, color = NULL, window = NULL, bg_line = TRUE, height = 0.8) {
     if (missingArg(fasta)) {
         x <- NULL
-    } else if (is(fasta, "DNAbin") || is(fasta, "AAbin") ) {
+    } else if (is(fasta, "DNAbin") || is(fasta, "AAbin")) {
         x <- fasta
     } else if (is(fasta, "character")) {
         x <- treeio::read.fasta(fasta)
     } else if (is(fasta, "BStringSet")) {
         if (requireNamespace("Biostrings", quietly = TRUE) == TRUE) {
-          temp_fasta <- tempfile("temp_fasta", fileext = ".fasta")
-          Biostrings::writeXStringSet(fasta, temp_fasta)
-          
-          x <- treeio::read.fasta(temp_fasta)
-      } else {
-          stop("object is of class 'BStringSet' but library 'Biostrings' is not installed...\n-> please install 'Biostrings' from https://bioconductor.org/packages/Biostrings for handling objects of type 'BStringSet'.")
-      }
+            temp_fasta <- tempfile("temp_fasta", fileext = ".fasta")
+            Biostrings::writeXStringSet(fasta, temp_fasta)
+
+            x <- treeio::read.fasta(temp_fasta)
+        } else {
+            stop("object is of class 'BStringSet' but library 'Biostrings' is not installed...\n-> please install 'Biostrings' from https://bioconductor.org/packages/Biostrings for handling objects of type 'BStringSet'.")
+        }
     } else if (is(fasta, "DNAStringSet")) {
         x <- ape::as.DNAbin(fasta)
     } else if (is(fasta, "AAStringSet")) {
@@ -66,26 +66,26 @@ msaplot <- function(p, fasta, offset=0, width=1, color=NULL, window=NULL, bg_lin
         window <- c(1, ncol(x))
     }
 
-    slice <- seq(window[1], window[2], by=1)
+    slice <- seq(window[1], window[2], by = 1)
     x <- x[, slice]
 
     seqs <- lapply(1:nrow(x), function(i) {
-        seq <- as.vector(as.character(x[i,]))
-        seq[seq == '?'] <- '-'
-        seq[seq == '*'] <- '-'
-        seq[seq == ' '] <- '-'
+        seq <- as.vector(as.character(x[i, ]))
+        seq[seq == "?"] <- "-"
+        seq[seq == "*"] <- "-"
+        seq[seq == " "] <- "-"
         return(seq)
     })
 
     names(seqs) <- labels(x)
 
-    if(is.null(color)) {
-        alphabet <- unlist(seqs) %>% unique
-        alphabet <- alphabet[alphabet != '-']
+    if (is.null(color)) {
+        alphabet <- unlist(seqs) %>% unique()
+        alphabet <- alphabet[alphabet != "-"]
         ## color <- rainbow_hcl(length(alphabet))
         color <- getCols(length(alphabet))
         names(color) <- alphabet
-        color <- c(color, '-'=NA)
+        color <- c(color, "-" = NA)
     }
 
     df <- p$data
@@ -94,51 +94,59 @@ msaplot <- function(p, fasta, offset=0, width=1, color=NULL, window=NULL, bg_lin
     ## }
 
     ## convert width to width of each cell
-    width <- width * (df$x %>% range %>% diff) / diff(window)
+    width <- width * (df$x %>% range() %>% diff()) / diff(window)
 
-    df=df[df$isTip,]
+    df <- df[df$isTip, ]
     start <- max(df$x) * 1.02 + offset
 
     seqs <- seqs[df$label[order(df$y)]]
     ## seqs.df <- do.call("rbind", seqs)
 
-    h <- ceiling(diff(range(df$y))/length(df$y))
+    h <- ceiling(diff(range(df$y)) / length(df$y))
     xmax <- start + seq_along(slice) * width
     xmin <- xmax - width
     y <- sort(df$y)
-    ymin <- y - height/2 *h
-    ymax <- y + height/2 *h
+    ymin <- y - height / 2 * h
+    ymax <- y + height / 2 * h
 
     from <- to <- NULL
 
-    lines.df <- data.frame(from=min(xmin), to=max(xmax), y = y)
+    lines.df <- data.frame(from = min(xmin), to = max(xmax), y = y)
 
     if (bg_line) {
-        p <- p + geom_segment(data=lines.df, aes(x=from, xend=to, y=y, yend=y), 
-                              size=h*.2, inherit.aes = FALSE)
+        p <- p + geom_segment(
+            data = lines.df, aes(x = from, xend = to, y = y, yend = y),
+            size = h * .2, inherit.aes = FALSE
+        )
     }
 
     msa <- lapply(1:length(y), function(i) {
-        data.frame(name=names(seqs)[i],
-                   xmin=xmin,
-                   xmax=xmax,
-                   ymin=ymin[i],
-                   ymax=ymax[i],
-                   seq=seqs[[i]])
+        data.frame(
+            name = names(seqs)[i],
+            xmin = xmin,
+            xmax = xmax,
+            ymin = ymin[i],
+            ymax = ymax[i],
+            seq = seqs[[i]]
+        )
     })
 
     msa.df <- do.call("rbind", msa)
 
-    p <- p + geom_rect(aes(xmin=xmin, xmax=xmax,
-                           ymin=ymin, ymax=ymax,
-                           fill=seq),
-                       data=msa.df, inherit.aes = FALSE) +
-                               scale_fill_manual(values=color, na.value = 'white')
+    p <- p + geom_rect(
+        aes(
+            xmin = xmin, xmax = xmax,
+            ymin = ymin, ymax = ymax,
+            fill = seq
+        ),
+        data = msa.df, inherit.aes = FALSE
+    ) +
+        scale_fill_manual(values = color, na.value = "white")
 
-    breaks <- graphics::hist(seq_along(slice), breaks=10, plot=FALSE)$breaks
+    breaks <- graphics::hist(seq_along(slice), breaks = 10, plot = FALSE)$breaks
     pos <- start + breaks * width
-    mapping <- data.frame(from=breaks+1, to=pos)
-    attr(p, "mapping") <- mapping
+    data_axis <- data.frame(from = breaks + 1, to = pos)
+    attr(p, "data_axis") <- data_axis
 
     return(p)
 }
