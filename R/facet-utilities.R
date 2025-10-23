@@ -65,11 +65,14 @@ panel_col_var <- function(p) {
     if (is.null(m))
         return(m)
 
+    # quo_name() works for most of the cases, but fails for cases like `factor(.data$Species)`.
+    
     ## rlang::quo_name(m)
-    rlang::quo_text(m) %>%
-        sub(",.*", "", .) %>%
-        sub(".*\\(", "", .) %>%
-        sub(".data\\$", "", .)
+    rlang::quo_text(m) |>
+        sub(",.*", "", x=_) |>
+        sub(".*\\(", "", x=_) |>
+        sub("\\)", "", x=_) |>
+        sub(".data\\$", "", x=_)
 }
 
 panel_col_levels <- function(p) {
