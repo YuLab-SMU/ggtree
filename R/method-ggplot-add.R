@@ -591,7 +591,7 @@ ggplot_add.striplabel <- function(object, plot, object_name, ...) {
                                         object$extend, adjustRatio=1.02)
     ly_bar <- geom_segment(aes(x = !!sym("x"), xend = !!sym("xend"),
                                 y = !!sym("y"), yend = !!sym("yend")),
-                           data = strip_df, size = object$barsize,
+                           data = strip_df, linewidth = object$barsize,
                            color = object$color, inherit.aes = FALSE)
 
     strip_text_df <- get_striplabel_position(d, object$taxa1, object$taxa2,
@@ -610,14 +610,14 @@ ggplot_add.striplabel <- function(object, plot, object_name, ...) {
                              data = strip_text_df, size = object$fontsize,
                              angle = object$angle, family = object$family,
                              hjust = object$hjust, parse = object$parse,
-                             color = object$color
+                             color = object$color, inherit.aes = FALSE
                              )
     } else {
         ly_text <- geom_label(aes(x = !!sym("x"), y = !!sym("y"), label = !!sym("label")),
                               data = strip_text_df, size = object$fontsize,
                               angle = object$angle, family = object$family,
                               hjust = object$hjust, parse = object$parse,
-                              color = object$color, fill = object$fill
+                              color = object$color, fill = object$fill, inherit.aes = FALSE
                               )
     }
 
