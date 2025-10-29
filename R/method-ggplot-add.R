@@ -592,7 +592,7 @@ ggplot_add.striplabel <- function(object, plot, object_name, ...) {
     ly_bar <- geom_segment(aes(x = !!sym("x"), xend = !!sym("xend"),
                                 y = !!sym("y"), yend = !!sym("yend")),
                            data = strip_df, size = object$barsize,
-                           color = object$color)
+                           color = object$color, inherit.aes = FALSE)
 
     strip_text_df <- get_striplabel_position(d, object$taxa1, object$taxa2,
                                         offset = object$offset + object$offset.text,
