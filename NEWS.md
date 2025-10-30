@@ -22,6 +22,14 @@
 
 -->
 
+# ggtree 4.1.1
+
++ bug fixed in `geom_striplab` (2025-10-30, Thu, #677)
+
+# ggtree 4.0.0
+
++ Bioconductor RELEASE_3_22 (2025-10-30, Thu)
+
 # ggtree 3.99.2
 
 + update `gheatmap`, `geom_range` and `msaplot` to compatible with ggplot2 v=4.0.0 (2025-10-16, Thu, #668, #672, #674)
