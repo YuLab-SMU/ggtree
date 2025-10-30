@@ -12,7 +12,7 @@
 <!--
 [![Project Status: Active - The project has reached a stable, usable state and is being actively developed.](http://www.repostatus.org/badges/latest/active.svg)](http://www.repostatus.org/#active)
 [![Bioc](http://www.bioconductor.org/shields/years-in-bioc/ggtree.svg)](https://www.bioconductor.org/packages/devel/bioc/html/ggtree.html#since)
-[![Last-changedate](https://img.shields.io/badge/last%20change-2025--09--18-green.svg)](https://github.com/GuangchuangYu/ggtree/commits/master)
+[![Last-changedate](https://img.shields.io/badge/last%20change-2025--10--30-green.svg)](https://github.com/GuangchuangYu/ggtree/commits/master)
 &#10;` r badge_devel("guangchuangyu/ggtree", "green")`
 ` r badge_bioc_download("ggtree", "total", "blue")`
 ` r badge_bioc_download("ggtree", "month", "blue")`
