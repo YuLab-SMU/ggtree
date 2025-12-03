@@ -58,7 +58,7 @@ layoutEqualAngle <- function(model, branch.length = "branch.length"){
 
   root <- tidytree::rootnode(tree)
   ## Convert Phylo tree to data.frame.
-  ## df <- as.data.frame.phylo_(tree)
+
   df <- as_tibble(model) %>%
       mutate(isTip = ! .data$node %in% .data$parent)
 
@@ -81,8 +81,7 @@ layoutEqualAngle <- function(model, branch.length = "branch.length"){
 
 
     ## Get number of tips for each node in tree.
-  ## nb.sp <- sapply(1:N, function(i) length(get.offspring.tip(tree, i)))
-  ## self_include = TRUE to return itself if the input node is a tip
+
   nb.sp <- vapply(1:N, function(i) length(offspring(tree, i,  type="tips", self_include = TRUE)), numeric(1))
     ## Get list of node id's.
     nodes <- getNodes_by_postorder(tree)

@@ -1,4 +1,4 @@
-##' annotate associated taxa (from taxa1 to taxa2, can be Monophyletic, Polyphyletic or Paraphyletc Taxa) with bar and (optional) text label
+##' annotate associated taxa (from taxa1 to taxa2, can be Monophyletic, Polyphyletic or Paraphyletic Taxa) with bar and (optional) text label
 ##'
 ##'
 ##' @title geom_strip
@@ -59,7 +59,7 @@ geom_strip <- function(taxa1, taxa2, label, offset=0, offset.text=0,
               class = "striplabel")
 }
 
-#' annotate associated taxa (from taxa1 to taxa2, can be Monophyletic, Polyphyletic or Paraphyletc Taxa) with bar and (optional) text label or image
+#' annotate associated taxa (from taxa1 to taxa2, can be Monophyletic, Polyphyletic or Paraphyletic Taxa) with bar and (optional) text label or image
 #'
 #' @title geom_striplab
 #' @param taxa1 can be label or node number
@@ -215,128 +215,7 @@ geom_striplab <- function(
 
 }
 
-## geom_strip <- function(taxa1, taxa2, label, offset=0, offset.text=0,
-##                            align=TRUE, barsize=0.5, extend=0, fontsize=3.88,
-##                            angle=0, geom="text", hjust=0, fill=NA, family="sans",
-##                            parse=FALSE, ...) {
 
-##     mapping <- aes_(x=~x, y=~y, node=~node, label = ~label, xend=~x, yend=~y)
-##     data <- NULL
-##     position <- "identity"
-##     show.legend <- NA
-##     na.rm <- TRUE
-##     inherit.aes <- FALSE
-
-##     layer_bar <- stat_stripBar(taxa1=taxa1, taxa2=taxa2, offset=offset, align=align,
-##                                size=barsize, barextend=extend,
-##                                mapping=mapping, data=data,
-##                                position=position, show.legend = show.legend,
-##                                inherit.aes = inherit.aes, na.rm=na.rm, ...)
-
-##     if (missing(label) || is.na(label) || is.null(label)) {
-##         return(layer_bar)
-##     }
-
-##     if (geom == "text") {
-##         ## no fill parameter
-##         layer_text <- stat_stripText(taxa1=taxa1, taxa2=taxa2, label=label, offset=offset+offset.text,
-##                                      align=align, size=fontsize, barextend=extend, angle=angle, family=family,
-##                                      mapping=mapping, data=data, geom=geom, hjust=hjust,
-##                                      position=position, show.legend = show.legend,
-##                                      inherit.aes = inherit.aes, na.rm=na.rm, parse=parse, ...)
-
-##     } else {
-##         layer_text <- stat_stripText(taxa1=taxa1, taxa2=taxa2, label=label, offset=offset+offset.text,
-##                                      align=align, size=fontsize, barextend=extend, angle=angle,
-##                                      fill=fill,family=family,
-##                                      mapping=mapping, data=data, geom=geom, hjust=hjust,
-##                                      position=position, show.legend = show.legend,
-##                                      inherit.aes = inherit.aes, na.rm=na.rm, parse=parse, ...)
-##     }
-
-##     list(
-##         layer_bar,
-##         layer_text
-##     )
-## }
-
-
-## stat_stripText <- function(mapping=NULL, data=NULL,
-##                            geom="text", position="identity",
-##                            taxa1, taxa2, label, offset, align, barextend, ...,
-##                            show.legend=NA, inherit.aes=FALSE, na.rm=FALSE, parse=FALSE) {
-
-##     layer(stat=StatStripText,
-##           data=data,
-##           mapping=mapping,
-##           geom=geom,
-##           position=position,
-##           show.legend = show.legend,
-##           inherit.aes = inherit.aes,
-##           params=list(taxa1=taxa1,
-##                       taxa2=taxa2,
-##                       label=label,
-##                       offset=offset,
-##                       align=align,
-##                       barextend=barextend,
-##                       na.rm=na.rm,
-##                       parse=parse,
-##                       ...),
-##           check.aes = FALSE
-##           )
-
-## }
-
-## stat_stripBar <- function(mapping=NULL, data=NULL,
-##                           geom="segment", position="identity",
-##                           taxa1, taxa2, offset, align, barextend, ...,
-##                           show.legend=NA, inherit.aes=FALSE, na.rm=FALSE) {
-
-##     layer(stat=StatStripBar,
-##           data=data,
-##           mapping=mapping,
-##           geom=geom,
-##           position=position,
-##           show.legend = show.legend,
-##           inherit.aes = inherit.aes,
-##           params=list(taxa1=taxa1,
-##                       taxa2=taxa2,
-##                       offset=offset,
-##                       align=align,
-##                       barextend=barextend,
-##                       na.rm=na.rm,
-##                       ...),
-##           check.aes = FALSE
-##           )
-
-## }
-
-## StatStripText <- ggproto("StatStripText", Stat,
-##                          compute_group = function(self, data, scales, params, taxa1, taxa2,
-##                                                   label, offset, align, barextend) {
-##                              print('text' )
-##                              print(data )
-##                              df <- get_striplabel_position(data, taxa1, taxa2, offset, align,
-##                                                            barextend, adjustRatio = 1.03)
-##                              df$y <- mean(c(df$y, df$yend))
-##                              df$label <- label
-##                              return(df)
-##                          },
-##                          required_aes = c("x", "y", "label")
-##                          )
-
-
-
-## StatStripBar <- ggproto("StatStripBar", Stat,
-##                         compute_group = function(self, data, scales, params,
-##                                                  taxa1, taxa2, offset, align, barextend) {
-##                             print('bar' )
-##                             print(data )
-##                             get_striplabel_position(data, taxa1, taxa2, offset,
-##                                                     align, barextend, adjustRatio=1.02)
-##                         },
-##                         required_aes = c("x", "y", "xend", "yend")
-##                         )
 
 get_striplab_position <- function(data, taxa1, taxa2, offset, angle="auto", 
                                   align = TRUE, extend = 0, adjustRatio = 1.02, 

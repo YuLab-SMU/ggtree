@@ -72,7 +72,11 @@ stat_tree <- function(mapping=NULL, data=NULL, geom=GeomInteractiveSegment, posi
         rootnode <- FALSE
     }
 
-    if (layout %in% c("rectangular", "dendrogram", "fan", "circular", "inward_circular")) {
+    layout_rectangular <- c("rectangular", "dendrogram", "fan", "circular", "inward_circular")
+    layout_slanted <- c("slanted", "radial", "equal_angle", "daylight", "ape")
+    layout_ellipse <- c("ellipse", "roundrect")
+
+    if (layout %in% layout_rectangular) {
         list(             
              layer(data=data,
                    mapping=mapping,
@@ -107,7 +111,7 @@ stat_tree <- function(mapping=NULL, data=NULL, geom=GeomInteractiveSegment, posi
                    check.aes = FALSE
                    )
              )
-    } else if (layout %in% c("slanted", "radial", "equal_angle", "daylight", "ape")) {
+    } else if (layout %in% layout_slanted) {
         line.type <- getOption(x="layout.radial.linetype", default="straight")
         geom <- switch(line.type, straight=GeomInteractiveSegmentGGtree, curved=geom)
         layer(stat=StatTree,
@@ -126,7 +130,7 @@ stat_tree <- function(mapping=NULL, data=NULL, geom=GeomInteractiveSegment, posi
                           ...),
               check.aes = FALSE
               )
-    } else if (layout %in% c("ellipse", "roundrect")){
+    } else if (layout %in% layout_ellipse){
         mapping <- modifyList(mapping, aes(isTip=!!sym("isTip")))
         layer(stat=StatTreeEllipse,
               data=data,
@@ -526,7 +530,7 @@ setup_data_continuous_color_size_tree <- function(df, nsplit = 100, extend = 0.0
         }
         j <- j[!is.na(j)]
         merge(df[i, -j, drop = FALSE], df2, by = "node")
-    }) %>% do.call('rbind', .)
+    }) |> yulab.utils::rbindlist()
 }
 
 rename_linewidth <- function(data){
