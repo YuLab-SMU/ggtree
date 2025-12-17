@@ -13,8 +13,15 @@
 print.ggtree <- function(x, ...) {
     # use NextMethod() or strip class to avoid infinite recursion
     class(x) <- setdiff(class(x), "ggtree")
-
+    
     interactive <- is_ggtree_interactive()
+    
+    if (!.check_interactive_attr(x) && interactive){
+        cli::cli_warn(c("Interactive visualization of ggtree requires specific interactive attributes,",
+                        "such as {.var tooltip}, {.var onclick}, or {.var data_id}; without them,",
+                        "no interactive features will be available!"))
+    }
+    
     if (interactive) {
         x <- girafe_tree(x)
     } 
@@ -78,4 +85,12 @@ is_ggtree_interactive <- function() {
     x <- get_cache_item('ggtree')[['interactive']]
     if (is.null(x)) return (FALSE)
     return(x)
+}
+
+
+.check_interactive_attr <- function(x){
+    attrs <- c("tooltip", "data_id", "onclick")
+    gb <- ggplot2::ggplot_build(x)
+    flag <- any(lapply(gb$data, function(i)colnames(i) %in% attrs) |> unlist())
+    return(flag)
 }
