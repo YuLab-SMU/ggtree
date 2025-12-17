@@ -1,7 +1,7 @@
 Package: ggtree
 Type: Package
 Title: an R package for visualization of tree and annotation data
-Version: 4.1.1
+Version: 4.1.1.001
 Authors@R: c(
        person("Guangchuang", "Yu",     email = "guangchuangyu@gmail.com", role = c("aut", "cre", "cph"), 
             comment = c(ORCID = "0000-0002-6485-8781")),
@@ -24,23 +24,23 @@ Depends:
 Imports:
     ape,
     aplot,
+    cli,
     dplyr,
+    ggfun (>= 0.1.7),
+    ggiraph (>= 0.9.1),
     ggplot2 (>= 4.0.0),
     grid,
     magrittr,
     methods,
     purrr,
     rlang,
-    ggfun (>= 0.1.7),
-    yulab.utils (>= 0.1.6),
+    scales,
+    stats,
     tidyr,
     tidytree (>= 0.4.5),
     treeio (>= 1.8.0),
     utils,
-    scales,
-    stats,
-    cli,
-    ggiraph (>= 0.9.1)
+    yulab.utils (>= 0.1.6)
 Suggests:
     emojifont,
     ggimage,

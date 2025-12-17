@@ -57,7 +57,7 @@ the color and size are not be set in mapping, user can modify them to adjust the
 specified geom.}
 }
 \description{
-annotate associated taxa (from taxa1 to taxa2, can be Monophyletic, Polyphyletic or Paraphyletc Taxa) with bar and (optional) text label or image
+annotate associated taxa (from taxa1 to taxa2, can be Monophyletic, Polyphyletic or Paraphyletic Taxa) with bar and (optional) text label or image
 }
 \section{Aesthetics For Specified Geom}{
 

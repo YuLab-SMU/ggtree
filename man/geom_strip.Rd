@@ -64,7 +64,7 @@ Note that if "FALSE", the bars might cross the tree}
 ggplot layers
 }
 \description{
-annotate associated taxa (from taxa1 to taxa2, can be Monophyletic, Polyphyletic or Paraphyletc Taxa) with bar and (optional) text label
+annotate associated taxa (from taxa1 to taxa2, can be Monophyletic, Polyphyletic or Paraphyletic Taxa) with bar and (optional) text label
 }
 \examples{
 library(ggtree)

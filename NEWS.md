@@ -22,6 +22,11 @@
 
 -->
 
+# ggtree 4.1.1.001
+
++ `print()` method for 'ggtree' object (2025-12-17, Wed)
++ `ggtree_set_interactive()` and `ggtree_unset_interactive()` to set and unset interactive mode (2025-12-17, Wed)
+
 # ggtree 4.1.1
 
 + bug fixed in `geom_striplab` (2025-10-30, Thu, #677)
