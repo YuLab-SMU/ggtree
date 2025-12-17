@@ -40,7 +40,7 @@ Imports:
     tidytree (>= 0.4.5),
     treeio (>= 1.8.0),
     utils,
-    yulab.utils (>= 0.1.6)
+    yulab.utils (>= 0.2.3)
 Suggests:
     emojifont,
     ggimage,
