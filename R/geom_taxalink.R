@@ -178,7 +178,7 @@ GeomCurvelink <- ggproto("GeomCurvelink", GeomSegment,
   required_aes = c("x", "y", "xend", "yend"),
   default_aes = aes(colour = "black", linewidth = 0.5, linetype = 1, alpha = NA, curvature=0.5, hratio=1, ncp=1, curveangle=90, square=FALSE),
   rename_size = TRUE,
-  make_curvelink_data = function(data, panel_params, coord) {
+  make_curvelink_data = function(data, panel_params, coord, outward = TRUE) {
     if (!coord$is_linear()) {
         tmpgroup <- data$group
         starts <- subset(data, select = c(-xend, -yend))
@@ -213,7 +213,7 @@ GeomCurvelink <- ggproto("GeomCurvelink", GeomSegment,
   },
   draw_panel = function(data, panel_params, coord, shape=0.5, outward=TRUE,
                         arrow = NULL, arrow.fill=NULL, lineend = "butt", na.rm = FALSE) {
-    trans <- GeomCurvelink$make_curvelink_data(data, panel_params, coord)
+    trans <- GeomCurvelink$make_curvelink_data(data, panel_params, coord, outward)
     arrow.fill <- arrow.fill %|||% trans$colour
 
     grobs <- lapply(seq_len(nrow(trans)), function(i){
@@ -329,7 +329,7 @@ GeomInteractiveCurvelink <- ggproto(
        )
     }
 
-    trans <- GeomCurvelink$make_curvelink_data(data, panel_params, coord)
+    trans <- GeomCurvelink$make_curvelink_data(data, panel_params, coord, outward)
     arrow.fill <- arrow.fill %|||% trans$colour
 
     grobs <- lapply(seq_len(nrow(trans)), function(i){
