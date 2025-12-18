@@ -176,7 +176,17 @@ geom_curvelink <- function(data=NULL,
 #' @importFrom scales alpha
 GeomCurvelink <- ggproto("GeomCurvelink", GeomSegment,
   required_aes = c("x", "y", "xend", "yend"),
-  default_aes = aes(colour = "black", linewidth = 0.5, linetype = 1, alpha = NA, curvature=0.5, hratio=1, ncp=1, curveangle=90, square=FALSE),
+  default_aes = aes(
+    colour = from_theme(colour %||% ink), 
+    linewidth = from_theme(linewidth), 
+    linetype = from_theme(linetype), 
+    alpha = NA, 
+    curvature = 0.5, 
+    hratio = 1, 
+    ncp = 1, 
+    curveangle = 90, 
+    square = FALSE
+    ),
   rename_size = TRUE,
   make_curvelink_data = function(data, panel_params, coord, outward = TRUE) {
     if (!coord$is_linear()) {
