@@ -101,6 +101,6 @@ is_ggtree_interactive <- function() {
 
     attrs <- c("tooltip", "data_id", "onclick")
     gb <- ggplot2::ggplot_build(x)
-    flag <- any(lapply(gb$data, function(i)colnames(i) %in% attrs) |> unlist())
+    flag <- any(unlist(lapply(gb$data, \(i) colnames(i) %in% attrs)))
     return(flag)
 }
