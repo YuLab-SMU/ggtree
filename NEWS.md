@@ -16,16 +16,20 @@
   - <https://yulab-smu.top/treedata-book/chapter2.html#ggtree-fortify>
   - <https://www.rdocumentation.org/packages/phytools/versions/0.7-70/topics/cophylo> 
 + `fortify` method for `phyloseq` object should return a tidy data.frame
-  - maybe we can defined another object (inherited from treedata?) and provide converter for `phyloseq`
-+ The `daylight` algorithm is quite slow compare to `ggraph` and needs to  be optimized
+  - maybe we can define another object (inherited from treedata?) and provide converter for `phyloseq`
++ The `daylight` algorithm is quite slow compared to `ggraph` and needs to  be optimized
   - <https://github.com/thomasp85/ggraph/commit/14de66f1225336179b4598cb42a4beda95682211>
 
 -->
 
-# ggtree 4.1.1.001
+# ggtree 4.1.1.002
 
++ update `default_aes` to work with `from_theme`
+  - `geom_highlight` and `geom_taxalink`  (2025-12-18, Thu, #694)
++ fix issue of `geom_taxalink` by adding 'outward' argument (2025-12-18, Thu, #692) 
 + `print()` method for 'ggtree' object (2025-12-17, Wed)
 + `ggtree_set_interactive()` and `ggtree_unset_interactive()` to set and unset interactive mode (2025-12-17, Wed)
+  - if interactive mode is set and there are no interactive attributes, it will throw a warning message, which can be disabled if `ggtree_set_interactive(check=FALSE)`
 
 # ggtree 4.1.1
 
@@ -37,7 +41,7 @@
 
 # ggtree 3.99.2
 
-+ update `gheatmap`, `geom_range` and `msaplot` to compatible with ggplot2 v=4.0.0 (2025-10-16, Thu, #668, #672, #674)
++ update `gheatmap`, `geom_range` and `msaplot` to be compatible with ggplot2 v=4.0.0 (2025-10-16, Thu, #668, #672, #674)
 + interactive ggtree (2025-09-16, #662)
   - incorporated iggtree, <https://github.com/YuLab-SMU/iggtree>
 + Added support for XStringSet in msaplot (2027-07-13, Sun, #631)
@@ -102,7 +106,7 @@
 # ggtree 3.7.1
 
 + compatible with ggplot2 v=3.4.0 (2022-11-07, Mon)
-+ allows setting `options(clade_align = TRUE)` to align `geom_hilight()` layer and allows setting `options(clade_width_extend = 0.35)` to set the amount the width extension (in y-axis) of `geom_hilight()`. These two features is designed for `ggtreeDendro::geom_rect_subtree()` layer (2022-11-06, Sun)
++ allows setting `options(clade_align = TRUE)` to align `geom_hilight()` layer and allows setting `options(clade_width_extend = 0.35)` to set the amount the width extension (in y-axis) of `geom_hilight()`. These two features are designed for `ggtreeDendro::geom_rect_subtree()` layer (2022-11-06, Sun)
 
 # ggtree 3.6.0
 
@@ -121,7 +125,7 @@
 + support 'linkage' class defined in the 'mdendro' package (2022-08-11, Thu)
 + clone the plot environment before assigning layout (2022-07-19, Tue, #516)
 + bug fixed in 'equal_angle' layout (2022-07-08, Fri, #514)
-+ optimize `geom_tiplab` to better compatible with dendrogram layout (2022-06-23, Thu, #508)
++ optimize `geom_tiplab` to be better compatible with dendrogram layout (2022-06-23, Thu, #508)
 
 # ggtree 3.5.1
 
@@ -174,12 +178,12 @@
 + introduce `align` parameter in `geom_hilight` (2021-08-30, Mon; @xiangpin, #431)
 + the `data` parameter in `geom_facet` now accepts function as input (2021-08-22, Sun; @xiangpin, #430)
 + import `ggfun` and `yulab.utils` (2021-08-20, Fri)
-+ allow using `options(layout.radial.linetype)` to set linetype of radial layout (either 'strainght' or 'curved') (2021-08-13, Fri; @xiangpin, #427)
++ allow using `options(layout.radial.linetype)` to set linetype of radial layout (either 'straight' or 'curved') (2021-08-13, Fri; @xiangpin, #427)
 
 # ggtree 3.1.3
 
 + `data` argument in `geom_tiplab` and `position` argument in `geom_tree` (2021-08-10, Tue; #426, @xiangpin)
-+ `geom_hilight` and `geom_cladelab` supports function as input data (2021-07-28, Wed; #421, @xiangpin)
++ `geom_hilight` and `geom_cladelab` support function as input data (2021-07-28, Wed; #421, @xiangpin)
 + `td_mutate` for mutating tree data
 + `geom_tiplab` supports fontface aesthetic (2021-07-06, Tue; @xiangpin)
 
@@ -194,12 +198,12 @@
 + bug fixed in `geom_range` (2021-06-01, Tue)
   - <https://github.com/YuLab-SMU/ggtree/pull/410>
 + now `geom_nodelab` has a `node="internal"` parameter. (2021-05-31, Mon)
-  - if `node = "external"`, it equivalent to `geom_tiplab
-  - if `node = "all"`, it equivalent to `list(geom_tiplab(), geom_nodelab())`
+  - if `node = "external"`, it is equivalent to `geom_tiplab
+  - if `node = "all"`, it is equivalent to `list(geom_tiplab(), geom_nodelab())`
 
 # ggtree 3.0.0
 
-+ Bioconductor 3.13 relese
++ Bioconductor 3.13 release
 
 # ggtree 2.5.3
 
@@ -211,7 +215,7 @@
 + extend 'continuous' parameter to support 4 possible values, i.e., 'none' to disable continuous transition,  'color' (or 'colour') to enable continuous color transition, 'size' to enable continuous size (branch thickness) transition and 'all' to enable continuous color and size transition (2021-04-07, Wed)
   - <https://github.com/YuLab-SMU/ggtree/pull/385>
   - <https://github.com/YuLab-SMU/ggtree/pull/387>
-+ `extendto` argument for `geom_hilight` now compatible with 'inward_circular' and 'dendrogram' layouts (2021-02-25, Thu)
++ `extendto` argument for `geom_hilight` is now compatible with 'inward_circular' and 'dendrogram' layouts (2021-02-25, Thu)
   - <https://github.com/YuLab-SMU/ggtree/pull/379>
 
 # ggtree 2.5.1
@@ -224,7 +228,7 @@
 + `geom_nodelab()` now supports circular layout (2020-11-26, Thu)
   - <https://github.com/YuLab-SMU/ggtree/issues/352>
   - <https://github.com/YuLab-SMU/ggtree/pull/353>
-+ branch size can be grandualy changed (2020-10-29, Thu)
++ branch size can be gradually changed (2020-10-29, Thu)
   - <https://github.com/YuLab-SMU/ggtree/pull/349>
 
 # ggtree 2.4.0
@@ -249,12 +253,12 @@
 
 # ggtree 2.3.5
 
-+ `td_unnest()` which return a function to flatten ggtree plot data (2020-09-14, Mon)
++ `td_unnest()` which returns a function to flatten ggtree plot data (2020-09-14, Mon)
   - <https://yulab-smu.top/treedata-book/chapter12.html#td_unnest>
 + update `geom_hilight` to support `geom_hilight(data = mydata, node = selected_node)` (2020-09-03, Thu)
 + Defunct `geom_nodelab2()` (2020-09-02, Wed)
 + `geom_tiplab()` and `geom_nodelab()` support `geom = "shadowtext"` 
-+ `td_filter()` which return a function to subset ggtree plot data in geom layers (2020-08-29, Sat)
++ `td_filter()` which returns a function to subset ggtree plot data in geom layers (2020-08-29, Sat)
   - <https://yulab-smu.top/treedata-book/chapter12.html#td_filter>
 + update man files of `geom_rootedge` and `geom_point2`
 + update `geom_hilight` to support `geom_hilight(data = tbl_tree, node = selected_node)`. (2020-09-03, Thu)
@@ -393,7 +397,7 @@
 
 # ggtree 1.17.3
 
-+ remove re-export treeio parser function, user now need to load treeio explictly (2019-07-24, Wed) 
++ remove re-export treeio parser function, users now need to load treeio explictly (2019-07-24, Wed) 
 + export `layout_circular`, `layout_fan` and `layout_rectangular`
 + `layout_dendrogram` and `theme_dendrogram` 
   - <https://yulab-smu.github.io/treedata-book/chapter10.html#dendrogram>
@@ -410,11 +414,11 @@
 # ggtree 1.17.1
 
 + `facet_data` to extract data used in `facet_plot` or `geom_facet` (2019-07-02, Tue)
-+ `continuous` parameter in `geom_tree` to to continuous color edge from parent to child (2019-09-25, Tue)
++ `continuous` parameter in `geom_tree` to continuous color edge from parent to child (2019-09-25, Tue)
   - <https://yulab-smu.github.io/treedata-book/chapter4.html#color-tree>
 + `root.position` parameter for `fortify` and `ggtree` (2019-05-27, Mon)
 + `geom_facet`, a geom layer version of `facet_plot` (2019-05-23, Thu)
-+ update `scale_x_ggtree`, now we can use `gheatmap() + scale_x_ggtree()` (2019-05-22, Wed)
++ update `scale_x_ggtree`, now users can use `gheatmap() + scale_x_ggtree()` (2019-05-22, Wed)
 + extend `xlim_expand` to work with `ggplot2` (2019-05-20, Tue)
   - <https://yulab-smu.github.io/treedata-book/chapter9.html#xlim_expand>
 + add `legend_title` variable in `gheatmap` (2019-05-16, Thu)
