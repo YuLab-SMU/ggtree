@@ -4,7 +4,10 @@
 \alias{ggtree_set_interactive}
 \title{Set ggtree interactive mode}
 \usage{
-ggtree_set_interactive()
+ggtree_set_interactive(check = TRUE)
+}
+\arguments{
+\item{check}{whether to check interactive attributes}
 }
 \description{
 set ggtree interactive mode

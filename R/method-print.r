@@ -64,11 +64,14 @@ girafe_tree <- function(p, width_svg = 10, height_svg = 10, options = NULL) {
 #' set ggtree interactive mode
 #' 
 #' @title Set ggtree interactive mode
+#' @param check whether to check interactive attributes
 #' @return NULL
 #' @export
 #' @importFrom yulab.utils update_cache_item
-ggtree_set_interactive <- function() {
-    update_cache_item('ggtree', list(interactive = TRUE))
+ggtree_set_interactive <- function(check=TRUE) {
+    update_cache_item('ggtree', 
+        list(interactive = TRUE, check_interactive = check)
+    )
 }
 
 #' unset ggtree interactive mode
@@ -88,7 +91,14 @@ is_ggtree_interactive <- function() {
 }
 
 
-.check_interactive_attr <- function(x){
+.check_interactive_attr <- function(x) {
+    check <- get_cache_item('ggtree')[['check_interactive']]
+    if (is.null(check)) check <- FALSE
+
+    # if not check interactive attributes
+    # assume it is satisfied
+    if (!check) return(TRUE)
+
     attrs <- c("tooltip", "data_id", "onclick")
     gb <- ggplot2::ggplot_build(x)
     flag <- any(lapply(gb$data, function(i)colnames(i) %in% attrs) |> unlist())
