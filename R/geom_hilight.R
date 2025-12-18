@@ -137,13 +137,18 @@ geom_hilight_rect2 <- function(data=NULL,
                         ...))
 }
 
-#' @importFrom ggplot2 draw_key_polygon Geom ggproto aes GeomPolygon
+#' @importFrom ggplot2 draw_key_polygon Geom ggproto aes GeomPolygon from_theme
 #' @importFrom grid rectGrob gpar grobTree
 #' @importFrom cli cli_alert_warning
 GeomHilightRect <- ggproto("GeomHilightRect", Geom,
-                           default_aes = aes(colour = NA, fill = "steelblue", 
-                                             linewidth = 0.5, linetype = 1, alpha = 0.5,
-                                             extend=0, extendto=NULL),
+                           default_aes = aes(
+                               colour = from_theme(colour %||% NA), 
+                               fill = from_theme(fill %||% "steelblue"), 
+                               linewidth = from_theme(linewidth), 
+                               linetype = from_theme(linetype), 
+                               alpha = 0.5,
+                               extend = 0, 
+                               extendto=NULL),
                            required_aes = c("xmin", "xmax", "ymin", "ymax", "clade_root_node"),
                            draw_key = draw_key_polygon,
                            rename_size = TRUE,
@@ -320,9 +325,15 @@ snakeize <- getFromNamespace('snakeize', 'ggplot2')
 #' @export
 GeomHilightEncircle <- ggproto("GeomHilightEncircle", Geom,
                                 required_aes = c("x", "y", "clade_root_node"),
-                                default_aes = aes(colour="black", fill="steelblue", alpha = 0.5,
-                                                  expand=0, spread=0.1, linetype=1, linewidth = 0.5,
-                                                  s_shape=0.5, s_open=FALSE),
+                                default_aes = aes(colour = from_theme(colour %||% "black"), 
+                                                  fill = from_theme(fill %||% "steelblue"), 
+                                                  alpha = 0.5,
+                                                  expand = 0, 
+                                                  spread = 0.1, 
+                                                  linetype = from_theme(linetype), 
+                                                  linewidth = from_theme(linewidth),
+                                                  s_shape = 0.5, 
+                                                  s_open = FALSE),
                                 draw_key = draw_key_polygon,
                                 rename_size = TRUE,
                                 draw_panel = function(self, data, panel_scales, coord){
