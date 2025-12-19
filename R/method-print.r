@@ -39,13 +39,18 @@ print.ggtree <- function(x, ...) {
 #' @importFrom ggiraph opts_toolbar
 #' @importFrom ggiraph opts_zoom
 #' @importFrom ggiraph opts_tooltip
-girafe_tree <- function(p, width_svg = 10, height_svg = 10, options = NULL) {
+girafe_tree <- function(p) {
+    width_svg <- get_cache_item('ggtree')[['width_svg']]
+    height_svg <- get_cache_item('ggtree')[['height_svg']]
+
     default_options <- list(
       opts_sizing(rescale = TRUE),
       opts_toolbar(position = 'topleft', saveaspng = FALSE),
       opts_zoom(min = .7, max = 10),
       opts_tooltip(use_fill = TRUE)
     )
+    options <- get_cache_item('ggtree')[['girafe_options']]
+
     if (!is.null(options) && is.list(options)) {
         options <- modifyList(default_options, options)
     } else {
@@ -53,8 +58,8 @@ girafe_tree <- function(p, width_svg = 10, height_svg = 10, options = NULL) {
     }
     
     fig <- girafe(ggobj = p, 
-            width_svg = width_svg, 
-            height_svg=height_svg,
+            width_svg = width_svg %||% 7, 
+            height_svg = height_svg %||% 7,
             options = options
         )
 
@@ -64,13 +69,20 @@ girafe_tree <- function(p, width_svg = 10, height_svg = 10, options = NULL) {
 #' set ggtree interactive mode
 #' 
 #' @title Set ggtree interactive mode
+#' @param width width of the plot
+#' @param height height of the plot
+#' @param options options for girafe
 #' @param check whether to check interactive attributes
 #' @return NULL
 #' @export
 #' @importFrom yulab.utils update_cache_item
-ggtree_set_interactive <- function(check=TRUE) {
+ggtree_set_interactive <- function(width = 7, height = 7, options = NULL, check=TRUE) {
     update_cache_item('ggtree', 
-        list(interactive = TRUE, check_interactive = check)
+        list(interactive = TRUE, 
+            check_interactive = check, 
+            width_svg = width, 
+            height_svg = height, 
+            girafe_options = options)
     )
 }
 

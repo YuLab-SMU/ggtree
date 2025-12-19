@@ -4,9 +4,15 @@
 \alias{ggtree_set_interactive}
 \title{Set ggtree interactive mode}
 \usage{
-ggtree_set_interactive(check = TRUE)
+ggtree_set_interactive(width = 7, height = 7, options = NULL, check = TRUE)
 }
 \arguments{
+\item{width}{width of the plot}
+
+\item{height}{height of the plot}
+
+\item{options}{options for girafe}
+
 \item{check}{whether to check interactive attributes}
 }
 \description{
