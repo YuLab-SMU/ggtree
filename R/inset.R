@@ -130,13 +130,13 @@ nodepie <- function(data, cols, color, alpha=1, outline.color="transparent", out
         color <- NA
     }
     ldf <- gather(data, type, value, !! cols) %>% split(., .$node)
-    lapply(ldf, function(df) ggpie(df, y=~value, fill=~type, color, alpha, outline.color, outline.size))
+    lapply(ldf, function(df) ggpie(df, y=as.symbol("value"), fill= as.symbol("type"), color, alpha, outline.color, outline.size))
 }
 
 
 ##' @importFrom methods missingArg
 ggpie <- function(data, y, fill, color, alpha=1, outline.color="transparent", outline.size=0) {
-    p <- ggplot(data, aes(x=1, y=!!sym("y"), fill=!!sym("fill"))) +
+    p <- ggplot(data, aes(x=1, y=!!y, fill=!!fill)) +
         geom_bar(stat='identity', alpha=alpha, color=outline.color, size=outline.size, show.legend = F) +
         coord_polar(theta='y') + theme_inset()
 
