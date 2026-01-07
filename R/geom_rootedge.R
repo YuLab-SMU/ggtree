@@ -49,14 +49,14 @@
 #' ## *Data Integration, Manipulation and Visualization of Phylogenetic Trees*
 #' ## <http://yulab-smu.top/treedata-book/index.html> by Guangchuang Yu.
 #' 
-geom_rootedge <- function(rootedge = NULL, ...) {
+geom_rootedge <- function(data = NULL, rootedge = NULL, ...) {
     # add isTip for checking whether the x of tree is reversed.
     mapping <- aes(x = !!sym("x"), y = !!sym("y"), xend = !!sym("x"), yend = !!sym("y"),
                     branch.length = !!sym("branch.length"),
                     node = !!sym("node"), parent = !!sym("parent"), isTip=!!sym("isTip"))
     layer(
         stat = StatRootEdge,
-        data  = NULL,
+        data = data,
         mapping = mapping,
         geom = "segment",
         position = "identity",
