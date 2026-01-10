@@ -4,10 +4,12 @@
 \alias{geom_rootedge}
 \title{geom_rootedge}
 \usage{
-geom_rootedge(rootedge = NULL, ...)
+geom_rootedge(rootedge = NULL, data = NULL, ...)
 }
 \arguments{
 \item{rootedge}{length of rootedge; use phylo$root.edge if rootedge = NULL (default).}
+
+\item{data}{providing a tidytree data frame to specify the rootedge.}
 
 \item{...}{additional parameters
 

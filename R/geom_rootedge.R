@@ -4,6 +4,7 @@
 #' 
 #' @title geom_rootedge
 #' @param rootedge length of rootedge; use phylo$root.edge if rootedge = NULL (default).
+#' @param data providing a tidytree data frame to specify the rootedge.
 #' @param ... additional parameters
 #' 
 #' Additional parameters can be referred to the following parameters:
@@ -49,7 +50,7 @@
 #' ## *Data Integration, Manipulation and Visualization of Phylogenetic Trees*
 #' ## <http://yulab-smu.top/treedata-book/index.html> by Guangchuang Yu.
 #' 
-geom_rootedge <- function(data = NULL, rootedge = NULL, ...) {
+geom_rootedge <- function(rootedge = NULL, data = NULL, ...) {
     # add isTip for checking whether the x of tree is reversed.
     mapping <- aes(x = !!sym("x"), y = !!sym("y"), xend = !!sym("x"), yend = !!sym("y"),
                     branch.length = !!sym("branch.length"),

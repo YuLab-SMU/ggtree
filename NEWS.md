@@ -22,8 +22,9 @@
 
 -->
 
-# ggtree 4.1.1.002
+# ggtree 4.1.1.003
 
++ add 'data' argument to `geom_rootedge()` (2026-01-10, Sat, #696, #697)
 + more options in `ggtree_set_interactive()` (2025-12-19, Fri)
 + update `default_aes` to work with `from_theme`
   - `geom_highlight` and `geom_taxalink`  (2025-12-18, Thu, #694)
