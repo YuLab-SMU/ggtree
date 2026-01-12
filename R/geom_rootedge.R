@@ -8,12 +8,12 @@
 #' @param ... additional parameters
 #' 
 #' Additional parameters can be referred to the following parameters:
-#'     \itemize{
-#'         \item \code{size} control the width of rootedge, defaults to 0.5.
-#'         \item \code{colour} color of rootedge, defaults to black.
-#'         \item \code{linetype} the type of line, defaults to 1.
-#'         \item \code{alpha} modify colour transparency, defaults to 1.
-#'     }
+#'
+#' * `size`: control the width of rootedge, defaults to 0.5.
+#' * `colour`: color of rootedge, defaults to black.
+#' * `linetype`: the type of line, defaults to 1.
+#' * `alpha`: modify colour transparency, defaults to 1.
+#'
 #
 #' @return ggtree rootedge layer
 #' @export

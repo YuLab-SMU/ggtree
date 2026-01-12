@@ -15,10 +15,10 @@ geom_rootedge(rootedge = NULL, data = NULL, ...)
 
 Additional parameters can be referred to the following parameters:
 \itemize{
-\item \code{size} control the width of rootedge, defaults to 0.5.
-\item \code{colour} color of rootedge, defaults to black.
-\item \code{linetype} the type of line, defaults to 1.
-\item \code{alpha} modify colour transparency, defaults to 1.
+\item \code{size}: control the width of rootedge, defaults to 0.5.
+\item \code{colour}: color of rootedge, defaults to black.
+\item \code{linetype}: the type of line, defaults to 1.
+\item \code{alpha}: modify colour transparency, defaults to 1.
 }}
 }
 \value{

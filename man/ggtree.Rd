@@ -66,7 +66,7 @@ parameter only work with the 'dendrogram' layout for 'hclust' like class, defaul
 
 some dot arguments:
 \itemize{
-\item \code{nsplit} integer, the number of branch blocks divided when 'continuous' is not "none", default is 200.
+\item \code{nsplit}: integer, the number of branch blocks divided when 'continuous' is not "none", default is 200.
 }}
 }
 \value{

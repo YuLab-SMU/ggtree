@@ -72,105 +72,94 @@ geom_strip <- function(taxa1, taxa2, label, offset=0, offset.text=0,
 #' @param parse logical, whether parse label to emoji font, default is FALSE.
 #' @param ... additional parameters, see also following section.
 #'
-#' additional parameters can refer the following parameters.                                                                                                                                                      ##'     \itemize{
-#'        \item \code{offset} distance bar and tree, offset of bar and text from
-#'         the clade, default is 0.
-#'        \item \code{offset.text} distance bar and text, offset of text from bar,
-#'         default is 0.
-#'        \item \code{align} logical, whether align clade lab, default is FALSE.
-#'        \item \code{extend} numeric, extend the length of bar, default is 0.
-#'        \item \code{angle} numeric or 'auto', if angle is auto, the angle of text will
-#'         be calculated automatically, which is useful for the circular etc layout, default is 0.
-#'        \item \code{horizontal} logical, whether set label to horizontal, default is TRUE.
-#'        \item \code{barsize} the width of line, default is 0.5.
-#'        \item \code{barcolour} the colour of line, default is 'black'.
-#'        \item \code{fontsize} the size of text, default is 3.88.
-#'        \item \code{textcolour} the colour of text, default is 'black'.
-#'        \item \code{imagesize} the size of image, default is 0.05.
-#'        \item \code{imagecolor} the colour of image, default is NULL, when
-#'        geom="phylopic", it should be required.
-#'     }
+#' additional parameters can refer the following parameters.
+#'
+#' * `offset`: distance bar and tree, offset of bar and text from the clade, default is 0.
+#' * `offset.text`: distance bar and text, offset of text from bar, default is 0.
+#' * `align`: logical, whether align clade lab, default is FALSE.
+#' * `extend`: numeric, extend the length of bar, default is 0.
+#' * `angle`: numeric or 'auto', if angle is auto, the angle of text will be calculated automatically, which is useful for the circular etc layout, default is 0.
+#' * `horizontal`: logical, whether set label to horizontal, default is TRUE.
+#' * `barsize`: the width of line, default is 0.5.
+#' * `barcolour`: the colour of line, default is 'black'.
+#' * `fontsize`: the size of text, default is 3.88.
+#' * `textcolour`: the colour of text, default is 'black'.
+#' * `imagesize`: the size of image, default is 0.05.
+#' * `imagecolor`: the colour of image, default is NULL, when geom="phylopic", it should be required.
+#'
 #' The parameters also can be set in mapping, when data is provided. Note: the barsize, barcolour,
 #' fontsize, textcolour, imagesize and imagecolor should not be set in mapping (aesthetics). When
 #' the color and size are not be set in mapping, user can modify them to adjust the attributes of
 #' specified geom.
 #'
 #' @section Aesthetics For Specified Geom:
-#' \code{geom_striplab()} understands the following aesthetics for geom="text"(required
-#' aesthetics are in bold):
-#'     \itemize{
-#'        \item \strong{\code{taxa1}} selected tip label or tip node, it is required.
-#'        \item \strong{\code{taxa2}} selected another tip label or tip node, it is required.
-#'        \item \strong{\code{label}} labels to be shown, it is required.
-#'        \item \code{colour} the colour of text, default is "black".
-#'        \item \code{size} the size of text, default is 3.88.
-#'        \item \code{angle} the angle of text, default is 0.
-#'        \item \code{hjust} A numeric vector specifying horizontal justification, default is 0.
-#'        \item \code{vjust} A numeric vector specifying vertical justification, default is 0.5.
-#'        \item \code{alpha} the transparency of text, default is NA.
-#'        \item \code{family} the family of text, default is 'sans'.
-#'        \item \code{fontface} the font face of text, default is 1 (plain), others are
-#'         2 (bold), 3 (italic), 4 (bold.italic).
-#'        \item \code{lineheight} The height of a line as a multiple of the size of text, default is 1.2 .
-#'     }
+#' `geom_striplab()` understands the following aesthetics for geom="text" (required aesthetics are in bold):
+#'
+#' * **`taxa1`**: selected tip label or tip node, it is required.
+#' * **`taxa2`**: selected another tip label or tip node, it is required.
+#' * **`label`**: labels to be shown, it is required.
+#' * `colour`: the colour of text, default is "black".
+#' * `size`: the size of text, default is 3.88.
+#' * `angle`: the angle of text, default is 0.
+#' * `hjust`: A numeric vector specifying horizontal justification, default is 0.
+#' * `vjust`: A numeric vector specifying vertical justification, default is 0.5.
+#' * `alpha`: the transparency of text, default is NA.
+#' * `family`: the family of text, default is 'sans'.
+#' * `fontface`: the font face of text, default is 1 (plain), others are 2 (bold), 3 (italic), 4 (bold.italic).
+#' * `lineheight`: The height of a line as a multiple of the size of text, default is 1.2.
+#'
 #'  when the colour, size are not be set in mapping, and user want to modify the colour of text,
 #'  they should use textcolour, fontsize to avoid the confusion with bar layer annotation.
 #'
-#' \code{geom_striplab()} understands the following aesthethics for geom="label" (required
-#' aesthetics are in bold):
-#'     \itemize{
-#'        \item \strong{\code{taxa1}} selected node to hight light, it is required.
-#'        \item \strong{\code{taxa2}} selected another tip label or tip node, it is required.
-#'        \item \strong{\code{label}} labels to be shown, it is required.
-#'        \item \code{colour} the colour of text, default is "black".
-#'        \item \code{fill} the background colour of the label, default is "white".
-#'        \item \code{size} the size of text, default is 3.88.
-#'        \item \code{angle} the angle of text, default is 0.
-#'        \item \code{hjust} A numeric vector specifying horizontal justification, default is 0.
-#'        \item \code{vjust} A numeric vector specifying vertical justification, default is 0.5.
-#'        \item \code{alpha} the transparency of text, default is NA.
-#'        \item \code{family} the family of text, default is 'sans'.
-#'        \item \code{fontface} the font face of text, default is 1 (plain), others are
-#'         2 (bold), 3 (italic), 4 (bold.italic).
-#'        \item \code{lineheight} The height of a line as a multiple of the size of text, default is 1.2 .
-#'     }
+#' `geom_striplab()` understands the following aesthetics for geom="label" (required aesthetics are in bold):
+#'
+#' * **`taxa1`**: selected node to hight light, it is required.
+#' * **`taxa2`**: selected another tip label or tip node, it is required.
+#' * **`label`**: labels to be shown, it is required.
+#' * `colour`: the colour of text, default is "black".
+#' * `fill`: the background colour of the label, default is "white".
+#' * `size`: the size of text, default is 3.88.
+#' * `angle`: the angle of text, default is 0.
+#' * `hjust`: A numeric vector specifying horizontal justification, default is 0.
+#' * `vjust`: A numeric vector specifying vertical justification, default is 0.5.
+#' * `alpha`: the transparency of text, default is NA.
+#' * `family`: the family of text, default is 'sans'.
+#' * `fontface`: the font face of text, default is 1 (plain), others are 2 (bold), 3 (italic), 4 (bold.italic).
+#' * `lineheight`: The height of a line as a multiple of the size of text, default is 1.2.
+#'
 #'  when the colour, size are not be set in mapping, and user want to modify the colour of text,
 #'  they should use textcolour, fontsize to avoid the confusion with bar layer annotation.
 #'
-#' \code{geom_striplab()} understands the following aesthethics for geom="shadowtext" (required
-#' aesthetics are in bold):
-#'     \itemize{
-#'        \item \strong{\code{taxa1}} selected node to hight light, it is required.
-#'        \item \strong{\code{taxa2}} selected another tip label or tip node, it is required.
-#'        \item \strong{\code{label}} labels to be shown, it is required.
-#'        \item \code{colour} the colour of text, default is "black".
-#'        \item \code{bg.colour} the background colour of text, default is 'black'.
-#'        \item \code{bg.r} the width of background text, default is 0.1.
-#'        \item \code{size} the size of text, default is 3.88.
-#'        \item \code{angle} the angle of text, default is 0.
-#'        \item \code{hjust} A numeric vector specifying horizontal justification, default is 0.
-#'        \item \code{vjust} A numeric vector specifying vertical justification, default is 0.5.
-#'        \item \code{alpha} the transparency of text, default is NA.
-#'        \item \code{family} the family of text, default is 'sans'.
-#'        \item \code{fontface} the font face of text, default is 1 (plain), others are
-#'         2 (bold), 3 (italic), 4 (bold.italic).
-#'        \item \code{lineheight} The height of a line as a multiple of the size of text, default is 1.2 .
-#'     }
+#' `geom_striplab()` understands the following aesthetics for geom="shadowtext" (required aesthetics are in bold):
+#'
+#' * **`taxa1`**: selected node to hight light, it is required.
+#' * **`taxa2`**: selected another tip label or tip node, it is required.
+#' * **`label`**: labels to be shown, it is required.
+#' * `colour`: the colour of text, default is "black".
+#' * `bg.colour`: the background colour of text, default is 'black'.
+#' * `bg.r`: the width of background text, default is 0.1.
+#' * `size`: the size of text, default is 3.88.
+#' * `angle`: the angle of text, default is 0.
+#' * `hjust`: A numeric vector specifying horizontal justification, default is 0.
+#' * `vjust`: A numeric vector specifying vertical justification, default is 0.5.
+#' * `alpha`: the transparency of text, default is NA.
+#' * `family`: the family of text, default is 'sans'.
+#' * `fontface`: the font face of text, default is 1 (plain), others are 2 (bold), 3 (italic), 4 (bold.italic).
+#' * `lineheight`: The height of a line as a multiple of the size of text, default is 1.2.
+#'
 #'  when the colour, size are not be set in mapping, and user want to modify the colour of text,
 #'  they should use textcolour, fontsize to avoid the confusion with bar layer annotation.
 #'
-#' \code{geom_striplab()} understands the following aesthethics for geom="image" or geom="phylopic" (required
-#' aesthetics are in bold):
-#'     \itemize{
-#'        \item \strong{\code{taxa1}} selected node to hight light, it is required.
-#'        \item \strong{\code{taxa2}} selected another tip label or tip node, it is required.
-#'        \item \strong{\code{label}} labels to be shown, it is required.
-#'        \item \strong{\code{image}} the image to be annotated, when geom="phylopic",
-#'         the uid of phylopic databases, it is required.
-#'        \item \code{colour} the color of image, default is NULL.
-#'        \item \code{size} the size of image, default is 0.05.
-#'        \item \code{alpha} the alpha of image, default is 0.8.
-#'     }
+#' `geom_striplab()` understands the following aesthetics for geom="image" or geom="phylopic" (required aesthetics are in bold):
+#'
+#' * **`taxa1`**: selected node to hight light, it is required.
+#' * **`taxa2`**: selected another tip label or tip node, it is required.
+#' * **`label`**: labels to be shown, it is required.
+#' * **`image`**: the image to be annotated, when geom="phylopic", the uid of phylopic databases, it is required.
+#' * `colour`: the color of image, default is NULL.
+#' * `size`: the size of image, default is 0.05.
+#' * `alpha`: the alpha of image, default is 0.8.
+#'
 #'  when the colour, size are not be set in mapping, and user want to modify the colour of image,
 #'  they should use imagecolour, imagesize to avoid the confusion with bar layer annotation.
 #' @export

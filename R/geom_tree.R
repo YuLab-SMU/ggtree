@@ -7,7 +7,7 @@
 ##' @param layout one of 'rectangular', 'dendrogram', 'slanted', 'ellipse', 'roundrect',
 ##' 'fan', 'circular', 'inward_circular', 'radial', 'equal_angle', 'daylight' or 'ape'
 ##' @param multiPhylo logical, whether input data contains multiple phylo class, defaults to "FALSE".
-##' @param continuous character, continuous transition for selected aesthethic ('size' 
+##' @param continuous character, continuous transition for selected aesthetic ('size' 
 ##' or 'color'('colour')). It should be one of 'color' (or 'colour'), 'size', 'all' 
 ##' and 'none', default is 'none'
 ##' @param position Position adjustment, either as a string, or the result of a
@@ -15,17 +15,16 @@
 ##' @param ... additional parameter
 ##'
 ##' some dot arguments:
-##' \itemize{
-##'    \item \code{nsplit} integer, the number of branch blocks divided when 'continuous' is not "none", default is 200.
-##' }
+##' * `nsplit`: integer, the number of branch blocks divided when 'continuous' is not "none", default is 200.
+##'
 ##' @return tree layer
 ##' @section Aesthetics:
-#' \code{geom_tree()} understands the following aesthethics:
-##'     \itemize{
-##'        \item \code{color} character, control the color of line, default is black (\code{continuous} is "none").
-##'        \item \code{linetype} control the type of line, default is 1 (solid).
-##'        \item \code{linewidth} numeric, control the width of line, default is 0.5 (\code{continuous} is "none").
-##'     }
+##' `geom_tree()` understands the following aesthetics:
+##' 
+##' * `color`: character, control the color of line, default is black (`continuous` is "none").
+##' * `linetype`: control the type of line, default is 1 (solid).
+##' * `linewidth`: numeric, control the width of line, default is 0.5 (`continuous` is "none").
+##'
 ##' @importFrom ggplot2 geom_segment
 ##' @importFrom ggplot2 aes
 ##' @export

@@ -26,70 +26,59 @@
 ##' additional parameters can refer the following parameters. 
 ##'
 ##' The following parameters for geom="text".
-##' \itemize{
-##'     \item \code{size} control the size of tip labels, defaults to 3.88.
-##'     \item \code{colour} control the colour of tip labels, defaults to "black".
-##'     \item \code{angle} control the angle of tip labels, defaults to 0.
-##'     \item \code{vjust} A numeric vector specifying vertical justification, defaults to 0.5.
-##'     \item \code{alpha} the transparency of text, defaults to NA.
-##'     \item \code{family} the family of text, defaults to 'sans'.
-##'     \item \code{fontface} the font face of text, defaults to 1 (plain), others are 
-##'      2 (bold), 3 (italic), 4 (bold.italic).
-##'     \item \code{lineheight} The height of a line as a multiple of the size of text, defaults to 1.2 .
-##'     \item \code{nudge_x} horizontal adjustment to nudge labels, defaults to 0. 
-##'     \item \code{nudge_y}  vertical adjustment to nudge labels, defaults to 0.
-##'     \item \code{check.overlap} if TRUE, text that overlaps previous text in the same layer 
-##'      will not be plotted.
-##'     \item \code{parse} if TRUE, the labels will be parsed into expressions, if it is 'emoji', the labels
-##'      will be parsed into emojifont.
-##' }
+##'
+##' * `size`: control the size of tip labels, defaults to 3.88.
+##' * `colour`: control the colour of tip labels, defaults to "black".
+##' * `angle`: control the angle of tip labels, defaults to 0.
+##' * `vjust`: A numeric vector specifying vertical justification, defaults to 0.5.
+##' * `alpha`: the transparency of text, defaults to NA.
+##' * `family`: the family of text, defaults to 'sans'.
+##' * `fontface`: the font face of text, defaults to 1 (plain), others are 2 (bold), 3 (italic), 4 (bold.italic).
+##' * `lineheight`: The height of a line as a multiple of the size of text, defaults to 1.2.
+##' * `nudge_x`: horizontal adjustment to nudge labels, defaults to 0.
+##' * `nudge_y`: vertical adjustment to nudge labels, defaults to 0.
+##' * `check.overlap`: if TRUE, text that overlaps previous text in the same layer will not be plotted.
+##' * `parse`: if TRUE, the labels will be parsed into expressions, if it is 'emoji', the labels will be parsed into emojifont.
+##'
 ##'
 ##' The following parameters for geom="label".
-##' \itemize{
-##'     \item \code{size} the size of tip labels, defaults to 3.88.
-##'     \item \code{colour} the colour of tip labels, defaults to "black".
-##'     \item \code{fill} the colour of rectangular box of labels, defaults to "white".
-##'     \item \code{vjust} numeric vector specifying vertical justification, defaults to 0.5.
-##'     \item \code{alpha} the transparency of labels, defaults to NA.
-##'     \item \code{family} the family of text, defaults to 'sans'.
-##'     \item \code{fontface} the font face of text, defaults to 1 (plain), others are
-##'     2 (bold), 3 (italic), 4 (bold.italic).
-##'     \item \code{lineheight} The height of a line as a multiple of the size of text, defaults to 1.2.
-##'     \item \code{nudge_x} horizontal adjustment to nudge labels, defaults to 0.
-##'     \item \code{nudge_y}  vertical adjustment, defaults to 0.
-##'     \item \code{check.overlap} if TRUE, text that overlaps previous text in the same layer
-##'      will not be plotted.
-##'     \item \code{parse} if TRUE, the labels will be parsed into expressions, if it is 'emoji', the labels
-##'      will be parsed into emojifont.
-##'     \item \code{label.padding} Amount of padding around label, defaults to 'unit(0.25, "lines")'.
-##'     \item \code{label.r} Radius of rounded corners, defaults to 'unit(0.15, "lines")'.
-##'     \item \code{label.size} Size of label border, in mm, defaults to 0.25.
-##' }
+##'
+##' * `size`: the size of tip labels, defaults to 3.88.
+##' * `colour`: the colour of tip labels, defaults to "black".
+##' * `fill`: the colour of rectangular box of labels, defaults to "white".
+##' * `vjust`: numeric vector specifying vertical justification, defaults to 0.5.
+##' * `alpha`: the transparency of labels, defaults to NA.
+##' * `family`: the family of text, defaults to 'sans'.
+##' * `fontface`: the font face of text, defaults to 1 (plain), others are 2 (bold), 3 (italic), 4 (bold.italic).
+##' * `lineheight`: The height of a line as a multiple of the size of text, defaults to 1.2.
+##' * `nudge_x`: horizontal adjustment to nudge labels, defaults to 0.
+##' * `nudge_y`: vertical adjustment, defaults to 0.
+##' * `check.overlap`: if TRUE, text that overlaps previous text in the same layer will not be plotted.
+##' * `parse`: if TRUE, the labels will be parsed into expressions, if it is 'emoji', the labels will be parsed into emojifont.
+##' * `label.padding`: Amount of padding around label, defaults to 'unit(0.25, "lines")'.
+##' * `label.r`: Radius of rounded corners, defaults to 'unit(0.15, "lines")'.
+##' * `label.size`: Size of label border, in mm, defaults to 0.25.
+##'
 ##'
 ##' The following parameters for geom="shadowtext", some parameters are like to geom="text".
-##' \itemize{
-##'     \item \code{bg.colour} the background colour of text, defaults to "black".
-##'     \item \code{bg.r} the width of background of text, defaults to 0.1 .
-##' }
+##'
+##' * `bg.colour`: the background colour of text, defaults to "black".
+##' * `bg.r`: the width of background of text, defaults to 0.1.
 ##'
 ##' The following parameters for geom="image" or geom="phylopic".
-##' \itemize{
-##'     \item \code{image} the image file path for geom='image', but when geom='phylopic',
-##'      it should be the uid of phylopic databases.
-##'     \item \code{size} the image size, defaults to 0.05.
-##'     \item \code{colour} the color of image, defaults to NULL.
-##'     \item \code{alpha} the transparency of image, defaults to 0.8.
-##' }
+##'
+##' * `image`: the image file path for geom='image', but when geom='phylopic', it should be the uid of phylopic databases.
+##' * `size`: the image size, defaults to 0.05.
+##' * `colour`: the color of image, defaults to NULL.
+##' * `alpha`: the transparency of image, defaults to 0.8.
 ##'
 ##' The following parameters for the line when align = TRUE.
-##' \itemize{
-##'     \item \code{colour} the colour of line, defaults to 'black'.
-##'     \item \code{alpha} the transparency of line, defaults to NA.
-##'     \item \code{arrow} specification for arrow heads, 
-##'     as created by arrow(), defaults to NULL.
-##'     \item \code{arrow.fill} fill color to usse for the arrow head (if closed), 
-##'     defaults to 'NULL', meaning use 'colour' aesthetic.
-##' }
+##'
+##' * `colour`: the colour of line, defaults to 'black'.
+##' * `alpha`: the transparency of line, defaults to NA.
+##' * `arrow`: specification for arrow heads, as created by arrow(), defaults to NULL.
+##' * `arrow.fill`: fill color to usse for the arrow head (if closed), defaults to 'NULL', meaning use 'colour' aesthetic.
+##'
 ##' @return tip label layer
 ##' @importFrom ggplot2 geom_text
 ##' @importFrom utils modifyList

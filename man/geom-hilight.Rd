@@ -41,15 +41,10 @@ object, default is FALSE.}
 
 \item{...}{additional parameters, see also the below and Aesthetics section.
 \itemize{
-\item \code{align} control the align direction of the edge of high light rectangular.
-Options is 'none' (default), 'left', 'right', 'both'. This argument only work when the
-'geom_hilight' is plotting using geom_hilight(mapping=aes(...)).
-\item \code{gradient.direction} character, the direction of gradient color, defaults to 'rt'
-meaning the locations of gradient color is from root to tip, options are 'rt' and 'tr'.
-\item \code{gradient.length.out} integer, desired length of the sequence of gradient color,
-defaults to 2.
-\item \code{roundrect.r} numeric, the radius of the rounded corners, when \code{roundrect=TRUE},
-defaults to 0.05.
+\item \code{align}: control the align direction of the edge of high light rectangular. Options is 'none' (default), 'left', 'right', 'both'. This argument only work when the 'geom_hilight' is plotting using geom_hilight(mapping=aes(...)).
+\item \code{gradient.direction}: character, the direction of gradient color, defaults to 'rt' meaning the locations of gradient color is from root to tip, options are 'rt' and 'tr'.
+\item \code{gradient.length.out}: integer, desired length of the sequence of gradient color, defaults to 2.
+\item \code{roundrect.r}: numeric, the radius of the rounded corners, when \code{roundrect=TRUE}, defaults to 0.05.
 }}
 }
 \value{
@@ -64,31 +59,30 @@ you can see the Aesthetics section to set parameters.
 }
 \section{Aesthetics}{
 
-\code{geom_hilight()} understands the following aesthetics for rectangular layer (required
-aesthetics are in bold):
+\code{geom_hilight()} understands the following aesthetics for rectangular layer (required aesthetics are in bold):
 \itemize{
-\item \strong{\code{node}} selected node to hight light, it is required.
-\item \code{colour} the colour of margin, defaults to NA.
-\item \code{fill} the colour of fill, defaults to 'steelblue'.
-\item \code{alpha} the transparency of fill, defaults to 0.5.
-\item \code{extend} extend xmax of the rectangle, defaults to 0.
-\item \code{extendto} specify a value, meaning the rectangle extend to, defaults to NULL.
-\item \code{linetype} the line type of margin, defaults to 1.
-\item \code{linewidth} the width of line of margin, defaults to 0.5.
+\item \strong{\code{node}}: selected node to hight light, it is required.
+\item \code{colour}: the colour of margin, defaults to NA.
+\item \code{fill}: the colour of fill, defaults to 'steelblue'.
+\item \code{alpha}: the transparency of fill, defaults to 0.5.
+\item \code{extend}: extend xmax of the rectangle, defaults to 0.
+\item \code{extendto}: specify a value, meaning the rectangle extend to, defaults to NULL.
+\item \code{linetype}: the line type of margin, defaults to 1.
+\item \code{linewidth}: the width of line of margin, defaults to 0.5.
 }
-\code{geom_hilight()} understands the following aesthethics for encircle layer (required
-aesthetics are in bold):
+
+\code{geom_hilight()} understands the following aesthetics for encircle layer (required aesthetics are in bold):
 \itemize{
-\item \strong{\code{node}} selected node to hight light, it is required.
-\item \code{colour} the colour of margin, defaults to 'black'.
-\item \code{fill} the colour of fill, defaults to 'steelblue'.
-\item \code{alpha} the transparency of fill, defaults to 0.5.
-\item \code{expand} expands the xspline clade region, defaults to 0.
-\item \code{spread} control the size, when only one point.
-\item \code{linewidth} the width of line of margin, defaults to 0.5.
-\item \code{linetype} the line type of margin, defaults to 1.
-\item \code{s_shape} the shape of the spline relative to the control points, defaults to 0.5.
-\item \code{s_open}  whether the spline is a line or a closed shape, defaults to FALSE.
+\item \strong{\code{node}}: selected node to hight light, it is required.
+\item \code{colour}: the colour of margin, defaults to 'black'.
+\item \code{fill}: the colour of fill, defaults to 'steelblue'.
+\item \code{alpha}: the transparency of fill, defaults to 0.5.
+\item \code{expand}: expands the xspline clade region, defaults to 0.
+\item \code{spread}: control the size, when only one point.
+\item \code{linewidth}: the width of line of margin, defaults to 0.5.
+\item \code{linetype}: the line type of margin, defaults to 1.
+\item \code{s_shape}: the shape of the spline relative to the control points, defaults to 0.5.
+\item \code{s_open}:  whether the spline is a line or a closed shape, defaults to FALSE.
 }
 }
 

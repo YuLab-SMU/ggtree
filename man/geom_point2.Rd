@@ -48,15 +48,15 @@ geom_point2 is a modified version of geom_point that supports aes(subset)
 }
 \section{Aesthetics}{
 
-\code{geom_point2()} understands the following aesthetics
+\code{geom_point2()} understands the following aesthetics:
 \itemize{
-\item \code{subset} logical expression indicating elements or rows to keep: missing values are taken as false; should be in aes().
-\item \code{colour} the colour of point, defaults to "black".
-\item \code{fill} the colour of fill, defaults to "black".
-\item \code{alpha} the transparency of fill, defaults to 1.
-\item \code{size} the size of point, defaults to 1.5.
-\item \code{shape} specify a shape, defaults to 19.
-\item \code{stroke} control point border thickness of point, defaults to 0.5.
+\item \code{subset}: logical expression indicating elements or rows to keep: missing values are taken as false; should be in aes().
+\item \code{colour}: the colour of point, defaults to "black".
+\item \code{fill}: the colour of fill, defaults to "black".
+\item \code{alpha}: the transparency of fill, defaults to 1.
+\item \code{size}: the size of point, defaults to 1.5.
+\item \code{shape}: specify a shape, defaults to 19.
+\item \code{stroke}: control point border thickness of point, defaults to 0.5.
 }
 }
 

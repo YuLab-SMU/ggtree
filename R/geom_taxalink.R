@@ -18,19 +18,18 @@
 #' fan or other layout in polar coordinate, default is "auto", meaning It will automatically.
 #' @param ..., additional parameter.
 #' @section Aesthetics:
-#' \code{geom_taxalink()} understands the following aesthethics (required aesthetics are in bold):
-#'     \itemize{
-#'        \item \strong{\code{taxa1}} label or node number of tree.
-#'        \item \strong{\code{taxa2}} label or node number of tree.
-#'        \item \code{group} group category of link.
-#'        \item \code{colour} control the color of line, default is black.
-#'        \item \code{linetype} control the type of line, default is 1 (solid).
-#'        \item \code{linewidth} control the width of line, default is 0.5.
-#'        \item \code{curvature} control the curvature of line, default is 0.5, 
-#'        it will be created automatically in polar coordinate .
-#'        \item \code{hratio} control the height of curve line, default is 1.
-#'        \item \code{ncp} control the smooth of curve line, default is 1.
-#'     }
+#' `geom_taxalink()` understands the following aesthetics (required aesthetics are in bold):
+#'
+#' * **`taxa1`**: label or node number of tree.
+#' * **`taxa2`**: label or node number of tree.
+#' * `group`: group category of link.
+#' * `colour`: control the color of line, default is black.
+#' * `linetype`: control the type of line, default is 1 (solid).
+#' * `linewidth`: control the width of line, default is 0.5.
+#' * `curvature`: control the curvature of line, default is 0.5, it will be created automatically in polar coordinate.
+#' * `hratio`: control the height of curve line, default is 1.
+#' * `ncp`: control the smooth of curve line, default is 1.
+#'
 #' @return a list object.
 #' @export
 geom_taxalink <- function(data=NULL, 

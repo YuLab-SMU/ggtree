@@ -155,16 +155,16 @@ geom_rootpoint <- function(mapping = NULL, data = NULL,
 #' @param ... addtional parameters that passed on to this layer. These are often aesthetics, used to set an aesthetic to a fixed value, like `colour = "red"` or `size = 3`.
 #' @importFrom ggplot2 layer
 #' @section Aesthetics:
-#' \code{geom_point2()} understands the following aesthetics
-#'     \itemize{
-#'        \item \code{subset} logical expression indicating elements or rows to keep: missing values are taken as false; should be in aes().
-#'        \item \code{colour} the colour of point, defaults to "black".
-#'        \item \code{fill} the colour of fill, defaults to "black".
-#'        \item \code{alpha} the transparency of fill, defaults to 1.
-#'        \item \code{size} the size of point, defaults to 1.5.
-#'        \item \code{shape} specify a shape, defaults to 19.
-#'        \item \code{stroke} control point border thickness of point, defaults to 0.5.
-#'     }
+#' `geom_point2()` understands the following aesthetics:
+#'
+#' * `subset`: logical expression indicating elements or rows to keep: missing values are taken as false; should be in aes().
+#' * `colour`: the colour of point, defaults to "black".
+#' * `fill`: the colour of fill, defaults to "black".
+#' * `alpha`: the transparency of fill, defaults to 1.
+#' * `size`: the size of point, defaults to 1.5.
+#' * `shape`: specify a shape, defaults to 19.
+#' * `stroke`: control point border thickness of point, defaults to 0.5.
+#'
 #' @seealso
 #'  [geom_point][ggplot2::geom_point]; 
 #'  [geom_rootpoint] add point of root; 

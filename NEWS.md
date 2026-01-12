@@ -22,8 +22,9 @@
 
 -->
 
-# ggtree 4.1.1.003
+# ggtree 4.1.1.004
 
++ modernize roxygen documentation using markdown syntax (2026-01-12, Mon)
 + add 'data' argument to `geom_rootedge()` (2026-01-10, Sat, #696, #697)
 + more options in `ggtree_set_interactive()` (2025-12-19, Fri)
 + update `default_aes` to work with `from_theme`
@@ -46,7 +47,7 @@
 + update `gheatmap`, `geom_range` and `msaplot` to be compatible with ggplot2 v=4.0.0 (2025-10-16, Thu, #668, #672, #674)
 + interactive ggtree (2025-09-16, #662)
   - incorporated iggtree, <https://github.com/YuLab-SMU/iggtree>
-+ Added support for XStringSet in msaplot (2027-07-13, Sun, #631)
++ Added support for XStringSet in msaplot (2025-07-13, Sun, #631)
 
 # ggtree 3.17.1
 
