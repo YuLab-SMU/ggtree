@@ -8,8 +8,6 @@
   - <https://stackoverflow.com/questions/68668788/phylogeography-how-to-combine-phylogenetic-tree-and-geographic-map-and-create>
 + visualize support values obtained from different methods
   - <https://github.com/YuLab-SMU/ggtree/issues/451>
-+ `height` parameter to `collapse()`
-  - <https://github.com/YuLab-SMU/ggtree/issues/409#issuecomment-944034311>
 + rewrite `revts` to `scale_revts`
 + `inset` and relative functions support circular layout
 + tanglegram support
@@ -22,10 +20,11 @@
 
 # ggtree 4.1.1.005
 
++ add a `height` parameter to `collapse()` so collapsed clades can use a uniform display height, and restore the original layout correctly on `expand()` (2026-03-09, Mon, #409)
++ optimize the `daylight` layout by caching subtree topology and removing repeated tidyverse reshaping while preserving the existing geometry; add regression tests for cached and uncached paths (2026-03-09, Mon)
 + fix custom layout handling in `ggtree()` when layout functions return an `xy` component (2026-03-09, Mon)
 + improve `gheatmap()` input validation and custom column label remapping (2026-03-09, Mon)
 + make `geom_hilight()` and `geom_cladelabel()` more compatible with recent ggplot2 changes, and strengthen regression tests (2026-03-09, Mon)
-+ optimize the `daylight` layout by caching subtree topology and removing repeated tidyverse reshaping while preserving the existing geometry; add regression tests for cached and uncached paths (2026-03-09, Mon)
 + modernize roxygen documentation using markdown syntax (2026-01-12, Mon)
 + add 'data' argument to `geom_rootedge()` (2026-01-10, Sat, #696, #697)
 + more options in `ggtree_set_interactive()` (2025-12-19, Fri)

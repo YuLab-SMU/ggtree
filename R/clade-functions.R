@@ -75,6 +75,35 @@ is.viewClade <- function(tree_view) {
 
 
 
+.validate_collapse_height <- function(height) {
+    if (is.null(height)) {
+        return(NULL)
+    }
+
+    if (!is.numeric(height) || length(height) != 1L || is.na(height) || height < 0) {
+        stop("`height` must be a single non-negative numeric value.")
+    }
+
+    as.numeric(height)
+}
+
+.rescale_collapse_y <- function(y, ymin, original_span, collapsed_span) {
+    if (original_span == 0) {
+        return(rep(ymin, length(y)))
+    }
+
+    ymin + (y - ymin) * collapsed_span / original_span
+}
+
+.recalculate_collapsed_tree <- function(tree_view, df, node) {
+    df <- reassign_y_from_node_to_root(df, node)
+    df <- calculate_branch_mid(df, layout = get_layout(tree_view))
+
+    ii <- which(!is.na(df$x))
+    df$angle[ii] <- calculate_angle(df[ii, ])$angle
+    df
+}
+
 ##' collapse a selected clade, which can later be expanded with the 'expand()' fuction if necessary
 ##'
 ##'
@@ -85,6 +114,7 @@ is.viewClade <- function(tree_view) {
 ##' @param mode one of 'none'(default), 'max', 'min' and 'mixed'. 'none' would simply collapse the clade as 'tip' and 
 ##' the rest will display a triangle, whose shape is determined by the farest/closest tip of the collapsed clade to indicate it
 ##' @param clade_name set a name for the collapsed clade. If clade_name = NULL, do nothing
+##' @param height optional height of the collapsed clade on the y-axis. Use this to give collapsed triangles a uniform display size.
 ##' @param ... additional parameters to set the color or transparency of the triangle
 ##' @return tree view
 ##' @method collapse ggtree
@@ -97,78 +127,94 @@ is.viewClade <- function(tree_view) {
 ##' p1 <- collapse(p, node = 17, mode = "mixed", 
 ##'                clade_name = "cclade", alpha = 0.8, 
 ##'                color = "grey", fill = "light blue")
+##' p2 <- collapse(p, node = 17, mode = "mixed", height = 1,
+##'                color = "grey", fill = "light blue")
 ##' @seealso expand
 ##' @author Guangchuang Yu
-collapse.ggtree <- function(x=NULL, node, mode = "none", clade_name = NULL, ...) {
+collapse.ggtree <- function(x=NULL, node, mode = "none", clade_name = NULL, height = NULL, ...) {
     tree_view <- get_tree_view(x)
     mode <- match.arg(mode, c("none", "max", "min", "mixed"))
+    height <- .validate_collapse_height(height)
 
     df <- tree_view$data
+    node_idx <- match(node, df$node)
 
-    if (is.na(df$x[df$node == node])) {
+    if (is.na(df$x[node_idx])) {
         warning("specific node was already collapsed...")
         return(tree_view)
     }
 
-    ## sp <- get.offspring.df(df, node)
-    ## sp.df <- df[sp,]
     sp.df <- offspring(df, node)
     if (nrow(sp.df) == 0) {
         warning("input node is a tip...")
         return(tree_view)
     }
 
-    if (mode == "none") {
-        ## df[node, "isTip"] <- TRUE
-        sp_y <- range(sp.df$y, na.rm=TRUE)
-        ii <- which(df$y > max(sp_y))
-        if (length(ii)) {
-            df$y[ii] <- df$y[ii] - diff(sp_y)
-        }
-        df$y[node] <- min(sp_y)
-        
-        df[sp.df$node, "x"] <- NA
-        df[sp.df$node, "y"] <- NA
-
-        df <- reassign_y_from_node_to_root(df, node)
-        
-        ## re-calculate branch mid position
-        df <- calculate_branch_mid(df, layout=get_layout(tree_view))
-
-        ii <- which(!is.na(df$x))
-        df$angle[ii] <- calculate_angle(df[ii,])$angle
+    sp_idx <- match(sp.df$node, df$node)
+    node_data <- df[node_idx, , drop = FALSE]
+    tips.df <- sp.df[sp.df$isTip, ]
+    sp_y <- range(sp.df$y, na.rm = TRUE)
+    original_span <- diff(sp_y)
+    collapsed_span <- if (is.null(height)) {
+        if (mode == "none") 0 else original_span
     } else {
-        ## reference https://jean.manguy.eu/subtrees-as-triangles-with-ggtree/
- 
-        sp_coord <- dplyr::summarise(sp.df[sp.df$isTip,],
-                                     xmax = max(.data$x),
-                                     xmin = min(.data$x),
-                                     ymax = max(.data$y),
-                                     ymin = min(.data$y))
- 
+        height
+    }
+    adjusted_height <- mode == "none" || !is.null(height)
+
+    if (adjusted_height) {
+        shift <- original_span - collapsed_span
+        ii <- which(df$y > sp_y[2])
+        if (length(ii)) {
+            df$y[ii] <- df$y[ii] - shift
+        }
+
+        df$y[node_idx] <- .rescale_collapse_y(node_data$y, sp_y[1], original_span, collapsed_span)
+    }
+
+    if (mode == "none") {
+        df[sp_idx, c("x", "y")] <- NA
+        df <- .recalculate_collapsed_tree(tree_view, df, node)
+    } else {
+        if (adjusted_height) {
+            tip_y <- .rescale_collapse_y(tips.df$y, sp_y[1], original_span, collapsed_span)
+        } else {
+            tip_y <- tips.df$y
+        }
+
+        sp_coord <- tibble::tibble(
+            xmax = max(tips.df$x),
+            xmin = min(tips.df$x),
+            ymax = max(tip_y),
+            ymin = min(tip_y)
+        )
+
         triangle <- switch(
             mode,
             max = tibble::tibble(
-                x = c(df$x[node], sp_coord$xmax, sp_coord$xmax),
-                y = c(df$y[node], sp_coord$ymin, sp_coord$ymax)
+                x = c(df$x[node_idx], sp_coord$xmax, sp_coord$xmax),
+                y = c(df$y[node_idx], sp_coord$ymin, sp_coord$ymax)
             ),
             min = tibble::tibble(
-                x = c(df$x[node], sp_coord$xmin, sp_coord$xmin),
-                y = c(df$y[node], sp_coord$ymin, sp_coord$ymax)
+                x = c(df$x[node_idx], sp_coord$xmin, sp_coord$xmin),
+                y = c(df$y[node_idx], sp_coord$ymin, sp_coord$ymax)
             ),
             mixed = tibble::tibble(
-                x = c(df$x[node], sp_coord$xmin, sp_coord$xmax),
-                y = c(df$y[node], sp_coord$ymin, sp_coord$ymax)                
+                x = c(df$x[node_idx], sp_coord$xmin, sp_coord$xmax),
+                y = c(df$y[node_idx], sp_coord$ymin, sp_coord$ymax)                
             )
         )
 
-        df[sp.df$node, "x"] <- NA
-        df[sp.df$node, "y"] <- NA
+        df[sp_idx, c("x", "y")] <- NA
+
+        if (adjusted_height) {
+            df <- .recalculate_collapsed_tree(tree_view, df, node)
+        }
     }
 
-    ## set clade name
-    if (!is.null(clade_name))
-        df$label[node] <- clade_name
+    if (!is.null(clade_name)) {
+        df$label[node_idx] <- clade_name
+    }
 
     tree_view$data <- df
 
@@ -180,8 +226,12 @@ collapse.ggtree <- function(x=NULL, node, mode = "none", clade_name = NULL, ...)
 
     clade <- paste0("collapse_clade_", node)
     mode_attr <- paste0("collapse_mode_", node)
+    height_attr <- paste0("collapse_height_", node)
+    node_attr <- paste0("collapse_node_", node)
     attr(tree_view, clade) <- sp.df
     attr(tree_view, mode_attr) <- mode
+    attr(tree_view, height_attr) <- if (adjusted_height) collapsed_span else NULL
+    attr(tree_view, node_attr) <- if (adjusted_height) node_data else NULL
 
     tree_view
 }
@@ -207,37 +257,33 @@ expand <- function(tree_view=NULL, node) {
     sp.df <- attr(tree_view, clade)
     mode_attr <- paste0("collapse_mode_", node)
     mode <- attr(tree_view, mode_attr)
+    height_attr <- paste0("collapse_height_", node)
+    collapsed_span <- attr(tree_view, height_attr)
+    node_attr <- paste0("collapse_node_", node)
+    node_data <- attr(tree_view, node_attr)
 
     if (is.null(sp.df)) {
         return(tree_view)
     }
     df <- tree_view$data
 
-    if (mode == "none") {
-        ## df[node, "isTip"] <- FALSE
+    if (mode == "none" || !is.null(collapsed_span)) {
         sp_y <- range(sp.df$y)
-        ii <- which(df$y > df$y[node])
-        df[ii, "y"] <- df[ii, "y"] + diff(sp_y)
-
-        sp.df$y <- sp.df$y - min(sp.df$y) + df$y[node]
-        df[sp.df$node,] <- sp.df
-        
-        root <- which(df$node == df$parent)
-        pp <- node
-        while(any(pp != root)) {
-            ## df[pp, "y"] <- mean(df$y[getChild.df(df, pp)])
-            df[pp, "y"] <- mean(tidytree::child(df, pp)$y)
-            pp <- df$parent[pp]
+        original_span <- diff(sp_y)
+        current_span <- if (is.null(collapsed_span)) 0 else collapsed_span
+        current_top <- sp_y[1] + current_span
+        ii <- which(df$y > current_top)
+        if (length(ii)) {
+            df[ii, "y"] <- df[ii, "y"] + (original_span - current_span)
         }
-        ## j <- getChild.df(df, pp)
-        j <- tidytree::child(df, pp)$node
-        j <- j[j!=pp]
-        df[pp, "y"] <- mean(df$y[j])
-        
-        ## re-calculate branch mid position
-        df <- calculate_branch_mid(df, layout=get_layout(tree_view))
 
-        tree_view$data <- calculate_angle(df)
+        if (!is.null(node_data)) {
+            df[match(node_data$node, df$node), ] <- node_data
+        }
+        df[match(sp.df$node, df$node), ] <- sp.df
+
+        df <- .recalculate_collapsed_tree(tree_view, df, node)
+        tree_view$data <- df
     } else {
         df[sp.df$node,] <- sp.df
         tree_view$data <- df
@@ -245,6 +291,8 @@ expand <- function(tree_view=NULL, node) {
 
     attr(tree_view, clade) <- NULL
     attr(tree_view, mode_attr) <- NULL
+    attr(tree_view, height_attr) <- NULL
+    attr(tree_view, node_attr) <- NULL
     return(tree_view)
 }
 

@@ -4,7 +4,7 @@
 \alias{collapse.ggtree}
 \title{collapse-ggtree}
 \usage{
-\method{collapse}{ggtree}(x = NULL, node, mode = "none", clade_name = NULL, ...)
+\method{collapse}{ggtree}(x = NULL, node, mode = "none", clade_name = NULL, height = NULL, ...)
 }
 \arguments{
 \item{x}{tree view (i.e. the ggtree object). If tree_view is NULL, the last ggplot will be used.}
@@ -15,6 +15,8 @@
 the rest will display a triangle, whose shape is determined by the farest/closest tip of the collapsed clade to indicate it}
 
 \item{clade_name}{set a name for the collapsed clade. If clade_name = NULL, do nothing}
+
+\item{height}{optional height of the collapsed clade on the y-axis. Use this to give collapsed triangles a uniform display size.}
 
 \item{...}{additional parameters to set the color or transparency of the triangle}
 }
@@ -30,6 +32,8 @@ p <- ggtree(x) + geom_tiplab()
 p
 p1 <- collapse(p, node = 17, mode = "mixed", 
                clade_name = "cclade", alpha = 0.8, 
+               color = "grey", fill = "light blue")
+p2 <- collapse(p, node = 17, mode = "mixed", height = 1,
                color = "grey", fill = "light blue")
 }
 \seealso{
