@@ -16,7 +16,7 @@ the rest will display a triangle, whose shape is determined by the farest/closes
 
 \item{clade_name}{set a name for the collapsed clade. If clade_name = NULL, do nothing}
 
-\item{height}{optional height of the collapsed clade on the y-axis. Use this to give collapsed triangles a uniform display size.}
+\item{height}{controls the display height of the collapsed clade. \code{NULL} keeps the default behavior, \code{ggplot2::rel(0.2)} scales the original clade height to 20\%, and a numeric value such as \code{1} forces the displayed height to 1.}
 
 \item{...}{additional parameters to set the color or transparency of the triangle}
 }
@@ -33,7 +33,9 @@ p
 p1 <- collapse(p, node = 17, mode = "mixed", 
                clade_name = "cclade", alpha = 0.8, 
                color = "grey", fill = "light blue")
-p2 <- collapse(p, node = 17, mode = "mixed", height = 1,
+p2 <- collapse(p, node = 17, mode = "mixed", height = ggplot2::rel(0.2),
+               color = "grey", fill = "light blue")
+p3 <- collapse(p, node = 17, mode = "mixed", height = 1,
                color = "grey", fill = "light blue")
 }
 \seealso{

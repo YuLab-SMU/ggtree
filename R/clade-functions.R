@@ -80,8 +80,28 @@ is.viewClade <- function(tree_view) {
         return(NULL)
     }
 
+    if (inherits(height, "rel")) {
+        value <- unclass(height)
+        if (!is.numeric(value) || length(value) != 1L || is.na(value) || value < 0) {
+            stop("`height` must be NULL, `ggplot2::rel()` with a single non-negative value, or a single non-negative numeric value.")
+        }
+        return(structure(value, class = "rel"))
+    }
+
     if (!is.numeric(height) || length(height) != 1L || is.na(height) || height < 0) {
-        stop("`height` must be a single non-negative numeric value.")
+        stop("`height` must be NULL, `ggplot2::rel()` with a single non-negative value, or a single non-negative numeric value.")
+    }
+
+    as.numeric(height)
+}
+
+.resolve_collapse_height <- function(height, original_span, mode) {
+    if (is.null(height)) {
+        return(if (mode == "none") 0 else original_span)
+    }
+
+    if (inherits(height, "rel")) {
+        return(original_span * unclass(height))
     }
 
     as.numeric(height)
@@ -114,7 +134,7 @@ is.viewClade <- function(tree_view) {
 ##' @param mode one of 'none'(default), 'max', 'min' and 'mixed'. 'none' would simply collapse the clade as 'tip' and 
 ##' the rest will display a triangle, whose shape is determined by the farest/closest tip of the collapsed clade to indicate it
 ##' @param clade_name set a name for the collapsed clade. If clade_name = NULL, do nothing
-##' @param height optional height of the collapsed clade on the y-axis. Use this to give collapsed triangles a uniform display size.
+##' @param height controls the display height of the collapsed clade. `NULL` keeps the default behavior, `ggplot2::rel(0.2)` scales the original clade height to 20%, and a numeric value such as `1` forces the displayed height to 1.
 ##' @param ... additional parameters to set the color or transparency of the triangle
 ##' @return tree view
 ##' @method collapse ggtree
@@ -127,7 +147,9 @@ is.viewClade <- function(tree_view) {
 ##' p1 <- collapse(p, node = 17, mode = "mixed", 
 ##'                clade_name = "cclade", alpha = 0.8, 
 ##'                color = "grey", fill = "light blue")
-##' p2 <- collapse(p, node = 17, mode = "mixed", height = 1,
+##' p2 <- collapse(p, node = 17, mode = "mixed", height = ggplot2::rel(0.2),
+##'                color = "grey", fill = "light blue")
+##' p3 <- collapse(p, node = 17, mode = "mixed", height = 1,
 ##'                color = "grey", fill = "light blue")
 ##' @seealso expand
 ##' @author Guangchuang Yu
@@ -155,11 +177,7 @@ collapse.ggtree <- function(x=NULL, node, mode = "none", clade_name = NULL, heig
     tips.df <- sp.df[sp.df$isTip, ]
     sp_y <- range(sp.df$y, na.rm = TRUE)
     original_span <- diff(sp_y)
-    collapsed_span <- if (is.null(height)) {
-        if (mode == "none") 0 else original_span
-    } else {
-        height
-    }
+    collapsed_span <- .resolve_collapse_height(height, original_span, mode)
     adjusted_height <- mode == "none" || !is.null(height)
 
     if (adjusted_height) {

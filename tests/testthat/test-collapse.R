@@ -35,6 +35,18 @@ test_that('collapse height gives collapsed triangles a predictable y span', {
     expect_equal(collapsed_y, original_y - (candidate$tip_span - 1), tolerance = 1e-8)
 })
 
+test_that('collapse height supports ggplot2::rel() scaling', {
+    set.seed(1)
+    tree <- ape::rtree(12)
+    p <- ggtree(tree) + geom_tiplab()
+    candidate <- find_collapse_candidate(p)
+
+    p2 <- collapse(p, candidate$node, mode = 'mixed', height = ggplot2::rel(0.2))
+    triangle <- p2$layers[[length(p2$layers)]]$data
+
+    expect_equal(diff(range(triangle$y)), candidate$tip_span * 0.2, tolerance = 1e-8)
+})
+
 test_that('collapse height expands back to the original data layout', {
     set.seed(2)
     tree <- ape::rtree(14)
@@ -58,6 +70,13 @@ test_that('collapse validates the height argument', {
 
     expect_error(
         collapse(p, node, mode = 'mixed', height = -1),
-        '`height` must be a single non-negative numeric value.'
+        '`height` must be NULL, `ggplot2::rel()` with a single non-negative value, or a single non-negative numeric value.',
+        fixed = TRUE
+    )
+
+    expect_error(
+        collapse(p, node, mode = 'mixed', height = structure(-0.1, class = 'rel')),
+        '`height` must be NULL, `ggplot2::rel()` with a single non-negative value, or a single non-negative numeric value.',
+        fixed = TRUE
     )
 })
