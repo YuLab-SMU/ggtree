@@ -32,7 +32,7 @@ geom_highlight(
 
 \item{type}{the type of layer, defaults to \code{auto}, meaning rectangular, circular,
 slanted, fan, inward_circular, radial, equal_angle, ape layout tree will use rectangular layer,
-unrooted and daylight layout tree use will use encircle layer. You can specify this parameter to
+unrooted, daylight, and tree_and_leaf layout tree use will use encircle layer. You can specify this parameter to
 \code{rect} (rectangular layer) or \code{encircle} (encircle layer), 'gradient' (gradient color),
 'roundrect' (round rectangular layer).}
 

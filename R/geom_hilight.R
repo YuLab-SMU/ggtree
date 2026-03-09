@@ -10,7 +10,7 @@
 #' @param node selected node to hilight, when data and mapping is NULL, it is required.
 #' @param type the type of layer, defaults to `auto`, meaning rectangular, circular,
 #' slanted, fan, inward_circular, radial, equal_angle, ape layout tree will use rectangular layer,
-#' unrooted and daylight layout tree use will use encircle layer. You can specify this parameter to
+#' unrooted, daylight, and tree_and_leaf layout tree use will use encircle layer. You can specify this parameter to
 #' `rect` (rectangular layer) or `encircle` (encircle layer), 'gradient' (gradient color), 
 #' 'roundrect' (round rectangular layer).
 #' @param to.bottom logical, whether set the high light layer to the bottom in all layers of 'ggtree'

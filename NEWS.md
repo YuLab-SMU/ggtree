@@ -3,7 +3,6 @@
 # TODO LIST
 
 
-+ TreeAndLeaf layout: <https://www.bioconductor.org/packages/TreeAndLeaf>
 + `phylogeography`
   - <https://stackoverflow.com/questions/68668788/phylogeography-how-to-combine-phylogenetic-tree-and-geographic-map-and-create>
 + visualize support values obtained from different methods
@@ -20,7 +19,8 @@
 
 # ggtree 4.1.1.005
 
-+ add a `height` parameter to `collapse()` so collapsed clades can use a uniform display height, and restore the original layout correctly on `expand()` (2026-03-09, Mon, #409)
++ add a deterministic `tree_and_leaf` layout inspired by the TreeAndLeaf package, with native `ggtree()` integration and regression tests (2026-03-09, Mon)
++ add a `height` parameter to `collapse()` supporting `NULL`, `ggplot2::rel()`, and absolute numeric heights for collapsed triangles, while restoring the original layout correctly on `expand()` (2026-03-09, Mon, #409)
 + optimize the `daylight` layout by caching subtree topology and removing repeated tidyverse reshaping while preserving the existing geometry; add regression tests for cached and uncached paths (2026-03-09, Mon)
 + fix custom layout handling in `ggtree()` when layout functions return an `xy` component (2026-03-09, Mon)
 + improve `gheatmap()` input validation and custom column label remapping (2026-03-09, Mon)

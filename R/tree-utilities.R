@@ -6,6 +6,7 @@ layout.unrooted <- function(model, branch.length="branch.length", layout.method=
     df <- switch(layout.method,
                  equal_angle = layoutEqualAngle(model, branch.length),
                  daylight = layoutDaylight(model, branch.length, MAX_COUNT),
+                 tree_and_leaf = layoutTreeAndLeaf(model, branch.length, MAX_COUNT = MAX_COUNT, ...),
     			 ape = layoutApe(model, branch.length)
                  )
 
@@ -185,6 +186,222 @@ layoutDaylight <- function(model, branch.length, MAX_COUNT=5 ){
     tree_df <- as_tibble(tree_df)
     class(tree_df) <- c("tbl_tree", class(tree_df))
     return(tree_df)
+}
+
+##' TreeAndLeaf-inspired unrooted layout.
+##'
+##' @param model tree object, e.g. phylo or treedata
+##' @param branch.length set to 'none' for edge length of 1. Otherwise the phylogenetic tree edge length is used.
+##' @param MAX_COUNT maximum number of iterations used by the daylight initializer.
+##' @param initial_layout initial unrooted layout used before leaf-centric relaxation.
+##' @param max_iter maximum number of relaxation iterations.
+##' @param leaf_force pairwise repulsion strength among leaves.
+##' @param edge_force spring strength used to preserve the tree skeleton.
+##' @param anchor_force anchor strength pulling tips toward the initial layout.
+##' @param internal_anchor anchor strength pulling internal nodes toward the initial layout.
+##' @param outward_force outward radial bias applied to leaves.
+##' @param step initial step size.
+##' @param cooling multiplicative decay applied to step size per iteration.
+##' @param tol convergence tolerance on maximum displacement.
+##' @return tree as data.frame with a TreeAndLeaf-inspired layout.
+layoutTreeAndLeaf <- function(model,
+                              branch.length,
+                              MAX_COUNT = 5,
+                              initial_layout = "daylight",
+                              max_iter = 200L,
+                              leaf_force = 0.08,
+                              edge_force = 0.25,
+                              anchor_force = 0.02,
+                              internal_anchor = 0.08,
+                              outward_force = 0.01,
+                              step = 0.2,
+                              cooling = 0.98,
+                              tol = 1e-4,
+                              ...) {
+    initial_layout <- match.arg(initial_layout, c("daylight", "equal_angle", "ape"))
+    max_iter <- as.integer(max_iter)
+    if (is.na(max_iter) || max_iter < 1L) {
+        stop("`max_iter` must be a positive integer.")
+    }
+
+    tree_df <- switch(
+        initial_layout,
+        daylight = suppressMessages(layoutDaylight(model, branch.length, MAX_COUNT = MAX_COUNT)),
+        equal_angle = layoutEqualAngle(model, branch.length),
+        ape = layoutApe(model, branch.length)
+    )
+
+    cache <- .treeAndLeafBuildCache(tree_df)
+    if (length(cache$tip_rows) <= 1L) {
+        tree_df <- as_tibble(tree_df)
+        class(tree_df) <- c("tbl_tree", class(tree_df))
+        return(tree_df)
+    }
+
+    positions <- as.matrix(tree_df[, c("x", "y")])
+    initial_positions <- positions
+    current_step <- step
+    n_nodes <- nrow(tree_df)
+
+    for (iter in seq_len(max_iter)) {
+        forces <- matrix(0, nrow = n_nodes, ncol = 2)
+
+        tip_rows <- cache$tip_rows
+        tip_weights <- 0.5 + cache$depth_norm[tip_rows]
+        n_tips <- length(tip_rows)
+        for (i in seq_len(n_tips - 1L)) {
+            row_i <- tip_rows[i]
+            other_rows <- tip_rows[(i + 1L):n_tips]
+            delta <- sweep(positions[other_rows, , drop = FALSE], 2, positions[row_i, ], FUN = "-")
+            dist2 <- rowSums(delta^2)
+            zero_idx <- dist2 < 1e-12
+            if (any(zero_idx)) {
+                delta[zero_idx, ] <- .treeAndLeafFallbackDirections(
+                    cache$node_ids[row_i],
+                    cache$node_ids[other_rows[zero_idx]]
+                )
+                dist2[zero_idx] <- rowSums(delta[zero_idx, , drop = FALSE]^2)
+            }
+            dist <- sqrt(dist2)
+            magnitude <- leaf_force * (tip_weights[i] + tip_weights[(i + 1L):n_tips]) / (dist2 + 1e-6)
+            contribution <- delta / dist * magnitude
+            forces[row_i, ] <- forces[row_i, ] - colSums(contribution)
+            forces[other_rows, ] <- forces[other_rows, ] + contribution
+        }
+
+        for (edge_idx in seq_along(cache$edge_child_rows)) {
+            parent_row <- cache$edge_parent_rows[edge_idx]
+            child_row <- cache$edge_child_rows[edge_idx]
+            delta <- positions[child_row, ] - positions[parent_row, ]
+            dist2 <- sum(delta^2)
+            if (dist2 < 1e-12) {
+                delta <- .treeAndLeafFallbackDirections(
+                    cache$node_ids[parent_row],
+                    cache$node_ids[child_row]
+                )[1, ]
+                dist2 <- sum(delta^2)
+            }
+            dist <- sqrt(dist2)
+            magnitude <- edge_force * (dist - cache$target_edge_length[edge_idx])
+            contribution <- delta / dist * magnitude
+            forces[parent_row, ] <- forces[parent_row, ] + contribution
+            forces[child_row, ] <- forces[child_row, ] - contribution
+        }
+
+        anchor_weights <- rep(anchor_force, n_nodes)
+        anchor_weights[cache$internal_rows] <- internal_anchor
+        anchor_weights[cache$root_row] <- 0
+        forces <- forces + (initial_positions - positions) * anchor_weights
+
+        if (outward_force != 0) {
+            outward_scale <- outward_force * (0.5 + cache$depth_norm)
+            forces[cache$tip_rows, ] <- forces[cache$tip_rows, , drop = FALSE] +
+                cache$outward_dir[cache$tip_rows, , drop = FALSE] * outward_scale[cache$tip_rows]
+        }
+
+        displacement <- forces * (current_step * cache$mobility)
+        displacement_norm <- sqrt(rowSums(displacement^2))
+        limit_idx <- displacement_norm > current_step & displacement_norm > 0
+        if (any(limit_idx)) {
+            displacement[limit_idx, ] <- displacement[limit_idx, , drop = FALSE] *
+                (current_step / displacement_norm[limit_idx])
+        }
+
+        positions <- positions + displacement
+        positions[cache$root_row, ] <- initial_positions[cache$root_row, ]
+
+        if (max(displacement_norm, na.rm = TRUE) < tol) {
+            break
+        }
+        current_step <- current_step * cooling
+    }
+
+    tree_df$x <- positions[, 1]
+    tree_df$y <- positions[, 2]
+    tree_df <- as_tibble(tree_df)
+    class(tree_df) <- c("tbl_tree", class(tree_df))
+    tree_df
+}
+
+.treeAndLeafBuildCache <- function(df) {
+    node_ids <- as.integer(df$node)
+    parent_ids <- as.integer(df$parent)
+    n_nodes <- nrow(df)
+    max_node <- max(node_ids, na.rm = TRUE)
+    row_index <- rep.int(NA_integer_, max_node)
+    row_index[node_ids] <- seq_len(n_nodes)
+
+    root_row <- which(is.na(parent_ids) | parent_ids == node_ids)[1]
+    if (length(root_row) == 0L || is.na(root_row)) {
+        stop("Unable to determine the tree root for `tree_and_leaf` layout.")
+    }
+
+    parent_rows <- row_index[parent_ids]
+    edge_child_rows <- setdiff(seq_len(n_nodes), root_row)
+    edge_parent_rows <- parent_rows[edge_child_rows]
+
+    target_edge_length <- sqrt(
+        (df$x[edge_child_rows] - df$x[edge_parent_rows])^2 +
+        (df$y[edge_child_rows] - df$y[edge_parent_rows])^2
+    )
+    target_edge_length[target_edge_length < 1e-8] <- 1e-8
+
+    edge_length_by_row <- numeric(n_nodes)
+    edge_length_by_row[edge_child_rows] <- target_edge_length
+    depth <- rep(NA_real_, n_nodes)
+    depth[root_row] <- 0
+    unresolved <- setdiff(seq_len(n_nodes), root_row)
+    while (length(unresolved) > 0L) {
+        progressed <- FALSE
+        for (row in unresolved) {
+            parent_row <- parent_rows[row]
+            if (!is.na(depth[parent_row])) {
+                depth[row] <- depth[parent_row] + edge_length_by_row[row]
+                progressed <- TRUE
+            }
+        }
+        unresolved <- which(is.na(depth))
+        if (!progressed) {
+            depth[is.na(depth)] <- 0
+            break
+        }
+    }
+    max_depth <- max(depth, na.rm = TRUE)
+    depth_norm <- if (max_depth > 0) depth / max_depth else rep(0, n_nodes)
+
+    outward_dir <- cbind(df$x - df$x[root_row], df$y - df$y[root_row])
+    dir_norm <- sqrt(rowSums(outward_dir^2))
+    fallback_rows <- dir_norm < 1e-12
+    if (any(fallback_rows)) {
+        fallback <- .treeAndLeafFallbackDirections(node_ids[fallback_rows], node_ids[fallback_rows] + 1L)
+        outward_dir[fallback_rows, ] <- fallback
+        dir_norm[fallback_rows] <- sqrt(rowSums(fallback^2))
+    }
+    outward_dir <- outward_dir / dir_norm
+
+    tip_rows <- which(df$isTip)
+    internal_rows <- which(!df$isTip)
+    mobility <- rep(0.18, n_nodes)
+    mobility[tip_rows] <- 0.75 + 0.25 * depth_norm[tip_rows]
+    mobility[root_row] <- 0
+
+    list(
+        node_ids = node_ids,
+        root_row = root_row,
+        tip_rows = tip_rows,
+        internal_rows = internal_rows,
+        edge_parent_rows = edge_parent_rows,
+        edge_child_rows = edge_child_rows,
+        target_edge_length = target_edge_length,
+        depth_norm = depth_norm,
+        outward_dir = outward_dir,
+        mobility = mobility
+    )
+}
+
+.treeAndLeafFallbackDirections <- function(node_ids, other_ids) {
+    angles <- (((as.numeric(node_ids) + as.numeric(other_ids)) * 0.618033988749895) %% 1) * 2 * pi
+    cbind(cos(angles), sin(angles))
 }
 
 ##' Apply the daylight alorithm to adjust the spacing between the subtrees and tips of the
@@ -1207,7 +1424,7 @@ add_angle_slanted <- function(res) {
 
 
 calculate_branch_mid <- function(res, layout) {
-    if (layout %in% c("equal_angle", "daylight", "ape")){
+    if (layout %in% c("equal_angle", "daylight", "ape", "tree_and_leaf")){
         res$branch.y <- with(res, (y[match(parent, node)] + y)/2)
         res$branch.y[is.na(res$branch.y)] <- 0
     }
@@ -1216,7 +1433,7 @@ calculate_branch_mid <- function(res, layout) {
         res$branch.length[is.na(res$branch.length)] <- 0
     }
     res$branch[is.na(res$branch)] <- 0
-    if (layout %in% c("equal_angle", "daylight", "ape")){
+    if (layout %in% c("equal_angle", "daylight", "ape", "tree_and_leaf")){
         res$branch.x <- res$branch
     }
     return(res)

@@ -233,7 +233,7 @@ ggplot_add.tiplab <- function(object, plot, object_name, ...) {
 
     object$as_ylab <- NULL
     if (layout %in% c('circular', 'fan', "unrooted", 
-                      "equal_angle", "daylight", "ape", "inward_circular")){
+                      "equal_angle", "daylight", "ape", "tree_and_leaf", "inward_circular")){
         ly <- do.call(geom_tiplab_circular, object)
     } else {
         #object$nodelab <- NULL
@@ -325,7 +325,7 @@ ggplot_add.cladelabel <- function(object, plot, object_name, ...) {
         labelcolor <- "black"
     }
 
-    if (layout %in% c("unrooted", "daylight", "ape", "equal_angle")) {
+    if (layout %in% c("unrooted", "daylight", "ape", "equal_angle", "tree_and_leaf")) {
         textdata <- build_cladelabel_df2(
             trdf = plot$data,
             nodeids = object$node,
@@ -374,7 +374,7 @@ ggplot_add.cladelabel <- function(object, plot, object_name, ...) {
         inherit.aes = FALSE,
         show.legend = NA
     )
-    if (layout %in% c("unrooted", "daylight", "equal_angle", "ape")) {
+    if (layout %in% c("unrooted", "daylight", "equal_angle", "ape", "tree_and_leaf")) {
         bar_obj$curvature <- .5
         bar_obj$ncp <- 5
         bar_layer <- do.call(ggplot2::geom_curve, bar_obj)
@@ -452,7 +452,7 @@ ggplot_add.cladelab <- function(object, plot, object_name, ...){
         flagnode <- da_node_label$node[is.na(flagnode)]
         abort(paste0("ERROR: clade node id ", paste(flagnode, collapse='; ')," can not be found in tree data."))
     }
-    if (layout %in% c("unrooted", "daylight", "ape", "equal_angle")){
+    if (layout %in% c("unrooted", "daylight", "ape", "equal_angle", "tree_and_leaf")){
         textdata <- build_cladelabel_df2(trdf=plot$data,
                                          nodeids=da_node_label$node,
                                          label=da_node_label$label,
@@ -495,7 +495,7 @@ ggplot_add.cladelab <- function(object, plot, object_name, ...){
     bar_obj$data <- bardata
     bar_default_aes <- list(barcolour="black", barcolor="black", barsize=0.5, colour="black", size=0.5, 
                             linetype=1, alpha=NA, inherit.aes=FALSE, show.legend=NA)
-    if (layout %in% c("unrooted", "daylight", "equal_angle", "ape")){
+    if (layout %in% c("unrooted", "daylight", "equal_angle", "ape", "tree_and_leaf")){
         bar_default_aes <- c(bar_default_aes, list(curvature = .5, ncp = 5))
     }
     bar_obj$mapping <- reset_mapping(defaultm=bar_default_aes, inputm=object$mapping)
@@ -506,7 +506,7 @@ ggplot_add.cladelab <- function(object, plot, object_name, ...){
                                        default_aes=bar_default_aes,
                                        params=object$params)
     bar_obj <- c(bar_obj, bar_dot_params)
-    if (layout %in% c("unrooted", "daylight", "equal_angle", "ape")){
+    if (layout %in% c("unrooted", "daylight", "equal_angle", "ape", "tree_and_leaf")){
         bar_obj <- do.call(ggplot2::geom_curve, bar_obj)
     }else{
         bar_obj <- do.call("geom_segment", bar_obj)
@@ -604,7 +604,7 @@ ggplot_add.hilight <- function(object, plot, object_name, ...){
         flagnode <- clade_node[is.na(flagnode)]
         abort(paste0("ERROR: clade node id ", paste(flagnode, collapse='; ')," can not be found in tree data."))
     }
-    if (layout %in% c("unrooted", "daylight", "equal_angle", "ape")){
+    if (layout %in% c("unrooted", "daylight", "equal_angle", "ape", "tree_and_leaf")){
         data <- switch(object$type,
                        auto = build_cladeids_df(trdf=framedat, nodeids=clade_node),
                        rect = build_cladeids_df2(trdf=framedat, nodeids=clade_node),
@@ -634,7 +634,7 @@ ggplot_add.hilight <- function(object, plot, object_name, ...){
     }else{
         object$data <- data
     }
-    if (layout %in% c("unrooted", "daylight", "equal_angle", "ape")){
+    if (layout %in% c("unrooted", "daylight", "equal_angle", "ape", "tree_and_leaf")){
         ly <- switch(object$type,
                      auto = choose_hilight_layer(object = object, type = "encircle"),
                      rect = choose_hilight_layer(object = object, type = "rect"),
@@ -749,7 +749,7 @@ ggplot_add.striplab <- function(object, plot, object_name, ...){
         abort(paste0("ERROR: The taxa id: ", paste(flagnode, collapse='; ')," can not be found in tree data."))
     }
 
-    #if (layout %in% c("unrooted", "daylight", "equal_angle", "ape")){
+    #if (layout %in% c("unrooted", "daylight", "equal_angle", "ape", "tree_and_leaf")){
     #    textdata <- build_striplabel_df2(trdf = plot$data,
     #                                     taxa1 = da_taxa_label$taxa1,
     #                                     taxa2 = da_taxa_label$taxa2,
@@ -813,7 +813,7 @@ ggplot_add.striplab <- function(object, plot, object_name, ...){
                                        default_aes=bar_default_aes,
                                        params=object$params)
     bar_obj <- c(bar_obj, bar_dot_params)
-    #if (layout %in% c("unrooted", "daylight", "ape", "equal_angle")){
+    #if (layout %in% c("unrooted", "daylight", "ape", "equal_angle", "tree_and_leaf")){
     #    bar_obj <- do.call(ggplot2::geom_curve, bar_obj)
     #}else{
     bar_obj <- do.call("geom_segment", bar_obj)

@@ -421,7 +421,7 @@ build_text_layer <- function(data, object, params, layout){
     }
     text_obj <- c(text_obj, text_dot_params)
     if (object$geom == "text"){
-        if (layout %in% c("circular", "radial", "daylight", "fan", "unrooted", "ape", "inward_circular", "equal_angle") && 
+        if (layout %in% c("circular", "radial", "daylight", "fan", "unrooted", "ape", "inward_circular", "equal_angle", "tree_and_leaf") && 
             (is.null(object$params$horizontal) || object$params$horizontal)){
             m1 <- aes(subset=.data[["angle"]] < 90 | .data[["angle"]] > 270, angle=.data[["angle"]])
             m2 <- aes(subset=.data[["angle"]] >= 90 & .data[["angle"]] <=270, angle=.data[["angle"]]+180)

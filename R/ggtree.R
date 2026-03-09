@@ -72,7 +72,7 @@ ggtree <- function(tr,
     trash <- try(silent = TRUE,
                  expr = {
                    layout %<>% match.arg(c("rectangular", "slanted", "fan", "circular", 'inward_circular',
-                            "radial", "unrooted", "equal_angle", "daylight", "dendrogram",
+                            "radial", "unrooted", "equal_angle", "daylight", "tree_and_leaf", "dendrogram",
                             "ape", "ellipse", "roundrect"))
                   }
              )
@@ -143,7 +143,7 @@ ggtree <- function(tr,
         p <- p + layout_fan(open.angle)
     } else if (layout == "dendrogram") {
         p <- p + layout_dendrogram()
-    } else if (layout %in% c("daylight", "equal_angle", "ape")) {
+    } else if (layout %in% c("daylight", "equal_angle", "ape", "tree_and_leaf")) {
         p <- p + ggplot2::coord_fixed()
         d <- p$data
         pn <- d[d$parent, ]

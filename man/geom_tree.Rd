@@ -20,7 +20,7 @@ geom_tree(
 \item{data}{data of the tree}
 
 \item{layout}{one of 'rectangular', 'dendrogram', 'slanted', 'ellipse', 'roundrect',
-'fan', 'circular', 'inward_circular', 'radial', 'equal_angle', 'daylight' or 'ape'}
+'fan', 'circular', 'inward_circular', 'radial', 'equal_angle', 'daylight', 'tree_and_leaf' or 'ape'}
 
 \item{multiPhylo}{logical, whether input data contains multiple phylo class, defaults to "FALSE".}
 

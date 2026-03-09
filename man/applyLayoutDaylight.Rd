@@ -4,7 +4,7 @@
 \alias{applyLayoutDaylight}
 \title{applyLayoutDaylight}
 \usage{
-applyLayoutDaylight(df, node_id)
+applyLayoutDaylight(df, node_id, cache = NULL)
 }
 \arguments{
 \item{df}{tree data.frame}

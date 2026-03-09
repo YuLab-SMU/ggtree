@@ -29,7 +29,7 @@ fortify.phylo <- function(model, data,
         }
     }
 
-    if (layout %in% c("equal_angle", "daylight", "ape")) {
+    if (layout %in% c("equal_angle", "daylight", "ape", "tree_and_leaf")) {
         res <- layout.unrooted(model, layout.method = layout, branch.length = branch.length, ...)
     } else {
         ypos <- getYcoord(x)
