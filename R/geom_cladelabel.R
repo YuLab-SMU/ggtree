@@ -128,7 +128,7 @@ geom_cladelabel_rectangular <- function(node, label,
         }
 
         layer_bar <- stat_cladeBar(node=node, offset=offset, align=align,
-                                   size=barsize, extend = extend,
+                                   linewidth=barsize, extend = extend,
                                    mapping=mapping, data=data,
                                    position=position, show.legend = show.legend,
                                    inherit.aes = inherit.aes, na.rm=na.rm, ...)
@@ -154,7 +154,7 @@ geom_cladelabel_rectangular <- function(node, label,
         layer_bar <- stat_cladeBar(node        = node,
                                    offset      = offset,
                                    align       = align,
-                                   size        = barsize,
+                                   linewidth   = barsize,
                                    color       = barcolor,
                                    extend      = extend,
                                    mapping     = mapping,
@@ -180,8 +180,7 @@ stat_cladeText <- function(mapping = NULL, data = NULL,
                            show.legend = NA, inherit.aes = FALSE,
                            na.rm = FALSE, parse = FALSE, horizontal=TRUE) {
 
-    default_aes <- aes(x=!!sym("x"), y=!!sym("y"), node=!!sym("node"), 
-                       parent=!!sym("parent"), angle=!!sym("angle"))
+    default_aes <- aes(x = !!sym("x"), y = !!sym("y"), angle = !!sym("angle"), group = 1)
     if (is.null(mapping)) {
         mapping <- default_aes
     } else {
@@ -216,8 +215,7 @@ stat_cladeBar <- function(mapping=NULL, data=NULL,
                           show.legend=NA, inherit.aes=FALSE, na.rm=FALSE) {
 
 
-    default_aes <- aes(x=!!sym("x"), y=!!sym("y"), node=!!sym("node"), 
-                       parent=!!sym("parent"), xend=!!sym("x"), yend=!!sym("y"))
+    default_aes <- aes(x = !!sym("x"), y = !!sym("y"), xend = !!sym("x"), yend = !!sym("y"), group = 1)
     if (is.null(mapping)) {
         mapping <- default_aes
     } else {
@@ -326,3 +324,6 @@ adjust_cladelabel_angle <- function(angle, horizontal) {
 
     return(angle)
 }
+
+
+

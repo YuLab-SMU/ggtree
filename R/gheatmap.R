@@ -76,6 +76,9 @@ gheatmap <- function(p, data, offset=0, width=1, low="green", high="red", color=
     start <- max(df$x, na.rm=TRUE) + offset
 
     dd <- as.data.frame(data)
+    if (is.null(rownames(dd))) {
+        stop("`data` must have row names that match tree tip labels.", call. = FALSE)
+    }
     ## dd$lab <- rownames(dd)
     i <- order(df$y)
 
@@ -86,7 +89,18 @@ gheatmap <- function(p, data, offset=0, width=1, low="green", high="red", color=
     lab <- df$label[i]
     ## dd <- dd[lab, , drop=FALSE]
     ## https://github.com/GuangchuangYu/ggtree/issues/182
-    dd <- dd[match(lab, rownames(dd)), , drop = FALSE]
+    matched_rows <- match(lab, rownames(dd))
+    if (anyNA(matched_rows)) {
+        missing_labels <- unique(lab[is.na(matched_rows)])
+        stop(
+            paste0(
+                "The following tree labels are missing from `data` row names: ",
+                paste(missing_labels, collapse = ", ")
+            ),
+            call. = FALSE
+        )
+    }
+    dd <- dd[matched_rows, , drop = FALSE]
 
 
     dd$y <- sort(df$y)
@@ -149,18 +163,16 @@ gheatmap <- function(p, data, offset=0, width=1, low="green", high="red", color=
                     }
             } else {
                 if (!is.null(colnames_level)) {
-                    # use the colnames levels if available
-                    # otherwise use the default order provided by the data frame
-                    vector_order <- colnames_level
-                    
+                    vector_order <- as.character(colnames_level)
                 } else {
                     vector_order <- as.character(data_axis$from)
                 }
-                for (elem in custom_column_labels) {
-                    vector_order[which(vector_order == elem)] = names(which(custom_column_labels == elem))
-                }
+                label_map <- setNames(names(custom_column_labels), as.character(custom_column_labels))
+                matched_labels <- label_map[vector_order]
+                replacement <- !is.na(matched_labels)
+                vector_order[replacement] <- matched_labels[replacement]
                 data_axis[["custom_labels"]] <- vector_order
-                }
+            }
             p2 <- p2 + geom_text(data=data_axis, aes(x=to, y = y, label=custom_labels),
                                  size=font.size, family=family, inherit.aes = FALSE, angle=colnames_angle,
                                  nudge_x=colnames_offset_x, nudge_y = colnames_offset_y, hjust=hjust)

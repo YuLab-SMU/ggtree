@@ -9,5 +9,6 @@ test_that('geom_balance gives proper errors if called on non-binary node', {
   #expect_warning(ggtree(tr)+geom_balance(10), '>2 direct child nodes')
   #expect_warning(ggtree(tr)+geom_balance(3), 'balance cannot be a tip')
 
-  expect_true(ggplot2::is.ggplot(ggtree(tr)+geom_balance(9))) # should plot appropriately
+  expect_true(ggplot2::is_ggplot(ggtree(tr)+geom_balance(9))) # should plot appropriately
 })
+

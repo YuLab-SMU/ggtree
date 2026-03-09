@@ -146,7 +146,7 @@ stat_cladeText2 <- function(mapping=NULL, data=NULL,
                             show.legend=NA, inherit.aes=FALSE,
                             na.rm=FALSE, parse=FALSE) {
   # columns from ggplot data data.frame.
-  default_aes <- aes(x=!!sym("x"), y=!!sym("y"), node=!!sym("node"), parent=!!sym("parent"))
+  default_aes <- aes(x = !!sym("x"), y = !!sym("y"), group = 1)
   if (is.null(mapping)) {
     mapping <- default_aes
   } else {
@@ -180,8 +180,7 @@ stat_cladeBar2 <- function(mapping=NULL, data=NULL,
                            node, offset, align, ...,
                            show.legend=NA, inherit.aes=FALSE, na.rm=FALSE,
                            arrow=NULL, arrow.fill=NULL) {
-  default_aes <- aes(x=!!sym("x"), y=!!sym("y"), node=!!sym("node"), 
-                     parent=!!sym("parent"), xend=!!sym("x"), yend=!!sym("y"))
+  default_aes <- aes(x = !!sym("x"), y = !!sym("y"), xend = !!sym("x"), yend = !!sym("y"), group = 1)
   if (is.null(mapping)) {
     mapping <- default_aes
   } else {
@@ -323,4 +322,6 @@ get_cladelabel2_position_ <- function(data, node) {
 
   data.frame(r=r, theta_left=as.numeric(arc['left']), theta_right=as.numeric(arc['right']))
 }
+
+
 

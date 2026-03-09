@@ -297,14 +297,92 @@ ggplot_add.tiplab_ylab <- function(object, plot, object_name, ...) {
 ##' @method ggplot_add cladelabel
 ##' @export
 ggplot_add.cladelabel <- function(object, plot, object_name, ...) {
-    #layout <- get("layout", envir = plot$plot_env)
     layout <- get_layout(plot)
-    if (layout == "unrooted" || layout == "daylight") {
-        ly <- do.call(geom_cladelabel2, object)
-    } else {
-        ly <- do.call(geom_cladelabel_rectangular, object)
+    if (!is.character(layout)) {
+        layout <- "rectangular"
     }
-    ggplot_add(ly, plot, object_name, ...)
+
+    if (!length(object$node) || !length(object$label)) {
+        abort("node and label can't be NULL simultaneously.")
+    }
+
+    object$mapping <- NULL
+    object$params <- list()
+
+    if (!is.null(object$color)) {
+        if (length(object$color) > 2) {
+            stop("color should be of length 1 or 2")
+        }
+        if (length(object$color) == 1) {
+            barcolor <- object$color
+            labelcolor <- object$color
+        } else {
+            barcolor <- object$color[1]
+            labelcolor <- object$color[2]
+        }
+    } else {
+        barcolor <- "black"
+        labelcolor <- "black"
+    }
+
+    if (layout %in% c("unrooted", "daylight", "ape", "equal_angle")) {
+        textdata <- build_cladelabel_df2(
+            trdf = plot$data,
+            nodeids = object$node,
+            label = object$label,
+            offset = rep(object$offset + object$offset.text, length(object$node)),
+            align = rep(object$align, length(object$node)),
+            angle = rep(object$angle, length(object$node)),
+            horizontal = rep(object$horizontal, length(object$node))
+        )
+        bardata <- build_cladebar_df2(
+            trdf = plot$data,
+            nodeids = object$node,
+            offset = rep(object$offset, length(object$node)),
+            align = rep(object$align, length(object$node))
+        )
+    } else {
+        textdata <- build_cladelabel_df(
+            trdf = plot$data,
+            nodeids = object$node,
+            label = object$label,
+            offset = rep(object$offset + object$offset.text, length(object$node)),
+            align = rep(object$align, length(object$node)),
+            angle = rep(object$angle, length(object$node)),
+            horizontal = rep(object$horizontal, length(object$node))
+        )
+        bardata <- build_cladebar_df(
+            trdf = plot$data,
+            nodeids = object$node,
+            offset = rep(object$offset, length(object$node)),
+            align = rep(object$align, length(object$node)),
+            extend = rep(list(object$extend), length(object$node))
+        )
+    }
+
+    object$color <- labelcolor
+    text_params <- list(fontsize = object$fontsize, family = object$family, textcolour = labelcolor, hjust = object$hjust)
+    annot_obj <- build_text_layer(data = textdata, object = object, params = text_params, layout = layout)
+
+    bar_obj <- list(
+        data = bardata,
+        mapping = aes(x = !!sym("x"), xend = !!sym("xend"), y = !!sym("y"), yend = !!sym("yend")),
+        linewidth = object$barsize,
+        colour = barcolor,
+        linetype = 1,
+        alpha = NA,
+        inherit.aes = FALSE,
+        show.legend = NA
+    )
+    if (layout %in% c("unrooted", "daylight", "equal_angle", "ape")) {
+        bar_obj$curvature <- .5
+        bar_obj$ncp <- 5
+        bar_layer <- do.call(ggplot2::geom_curve, bar_obj)
+    } else {
+        bar_layer <- do.call(geom_segment, bar_obj)
+    }
+
+    ggplot_add(list(bar_layer, annot_obj), plot, object_name, ...)
 }
 
 ##' @method ggplot_add cladelab
@@ -851,3 +929,6 @@ ggplot_add.taxalink <- function(object, plot, object_name, ...){
     obj <- do.call("geom_curvelink_interactive", params)
     ggplot_add(obj, plot, object_name, ...)
 }
+
+
+

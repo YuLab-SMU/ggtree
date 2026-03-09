@@ -204,7 +204,7 @@ ggtree_references <- function() {
             dd <- do.call(layout, c(list(obj), layout.params))
             if (!inherits(dd, "matrix")){
                 if ("xy" %in% names(dd)){
-                    dd <- dd$xx
+                    dd <- dd$xy
                 }else if ("layout" %in% names(dd)){
                     dd <- dd$layout
                 }else if (inherits(dd, "data.frame") && nrow(dd)>2){
@@ -224,3 +224,4 @@ ggtree_references <- function() {
     }
     return(dd)
 }
+

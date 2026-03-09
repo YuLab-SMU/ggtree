@@ -17,13 +17,15 @@
   - <https://www.rdocumentation.org/packages/phytools/versions/0.7-70/topics/cophylo> 
 + `fortify` method for `phyloseq` object should return a tidy data.frame
   - maybe we can define another object (inherited from treedata?) and provide converter for `phyloseq`
-+ The `daylight` algorithm is quite slow compared to `ggraph` and needs to  be optimized
-  - <https://github.com/thomasp85/ggraph/commit/14de66f1225336179b4598cb42a4beda95682211>
 
 -->
 
-# ggtree 4.1.1.004
+# ggtree 4.1.1.005
 
++ fix custom layout handling in `ggtree()` when layout functions return an `xy` component (2026-03-09, Mon)
++ improve `gheatmap()` input validation and custom column label remapping (2026-03-09, Mon)
++ make `geom_hilight()` and `geom_cladelabel()` more compatible with recent ggplot2 changes, and strengthen regression tests (2026-03-09, Mon)
++ optimize the `daylight` layout by caching subtree topology and removing repeated tidyverse reshaping while preserving the existing geometry; add regression tests for cached and uncached paths (2026-03-09, Mon)
 + modernize roxygen documentation using markdown syntax (2026-01-12, Mon)
 + add 'data' argument to `geom_rootedge()` (2026-01-10, Sat, #696, #697)
 + more options in `ggtree_set_interactive()` (2025-12-19, Fri)

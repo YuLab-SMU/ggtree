@@ -130,6 +130,8 @@ geom_hilight_rect2 <- function(data=NULL,
                         ...))
 }
 
+ggtree_pt <- 72.27 / 25.4
+
 #' @importFrom ggplot2 draw_key_polygon Geom ggproto aes GeomPolygon from_theme
 #' @importFrom grid rectGrob gpar grobTree
 #' @importFrom cli cli_alert_warning
@@ -229,7 +231,7 @@ GeomHilightRect <- ggproto("GeomHilightRect", Geom,
                                                          just = c("left", "top"),
                                                          gp = gpar(col = row$colour,
                                                                    fill = fill,
-                                                                   lwd = row$linewidth * ggplot2:::.pt,
+                                                                   lwd = row$linewidth * ggtree_pt,
                                                                    lty = row$linetype,
                                                                    linejoin = linejoin,
                                                                    lineend = if (identical(linejoin, "round")) "round" else "square")
@@ -249,7 +251,7 @@ GeomHilightRect <- ggproto("GeomHilightRect", Geom,
                                                             gp = grid::gpar(
                                                               col = row$colour,
                                                               fill = alpha(row$fill, row$alpha),
-                                                              lwd = row$linewidth * ggplot2::.pt,
+                                                              lwd = row$linewidth * ggtree_pt,
                                                               lty = row$linetype,
                                                               lineend = "butt"
                                                             )
@@ -265,7 +267,7 @@ GeomHilightRect <- ggproto("GeomHilightRect", Geom,
                                                   just = c("left", "top"),
                                                   gp = gpar(col = coords$colour,
                                                             fill = alpha(coords$fill, coords$alpha),
-                                                            lwd = coords$linewidth * ggplot2:::.pt,
+                                                            lwd = coords$linewidth * ggtree_pt,
                                                             lty = coords$linetype,
                                                             linejoin = linejoin,
                                                             lineend = if (identical(linejoin, "round")) "round" else "square")
@@ -369,7 +371,7 @@ GeomHilightEncircle <- ggproto("GeomHilightEncircle", Geom,
 #                                default.units = "native",
 #                                gp = gpar(col = first_rows$colour,
 #                                          fill = fill,
-#                                          lwd = first_rows$size * ggplot2:::.pt,
+#                                          lwd = first_rows$size * ggtree_pt,
 #                                          lty = first_rows$linetype)
 #                            )
 #                     })
@@ -378,7 +380,7 @@ GeomHilightEncircle <- ggproto("GeomHilightEncircle", Geom,
 #            ggname("geom_polygon2", grid::polygonGrob(munched$x, munched$y,
 #               default.units = "native", id = munched$group, gp = gpar(col = first_rows$colour,
 #               fill = alpha(first_rows$fill, first_rows$alpha),
-#               lwd = first_rows$size * ggplot2::.pt, lty = first_rows$linetype)))
+#               lwd = first_rows$size * ggtree_pt, lty = first_rows$linetype)))
 #        }
 #    }
 #    else {
@@ -411,7 +413,7 @@ GeomHilightEncircle <- ggproto("GeomHilightEncircle", Geom,
 #                                rule = rule, default.units = "native",
 #                                gp = gpar(col = first_rows$colour,
 #                                          fill = fill,
-#                                          lwd = first_rows$size * ggplot2:::.pt,
+#                                          lwd = first_rows$size * ggtree_pt,
 #                                          lty = first_rows$linetype)
 #                            )
 #                     })
@@ -420,7 +422,7 @@ GeomHilightEncircle <- ggproto("GeomHilightEncircle", Geom,
 #            ggname("geom_polygon2", grid::pathGrob(munched$x, munched$y,
 #                default.units = "native", id = id, pathId = munched$group,
 #                rule = rule, gp = gpar(col = first_rows$colour, fill = alpha(first_rows$fill,
-#                first_rows$alpha), lwd = first_rows$size * ggplot2::.pt,
+#                first_rows$alpha), lwd = first_rows$size * ggtree_pt,
 #                lty = first_rows$linetype)))
 #        }
 #    }
