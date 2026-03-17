@@ -9,7 +9,7 @@
   - <https://github.com/YuLab-SMU/ggtree/issues/451>
 + rewrite `revts` to `scale_revts`
 + `inset` and relative functions support circular layout
-+ tanglegram support
++ [x] tanglegram support
   - <https://yulab-smu.top/treedata-book/chapter2.html#ggtree-fortify>
   - <https://www.rdocumentation.org/packages/phytools/versions/0.7-70/topics/cophylo> 
 + `fortify` method for `phyloseq` object should return a tidy data.frame
@@ -19,6 +19,7 @@
 
 # ggtree 4.1.1.005
 
++ add native paired-tree/tanglegram support via `ggdoubletree()`, `fortify.tanglegram()`, `fortify.cophylo()`, and `geom_tanglelink()`, including support for raw trees, `ggtree` objects, deterministic crossing minimization, and `optimize_side = "right"|"left"|"both"` regression tests (2026-03-09, Mon)
 + add a deterministic `tree_and_leaf` layout inspired by the TreeAndLeaf package, with native `ggtree()` integration and regression tests (2026-03-09, Mon)
 + add a `height` parameter to `collapse()` supporting `NULL`, `ggplot2::rel()`, and absolute numeric heights for collapsed triangles, while restoring the original layout correctly on `expand()` (2026-03-09, Mon, #409)
 + optimize the `daylight` layout by caching subtree topology and removing repeated tidyverse reshaping while preserving the existing geometry; add regression tests for cached and uncached paths (2026-03-09, Mon)
