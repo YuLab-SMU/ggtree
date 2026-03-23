@@ -92,13 +92,21 @@ gheatmap <- function(p, data, offset=0, width=1, low="green", high="red", color=
     matched_rows <- match(lab, rownames(dd))
     if (anyNA(matched_rows)) {
         missing_labels <- unique(lab[is.na(matched_rows)])
-        stop(
+        warning(
             paste0(
-                "The following tree labels are missing from `data` row names: ",
+                "The following tree labels are missing from `data` row names and will be filled with NA: ",
                 paste(missing_labels, collapse = ", ")
             ),
             call. = FALSE
         )
+        filler <- as.data.frame(
+            matrix(NA, nrow = length(missing_labels), ncol = ncol(dd)),
+            stringsAsFactors = FALSE
+        )
+        colnames(filler) <- colnames(dd)
+        rownames(filler) <- missing_labels
+        dd <- rbind(dd, filler)
+        matched_rows <- match(lab, rownames(dd))
     }
     dd <- dd[matched_rows, , drop = FALSE]
 

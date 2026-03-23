@@ -17,14 +17,15 @@
 
 -->
 
-# ggtree 4.1.1.005
+# ggtree 4.1.1.006
 
++ make `gheatmap()` robust to missing tree labels in `data` row names by warning and auto-filling missing rows with `NA` instead of stopping (2026-03-23, Mon)
++ improve `gheatmap()` input validation and custom column label remapping (2026-03-09, Mon)
 + add native paired-tree/tanglegram support via `ggdoubletree()`, `fortify.tanglegram()`, `fortify.cophylo()`, and `geom_tanglelink()`, including support for raw trees, `ggtree` objects, deterministic crossing minimization, and `optimize_side = "right"|"left"|"both"` regression tests (2026-03-09, Mon)
 + add a deterministic `tree_and_leaf` layout inspired by the TreeAndLeaf package, with native `ggtree()` integration and regression tests (2026-03-09, Mon)
 + add a `height` parameter to `collapse()` supporting `NULL`, `ggplot2::rel()`, and absolute numeric heights for collapsed triangles, while restoring the original layout correctly on `expand()` (2026-03-09, Mon, #409)
 + optimize the `daylight` layout by caching subtree topology and removing repeated tidyverse reshaping while preserving the existing geometry; add regression tests for cached and uncached paths (2026-03-09, Mon)
 + fix custom layout handling in `ggtree()` when layout functions return an `xy` component (2026-03-09, Mon)
-+ improve `gheatmap()` input validation and custom column label remapping (2026-03-09, Mon)
 + make `geom_hilight()` and `geom_cladelabel()` more compatible with recent ggplot2 changes, and strengthen regression tests (2026-03-09, Mon)
 + modernize roxygen documentation using markdown syntax (2026-01-12, Mon)
 + add 'data' argument to `geom_rootedge()` (2026-01-10, Sat, #696, #697)
