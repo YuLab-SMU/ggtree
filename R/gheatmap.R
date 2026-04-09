@@ -175,7 +175,7 @@ gheatmap <- function(p, data, offset=0, width=1, low="green", high="red", color=
                 } else {
                     vector_order <- as.character(data_axis$from)
                 }
-                label_map <- setNames(names(custom_column_labels), as.character(custom_column_labels))
+                label_map <- stats::setNames(names(custom_column_labels), as.character(custom_column_labels))
                 matched_labels <- label_map[vector_order]
                 replacement <- !is.na(matched_labels)
                 vector_order[replacement] <- matched_labels[replacement]

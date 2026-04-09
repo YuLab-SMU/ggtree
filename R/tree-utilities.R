@@ -203,6 +203,7 @@ layoutDaylight <- function(model, branch.length, MAX_COUNT=5 ){
 ##' @param step initial step size.
 ##' @param cooling multiplicative decay applied to step size per iteration.
 ##' @param tol convergence tolerance on maximum displacement.
+##' @param ... Additional arguments reserved for compatibility with other layout helpers.
 ##' @return tree as data.frame with a TreeAndLeaf-inspired layout.
 layoutTreeAndLeaf <- function(model,
                               branch.length,
@@ -410,6 +411,7 @@ layoutTreeAndLeaf <- function(model,
 ##' @title applyLayoutDaylight
 ##' @param df tree data.frame
 ##' @param node_id is id of the node from which daylight is measured to the other subtrees.
+##' @param cache optional precomputed daylight cache.
 ##' @return list with tree data.frame with updated layout using daylight algorithm and max_change angle.
 ##' @importFrom rlang .data
 ##

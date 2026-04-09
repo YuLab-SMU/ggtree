@@ -47,6 +47,8 @@ layoutTreeAndLeaf(
 \item{cooling}{multiplicative decay applied to step size per iteration.}
 
 \item{tol}{convergence tolerance on maximum displacement.}
+
+\item{...}{Additional arguments reserved for compatibility with other layout helpers.}
 }
 \value{
 tree as data.frame with a TreeAndLeaf-inspired layout.

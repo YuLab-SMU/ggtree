@@ -1,14 +1,15 @@
 context("gheatmap")
 
-test_that("gheatmap errors when data row names do not match tree labels", {
+test_that("gheatmap warns when data row names do not match tree labels", {
     tree <- ape::rtree(4)
     p <- ggtree(tree)
     mat <- matrix(1:8, nrow = 4, dimnames = list(paste0("missing_", 1:4), c("a", "b")))
 
-    expect_error(
+    p2 <- expect_warning(
         gheatmap(p, mat),
         "missing from `data` row names"
     )
+    expect_s3_class(p2, "ggtree")
 })
 
 test_that("gheatmap remaps named custom column labels by source column name", {

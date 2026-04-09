@@ -195,11 +195,11 @@ ggtree_references <- function() {
         if (!"as.graph" %in% names(layout.params)){
             layout.params$as.graph <- TRUE
         }
-        if (layout.params$as.graph){
-            obj <- ape::as.igraph.phylo(as.phylo(obj), use.labels = FALSE)
-        }
         #dd <- ggraph::create_layout(gp, layout = layout)
         if (is.function(layout)){
+            if (isTRUE(layout.params$as.graph) && requireNamespace("igraph", quietly = TRUE)) {
+                obj <- ape::as.igraph.phylo(as.phylo(obj), use.labels = FALSE)
+            }
             layout.params$as.graph <- NULL
             dd <- do.call(layout, c(list(obj), layout.params))
             if (!inherits(dd, "matrix")){

@@ -23,9 +23,10 @@ ggdoubletree(
 
 \item{y}{Optional second tree-like object or \code{ggtree} plot.}
 
-\item{assoc}{Association table. It should contain \code{left} and \code{right} columns, or two unnamed columns that will be treated as \code{left} and \code{right}.}
+\item{assoc}{Association table. It should contain \code{left} and \code{right} columns,
+or two unnamed columns that will be treated as \code{left} and \code{right}.}
 
-\item{layout}{Tree layout for raw-tree inputs. Only \code{"rectangular"} is supported in this version.}
+\item{layout}{Tree layout for raw-tree inputs. Only \code{"rectangular"} is supported in v1.}
 
 \item{ladderize}{logical flag passed to \code{fortify()} for raw-tree inputs.}
 
@@ -35,9 +36,11 @@ ggdoubletree(
 
 \item{optimize_side}{Which side to optimize: \code{"right"} (default), \code{"left"}, or \code{"both"}.}
 
-\item{gap}{Separation between the two trees. Values less than 1 are treated as a fraction of the wider tree.}
+\item{gap}{Separation between the two trees. Values less than 1 are treated as
+a fraction of the wider tree.}
 
-\item{preserve_layers}{logical flag indicating whether replayable layers from \code{ggtree} inputs should be carried over.}
+\item{preserve_layers}{logical flag indicating whether replayable layers from
+\code{ggtree} inputs should be carried over.}
 
 \item{...}{Additional arguments passed to \code{fortify()} for raw-tree inputs.}
 }
@@ -45,17 +48,21 @@ ggdoubletree(
 A \code{ggtree} plot.
 }
 \description{
-Build a tanglegram-like paired tree view from two trees, two \code{ggtree} objects, or a \code{cophylo}-like object.
+Build a tanglegram-like paired tree view from two trees, two \code{ggtree}
+objects, or a \code{cophylo}-like object.
 }
 \details{
-\code{ggdoubletree()} is the high-level entry point for paired-tree visualization in \code{ggtree}. It supports three main workflows:
+\code{ggdoubletree()} is the high-level entry point for paired-tree visualization in
+\code{ggtree}. It supports three main workflows:
 \itemize{
-\item two raw tree-like objects plus an association table,
-\item two pre-annotated \code{ggtree} objects plus an association table,
-\item an existing \code{cophylo} object.
+\item two raw tree-like objects plus an association table
+\item two pre-annotated \code{ggtree} objects plus an association table
+\item an existing \code{cophylo} object
 }
 
-When \code{optimize = TRUE}, the function applies deterministic tip-order optimization before building paired coordinates. In this version, only rectangular paired trees are supported.
+When \code{optimize = TRUE}, the function applies deterministic tip-order
+optimization before building paired coordinates. In this version, only
+rectangular paired trees are supported.
 }
 \examples{
 tr1 <- ape::rtree(5)

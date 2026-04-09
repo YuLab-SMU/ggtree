@@ -10,6 +10,8 @@ applyLayoutDaylight(df, node_id, cache = NULL)
 \item{df}{tree data.frame}
 
 \item{node_id}{is id of the node from which daylight is measured to the other subtrees.}
+
+\item{cache}{optional precomputed daylight cache.}
 }
 \value{
 list with tree data.frame with updated layout using daylight algorithm and max_change angle.

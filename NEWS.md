@@ -17,7 +17,7 @@
 
 -->
 
-# ggtree 4.1.1.006
+# ggtree 4.1.2
 
 + make `gheatmap()` robust to missing tree labels in `data` row names by warning and auto-filling missing rows with `NA` instead of stopping (2026-03-23, Mon)
 + improve `gheatmap()` input validation and custom column label remapping (2026-03-09, Mon)

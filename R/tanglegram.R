@@ -120,6 +120,30 @@ new_tanglegram <- function(left,
     )
 }
 
+#' Coerce paired-tree inputs to a tanglegram
+#'
+#' Normalize supported paired-tree inputs into a `tanglegram` object.
+#'
+#' @param x A tree-like object, a `ggtree` plot, a `tanglegram`, or a `cophylo` object.
+#' @param y Optional second tree-like object or `ggtree` plot.
+#' @param assoc Association table. It should contain `left` and `right` columns,
+#'   or two unnamed columns that will be treated as `left` and `right`.
+#' @param layout Tree layout for raw-tree inputs. Only `"rectangular"` is supported in v1.
+#' @param ladderize logical flag passed to `fortify()` for raw-tree inputs.
+#' @param preserve_layers logical flag indicating whether replayable layers from
+#'   `ggtree` inputs should be carried over.
+#' @param ... Additional arguments passed to `fortify()` for raw-tree inputs.
+#' @return A `tanglegram` object.
+#' @name as_tanglegram
+#' @export
+#' @examples
+#' tr1 <- ape::rtree(5)
+#' tr2 <- ape::rtree(5)
+#' tr2$tip.label <- tr1$tip.label[c(1, 3, 5, 2, 4)]
+#' assoc <- data.frame(left = tr1$tip.label, right = tr2$tip.label)
+#'
+#' tg <- as_tanglegram(tr1, y = tr2, assoc = assoc)
+#' df <- fortify(tg)
 as_tanglegram <- function(x, ...) {
     if (inherits(x, "tanglegram")) {
         return(x)
@@ -130,11 +154,13 @@ as_tanglegram <- function(x, ...) {
     as_tanglegram.default(x, ...)
 }
 
+#' @rdname as_tanglegram
 #' @export
 as_tanglegram.tanglegram <- function(x, ...) {
     x
 }
 
+#' @rdname as_tanglegram
 #' @export
 as_tanglegram.default <- function(x,
                                   y = NULL,
@@ -175,6 +201,7 @@ as_tanglegram.default <- function(x,
     )
 }
 
+#' @rdname as_tanglegram
 #' @export
 as_tanglegram.cophylo <- function(x,
                                   ...,
