@@ -1,6 +1,4 @@
-# ggtree 4.2.0
 
-+ Bioconductor RELEASE_3_23 (2026-04-29, 周三)
 
 <!--
 
@@ -20,6 +18,10 @@
   - maybe we can define another object (inherited from treedata?) and provide converter for `phyloseq`
 
 -->
+
+# ggtree 4.2.0
+
++ Bioconductor RELEASE_3_23 (2026-04-29, Wed)
 
 # ggtree 4.1.2
 
