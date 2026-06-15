@@ -5,7 +5,7 @@
 ##' @param mapping aesthetic mapping
 ##' @param data data of the tree
 ##' @param layout one of 'rectangular', 'dendrogram', 'slanted', 'ellipse', 'roundrect',
-##' 'fan', 'circular', 'inward_circular', 'radial', 'equal_angle', 'daylight', 'tree_and_leaf' or 'ape'
+##' 'fan', 'circular', 'inward_circular', 'radial', 'equal_angle', 'daylight', 'tree_and_leaf', 'ape' or 'tidy'
 ##' @param multiPhylo logical, whether input data contains multiple phylo class, defaults to "FALSE".
 ##' @param continuous character, continuous transition for selected aesthetic ('size' 
 ##' or 'color'('colour')). It should be one of 'color' (or 'colour'), 'size', 'all' 
@@ -71,7 +71,7 @@ stat_tree <- function(mapping=NULL, data=NULL, geom=GeomInteractiveSegment, posi
         rootnode <- FALSE
     }
 
-    layout_rectangular <- c("rectangular", "dendrogram", "fan", "circular", "inward_circular")
+    layout_rectangular <- c("rectangular", "dendrogram", "fan", "circular", "inward_circular", 'tidy')
     layout_slanted <- c("slanted", "radial", "equal_angle", "daylight", "tree_and_leaf", "ape")
     layout_ellipse <- c("ellipse", "roundrect")
 

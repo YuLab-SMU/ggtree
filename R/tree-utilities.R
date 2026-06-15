@@ -1138,7 +1138,198 @@ getXcoord <- function(tr) {
 ##     return(res)
 ## }
 
+tidy_positionRoot <- function(node, ch, nch, coords.env) {
+  coords.env$prelim[node] <- (coords.env$prelim[ch[1]] + coords.env$mod[ch[1]] + 
+                                coords.env$prelim[ch[nch]] + coords.env$mod[ch[nch]] +
+                                coords.env$w[ch[nch]]) / 2 -
+    coords.env$w[node] / 2
+}
 
+tidy_moveSubtree <- function(ch, i, dist, coords.env) {
+  coords.env$mod[ch[i]] <- coords.env$mod[ch[i]] + dist
+  coords.env$msel[ch[i]] <- coords.env$msel[ch[i]] + dist
+  coords.env$mser[ch[i]] <- coords.env$mser[ch[i]] + dist
+  
+  # distributeExtra
+  #        si <- as.integer(names(ih)[1])
+  #        if (!is.na(si) && si != i-1) {
+  #          nr <- i - si
+  #          coords.env$shift[si + 1] <- coords.env$shift[si + 1] + dist / nr
+  #          coords.env$shift[i] <- coords.env$shift[i] - dist / nr
+  #          coords.env$change[i] <- coords.env$change[i] - dist / nr
+  #        }
+  # end distributeExtra
+}
+
+tidy_nextLeftContour <- function(node, coords.env) {
+  nc <- length(coords.env$edge[node == coords.env$edge[,1], 2])
+  ifelse(
+    nc == 0,
+    coords.env$tl[node],
+    coords.env$edge[node == coords.env$edge[,1], 2][1]
+  )
+}
+
+tidy_nextRightContour <- function(node, coords.env) {
+  nc <- length(coords.env$edge[node == coords.env$edge[,1], 2])
+  ifelse(
+    nc == 0,
+    coords.env$tr[node],
+    coords.env$edge[node == coords.env$edge[,1], 2][nc]
+  )
+}
+
+tidy_setLeftThread <- function(ch, i, cl, modsumcl, coords.env) {
+  li <- coords.env$el[ch[1]]
+  coords.env$tl[li] <- cl
+  diff <- modsumcl - coords.env$mod[cl] - coords.env$msel[ch[1]]
+  coords.env$mod[li] <- coords.env$mod[li] + diff
+  coords.env$prelim[li] <- coords.env$prelim[li] - diff
+  coords.env$el[ch[1]] <- coords.env$el[ch[i]]
+  coords.env$msel[ch[1]] <- coords.env$msel[ch[i]]
+}
+
+tidy_setRightThread <- function(ch, i, sr, modsumsr, coords.env) {
+  ri <- coords.env$er[ch[i]]
+  coords.env$tr[ri] <- sr
+  diff <- modsumsr - coords.env$mod[sr] - coords.env$mser[ch[i]]
+  coords.env$mod[ri] <- coords.env$mod[ri] + diff
+  coords.env$prelim[ri] <- coords.env$prelim[ri] - diff
+  coords.env$er[ch[i]] <- coords.env$er[ch[i-1]]
+  coords.env$mser[ch[i]] <- coords.env$mser[ch[i-1]]
+}
+
+tidy_separate <- function(ch, i, coords.env) {
+  sr <- ch[i - 1];
+  mssr <- coords.env$mod[sr]
+  cl <- ch[i];
+  mscl <- coords.env$mod[cl]
+  
+  while (!is.na(sr) && !is.na(cl)) {
+    #      if (length(ih) > 0 && bottom(sr, coords.env) > ih[1]) ih <- ih[-1]
+    dist <- mssr + coords.env$prelim[sr] + coords.env$w[sr] - (mscl + coords.env$prelim[cl])
+    
+    if (dist > 0) {
+      mscl <- mscl + dist
+      
+      tidy_moveSubtree(ch, i, dist, coords.env)
+    }
+    
+    sy <- coords.env$y[sr]
+    cy <- coords.env$y[cl]
+    
+    if (sy <= cy) {
+      sr <- tidy_nextRightContour(sr, coords.env)
+
+      if (!is.na(sr)) mssr <- mssr + coords.env$mod[sr]
+    }
+    
+    if (sy >= cy) {
+      cl <- tidy_nextLeftContour(cl, coords.env)
+      
+      if (!is.na(cl)) mscl <- mscl + coords.env$mod[cl]
+    }
+  }
+  
+  if (is.na(sr) && !is.na(cl)) {
+    tidy_setLeftThread(ch, i, cl, mscl, coords.env)
+  } else if (!is.na(sr) && is.na(cl)) {
+    tidy_setRightThread(ch, i, sr, mssr, coords.env)
+  }
+}
+
+tidy_first_walk <- function(node, coords.env) {
+  ch <- coords.env$edge[node == coords.env$edge[,1], 2]
+  nch <- length(ch)
+  
+  if (nch == 0) {
+    # setExtremes
+    coords.env$el[node] <- node
+    coords.env$er[node] <- node
+    coords.env$msel[node] <- 0
+    coords.env$mser[node] <- 0
+    # end setExtremes
+      
+    return()
+  }
+  
+  tidy_first_walk(ch[1], coords.env)
+  
+#  ih <- c("1"=bottom(ch[1], coords.env))
+  
+  for (i in seq_along(ch)[-1]) {
+    tidy_first_walk(ch[i], coords.env)
+    
+    minY <- coords.env$y[coords.env$er[ch[i]]]
+    
+    tidy_separate(ch, i, coords.env)
+    
+    # updateIYL
+#    while (length(ih) > 0 && minY > ih[1]) ih <- ih[-1]
+#    ih <- c(i=minY, ih)
+#    names(ih)[1] <- as.character(i)
+    # end updateIYL
+  }
+  
+  tidy_positionRoot(node, ch, nch, coords.env)
+  
+  # setExtremes
+  coords.env$el[node] <- coords.env$el[ch[1]]
+  coords.env$msel[node] <- coords.env$msel[ch[1]]
+  coords.env$er[node] <- coords.env$er[ch[nch]]
+  coords.env$mser[node] <- coords.env$mser[ch[nch]]
+  # end setExtremes
+}
+
+tidy_second_walk <- function(node, modsum, coords.env) {
+  ch <- coords.env$edge[node == coords.env$edge[,1], 2]
+  
+  modsum <- modsum + coords.env$mod[node]
+  coords.env$x[node] <- coords.env$prelim[node] + modsum
+    
+  # addChildSpacing
+#  d <- 0
+#  modsumdelta <- 0
+#  for (child in ch) {
+#    d <- d + coords.env$shift[child]
+#    modsumdelta <- modsumdelta + d + coords.env$change[child]
+#    coords.env$mod[child] <- coords.env$mod[child] + modsumdelta
+#  }
+  # end addChildSpacing
+  
+  for (child in ch) {
+    tidy_second_walk(child, modsum, coords.env)
+  }
+}
+
+# from Ploeg (2014) Softw. Pract. Exper. 44:1467–1484
+##' @import from rlang env
+getYcoord_tidy <- function(tr, x, step=1) {
+  Ntip <- length(tr$tip.label)
+  N <- ggtree:::getNodeNum(tr)
+  root <- ggtree:::getRoot(tr)
+  
+  # environment/output for recursive functions 
+  # x and y are swapped 
+  coords.env <- env(
+    edge = tr$edge,
+    w = rep(step, N),
+    y = x,
+    # outputs
+    # set these to 0?
+    prelim = rep(0, N), mod = rep(0, N), # shift = rep(0, N), change = rep(0, N),
+    x = rep(NA, N),
+    tl = rep(NA, N), tr = rep(NA, N),
+    el = rep(NA, N), er = rep(NA, N),
+    msel = rep(NA, N), mser = rep(NA, N)
+  )
+  
+  tidy_first_walk(root, coords.env)
+  tidy_second_walk(root, 0, coords.env)
+  
+  # x and y are swapped 
+  return(coords.env$x)
+}
 
 ## @importFrom magrittr %>%
 ##' @importFrom magrittr equals
