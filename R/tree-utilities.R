@@ -1303,7 +1303,7 @@ tidy_second_walk <- function(node, modsum, coords.env) {
 }
 
 # from Ploeg (2014) Softw. Pract. Exper. 44:1467–1484
-##' @import from rlang env
+##' @importFrom rlang env
 getYcoord_tidy <- function(tr, x, step=1) {
   Ntip <- length(tr$tip.label)
   N <- ggtree:::getNodeNum(tr)
