@@ -1304,7 +1304,7 @@ tidy_second_walk <- function(node, modsum, coords.env) {
 
 # from Ploeg (2014) Softw. Pract. Exper. 44:1467–1484
 ##' @importFrom rlang env
-getYcoord_tidy <- function(tr, x, step=1) {
+getYcoord_tidy <- function(tr, x, step=1, extra.tip.padding = 0.01) {
   Ntip <- length(tr$tip.label)
   N <- ggtree:::getNodeNum(tr)
   root <- ggtree:::getRoot(tr)
@@ -1314,9 +1314,8 @@ getYcoord_tidy <- function(tr, x, step=1) {
   coords.env <- env(
     edge = tr$edge,
     w = rep(step, N),
-    y = x,
+    y = x + c(rep(max(x) * extra.tip.padding, Ntip), rep(0, N - Ntip)),
     # outputs
-    # set these to 0?
     prelim = rep(0, N), mod = rep(0, N), # shift = rep(0, N), change = rep(0, N),
     x = rep(NA, N),
     tl = rep(NA, N), tr = rep(NA, N),
