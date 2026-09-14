@@ -19,6 +19,11 @@
 
 -->
 
+# ggtree 4.3.0
+
++ new `layout = "tidy"` for `ggtree()` and `geom_tree()`, implementing the non-layered tidy tree layout of Ploeg (2014, doi:10.1002/spe.2213), which arranges branches to minimise vertical displacement (2026-09-14, Mon)
+  - this layout may place two tips on the same `y`; the tree drawing stays valid, but panel-aligned layers (`gheatmap()`, `msaplot()`) now warn in that case
+
 # ggtree 4.2.0
 
 + Bioconductor RELEASE_3_23 (2026-04-29, Wed)
