@@ -26,6 +26,7 @@
 + regression tests pinning the ggplot2 4.0 compatibility of `gheatmap()` (no data.frame leaking into the plot mapping, stacked heatmaps via `ggnewscale`) and of `geom_tiplab(align = TRUE)` (2026-09-14, Mon, #686, #700, #707)
 + `ggtree(tr, size = )` / `geom_tree(size = )` no longer emit the ggplot2 3.4.0 "`size` aesthetic for lines" deprecation warning; the parameter is translated to `linewidth` inside `stat_tree()`, so the documented idiom keeps working (2026-09-14, Mon, #684)
 + document that `xlim_tree()` or `xlim_expand()` (or `coord_cartesian()`) should be used instead of a plain `xlim()` on plots with `geom_facet()` panels: `xlim()` applies to every panel and clips the annotation data, and with ggplot2 <= 4.0.3 the build aborts when an entire annotation layer is dropped. Root-caused upstream to `ggplot2:::dapply()` and fixed in <https://github.com/tidyverse/ggplot2/pull/6899> (2026-09-14, Mon, #658)
++ `geom_cladelab(parse = TRUE)` now actually parses the label. `parse` is a parameter of the geom rather than an aesthetic, and `build_text_layer()` was dropping it, so ggplot2 fell back to the geom's own `parse = FALSE` default and the label was drawn as a literal string, e.g. `italic('Test')` (2026-09-14, Mon, #709)
 
 # ggtree 4.2.0
 

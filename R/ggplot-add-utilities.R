@@ -438,6 +438,13 @@ build_text_layer <- function(data, object, params, layout){
         text_dot_params$family <- "EmojiOne"
         object$parse <- FALSE
     }
+    ## `parse` is a parameter of the geom, not an aesthetic, so it has to be
+    ## handed over explicitly. Otherwise ggplot2 falls back to the geom's own
+    ## `parse` default (FALSE) and `geom_cladelab(parse = TRUE)` silently
+    ## renders the label as a literal string. #709
+    if (is.null(text_dot_params$parse)) {
+        text_dot_params$parse <- if (is.null(object$parse)) FALSE else object$parse
+    }
     text_obj <- c(text_obj, text_dot_params)
     if (object$geom == "text"){
         if (layout %in% c("circular", "radial", "daylight", "fan", "unrooted", "ape", "inward_circular", "equal_angle", "tree_and_leaf") && 
