@@ -28,7 +28,7 @@ geom_tippoint <- function(mapping = NULL, data = NULL,
             mapping <- modifyList(self_mapping, mapping)   
         } else { 
             mapping <- modifyList(self_mapping, mapping)
-            subset_mapping <- aes(subset = !!new_quosure(parse_expr(paste0(get_aes_var(mapping, "subset"),' &isTip'))))
+            subset_mapping <- aes(subset = !!subset_quosure(mapping, paste0(get_aes_var(mapping, "subset"),' &isTip')))
             mapping <- modifyList(mapping, subset_mapping)
         }
     }
@@ -83,7 +83,7 @@ geom_nodepoint <- function(mapping = NULL, data = NULL,
             mapping <- modifyList(self_mapping, mapping)   
         } else {
             mapping <- modifyList(self_mapping, mapping)
-            subset_mapping <- aes(subset = !!new_quosure(parse_expr(paste0(get_aes_var(mapping, "subset"),' & !isTip'))))
+            subset_mapping <- aes(subset = !!subset_quosure(mapping, paste0(get_aes_var(mapping, "subset"),' & !isTip')))
             mapping <- modifyList(mapping, subset_mapping)
         }
     }
@@ -124,7 +124,7 @@ geom_rootpoint <- function(mapping = NULL, data = NULL,
             mapping <- modifyList(self_mapping, mapping)               
         } else {
             mapping <- modifyList(self_mapping, mapping)
-            subset_mapping <- aes(subset = !!new_quosure(parse_expr(paste0(get_aes_var(mapping, "subset"),' & node==parent'))))
+            subset_mapping <- aes(subset = !!subset_quosure(mapping, paste0(get_aes_var(mapping, "subset"),' & node==parent')))
             mapping <- modifyList(mapping, subset_mapping)
         }
 

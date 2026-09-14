@@ -170,9 +170,9 @@ geom_tiplab_rectangular <- function(mapping=NULL, hjust = 0,  align = FALSE,
         text_mapping <- self_mapping
     } else {
         if (!is.null(mapping$subset) && nodelab != "all"){
-            newsubset <- aes(subset=!!new_quosure(parse_expr(paste0(get_aes_var(mapping, "subset"),
-                                              '&', 
-                                              get_aes_var(subset, "subset")))))
+            newsubset <- aes(subset=!!subset_quosure(mapping, paste0(get_aes_var(mapping, "subset"),
+                                              '&',
+                                              get_aes_var(subset, "subset"))))
             self_mapping <- modifyList(self_mapping, newsubset)
             mapping$subset <- NULL
         }
@@ -258,8 +258,8 @@ geom_tiplab2 <- function(mapping=NULL, hjust=0, ...) {
         if (!is.null(mapping$subset)) {
             newsubset1 <- paste0(get_aes_var(mapping, "subset"), '&', subset1)
             newsubset2 <- paste0(get_aes_var(mapping, "subset"), '&', subset2)
-            m1 <- aes(angle = .data[["angle"]], node = .data[["node"]], subset = !!new_quosure(parse_expr(newsubset1)))
-            m2 <- aes(angle = .data[["angle"]]+180, node = .data[["node"]], subset = !!new_quosure(parse_expr(newsubset2)))
+            m1 <- aes(angle = .data[["angle"]], node = .data[["node"]], subset = !!subset_quosure(mapping, newsubset1))
+            m2 <- aes(angle = .data[["angle"]]+180, node = .data[["node"]], subset = !!subset_quosure(mapping, newsubset2))
         }
         m1 <- modifyList(mapping, m1)
         m2 <- modifyList(mapping, m2)

@@ -116,9 +116,23 @@ fortify.treedata <- function(model, data,
                              mrsd          = NULL,
                              as.Date       = FALSE, ...) {
 
+    ## `set_branch_length(., "none")` drops the edge lengths, and with them the
+    ## `branch.length` column. `fortify.phylo()` *keeps* that column for a plain
+    ## `phylo` under `branch.length = "none"`, so the two disagreed, and any
+    ## geom that maps `branch.length` (`geom_rootedge()`, `geom_balance()`, ...)
+    ## aborted with "object 'branch.length' not found" for a `treedata` input
+    ## while working fine for a `phylo` one. Keep them consistent. #648
+    branch_length_orig <- NULL
+    if (identical(branch.length, "none")) {
+        tbl <- as_tibble(model)
+        if (all(c("node", "branch.length") %in% names(tbl))) {
+            branch_length_orig <- tbl[, c("node", "branch.length")]
+        }
+    }
+
     model <- set_branch_length(model, branch.length)
 
-    fortify.phylo(model, data,
+    res <- fortify.phylo(model, data,
                   layout        = layout,
                   yscale        = yscale,
                   ladderize     = ladderize,
@@ -126,6 +140,13 @@ fortify.treedata <- function(model, data,
                   branch.length = branch.length,
                   mrsd          = mrsd,
                   as.Date       = as.Date, ...)
+
+    if (!is.null(branch_length_orig) &&
+        !"branch.length" %in% names(res) && "node" %in% names(res)) {
+        res$branch.length <-
+            branch_length_orig$branch.length[match(res$node, branch_length_orig$node)]
+    }
+    res
 }
 
 

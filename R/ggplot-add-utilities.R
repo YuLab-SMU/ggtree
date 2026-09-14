@@ -1,3 +1,22 @@
+## Rebuild a `subset` aesthetic from its deparsed text.
+##
+## ggtree merges a user supplied `aes(subset = )` with its own condition
+## (e.g. `& isTip`) by deparsing and re-parsing the expression. Re-parsing
+## yields a bare expression that carries no environment, so the quosure
+## environment has to be restored explicitly. Without it only columns of the
+## plot data and objects reachable from `globalenv()` resolve, and any helper
+## variable defined in the calling frame fails with `object 'x' not found`.
+## see #705
+##' @importFrom rlang is_quosure quo_get_env new_quosure parse_expr
+subset_quosure <- function(mapping, expr_txt) {
+    env <- parent.frame()
+    q <- mapping[["subset"]]
+    if (!is.null(q) && is_quosure(q)) {
+        env <- quo_get_env(q)
+    }
+    new_quosure(parse_expr(expr_txt), env = env)
+}
+
 build_cladeids_df <- function(trdf, nodeids){
     dat <- lapply(seq_along(nodeids), function(i){
              ids <- getSubtree.df(trdf, nodeids[i])
@@ -418,6 +437,13 @@ build_text_layer <- function(data, object, params, layout){
         text_obj$data$label <- emoji(text_obj$data$label)
         text_dot_params$family <- "EmojiOne"
         object$parse <- FALSE
+    }
+    ## `parse` is a parameter of the geom, not an aesthetic, so it has to be
+    ## handed over explicitly. Otherwise ggplot2 falls back to the geom's own
+    ## `parse` default (FALSE) and `geom_cladelab(parse = TRUE)` silently
+    ## renders the label as a literal string. #709
+    if (is.null(text_dot_params$parse)) {
+        text_dot_params$parse <- if (is.null(object$parse)) FALSE else object$parse
     }
     text_obj <- c(text_obj, text_dot_params)
     if (object$geom == "text"){

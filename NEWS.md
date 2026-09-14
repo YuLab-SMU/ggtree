@@ -19,11 +19,19 @@
 
 -->
 
-# ggtree 4.3.0
+# ggtree 4.3.1
 
-+ new `layout = "tidy"` for `ggtree()` and `geom_tree()`, implementing the non-layered tidy tree layout of Ploeg (2014, doi:10.1002/spe.2213), which arranges branches to minimise vertical displacement (2026-09-14, Mon)
++ new `layout = "tidy"` for `ggtree()` and `geom_tree()`, implementing the non-layered tidy tree layout of Ploeg (2014, doi:10.1002/spe.2213), which arranges branches to minimise vertical displacement (2026-09-14, Mon, #710)
   - this layout may place two tips on the same `y`; the tree drawing stays valid, but panel-aligned layers (`gheatmap()`, `msaplot()`) now warn in that case
-+ `gheatmap()` and `msaplot()` now warn when the tips of the tree are not on a unique, evenly spaced `y`, instead of silently drawing overlapping rows (2026-09-14, Mon)
++ `gheatmap()` and `msaplot()` now warn when the tips of the tree are not on a unique, evenly spaced `y`, instead of silently drawing overlapping rows (2026-09-14, Mon, #710)
++ `aes(subset = )` keeps the environment of the original `aes()` call when ggtree merges it with its own condition (`& isTip`, `& !isTip`, `& node==parent`), so helper variables defined in the calling frame now resolve instead of failing with `object 'x' not found` (2026-09-14, Mon, #705)
++ regression tests for `aes(subset = )` in `geom_tiplab()`/`geom_tippoint()`, including string and factor comparison and the `treedataList` + `facet_wrap()` workflow (2026-09-14, Mon, #705, #699)
++ regression tests pinning the ggplot2 4.0 compatibility of `gheatmap()` (no data.frame leaking into the plot mapping, stacked heatmaps via `ggnewscale`) and of `geom_tiplab(align = TRUE)` (2026-09-14, Mon, #686, #700, #707)
++ `ggtree(tr, size = )` / `geom_tree(size = )` no longer emit the ggplot2 3.4.0 "`size` aesthetic for lines" deprecation warning; the parameter is translated to `linewidth` inside `stat_tree()`, so the documented idiom keeps working (2026-09-14, Mon, #684)
++ document that `xlim_tree()` or `xlim_expand()` (or `coord_cartesian()`) should be used instead of a plain `xlim()` on plots with `geom_facet()` panels: `xlim()` applies to every panel and clips the annotation data, and with ggplot2 <= 4.0.3 the build aborts when an entire annotation layer is dropped. Root-caused upstream to `ggplot2:::dapply()` and fixed in <https://github.com/tidyverse/ggplot2/pull/6899> (2026-09-14, Mon, #658)
++ `geom_cladelab(parse = TRUE)` now actually parses the label. `parse` is a parameter of the geom rather than an aesthetic, and `build_text_layer()` was dropping it, so ggplot2 fell back to the geom's own `parse = FALSE` default and the label was drawn as a literal string, e.g. `italic('Test')` (2026-09-14, Mon, #709)
++ `geom_strip(angle = "auto")` now resolves to a numeric angle instead of passing the literal string `"auto"` on to `geom_text()`, which made grid abort with `invalid 'rot' value` (after `NAs introduced by coercion`). `horizontal` is honoured as documented. The `"auto"` calculation is now shared with `geom_striplab()` so that both agree (2026-09-14, Mon, #629)
++ `geom_rootedge()` works on a `treedata` cladogram. `set_branch_length(., "none")` drops the edge lengths, and with them the `branch.length` column, while `fortify.phylo()` keeps that column for a plain `phylo` -- so any geom mapping `branch.length` failed with `object 'branch.length' not found` for `treedata` but worked for `phylo`. `fortify.treedata()` now retains the column, and `geom_rootedge()` only asks for it when it actually needs it (2026-09-14, Mon, #648)
 
 # ggtree 4.2.0
 
@@ -59,7 +67,8 @@
 
 # ggtree 3.99.2
 
-+ update `gheatmap`, `geom_range` and `msaplot` to be compatible with ggplot2 v=4.0.0 (2025-10-16, Thu, #668, #672, #674)
++ update `gheatmap`, `geom_range` and `msaplot` to be compatible with ggplot2 v=4.0.0 (2025-10-16, Thu, #668, #672, #674, #686, #700)
++ avoid `is.waive()` which was removed in ggplot2 v=4.0.0, it broke `geom_tiplab(align = TRUE)` (2025-06-26, Thu, #707)
 + interactive ggtree (2025-09-16, #662)
   - incorporated iggtree, <https://github.com/YuLab-SMU/iggtree>
 + Added support for XStringSet in msaplot (2025-07-13, Sun, #631)

@@ -32,6 +32,13 @@ plot tree associated data in an additional panel
 'facet_plot()' automatically re-arranges the input 'data' according to the tree structure,
 visualizes the 'data' on specific 'panel' using the 'geom' function with aesthetic 'mapping' and other parameters,
 and align the graph with the tree 'p' side by side. 'geom_facet' is a 'ggplot2' layer version of 'facet_plot'
+
+Use \code{\link[=xlim_tree]{xlim_tree()}} or \code{\link[=xlim_expand]{xlim_expand()}} rather than a plain \code{xlim()} to control the
+x axis of a plot that has annotation panels. \code{xlim()} applies to \emph{every} panel, so
+it clips the annotation data too. (With ggplot2 <= 4.0.3 this is worse than
+cosmetic: when an entire annotation layer is dropped, the build aborts with
+\verb{argument must be coercible to non-negative integer},
+see \url{https://github.com/YuLab-SMU/ggtree/issues/658}.)
 }
 \examples{
 tr <- rtree(10)

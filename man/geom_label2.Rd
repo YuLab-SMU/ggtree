@@ -76,7 +76,7 @@ For more detailed demonstration of this function, please refer to chapter A.4.5 
 \url{http://yulab-smu.top/treedata-book/index.html} by Guangchuang Yu.
 }
 \seealso{
-\link[ggplot2:geom_text]{geom_label}
+\link[ggplot2:geom_label]{geom_label}
 }
 \author{
 Guangchuang Yu

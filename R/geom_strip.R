@@ -206,8 +206,25 @@ geom_striplab <- function(
 
 
 
-get_striplab_position <- function(data, taxa1, taxa2, offset, angle="auto", 
-                                  align = TRUE, extend = 0, adjustRatio = 1.02, 
+## Resolve `angle = "auto"` for `geom_strip()` / `geom_striplab()`.
+##
+## Shared by `get_striplab_position_()` and `ggplot_add.striplabel()` so that
+## both resolve "auto" the same way. The result must be numeric: the literal
+## string "auto" used to be handed straight to `geom_text()`, where grid
+## coerced it to NA and aborted with "invalid 'rot' value". #629
+striplab_auto_angle <- function(data, taxa1, taxa2, horizontal = TRUE) {
+    node1 <- taxa2node(data, taxa1)
+    node2 <- taxa2node(data, taxa2)
+    anglerange <- with(data, c(angle[node == node1], angle[node == node2]))
+    if (length(anglerange) == 0L || !all(is.finite(anglerange))) {
+        ## no usable angle column (e.g. a plain rectangular layout): stay upright
+        return(0)
+    }
+    adjust_cladelabel_angle(angle = mean(anglerange), horizontal = horizontal)
+}
+
+get_striplab_position <- function(data, taxa1, taxa2, offset, angle="auto",
+                                  align = TRUE, extend = 0, adjustRatio = 1.02,
                                   horizontal = TRUE){
     df <- get_striplab_position_(data = data, taxa1 = taxa1, taxa2 = taxa2, 
                                  angle = angle, extend = extend, horizontal = horizontal)
@@ -235,10 +252,8 @@ get_striplab_position_ <- function(data, taxa1, taxa2, angle, extend = 0, horizo
     d <- data.frame(x=max(xx), y=min(yy)-extend[2], yend=max(yy)+extend[1])
     if (missing(angle))
         return(d)
-    if (angle == "auto") {
-        anglerange <- with(data, c(angle[node == node1], angle[node == node2]))
-        d$angle <- mean(anglerange)
-        d$angle <- adjust_cladelabel_angle(angle=d$angle, horizontal=horizontal)
+    if (is.character(angle) && length(angle) == 1L && angle == "auto") {
+        d$angle <- striplab_auto_angle(data, taxa1, taxa2, horizontal = horizontal)
     } else {
         d$angle <- angle
     }

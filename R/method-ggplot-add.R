@@ -683,6 +683,19 @@ ggplot_add.striplabel <- function(object, plot, object_name, ...) {
         return(ggplot_add(ly_bar, plot, object_name))
     }
 
+    ## `angle = "auto"` is documented for `geom_strip()`, but it was passed on
+    ## to `geom_text()` verbatim. grid then coerced the string "auto" to NA
+    ## ("NAs introduced by coercion") and aborted with "invalid 'rot' value".
+    ## Resolve it to a number first. #629
+    if (is.character(object$angle) && length(object$angle) == 1L &&
+        object$angle == "auto") {
+        horizontal <- object$params$horizontal
+        object$angle <- striplab_auto_angle(
+            d, object$taxa1, object$taxa2,
+            horizontal = if (is.null(horizontal)) TRUE else horizontal
+        )
+    }
+
     if(object$geom == 'text') {
         ly_text <- geom_text(aes(x = !!sym("x"), y = !!sym("y"), label = !!sym("label")),
                              data = strip_text_df, size = object$fontsize,

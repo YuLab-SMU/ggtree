@@ -37,10 +37,19 @@ ggexpand <- function(ratio, direction = 1, side = 'hv') {
 
 ##' set x axis limits specially for Tree panel
 ##'
+##' `xlim()` (and `scale_x_continuous(limits = )`) apply to *every* panel, so on a
+##' plot that carries annotation panels added by `geom_facet()` they clip the
+##' annotation data as well. `xlim_tree()` only sets the limits of the tree
+##' panel, `xlim_expand()` only sets the limits of one specific panel, and
+##' `coord_cartesian()` zooms without dropping data, so all of them avoid this.
+##' Note that when an entire annotation layer is dropped, ggplot2 <= 4.0.3
+##' aborts with `argument must be coercible to non-negative integer`
+##' (<https://github.com/YuLab-SMU/ggtree/issues/658>).
 ##'
 ##' @title xlim_tree
 ##' @param xlim x axis limits 
 ##' @return updated tree view
+##' @seealso [xlim_expand()] to set the limits of one specific panel
 ##' @export
 ##' @examples
 ##' x <- rtree(30)
