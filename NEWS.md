@@ -23,6 +23,7 @@
 
 + `aes(subset = )` keeps the environment of the original `aes()` call when ggtree merges it with its own condition (`& isTip`, `& !isTip`, `& node==parent`), so helper variables defined in the calling frame now resolve instead of failing with `object 'x' not found` (2026-09-14, Mon, #705)
 + regression tests for `aes(subset = )` in `geom_tiplab()`/`geom_tippoint()`, including string and factor comparison and the `treedataList` + `facet_wrap()` workflow (2026-09-14, Mon, #705, #699)
++ regression tests pinning the ggplot2 4.0 compatibility of `gheatmap()` (no data.frame leaking into the plot mapping, stacked heatmaps via `ggnewscale`) and of `geom_tiplab(align = TRUE)` (2026-09-14, Mon, #686, #700, #707)
 
 # ggtree 4.2.0
 
@@ -58,7 +59,8 @@
 
 # ggtree 3.99.2
 
-+ update `gheatmap`, `geom_range` and `msaplot` to be compatible with ggplot2 v=4.0.0 (2025-10-16, Thu, #668, #672, #674)
++ update `gheatmap`, `geom_range` and `msaplot` to be compatible with ggplot2 v=4.0.0 (2025-10-16, Thu, #668, #672, #674, #686, #700)
++ avoid `is.waive()` which was removed in ggplot2 v=4.0.0, it broke `geom_tiplab(align = TRUE)` (2025-06-26, Thu, #707)
 + interactive ggtree (2025-09-16, #662)
   - incorporated iggtree, <https://github.com/YuLab-SMU/iggtree>
 + Added support for XStringSet in msaplot (2025-07-13, Sun, #631)
