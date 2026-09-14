@@ -73,7 +73,7 @@ ggtree <- function(tr,
                  expr = {
                    layout %<>% match.arg(c("rectangular", "slanted", "fan", "circular", 'inward_circular',
                             "radial", "unrooted", "equal_angle", "daylight", "tree_and_leaf", "dendrogram",
-                            "ape", "ellipse", "roundrect"))
+                            "ape", "ellipse", "roundrect", "tidy"))
                   }
              )
 

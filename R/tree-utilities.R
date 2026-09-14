@@ -1138,7 +1138,226 @@ getXcoord <- function(tr) {
 ##     return(res)
 ## }
 
+## Tidy tree layout, from Ploeg (2014) Softw. Pract. Exper. 44:1467-1484.
+##
+## NOTE on multifurcations: Ploeg's `distributeExtra` / `addChildSpacing`
+## steps, which spread the extra separation over the *middle* children of a
+## node with 3 or more children, are not implemented here.  Binary trees are
+## unaffected; polytomous trees are still laid out without overlaps, but the
+## middle children of a polytomy are not optimally spaced.
+##
+## NOTE on tip separation: this layout allows two tips to share the same `y`
+## when they sit at different depths.  The drawing is still valid (no branch
+## passes through a node) but `y` is no longer a unique key per tip, so
+## y-based annotations such as `gheatmap()` will overlap.
 
+tidy_positionRoot <- function(node, ch, nch, coords.env) {
+  coords.env$prelim[node] <- (coords.env$prelim[ch[1]] + coords.env$mod[ch[1]] +
+                                coords.env$prelim[ch[nch]] + coords.env$mod[ch[nch]] +
+                                coords.env$w[ch[nch]]) / 2 -
+    coords.env$w[node] / 2
+}
+
+tidy_moveSubtree <- function(ch, i, dist, coords.env) {
+  coords.env$mod[ch[i]]  <- coords.env$mod[ch[i]]  + dist
+  coords.env$msel[ch[i]] <- coords.env$msel[ch[i]] + dist
+  coords.env$mser[ch[i]] <- coords.env$mser[ch[i]] + dist
+}
+
+tidy_nextLeftContour <- function(node, coords.env) {
+  ch <- coords.env$children[[node]]
+  if (length(ch) == 0) coords.env$tl[node] else ch[1L]
+}
+
+tidy_nextRightContour <- function(node, coords.env) {
+  ch <- coords.env$children[[node]]
+  if (length(ch) == 0) coords.env$tr[node] else ch[length(ch)]
+}
+
+tidy_setLeftThread <- function(ch, i, cl, modsumcl, coords.env) {
+  li <- coords.env$el[ch[1]]
+  coords.env$tl[li] <- cl
+  diff <- modsumcl - coords.env$mod[cl] - coords.env$msel[ch[1]]
+  coords.env$mod[li] <- coords.env$mod[li] + diff
+  coords.env$prelim[li] <- coords.env$prelim[li] - diff
+  coords.env$el[ch[1]] <- coords.env$el[ch[i]]
+  coords.env$msel[ch[1]] <- coords.env$msel[ch[i]]
+}
+
+tidy_setRightThread <- function(ch, i, sr, modsumsr, coords.env) {
+  ri <- coords.env$er[ch[i]]
+  coords.env$tr[ri] <- sr
+  diff <- modsumsr - coords.env$mod[sr] - coords.env$mser[ch[i]]
+  coords.env$mod[ri] <- coords.env$mod[ri] + diff
+  coords.env$prelim[ri] <- coords.env$prelim[ri] - diff
+  coords.env$er[ch[i]] <- coords.env$er[ch[i-1]]
+  coords.env$mser[ch[i]] <- coords.env$mser[ch[i-1]]
+}
+
+tidy_separate <- function(ch, i, coords.env) {
+  sr <- ch[i - 1];
+  mssr <- coords.env$mod[sr]
+  cl <- ch[i];
+  mscl <- coords.env$mod[cl]
+
+  while (!is.na(sr) && !is.na(cl)) {
+    dist <- mssr + coords.env$prelim[sr] + coords.env$w[sr] - (mscl + coords.env$prelim[cl])
+
+    if (dist > 0) {
+      mscl <- mscl + dist
+
+      tidy_moveSubtree(ch, i, dist, coords.env)
+    }
+
+    sy <- coords.env$y[sr]
+    cy <- coords.env$y[cl]
+
+    if (sy <= cy) {
+      sr <- tidy_nextRightContour(sr, coords.env)
+
+      if (!is.na(sr)) mssr <- mssr + coords.env$mod[sr]
+    }
+
+    if (sy >= cy) {
+      cl <- tidy_nextLeftContour(cl, coords.env)
+
+      if (!is.na(cl)) mscl <- mscl + coords.env$mod[cl]
+    }
+  }
+
+  if (is.na(sr) && !is.na(cl)) {
+    tidy_setLeftThread(ch, i, cl, mscl, coords.env)
+  } else if (!is.na(sr) && is.na(cl)) {
+    tidy_setRightThread(ch, i, sr, mssr, coords.env)
+  }
+}
+
+## Both walks are iterative (explicit stack).  The recursive versions
+## overflowed R's node stack on trees deeper than ~1500 nodes; this also
+## removes the per-node rescan of the edge matrix.
+tidy_first_walk <- function(root, coords.env) {
+  children <- coords.env$children
+  N <- length(children)
+
+  ## pre-order traversal; reversing it yields children before parents
+  ord <- integer(N)
+  stk <- integer(N)
+  k <- 0L
+  sp <- 1L
+  stk[1L] <- root
+  while (sp > 0L) {
+    v <- stk[sp]
+    sp <- sp - 1L
+    k <- k + 1L
+    ord[k] <- v
+    ch <- children[[v]]
+    nc <- length(ch)
+    if (nc > 0L) {
+      stk[(sp + 1L):(sp + nc)] <- rev(ch)
+      sp <- sp + nc
+    }
+  }
+
+  for (j in k:1L) {
+    node <- ord[j]
+    ch <- children[[node]]
+    nch <- length(ch)
+
+    if (nch == 0L) {                      ## setExtremes
+      coords.env$el[node]   <- node
+      coords.env$er[node]   <- node
+      coords.env$msel[node] <- 0
+      coords.env$mser[node] <- 0
+      next
+    }
+
+    for (i in seq_along(ch)[-1]) {
+      tidy_separate(ch, i, coords.env)
+    }
+
+    tidy_positionRoot(node, ch, nch, coords.env)
+
+    coords.env$el[node]   <- coords.env$el[ch[1]]
+    coords.env$msel[node] <- coords.env$msel[ch[1]]
+    coords.env$er[node]   <- coords.env$er[ch[nch]]
+    coords.env$mser[node] <- coords.env$mser[ch[nch]]
+  }
+}
+
+tidy_second_walk <- function(root, coords.env) {
+  children <- coords.env$children
+  N <- length(children)
+
+  ns <- integer(N)
+  ms <- numeric(N)
+  sp <- 1L
+  ns[1L] <- root
+  ms[1L] <- 0
+  while (sp > 0L) {
+    node <- ns[sp]
+    modsum <- ms[sp]
+    sp <- sp - 1L
+
+    modsum <- modsum + coords.env$mod[node]
+    coords.env$x[node] <- coords.env$prelim[node] + modsum
+
+    ch <- children[[node]]
+    nc <- length(ch)
+    if (nc > 0L) {
+      ns[(sp + 1L):(sp + nc)] <- rev(ch)
+      ms[(sp + 1L):(sp + nc)] <- modsum
+      sp <- sp + nc
+    }
+  }
+}
+
+##' Tidy (non-layered) tree layout
+##'
+##' Computes the vertical (`y`) coordinate by the linear-time algorithm of
+##' Ploeg (2014).  The horizontal (`x`) coordinate is taken as given, so it
+##' plays the role of the "level" in the original algorithm -- hence `x` and
+##' `y` are swapped in the environment below.
+##' @param tr phylo object
+##' @param x horizontal coordinate (depth) of every node
+##' @param step minimum separation between adjacent nodes
+##' @param extra.tip.padding amount, relative to `max(x)`, by which tips are
+##' pushed away from the root in the level comparison.  Larger values keep
+##' tips further apart, at the cost of a taller drawing.
+##' @return vertical coordinate of every node
+##' @references Ploeg, A. (2014) Drawing non-layered tidy trees in linear time.
+##' \emph{Software: Practice and Experience} 44(12):1467-1484.
+##' doi:10.1002/spe.2213
+##' @noRd
+##' @importFrom rlang env
+getYcoord_tidy <- function(tr, x, step = 1, extra.tip.padding = 0.01) {
+  Ntip <- length(tr$tip.label)
+  N <- getNodeNum(tr)
+  root <- getRoot(tr)
+
+  ## children indexed by node number, in edge order, so the walks never have
+  ## to rescan the edge matrix
+  children <- split(tr$edge[, 2], factor(tr$edge[, 1], levels = seq_len(N)))
+
+  # environment/output for the walks
+  # x and y are swapped
+  coords.env <- env(
+    children = children,
+    w = rep(step, N),
+    y = x + c(rep(max(x) * extra.tip.padding, Ntip), rep(0, N - Ntip)),
+    # outputs
+    prelim = rep(0, N), mod = rep(0, N),
+    x = rep(NA, N),
+    tl = rep(NA, N), tr = rep(NA, N),
+    el = rep(NA, N), er = rep(NA, N),
+    msel = rep(NA, N), mser = rep(NA, N)
+  )
+
+  tidy_first_walk(root, coords.env)
+  tidy_second_walk(root, coords.env)
+
+  # x and y are swapped
+  return(coords.env$x)
+}
 
 ## @importFrom magrittr %>%
 ##' @importFrom magrittr equals

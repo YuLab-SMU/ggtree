@@ -21,6 +21,9 @@
 
 # ggtree 4.3.1
 
++ new `layout = "tidy"` for `ggtree()` and `geom_tree()`, implementing the non-layered tidy tree layout of Ploeg (2014, doi:10.1002/spe.2213), which arranges branches to minimise vertical displacement (2026-09-14, Mon, #710)
+  - this layout may place two tips on the same `y`; the tree drawing stays valid, but panel-aligned layers (`gheatmap()`, `msaplot()`) now warn in that case
++ `gheatmap()` and `msaplot()` now warn when the tips of the tree are not on a unique, evenly spaced `y`, instead of silently drawing overlapping rows (2026-09-14, Mon, #710)
 + `aes(subset = )` keeps the environment of the original `aes()` call when ggtree merges it with its own condition (`& isTip`, `& !isTip`, `& node==parent`), so helper variables defined in the calling frame now resolve instead of failing with `object 'x' not found` (2026-09-14, Mon, #705)
 + regression tests for `aes(subset = )` in `geom_tiplab()`/`geom_tippoint()`, including string and factor comparison and the `treedataList` + `facet_wrap()` workflow (2026-09-14, Mon, #705, #699)
 + regression tests pinning the ggplot2 4.0 compatibility of `gheatmap()` (no data.frame leaking into the plot mapping, stacked heatmaps via `ggnewscale`) and of `geom_tiplab(align = TRUE)` (2026-09-14, Mon, #686, #700, #707)
