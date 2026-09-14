@@ -19,12 +19,13 @@
 
 -->
 
-# ggtree 4.3.0
+# ggtree 4.3.1
 
 + `aes(subset = )` keeps the environment of the original `aes()` call when ggtree merges it with its own condition (`& isTip`, `& !isTip`, `& node==parent`), so helper variables defined in the calling frame now resolve instead of failing with `object 'x' not found` (2026-09-14, Mon, #705)
 + regression tests for `aes(subset = )` in `geom_tiplab()`/`geom_tippoint()`, including string and factor comparison and the `treedataList` + `facet_wrap()` workflow (2026-09-14, Mon, #705, #699)
 + regression tests pinning the ggplot2 4.0 compatibility of `gheatmap()` (no data.frame leaking into the plot mapping, stacked heatmaps via `ggnewscale`) and of `geom_tiplab(align = TRUE)` (2026-09-14, Mon, #686, #700, #707)
 + `ggtree(tr, size = )` / `geom_tree(size = )` no longer emit the ggplot2 3.4.0 "`size` aesthetic for lines" deprecation warning; the parameter is translated to `linewidth` inside `stat_tree()`, so the documented idiom keeps working (2026-09-14, Mon, #684)
++ document that `xlim_tree()` or `xlim_expand()` (or `coord_cartesian()`) should be used instead of a plain `xlim()` on plots with `geom_facet()` panels: `xlim()` applies to every panel and clips the annotation data, and with ggplot2 <= 4.0.3 the build aborts when an entire annotation layer is dropped. Root-caused upstream to `ggplot2:::dapply()` and fixed in <https://github.com/tidyverse/ggplot2/pull/6899> (2026-09-14, Mon, #658)
 
 # ggtree 4.2.0
 

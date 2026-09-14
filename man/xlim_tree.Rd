@@ -15,6 +15,16 @@ updated tree view
 \description{
 set x axis limits specially for Tree panel
 }
+\details{
+\code{xlim()} (and \code{scale_x_continuous(limits = )}) apply to \emph{every} panel, so on a
+plot that carries annotation panels added by \code{geom_facet()} they clip the
+annotation data as well. \code{xlim_tree()} only sets the limits of the tree
+panel, \code{xlim_expand()} only sets the limits of one specific panel, and
+\code{coord_cartesian()} zooms without dropping data, so all of them avoid this.
+Note that when an entire annotation layer is dropped, ggplot2 <= 4.0.3
+aborts with \verb{argument must be coercible to non-negative integer}
+(\url{https://github.com/YuLab-SMU/ggtree/issues/658}).
+}
 \examples{
 x <- rtree(30)
 p <- ggtree(x) + geom_tiplab()
@@ -23,6 +33,9 @@ d <- data.frame(label = x$tip.label,
 p2 <- p + geom_facet(panel = "Dot", data = d, 
             geom = geom_point, mapping = aes(x = value))
 p2 + xlim_tree(6)
+}
+\seealso{
+\code{\link[=xlim_expand]{xlim_expand()}} to set the limits of one specific panel
 }
 \author{
 Guangchuang Yu
