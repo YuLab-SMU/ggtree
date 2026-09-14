@@ -16,6 +16,54 @@ get_layout <- function(tree_view = NULL) {
     return(layout)
 }
 
+## Panel-aligned layers (`gheatmap()`, `msaplot()`, ...) draw one element per
+## tip *at that tip's y coordinate*, so they need a y that is unique per tip and
+## evenly spaced.
+##
+## Some layouts do not guarantee this: `layout = "tidy"` minimises vertical
+## displacement and may place two tips on the same y.  That is fine for the tree
+## itself (no branch ever passes through a node) but it merges those rows in an
+## aligned panel.
+##
+## We inspect the data rather than the layout name: under
+## `branch.length = "none"` the tidy layout keeps the regular integer spacing,
+## so a name-based check would reject perfectly valid plots.
+##
+## @return one of "ok", "duplicated" or "uneven"
+tip_y_alignment <- function(tree_view = NULL) {
+    plot <- tryCatch(get_tree_view(tree_view), error = function(e) NULL)
+    if (is.null(plot)) return("ok")
+    df <- plot$data
+    if (is.null(df) || !all(c("y", "isTip") %in% names(df))) return("ok")
+    y <- df$y[df$isTip]
+    y <- y[!is.na(y)]
+    if (length(y) < 2L) return("ok")
+    d <- diff(sort(y))
+    if (any(d <= 0)) return("duplicated")
+    if (max(d) - min(d) > 1e-6) return("uneven")
+    return("ok")
+}
+
+## Emit a warning when an aligned panel is drawn on a plot whose tips are not
+## on a unique, evenly spaced y.  Returns TRUE invisibly when the plot is fine.
+warn_unaligned_tip_y <- function(tree_view = NULL, fn = "this function") {
+    alignment <- tip_y_alignment(tree_view)
+    if (alignment == "ok") return(invisible(TRUE))
+
+    layout <- tryCatch(get_layout(tree_view), error = function(e) NA_character_)
+    detail <- if (alignment == "duplicated") {
+        "some tips share the same vertical position, so rows will overlap"
+    } else {
+        "tips are not evenly spaced, so rows will have unequal heights"
+    }
+    cli::cli_warn(c(
+        "{.fn {fn}} aligns data to the vertical position of each tip, but {detail}.",
+        "i" = paste0("This is expected with {.code layout = \"", layout, "\"}; ",
+                     "use {.code layout = \"rectangular\"} for aligned panels.")
+    ))
+    return(invisible(FALSE))
+}
+
 build_new_plot_env <- function(env){
     newenv <- list2env(
                 x = as.list(

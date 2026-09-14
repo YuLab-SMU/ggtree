@@ -23,6 +23,7 @@
 
 + new `layout = "tidy"` for `ggtree()` and `geom_tree()`, implementing the non-layered tidy tree layout of Ploeg (2014, doi:10.1002/spe.2213), which arranges branches to minimise vertical displacement (2026-09-14, Mon)
   - this layout may place two tips on the same `y`; the tree drawing stays valid, but panel-aligned layers (`gheatmap()`, `msaplot()`) now warn in that case
++ `gheatmap()` and `msaplot()` now warn when the tips of the tree are not on a unique, evenly spaced `y`, instead of silently drawing overlapping rows (2026-09-14, Mon)
 
 # ggtree 4.2.0
 

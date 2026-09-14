@@ -99,6 +99,7 @@ msaplot <- function(p, fasta, offset = 0, width = 1, color = NULL, window = NULL
     df <- df[df$isTip, ]
     start <- max(df$x) * 1.02 + offset
 
+    warn_unaligned_tip_y(p, "msaplot")
     seqs <- seqs[df$label[order(df$y)]]
     ## seqs.df <- do.call("rbind", seqs)
 

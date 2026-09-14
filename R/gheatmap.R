@@ -80,6 +80,7 @@ gheatmap <- function(p, data, offset=0, width=1, low="green", high="red", color=
         stop("`data` must have row names that match tree tip labels.", call. = FALSE)
     }
     ## dd$lab <- rownames(dd)
+    warn_unaligned_tip_y(p, "gheatmap")
     i <- order(df$y)
 
     ## handle collapsed tree
