@@ -24,6 +24,7 @@
 + `aes(subset = )` keeps the environment of the original `aes()` call when ggtree merges it with its own condition (`& isTip`, `& !isTip`, `& node==parent`), so helper variables defined in the calling frame now resolve instead of failing with `object 'x' not found` (2026-09-14, Mon, #705)
 + regression tests for `aes(subset = )` in `geom_tiplab()`/`geom_tippoint()`, including string and factor comparison and the `treedataList` + `facet_wrap()` workflow (2026-09-14, Mon, #705, #699)
 + regression tests pinning the ggplot2 4.0 compatibility of `gheatmap()` (no data.frame leaking into the plot mapping, stacked heatmaps via `ggnewscale`) and of `geom_tiplab(align = TRUE)` (2026-09-14, Mon, #686, #700, #707)
++ `ggtree(tr, size = )` / `geom_tree(size = )` no longer emit the ggplot2 3.4.0 "`size` aesthetic for lines" deprecation warning; the parameter is translated to `linewidth` inside `stat_tree()`, so the documented idiom keeps working (2026-09-14, Mon, #684)
 
 # ggtree 4.2.0
 

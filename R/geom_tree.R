@@ -71,6 +71,15 @@ stat_tree <- function(mapping=NULL, data=NULL, geom=GeomInteractiveSegment, posi
         rootnode <- FALSE
     }
 
+    ## `size` was deprecated for lines in ggplot2 3.4.0 in favour of
+    ## `linewidth`, but `ggtree(tr, size = 0.5)` is a long standing and
+    ## documented idiom. Translate the parameter here so that users do not
+    ## get a deprecation warning that points at ggtree. #684
+    dots <- list(...)
+    if (!"linewidth" %in% names(dots) && "size" %in% names(dots)) {
+        names(dots)[names(dots) == "size"] <- "linewidth"
+    }
+
     layout_rectangular <- c("rectangular", "dendrogram", "fan", "circular", "inward_circular")
     layout_slanted <- c("slanted", "radial", "equal_angle", "daylight", "tree_and_leaf", "ape")
     layout_ellipse <- c("ellipse", "roundrect")
@@ -84,13 +93,12 @@ stat_tree <- function(mapping=NULL, data=NULL, geom=GeomInteractiveSegment, posi
                    position=position,
                    show.legend = show.legend,
                    inherit.aes = inherit.aes,
-                   params=list(layout = layout,
+                   params=c(list(layout = layout,
                                lineend = lineend,
                                na.rm = na.rm,
                                arrow = arrow,
                                rootnode = rootnode,
-                               continuous = continuous,
-                               ...),
+                               continuous = continuous), dots),
                    check.aes = FALSE
                    ),
              layer(data=data,
@@ -100,13 +108,12 @@ stat_tree <- function(mapping=NULL, data=NULL, geom=GeomInteractiveSegment, posi
                    position=position,
                    show.legend = show.legend,
                    inherit.aes = inherit.aes,
-                   params=list(layout = layout,
+                   params=c(list(layout = layout,
                                lineend = lineend,
                                na.rm = na.rm,
                                ## arrow = arrow,
                                rootnode = rootnode,
-                               continuous = continuous,
-                               ...),
+                               continuous = continuous), dots),
                    check.aes = FALSE
                    )
              )
@@ -120,13 +127,12 @@ stat_tree <- function(mapping=NULL, data=NULL, geom=GeomInteractiveSegment, posi
               position=position,
               show.legend = show.legend,
               inherit.aes = inherit.aes,
-              params=list(layout = layout,
+              params=c(list(layout = layout,
                           lineend = lineend,
                           na.rm = na.rm,
                           arrow = arrow,
                           rootnode = rootnode,
-                          continuous = continuous,
-                          ...),
+                          continuous = continuous), dots),
               check.aes = FALSE
               )
     } else if (layout %in% layout_ellipse){
@@ -138,13 +144,12 @@ stat_tree <- function(mapping=NULL, data=NULL, geom=GeomInteractiveSegment, posi
               position=position,
               show.legend=show.legend,
               inherit.aes=inherit.aes,
-              params=list(layout=layout,
+              params=c(list(layout=layout,
                           lineend = lineend,
                           na.rm = na.rm,
                           arrow = arrow,
                           rootnode = rootnode,
-                          continuous = continuous,
-                          ...),
+                          continuous = continuous), dots),
               check.aes=FALSE
               )
     }
