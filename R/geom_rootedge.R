@@ -53,8 +53,17 @@
 geom_rootedge <- function(rootedge = NULL, data = NULL, ...) {
     # add isTip for checking whether the x of tree is reversed.
     mapping <- aes(x = !!sym("x"), y = !!sym("y"), xend = !!sym("x"), yend = !!sym("y"),
-                    branch.length = !!sym("branch.length"),
                     node = !!sym("node"), parent = !!sym("parent"), isTip=!!sym("isTip"))
+    ## `branch.length` is only consulted when `rootedge` is not supplied, i.e.
+    ## when the root edge length has to be read off the tree. Mapping it
+    ## unconditionally breaks `branch.length = "none"` with a `treedata` input:
+    ## `set_branch_length(., "none")` drops the edge lengths, the fortified data
+    ## has no such column at all, and ggplot2 aborts with
+    ## "object 'branch.length' not found" (#648). A plain `phylo` keeps the
+    ## column, which is why the same call works there.
+    if (is.null(rootedge)) {
+        mapping <- modifyList(mapping, aes(branch.length = !!sym("branch.length")))
+    }
     layer(
         stat = StatRootEdge,
         data = data,

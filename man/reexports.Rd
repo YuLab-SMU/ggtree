@@ -52,20 +52,20 @@ These objects are imported from other packages. Follow the links
 below to see their documentation.
 
 \describe{
-  \item{ape}{\code{\link[ape]{read.tree}}, \code{\link[ape]{rtree}}}
+  \item{ape}{\code{\link[ape:read.tree]{read.tree()}}, \code{\link[ape:rtree]{rtree()}}}
 
-  \item{aplot}{\code{\link[aplot]{plot_list}}}
+  \item{aplot}{\code{\link[aplot:plot_list]{plot_list()}}}
 
-  \item{dplyr}{\code{\link[dplyr:compute]{collapse}}}
+  \item{dplyr}{\code{\link[dplyr:collapse]{collapse()}}}
 
-  \item{ggfun}{\code{\link[ggfun:attacher]{\%<+\%}}, \code{\link[ggfun:reexports]{identify}}, \code{\link[ggfun]{td_filter}}, \code{\link[ggfun]{td_mutate}}, \code{\link[ggfun]{td_unnest}}}
+  \item{ggfun}{\code{\link[ggfun:\%<+\%]{\%<+\%}}, \code{\link[ggfun:identify]{identify}}, \code{\link[ggfun:td_filter]{td_filter()}}, \code{\link[ggfun:td_mutate]{td_mutate()}}, \code{\link[ggfun:td_unnest]{td_unnest()}}}
 
-  \item{ggplot2}{\code{\link[ggplot2]{aes}}, \code{\link[ggplot2]{fortify}}, \code{\link[ggplot2:geom_text]{geom_label}}, \code{\link[ggplot2]{geom_point}}, \code{\link[ggplot2]{geom_text}}, \code{\link[ggplot2]{ggplot}}, \code{\link[ggplot2]{ggsave}}, \code{\link[ggplot2]{guide_legend}}, \code{\link[ggplot2:element]{margin}}, \code{\link[ggplot2:scale_manual]{scale_color_manual}}, \code{\link[ggplot2:scale_manual]{scale_colour_manual}}, \code{\link[ggplot2:scale_manual]{scale_fill_manual}}, \code{\link[ggplot2:scale_continuous]{scale_x_continuous}}, \code{\link[ggplot2]{theme}}, \code{\link[ggplot2:lims]{xlim}}}
+  \item{ggplot2}{\code{\link[ggplot2:aes]{aes()}}, \code{\link[ggplot2:fortify]{fortify()}}, \code{\link[ggplot2:geom_label]{geom_label()}}, \code{\link[ggplot2:geom_point]{geom_point()}}, \code{\link[ggplot2:geom_text]{geom_text()}}, \code{\link[ggplot2:ggplot]{ggplot()}}, \code{\link[ggplot2:ggsave]{ggsave()}}, \code{\link[ggplot2:guide_legend]{guide_legend()}}, \code{\link[ggplot2:margin]{margin()}}, \code{\link[ggplot2:scale_color_manual]{scale_color_manual()}}, \code{\link[ggplot2:scale_colour_manual]{scale_colour_manual()}}, \code{\link[ggplot2:scale_fill_manual]{scale_fill_manual()}}, \code{\link[ggplot2:scale_x_continuous]{scale_x_continuous()}}, \code{\link[ggplot2:theme]{theme()}}, \code{\link[ggplot2:xlim]{xlim()}}}
 
-  \item{grid}{\code{\link[grid]{arrow}}, \code{\link[grid]{unit}}}
+  \item{grid}{\code{\link[grid:arrow]{arrow()}}, \code{\link[grid:unit]{unit()}}}
 
-  \item{magrittr}{\code{\link[magrittr:pipe]{\%>\%}}}
+  \item{magrittr}{\code{\link[magrittr:\%>\%]{\%>\%}}}
 
-  \item{tidytree}{\code{\link[tidytree]{groupClade}}, \code{\link[tidytree]{groupOTU}}, \code{\link[tidytree]{MRCA}}, \code{\link[tidytree]{nodeid}}, \code{\link[tidytree]{nodelab}}}
+  \item{tidytree}{\code{\link[tidytree:groupClade]{groupClade()}}, \code{\link[tidytree:groupOTU]{groupOTU()}}, \code{\link[tidytree:MRCA]{MRCA()}}, \code{\link[tidytree:nodeid]{nodeid()}}, \code{\link[tidytree:nodelab]{nodelab()}}}
 }}
 

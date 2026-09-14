@@ -11,8 +11,8 @@
 \seealso{
 Useful links:
 \itemize{
-  \item \url{https://www.amazon.com/Integration-Manipulation-Visualization-Phylogenetic-Computational-ebook/dp/B0B5NLZR1Z/ (book)}
-  \item \url{http://onlinelibrary.wiley.com/doi/10.1111/2041-210X.12628 (paper)}
+  \item \url{https://www.amazon.com/Integration-Manipulation-Visualization-Phylogenetic-Computational-ebook/dp/B0B5NLZR1Z/} (book)
+  \item \url{http://onlinelibrary.wiley.com/doi/10.1111/2041-210X.12628} (paper)
   \item Report bugs at \url{https://github.com/YuLab-SMU/ggtree/issues}
 }
 
@@ -22,6 +22,7 @@ Useful links:
 
 Authors:
 \itemize{
+  \item Guangchuang Yu \email{guangchuangyu@gmail.com} (\href{https://orcid.org/0000-0002-6485-8781}{ORCID}) [copyright holder]
   \item Tommy Tsan-Yuk Lam \email{tylam.tommy@gmail.com} [thesis advisor]
   \item Shuangbin Xu \email{xshuangbin@163.com} (\href{https://orcid.org/0000-0003-3513-5362}{ORCID})
 }
