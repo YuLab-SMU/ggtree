@@ -15,6 +15,29 @@ test_that("size= is translated to linewidth= without a deprecation warning (#684
     expect_equal(unique(ggplot_build(ggtree(tree, size = 2))$data[[1]]$linewidth), 2)
     expect_equal(unique(ggplot_build(ggtree(tree, linewidth = 2))$data[[1]]$linewidth), 2)
     expect_equal(unique(ggplot_build(ggtree(tree))$data[[1]]$linewidth), 0.5)
+
+    ## an explicit linewidth wins and size is dropped, in either order,
+    ## otherwise the leftover size would still trigger the warning
+    expect_no_warning(ggplot2::ggplot_build(ggtree(tree, size = 1, linewidth = 4)))
+    expect_equal(unique(ggplot_build(ggtree(tree, size = 1, linewidth = 4))$data[[1]]$linewidth), 4)
+    expect_no_warning(ggplot2::ggplot_build(ggtree(tree, linewidth = 4, size = 1)))
+    expect_equal(unique(ggplot_build(ggtree(tree, linewidth = 4, size = 1))$data[[1]]$linewidth), 4)
+})
+
+test_that("other layer parameters are still forwarded (#684)", {
+    ## the params list was refactored from list(..., ...) to c(list(...), dots);
+    ## make sure nothing else got dropped along the way
+    tree <- ape::rtree(10)
+    b <- ggplot_build(ggtree(tree, colour = "red", alpha = 0.3, linetype = 2))
+
+    expect_equal(unique(b$data[[1]]$colour), "red")
+    expect_equal(unique(b$data[[1]]$alpha), 0.3)
+    expect_equal(unique(b$data[[1]]$linetype), 2)
+
+    ## size on point geoms must NOT be renamed to linewidth
+    b <- ggplot_build(ggtree(tree) + geom_tippoint(size = 3))
+    tips <- b$data[vapply(b$data, function(d) "shape" %in% names(d), logical(1))]
+    expect_equal(unique(tips[[1]]$size), 3)
 })
 
 test_that("size= is translated for every layout family (#684)", {

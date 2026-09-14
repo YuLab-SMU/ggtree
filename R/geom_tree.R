@@ -76,8 +76,13 @@ stat_tree <- function(mapping=NULL, data=NULL, geom=GeomInteractiveSegment, posi
     ## documented idiom. Translate the parameter here so that users do not
     ## get a deprecation warning that points at ggtree. #684
     dots <- list(...)
-    if (!"linewidth" %in% names(dots) && "size" %in% names(dots)) {
-        names(dots)[names(dots) == "size"] <- "linewidth"
+    if ("size" %in% names(dots)) {
+        if ("linewidth" %in% names(dots)) {
+            ## both given: `linewidth` wins, drop `size` so ggplot2 stays quiet
+            dots <- dots[names(dots) != "size"]
+        } else {
+            names(dots)[names(dots) == "size"] <- "linewidth"
+        }
     }
 
     layout_rectangular <- c("rectangular", "dendrogram", "fan", "circular", "inward_circular")
