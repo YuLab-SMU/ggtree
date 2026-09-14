@@ -1,3 +1,22 @@
+## Rebuild a `subset` aesthetic from its deparsed text.
+##
+## ggtree merges a user supplied `aes(subset = )` with its own condition
+## (e.g. `& isTip`) by deparsing and re-parsing the expression. Re-parsing
+## yields a bare expression that carries no environment, so the quosure
+## environment has to be restored explicitly. Without it only columns of the
+## plot data and objects reachable from `globalenv()` resolve, and any helper
+## variable defined in the calling frame fails with `object 'x' not found`.
+## see #705
+##' @importFrom rlang is_quosure quo_get_env new_quosure parse_expr
+subset_quosure <- function(mapping, expr_txt) {
+    env <- parent.frame()
+    q <- mapping[["subset"]]
+    if (!is.null(q) && is_quosure(q)) {
+        env <- quo_get_env(q)
+    }
+    new_quosure(parse_expr(expr_txt), env = env)
+}
+
 build_cladeids_df <- function(trdf, nodeids){
     dat <- lapply(seq_along(nodeids), function(i){
              ids <- getSubtree.df(trdf, nodeids[i])

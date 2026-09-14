@@ -19,6 +19,11 @@
 
 -->
 
+# ggtree 4.3.0
+
++ `aes(subset = )` keeps the environment of the original `aes()` call when ggtree merges it with its own condition (`& isTip`, `& !isTip`, `& node==parent`), so helper variables defined in the calling frame now resolve instead of failing with `object 'x' not found` (2026-09-14, Mon, #705)
++ regression tests for `aes(subset = )` in `geom_tiplab()`/`geom_tippoint()`, including string and factor comparison and the `treedataList` + `facet_wrap()` workflow (2026-09-14, Mon, #705, #699)
+
 # ggtree 4.2.0
 
 + Bioconductor RELEASE_3_23 (2026-04-29, Wed)
