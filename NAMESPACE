@@ -186,156 +186,180 @@ export(zoomClade)
 exportMethods(gzoom)
 exportMethods(scale_color)
 import(tidytree)
-importFrom(ape,di2multi)
-importFrom(ape,ladderize)
-importFrom(ape,read.tree)
-importFrom(ape,reorder.phylo)
-importFrom(ape,rtree)
-importFrom(aplot,plot_list)
-importFrom(aplot,xrange)
+importFrom(ape,
+  di2multi,
+  read.tree,
+  reorder.phylo,
+  rtree
+)
+importFrom(aplot,
+  plot_list,
+  xrange
+)
 importFrom(cli,cli_alert_warning)
-importFrom(dplyr,collapse)
-importFrom(dplyr,filter)
-importFrom(dplyr,full_join)
-importFrom(dplyr,mutate)
-importFrom(dplyr,select)
-importFrom(ggfun,"%<+%")
-importFrom(ggfun,get_aes_var)
-importFrom(ggfun,identify)
-importFrom(ggfun,td_filter)
-importFrom(ggfun,td_mutate)
-importFrom(ggfun,td_unnest)
-importFrom(ggiraph,GeomInteractiveLabel)
-importFrom(ggiraph,GeomInteractivePoint)
-importFrom(ggiraph,GeomInteractivePolygon)
-importFrom(ggiraph,GeomInteractiveRect)
-importFrom(ggiraph,GeomInteractiveSegment)
-importFrom(ggiraph,GeomInteractiveText)
-importFrom(ggiraph,geom_text_interactive)
-importFrom(ggiraph,girafe)
-importFrom(ggiraph,opts_sizing)
-importFrom(ggiraph,opts_toolbar)
-importFrom(ggiraph,opts_tooltip)
-importFrom(ggiraph,opts_zoom)
-importFrom(ggplot2,Geom)
-importFrom(ggplot2,GeomLabel)
-importFrom(ggplot2,GeomPoint)
-importFrom(ggplot2,GeomPolygon)
-importFrom(ggplot2,GeomRect)
-importFrom(ggplot2,GeomSegment)
-importFrom(ggplot2,GeomText)
-importFrom(ggplot2,Stat)
-importFrom(ggplot2,aes)
-importFrom(ggplot2,annotate)
-importFrom(ggplot2,annotation_custom)
-importFrom(ggplot2,as_labeller)
-importFrom(ggplot2,coord_cartesian)
-importFrom(ggplot2,coord_flip)
-importFrom(ggplot2,coord_polar)
-importFrom(ggplot2,draw_key_path)
-importFrom(ggplot2,draw_key_point)
-importFrom(ggplot2,draw_key_polygon)
-importFrom(ggplot2,draw_key_text)
-importFrom(ggplot2,element_blank)
-importFrom(ggplot2,element_line)
-importFrom(ggplot2,element_rect)
-importFrom(ggplot2,element_text)
-importFrom(ggplot2,expansion)
-importFrom(ggplot2,facet_grid)
-importFrom(ggplot2,fortify)
-importFrom(ggplot2,from_theme)
-importFrom(ggplot2,geom_bar)
-importFrom(ggplot2,geom_blank)
-importFrom(ggplot2,geom_curve)
-importFrom(ggplot2,geom_label)
-importFrom(ggplot2,geom_point)
-importFrom(ggplot2,geom_polygon)
-importFrom(ggplot2,geom_rect)
-importFrom(ggplot2,geom_segment)
-importFrom(ggplot2,geom_text)
-importFrom(ggplot2,geom_tile)
-importFrom(ggplot2,ggplot)
-importFrom(ggplot2,ggplotGrob)
-importFrom(ggplot2,ggplot_add)
-importFrom(ggplot2,ggplot_build)
-importFrom(ggplot2,ggplot_gtable)
-importFrom(ggplot2,ggproto)
-importFrom(ggplot2,ggsave)
-importFrom(ggplot2,guide_legend)
-importFrom(ggplot2,guides)
-importFrom(ggplot2,last_plot)
-importFrom(ggplot2,layer)
-importFrom(ggplot2,margin)
-importFrom(ggplot2,position_nudge)
-importFrom(ggplot2,scale_color_manual)
-importFrom(ggplot2,scale_colour_manual)
-importFrom(ggplot2,scale_fill_discrete)
-importFrom(ggplot2,scale_fill_gradient)
-importFrom(ggplot2,scale_fill_manual)
-importFrom(ggplot2,scale_x_continuous)
-importFrom(ggplot2,scale_x_date)
-importFrom(ggplot2,scale_x_reverse)
-importFrom(ggplot2,scale_y_continuous)
-importFrom(ggplot2,theme)
-importFrom(ggplot2,theme_bw)
-importFrom(ggplot2,theme_void)
-importFrom(ggplot2,vars)
-importFrom(ggplot2,waiver)
-importFrom(ggplot2,xlab)
-importFrom(ggplot2,xlim)
-importFrom(ggplot2,ylab)
-importFrom(ggplot2,ylim)
-importFrom(grid,arrow)
-importFrom(grid,curveGrob)
-importFrom(grid,gTree)
-importFrom(grid,gpar)
-importFrom(grid,grid.layout)
-importFrom(grid,grid.newpage)
-importFrom(grid,grobTree)
-importFrom(grid,pushViewport)
-importFrom(grid,rectGrob)
-importFrom(grid,unit)
-importFrom(grid,viewport)
-importFrom(magrittr,"%<>%")
-importFrom(magrittr,"%>%")
-importFrom(magrittr,add)
-importFrom(magrittr,equals)
-importFrom(methods,is)
-importFrom(methods,missingArg)
-importFrom(methods,setGeneric)
-importFrom(methods,setOldClass)
-importFrom(rlang,.data)
-importFrom(rlang,abort)
-importFrom(rlang,as_name)
-importFrom(rlang,check_installed)
-importFrom(rlang,env)
-importFrom(rlang,is_quosure)
-importFrom(rlang,new_quosure)
-importFrom(rlang,parse_expr)
-importFrom(rlang,quo)
-importFrom(rlang,quo_get_env)
-importFrom(rlang,quo_name)
-importFrom(rlang,sym)
+importFrom(dplyr,
+  collapse,
+  filter,
+  select
+)
+importFrom(ggfun,
+  "%<+%",
+  get_aes_var,
+  identify,
+  td_filter,
+  td_mutate,
+  td_unnest
+)
+importFrom(ggiraph,
+  GeomInteractiveLabel,
+  GeomInteractivePoint,
+  GeomInteractivePolygon,
+  GeomInteractiveRect,
+  GeomInteractiveSegment,
+  GeomInteractiveText,
+  geom_text_interactive,
+  girafe,
+  opts_sizing,
+  opts_toolbar,
+  opts_tooltip,
+  opts_zoom
+)
+importFrom(ggplot2,
+  Geom,
+  GeomLabel,
+  GeomPoint,
+  GeomPolygon,
+  GeomRect,
+  GeomSegment,
+  GeomText,
+  Stat,
+  aes,
+  annotate,
+  annotation_custom,
+  as_labeller,
+  coord_cartesian,
+  coord_flip,
+  coord_polar,
+  draw_key_path,
+  draw_key_point,
+  draw_key_polygon,
+  draw_key_text,
+  element_blank,
+  element_line,
+  element_rect,
+  element_text,
+  expansion,
+  facet_grid,
+  fortify,
+  from_theme,
+  geom_bar,
+  geom_blank,
+  geom_curve,
+  geom_label,
+  geom_point,
+  geom_polygon,
+  geom_rect,
+  geom_segment,
+  geom_text,
+  geom_tile,
+  ggplot,
+  ggplotGrob,
+  ggplot_add,
+  ggplot_build,
+  ggplot_gtable,
+  ggproto,
+  ggsave,
+  guide_legend,
+  guides,
+  last_plot,
+  layer,
+  margin,
+  position_nudge,
+  scale_color_manual,
+  scale_colour_manual,
+  scale_fill_discrete,
+  scale_fill_gradient,
+  scale_fill_manual,
+  scale_x_continuous,
+  scale_x_date,
+  scale_x_reverse,
+  scale_y_continuous,
+  theme,
+  theme_bw,
+  theme_void,
+  vars,
+  waiver,
+  xlab,
+  xlim,
+  ylab,
+  ylim
+)
+importFrom(grid,
+  arrow,
+  curveGrob,
+  gTree,
+  gpar,
+  grid.layout,
+  grid.newpage,
+  grobTree,
+  pushViewport,
+  rectGrob,
+  unit,
+  viewport
+)
+importFrom(magrittr,
+  "%<>%",
+  "%>%",
+  add,
+  equals
+)
+importFrom(methods,
+  is,
+  missingArg,
+  setGeneric,
+  setOldClass
+)
+importFrom(rlang,
+  .data,
+  abort,
+  as_name,
+  check_installed,
+  env,
+  is_quosure,
+  new_quosure,
+  parse_expr,
+  quo,
+  quo_get_env,
+  quo_name,
+  sym
+)
 importFrom(scales,alpha)
 importFrom(tidyr,gather)
-importFrom(tidytree,MRCA)
-importFrom(tidytree,ancestor)
-importFrom(tidytree,as_tibble)
-importFrom(tidytree,groupClade)
-importFrom(tidytree,groupOTU)
-importFrom(tidytree,nodeid)
-importFrom(tidytree,nodelab)
-importFrom(tidytree,offspring)
-importFrom(tidytree,parent)
-importFrom(treeio,Nnode)
-importFrom(treeio,Ntip)
-importFrom(treeio,as.phylo)
-importFrom(treeio,as.treedata)
-importFrom(treeio,read.fasta)
-importFrom(utils,getFromNamespace)
-importFrom(utils,modifyList)
-importFrom(utils,packageVersion)
-importFrom(yulab.utils,get_cache_item)
-importFrom(yulab.utils,get_fun_from_pkg)
-importFrom(yulab.utils,update_cache_item)
-importFrom(yulab.utils,yulab_msg)
+importFrom(tidytree,
+  MRCA,
+  ancestor,
+  groupClade,
+  groupOTU,
+  nodeid,
+  nodelab,
+  offspring,
+  parent
+)
+importFrom(treeio,
+  Ntip,
+  as.phylo,
+  as.treedata,
+  read.fasta
+)
+importFrom(treelayout,tree_layout)
+importFrom(utils,
+  getFromNamespace,
+  modifyList,
+  packageVersion
+)
+importFrom(yulab.utils,
+  get_cache_item,
+  get_fun_from_pkg,
+  update_cache_item,
+  yulab_msg
+)

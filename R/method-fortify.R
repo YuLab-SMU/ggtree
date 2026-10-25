@@ -1,9 +1,11 @@
-##' @importFrom ape ladderize
-##' @importFrom treeio as.phylo
-##' @importFrom treeio Nnode
-##' @importFrom dplyr full_join
-##' @importFrom dplyr mutate
-##' @importFrom tidytree as_tibble
+##' Fortify tree objects for plotting
+##'
+##' Coordinates are computed by `treelayout::tree_layout()`; the layout
+##' algorithms themselves live in that package. This method only wires the
+##' result into the `ggplot2` `fortify()` interface.
+##'
+##' @inheritParams treelayout::tree_layout
+##' @importFrom treelayout tree_layout
 ##' @method fortify phylo
 ##' @export
 fortify.phylo <- function(model, data,
@@ -17,65 +19,10 @@ fortify.phylo <- function(model, data,
                           root.position = 0,
                           ...) {
 
-    x <- as.phylo(model) ## reorder.phylo(get.tree(model), "postorder")
-    if (ladderize == TRUE) {
-        x <- ladderize(x, right=right)
-    }
-
-    if (! is.null(x$edge.length)) {
-        if (anyNA(x$edge.length)) {
-            warning("'edge.length' contains NA values...\n## setting 'edge.length' to NULL automatically when plotting the tree...")
-            x$edge.length <- NULL
-        }
-    }
-
-    if (layout %in% c("equal_angle", "daylight", "ape", "tree_and_leaf")) {
-        res <- layout.unrooted(model, layout.method = layout, branch.length = branch.length, ...)
-    } else {
-        if (layout != "tidy")
-          ypos <- getYcoord(x)
-        N <- Nnode(x, internal.only=FALSE)
-        if (is.null(x$edge.length) || branch.length == "none") {
-            if (layout == 'slanted'){
-                sbp <- .convert_tips2ancestors_sbp(x, include.root = TRUE)
-                xpos <- getXcoord_no_length_slanted(sbp)
-                ypos <- getYcoord_no_length_slanted(sbp)  
-            }else{
-                xpos <- getXcoord_no_length(x)
-            }
-        } else {
-            xpos <- getXcoord(x)
-        }
-        
-        if (layout == "tidy")
-          ypos <- getYcoord_tidy(x, xpos)
-
-        xypos <- tibble::tibble(node=1:N, x=xpos + root.position, y=ypos)
-
-        df <- as_tibble(model) %>%
-            mutate(isTip = ! .data$node %in% .data$parent)
-
-        res <- full_join(df, xypos, by = "node")
-    }
-
-    ## add branch mid position
-    res <- calculate_branch_mid(res, layout=layout)
-
-    if (!is.null(mrsd)) {
-        res <- scaleX_by_time_from_mrsd(res, mrsd, as.Date)
-    }
-
-    if (layout == "slanted") {
-        res <- add_angle_slanted(res)
-    } else {
-        ## angle for all layout, if 'rectangular', user use coord_polar, can still use angle
-        res <- calculate_angle(res)
-    }
-    res <- scaleY(as.phylo(model), res, yscale, layout, ...)
-    res <- adjust_hclust_tip_edge_len(res, x, layout, branch.length)
-    class(res) <- c("tbl_tree", class(res))
-    attr(res, "layout") <- layout
-    return(res)
+    tree_layout(model, data, layout = layout, ladderize = ladderize,
+                right = right, branch.length = branch.length, mrsd = mrsd,
+                as.Date = as.Date, yscale = yscale, root.position = root.position,
+                ...)
 }
 
 

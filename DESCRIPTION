@@ -38,6 +38,7 @@ Imports:
     stats,
     tidyr,
     tidytree (>= 0.4.5),
+    treelayout,
     treeio (>= 1.8.0),
     utils,
     yulab.utils (>= 0.2.3)
@@ -65,4 +66,4 @@ Packaged: 2014-12-03 08:16:14 UTC; root
 biocViews: Alignment, Annotation, Clustering, DataImport,
     MultipleSequenceAlignment, Phylogenetics, ReproducibleResearch, Software, Visualization
 Roxygen: list(markdown = TRUE)
-Config/roxygen2/version: 8.0.0
+Config/roxygen2/version: 8.1.1
