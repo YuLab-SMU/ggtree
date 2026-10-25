@@ -8,10 +8,28 @@ get_tree_view <- function(tree_view) {
 }
 
 get_layout <- function(tree_view = NULL) {
-    plot <- get_tree_view(tree_view)
+    ## a bare data frame carries its layout as an attribute; there is no plot
+    ## environment to consult, so do not go looking for the last plot
+    if (is.data.frame(tree_view)) {
+        layout <- attr(tree_view, "layout")
+        return(if (is.character(layout)) layout else NULL)
+    }
+    plot <- tryCatch(get_tree_view(tree_view), error = function(e) NULL)
+    if (is.null(plot)) return(NULL)
+    ## the data attribute is written by fortify() and reflects how the
+    ## coordinates were actually computed. plot_env is only updated when a
+    ## layout_* layer is added, so it lags behind: after an external layout
+    ## function it still says "rectangular".
+    ## A layout_* layer rewrites the coordinates in place and records the new
+    ## name in plot_env; the data attribute still holds the name fortify()
+    ## computed with. So plot_env wins when it was set by a layer, which is
+    ## what `assign("layout", ..., envir = plot_env)` in layout.R does.
     layout <- get("layout", envir = plot$plot_env)
     if (!is(layout, "character")) {
         layout <- attr(plot$data, "layout")
+    }
+    if (!is(layout, "character")) {
+        return(NULL)
     }
     return(layout)
 }

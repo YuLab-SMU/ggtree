@@ -81,6 +81,11 @@ ggtree <- function(tr,
 
     dd <- .check.graph.layout(tr, trash, layout, layout.params)
     if (inherits(trash, "try-error") && !is.null(dd)){
+        ## An external layout supplied its own coordinates, which replace the
+        ## x/y from fortify() below. Fortify is called with "rectangular" --
+        ## passing the layout function would forward ggtree's own arguments
+        ## (hang, yscale_mapping, ...) to it. The coordinates are thrown away,
+        ## so only the node/parent/label columns matter here.
         layout <- "rectangular"
     }
 
@@ -123,7 +128,21 @@ ggtree <- function(tr,
                     dd, 
                     by = "node"
         )
-        layout <- "equal_angle"
+        ## The coordinates come from the external layout function, so there is
+        ## no layout name to switch on from here on. The tree is drawn with
+        ## the straight-segment slanted family; `attr(p$data, "layout")` was
+        ## already set to "external" by fortify() and must not be overwritten
+        ## (it used to become "equal_angle" here and "rectangular" after the
+        ## fortify() call, so get_layout() could not report what happened).
+        geom_layout <- "equal_angle"
+        ## fortify() ran with "rectangular", so both the data attribute and
+        ## plot_env say "rectangular". Record what actually happened so
+        ## get_layout() can report it.
+        attr(p$data, "layout") <- "external"
+        p$plot_env <- build_new_plot_env(p$plot_env)
+        assign("layout", "external", envir = p$plot_env)
+    } else {
+        geom_layout <- layout
     }
 
     if (is(tr, "multiPhylo")) {
@@ -132,7 +151,7 @@ ggtree <- function(tr,
         multiPhylo <- FALSE
     }
 
-    p <- p + geom_tree(layout=layout, multiPhylo=multiPhylo, ...)
+    p <- p + geom_tree(layout=geom_layout, multiPhylo=multiPhylo, ...)
 
 
     p <- p + theme_tree()
