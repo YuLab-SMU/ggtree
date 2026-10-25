@@ -243,8 +243,9 @@ get_cladelabel2_position_label <- function(data, node, offset, align, adjustRati
   df <- get_cladelabel2_position_(data, node)
 
   if (align) {
-    # Find max radius from tree root.
-    r <- max(getNodeEuclDistances(data, .getRoot.df(data)))
+    # Max radius from the tree root; computed together with the clade
+    # radius in get_cladelabel2_position_().
+    r <- df$root_radius
   } else {
     r <- df$r
   }
@@ -293,8 +294,9 @@ get_cladelabel2_position_bar <- function(data, node, offset, align, adjustRatio)
   df <- get_cladelabel2_position_(data, node)
 
   if (align) {
-    # Find max radius from tree root.
-    r <- max(getNodeEuclDistances(data, .getRoot.df(data)))
+    # Max radius from the tree root; computed together with the clade
+    # radius in get_cladelabel2_position_().
+    r <- df$root_radius
   } else {
     r <- df$r
   }
@@ -313,14 +315,11 @@ get_cladelabel2_position_bar <- function(data, node, offset, align, adjustRatio)
 
 # Get clade subtree arc angles and maximum radius from clade node to all other clade nodes.
 get_cladelabel2_position_ <- function(data, node) {
-  # get left and right angles of the clade subtree.
-  subtree <- list( subtree = getSubtree.df(data, node), node = node )
-
-  arc <- getTreeArcAngles(data, node, subtree)
-  # get max distance from node to clade tips.
-  r <- max(getNodeEuclDistances(data[data$node %in% subtree$subtree,], node))
-
-  data.frame(r=r, theta_left=as.numeric(arc['left']), theta_right=as.numeric(arc['right']))
+  geom <- clade_geometry(data, node)
+  data.frame(r = geom$radius,
+             root_radius = geom$root_radius,
+             theta_left = geom$left,
+             theta_right = geom$right)
 }
 
 

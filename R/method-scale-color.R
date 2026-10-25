@@ -118,7 +118,9 @@ scale_color_ <- function(phylo, by, low=NULL, high=NULL, na.color=NULL, default.
     tree <- get.tree(phylo)
 
     if (is.null(na.color)) {
-        nodes <- getNodes_by_postorder(tree)
+        ## node ids in post-order; was treelayout::getNodes_by_postorder(),
+        ## a two-liner not worth an export
+        nodes <- unique(rev(as.vector(t(ape::reorder.phylo(tree, "postorder")$edge[, c(2, 1)]))))
         for (curNode in nodes) {
             children <- child(tree, curNode)
             if (length(children) == 0) {

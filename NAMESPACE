@@ -50,7 +50,6 @@ export("%+>%")
 export("%<%")
 export("%<+%")
 export("%>%")
-export(Date2decimal)
 export(GeomHilightEncircle)
 export(GeomInteractiveCurvelink)
 export(GeomInteractiveHilightEncircle)
@@ -70,7 +69,6 @@ export(as_tanglegram.cophylo)
 export(as_tanglegram.default)
 export(as_tanglegram.tanglegram)
 export(collapse)
-export(decimal2Date)
 export(expand)
 export(facet_data)
 export(facet_labeller)
@@ -346,18 +344,13 @@ importFrom(treeio,
   read.fasta
 )
 importFrom(treelayout,
-  .getRoot.df,
+  Date2decimal,
   calculate_angle,
   calculate_branch_mid,
-  getNodeEuclDistances,
-  getNodes_by_postorder,
-  getSubtree,
-  getSubtree.df,
-  getTreeArcAngles,
+  clade_geometry,
+  decimal2Date,
   getXcoord2,
   getYcoord,
-  getYcoord_scale_category,
-  getYcoord_scale_numeric,
   get_layout,
   layout_names,
   re_assign_ycoord_df,
