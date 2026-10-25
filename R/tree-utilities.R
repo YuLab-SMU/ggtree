@@ -215,19 +215,9 @@ layoutDaylight <- function(model, branch.length, MAX_COUNT=5 ){
         return(tree_df)
     }
 
-    ## Iterate until the layout stops moving.
-    ##
-    ## `MAX_COUNT` used to be taken as "run this many rounds", but the
-    ## convergence test below is the real stopping rule: when the average
-    ## angle change does not go below `MINIMUM_AVERAGE_ANGLE_CHANGE` the
-    ## round contributed nothing.  Measured on random trees, the change
-    ## usually drops below the threshold after 2-3 rounds; on larger trees it
-    ## can also *grow* (0.16 -> 0.38 -> 0.31 -> 0.34 -> 0.23 for 500 tips),
-    ## and in that case the extra rounds only cost time, ~3.5 s per round at
-    ## 500 tips, without converging.  So stop at the first round that no
-    ## longer improves on the best round seen so far.
+    ## Run up to `MAX_COUNT` rounds, stopping when the average angle change
+    ## drops below `MINIMUM_AVERAGE_ANGLE_CHANGE`.
     ave_change <- 1.0
-    best_change <- Inf
     for (i in seq_len(MAX_COUNT)) {
         total_max <- 0.0
         for (currentNode_id in nodes) {
@@ -238,8 +228,6 @@ layoutDaylight <- function(model, branch.length, MAX_COUNT=5 ){
         ave_change <- total_max / length(nodes)
         message('Average angle change [', i, '] ', ave_change)
         if (ave_change <= MINIMUM_AVERAGE_ANGLE_CHANGE) break
-        if (ave_change >= best_change) break
-        best_change <- ave_change
     }
 
     tree_df <- as_tibble(tree_df)
