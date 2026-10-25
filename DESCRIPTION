@@ -55,7 +55,8 @@ Suggests:
     testthat,
     tibble,
     glue,
-    Biostrings
+    Biostrings,
+    ggnewscale
 VignetteBuilder: knitr
 ByteCompile: true
 Encoding: UTF-8

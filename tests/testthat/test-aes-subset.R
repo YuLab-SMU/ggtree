@@ -92,12 +92,12 @@ test_that("aes(subset=) subsets to tips only for treedataList + facet_wrap (#699
     trs <- list(TREE1 = tree, TREE2 = tree)
     class(trs) <- "treedataList"
 
-    p <- ggtree(trs) + facet_wrap(~.id) +
+    p <- ggtree(trs) + ggplot2::facet_wrap(~.id) +
         geom_tippoint(aes(subset = .id == "TREE1", colour = var1)) +
-        scale_colour_gradient(low = "blue", high = "red") +
+        ggplot2::scale_colour_gradient(low = "blue", high = "red") +
         ggnewscale::new_scale_colour() +
         geom_tippoint(aes(colour = var2), data = td_filter(.id == "TREE2")) +
-        scale_colour_viridis_c()
+        ggplot2::scale_colour_viridis_c()
 
     b <- ggplot_build(p)
     expect_error(b, NA)

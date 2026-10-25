@@ -74,11 +74,11 @@ test_that("gheatmap stacks a second heatmap via ggnewscale on a circular tree (#
 
     p1 <- gheatmap(circ, df, offset = .8, width = .2,
                    colnames_angle = 95, colnames_offset_y = .25) +
-        scale_fill_viridis_d(option = "D")
+        ggplot2::scale_fill_viridis_d(option = "D")
     p2 <- p1 + ggnewscale::new_scale_fill()
     p3 <- gheatmap(p2, df2, offset = 15, width = .3,
                    colnames_angle = 90, colnames_offset_y = .25) +
-        scale_fill_viridis_c(option = "A")
+        ggplot2::scale_fill_viridis_c(option = "A")
 
     b <- ggplot2::ggplot_build(p3)
     expect_error(b, NA)
