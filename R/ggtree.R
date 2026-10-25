@@ -68,12 +68,14 @@ ggtree <- function(tr,
                    hang = .1,
                    ...) {
 
-    # Check if layout string is valid.
+    # Validate a layout name. A function is not an error here: it is how an
+    # external layout (igraph, ...) is passed in, see .check.graph.layout().
+    # The list of valid names lives in treelayout, which also validates
+    # `layout` again in fortify(); this check only exists to keep the
+    # "invalid name" error on the ggtree() call itself.
     trash <- try(silent = TRUE,
                  expr = {
-                   layout %<>% match.arg(c("rectangular", "slanted", "fan", "circular", 'inward_circular',
-                            "radial", "unrooted", "equal_angle", "daylight", "tree_and_leaf", "dendrogram",
-                            "ape", "ellipse", "roundrect", "tidy"))
+                   layout %<>% match.arg(choices = treelayout::layout_names())
                   }
              )
 
