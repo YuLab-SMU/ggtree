@@ -98,8 +98,10 @@ fortify.treedata <- function(model, data,
 
 
 ##' @method fortify phylo4
-##' @importFrom treeio as.phylo
+##' @importFrom treelayout tree_layout
 ##' @export
+##' hclust-like objects are converted by [treelayout::tree_layout()]; this
+##' method only adapts the argument names.
 fortify.phylo4 <- function(model, data,
                            layout    = "rectangular",
                            yscale    = "none",
@@ -108,21 +110,10 @@ fortify.phylo4 <- function(model, data,
                            mrsd      = NULL,
                            hang      = .1,
                            ...) {
-    if (inherits(model, c("dendrogram", "linkage", 
-                        "agnes", "diana", "twins"))) {
-        model <- stats::as.hclust(model)
-    }
-
-    if (inherits(model, "hclust")) {
-        phylo <- .as.phylo.hclust2(model, hang = hang)
-    } else {
-        phylo <- as.phylo(model)
-    }
-
-    df <- fortify.phylo(phylo, data,
-                        layout, ladderize, right, mrsd=mrsd, ...)
-    scaleY(phylo, df, yscale, layout, ...)
+    tree_layout(model, data, layout = layout, ladderize = ladderize,
+                right = right, mrsd = mrsd, yscale = yscale, hang = hang, ...)
 }
+
 
 ## `ape::as.phylo` (for `hclust`)
 
