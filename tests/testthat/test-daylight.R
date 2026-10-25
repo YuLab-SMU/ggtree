@@ -68,3 +68,22 @@ test_that('daylight layout preserves finite coordinates and topology', {
     expect_equal(daylight[, c('node', 'parent')], equal_angle)
     expect_true(all(is.finite(unlist(daylight[, c('x', 'y', 'angle')]))))
 })
+
+## `layoutDaylight()` runs at most MAX_COUNT rounds. An attempt to stop
+## earlier when a round failed to improve was reverted, so MAX_COUNT is the
+## only cap. Counted through the per-round message.
+test_that('MAX_COUNT is never exceeded', {
+    set.seed(8)
+    tree <- ape::rtree(30)
+    messages <- character()
+    withCallingHandlers(
+        suppressWarnings(layout.unrooted(tree, layout.method = 'daylight', MAX_COUNT = 2)),
+        message = function(m) {
+            messages <<- c(messages, conditionMessage(m))
+            invokeRestart('muffleMessage')
+        }
+    )
+    rounds <- grep('Average angle change', messages)
+    expect_lte(length(rounds), 2L)
+    expect_gte(length(rounds), 1L)
+})
