@@ -116,7 +116,6 @@ export(geom_tree)
 export(geom_tree2)
 export(geom_treescale)
 export(geom_zoom_clade)
-export(get.path)
 export(get_clade_position)
 export(get_heatmap_column_position)
 export(get_taxa_name)
@@ -189,7 +188,6 @@ import(tidytree)
 importFrom(ape,
   di2multi,
   read.tree,
-  reorder.phylo,
   rtree
 )
 importFrom(aplot,
@@ -310,8 +308,7 @@ importFrom(grid,
 importFrom(magrittr,
   "%<>%",
   "%>%",
-  add,
-  equals
+  add
 )
 importFrom(methods,
   is,
@@ -324,7 +321,6 @@ importFrom(rlang,
   abort,
   as_name,
   check_installed,
-  env,
   is_quosure,
   new_quosure,
   parse_expr,
@@ -337,13 +333,11 @@ importFrom(scales,alpha)
 importFrom(tidyr,gather)
 importFrom(tidytree,
   MRCA,
-  ancestor,
   groupClade,
   groupOTU,
   nodeid,
   nodelab,
-  offspring,
-  parent
+  offspring
 )
 importFrom(treeio,
   Ntip,
@@ -351,7 +345,24 @@ importFrom(treeio,
   as.treedata,
   read.fasta
 )
-importFrom(treelayout,tree_layout)
+importFrom(treelayout,
+  .getRoot.df,
+  calculate_angle,
+  calculate_branch_mid,
+  getNodeEuclDistances,
+  getNodes_by_postorder,
+  getSubtree,
+  getSubtree.df,
+  getTreeArcAngles,
+  getXcoord2,
+  getYcoord,
+  getYcoord_scale_category,
+  getYcoord_scale_numeric,
+  get_layout,
+  layout_names,
+  re_assign_ycoord_df,
+  tree_layout
+)
 importFrom(utils,
   getFromNamespace,
   modifyList,

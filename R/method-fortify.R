@@ -97,11 +97,25 @@ fortify.treedata <- function(model, data,
 }
 
 
-##' @method fortify phylo4
-##' @importFrom treelayout tree_layout
-##' @export
+##' Fortify a phylo4 object
+##'
 ##' hclust-like objects are converted by [treelayout::tree_layout()]; this
 ##' method only adapts the argument names.
+##'
+##' @param model a tree object.
+##' @param data unused, kept for the `fortify()` signature.
+##' @param layout layout name, see [treelayout::layout_names()].
+##' @param yscale variable used to scale tips along y.
+##' @param ladderize logical, ladderize before layout.
+##' @param right logical, ladderize to the right.
+##' @param mrsd most recent sampling date.
+##' @param hang fraction of the plot height by which labels hang below the
+##'   tree, for `dendrogram` layout of `hclust`-like input.
+##' @param ... passed to the layout.
+##'
+##' @importFrom treelayout tree_layout
+##' @method fortify phylo4
+##' @export
 fortify.phylo4 <- function(model, data,
                            layout    = "rectangular",
                            yscale    = "none",
