@@ -10,5 +10,6 @@
 ##' @importFrom treelayout clade_geometry
 ##' @importFrom treelayout calculate_angle calculate_branch_mid
 ##' @importFrom treelayout getXcoord2 getYcoord re_assign_ycoord_df
-##' @importFrom treelayout Date2decimal decimal2Date
+###' @importFrom treelayout Date2decimal decimal2Date
+##' @importFrom tidytree offspring_bulk
 NULL

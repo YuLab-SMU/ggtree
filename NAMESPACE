@@ -335,7 +335,8 @@ importFrom(tidytree,
   groupOTU,
   nodeid,
   nodelab,
-  offspring
+  offspring,
+  offspring_bulk
 )
 importFrom(treeio,
   Ntip,

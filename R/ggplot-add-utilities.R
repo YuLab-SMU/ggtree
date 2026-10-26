@@ -18,8 +18,10 @@ subset_quosure <- function(mapping, expr_txt) {
 }
 
 build_cladeids_df <- function(trdf, nodeids){
+    ## one pass for all clade roots instead of offspring() per node
+    bulk <- offspring_bulk(trdf, nodes = nodeids)
     dat <- lapply(seq_along(nodeids), function(i){
-             ids <- offspring(trdf, nodeids[i], self_include = TRUE)$node
+             ids <- c(nodeids[i], bulk[[i]])
              dt <- trdf[trdf$node %in% ids,]
              dt$clade_root_node <- nodeids[i]
              return(dt)
