@@ -653,7 +653,13 @@ fortify.tanglegram <- function(model,
     res <- rbind(left_plot_df, right_plot_df)
     res <- calculate_branch_mid(res, layout = "rectangular")
     res <- calculate_angle(res)
-    class(res) <- c("tbl_tree", class(res))
+    ## rbind() keeps each part's class, so `res` is already a tbl_tree here.
+    ## Adding the class unconditionally stacked it twice
+    ## (c("tbl_tree", "tbl_tree", "tbl_df", ...)), which breaks any exact
+    ## class() comparison. Only add it when missing.
+    if (!inherits(res, "tbl_tree")) {
+        class(res) <- c("tbl_tree", class(res))
+    }
 
     assoc_resolved <- .resolve_assoc_endpoints(res, model$assoc)
 
