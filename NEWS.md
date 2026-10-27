@@ -21,6 +21,7 @@
 
 # ggtree 4.3.1
 
++ `fortify.tanglegram()` sets `tbl_tree` once in the class vector instead of twice, which broke any exact `class()` comparison (2026-10-27)
 + speed up the `equal_angle` layout and `fortify()` on large trees: `layoutEqualAngle()` no longer calls `offspring()` once per node to count subtree tips, and accumulates the geometry in numeric vectors instead of assigning into a tibble row by row. The output is unchanged; a 2000-tip tree drops from 20.6 s to 0.2 s. `getNodeEuclDistances()` is vectorised (5.5 s to instant at 4000 tips) (2026-10-24, Sat)
 + regression tests comparing the fast tip count against `offspring()` on binary, polytomous and reordered trees (2026-10-24, Sat)
 + new `layout = "tidy"` for `ggtree()` and `geom_tree()`, implementing the non-layered tidy tree layout of Ploeg (2014, doi:10.1002/spe.2213), which arranges branches to minimise vertical displacement (2026-09-14, Mon, #710)
