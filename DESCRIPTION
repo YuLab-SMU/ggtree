@@ -26,7 +26,7 @@ Imports:
     aplot,
     cli,
     dplyr,
-    ggfun (>= 0.1.7),
+    ggfun (>= 0.1.8),
     ggiraph (>= 0.9.1),
     ggplot2 (>= 4.0.0),
     grid,
