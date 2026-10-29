@@ -88,8 +88,35 @@ add_panel <- function(p, panel) {
     }
     levels(df$.panel) %<>% c(., panel)
     p$data <- df
+    p <- .add_panel_for_another_layers(p, panel)
     #p + facet_grid(.~.panel, scales="free_x")
     p + facet_grid(cols=vars(factor(.data$.panel, levels=levels(df$.panel))),
                    scales="free_x")
 }
+
+
+.add_panel_for_another_layers <- function(p, panel){
+    flag <- !grepl("^stat_tree", names(p$layers))
+    if (any(flag)){
+        p <- .add_panel_to_data(p, which(flag), panel)
+    }
+    return(p)
+}
+
+
+.add_panel_to_data <- function(p, index, panel){
+    lys <- p$layers[index]
+    for (i in seq(length(lys))){
+        lys_data <- lys[[i]]$data
+        if (!is.null(lys_data)){
+            if(is.null(lys_data[[".panel"]])){
+                lys_data[[".panel"]] <- factor("Tree")
+            }
+            levels(lys_data$.panel) <- c("Tree", panel)
+            p$layers[index][[i]]$data <- lys_data 
+        }
+    }
+    return(p)
+}
+
 
