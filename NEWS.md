@@ -19,7 +19,7 @@
 
 -->
 
-# ggtree 4.3.1.004
+# ggtree 4.3.2
 
 + `fortify.tanglegram()` sets `tbl_tree` once in the class vector instead of twice, which broke any exact `class()` comparison (2026-10-27)
 + tree coordinates are computed by the new **treelayout** package, which ggtree now depends on; the layout code that used to live here is in treelayout (2026-10-25)
