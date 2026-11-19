@@ -112,7 +112,7 @@ add_panel <- function(p, panel) {
             if(is.null(lys_data[[".panel"]])){
                 lys_data[[".panel"]] <- factor("Tree")
             }
-            levels(lys_data$.panel) <- c("Tree", panel)
+            levels(lys_data$.panel) %<>% c(., panel)
             p$layers[index][[i]]$data <- lys_data 
         }
     }
