@@ -290,7 +290,6 @@ get_cladelabel_position_ <- function(data, node, angle = "auto", extend = 0, hor
     ## sp.df <- data[match(sp2, data$node),]
 
     sp.df <- .offspring.tbl_tree(data, node, self_include = TRUE)
-
     y <- sp.df$y
     y <- y[!is.na(y)]
     mx <- max(sp.df$x, na.rm=TRUE)
@@ -299,7 +298,7 @@ get_cladelabel_position_ <- function(data, node, angle = "auto", extend = 0, hor
     if (missing(angle))
         return(d)
     if (angle == "auto") {
-        d$angle <- mean(range(sp.df$angle))
+        d$angle <- mean(range(sp.df$angle, na.rm=TRUE), na.rm=TRUE)
         d$angle <- adjust_cladelabel_angle(angle=d$angle, horizontal=horizontal)
     } else {
         d$angle <- angle
