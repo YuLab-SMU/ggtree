@@ -1,8 +1,8 @@
 #!/bin/bash
 
 pkg=$(basename `pwd`) 
-oldver=RELEASE_3_22
-newver=RELEASE_3_23
+oldver=RELEASE_3_23
+newver=RELEASE_3_24
 
 ## rm old release branch
 make rmrelease
